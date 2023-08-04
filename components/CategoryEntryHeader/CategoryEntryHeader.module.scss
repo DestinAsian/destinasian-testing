@@ -1,0 +1,92 @@
+@import 'styles/breakpoints';
+@import 'styles/fonts/typography';
+
+.component {
+  background-color: var(--wpe--main--background-color);
+  position: relative;
+  overflow: hidden;
+  line-height: 1;
+  // border-bottom: 1px solid var(--wpe--color--grey);
+}
+
+.container-wrapper {
+  width: 100vw;
+  margin: 0 auto;
+
+  @media (min-width: $breakpoint-small) {
+    margin: 0 auto 1rem;
+    // width: 50vw;
+  }
+}
+
+.text,
+.image {
+  text-align: center;
+}
+
+.text {
+  width: 100%;
+  padding: 0.25rem 0;
+  position: relative;
+  z-index: 1; // Pull text to the foreground to sit above <FeaturedImage />.
+
+  @media (min-width: $breakpoint-small) {
+    padding: 0.5rem 0;
+  }
+}
+
+.title,
+.parent {
+  font-family: 'Unit Slab Pro Black';
+  line-height: 1.6;
+  font-size: 1.7rem;
+  font-weight: 500;
+  color: var(--wpe--color--title);
+  text-transform: uppercase;
+
+  @media (min-width: $breakpoint-extra-small) {
+    font-size: 1.75rem;
+  }
+
+  @media (min-width: $breakpoint-small) {
+    margin: 0 auto;
+    width: 50vw;
+  }
+
+  @media (min-width: $breakpoint-medium) {
+    font-size: 2.5rem;
+  }
+}
+
+.byline {
+  font-weight: var(--wpe--font-weight--medium);
+  font-size: 1.2rem;
+}
+
+.image {
+  padding-top: 1rem;
+  margin: 0;
+  width: 100%;
+  height: 60vh;
+  object-fit: cover;
+}
+
+.description {
+  padding: 1rem 4vw;
+  color: var(--wpe--color--black);
+  text-align: left;
+  font-size: 0.9rem;
+
+  @media (min-width: $breakpoint-extra-small) {
+    font-size: 1.3rem;
+  }
+
+  @media (min-width: $breakpoint-small) {
+    margin: 0 auto;
+    width: 50vw;
+  }
+
+  @media (min-width: $breakpoint-small) {
+    padding: 1rem 2vw;
+  }
+}

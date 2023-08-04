@@ -1,0 +1,105 @@
+@import 'styles/breakpoints';
+@import 'styles/fonts/typography';
+
+.component {
+  display: flex;
+  background-color: var(--wpe--color--black);
+  color: var(--wpe--color--black);
+  position: relative;
+  overflow: hidden;
+  margin: 0 auto 1rem;
+  max-width: 100vw;
+  padding: 2rem;
+  align-items: center;
+
+  @media (min-width: $breakpoint-small) {
+    max-width: 100vw;
+    margin: 0 auto 2rem;
+    min-height: 13rem;
+    padding: 3rem;
+  }
+}
+
+.header-wrapper {
+  display: flex;
+  margin: 0 auto;
+  padding: 0 1rem;
+  flex-direction: column;
+  row-gap: 0.25rem;
+
+  @media (min-width: $breakpoint-small) {
+    row-gap: 0.5rem;
+  }
+}
+
+.sponsored {
+  color: var(--wpe--color--white);
+  font-size: 0.8rem;
+  font-family: 'Ringside Regular A', 'Ringside Regular B';
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.6;
+  text-transform: uppercase;
+  text-align: center;
+
+  @media (min-width: $breakpoint-extra-small) {
+    font-size: 1rem;
+  }
+
+  @media (min-width: $breakpoint-medium) {
+    font-size: 1.4rem;
+  }
+}
+
+.title {
+  font-family: 'EB Garamond';
+  font-weight: 700;
+  font-size: 1.75rem;
+  line-height: 1.2;
+  letter-spacing: 0.07rem;
+  text-transform: capitalize;
+  color: var(--wpe--color--white);
+  text-align: center;
+
+  @media (min-width: $breakpoint-extra-small) {
+    font-size: 2.25rem;
+  }
+
+  @media (min-width: $breakpoint-medium) {
+    font-size: 3rem;
+  }
+}
+
+.icon-wrapper {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.5rem;
+  font-family: 'Ringside Regular A', 'Ringside Regular B';
+  font-style: normal;
+  font-weight: 500;
+
+  .category-label {
+    font-size: 1rem;
+    line-height: 1.2;
+
+    @media (min-width: $breakpoint-medium) {
+      font-size: 1.25rem;
+    }
+  }
+
+  .location-label {
+    font-size: 1rem;
+    line-height: 1.2;
+
+    @media (min-width: $breakpoint-medium) {
+      font-size: 1.25rem;
+    }
+  }
+
+  .icon {
+    svg {
+      width: 1.8rem;
+      height: 1.8rem;
+    }
+  }
+}

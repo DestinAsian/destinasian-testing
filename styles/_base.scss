@@ -1,0 +1,95 @@
+// Base styles
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  background-color: var(--wpe--main--background-color);
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: 'Ringside Regular A', 'Ringside Regular B';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1rem;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+  background-color: var(--wpe--main--background-color);
+  color: var(--wpe--code--color);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  white-space: nowrap;
+  margin: 0 0 1rem;
+  display: inline-block;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0 0 1rem;
+}
+
+p {
+  font-family: 'Chronicle Display A', 'Chronicle Display B';
+  font-style: normal;
+  font-weight: 400;
+  margin: 0 0 1rem;
+  letter-spacing: 1.15px;
+  line-height: 1.6;
+}
+
+a {
+  color: var(--link-color);
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+// Advertisement
+iframe {
+  margin: 0 auto;
+}
+
+/* Editorial Dropcap */
+span:has(.dropcap) {
+  padding: 0;
+}
+
+.dropcap {
+  color: var(--wpe--color--black);
+  font-family: 'DreamOrphans-Regular';
+  font-weight: 700;
+  line-height: 1;
+  font-size: 7.5rem;
+  margin: 0 0.5rem 0 0;
+  padding: 0;
+  float: left;
+
+  @media (min-width: $breakpoint-small) {
+    font-size: 10rem;
+  }
+}
+
+::-moz-selection {
+  color: var(--wpe--color--white);
+  background-color: var(--wpe--color--accent);
+}
+
+::selection {
+  color: var(--wpe--color--white);
+  background-color: var(--wpe--color--accent);
+}
