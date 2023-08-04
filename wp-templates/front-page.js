@@ -166,38 +166,44 @@ export default function Component(props) {
     ),
   ]
 
-  const [isNavShown, setIsNavShown] = useState(false)
-
-  // Stop scrolling pages when isNavShown
-  useEffect(() => {
-    if (isNavShown) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'visible'
-    }
-  }, [isNavShown])
-
   // Declare state for shuffled banner ads
   const [shuffledBannerAds, setShuffledBannerAds] = useState({})
 
   // Function to shuffle the banner ads and store them in state
   const shuffleBannerAds = () => {
-    // Assuming bannerAds is an object containing all available bannerAds
     const bannerAdsArray = Object.values(bannerAds?.edges || [])
+
+    // Shuffle the array
     const shuffledBannerAdsArray = shuffleArray(bannerAdsArray)
 
-    // Convert the shuffled array back to an object
-    const shuffledAds = shuffledBannerAdsArray.reduce((acc, curr, index) => {
-      acc[index] = curr
-      return acc
-    }, {})
-
-    setShuffledBannerAds(shuffledAds)
+    setShuffledBannerAds(shuffledBannerAdsArray)
   }
+
+  // // Function to sort the shuffled banner ads with img tags first
+  // const sortBannerAds = () => {
+  //   // Convert the shuffledBannerAds object into an array
+  //   const shuffledBannerAdsArray = Object.values(shuffledBannerAds)
+
+  //   // Separate shuffled banner ads with <img> tags from those without
+  //   const bannerAdsWithImg = shuffledBannerAdsArray.filter((bannerAd) =>
+  //     bannerAd?.node?.content.includes('<img>'),
+  //   )
+  //   const bannerAdsWithoutImg = shuffledBannerAdsArray.filter(
+  //     (bannerAd) => !bannerAd?.node?.content.includes('<img>'),
+  //   )
+
+  //   // Concatenate the arrays to place ads with <img> tags first
+  //   const sortedBannerAdsArray = [...bannerAdsWithImg, ...bannerAdsWithoutImg]
+
+  //   setShuffledBannerAds(sortedBannerAdsArray)
+  // }
 
   useEffect(() => {
     // Shuffle the banner ads when the component mounts
     shuffleBannerAds()
+
+    // // Sort the shuffled banner ads with img tags first
+    // sortBannerAds()
   }, [])
 
   return (
@@ -328,7 +334,6 @@ export default function Component(props) {
                         bannerAd={shuffledBannerAds[9]?.node?.content}
                       />
                     )}
-                    {console.log(shuffledBannerAds)}
                   </React.Fragment>
                 ))}
               {visiblePosts < mergedPosts.length && (
