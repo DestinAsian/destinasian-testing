@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { gql } from '@apollo/client'
+import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
 import { BlogInfoFragment } from '../fragments/GeneralSettings'
 import { useMediaQuery } from 'react-responsive'
@@ -15,6 +15,7 @@ import {
   FeatureWell,
   Button,
   SecondaryHeader,
+  HomepageStories,
 } from '../components'
 
 // Randomized Function
@@ -46,9 +47,10 @@ export default function Component(props) {
   const { content, featuredImage, acfHomepageSlider, homepagePinPosts, uri } =
     props?.data?.page ?? []
 
-  // Load More Function
   const [currentPage, setCurrentPage] = useState(1)
   const postsPerPage = 4 // Number of posts to load per page
+
+  // Load More Function
   const loadMorePosts = () => {
     setCurrentPage((prevPage) => prevPage + 1)
   }
@@ -192,11 +194,11 @@ export default function Component(props) {
   }, [])
 
   // Separate shuffled banner ads with <img> tags from those without
-  const bannerAdsWithImg = bannerAdsArray.filter((bannerAd) =>
-    !bannerAd?.node?.content.includes('<!--'),
+  const bannerAdsWithImg = bannerAdsArray.filter(
+    (bannerAd) => !bannerAd?.node?.content.includes('<!--'),
   )
-  const bannerAdsWithoutImg = bannerAdsArray.filter(
-    (bannerAd) => bannerAd?.node?.content.includes('<!--'),
+  const bannerAdsWithoutImg = bannerAdsArray.filter((bannerAd) =>
+    bannerAd?.node?.content.includes('<!--'),
   )
 
   // Concatenate the arrays to place ads with <img> tags first
@@ -254,9 +256,9 @@ export default function Component(props) {
             </div>
             <div id="snapStart" className="snap-start pt-16">
               {/* All posts sorted by pinPosts then mainPosts & date */}
+              {/* <HomepageStories /> */}
               {paginatedPosts.length !== 0 &&
                 paginatedPosts.map((post, index) => (
-                  // Render the merged posts here
                   <React.Fragment key={post?.id}>
                     <Post
                       title={post?.title}
@@ -279,7 +281,6 @@ export default function Component(props) {
                       locationLabel={post?.acfLocationIcon?.locationLabel}
                       locationUrl={post?.acfLocationIcon?.locationUrl}
                     />
-                    {/* Banner Ads */}
                     {index === 1 && (
                       <ModuleAd
                         bannerAd={sortedBannerAdsArray[0]?.node?.content}
@@ -386,7 +387,6 @@ Component.query = gql`
     $asPreview: Boolean = false
     $first: Int = 10
     $first2: Int!
-    $after: String
   ) {
     page(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
       title
@@ -759,11 +759,7 @@ Component.query = gql`
         }
       }
     }
-    posts(first: $first2, after: $after, where: { status: PUBLISH }) {
-      pageInfo {
-        hasNextPage
-        endCursor
-      }
+    posts(first: $first2, where: { status: PUBLISH }) {
       edges {
         node {
           id
@@ -798,11 +794,7 @@ Component.query = gql`
         }
       }
     }
-    editorials(first: $first2, after: $after, where: { status: PUBLISH }) {
-      pageInfo {
-        hasNextPage
-        endCursor
-      }
+    editorials(first: $first2, where: { status: PUBLISH }) {
       edges {
         node {
           id
@@ -888,8 +880,7 @@ Component.query = gql`
 Component.variables = ({ databaseId }, ctx) => {
   return {
     databaseId,
-    first2: 10,
-    after: null,
+    first2: 20,
     headerLocation: MENUS.PRIMARY_LOCATION,
     secondHeaderLocation: MENUS.SECONDARY_LOCATION,
     thirdHeaderLocation: MENUS.THIRD_LOCATION,

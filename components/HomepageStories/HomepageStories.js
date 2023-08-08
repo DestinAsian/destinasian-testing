@@ -1,91 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import classNames from 'classnames/bind'
 import styles from './HomepageStories.module.scss'
-import { gql, useQuery } from '@apollo/client'
-import {
-  Post,
-  ModuleAd,
-  Button,
-} from '..'
-
-// Define the GraphQL query for initial posts and nextPage
-const GET_INITIAL_POSTS_QUERY = gql`
-  query GetInitialPosts($first2: Int!) {
-    posts(first: $first2, after: $after, where: { status: PUBLISH }) {
-      pageInfo {
-        hasNextPage
-        endCursor
-      }
-      edges {
-        node {
-          id
-          title
-          content
-          date
-          uri
-          excerpt
-          ...FeaturedImageFragment
-          categories {
-            edges {
-              node {
-                name
-                uri
-                parent {
-                  node {
-                    name
-                  }
-                }
-              }
-            }
-          }
-          acfCategoryIcon {
-            categoryLabel
-            chooseYourCategory
-          }
-          acfLocationIcon {
-            fieldGroupName
-            locationLabel
-            locationUrl
-          }
-        }
-      }
-    }
-    editorials(first: $first2, after: $after, where: { status: PUBLISH }) {
-      pageInfo {
-        hasNextPage
-        endCursor
-      }
-      edges {
-        node {
-          id
-          title
-          content
-          date
-          uri
-          excerpt
-          ...FeaturedImageFragment
-          categories {
-            edges {
-              node {
-                name
-                uri
-                parent {
-                  node {
-                    name
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`
+import { useQuery } from '@apollo/client'
+import { GetStories } from '../../queries/GetStories'
+import { Post, ModuleAd, Button } from '..'
 
 let cx = classNames.bind(styles)
 
-// Randomized Function
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1))
@@ -95,41 +16,142 @@ function shuffleArray(array) {
 }
 
 export default function HomepageStories() {
-  // Load More Function
-  const [currentPage, setCurrentPage] = useState(1)
   const postsPerPage = 4
 
-  // Fetch initial posts
-  const { loading, data } = useQuery(GET_INITIAL_POSTS_QUERY, {
-    variables: { first2: postsPerPage },
+  const updateQuery = (previousResult, { fetchMoreResult }) => {
+    if (!fetchMoreResult.posts.edges.length) {
+      return previousResult.posts
+    }
+
+    if (!fetchMoreResult.editorials.edges.length) {
+      return previousResult.editorials
+    }
+
+    return {
+      posts: {
+        ...previousResult.posts,
+        edges: [...previousResult.posts.edges, ...fetchMoreResult.posts.edges],
+        pageInfo: fetchMoreResult.posts.pageInfo,
+      },
+      editorials: {
+        ...previousResult.editorials,
+        edges: [
+          ...previousResult.editorials.edges,
+          ...fetchMoreResult.editorials.edges,
+        ],
+        pageInfo: fetchMoreResult.editorials.pageInfo,
+      },
+    }
+  }
+
+  const { data, error, loading, fetchMore } = useQuery(GetStories, {
+    variables: {
+      first: postsPerPage,
+      after: null,
+    },
   })
 
-  const loadMorePosts = () => {
-    setCurrentPage((prevPage) => prevPage + 1)
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrolledToBottom =
+        window.scrollY + window.innerHeight >=
+        document.documentElement.scrollHeight
+
+      if (
+        scrolledToBottom &&
+        (data?.posts?.pageInfo?.hasNextPage ||
+          data?.editorials?.pageInfo?.hasNextPage)
+      ) {
+        fetchMore({
+          variables: {
+            first: postsPerPage,
+            after:
+              data?.posts?.pageInfo?.endCursor ||
+              data?.editorials?.pageInfo?.endCursor,
+          },
+          updateQuery,
+        })
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [data, fetchMore])
+
+  if (error) {
+    return <pre>{JSON.stringify(error)}</pre>
   }
 
   if (loading) {
     return <>Loading...</>
   }
 
-  const initialPosts = data.posts.edges.map((edge) => edge.node)
-  const initialEndCursor = data.posts.pageInfo.endCursor
+  // sort posts by date
+  const sortPostsByDate = (a, b) => {
+    const dateA = new Date(a.date)
+    const dateB = new Date(b.date)
+    return dateB - dateA // Sort in descending order
+  }
 
-  // Calculate startIndex and endIndex based on currentPage
-  const startIndex = (currentPage - 1) * postsPerPage
-  const endIndex = startIndex + postsPerPage
+  const mainPosts = data?.posts?.edges.map((post) => post.node) || []
+  const mainEditorialPosts =
+    data?.editorials?.edges.map((post) => post.node) || []
 
-  // Paginate posts based on startIndex and endIndex
-  const paginatedPosts = initialPosts.slice(startIndex, endIndex)
+  const allPosts = [...mainPosts, ...mainEditorialPosts].sort(sortPostsByDate)
 
-  console.log(paginatedPosts)
+  // const mainPosts = []
+  // const mainEditorialPosts = []
+
+  // // loop through all the main categories posts
+  // data.posts.edges.forEach((post) => {
+  //   mainPosts.push(post.node)
+  // })
+
+  // // loop through all the main categories and their posts
+  // data.editorials.edges.forEach((post) => {
+  //   mainEditorialPosts.push(post.node)
+  // })
+
+  // // sort posts by date
+  // const sortPostsByDate = (a, b) => {
+  //   const dateA = new Date(a.date)
+  //   const dateB = new Date(b.date)
+  //   return dateB - dateA // Sort in descending order
+  // }
+
+  // // define mainCatPostCards
+  // const mainCatPosts = [
+  //   ...(mainPosts != null ? mainPosts : []),
+  //   ...(mainEditorialPosts != null ? mainEditorialPosts : []),
+  // ]
+
+  // // sortByDate mainCat & childCat Posts
+  // const allPosts = mainCatPosts.sort(sortPostsByDate)
+
+  // // Declare Pin Posts
+  // const allPinPosts = [
+  //   homepagePinPosts?.pinPost1 ? homepagePinPosts?.pinPost1 : null,
+  //   homepagePinPosts?.pinPost2 ? homepagePinPosts?.pinPost2 : null,
+  //   homepagePinPosts?.pinPost3 ? homepagePinPosts?.pinPost3 : null,
+  //   homepagePinPosts?.pinPost4 ? homepagePinPosts?.pinPost4 : null,
+  //   homepagePinPosts?.pinPost5 ? homepagePinPosts?.pinPost5 : null,
+  // ].filter((pinPost) => pinPost !== null)
+
+  // // Merge All posts and Pin posts
+  // const mergedPosts = [
+  //   ...allPinPosts,
+  //   ...allPosts.filter(
+  //     (post) => !allPinPosts.some((pinPost) => pinPost?.id === post?.id),
+  //   ),
+  // ]
 
   return (
     <div className={cx('component')}>
-      {/* All posts sorted by pinPosts then mainPosts & date */}
-      {paginatedPosts.length !== 0 &&
-        paginatedPosts.map((post, index) => (
-          // Render the merged posts here
+      {allPosts.length !== 0 &&
+        allPosts.map((post, index) => (
           <React.Fragment key={post?.id}>
             <Post
               title={post?.title}
@@ -150,8 +172,7 @@ export default function HomepageStories() {
               locationLabel={post?.acfLocationIcon?.locationLabel}
               locationUrl={post?.acfLocationIcon?.locationUrl}
             />
-            {/* Banner Ads */}
-            {index === 1 && (
+            {/* {index === 1 && (
               <ModuleAd bannerAd={sortedBannerAdsArray[0]?.node?.content} />
             )}
             {index === 5 && (
@@ -180,12 +201,25 @@ export default function HomepageStories() {
             )}
             {index === 37 && (
               <ModuleAd bannerAd={sortedBannerAdsArray[9]?.node?.content} />
-            )}
+            )} */}
           </React.Fragment>
         ))}
-      {paginatedPosts < initialPosts.length && (
+      {allPosts.length && (
         <div className="mx-auto my-0 flex max-w-[100vw] justify-center md:max-w-[50vw]	">
-          <Button onClick={loadMorePosts} className="gap-x-4	">
+          <Button
+            onClick={() => {
+              fetchMore({
+                variables: {
+                  first: postsPerPage,
+                  after:
+                    data?.posts?.pageInfo?.endCursor ||
+                    data?.editorials?.pageInfo?.endCursor,
+                },
+                updateQuery,
+              })
+            }}
+            className="gap-x-4	"
+          >
             Load More{' '}
             <svg
               className="h-auto w-8 origin-center rotate-90	"

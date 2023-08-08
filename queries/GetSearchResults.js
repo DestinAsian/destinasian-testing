@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from '@apollo/client'
 
 export const GetSearchResults = gql`
   query GetSearchResults($first: Int!, $after: String, $search: String) {
@@ -79,4 +79,4 @@ export const GetSearchResults = gql`
       }
     }
   }
-`;
+`
