@@ -1,14 +1,31 @@
 import { gql } from '@apollo/client'
+import { FeaturedImage } from '../components'
 
 export const GetSearchResults = gql`
   query GetSearchResults($first: Int!, $after: String, $search: String) {
-    contentNodes(first: $first, after: $after, where: { search: $search }) {
+    contentNodes(
+      first: $first
+      after: $after
+      where: { search: $search, status: PUBLISH }
+    ) {
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+      }
       edges {
         node {
           id
           uri
           date
           databaseId
+          contentType {
+            node {
+              label
+              graphqlPluralName
+            }
+          }
           ... on Post {
             id
             title
@@ -17,12 +34,13 @@ export const GetSearchResults = gql`
               edges {
                 node {
                   name
+                  uri
+                  parent {
+                    node {
+                      name
+                    }
+                  }
                 }
-              }
-            }
-            contentType {
-              node {
-                graphqlPluralName
               }
             }
           }
@@ -30,12 +48,6 @@ export const GetSearchResults = gql`
             id
             title
             excerpt
-            contentType {
-              node {
-                label
-                graphqlPluralName
-              }
-            }
           }
           ... on Editorial {
             id
@@ -49,33 +61,12 @@ export const GetSearchResults = gql`
                 }
               }
             }
-            contentType {
-              node {
-                graphqlPluralName
-              }
-            }
-          }
-          ... on BannerAd {
-            contentType {
-              node {
-                graphqlPluralName
-              }
-            }
           }
           ... on Advertorial {
-            contentType {
-              node {
-                graphqlPluralName
-              }
-            }
+            id
+            title
           }
         }
-      }
-      pageInfo {
-        hasNextPage
-        hasPreviousPage
-        startCursor
-        endCursor
       }
     }
   }

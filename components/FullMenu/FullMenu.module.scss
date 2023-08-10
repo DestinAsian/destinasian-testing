@@ -59,10 +59,14 @@
       left: 0;
       width: 100%;
       text-align: left;
-      
 
       @media (min-width: $breakpoint-extra-small) {
         top: 6.5rem;
+      }
+
+      .alert-error {
+        color: var(--wpe--color--red);
+        text-align: center;
       }
     }
   }

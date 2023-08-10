@@ -25,6 +25,7 @@ export { Hero } from './Hero';
 export { HomepageHeader } from './HomepageHeader';
 export { HomepageStories } from './HomepageStories';
 export { LoadingSearchResult } from './LoadingSearchResult';
+export { LoadMore } from './LoadMore';
 export { LocationIcon } from './LocationIcon';
 export { Main } from './Main';
 export { ModuleAd } from './ModuleAd';

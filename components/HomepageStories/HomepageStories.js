@@ -15,31 +15,34 @@ function shuffleArray(array) {
   return array
 }
 
-export default function HomepageStories() {
+export default function HomepageStories(bannerAds) {
   const postsPerPage = 4
 
   const updateQuery = (previousResult, { fetchMoreResult }) => {
-    if (!fetchMoreResult.posts.edges.length) {
-      return previousResult.posts
+    if (!fetchMoreResult.data.posts.edges.length) {
+      return previousResult.data.posts
     }
 
-    if (!fetchMoreResult.editorials.edges.length) {
-      return previousResult.editorials
+    if (!fetchMoreResult.data.editorials.edges.length) {
+      return previousResult.data.editorials
     }
 
     return {
       posts: {
-        ...previousResult.posts,
-        edges: [...previousResult.posts.edges, ...fetchMoreResult.posts.edges],
-        pageInfo: fetchMoreResult.posts.pageInfo,
+        ...previousResult.data.posts,
+        edges: [
+          ...previousResult.data.posts.edges,
+          ...fetchMoreResult.data.posts.edges,
+        ],
+        pageInfo: fetchMoreResult.data.posts.pageInfo,
       },
       editorials: {
-        ...previousResult.editorials,
+        ...previousResult.data.editorials,
         edges: [
-          ...previousResult.editorials.edges,
-          ...fetchMoreResult.editorials.edges,
+          ...previousResult.data.editorials.edges,
+          ...fetchMoreResult.data.editorials.edges,
         ],
-        pageInfo: fetchMoreResult.editorials.pageInfo,
+        pageInfo: fetchMoreResult.data.editorials.pageInfo,
       },
     }
   }
@@ -102,6 +105,7 @@ export default function HomepageStories() {
 
   const allPosts = [...mainPosts, ...mainEditorialPosts].sort(sortPostsByDate)
 
+  console.log(allPosts)
   // const mainPosts = []
   // const mainEditorialPosts = []
 
@@ -147,6 +151,36 @@ export default function HomepageStories() {
   //     (post) => !allPinPosts.some((pinPost) => pinPost?.id === post?.id),
   //   ),
   // ]
+
+  // Declare state for banner ads
+  const [bannerAdsArray, setBannerAdsArray] = useState([])
+
+  // Function to shuffle the banner ads and store them in state
+  const shuffleBannerAds = () => {
+    const bannerAdsArray = Object.values(bannerAds?.edges || [])
+
+    // Shuffle the array
+    const shuffledBannerAdsArray = shuffleArray(bannerAdsArray)
+
+    setBannerAdsArray(shuffledBannerAdsArray)
+  }
+
+  useEffect(() => {
+    // Shuffle the banner ads when the component mounts
+    shuffleBannerAds()
+  }, [])
+
+  // Separate shuffled banner ads with <img> tags from those without
+  const bannerAdsWithImg = bannerAdsArray.filter(
+    (bannerAd) => !bannerAd?.node?.content.includes('<!--'),
+  )
+  const bannerAdsWithoutImg = bannerAdsArray.filter((bannerAd) =>
+    bannerAd?.node?.content.includes('<!--'),
+  )
+
+  // Concatenate the arrays to place ads with <img> tags first
+  const sortedBannerAdsArray = [...bannerAdsWithImg, ...bannerAdsWithoutImg]
+
 
   return (
     <div className={cx('component')}>
