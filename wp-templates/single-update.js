@@ -40,9 +40,9 @@ export default function SingleUpdate(props) {
     featuredImage,
     author,
     date,
-    acfSingleEditorialSlider,
+    contentType,
   } = props?.data?.update
-  const categories = props?.data?.editorial?.categories?.edges ?? []
+  const categories = props?.data?.update?.categories?.edges ?? []
   const posts = props?.data?.posts ?? []
   const editorials = props?.data?.editorials ?? []
   const relatedStories = categories[0]?.node?.editorials ?? []
@@ -146,14 +146,14 @@ export default function SingleUpdate(props) {
               image={featuredImage?.node}
               title={title}
               categoryUri={categories[0]?.node?.uri}
-              parentCategory={categories[0]?.node?.parent?.node?.name}
+              contentTypeName={contentType?.node?.graphqlPluralName}
               categoryName={categories[0]?.node?.name}
               author={author.node.name}
               date={date}
             />
             <ContentWrapperUpdate content={content} />
             {/* <ModuleAd banner1={}/> */}
-            <EntryRelatedStories />
+            {/* <EntryRelatedStories /> */}
             {/* {shuffledRelatedStories.map((post) => (
               <Container>
                 {post.node.title !== title && (
@@ -200,6 +200,11 @@ SingleUpdate.query = gql`
       title
       content
       date
+      contentType {
+        node {
+          graphqlPluralName
+        }
+      }
       ...FeaturedImageFragment
       author {
         node {

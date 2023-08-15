@@ -1,5 +1,5 @@
 import className from 'classnames/bind'
-import { Heading, FormatDate } from '..'
+import { Heading, FormatDate, Container } from '..'
 import styles from './SingleUpdateEntryHeader.module.scss'
 import { useState, useEffect } from 'react'
 
@@ -8,7 +8,7 @@ let cx = className.bind(styles)
 export default function SingleUpdateEntryHeader({
   parent,
   title,
-  parentCategory,
+  contentTypeName,
   categoryUri,
   categoryName,
   author,
@@ -19,7 +19,12 @@ export default function SingleUpdateEntryHeader({
       <div className={cx('header-wrapper')}>
         <a href={categoryUri}>
           <div className={cx('category-name')}>
-            {parentCategory} {categoryName}
+            {contentTypeName}{' '}
+            {categoryName && (
+              <div className={cx('category-name')}>
+                {'- '}{categoryName}
+              </div>
+            )}
           </div>
         </a>
         <Heading className={cx('title')}>

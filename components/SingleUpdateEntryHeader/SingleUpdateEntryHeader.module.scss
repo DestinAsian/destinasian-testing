@@ -47,6 +47,7 @@
   font-weight: 600;
   font-size: 0.8rem;
   text-transform: uppercase;
+  display: inline-block;
 
   @media (min-width: $breakpoint-large) {
     color: var(--wpe--color--black);
