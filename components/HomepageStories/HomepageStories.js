@@ -15,37 +15,9 @@ function shuffleArray(array) {
   return array
 }
 
-export default function HomepageStories(bannerAds) {
-  const postsPerPage = 4
-
-  const updateQuery = (previousResult, { fetchMoreResult }) => {
-    if (!fetchMoreResult.data.posts.edges.length) {
-      return previousResult.data.posts
-    }
-
-    if (!fetchMoreResult.data.editorials.edges.length) {
-      return previousResult.data.editorials
-    }
-
-    return {
-      posts: {
-        ...previousResult.data.posts,
-        edges: [
-          ...previousResult.data.posts.edges,
-          ...fetchMoreResult.data.posts.edges,
-        ],
-        pageInfo: fetchMoreResult.data.posts.pageInfo,
-      },
-      editorials: {
-        ...previousResult.data.editorials,
-        edges: [
-          ...previousResult.data.editorials.edges,
-          ...fetchMoreResult.data.editorials.edges,
-        ],
-        pageInfo: fetchMoreResult.data.editorials.pageInfo,
-      },
-    }
-  }
+export default function HomepageStories(bannerAds, homepagePinPosts) {
+  const [isFetchingMore, setIsFetchingMore] = useState(false)
+  const postsPerPage = 10
 
   const { data, error, loading, fetchMore } = useQuery(GetStories, {
     variables: {
@@ -53,6 +25,23 @@ export default function HomepageStories(bannerAds) {
       after: null,
     },
   })
+
+  const updateQuery = (previousResult, { fetchMoreResult }) => {
+    if (!fetchMoreResult.contentNodes.edges.length) {
+      return previousResult.contentNodes
+    }
+
+    return {
+      contentNodes: {
+        ...previousResult.contentNodes,
+        edges: [
+          ...previousResult.contentNodes.edges,
+          ...fetchMoreResult.contentNodes.edges,
+        ],
+        pageInfo: fetchMoreResult.contentNodes.pageInfo,
+      },
+    }
+  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -62,15 +51,13 @@ export default function HomepageStories(bannerAds) {
 
       if (
         scrolledToBottom &&
-        (data?.posts?.pageInfo?.hasNextPage ||
-          data?.editorials?.pageInfo?.hasNextPage)
+        !isFetchingMore &&
+        data?.contentNodes?.pageInfo?.hasNextPage
       ) {
         fetchMore({
           variables: {
             first: postsPerPage,
-            after:
-              data?.posts?.pageInfo?.endCursor ||
-              data?.editorials?.pageInfo?.endCursor,
+            after: data?.contentNodes?.pageInfo?.endCursor,
           },
           updateQuery,
         })
@@ -89,7 +76,13 @@ export default function HomepageStories(bannerAds) {
   }
 
   if (loading) {
-    return <>Loading...</>
+    return (
+      <>
+        <div className="mx-auto my-0 flex max-w-[100vw] justify-center md:max-w-[50vw]	">
+          <Button className="gap-x-4	">{'Loading...'}</Button>
+        </div>
+      </>
+    )
   }
 
   // sort posts by date
@@ -99,13 +92,10 @@ export default function HomepageStories(bannerAds) {
     return dateB - dateA // Sort in descending order
   }
 
-  const mainPosts = data?.posts?.edges.map((post) => post.node) || []
-  const mainEditorialPosts =
-    data?.editorials?.edges.map((post) => post.node) || []
+  const mainPosts = data?.contentNodes?.edges.map((post) => post.node) || []
 
-  const allPosts = [...mainPosts, ...mainEditorialPosts].sort(sortPostsByDate)
+  const allPosts = [...mainPosts].sort(sortPostsByDate)
 
-  console.log(allPosts)
   // const mainPosts = []
   // const mainEditorialPosts = []
 
@@ -181,32 +171,35 @@ export default function HomepageStories(bannerAds) {
   // Concatenate the arrays to place ads with <img> tags first
   const sortedBannerAdsArray = [...bannerAdsWithImg, ...bannerAdsWithoutImg]
 
-
   return (
     <div className={cx('component')}>
       {allPosts.length !== 0 &&
         allPosts.map((post, index) => (
           <React.Fragment key={post?.id}>
-            <Post
-              title={post?.title}
-              excerpt={post?.excerpt}
-              content={post?.content}
-              date={post?.date}
-              author={post?.author?.node?.name}
-              uri={post?.uri}
-              parentCategory={
-                post?.categories?.edges[0]?.node?.parent?.node?.name
-              }
-              category={post?.categories?.edges[0]?.node?.name}
-              categoryUri={post?.categories?.edges[0]?.node?.uri}
-              featuredImage={post?.featuredImage?.node}
-              chooseYourCategory={post?.acfCategoryIcon?.chooseYourCategory}
-              categoryLabel={post?.acfCategoryIcon?.categoryLabel}
-              locationValidation={post?.acfLocationIcon?.fieldGroupName}
-              locationLabel={post?.acfLocationIcon?.locationLabel}
-              locationUrl={post?.acfLocationIcon?.locationUrl}
-            />
-            {/* {index === 1 && (
+            {/* {console.log(post?.contentTypeName)} */}
+            {post?.contentTypeName === ('post' || 'editorial') && (
+              <Post
+                title={post?.title}
+                excerpt={post?.excerpt}
+                content={post?.content}
+                date={post?.date}
+                author={post?.author?.node?.name}
+                uri={post?.uri}
+                parentCategory={
+                  post?.categories?.edges[0]?.node?.parent?.node?.name
+                }
+                category={post?.categories?.edges[0]?.node?.name}
+                categoryUri={post?.categories?.edges[0]?.node?.uri}
+                featuredImage={post?.featuredImage?.node}
+                chooseYourCategory={post?.acfCategoryIcon?.chooseYourCategory}
+                categoryLabel={post?.acfCategoryIcon?.categoryLabel}
+                locationValidation={post?.acfLocationIcon?.fieldGroupName}
+                locationLabel={post?.acfLocationIcon?.locationLabel}
+                locationUrl={post?.acfLocationIcon?.locationUrl}
+              />
+            )}
+
+            {index === 1 && (
               <ModuleAd bannerAd={sortedBannerAdsArray[0]?.node?.content} />
             )}
             {index === 5 && (
@@ -235,50 +228,65 @@ export default function HomepageStories(bannerAds) {
             )}
             {index === 37 && (
               <ModuleAd bannerAd={sortedBannerAdsArray[9]?.node?.content} />
-            )} */}
+            )}
           </React.Fragment>
         ))}
       {allPosts.length && (
         <div className="mx-auto my-0 flex max-w-[100vw] justify-center md:max-w-[50vw]	">
-          <Button
-            onClick={() => {
-              fetchMore({
-                variables: {
-                  first: postsPerPage,
-                  after:
-                    data?.posts?.pageInfo?.endCursor ||
-                    data?.editorials?.pageInfo?.endCursor,
-                },
-                updateQuery,
-              })
-            }}
-            className="gap-x-4	"
-          >
-            Load More{' '}
-            <svg
-              className="h-auto w-8 origin-center rotate-90	"
-              version="1.0"
-              xmlns="http://www.w3.org/2000/svg"
-              width="512.000000pt"
-              height="512.000000pt"
-              viewBox="0 0 512.000000 512.000000"
-              preserveAspectRatio="xMidYMid meet"
-            >
-              <g
-                transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
-                fill="#000000"
-                stroke="none"
+          {data?.contentNodes?.pageInfo?.hasNextPage &&
+            data?.contentNodes?.pageInfo?.endCursor && (
+              <Button
+                // onClick={() => {
+                //   if (
+                //     !isFetchingMore &&
+                //     data?.contentNodes?.pageInfo?.hasNextPage
+                //   ) {
+                //     setIsFetchingMore(true)
+                //     fetchMore({
+                //       variables: {
+                //         first: postsPerPage,
+                //         after: data?.contentNodes?.pageInfo?.endCursor,
+                //       },
+                //       updateQuery,
+                //     }).then(() => {
+                //       setIsFetchingMore(false) // Reset the flag after fetch is done
+                //     })
+                //   }
+                // }}
+                className="gap-x-4	"
               >
-                <path
-                  d="M1387 5110 c-243 -62 -373 -329 -272 -560 27 -62 77 -114 989 -1027
+                {isFetchingMore ? (
+                  'Loading...' // Display loading text when fetching
+                ) : (
+                  <>
+                    Load More{' '}
+                    <svg
+                      className="h-auto w-8 origin-center rotate-90"
+                      version="1.0"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="512.000000pt"
+                      height="512.000000pt"
+                      viewBox="0 0 512.000000 512.000000"
+                      preserveAspectRatio="xMidYMid meet"
+                    >
+                      <g
+                        transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+                        fill="#000000"
+                        stroke="none"
+                      >
+                        <path
+                          d="M1387 5110 c-243 -62 -373 -329 -272 -560 27 -62 77 -114 989 -1027
 l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
 -289 39 -117 106 -191 220 -245 59 -28 74 -31 160 -30 74 0 108 5 155 23 58
 22 106 70 1198 1160 1304 1302 1202 1185 1202 1371 0 186 102 69 -1202 1371
 -1102 1101 -1140 1137 -1198 1159 -67 25 -189 34 -248 20z"
-                />
-              </g>
-            </svg>
-          </Button>
+                        />
+                      </g>
+                    </svg>
+                  </>
+                )}
+              </Button>
+            )}
         </div>
       )}
     </div>

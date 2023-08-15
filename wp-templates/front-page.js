@@ -828,7 +828,7 @@ Component.query = gql`
     }
     headerMenuItems: menuItems(
       where: { location: $headerLocation }
-      first: 20
+      first: 15
     ) {
       nodes {
         ...NavigationMenuItemFragment
@@ -836,7 +836,7 @@ Component.query = gql`
     }
     secondHeaderMenuItems: menuItems(
       where: { location: $secondHeaderLocation }
-      first: 20
+      first: 15
     ) {
       nodes {
         ...NavigationMenuItemFragment
@@ -880,7 +880,7 @@ Component.query = gql`
 Component.variables = ({ databaseId }, ctx) => {
   return {
     databaseId,
-    first2: 20,
+    first2: 10,
     headerLocation: MENUS.PRIMARY_LOCATION,
     secondHeaderLocation: MENUS.SECONDARY_LOCATION,
     thirdHeaderLocation: MENUS.THIRD_LOCATION,

@@ -23,18 +23,20 @@ $input-border-color: rgb(221, 221, 221);
 }
 
 .closeIcon {
-  display: block;
+  display: none;
   position: absolute;
   top: 50%;
   right: 1rem;
   transform: translateY(-50%);
   color: var(--color-black);
 
+  @media (min-width: $breakpoint-extra-small) {
+    display: block;
+  }
+
   svg {
     width: 1rem;
     height: 1rem;
-
-    
   }
 }
 

@@ -66,10 +66,10 @@ export default function SearchResults({ searchResults, isLoading }) {
 
               {/* HonorsCircle */}
               {node.contentType?.node?.graphqlPluralName == 'HonorsCircles' && (
-                <Link href={node.uri}>
+                <Link href={'/honors-circle'}>
                   <a>
                     <h2 className={styles.meta}>
-                      {node?.contentType?.node?.label}
+                      {'Honors Circle'}
                     </h2>
                   </a>
                 </Link>

@@ -54,6 +54,13 @@ export default function HomepageHeader({
     }
   }, [])
 
+  const [searchQuery, setSearchQuery] = useState('')
+
+  // Clear search input
+  const clearSearch = () => {
+    setSearchQuery('') // Reset the search query
+  }
+
   return (
     <header
       className={cx('component', { sticky: isScrolled, white: isNavShown })}
@@ -87,7 +94,10 @@ export default function HomepageHeader({
                       <button
                         type="button"
                         className={cx('menu-icon')}
-                        onClick={() => setIsNavShown(!isNavShown)}
+                        onClick={() => {
+                          setIsNavShown(!isNavShown)
+                          setSearchQuery('')
+                        }}
                         aria-label="Toggle navigation"
                         aria-controls={cx('full-menu-wrapper')}
                         aria-expanded={!isNavShown}
@@ -124,7 +134,10 @@ export default function HomepageHeader({
                       <button
                         type="button"
                         className={cx('menu-icon')}
-                        onClick={() => setIsNavShown(!isNavShown)}
+                        onClick={() => {
+                          setIsNavShown(!isNavShown)
+                          setSearchQuery('')
+                        }}
                         aria-label="Toggle navigation"
                         aria-controls={cx('full-menu-wrapper')}
                         aria-expanded={!isNavShown}
@@ -165,7 +178,10 @@ export default function HomepageHeader({
                     <button
                       type="button"
                       className={cx('close-icon')}
-                      onClick={() => setIsNavShown(!isNavShown)}
+                      onClick={() => {
+                        setIsNavShown(!isNavShown)
+                        setSearchQuery('')
+                      }}
                       aria-label="Toggle navigation"
                       aria-controls={cx('full-menu-wrapper')}
                       aria-expanded={!isNavShown}
@@ -213,7 +229,10 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
                       <button
                         type="button"
                         className={cx('menu-icon')}
-                        onClick={() => setIsNavShown(!isNavShown)}
+                        onClick={() => {
+                          setIsNavShown(!isNavShown)
+                          setSearchQuery('')
+                        }}
                         aria-label="Toggle navigation"
                         aria-controls={cx('full-menu-wrapper')}
                         aria-expanded={!isNavShown}
@@ -250,7 +269,10 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
                       <button
                         type="button"
                         className={cx('menu-icon')}
-                        onClick={() => setIsNavShown(!isNavShown)}
+                        onClick={() => {
+                          setIsNavShown(!isNavShown)
+                          setSearchQuery('')
+                        }}
                         aria-label="Toggle navigation"
                         aria-controls={cx('full-menu-wrapper')}
                         aria-expanded={!isNavShown}
@@ -291,7 +313,10 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
                     <button
                       type="button"
                       className={cx('close-icon')}
-                      onClick={() => setIsNavShown(!isNavShown)}
+                      onClick={() => {
+                          setIsNavShown(!isNavShown)
+                          setSearchQuery('')
+                        }}
                       aria-label="Toggle navigation"
                       aria-controls={cx('full-menu-wrapper')}
                       aria-expanded={!isNavShown}
@@ -336,7 +361,10 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
             <button
               type="button"
               className={cx('close-icon')}
-              onClick={() => setIsNavShown(!isNavShown)}
+              onClick={() => {
+                setIsNavShown(!isNavShown) // Toggle navigation
+                clearSearch // Clear search input
+              }}
               aria-label="Toggle navigation"
               aria-controls={cx('primary-navigation')}
               aria-expanded={!isNavShown}
@@ -380,7 +408,10 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
               <li className={cx('nav-link')}>
                 <button
                   type="button"
-                  onClick={() => setIsNavShown(!isNavShown)}
+                  onClick={() => {
+                          setIsNavShown(!isNavShown)
+                          setSearchQuery('')
+                        }}
                   aria-label="Toggle navigation"
                   aria-controls={cx('full-menu-wrapper')}
                   aria-expanded={!isNavShown}
@@ -391,7 +422,10 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
               <li className={cx('nav-link')}>
                 <button
                   type="button"
-                  onClick={() => setIsNavShown(!isNavShown)}
+                  onClick={() => {
+                          setIsNavShown(!isNavShown)
+                          setSearchQuery('')
+                        }}
                   aria-label="Toggle navigation"
                   aria-controls={cx('full-menu-wrapper')}
                   aria-expanded={!isNavShown}
@@ -402,7 +436,10 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
               <li className={cx('nav-link')}>
                 <button
                   type="button"
-                  onClick={() => setIsNavShown(!isNavShown)}
+                  onClick={() => {
+                          setIsNavShown(!isNavShown)
+                          setSearchQuery('')
+                        }}
                   aria-label="Toggle navigation"
                   aria-controls={cx('full-menu-wrapper')}
                   aria-expanded={!isNavShown}
@@ -413,7 +450,10 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
               <li className={cx('nav-link')}>
                 <button
                   type="button"
-                  onClick={() => setIsNavShown(!isNavShown)}
+                  onClick={() => {
+                          setIsNavShown(!isNavShown)
+                          setSearchQuery('')
+                        }}
                   aria-label="Toggle navigation"
                   aria-controls={cx('full-menu-wrapper')}
                   aria-expanded={!isNavShown}
@@ -438,6 +478,9 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
           fifthMenuItems={fifthMenuItems}
           featureMenuItems={featureMenuItems}
           latestStories={latestStories}
+          clearSearch={clearSearch}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
         />
       </div>
     </header>

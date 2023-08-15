@@ -22,16 +22,13 @@ export default function FullMenu({
   fifthMenuItems,
   featureMenuItems,
   latestStories,
+  clearSearch,
+  searchQuery,
+  setSearchQuery,
 }) {
   const [visiblePosts] = useState(3)
-  const [searchQuery, setSearchQuery] = useState('')
   const [isFetchingMore, setIsFetchingMore] = useState(false)
   const postsPerPage = 5
-
-  // Clear search input
-  const clearSearch = () => {
-    setSearchQuery(''); // Reset the search query
-  };
 
   // Add search query function
   const {
@@ -66,37 +63,6 @@ export default function FullMenu({
       },
     }
   }
-
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     const scrolledToBottom =
-  //       window.scrollY + window.innerHeight >=
-  //       document.documentElement.scrollHeight
-
-  //     if (
-  //       scrolledToBottom &&
-  //       searchResultsData?.contentNodes?.pageInfo?.hasNextPage &&
-  //       !isFetchingMore // Check if fetch operation is already in progress
-  //     ) {
-  //       setIsFetchingMore(true) // Set flag to indicate fetch in progress
-  //       fetchMore({
-  //         variables: {
-  //           first: postsPerPage,
-  //           after: searchResultsData?.contentNodes?.pageInfo?.endCursor,
-  //         },
-  //         updateQuery,
-  //       }).then(() => {
-  //         setIsFetchingMore(false) // Reset the flag after fetch is done
-  //       })
-  //     }
-  //   }
-
-  //   window.addEventListener('scroll', handleScroll)
-
-  //   return () => {
-  //     window.removeEventListener('scroll', handleScroll)
-  //   }
-  // }, [searchResultsData, fetchMore, isFetchingMore]) // Include isFetchingMore in the dependencies
 
   // Check if the search query is empty and no search results are loading, then hide the SearchResults component
   const isSearchResultsVisible = !!(searchQuery && !searchResultsLoading)
@@ -143,7 +109,8 @@ export default function FullMenu({
                         fetchMore({
                           variables: {
                             after:
-                              searchResultsData?.contentNodes?.pageInfo?.endCursor,
+                              searchResultsData?.contentNodes?.pageInfo
+                                ?.endCursor,
                           },
                           updateQuery,
                         }).then(() => {
