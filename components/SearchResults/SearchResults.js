@@ -95,13 +95,15 @@ export default function SearchResults({ searchResults, isLoading }) {
           </Container>
         ))}
 
-        {isLoading === true && (
+        {/* {isLoading === true && (
           <>
             <LoadingSearchResult />
             <LoadingSearchResult />
             <LoadingSearchResult />
+            <LoadingSearchResult />
+            <LoadingSearchResult />
           </>
-        )}
+        )} */}
       </div>
     </>
   )

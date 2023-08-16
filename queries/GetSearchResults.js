@@ -27,7 +27,6 @@ export const GetSearchResults = gql`
             }
           }
           ... on Post {
-            id
             title
             excerpt
             categories {
@@ -45,12 +44,10 @@ export const GetSearchResults = gql`
             }
           }
           ... on HonorsCircle {
-            id
             title
             excerpt
           }
           ... on Editorial {
-            id
             title
             excerpt
             categories {
@@ -63,10 +60,10 @@ export const GetSearchResults = gql`
             }
           }
           ... on Advertorial {
-            id
             title
           }
         }
+        cursor
       }
     }
   }

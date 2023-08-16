@@ -49,6 +49,7 @@ export default function Component(props) {
     categoryImages,
     posts,
     editorials,
+    updates,
     children,
     parent,
     pinPosts,
@@ -121,6 +122,7 @@ export default function Component(props) {
   const childPosts = []
   const mainEditorialPosts = []
   const childEditorialPosts = []
+  const mainUpdatesPosts = []
 
   // loop through all the main categories posts
   posts.edges.forEach((post) => {
@@ -158,6 +160,11 @@ export default function Component(props) {
     })
   })
 
+  // loop through all the main categories and their posts
+  updates.edges.forEach((post) => {
+    mainUpdatesPosts.push(post.node)
+  })
+
   // sort posts by date
   const sortPostsByDate = (a, b) => {
     const dateA = new Date(a.date)
@@ -169,6 +176,7 @@ export default function Component(props) {
   const mainCatPosts = [
     ...(mainPosts != null ? mainPosts : []),
     ...(mainEditorialPosts != null ? mainEditorialPosts : []),
+    ...(mainUpdatesPosts != null ? mainUpdatesPosts : []),
   ]
 
   // define childCatPostCards
@@ -194,12 +202,15 @@ export default function Component(props) {
   const allPinPosts = pinPosts?.pinPost ? [pinPosts?.pinPost] : []
 
   // Merge All posts and Pin posts
-  const mergedPosts = [
-    ...allPinPosts,
-    ...allPosts.filter(
-      (post) => !allPinPosts.some((pinPost) => pinPost?.id === post?.id),
-    ),
-  ]
+  const mergedPosts = [...allPinPosts, ...allPosts].reduce(
+    (uniquePosts, post) => {
+      if (!uniquePosts.some((uniquePost) => uniquePost?.id === post?.id)) {
+        uniquePosts.push(post)
+      }
+      return uniquePosts
+    },
+    [],
+  )
 
   // Declare state for banner ads
   const [bannerAdsArray, setBannerAdsArray] = useState([])
@@ -552,6 +563,32 @@ Component.query = gql`
                   name
                 }
               }
+              categories {
+                edges {
+                  node {
+                    name
+                    uri
+                    parent {
+                      node {
+                        name
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        updates(first: $first, where: { status: PUBLISH}) {
+          edges {
+            node {
+              id
+              title
+              content
+              date
+              uri
+              excerpt
+              ...FeaturedImageFragment
               categories {
                 edges {
                   node {

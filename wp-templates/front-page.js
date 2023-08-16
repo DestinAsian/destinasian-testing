@@ -43,6 +43,7 @@ export default function Component(props) {
   const featureMenu = props?.data?.featureHeaderMenuItems?.nodes ?? []
   const posts = props?.data?.posts ?? []
   const editorials = props?.data?.editorials ?? []
+  const updates = props?.data?.updates ?? []
   const bannerAds = props?.data?.bannerAds ?? []
   const { content, featuredImage, acfHomepageSlider, homepagePinPosts, uri } =
     props?.data?.page ?? []
@@ -83,6 +84,7 @@ export default function Component(props) {
 
   const mainPosts = []
   const mainEditorialPosts = []
+  const mainUpdatesPosts = []
 
   // loop through all the main categories posts
   posts.edges.forEach((post) => {
@@ -92,6 +94,11 @@ export default function Component(props) {
   // loop through all the main categories and their posts
   editorials.edges.forEach((post) => {
     mainEditorialPosts.push(post.node)
+  })
+
+  // loop through all the main categories and their posts
+  updates.edges.forEach((post) => {
+    mainUpdatesPosts.push(post.node)
   })
 
   // sort posts by date
@@ -105,6 +112,7 @@ export default function Component(props) {
   const mainCatPosts = [
     ...(mainPosts != null ? mainPosts : []),
     ...(mainEditorialPosts != null ? mainEditorialPosts : []),
+    ...(mainUpdatesPosts != null ? mainUpdatesPosts : []),
   ]
 
   // sortByDate mainCat & childCat Posts
@@ -120,12 +128,15 @@ export default function Component(props) {
   ].filter((pinPost) => pinPost !== null)
 
   // Merge All posts and Pin posts
-  const mergedPosts = [
-    ...allPinPosts,
-    ...allPosts.filter(
-      (post) => !allPinPosts.some((pinPost) => pinPost?.id === post?.id),
-    ),
-  ]
+  const mergedPosts = [...allPinPosts, ...allPosts].reduce(
+    (uniquePosts, post) => {
+      if (!uniquePosts.some((uniquePost) => uniquePost?.id === post?.id)) {
+        uniquePosts.push(post)
+      }
+      return uniquePosts
+    },
+    [],
+  )
 
   const startIndex = (currentPage - 1) * postsPerPage
   const endIndex = startIndex + postsPerPage
@@ -795,6 +806,32 @@ Component.query = gql`
       }
     }
     editorials(first: $first2, where: { status: PUBLISH }) {
+      edges {
+        node {
+          id
+          title
+          content
+          date
+          uri
+          excerpt
+          ...FeaturedImageFragment
+          categories {
+            edges {
+              node {
+                name
+                uri
+                parent {
+                  node {
+                    name
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    updates(first: $first2, where: { status: PUBLISH }) {
       edges {
         node {
           id

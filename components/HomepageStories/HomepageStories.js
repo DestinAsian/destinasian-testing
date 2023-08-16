@@ -3,6 +3,7 @@ import classNames from 'classnames/bind'
 import styles from './HomepageStories.module.scss'
 import { useQuery } from '@apollo/client'
 import { GetStories } from '../../queries/GetStories'
+import { GetBannerAds } from '../../queries/GetBannerAds'
 import { Post, ModuleAd, Button } from '..'
 
 let cx = classNames.bind(styles)
