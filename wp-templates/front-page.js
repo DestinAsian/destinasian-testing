@@ -14,6 +14,7 @@ import {
   ModuleAd,
   FeatureWell,
   Button,
+  Footer,
   SecondaryHeader,
   HomepageStories,
 } from '../components'
@@ -378,6 +379,7 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
           </div>
         </>
       </Main>
+      <Footer />
     </>
   )
 }

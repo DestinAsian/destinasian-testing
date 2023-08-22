@@ -4,7 +4,7 @@ import { FeaturedImage, ModuleAd } from '../components'
 export const GetStories = gql`
   ${FeaturedImage.fragments.entry}
   query GetStories($first: Int, $after: String) {
-    contentNodes(first: $first, after: $after, where: { status: PUBLISH }) {
+    contentNodes(first: $first, after: $after, where: { status: PUBLISH, orderby: {field: DATE, order: DESC} }) {
       pageInfo {
         hasPreviousPage
         hasNextPage
@@ -13,13 +13,13 @@ export const GetStories = gql`
       }
       edges {
         node {
+          id
+          uri
           ... on Post {
-            id
             contentTypeName
             title
             content
             date
-            uri
             excerpt
             ...FeaturedImageFragment
             categories {
@@ -46,12 +46,10 @@ export const GetStories = gql`
             }
           }
           ... on Editorial {
-            id
             contentTypeName
             title
             content
             date
-            uri
             excerpt
             ...FeaturedImageFragment
             categories {

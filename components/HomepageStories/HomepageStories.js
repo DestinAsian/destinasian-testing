@@ -143,34 +143,34 @@ export default function HomepageStories(bannerAds, homepagePinPosts) {
   //   ),
   // ]
 
-  // Declare state for banner ads
-  const [bannerAdsArray, setBannerAdsArray] = useState([])
+  // // Declare state for banner ads
+  // const [bannerAdsArray, setBannerAdsArray] = useState([])
 
-  // Function to shuffle the banner ads and store them in state
-  const shuffleBannerAds = () => {
-    const bannerAdsArray = Object.values(bannerAds?.edges || [])
+  // // Function to shuffle the banner ads and store them in state
+  // const shuffleBannerAds = () => {
+  //   const bannerAdsArray = Object.values(bannerAds?.edges || [])
 
-    // Shuffle the array
-    const shuffledBannerAdsArray = shuffleArray(bannerAdsArray)
+  //   // Shuffle the array
+  //   const shuffledBannerAdsArray = shuffleArray(bannerAdsArray)
 
-    setBannerAdsArray(shuffledBannerAdsArray)
-  }
+  //   setBannerAdsArray(shuffledBannerAdsArray)
+  // }
 
-  useEffect(() => {
-    // Shuffle the banner ads when the component mounts
-    shuffleBannerAds()
-  }, [])
+  // useEffect(() => {
+  //   // Shuffle the banner ads when the component mounts
+  //   shuffleBannerAds()
+  // }, [])
 
-  // Separate shuffled banner ads with <img> tags from those without
-  const bannerAdsWithImg = bannerAdsArray.filter(
-    (bannerAd) => !bannerAd?.node?.content.includes('<!--'),
-  )
-  const bannerAdsWithoutImg = bannerAdsArray.filter((bannerAd) =>
-    bannerAd?.node?.content.includes('<!--'),
-  )
+  // // Separate shuffled banner ads with <img> tags from those without
+  // const bannerAdsWithImg = bannerAdsArray.filter(
+  //   (bannerAd) => !bannerAd?.node?.content.includes('<!--'),
+  // )
+  // const bannerAdsWithoutImg = bannerAdsArray.filter((bannerAd) =>
+  //   bannerAd?.node?.content.includes('<!--'),
+  // )
 
-  // Concatenate the arrays to place ads with <img> tags first
-  const sortedBannerAdsArray = [...bannerAdsWithImg, ...bannerAdsWithoutImg]
+  // // Concatenate the arrays to place ads with <img> tags first
+  // const sortedBannerAdsArray = [...bannerAdsWithImg, ...bannerAdsWithoutImg]
 
   return (
     <div className={cx('component')}>
@@ -200,7 +200,7 @@ export default function HomepageStories(bannerAds, homepagePinPosts) {
               />
             )}
 
-            {index === 1 && (
+            {/* {index === 1 && (
               <ModuleAd bannerAd={sortedBannerAdsArray[0]?.node?.content} />
             )}
             {index === 5 && (
@@ -229,7 +229,7 @@ export default function HomepageStories(bannerAds, homepagePinPosts) {
             )}
             {index === 37 && (
               <ModuleAd bannerAd={sortedBannerAdsArray[9]?.node?.content} />
-            )}
+            )} */}
           </React.Fragment>
         ))}
       {allPosts.length && (
