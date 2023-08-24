@@ -1,32 +1,26 @@
 import { gql } from '@apollo/client'
-import { useState, useEffect } from 'react'
 import classNames from 'classnames/bind'
 import styles from './ModuleAd.module.scss'
 
 let cx = classNames.bind(styles)
 
+function hasImgTag(content) {
+  const parser = new DOMParser()
+  const doc = parser.parseFromString(content, 'text/html')
+  const imgTags = doc.getElementsByTagName('img')
+  return imgTags.length > 0
+}
+
 export default function ModuleAd({ bannerAd }) {
   // Check if `bannerAd` is empty or does not contain an <img> tag
-  const [isComponentHidden, setIsComponentHidden] = useState(true)
-
-  useEffect(() => {
-    // Check if `bannerAd` contains an <img> tag when the component is mounted
-    setIsComponentHidden(!hasImgTag(bannerAd))
-  }, [bannerAd])
-
-  function hasImgTag(content) {
-    const parser = new DOMParser()
-    const doc = parser.parseFromString(content, 'text/html')
-    const imgTags = doc.getElementsByTagName('img')
-    return imgTags.length > 0
-  }
+  const isComponentHidden = !bannerAd || !hasImgTag(bannerAd)
 
   return (
     <div className={cx('component', isComponentHidden ? 'hide-component' : '')}>
       <div className={cx('banner-wrapper')}>
         <div className={cx('ad-container')}>
-          {isComponentHidden ? null : (
-            // Render bannerAd only when it contains an <img> tag
+          {bannerAd && (
+            // Render bannerAd only when it's not empty and not 'no banners'
             <div
               className={cx('ad-content')}
               dangerouslySetInnerHTML={{

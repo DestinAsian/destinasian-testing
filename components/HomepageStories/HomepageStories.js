@@ -3,10 +3,11 @@ import classNames from 'classnames/bind'
 import styles from './HomepageStories.module.scss'
 import { useQuery } from '@apollo/client'
 import { GetStories } from '../../queries/GetStories'
-import { GetBannerAds } from '../../queries/GetBannerAds'
+import { GetHomepageBannerAds } from '../../queries/GetHomepageBannerAds'
 import { Post, ModuleAd, Button } from '..'
 
 let cx = classNames.bind(styles)
+
 
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -16,16 +17,32 @@ function shuffleArray(array) {
   return array
 }
 
-export default function HomepageStories(bannerAds, homepagePinPosts) {
+export default function HomepageStories(pinPosts) {
+  // Fetching Posts
   const [isFetchingMore, setIsFetchingMore] = useState(false)
-  const postsPerPage = 10
+  // Declare state for banner ads
+  const [bannerAdsArray, setBannerAdsArray] = useState([])
+  // Post per fetching
+  const postsPerPage = 4
+  const bannerPerPage = 10
 
+  // Get Stories / Posts
   const { data, error, loading, fetchMore } = useQuery(GetStories, {
     variables: {
       first: postsPerPage,
       after: null,
     },
   })
+
+  const { data: bannerData, error: bannerError } = useQuery(
+    GetHomepageBannerAds,
+    {
+      variables: {
+        first: bannerPerPage,
+        after: null,
+      },
+    },
+  )
 
   const updateQuery = (previousResult, { fetchMoreResult }) => {
     if (!fetchMoreResult.contentNodes.edges.length) {
@@ -76,6 +93,10 @@ export default function HomepageStories(bannerAds, homepagePinPosts) {
     return <pre>{JSON.stringify(error)}</pre>
   }
 
+  if (bannerError) {
+    return <pre>{JSON.stringify(error)}</pre>
+  }
+
   if (loading) {
     return (
       <>
@@ -86,77 +107,41 @@ export default function HomepageStories(bannerAds, homepagePinPosts) {
     )
   }
 
-  // sort posts by date
-  const sortPostsByDate = (a, b) => {
-    const dateA = new Date(a.date)
-    const dateB = new Date(b.date)
-    return dateB - dateA // Sort in descending order
-  }
+  // Declare all posts
+  const allPosts = data?.contentNodes?.edges.map((post) => post.node) || []
 
-  const mainPosts = data?.contentNodes?.edges.map((post) => post.node) || []
+  // Declare all pin posts
+  const allPinPosts = [
+    pinPosts?.pinPosts?.pinPost1 ? pinPosts?.pinPosts?.pinPost1 : null,
+    pinPosts?.pinPosts?.pinPost2 ? pinPosts?.pinPosts?.pinPost2 : null,
+    pinPosts?.pinPosts?.pinPost3 ? pinPosts?.pinPosts?.pinPost3 : null,
+    pinPosts?.pinPosts?.pinPost4 ? pinPosts?.pinPosts?.pinPost4 : null,
+    pinPosts?.pinPosts?.pinPost5 ? pinPosts?.pinPosts?.pinPost5 : null,
+  ].filter((pinPost) => pinPost !== null)
 
-  const allPosts = [...mainPosts].sort(sortPostsByDate)
+  // Merge All posts and Pin posts
+  const mergedPosts = [...allPinPosts, ...allPosts].reduce(
+    (uniquePosts, post) => {
+      if (!uniquePosts.some((uniquePost) => uniquePost?.id === post?.id)) {
+        uniquePosts.push(post)
+      }
+      return uniquePosts
+    },
+    [],
+  )
 
-  // const mainPosts = []
-  // const mainEditorialPosts = []
-
-  // // loop through all the main categories posts
-  // data.posts.edges.forEach((post) => {
-  //   mainPosts.push(post.node)
-  // })
-
-  // // loop through all the main categories and their posts
-  // data.editorials.edges.forEach((post) => {
-  //   mainEditorialPosts.push(post.node)
-  // })
-
-  // // sort posts by date
-  // const sortPostsByDate = (a, b) => {
-  //   const dateA = new Date(a.date)
-  //   const dateB = new Date(b.date)
-  //   return dateB - dateA // Sort in descending order
-  // }
-
-  // // define mainCatPostCards
-  // const mainCatPosts = [
-  //   ...(mainPosts != null ? mainPosts : []),
-  //   ...(mainEditorialPosts != null ? mainEditorialPosts : []),
-  // ]
-
-  // // sortByDate mainCat & childCat Posts
-  // const allPosts = mainCatPosts.sort(sortPostsByDate)
-
-  // // Declare Pin Posts
-  // const allPinPosts = [
-  //   homepagePinPosts?.pinPost1 ? homepagePinPosts?.pinPost1 : null,
-  //   homepagePinPosts?.pinPost2 ? homepagePinPosts?.pinPost2 : null,
-  //   homepagePinPosts?.pinPost3 ? homepagePinPosts?.pinPost3 : null,
-  //   homepagePinPosts?.pinPost4 ? homepagePinPosts?.pinPost4 : null,
-  //   homepagePinPosts?.pinPost5 ? homepagePinPosts?.pinPost5 : null,
-  // ].filter((pinPost) => pinPost !== null)
-
-  // // Merge All posts and Pin posts
-  // const mergedPosts = [
-  //   ...allPinPosts,
-  //   ...allPosts.filter(
-  //     (post) => !allPinPosts.some((pinPost) => pinPost?.id === post?.id),
-  //   ),
-  // ]
-
-  // // Declare state for banner ads
-  // const [bannerAdsArray, setBannerAdsArray] = useState([])
-
+  // useEffect(() => {
   // // Function to shuffle the banner ads and store them in state
   // const shuffleBannerAds = () => {
-  //   const bannerAdsArray = Object.values(bannerAds?.edges || [])
+  //   const bannerAdsArrayObj = Object.values(bannerData?.bannerAds?.edges || [])
 
   //   // Shuffle the array
-  //   const shuffledBannerAdsArray = shuffleArray(bannerAdsArray)
+  //   const shuffledBannerAdsArray = shuffleArray(bannerAdsArrayObj)
 
   //   setBannerAdsArray(shuffledBannerAdsArray)
   // }
 
-  // useEffect(() => {
+  
   //   // Shuffle the banner ads when the component mounts
   //   shuffleBannerAds()
   // }, [])
@@ -174,32 +159,28 @@ export default function HomepageStories(bannerAds, homepagePinPosts) {
 
   return (
     <div className={cx('component')}>
-      {allPosts.length !== 0 &&
-        allPosts.map((post, index) => (
+      {mergedPosts.length !== 0 &&
+        mergedPosts.map((post, index) => (
           <React.Fragment key={post?.id}>
-            {/* {console.log(post?.contentTypeName)} */}
-            {post?.contentTypeName === ('post' || 'editorial') && (
-              <Post
-                title={post?.title}
-                excerpt={post?.excerpt}
-                content={post?.content}
-                date={post?.date}
-                author={post?.author?.node?.name}
-                uri={post?.uri}
-                parentCategory={
-                  post?.categories?.edges[0]?.node?.parent?.node?.name
-                }
-                category={post?.categories?.edges[0]?.node?.name}
-                categoryUri={post?.categories?.edges[0]?.node?.uri}
-                featuredImage={post?.featuredImage?.node}
-                chooseYourCategory={post?.acfCategoryIcon?.chooseYourCategory}
-                categoryLabel={post?.acfCategoryIcon?.categoryLabel}
-                locationValidation={post?.acfLocationIcon?.fieldGroupName}
-                locationLabel={post?.acfLocationIcon?.locationLabel}
-                locationUrl={post?.acfLocationIcon?.locationUrl}
-              />
-            )}
-
+            <Post
+              title={post?.title}
+              excerpt={post?.excerpt}
+              content={post?.content}
+              date={post?.date}
+              author={post?.author?.node?.name}
+              uri={post?.uri}
+              parentCategory={
+                post?.categories?.edges[0]?.node?.parent?.node?.name
+              }
+              category={post?.categories?.edges[0]?.node?.name}
+              categoryUri={post?.categories?.edges[0]?.node?.uri}
+              featuredImage={post?.featuredImage?.node}
+              chooseYourCategory={post?.acfCategoryIcon?.chooseYourCategory}
+              categoryLabel={post?.acfCategoryIcon?.categoryLabel}
+              locationValidation={post?.acfLocationIcon?.fieldGroupName}
+              locationLabel={post?.acfLocationIcon?.locationLabel}
+              locationUrl={post?.acfLocationIcon?.locationUrl}
+            />
             {/* {index === 1 && (
               <ModuleAd bannerAd={sortedBannerAdsArray[0]?.node?.content} />
             )}
@@ -232,28 +213,28 @@ export default function HomepageStories(bannerAds, homepagePinPosts) {
             )} */}
           </React.Fragment>
         ))}
-      {allPosts.length && (
+      {mergedPosts.length && (
         <div className="mx-auto my-0 flex max-w-[100vw] justify-center md:max-w-[50vw]	">
           {data?.contentNodes?.pageInfo?.hasNextPage &&
             data?.contentNodes?.pageInfo?.endCursor && (
               <Button
-                // onClick={() => {
-                //   if (
-                //     !isFetchingMore &&
-                //     data?.contentNodes?.pageInfo?.hasNextPage
-                //   ) {
-                //     setIsFetchingMore(true)
-                //     fetchMore({
-                //       variables: {
-                //         first: postsPerPage,
-                //         after: data?.contentNodes?.pageInfo?.endCursor,
-                //       },
-                //       updateQuery,
-                //     }).then(() => {
-                //       setIsFetchingMore(false) // Reset the flag after fetch is done
-                //     })
-                //   }
-                // }}
+                onClick={() => {
+                  if (
+                    !isFetchingMore &&
+                    data?.contentNodes?.pageInfo?.hasNextPage
+                  ) {
+                    setIsFetchingMore(true)
+                    fetchMore({
+                      variables: {
+                        first: postsPerPage,
+                        after: data?.contentNodes?.pageInfo?.endCursor,
+                      },
+                      updateQuery,
+                    }).then(() => {
+                      setIsFetchingMore(false) // Reset the flag after fetch is done
+                    })
+                  }
+                }}
                 className="gap-x-4	"
               >
                 {isFetchingMore ? (

@@ -5,7 +5,6 @@ import styles from './Footer.module.scss'
 let cx = classNames.bind(styles)
 
 export default function Footer() {
-
   const aboutUri = '/about'
   const privacyUri = '/privacy-policy'
   const contactUri = '/contact'
@@ -28,7 +27,7 @@ export default function Footer() {
               target="_blank"
               >
                 <div id="mc_embed_signup_scroll">
-                  <h2>Newsletter Signup</h2>
+                  <h2>Stay inspired with our newsletters</h2>
                   <div class="border-divider"></div>
                   <div class="content-wrapper">
                     <div class="mc-field-wrapper mc-field-group input-group">
@@ -134,6 +133,11 @@ export default function Footer() {
         <a href={socialUri}>
           <h2>{'Socials'}</h2>
         </a>
+      </div>
+      <div className={cx('menu-wrapper')}>
+        <h5>
+          {'Copyright '}&copy;{' 2023'}
+        </h5>
       </div>
     </footer>
   )

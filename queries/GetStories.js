@@ -1,10 +1,18 @@
 import { gql } from '@apollo/client'
-import { FeaturedImage, ModuleAd } from '../components'
+import { FeaturedImage } from '../components'
 
 export const GetStories = gql`
   ${FeaturedImage.fragments.entry}
   query GetStories($first: Int, $after: String) {
-    contentNodes(first: $first, after: $after, where: { status: PUBLISH, orderby: {field: DATE, order: DESC} }) {
+    contentNodes(
+      first: $first
+      after: $after
+      where: { 
+        status: PUBLISH, 
+        orderby: { field: DATE, order: DESC }
+        contentTypes: [POST, EDITORIAL, UPDATE]
+      }
+    ) {
       pageInfo {
         hasPreviousPage
         hasNextPage
@@ -16,7 +24,6 @@ export const GetStories = gql`
           id
           uri
           ... on Post {
-            contentTypeName
             title
             content
             date
@@ -46,7 +53,26 @@ export const GetStories = gql`
             }
           }
           ... on Editorial {
-            contentTypeName
+            title
+            content
+            date
+            excerpt
+            ...FeaturedImageFragment
+            categories {
+              edges {
+                node {
+                  name
+                  uri
+                  parent {
+                    node {
+                      name
+                    }
+                  }
+                }
+              }
+            }
+          }
+          ... on Update {
             title
             content
             date

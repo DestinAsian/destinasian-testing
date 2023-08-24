@@ -14,9 +14,9 @@ import {
   ModuleAd,
   FeatureWell,
   Button,
-  Footer,
   SecondaryHeader,
   HomepageStories,
+  Footer,
 } from '../components'
 
 // Randomized Function
