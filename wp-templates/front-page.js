@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
 import { BlogInfoFragment } from '../fragments/GeneralSettings'
+import { PostFragment } from '../fragments/PostFragment'
 import { useMediaQuery } from 'react-responsive'
 import {
   HomepageHeader,
@@ -14,19 +15,10 @@ import {
   ModuleAd,
   FeatureWell,
   Button,
+  Footer,
   SecondaryHeader,
   HomepageStories,
-  Footer,
 } from '../components'
-
-// Randomized Function
-function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1))
-    ;[array[i], array[j]] = [array[j], array[i]]
-  }
-  return array
-}
 
 export default function Component(props) {
   // Loading state for previews
@@ -119,32 +111,6 @@ export default function Component(props) {
   // sortByDate mainCat & childCat Posts
   const allPosts = mainCatPosts.sort(sortPostsByDate)
 
-  // Declare Pin Posts
-  const allPinPosts = [
-    homepagePinPosts?.pinPost1 ? homepagePinPosts?.pinPost1 : null,
-    homepagePinPosts?.pinPost2 ? homepagePinPosts?.pinPost2 : null,
-    homepagePinPosts?.pinPost3 ? homepagePinPosts?.pinPost3 : null,
-    homepagePinPosts?.pinPost4 ? homepagePinPosts?.pinPost4 : null,
-    homepagePinPosts?.pinPost5 ? homepagePinPosts?.pinPost5 : null,
-  ].filter((pinPost) => pinPost !== null)
-
-  // Merge All posts and Pin posts
-  const mergedPosts = [...allPinPosts, ...allPosts].reduce(
-    (uniquePosts, post) => {
-      if (!uniquePosts.some((uniquePost) => uniquePost?.id === post?.id)) {
-        uniquePosts.push(post)
-      }
-      return uniquePosts
-    },
-    [],
-  )
-
-  const startIndex = (currentPage - 1) * postsPerPage
-  const endIndex = startIndex + postsPerPage
-
-  // All posts sorted by pinPosts then mainPosts & date
-  const paginatedPosts = mergedPosts.slice(0, endIndex)
-
   // Feature Well
   const isDesktop = useMediaQuery({ minWidth: 640 })
   const isMobile = useMediaQuery({ maxWidth: 639 })
@@ -186,35 +152,6 @@ export default function Component(props) {
       setCurrentFeatureWell(filteredFeatureWell[randomIndex])
     }
   }, [])
-
-  // Declare state for banner ads
-  const [bannerAdsArray, setBannerAdsArray] = useState([])
-
-  // Function to shuffle the banner ads and store them in state
-  const shuffleBannerAds = () => {
-    const bannerAdsArray = Object.values(bannerAds?.edges || [])
-
-    // Shuffle the array
-    const shuffledBannerAdsArray = shuffleArray(bannerAdsArray)
-
-    setBannerAdsArray(shuffledBannerAdsArray)
-  }
-
-  useEffect(() => {
-    // Shuffle the banner ads when the component mounts
-    shuffleBannerAds()
-  }, [])
-
-  // Separate shuffled banner ads with <img> tags from those without
-  const bannerAdsWithImg = bannerAdsArray.filter(
-    (bannerAd) => !bannerAd?.node?.content.includes('<!--'),
-  )
-  const bannerAdsWithoutImg = bannerAdsArray.filter((bannerAd) =>
-    bannerAd?.node?.content.includes('<!--'),
-  )
-
-  // Concatenate the arrays to place ads with <img> tags first
-  const sortedBannerAdsArray = [...bannerAdsWithImg, ...bannerAdsWithoutImg]
 
   return (
     <>
@@ -268,8 +205,10 @@ export default function Component(props) {
             </div>
             <div id="snapStart" className="snap-start pt-16">
               {/* All posts sorted by pinPosts then mainPosts & date */}
-              {/* <HomepageStories /> */}
-              {paginatedPosts.length !== 0 &&
+              <HomepageStories
+                pinPosts={homepagePinPosts}
+              />
+              {/* {paginatedPosts.length !== 0 &&
                 paginatedPosts.map((post, index) => (
                   <React.Fragment key={post?.id}>
                     <Post
@@ -374,21 +313,21 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
                     </svg>
                   </Button>
                 </div>
-              )}
+              )} */}
             </div>
           </div>
         </>
       </Main>
-      <Footer />
+      {/* <Footer /> */}
     </>
   )
 }
 
 Component.query = gql`
   ${BlogInfoFragment}
+  ${PostFragment}
   ${NavigationMenu.fragments.entry}
   ${FeaturedImage.fragments.entry}
-  ${ModuleAd.fragments.entry}
   query GetPageData(
     $databaseId: ID!
     $headerLocation: MenuLocationEnum
@@ -447,12 +386,7 @@ Component.query = gql`
       homepagePinPosts {
         pinPost1 {
           ... on Post {
-            id
-            title
-            content
-            date
-            uri
-            excerpt
+            ...PostFragment
             ...FeaturedImageFragment
             author {
               node {
@@ -512,12 +446,7 @@ Component.query = gql`
         }
         pinPost2 {
           ... on Post {
-            id
-            title
-            content
-            date
-            uri
-            excerpt
+            ...PostFragment
             ...FeaturedImageFragment
             author {
               node {
@@ -577,12 +506,7 @@ Component.query = gql`
         }
         pinPost3 {
           ... on Post {
-            id
-            title
-            content
-            date
-            uri
-            excerpt
+            ...PostFragment
             ...FeaturedImageFragment
             author {
               node {
@@ -642,12 +566,7 @@ Component.query = gql`
         }
         pinPost4 {
           ... on Post {
-            id
-            title
-            content
-            date
-            uri
-            excerpt
+            ...PostFragment
             ...FeaturedImageFragment
             author {
               node {
@@ -707,12 +626,7 @@ Component.query = gql`
         }
         pinPost5 {
           ... on Post {
-            id
-            title
-            content
-            date
-            uri
-            excerpt
+            ...PostFragment
             ...FeaturedImageFragment
             author {
               node {
@@ -859,9 +773,6 @@ Component.query = gql`
         }
       }
     }
-    bannerAds(first: 10, where: { search: "homepage" }) {
-      ...ModuleAdFragment
-    }
     generalSettings {
       ...BlogInfoFragment
     }
@@ -919,7 +830,7 @@ Component.query = gql`
 Component.variables = ({ databaseId }, ctx) => {
   return {
     databaseId,
-    first2: 10,
+    first2: 5,
     headerLocation: MENUS.PRIMARY_LOCATION,
     secondHeaderLocation: MENUS.SECONDARY_LOCATION,
     thirdHeaderLocation: MENUS.THIRD_LOCATION,

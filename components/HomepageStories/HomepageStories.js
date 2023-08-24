@@ -8,7 +8,6 @@ import { Post, ModuleAd, Button } from '..'
 
 let cx = classNames.bind(styles)
 
-
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1))
@@ -39,7 +38,6 @@ export default function HomepageStories(pinPosts) {
     {
       variables: {
         first: bannerPerPage,
-        after: null,
       },
     },
   )
@@ -61,6 +59,34 @@ export default function HomepageStories(pinPosts) {
     }
   }
 
+  // Function to shuffle the banner ads and store them in state
+  useEffect(() => {
+    const shuffleBannerAds = () => {
+      const bannerAdsArrayObj = Object.values(
+        bannerData?.bannerAds?.edges || [],
+      )
+
+      // Shuffle the array
+      const shuffledBannerAdsArray = shuffleArray(bannerAdsArrayObj)
+
+      setBannerAdsArray(shuffledBannerAdsArray)
+    }
+
+    // Shuffle the banner ads when the component mounts
+    shuffleBannerAds()
+
+    // Shuffle the banner ads every 10 seconds
+    const shuffleInterval = setInterval(() => {
+      shuffleBannerAds()
+    }, 60000) // 10000 milliseconds = 10 seconds
+
+    // Cleanup the interval when the component unmounts
+    return () => {
+      clearInterval(shuffleInterval)
+    }
+  }, [bannerData]) // Use bannerData as a dependency to trigger shuffling when new data arrives
+
+  // Fetch more stories when scroll to bottom
   useEffect(() => {
     const handleScroll = () => {
       const scrolledToBottom =
@@ -130,32 +156,18 @@ export default function HomepageStories(pinPosts) {
     [],
   )
 
-  // useEffect(() => {
-  // // Function to shuffle the banner ads and store them in state
-  // const shuffleBannerAds = () => {
-  //   const bannerAdsArrayObj = Object.values(bannerData?.bannerAds?.edges || [])
-
-  //   // Shuffle the array
-  //   const shuffledBannerAdsArray = shuffleArray(bannerAdsArrayObj)
-
-  //   setBannerAdsArray(shuffledBannerAdsArray)
-  // }
-
-  
-  //   // Shuffle the banner ads when the component mounts
-  //   shuffleBannerAds()
-  // }, [])
-
-  // // Separate shuffled banner ads with <img> tags from those without
-  // const bannerAdsWithImg = bannerAdsArray.filter(
-  //   (bannerAd) => !bannerAd?.node?.content.includes('<!--'),
-  // )
+  // Separate shuffled banner ads with <img> tags from those without
+  const bannerAdsWithImg = bannerAdsArray.filter(
+    (bannerAd) => !bannerAd?.node?.content.includes('<!--'),
+  )
   // const bannerAdsWithoutImg = bannerAdsArray.filter((bannerAd) =>
   //   bannerAd?.node?.content.includes('<!--'),
   // )
 
-  // // Concatenate the arrays to place ads with <img> tags first
-  // const sortedBannerAdsArray = [...bannerAdsWithImg, ...bannerAdsWithoutImg]
+  // Concatenate the arrays to place ads with <img> tags first
+  const sortedBannerAdsArray = [...bannerAdsWithImg]
+
+  const numberOfBannerAds = sortedBannerAdsArray.length
 
   return (
     <div className={cx('component')}>
@@ -181,36 +193,14 @@ export default function HomepageStories(pinPosts) {
               locationLabel={post?.acfLocationIcon?.locationLabel}
               locationUrl={post?.acfLocationIcon?.locationUrl}
             />
-            {/* {index === 1 && (
-              <ModuleAd bannerAd={sortedBannerAdsArray[0]?.node?.content} />
+            {/* Show 1st banner after 2 posts and then every 4 posts */}
+            {(index - 1) % 4 === 0 && (
+              <ModuleAd
+                bannerAd={
+                  sortedBannerAdsArray[index % numberOfBannerAds]?.node?.content
+                }
+              />
             )}
-            {index === 5 && (
-              <ModuleAd bannerAd={sortedBannerAdsArray[1]?.node?.content} />
-            )}
-            {index === 9 && (
-              <ModuleAd bannerAd={sortedBannerAdsArray[2]?.node?.content} />
-            )}
-            {index === 13 && (
-              <ModuleAd bannerAd={sortedBannerAdsArray[3]?.node?.content} />
-            )}
-            {index === 17 && (
-              <ModuleAd bannerAd={sortedBannerAdsArray[4]?.node?.content} />
-            )}
-            {index === 21 && (
-              <ModuleAd bannerAd={sortedBannerAdsArray[5]?.node?.content} />
-            )}
-            {index === 25 && (
-              <ModuleAd bannerAd={sortedBannerAdsArray[6]?.node?.content} />
-            )}
-            {index === 29 && (
-              <ModuleAd bannerAd={sortedBannerAdsArray[7]?.node?.content} />
-            )}
-            {index === 33 && (
-              <ModuleAd bannerAd={sortedBannerAdsArray[8]?.node?.content} />
-            )}
-            {index === 37 && (
-              <ModuleAd bannerAd={sortedBannerAdsArray[9]?.node?.content} />
-            )} */}
           </React.Fragment>
         ))}
       {mergedPosts.length && (
