@@ -46,6 +46,7 @@ export default function FullMenu({
     },
     skip: searchQuery === '',
     fetchPolicy: 'network-only',
+    nextFetchPolicy: 'cache-and-network',
   })
 
   // Update query when load more button clicked

@@ -31,6 +31,8 @@ export default function HomepageStories(pinPosts) {
       first: postsPerPage,
       after: null,
     },
+    fetchPolicy: 'network-only',
+    nextFetchPolicy: 'cache-and-network',
   })
 
   const { data: bannerData, error: bannerError } = useQuery(
@@ -39,6 +41,8 @@ export default function HomepageStories(pinPosts) {
       variables: {
         first: bannerPerPage,
       },
+      fetchPolicy: 'network-only',
+      nextFetchPolicy: 'cache-and-network',
     },
   )
 
@@ -160,9 +164,6 @@ export default function HomepageStories(pinPosts) {
   const bannerAdsWithImg = bannerAdsArray.filter(
     (bannerAd) => !bannerAd?.node?.content.includes('<!--'),
   )
-  // const bannerAdsWithoutImg = bannerAdsArray.filter((bannerAd) =>
-  //   bannerAd?.node?.content.includes('<!--'),
-  // )
 
   // Concatenate the arrays to place ads with <img> tags first
   const sortedBannerAdsArray = [...bannerAdsWithImg]
