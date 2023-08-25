@@ -16,6 +16,7 @@ import {
   ModuleAd,
   Button,
   Footer,
+  CategoryStories,
 } from '../components'
 
 // Randomized Function
@@ -303,9 +304,9 @@ export default function Component(props) {
       <Main>
         <>
           {/* All posts sorted by pinPosts then mainPosts & date */}
+          {/* <CategoryStories pinPosts={pinPosts}/> */}
           {mergedPosts.length !== 0 &&
             mergedPosts.slice(0, visiblePosts).map((post, index) => (
-              // Render the merged posts here
               <React.Fragment key={post?.id}>
                 <Post
                   title={post?.title}
@@ -326,8 +327,7 @@ export default function Component(props) {
                   locationLabel={post?.acfLocationIcon?.locationLabel}
                   locationUrl={post?.acfLocationIcon?.locationUrl}
                 />
-                {/* Banner Ads */}
-                {index === 1 && (
+                {/* {index === 1 && (
                   <ModuleAd bannerAd={sortedBannerAdsArray[0]?.node?.content} />
                 )}
                 {index === 5 && (
@@ -356,7 +356,7 @@ export default function Component(props) {
                 )}
                 {index === 37 && (
                   <ModuleAd bannerAd={sortedBannerAdsArray[9]?.node?.content} />
-                )}
+                )} */}
               </React.Fragment>
             ))}
           {visiblePosts < mergedPosts.length && (
@@ -401,7 +401,6 @@ Component.query = gql`
   ${PostFragment}
   ${NavigationMenu.fragments.entry}
   ${FeaturedImage.fragments.entry}
-  ${ModuleAd.fragments.entry}
   query GetCategoryPage(
     $uri: String!
     $headerLocation: MenuLocationEnum
@@ -825,9 +824,6 @@ Component.query = gql`
           }
         }
       }
-    }
-    bannerAds(first: 10, where: { search: "homepage" }) {
-      ...ModuleAdFragment
     }
     generalSettings {
       ...BlogInfoFragment

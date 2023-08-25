@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import classNames from 'classnames/bind'
-import styles from './HomepageStories.module.scss'
+import styles from './CategoryStories.module.scss'
 import { useQuery } from '@apollo/client'
-import { GetHomepageStories } from '../../queries/GetHomepageStories'
+import { GetCategoryStories } from '../../queries/GetCategoryStories'
 import { GetHomepageBannerAds } from '../../queries/GetHomepageBannerAds'
 import { Post, ModuleAd, Button } from '..'
 
@@ -16,7 +16,7 @@ function shuffleArray(array) {
   return array
 }
 
-export default function HomepageStories(pinPosts) {
+export default function CategoryStories(pinPosts) {
   // Fetching Posts
   const [isFetchingMore, setIsFetchingMore] = useState(false)
   // Declare state for banner ads
@@ -26,7 +26,7 @@ export default function HomepageStories(pinPosts) {
   const bannerPerPage = 10
 
   // Get Stories / Posts
-  const { data, error, loading, fetchMore } = useQuery(GetHomepageStories, {
+  const { data, error, loading, fetchMore } = useQuery(GetCategoryStories, {
     variables: {
       first: postsPerPage,
       after: null,
@@ -142,11 +142,7 @@ export default function HomepageStories(pinPosts) {
 
   // Declare all pin posts
   const allPinPosts = [
-    pinPosts?.pinPosts?.pinPost1 ? pinPosts?.pinPosts?.pinPost1 : null,
-    pinPosts?.pinPosts?.pinPost2 ? pinPosts?.pinPosts?.pinPost2 : null,
-    pinPosts?.pinPosts?.pinPost3 ? pinPosts?.pinPosts?.pinPost3 : null,
-    pinPosts?.pinPosts?.pinPost4 ? pinPosts?.pinPosts?.pinPost4 : null,
-    pinPosts?.pinPosts?.pinPost5 ? pinPosts?.pinPosts?.pinPost5 : null,
+    pinPosts?.pinPosts?.pinPost ? pinPosts?.pinPosts?.pinPost : null,
   ].filter((pinPost) => pinPost !== null)
 
   // Merge All posts and Pin posts

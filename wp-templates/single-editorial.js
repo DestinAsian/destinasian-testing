@@ -35,6 +35,7 @@ export default function SingleEditorial(props) {
   const footerMenu = props?.data?.footerMenuItems?.nodes ?? []
   const {
     title,
+    description,
     content,
     featuredImage,
     author,
@@ -121,11 +122,13 @@ export default function SingleEditorial(props) {
 
   return (
     <>
-      <SEO
-        title={siteTitle}
-        description={siteDescription}
+      {/* <SEO
+        title={title}
+        description={description}
         imageUrl={featuredImage?.node?.sourceUrl}
-      />
+        url={uri}
+      /> */}
+      {console.log(siteDescription)}
       <SingleHeader
         title={siteTitle}
         description={siteDescription}

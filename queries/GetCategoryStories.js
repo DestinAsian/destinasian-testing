@@ -1,9 +1,9 @@
 import { gql } from '@apollo/client'
 import { FeaturedImage } from '../components'
 
-export const GetStories = gql`
+export const GetCategoryStories = gql`
   ${FeaturedImage.fragments.entry}
-  query GetStories($first: Int, $after: String) {
+  query GetCategoryStories($first: Int, $after: String) {
     contentNodes(
       first: $first
       after: $after
