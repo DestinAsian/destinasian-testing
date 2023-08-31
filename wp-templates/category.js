@@ -386,8 +386,6 @@ export default function Component(props) {
 
   const numberOfSortedPinAds = sortedBannerWithPin.length
 
-  console.log(pinAds)
-
   return (
     <>
       <SEO title={siteTitle} description={siteDescription} />
@@ -476,18 +474,12 @@ export default function Component(props) {
                 {/* Check if pinAds is not an empty array */}
                 {numberOfPinAds > 0 && (
                   <>
-                    {/* Display the pinAd at index 1 */}
-                    {index === 1 && (
-                      <ModuleAd
-                        bannerAd={sortedBannerWithPin[0]?.node?.content}
-                      />
-                    )}
                     {/* Loop through the rest of the banner ads */}
                     {(index - 1) % 4 === 0 && (
                       <ModuleAd
                         bannerAd={
                           sortedBannerWithPin[
-                            index % sortedBannerWithPin.length
+                            index - (1 % numberOfSortedPinAds)
                           ]?.node?.content
                         }
                       />
@@ -495,13 +487,18 @@ export default function Component(props) {
                   </>
                 )}
                 {/* Check if pinAds is an empty array */}
-                {numberOfPinAds === 0 && (index - 1) % 4 === 0 && (
-                  <ModuleAd
-                    bannerAd={
-                      sortedBannerAdsArray[index % numberOfBannerAds]?.node
-                        ?.content
-                    }
-                  />
+                {numberOfPinAds === 0 && (
+                  <>
+                    {(index - 1) % 4 === 0 && (
+                      <ModuleAd
+                        bannerAd={
+                          sortedBannerAdsArray[
+                            index - (1 % numberOfBannerAds)
+                          ]?.node?.content
+                        }
+                      />
+                    )}
+                  </>
                 )}
               </React.Fragment>
             ))}

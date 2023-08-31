@@ -166,8 +166,20 @@ export default function HomepageStories(pinPosts) {
     (bannerAd) => !bannerAd?.node?.content.includes('<!--'),
   )
 
+  const pinHomepageAds = bannerAdsWithImg.filter(
+    (bannerAd) => !bannerAd?.node?.acfBannerAds?.pinAd === false || null,
+  )
+
   // Concatenate the arrays to place ads with <img> tags first
-  const sortedBannerAdsArray = [...bannerAdsWithImg]
+  const sortedBannerAdsArray = [...pinHomepageAds, ...bannerAdsWithImg].reduce(
+    (uniqueAds, ad) => {
+      if (!uniqueAds.some((uniqueAd) => uniqueAd?.node?.id === ad?.node?.id)) {
+        uniqueAds.push(ad)
+      }
+      return uniqueAds
+    },
+    [],
+  )
 
   const numberOfBannerAds = sortedBannerAdsArray.length
 

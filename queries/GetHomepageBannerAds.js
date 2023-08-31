@@ -11,8 +11,15 @@ export const GetHomepageBannerAds = gql`
       }
       edges {
         node {
+          id
           content
           title
+          acfBannerAds {
+            anyOf {
+              uri
+            }
+            pinAd
+          }
         }
       }
     }
