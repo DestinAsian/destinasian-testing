@@ -31,7 +31,7 @@ export default function Component(props) {
   const footerMenu = props?.data?.footerMenuItems?.nodes ?? []
   const posts = props?.data?.posts ?? []
   const editorials = props?.data?.editorials ?? []
-  const { title, content, featuredImage, headerFooterVisibility } =
+  const { title, content, featuredImage, headerFooterVisibility, seo, uri } =
     props?.data?.page
 
   const mainPosts = []
@@ -66,9 +66,10 @@ export default function Component(props) {
   return (
     <>
       <SEO
-        title={siteTitle}
-        description={siteDescription}
+        title={seo?.title}
+        description={seo?.metaDesc}
         imageUrl={featuredImage?.node?.sourceUrl}
+        url={uri}
       />
       <Header
         title={siteTitle}
@@ -122,6 +123,11 @@ Component.query = gql`
       headerFooterVisibility {
         ...HeaderFooterVisibilityFragment
       }
+      seo {
+        title
+        metaDesc
+      }
+      uri
     }
     posts(first: $first, where: $where) {
       edges {

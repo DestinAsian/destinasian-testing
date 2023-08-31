@@ -45,6 +45,8 @@ export default function SingleHonorsCircle(props) {
     parent,
     hcLocation,
     hcCaption,
+    seo,
+    uri,
   } = props?.data?.honorsCircle
   // Latest Travel Stories
   const latestPosts = props?.data?.posts ?? []
@@ -104,11 +106,21 @@ export default function SingleHonorsCircle(props) {
   return (
     <>
       <SEO
-        title={siteTitle}
-        description={siteDescription}
+        title={seo?.title}
+        description={seo?.metaDesc}
         imageUrl={featuredImage?.node?.sourceUrl}
+        url={uri}
       />
-
+      {/* Google Tag Manager (noscript) */}
+      <noscript>
+        <iframe
+          src="https://www.googletagmanager.com/ns.html?id=GTM-5BJVGS"
+          height="0"
+          width="0"
+          className="hidden invisible"
+        ></iframe>
+      </noscript>
+      {/* End Google Tag Manager (noscript) */}
       {/* Countries pages */}
       {parent == null && (
         <HCHeader
@@ -201,6 +213,11 @@ SingleHonorsCircle.query = gql`
           name
         }
       }
+      seo {
+        title
+        metaDesc
+      }
+      uri
       hcLocation {
         hcLocation
       }

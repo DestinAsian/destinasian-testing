@@ -26,7 +26,7 @@ export default function Component(props) {
   const fourthMenu = props?.data?.fourthHeaderMenuItems?.nodes ?? []
   const fifthMenu = props?.data?.fifthHeaderMenuItems?.nodes ?? []
   const featureMenu = props?.data?.featureHeaderMenuItems?.nodes ?? []
-  const { title, content, featuredImage, hcCaption } = props?.data?.page ?? []
+  const { title, content, featuredImage, hcCaption, seo, uri } = props?.data?.page ?? []
   const posts = props?.data?.posts ?? []
   const editorials = props?.data?.editorials ?? []
 
@@ -62,10 +62,21 @@ export default function Component(props) {
   return (
     <>
       <SEO
-        title={siteTitle}
-        description={siteDescription}
+        title={seo?.title}
+        description={seo?.metaDesc}
         imageUrl={featuredImage?.node?.sourceUrl}
+        url={uri}
       />
+      {/* Google Tag Manager (noscript) */}
+      <noscript>
+        <iframe
+          src="https://www.googletagmanager.com/ns.html?id=GTM-5BJVGS"
+          height="0"
+          width="0"
+          className="hidden invisible"
+        ></iframe>
+      </noscript>
+      {/* End Google Tag Manager (noscript) */}
       <HCHeader
         title={siteTitle}
         description={siteDescription}
@@ -114,6 +125,11 @@ Component.query = gql`
       hcCaption {
         hcCaption
       }
+      seo {
+        title
+        metaDesc
+      }
+      uri
     }
     posts(first: $first, where: $where) {
       edges {

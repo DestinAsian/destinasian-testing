@@ -49,33 +49,60 @@ export default function SEO({ title, description, imageUrl, url }) {
 
         {url && (
           <>
-            <meta property="og:url" content={url} />
-            <meta property="twitter:url" content={url} />
+            <meta property="og:url" content={"https://destinasian.com" + url} />
+            <meta
+              property="twitter:url"
+              content={"https://destinasian.com" + url}
+            />
           </>
         )}
 
-        {/* AdButler Module Ad */}
-        {/* <script
+        {/* Google tag (gtag.js) */}
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-QV16KRW1PT"
+        ></script>
+        <script
           dangerouslySetInnerHTML={{
             __html: `
-            if (!window.AdButlerHB){(function(){var s = document.createElement("script");s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/hb_app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}
-            var AdButlerHB = AdButlerHB || {}; AdButlerHB.cmd = AdButlerHB.cmd || [];
-            AdButlerHB.timeout = 700;
-            AdButlerHB.cmd.push(function(){
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
 
-            AdButlerHB.registerAuction('abhb_32661_1', [[0,0]],624825, 185947, "servedbyadbutler.com");
-
-            AdButlerHB.requestAuctions();
-            });
-            `,
+              gtag('config', 'G-QV16KRW1PT');`,
           }}
-        ></script> */}
+        ></script>
+
+        {/* Google Tag Manager */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+              new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+              'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+              })(window,document,'script','dataLayer','GTM-5BJVGS');
+          `,
+          }}
+        ></script>
+        {/* End Google Tag Manager */}
+
+        {/* <!-- START FOUANALYTICS ON-SITE EMBED CODE --> */}
+        <script
+          src="https://api.fouanalytics.com/api/init-3102x8pmdtqpcf032cq8.js"
+          data-cfasync="false"
+          async
+        ></script>
+        <noscript>
+          <img src="https://api.fouanalytics.com/api/noscript-3102x8pmdtqpcf032cq8.gif" />
+        </noscript>
+        {/* <!-- END FOUANALYTICS ON-SITE EMBED CODE --> */}
 
         {/* Typography Cloud */}
         <link
           rel="stylesheet"
           type="text/css"
-          href="https://cloud.typography.com/7429004/6477832/css/fonts.css"
+          href="https://cloud.typography.com/7429004/7933832/css/fonts.css"
         />
 
         {/* Google Fonts */}

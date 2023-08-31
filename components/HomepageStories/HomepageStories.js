@@ -35,6 +35,7 @@ export default function HomepageStories(pinPosts) {
     nextFetchPolicy: 'cache-and-network',
   })
 
+  // Get Banner
   const { data: bannerData, error: bannerError } = useQuery(
     GetHomepageBannerAds,
     {

@@ -35,12 +35,13 @@ export default function SingleEditorial(props) {
   const footerMenu = props?.data?.footerMenuItems?.nodes ?? []
   const {
     title,
-    description,
     content,
     featuredImage,
     author,
     date,
     acfSingleEditorialSlider,
+    seo,
+    uri,
   } = props?.data?.editorial
   const categories = props?.data?.editorial?.categories?.edges ?? []
   const posts = props?.data?.posts ?? []
@@ -122,13 +123,22 @@ export default function SingleEditorial(props) {
 
   return (
     <>
-      {/* <SEO
-        title={title}
-        description={description}
+      <SEO
+        title={seo?.title}
+        description={seo?.metaDesc}
         imageUrl={featuredImage?.node?.sourceUrl}
         url={uri}
-      /> */}
-      {console.log(siteDescription)}
+      />
+      {/* Google Tag Manager (noscript) */}
+      <noscript>
+        <iframe
+          src="https://www.googletagmanager.com/ns.html?id=GTM-5BJVGS"
+          height="0"
+          width="0"
+          className="hidden invisible"
+        ></iframe>
+      </noscript>
+      {/* End Google Tag Manager (noscript) */}
       <SingleHeader
         title={siteTitle}
         description={siteDescription}
@@ -208,6 +218,11 @@ SingleEditorial.query = gql`
           name
         }
       }
+      seo {
+        title
+        metaDesc
+      }
+      uri
       acfSingleEditorialSlider {
         slide1 {
           mediaItemUrl

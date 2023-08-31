@@ -41,6 +41,8 @@ export default function SingleUpdate(props) {
     author,
     date,
     contentType,
+    seo,
+    uri,
   } = props?.data?.update
   const categories = props?.data?.update?.categories?.edges ?? []
   const posts = props?.data?.posts ?? []
@@ -123,9 +125,10 @@ export default function SingleUpdate(props) {
   return (
     <>
       <SEO
-        title={siteTitle}
-        description={siteDescription}
+        title={seo?.title}
+        description={seo?.metaDesc}
         imageUrl={featuredImage?.node?.sourceUrl}
+        url={uri}
       />
       <SingleHeader
         title={siteTitle}
@@ -205,6 +208,11 @@ SingleUpdate.query = gql`
           graphqlPluralName
         }
       }
+      seo {
+        title
+        metaDesc
+      }
+      uri
       ...FeaturedImageFragment
       author {
         node {
