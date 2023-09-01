@@ -74,7 +74,6 @@ export default function Component(props) {
   //   nextFetchPolicy: 'cache-and-network',
   // })
 
-  // {console.log(data?.nodeByUri?.posts)}
 
   // Get ROS Banner
   const {
@@ -447,7 +446,6 @@ export default function Component(props) {
       <Main>
         <>
           {/* <CategoryStories pinPosts={pinPosts} uri={uri}/> */}
-          {/* {console.log(pinPosts)} */}
           {/* All posts sorted by pinPosts then mainPosts & date */}
           {mergedPosts.length !== 0 &&
             mergedPosts.slice(0, visiblePosts).map((post, index) => (
@@ -478,9 +476,8 @@ export default function Component(props) {
                     {(index - 1) % 4 === 0 && (
                       <ModuleAd
                         bannerAd={
-                          sortedBannerWithPin[
-                            index - (1 % numberOfSortedPinAds)
-                          ]?.node?.content
+                          sortedBannerWithPin[(index - 1) % numberOfSortedPinAds]
+                            ?.node?.content
                         }
                       />
                     )}
@@ -492,9 +489,8 @@ export default function Component(props) {
                     {(index - 1) % 4 === 0 && (
                       <ModuleAd
                         bannerAd={
-                          sortedBannerAdsArray[
-                            index - (1 % numberOfBannerAds)
-                          ]?.node?.content
+                          sortedBannerAdsArray[(index - 1) % numberOfBannerAds]?.node
+                            ?.content
                         }
                       />
                     )}
@@ -532,10 +528,6 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
               </Button>
             </div>
           )}
-          {/* Specific Banner Logic */}
-          {/* {console.log(
-                  sortedBannerAdsArray[index % numberOfBannerAds]?.node?.acfBannerAds?.anyOf[0].uri == uri
-                )} */}
         </>
       </Main>
       <Footer />

@@ -71,8 +71,29 @@ export default function HomepageStories(pinPosts) {
         bannerData?.bannerAds?.edges || [],
       )
 
-      // Shuffle the array
-      const shuffledBannerAdsArray = shuffleArray(bannerAdsArrayObj)
+      // Separate shuffled banner ads with <img> tags from those without
+      const bannerAdsWithImg = bannerAdsArrayObj.filter(
+        (bannerAd) => !bannerAd?.node?.content.includes('<!--'),
+      )
+
+      // Filter out pinHomepageAds that have pinAd as true
+      const pinHomepageAds = bannerAdsWithImg.filter(
+        (bannerAd) => bannerAd?.node?.acfBannerAds?.pinAd === true,
+      )
+
+      // Filter out banner ads that are not pin ads
+      const otherBannerAds = bannerAdsWithImg.filter(
+        (bannerAd) => bannerAd?.node?.acfBannerAds?.pinAd !== true,
+      )
+
+      // Shuffle only the otherBannerAds array
+      const shuffledOtherBannerAds = shuffleArray(otherBannerAds)
+
+      // Concatenate the arrays with pinned ads first and shuffled other banner ads
+      const shuffledBannerAdsArray = [
+        ...pinHomepageAds,
+        ...shuffledOtherBannerAds,
+      ]
 
       setBannerAdsArray(shuffledBannerAdsArray)
     }
@@ -161,25 +182,13 @@ export default function HomepageStories(pinPosts) {
     [],
   )
 
-  // Separate shuffled banner ads with <img> tags from those without
-  const bannerAdsWithImg = bannerAdsArray.filter(
-    (bannerAd) => !bannerAd?.node?.content.includes('<!--'),
-  )
-
-  const pinHomepageAds = bannerAdsWithImg.filter(
-    (bannerAd) => !bannerAd?.node?.acfBannerAds?.pinAd === false || null,
-  )
-
   // Concatenate the arrays to place ads with <img> tags first
-  const sortedBannerAdsArray = [...pinHomepageAds, ...bannerAdsWithImg].reduce(
-    (uniqueAds, ad) => {
-      if (!uniqueAds.some((uniqueAd) => uniqueAd?.node?.id === ad?.node?.id)) {
-        uniqueAds.push(ad)
-      }
-      return uniqueAds
-    },
-    [],
-  )
+  const sortedBannerAdsArray = [...bannerAdsArray].reduce((uniqueAds, ad) => {
+    if (!uniqueAds.some((uniqueAd) => uniqueAd?.node?.id === ad?.node?.id)) {
+      uniqueAds.push(ad)
+    }
+    return uniqueAds
+  }, [])
 
   const numberOfBannerAds = sortedBannerAdsArray.length
 
@@ -211,7 +220,8 @@ export default function HomepageStories(pinPosts) {
             {(index - 1) % 4 === 0 && (
               <ModuleAd
                 bannerAd={
-                  sortedBannerAdsArray[index % numberOfBannerAds]?.node?.content
+                  sortedBannerAdsArray[(index - 1) % numberOfBannerAds]?.node
+                    ?.content
                 }
               />
             )}
