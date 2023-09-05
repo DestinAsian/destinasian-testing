@@ -145,15 +145,11 @@ export default function Component(props) {
       <Main>
         <>
           {/* <NavigationHeader menuItems={navigationMenu}/> */}
-          {/* <div 
-          className="snap-y snap-mandatory"
-          >
-            <div 
-            className="snap-start"
-            > */}
-          {currentFeatureWell && (
-            <Container>
-              {/* {isDesktop && (
+          <div className="snap-y snap-mandatory">
+            <div className="snap-start">
+              {currentFeatureWell && (
+                <Container>
+                  {/* {isDesktop && (
                     <FeatureWell
                       type={currentFeatureWell?.type}
                       videoSrc={currentFeatureWell?.videoSrc}
@@ -172,15 +168,15 @@ export default function Component(props) {
                     />
                   )} */}
 
-              <FeatureWell featureWells={featureWell} />
-            </Container>
-          )}
-          {/* </div> */}
-          <div id="snapStart" className="snap-start pt-16">
-            {/* All posts sorted by pinPosts then mainPosts & date */}
-            <HomepageStories pinPosts={homepagePinPosts} />
+                  <FeatureWell featureWells={featureWell} />
+                </Container>
+              )}
+            </div>
+            <div id="snapStart" className="snap-start pt-16">
+              {/* All posts sorted by pinPosts then mainPosts & date */}
+              <HomepageStories pinPosts={homepagePinPosts} />
+            </div>
           </div>
-          {/* </div> */}
         </>
       </Main>
       {/* <Footer /> */}
