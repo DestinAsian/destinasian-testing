@@ -30,7 +30,7 @@ export default function SingleAdvertorial(props) {
   const fifthMenu = props?.data?.fifthHeaderMenuItems?.nodes ?? []
   const featureMenu = props?.data?.featureHeaderMenuItems?.nodes ?? []
   const footerMenu = props?.data?.footerMenuItems?.nodes ?? []
-  const { title, content, featuredImage, author, date, acfPostSlider, seo, uri } =
+  const { title, content, featuredImage, author, date, acfPostSlider, acfAdvertorialLabel, seo, uri } =
     props?.data?.advertorial
   const posts = props?.data?.posts ?? []
   const editorials = props?.data?.editorials ?? []
@@ -115,7 +115,7 @@ export default function SingleAdvertorial(props) {
         <>
           <SingleAdvertorialContainer>
             <SingleAdvertorialSlider images={images} />
-            <SingleAdvertorialEntryHeader title={title} />
+            <SingleAdvertorialEntryHeader title={title} label={acfAdvertorialLabel?.advertorialLabel}/>
             <ContentWrapperAdvertorial content={content} />
             {/* <ModuleAd /> */}
           </SingleAdvertorialContainer>
@@ -159,6 +159,9 @@ SingleAdvertorial.query = gql`
         metaDesc
       }
       uri
+      acfAdvertorialLabel {
+        advertorialLabel
+      }
       acfPostSlider {
         slide1 {
           mediaItemUrl
