@@ -4,12 +4,15 @@ import styles from './FeatureWell.module.scss'
 import { useMediaQuery } from 'react-responsive'
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Autoplay, Pagination } from 'swiper'
 import Div100vh from 'react-div-100vh'
 
 // Import Swiper styles
 import 'swiper/css'
+import 'swiper/css/effect-fade'
 import 'swiper/css/pagination'
+
+// import required modules
+import { EffectFade, Autoplay, Pagination } from 'swiper'
 
 let cx = className.bind(styles)
 
@@ -28,28 +31,31 @@ export default function FeatureWell({ featureWells }) {
     return () => clearTimeout(timeout)
   }, [])
 
-  const progressCircle = useRef(null)
-  const progressContent = useRef(null)
-  const onAutoplayTimeLeft = (s, time, progress) => {
-    progressCircle.current.style.setProperty('--progress', 1 - progress)
-    progressContent.current.textContent = `${Math.ceil(time / 1000)}s`
-  }
-
   return (
     <>
       <Div100vh>
         <Swiper
-          spaceBetween={30}
-          centeredSlides={true}
+          effect={'fade'}
           autoplay={{
-            delay: 10000,
-            disableOnInteraction: true,
+            delay: 15000,
+            disableOnInteraction: false,
           }}
           pagination={{
-            clickable: true,
+            el: '.swiper-pagination',
+            clickable: 'true',
+            type: 'bullets',
+            renderBullet: function (i, className) {
+              return `
+              <button class="${className}">
+              <svg class= "progress">
+              <circle class="circle-origin" cx="16" cy="16" r="10.5"></circle>
+              </svg>
+              <span></span>
+              </button>
+              `
+            },
           }}
-          modules={[Autoplay, Pagination]}
-          onAutoplayTimeLeft={onAutoplayTimeLeft}
+          modules={[EffectFade, Autoplay, Pagination]}
           className="fw-swiper-wrapper"
         >
           {featureWells?.map((featureWell, index) => (
@@ -124,13 +130,8 @@ export default function FeatureWell({ featureWells }) {
               </div>
             </SwiperSlide>
           ))}
-          <div className="autoplay-progress" slot="container-end">
-            <svg viewBox="0 0 48 48" ref={progressCircle}>
-              <circle cx="24" cy="24" r="20"></circle>
-            </svg>
-            <span ref={progressContent}></span>
-          </div>
         </Swiper>
+        <div class="swiper-pagination"></div>
       </Div100vh>
     </>
   )
