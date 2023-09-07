@@ -11,12 +11,6 @@ import '../components/SingleAdvertorialSlider/SingleAdvertorialSlider.css'
 import '../components/SingleHCSlider/SingleHCSlider.css'
 import '../components/Footer/Footer.css'
 
-// Import Swiper styles
-import 'swiper/css'
-import 'swiper/css/effect-fade'
-import 'swiper/css/pagination'
-import 'swiper/css/navigation'
-
 export default function MyApp({ Component, pageProps }) {
   const router = useRouter()
 

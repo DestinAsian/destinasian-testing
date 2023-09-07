@@ -12,14 +12,25 @@
   object-fit: cover;
 }
 
-.swiper-pagination {
+.swiper-custom-pagination.swiper-pagination-bullets.swiper-pagination-horizontal {
+  bottom: var(--swiper-pagination-bottom, 25px);
+}
+
+.swiper-custom-pagination {
+  position: absolute;
+  text-align: center;
+  transition: 0.3s opacity;
+  transform: translate3d(0, 0, 0);
+  z-index: 10;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  column-gap: 0.5rem;
 }
 
 /* button style */
-.swiper-pagination > .swiper-pagination-bullet {
+.swiper-custom-pagination > .swiper-pagination-bullet {
   position: relative;
   display: flex;
   justify-content: center;
@@ -37,9 +48,13 @@
   opacity: 1;
   background: #ffffff;
   border: 1px solid #ffffff;
+  margin: 0;
+  padding: 0;
+  box-shadow: none;
+  appearance: none;
 }
 
-.swiper-pagination > .swiper-pagination-bullet span {
+.swiper-custom-pagination > .swiper-pagination-bullet span {
   color: #fff;
   position: absolute;
   top: 50%;
@@ -65,8 +80,8 @@
   padding: 1rem;
 }
 
-.swiper-pagination > .swiper-pagination-bullet-active .circle-origin {
-  animation: progress 15s;
+.swiper-custom-pagination > .swiper-pagination-bullet-active .circle-origin {
+  animation: progress 20s;
 }
 
 @keyframes progress {

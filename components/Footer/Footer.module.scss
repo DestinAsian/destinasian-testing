@@ -18,7 +18,7 @@
     // background-color: var(--wpe--color--grey);
   }
 
-  .menu-wrapper {
+  .menu-wrapper, .logo-wrapper {
     display: flex;
     justify-content: space-between;
     padding: 0.5rem 1rem 0;
@@ -47,6 +47,19 @@
       @media (min-width: $breakpoint-extra-small) {
         font-size: 1rem;
       }
+    }
+  }
+
+  .logo-wrapper {
+    column-gap: 2rem;
+    align-items: flex-start;
+
+    @media (min-width: $breakpoint-extra-small) {
+      column-gap: 3rem;
+    }
+
+    a {
+      display: flex;
     }
   }
 }

@@ -41,7 +41,7 @@ export default function FeatureWell({ featureWells }) {
             disableOnInteraction: false,
           }}
           pagination={{
-            el: '.swiper-pagination',
+            el: '.swiper-custom-pagination',
             clickable: 'true',
             type: 'bullets',
             renderBullet: function (i, className) {
@@ -68,6 +68,7 @@ export default function FeatureWell({ featureWells }) {
                       <div className={cx('caption-wrapper')}>
                         {featureWell.caption}
                       </div>
+                      <div className={cx('bottom-gradient')}></div>
                     </div>
                   )}
                   {isMobile && (
@@ -76,6 +77,7 @@ export default function FeatureWell({ featureWells }) {
                       <div className={cx('caption-wrapper')}>
                         {featureWell.caption}
                       </div>
+                      <div className={cx('bottom-gradient')}></div>
                     </div>
                   )}
                 </a>
@@ -95,6 +97,7 @@ export default function FeatureWell({ featureWells }) {
                     <div className={cx('caption-wrapper')}>
                       {featureWell.caption}
                     </div>
+                    <div className={cx('bottom-gradient')}></div>
                   </div>
                 </a>
               )}
@@ -131,7 +134,7 @@ export default function FeatureWell({ featureWells }) {
             </SwiperSlide>
           ))}
         </Swiper>
-        <div class="swiper-pagination"></div>
+        <div class="swiper-custom-pagination"></div>
       </Div100vh>
     </>
   )
