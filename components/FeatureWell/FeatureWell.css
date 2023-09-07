@@ -13,7 +13,7 @@
 }
 
 .swiper-custom-pagination.swiper-pagination-bullets.swiper-pagination-horizontal {
-  bottom: 3%;
+  bottom: var(--swiper-pagination-bottom, 3%);
 }
 
 .swiper-custom-pagination {
