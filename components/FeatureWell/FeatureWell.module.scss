@@ -17,8 +17,7 @@
   display: flex;
   justify-content: center;
   color: var(--wpe--color--white);
-  // bottom: 12%;
-  bottom: var(--swiper-pagination-bottom, 12%);
+  bottom: 12%;
   width: 100%;
   position: absolute;
   font-family: 'Unit Slab Pro Black';
@@ -41,8 +40,7 @@
   display: flex;
   justify-content: center;
   color: var(--wpe--color--white);
-  // bottom: 20%;
-  bottom: var(--swiper-pagination-bottom, 20%);
+  bottom: 20%;
   width: 100%;
   position: absolute;
   visibility: hidden;
@@ -63,8 +61,7 @@
 }
 
 .maximized {
-  // bottom: 7%;
-  bottom: var(--swiper-pagination-bottom, 7%);
+  bottom: 7%;
   transition: bottom 0.5s ease-in-out;
   visibility: visible;
   z-index: 10;

@@ -13,11 +13,11 @@
 }
 
 .swiper-custom-pagination.swiper-pagination-bullets.swiper-pagination-horizontal {
-  bottom: var(--swiper-pagination-bottom, 3%);
+  bottom: 4%;
 }
 
 .swiper-custom-pagination {
-  position: absolute;
+  position: relative;
   text-align: center;
   transition: 0.3s opacity;
   transform: translate3d(0, 0, 0);
