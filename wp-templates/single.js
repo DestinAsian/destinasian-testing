@@ -282,6 +282,9 @@ Component.query = gql`
           acfCategoryIcon {
             categoryLabel
             chooseYourCategory
+            chooseIcon {
+              mediaItemUrl
+            }
           }
           acfLocationIcon {
             fieldGroupName

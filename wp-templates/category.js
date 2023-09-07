@@ -74,7 +74,6 @@ export default function Component(props) {
   //   nextFetchPolicy: 'cache-and-network',
   // })
 
-
   // Get ROS Banner
   const {
     data: bannerROSData,
@@ -464,6 +463,7 @@ export default function Component(props) {
                   categoryUri={post?.categories?.edges[0]?.node?.uri}
                   featuredImage={post?.featuredImage?.node}
                   chooseYourCategory={post?.acfCategoryIcon?.chooseYourCategory}
+                  chooseIcon={post?.acfCategoryIcon?.chooseIcon?.mediaItemUrl}
                   categoryLabel={post?.acfCategoryIcon?.categoryLabel}
                   locationValidation={post?.acfLocationIcon?.fieldGroupName}
                   locationLabel={post?.acfLocationIcon?.locationLabel}
@@ -476,8 +476,9 @@ export default function Component(props) {
                     {(index - 1) % 4 === 0 && (
                       <ModuleAd
                         bannerAd={
-                          sortedBannerWithPin[(index - 1) % numberOfSortedPinAds]
-                            ?.node?.content
+                          sortedBannerWithPin[
+                            (index - 1) % numberOfSortedPinAds
+                          ]?.node?.content
                         }
                       />
                     )}
@@ -489,8 +490,8 @@ export default function Component(props) {
                     {(index - 1) % 4 === 0 && (
                       <ModuleAd
                         bannerAd={
-                          sortedBannerAdsArray[(index - 1) % numberOfBannerAds]?.node
-                            ?.content
+                          sortedBannerAdsArray[(index - 1) % numberOfBannerAds]
+                            ?.node?.content
                         }
                       />
                     )}
@@ -599,6 +600,9 @@ Component.query = gql`
               acfCategoryIcon {
                 categoryLabel
                 chooseYourCategory
+                chooseIcon {
+                  mediaItemUrl
+                }
               }
               acfLocationIcon {
                 fieldGroupName
@@ -679,6 +683,9 @@ Component.query = gql`
               acfCategoryIcon {
                 categoryLabel
                 chooseYourCategory
+                chooseIcon {
+                  mediaItemUrl
+                }
               }
               acfLocationIcon {
                 fieldGroupName
@@ -790,6 +797,9 @@ Component.query = gql`
                     acfCategoryIcon {
                       categoryLabel
                       chooseYourCategory
+                      chooseIcon {
+                        mediaItemUrl
+                      }
                     }
                     acfLocationIcon {
                       fieldGroupName
@@ -855,6 +865,9 @@ Component.query = gql`
                           acfCategoryIcon {
                             categoryLabel
                             chooseYourCategory
+                            chooseIcon {
+                              mediaItemUrl
+                            }
                           }
                           acfLocationIcon {
                             fieldGroupName
@@ -929,6 +942,9 @@ Component.query = gql`
           acfCategoryIcon {
             categoryLabel
             chooseYourCategory
+            chooseIcon {
+              mediaItemUrl
+            }
           }
           acfLocationIcon {
             fieldGroupName

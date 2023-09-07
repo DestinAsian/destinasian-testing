@@ -16,6 +16,7 @@ export default function Post({
   featuredImage,
   categoryLabel,
   chooseYourCategory,
+  chooseIcon,
   locationLabel,
   locationUrl,
   locationValidation,
@@ -71,6 +72,7 @@ export default function Post({
             {chooseYourCategory && (
               <CategoryIcon
                 chooseYourCategory={chooseYourCategory}
+                chooseIcon={chooseIcon}
                 categoryLabel={categoryLabel}
               />
             )}
