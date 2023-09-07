@@ -140,6 +140,7 @@ export default function Component(props) {
             parentCategory={categories[0]?.node?.parent?.node?.name}
             categoryName={categories[0]?.node?.name}
             chooseYourCategory={acfCategoryIcon?.chooseYourCategory}
+            chooseIcon={acfCategoryIcon?.chooseIcon?.mediaItemUrl}
             categoryLabel={acfCategoryIcon?.categoryLabel}
             locationValidation={acfLocationIcon?.fieldGroupName}
             locationLabel={acfLocationIcon?.locationLabel}
@@ -244,6 +245,9 @@ Component.query = gql`
       acfCategoryIcon {
         categoryLabel
         chooseYourCategory
+        chooseIcon {
+          mediaItemUrl
+        }
       }
       acfLocationIcon {
         fieldGroupName

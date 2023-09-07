@@ -13,6 +13,7 @@ export default function SingleEntryHeader({
   categoryName,
   categoryLabel,
   chooseYourCategory,
+  chooseIcon,
   locationLabel,
   locationUrl,
   locationValidation,
@@ -35,6 +36,7 @@ export default function SingleEntryHeader({
           <div className={cx('icon-wrapper')}>
             <CategoryIcon
               chooseYourCategory={chooseYourCategory}
+              chooseIcon={chooseIcon}
               categoryLabel={categoryLabel}
             />
             <LocationIcon
