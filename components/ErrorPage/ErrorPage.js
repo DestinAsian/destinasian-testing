@@ -36,18 +36,18 @@ export default function ErrorPage({ image, title, content }) {
 
   // Update query when load more button clicked
   const updateQuery = (previousResult, { fetchMoreResult }) => {
-    if (!fetchMoreResult.contentNodes.edges.length) {
-      return previousResult.contentNodes
+    if (!fetchMoreResult.tags.edges.length) {
+      return previousResult.tags
     }
 
     return {
-      contentNodes: {
-        ...previousResult.contentNodes,
+      tags: {
+        ...previousResult.tags,
         edges: [
-          ...previousResult.contentNodes.edges,
-          ...fetchMoreResult.contentNodes.edges,
+          ...previousResult.tags.edges,
+          ...fetchMoreResult.tags.edges,
         ],
-        pageInfo: fetchMoreResult.contentNodes.pageInfo,
+        pageInfo: fetchMoreResult.tags.pageInfo,
       },
     }
   }
@@ -88,27 +88,27 @@ export default function ErrorPage({ image, title, content }) {
           )}
           {isSearchResultsVisible && (
             <SearchResults
-              searchResults={searchResultsData?.contentNodes?.edges?.map(
+              searchResults={searchResultsData?.tags?.edges?.map(
                 ({ node }) => node,
               )}
               isLoading={searchResultsLoading}
             />
           )}
           {/* Load More Button */}
-          {/* {searchResultsData?.contentNodes?.pageInfo?.hasNextPage &&
-            searchResultsData?.contentNodes?.pageInfo?.endCursor && (
+          {/* {searchResultsData?.tags?.pageInfo?.hasNextPage &&
+            searchResultsData?.tags?.pageInfo?.endCursor && (
               <div className="mx-auto my-0 flex max-w-[100vw] justify-center md:max-w-[50vw]	">
                 <Button
                   onClick={() => {
                     if (
                       !isFetchingMore &&
-                      searchResultsData?.contentNodes?.pageInfo?.hasNextPage
+                      searchResultsData?.tags?.pageInfo?.hasNextPage
                     ) {
                       setIsFetchingMore(true) // Set flag to indicate fetch in progress
                       fetchMore({
                         variables: {
                           after:
-                            searchResultsData?.contentNodes?.pageInfo
+                            searchResultsData?.tags?.pageInfo
                               ?.endCursor,
                         },
                         updateQuery,

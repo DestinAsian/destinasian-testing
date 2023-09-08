@@ -3,10 +3,10 @@ import { FeaturedImage } from '../components'
 
 export const GetSearchResults = gql`
   query GetSearchResults($first: Int!, $after: String, $search: String) {
-    contentNodes(
+    tags(
       first: $first
       after: $after
-      where: { search: $search, status: PUBLISH }
+      where: { search: $search, hideEmpty: true }
     ) {
       pageInfo {
         hasNextPage
@@ -16,51 +16,68 @@ export const GetSearchResults = gql`
       }
       edges {
         node {
-          id
-          uri
-          date
-          databaseId
-          contentType {
-            node {
-              label
-              graphqlPluralName
+          contentNodes(
+            where: {
+              status: PUBLISH
+              contentTypes: [
+                POST
+                EDITORIAL
+                ADVERTORIAL
+                HONORS_CIRCLE
+                UPDATE
+              ]
             }
-          }
-          ... on Post {
-            title
-            excerpt
-            categories {
-              edges {
-                node {
-                  name
-                  uri
-                  parent {
-                    node {
-                      name
+          ) {
+            edges {
+              node {
+                id
+                uri
+                databaseId
+                contentType {
+                  node {
+                    label
+                    graphqlPluralName
+                  }
+                }
+                ... on Post {
+                  title
+                  excerpt
+                  categories {
+                    edges {
+                      node {
+                        name
+                        uri
+                        parent {
+                          node {
+                            name
+                          }
+                        }
+                      }
                     }
                   }
                 }
-              }
-            }
-          }
-          ... on HonorsCircle {
-            title
-            excerpt
-          }
-          ... on Editorial {
-            title
-            excerpt
-            categories {
-              edges {
-                node {
-                  name
-                  uri
+                ... on HonorsCircle {
+                  title
+                  excerpt
+                }
+                ... on Editorial {
+                  title
+                  excerpt
+                  categories {
+                    edges {
+                      node {
+                        name
+                        uri
+                      }
+                    }
+                  }
+                }
+                ... on Advertorial {
+                  title
+                  excerpt
                 }
               }
             }
-          }
-          ... on Advertorial {
-            title
           }
         }
         cursor

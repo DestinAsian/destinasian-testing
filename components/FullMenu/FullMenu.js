@@ -51,24 +51,42 @@ export default function FullMenu({
 
   // Update query when load more button clicked
   const updateQuery = (previousResult, { fetchMoreResult }) => {
-    if (!fetchMoreResult.contentNodes.edges.length) {
-      return previousResult.contentNodes
+    if (!fetchMoreResult.tags.edges.length) {
+      return previousResult.tags
     }
 
     return {
-      contentNodes: {
-        ...previousResult.contentNodes,
-        edges: [
-          ...previousResult.contentNodes.edges,
-          ...fetchMoreResult.contentNodes.edges,
-        ],
-        pageInfo: fetchMoreResult.contentNodes.pageInfo,
+      tags: {
+        ...previousResult.tags,
+        edges: [...previousResult.tags.edges, ...fetchMoreResult.tags.edges],
+        pageInfo: fetchMoreResult.tags.pageInfo,
       },
     }
   }
 
   // Check if the search query is empty and no search results are loading, then hide the SearchResults component
   const isSearchResultsVisible = !!(searchQuery && !searchResultsLoading)
+
+  // Create a Set to store unique databaseId values
+  const uniqueDatabaseIds = new Set()
+
+  // Initialize an array to store unique posts
+  const contentNodesPosts = []
+
+  // Loop through all the contentNodes posts
+  searchResultsData?.tags?.edges.forEach((contentNodes) => {
+    contentNodes.node?.contentNodes?.edges.forEach((post) => {
+      const { databaseId } = post.node
+
+      // Check if the databaseId is unique (not in the Set)
+      if (!uniqueDatabaseIds.has(databaseId)) {
+        uniqueDatabaseIds.add(databaseId) // Add the databaseId to the Set
+        contentNodesPosts.push(post.node) // Push the unique post to the array
+      }
+    })
+  })
+
+  console.log(contentNodesPosts)
 
   return (
     <div className={cx('component')}>
@@ -93,28 +111,24 @@ export default function FullMenu({
             {/* Conditionally render the SearchResults component */}
             {isSearchResultsVisible && (
               <SearchResults
-                searchResults={searchResultsData?.contentNodes?.edges?.map(
-                  ({ node }) => node,
-                )}
+                searchResults={contentNodesPosts}
                 isLoading={searchResultsLoading}
               />
             )}
-            {searchResultsData?.contentNodes?.pageInfo?.hasNextPage &&
-              searchResultsData?.contentNodes?.pageInfo?.endCursor && (
+            {searchResultsData?.tags?.pageInfo?.hasNextPage &&
+              searchResultsData?.tags?.pageInfo?.endCursor && (
                 <div className="mx-auto my-0 flex w-[100vw] justify-center	">
                   <Button
                     onClick={() => {
                       if (
                         !isFetchingMore &&
-                        searchResultsData?.contentNodes?.pageInfo?.hasNextPage
+                        searchResultsData?.tags?.pageInfo?.hasNextPage
                       ) {
                         setIsFetchingMore(true) // Set flag to indicate fetch in progress
                         fetchMore({
                           variables: {
                             first: postsPerPage,
-                            after:
-                              searchResultsData?.contentNodes?.pageInfo
-                                ?.endCursor,
+                            after: searchResultsData?.tags?.pageInfo?.endCursor,
                           },
                           updateQuery,
                         }).then(() => {

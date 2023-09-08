@@ -1,4 +1,4 @@
-import { Container, FormatDate, LoadingSearchResult } from '../../components'
+import { Container, FeaturedImage, LoadingSearchResult } from '../../components'
 import { FaSearch } from 'react-icons/fa'
 
 import styles from './SearchResults.module.scss'
@@ -32,17 +32,21 @@ export default function SearchResults({ searchResults, isLoading }) {
       <div className={styles.component}>
         {searchResults?.map((node) => (
           <Container>
+            {/* {node.featuredImage.node && (
+              <div className={styles.wrapperImage}>
+                <a href={node.uri}>
+                  <FeaturedImage
+                    image={node.featuredImage.node}
+                    layout="intrinsic"
+                    className={styles.featuredImage}
+                  />
+                </a>
+              </div>
+            )} */}
             <div key={node.databaseId} className={styles.result}>
               <a href={node.uri}>
-                <a>
-                  <h2 className={styles.title}>{node.title}</h2>
-                </a>
+                <h2 className={styles.title}>{node.title}</h2>
               </a>
-              {/* <div className={styles.meta}>
-                    <time className={styles.date} dateTime={node.date}>
-                      <FormatDate date={node.date} />
-                    </time>
-                  </div> */}
 
               {/* Destinations */}
               {node.contentType?.node?.graphqlPluralName == 'Editorials' && (
@@ -66,30 +70,25 @@ export default function SearchResults({ searchResults, isLoading }) {
               {/* HonorsCircle */}
               {node.contentType?.node?.graphqlPluralName == 'HonorsCircles' && (
                 <a href={'/honors-circle'}>
-                  <a>
-                    <h2 className={styles.meta}>
-                      {'Honors Circle'}
-                    </h2>
-                  </a>
+                  <h2 className={styles.meta}>{'Honors Circle'}</h2>
                 </a>
               )}
 
               {/* Advertorials */}
               {node.contentType?.node?.graphqlPluralName == 'Advertorials' && (
                 <a href={node.uri}>
-                  <a>
-                    <h2 className={styles.meta}>
-                      {node?.contentType?.node?.label}
-                    </h2>
-                  </a>
+                  <h2 className={styles.meta}>
+                    {node?.contentType?.node?.label}
+                  </h2>
                 </a>
               )}
-
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: node.excerpt,
-                }}
-              />
+              <a href={node.uri}>
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: node.excerpt,
+                  }}
+                />
+              </a>
             </div>
           </Container>
         ))}
