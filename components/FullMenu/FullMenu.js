@@ -86,8 +86,6 @@ export default function FullMenu({
     })
   })
 
-  console.log(contentNodesPosts)
-
   return (
     <div className={cx('component')}>
       {/* Full menu */}
