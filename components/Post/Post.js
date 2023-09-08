@@ -60,10 +60,12 @@ export default function Post({
       </div>
       {excerpt !== undefined && excerpt !== null && (
         <div className={cx('content-wrapper')}>
-          <div
-            className={cx('excerpt')}
-            dangerouslySetInnerHTML={{ __html: trimmedExcerpt }}
-          />
+          <a href={uri}>
+            <div
+              className={cx('excerpt')}
+              dangerouslySetInnerHTML={{ __html: trimmedExcerpt }}
+            />
+          </a>
         </div>
       )}
       <div className={cx('content-wrapper')}>

@@ -140,24 +140,26 @@ export default function Footer() {
           <h2>{'Socials'}</h2>
         </a>
       </div>
-      <div className={cx('logo-wrapper')}>
-        <a href={'https://destinasian.co.id/'}>
-          <img src={daiLogo.src} />
-        </a>
-        <a href={'https://daman.co.id/'}>
-          <img src={damanLogo.src} />
-        </a>
-        <a href={'https://www.prestigeonline.com/id/'}>
-          <img src={prsLogo.src} />
-        </a>
-        <a href={'https://scop3group.com/'}>
-          <img src={scop3Logo.src} />
-        </a>
-      </div>
       <div className={cx('menu-wrapper')}>
-        <h5>
-          {'Copyright '}&copy;{' 2023'}
-        </h5>
+        <div className={cx('copyright-wrapper')}>
+          <h5>
+            {'Copyright '}&copy;{' 2023'}
+          </h5>
+        </div>
+        <div className={cx('logo-wrapper')}>
+          <a href={'https://destinasian.co.id/'}>
+            <img src={daiLogo.src} />
+          </a>
+          <a href={'https://daman.co.id/'}>
+            <img src={damanLogo.src} />
+          </a>
+          <a href={'https://www.prestigeonline.com/id/'}>
+            <img src={prsLogo.src} />
+          </a>
+          <a href={'https://scop3group.com/'}>
+            <img src={scop3Logo.src} />
+          </a>
+        </div>
       </div>
     </footer>
   )
