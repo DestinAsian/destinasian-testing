@@ -49,10 +49,10 @@ export default function SEO({ title, description, imageUrl, url }) {
 
         {url && (
           <>
-            <meta property="og:url" content={"https://destinasian.com" + url} />
+            <meta property="og:url" content={'https://destinasian.com' + url} />
             <meta
               property="twitter:url"
-              content={"https://destinasian.com" + url}
+              content={'https://destinasian.com' + url}
             />
           </>
         )}
@@ -98,11 +98,11 @@ export default function SEO({ title, description, imageUrl, url }) {
         </noscript>
         {/* <!-- END FOUANALYTICS ON-SITE EMBED CODE --> */}
 
-        {/* Typography Cloud */}
+        {/* Testing Typography Cloud */}
         <link
           rel="stylesheet"
           type="text/css"
-          href="https://cloud.typography.com/7429004/7933832/css/fonts.css"
+          href="https://cloud.typography.com/7429004/6477832/css/fonts.css"
         />
 
         {/* Google Fonts */}
