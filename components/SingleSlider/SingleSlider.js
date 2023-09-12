@@ -33,6 +33,7 @@ export default function SingleSlider({ images }) {
         }}
         modules={[EffectFade, Autoplay, Pagination, Navigation]}
         className="post-swiper"
+        style={{ display: images[0] ? 'block' : 'none' }}
       >
         {images?.map((image, index) => (
           <div className="post-swiper-slide">

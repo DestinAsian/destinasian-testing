@@ -75,9 +75,9 @@
     }
 
     a {
-      font-family: 'Chronicle Display A', 'Chronicle Display B';
+      font-family: 'Gotham A', 'Gotham B';
       font-style: normal;
-      font-weight: 600;
+      font-weight: 500;
       color: var(--wpe--link--color);
       text-decoration: underline;
 
@@ -181,8 +181,7 @@
 
     iframe {
       position: relative;
-      top: 0;
-      left: 0;
+      margin: 0;
       padding: 0;
       width: 100%;
       min-height: 80vh;

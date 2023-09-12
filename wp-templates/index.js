@@ -8,6 +8,7 @@ import singleEditorial from './single-editorial';
 import singleAdvertorial from './single-advertorial';
 import singleHonorsCircle from './single-honors-circle';
 import singleUpdate from './single-update';
+import singleContest from './single-contest';
 
 export default {
   category,
@@ -20,4 +21,5 @@ export default {
   'single-advertorial': singleAdvertorial,
   'single-honors-circle': singleHonorsCircle,
   'single-update': singleUpdate,
+  'single-contest': singleContest,
 };
