@@ -643,7 +643,7 @@ Component.query = gql`
     }
     headerMenuItems: menuItems(
       where: { location: $headerLocation }
-      first: 15
+      first: 20
     ) {
       nodes {
         ...NavigationMenuItemFragment
@@ -651,7 +651,7 @@ Component.query = gql`
     }
     secondHeaderMenuItems: menuItems(
       where: { location: $secondHeaderLocation }
-      first: 15
+      first: 20
     ) {
       nodes {
         ...NavigationMenuItemFragment
