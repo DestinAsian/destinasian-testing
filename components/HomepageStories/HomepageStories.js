@@ -23,7 +23,7 @@ export default function HomepageStories(pinPosts) {
   const [bannerAdsArray, setBannerAdsArray] = useState([])
   // Post per fetching
   const postsPerPage = 4
-  const bannerPerPage = 10
+  const bannerPerPage = 15
 
   // Get Stories / Posts
   const { data, error, loading, fetchMore } = useQuery(GetHomepageStories, {
