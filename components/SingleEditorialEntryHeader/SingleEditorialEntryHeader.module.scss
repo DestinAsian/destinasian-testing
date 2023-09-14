@@ -8,19 +8,23 @@
   overflow: hidden;
   margin: 1rem 0 0;
 
-  @media (min-width: $breakpoint-medium) {
+  @media (min-width: $breakpoint-extra-small) {
     margin: 0 auto;
     background-color: var(--wpe--main--background-color);
-    max-width: 52vw;
+    max-width: 700px;
     padding: 1rem;
   }
 }
 
 .maximized {
-  @media (min-width: $breakpoint-medium) {
+  @media (min-width: $breakpoint-extra-small) {
     background-color: var(--wpe--main--background-color);
-    margin: -32.5rem auto 0;
+    margin: -12.5rem auto 0;
     transition: margin 1.5s ease-in-out;
+  }
+
+  @media (min-width: $breakpoint-small) {
+    margin: -52.5vh auto 0;
   }
 }
 
@@ -60,7 +64,7 @@
     color: var(--wpe--color--black);
   }
 
-  @media (min-width: $breakpoint-medium) {
+  @media (min-width: $breakpoint-extra-small) {
     font-size: 1.25rem;
   }
 }
@@ -79,7 +83,7 @@
     font-size: 2.25rem;
   }
 
-  @media (min-width: $breakpoint-medium) {
+  @media (min-width: $breakpoint-small) {
     font-size: 3rem;
   }
 }
@@ -96,7 +100,7 @@
     font-size: 1rem;
     line-height: 1.2;
 
-    @media (min-width: $breakpoint-medium) {
+    @media (min-width: $breakpoint-extra-small) {
       font-size: 1.25rem;
     }
   }
@@ -105,7 +109,7 @@
     font-size: 1rem;
     line-height: 1.2;
 
-    @media (min-width: $breakpoint-medium) {
+    @media (min-width: $breakpoint-extra-small) {
       font-size: 1.25rem;
     }
   }

@@ -45,6 +45,9 @@ export const GetHomepageStories = gql`
             acfCategoryIcon {
               categoryLabel
               chooseYourCategory
+              chooseIcon {
+                mediaItemUrl
+              }
             }
             acfLocationIcon {
               fieldGroupName

@@ -61,8 +61,8 @@
   }
 } */
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 640px) {
   .post-swiper {
-    width: 50vw;
+    max-width: 700px;
   }
 }

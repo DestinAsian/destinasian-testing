@@ -2,10 +2,15 @@
 @import 'styles/fonts/typography';
 
 .component {
+  width: 100vw;
   color: var(--wpe--color--white);
   position: relative;
   overflow: hidden;
-  margin-bottom: 1rem;
+  margin: 0 auto 1rem;
+
+  @media (min-width: $breakpoint-small) {
+    max-width: 700px;
+  }
 }
 
 .has-image {
@@ -38,6 +43,7 @@
   font-weight: 500;
   color: var(--wpe--color--title);
   text-transform: uppercase;
+  padding: 0 1rem;
 
   @media (min-width: $breakpoint-extra-small) {
     font-size: 1.75rem;
@@ -56,14 +62,12 @@
   color: var(--wpe--color--title);
   text-transform: uppercase;
   text-align: center;
+  padding: 0 1rem;
 
   @media (min-width: $breakpoint-extra-small) {
     font-size: 1.75rem;
-  }
-
-  @media (min-width: $breakpoint-small) {
     margin: 0 auto;
-    width: 50vw;
+    width: 700px;
   }
 
   @media (min-width: $breakpoint-medium) {
@@ -80,6 +84,7 @@
   color: var(--wpe--color--title);
   text-transform: uppercase;
   text-align: center;
+  padding: 0 1rem;
 
   @media (min-width: $breakpoint-extra-small) {
     font-size: 1.2rem;

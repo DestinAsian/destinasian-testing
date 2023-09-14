@@ -26,6 +26,7 @@ export { Heading } from './Heading';
 export { Hero } from './Hero';
 export { HomepageHeader } from './HomepageHeader';
 export { HomepageStories } from './HomepageStories';
+export { LLHeader } from './LLHeader';
 export { LoadingSearchResult } from './LoadingSearchResult';
 export { LoadMore } from './LoadMore';
 export { LocationIcon } from './LocationIcon';

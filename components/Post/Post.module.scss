@@ -2,13 +2,13 @@
 @import 'styles/fonts/typography';
 
 .component {
-  max-width: 100vw;
+  width: 100vw;
   margin: 0 auto;
   line-height: 1;
   margin-bottom: 2rem;
 
-  @media (min-width: $breakpoint-medium) {
-    max-width: 50vw;
+  @media (min-width: $breakpoint-extra-small) {
+    max-width: 700px;
   }
 }
 
@@ -16,7 +16,7 @@
   padding: 0.1rem 4vw;
   height: fit-content;
 
-  @media (min-width: $breakpoint-medium) {
+  @media (min-width: $breakpoint-extra-small) {
     padding: 0.2rem 2vw;
   }
 }
@@ -28,12 +28,12 @@
   text-transform: uppercase;
   line-height: 1.2;
 
-  @media (min-width: $breakpoint-medium) {
+  @media (min-width: $breakpoint-extra-small) {
     color: var(--wpe--color--black);
     font-size: 0.95rem;
   }
 
-  @media (min-width: $breakpoint-medium) {
+  @media (min-width: $breakpoint-extra-small) {
     font-size: 1.15rem;
   }
 }
@@ -47,7 +47,7 @@
     font-size: 1.7rem;
   }
 
-  @media (min-width: $breakpoint-medium) {
+  @media (min-width: $breakpoint-extra-small) {
     font-size: 2.4rem;
   }
 }
@@ -100,7 +100,7 @@
     font-size: 1rem;
     line-height: 1.2;
 
-    @media (min-width: $breakpoint-medium) {
+    @media (min-width: $breakpoint-extra-small) {
       font-size: 1.25rem;
     }
   }
@@ -109,7 +109,7 @@
     font-size: 1rem;
     line-height: 1.2;
 
-    @media (min-width: $breakpoint-medium) {
+    @media (min-width: $breakpoint-extra-small) {
       font-size: 1.25rem;
     }
   }
@@ -124,7 +124,7 @@
 
 .border-bottom {
   width: 95%;
-  margin: 0 auto;
+  margin: 0 auto 2rem;
   border-bottom: 1px solid var(--wpe--color--grey);
 
   @media (min-width: $breakpoint-small) {

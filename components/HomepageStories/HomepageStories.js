@@ -211,6 +211,7 @@ export default function HomepageStories(pinPosts) {
               categoryUri={post?.categories?.edges[0]?.node?.uri}
               featuredImage={post?.featuredImage?.node}
               chooseYourCategory={post?.acfCategoryIcon?.chooseYourCategory}
+              chooseIcon={post?.acfCategoryIcon?.chooseIcon?.mediaItemUrl}
               categoryLabel={post?.acfCategoryIcon?.categoryLabel}
               locationValidation={post?.acfLocationIcon?.fieldGroupName}
               locationLabel={post?.acfLocationIcon?.locationLabel}
