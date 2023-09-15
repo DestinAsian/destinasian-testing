@@ -3,7 +3,6 @@ import { gql } from '@apollo/client'
 import * as MENUS from '../constants/menus'
 import { BlogInfoFragment } from '../fragments/GeneralSettings'
 import {
-  HCHeader,
   Footer,
   Main,
   Container,
@@ -21,7 +20,11 @@ import {
   Button,
   ContentWrapperHC,
   LLHeader,
+  SingleLLContainer,
+  ContentWrapperLLFrontPage,
+  SingleLLFeaturedImage,
 } from '../components'
+import { ContentWrapperLL } from '../components/ContentWrapperLL'
 
 export default function SingleLuxeList(props) {
   // Loading state for previews
@@ -118,11 +121,11 @@ export default function SingleLuxeList(props) {
           src="https://www.googletagmanager.com/ns.html?id=GTM-5BJVGS"
           height="0"
           width="0"
-          className="hidden invisible"
+          className="invisible hidden"
         ></iframe>
       </noscript>
       {/* End Google Tag Manager (noscript) */}
-      {/* Countries pages */}
+      {/* Year pages */}
       {parent == null && (
         <LLHeader
           title={siteTitle}
@@ -139,15 +142,12 @@ export default function SingleLuxeList(props) {
       {parent == null && (
         <Main>
           <>
-            <Container>
+            <SingleLLContainer>
               {/* {'countries'} */}
               {/* All posts sorted by mainPosts & date */}
-              <EntryHeader
-                title={title}
-                // hcCaption={hcCaption?.hcCaption}
-              />
-              <ContentWrapperHCFrontPage content={content} />
-            </Container>
+              <SingleLLFeaturedImage image={featuredImage?.node} />
+              <ContentWrapperLLFrontPage content={content} />
+            </SingleLLContainer>
           </>
         </Main>
       )}
@@ -169,16 +169,16 @@ export default function SingleLuxeList(props) {
       {parent != null && (
         <Main>
           <>
-            <SingleHCContainer>
+            <SingleLLContainer>
               {/* {'hotel'} */}
-              <SingleHCFeaturedImage image={featuredImage?.node} />
-              <SingleHCEntryHeader
+              <SingleLLFeaturedImage image={featuredImage?.node} />
+              {/* <SingleLLEntryHeader
                 title={title}
                 locationLabel={hcLocation?.hcLocation}
-              />
+              /> */}
               {/* <SingleHCSlider images={images} /> */}
-              <ContentWrapperHC content={content} images={images} />
-            </SingleHCContainer>
+              <ContentWrapperLL content={content} images={images} />
+            </SingleLLContainer>
           </>
         </Main>
       )}

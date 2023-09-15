@@ -1,0 +1,29 @@
+@import 'styles/breakpoints';
+
+.component {
+  // padding-right: var(--wpe--container--padding-x);
+  // padding-left: var(--wpe--container--padding-x);
+  margin-right: 0;
+  margin-left: 0;
+  width: 100vw;
+  background-color: var(--wpe--color--black);
+  padding: 0 0 7rem;
+
+  @media (min-width: $breakpoint-extra-small) {
+    padding: 0 0 2rem;
+  }
+
+  * {
+    color: var(--wpe--color--white);
+  }
+
+  p {
+    font-family: 'Rubik Mono One', sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+
+    @media (min-width: $breakpoint-extra-small) {
+      font-size: 1.25rem;
+    }
+  }
+}
