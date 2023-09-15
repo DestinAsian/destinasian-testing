@@ -79,6 +79,12 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    width: 100%;
+
+    @media (min-width: $breakpoint-extra-small) {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
 
     ul {
       @media (min-width: $breakpoint-extra-small) {
@@ -215,7 +221,6 @@
       flex-direction: column;
       justify-content: space-between;
       width: 25%;
-      height: calc(-20rem + 100vh);
       border-top: none;
       border-left: 1px solid var(--wpe--color--black);
       padding-left: 1rem;
