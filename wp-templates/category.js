@@ -92,7 +92,7 @@ export default function Component(props) {
     return <pre>{JSON.stringify(error)}</pre>
   }
 
-  // Get ROS Banner
+  // Get Specific Banner
   const {
     data: bannerSpecificData,
     error: bannerSpecificError,

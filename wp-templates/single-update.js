@@ -1,7 +1,8 @@
-import { gql } from '@apollo/client'
+import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
 import { BlogInfoFragment } from '../fragments/GeneralSettings'
 import { useState, useEffect } from 'react'
+import { GetSpecificBannerAds } from '../queries/GetSpecificBannerAds'
 import {
   SingleHeader,
   Footer,
@@ -25,6 +26,8 @@ export default function SingleUpdate(props) {
     return <>Loading...</>
   }
 
+  const bannerPerPage = 1
+
   const { title: siteTitle, description: siteDescription } =
     props?.data?.generalSettings
   const primaryMenu = props?.data?.headerMenuItems?.nodes ?? []
@@ -34,16 +37,8 @@ export default function SingleUpdate(props) {
   const fifthMenu = props?.data?.fifthHeaderMenuItems?.nodes ?? []
   const featureMenu = props?.data?.featureHeaderMenuItems?.nodes ?? []
   const footerMenu = props?.data?.footerMenuItems?.nodes ?? []
-  const {
-    title,
-    content,
-    featuredImage,
-    author,
-    date,
-    contentType,
-    seo,
-    uri,
-  } = props?.data?.update
+  const { title, content, featuredImage, author, date, contentType, seo, uri } =
+    props?.data?.update
   const categories = props?.data?.update?.categories?.edges ?? []
   const posts = props?.data?.posts ?? []
   const editorials = props?.data?.editorials ?? []
@@ -106,6 +101,47 @@ export default function SingleUpdate(props) {
   //     : null,
   // ]
 
+  // Get Specific Banner
+  const {
+    data: bannerSpecificData,
+    error: bannerSpecificError,
+    fetchMore: fetchMoreSpecificBanner,
+  } = useQuery(GetSpecificBannerAds, {
+    variables: {
+      first: bannerPerPage,
+      after: null,
+    },
+    fetchPolicy: 'network-only',
+    nextFetchPolicy: 'cache-and-network',
+  })
+
+  if (bannerSpecificError) {
+    return <pre>{JSON.stringify(error)}</pre>
+  }
+
+  // Specific Banner Ads
+  const bannerSpecificAdsArray = bannerSpecificData?.bannerAds?.edges || []
+  const bannerSpecificAdsWithImg = bannerSpecificAdsArray.filter(
+    (bannerAd) => !bannerAd?.node?.content.includes('<!--'),
+  )
+
+  const matchingBannerAdsWithImg = bannerSpecificAdsWithImg.filter(
+    (bannerAd) => {
+      const anyOfUris = bannerAd?.node?.acfBannerAds?.anyOf?.map(
+        (anyOfItem) => anyOfItem.uri,
+      )
+      return anyOfUris && anyOfUris.includes(categories[0]?.node?.uri)
+    },
+  )
+
+  const sortedBannerAdsArray = [...matchingBannerAdsWithImg]
+  // .reduce((uniqueAds, ad) => {
+  //   if (!uniqueAds.some((uniqueAd) => uniqueAd?.node?.id === ad?.node?.id)) {
+  //     uniqueAds.push(ad)
+  //   }
+  //   return uniqueAds
+  // }, [])
+
   // Randomized slice function
   function getRandomSlice(array, count) {
     const shuffledArray = shuffleArray([...array])
@@ -155,7 +191,9 @@ export default function SingleUpdate(props) {
               date={date}
             />
             <ContentWrapperUpdate content={content} />
-            {/* <ModuleAd banner1={}/> */}
+            {sortedBannerAdsArray.map((bannerAd) => (
+              <ModuleAd bannerAd={bannerAd?.node?.content} />
+            ))}
             {/* <EntryRelatedStories /> */}
             {/* {shuffledRelatedStories.map((post) => (
               <Container>
