@@ -49,7 +49,7 @@
   font-size: 1.75rem;
   font-weight: 500;
   color: var(--wpe--color--title);
-  text-transform: capitalize;
+  text-transform: none;
 
   @media (min-width: $breakpoint-extra-small) {
     font-size: 2.25rem;

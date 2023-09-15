@@ -171,59 +171,61 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
               )}
           </div>
         </div>
-        <div className={cx('first-wrapper')}>
-          {/* Secondary Menu {Destinations Menu} */}
-          <NavigationMenu
-            className={cx('secondary-navigation')}
-            menuItems={secondaryMenuItems}
-          />
-        </div>
-        <div className={cx('second-wrapper')}>
-          {/* Primary Menu {Destination Guides Menu} */}
-          <NavigationMenu
-            className={cx('primary-navigation')}
-            menuItems={primaryMenuItems}
-          />
-        </div>
-        <div className={cx('third-wrapper')}>
-          {/* Feature Stories & Latest Travel Stories */}
-          <nav className={cx('feature-stories')}>
+        <div className={cx('menu-wrapper')}>
+          <div className={cx('first-wrapper')}>
+            {/* Secondary Menu {Destinations Menu} */}
             <NavigationMenu
-              className={cx('feature-navigation')}
-              menuItems={featureMenuItems}
-            />
-          </nav>
-          <nav className={cx('latest-stories')}>
-            <ul className={cx('menu-name')}>{'Latest Travel Stories'}</ul>
-            <ul className={cx('menu-content')}>
-              {latestStories.length !== 0 &&
-                latestStories.slice(0, visiblePosts).map((post) => (
-                  <li key={post.id}>
-                    <a href={post.uri}>{post.title}</a>
-                  </li>
-                ))}
-            </ul>
-          </nav>
-        </div>
-        <div className={cx('fourth-wrapper')}>
-          <div className={cx('left-wrapper')}>
-            {/* Third Menu {Static Pages Menu} */}
-            <NavigationMenu
-              className={cx(['third-navigation'])}
-              menuItems={thirdMenuItems}
-            />
-            {/* Fourth Menu {Newsletters Menu} */}
-            <NavigationMenu
-              className={cx(['fourth-navigation'])}
-              menuItems={fourthMenuItems}
+              className={cx('secondary-navigation')}
+              menuItems={secondaryMenuItems}
             />
           </div>
-          <div className={cx('right-wrapper')}>
-            {/* Fifth Menu {Print Magazine Menu} */}
+          <div className={cx('second-wrapper')}>
+            {/* Primary Menu {Destination Guides Menu} */}
             <NavigationMenu
-              className={cx(['fifth-navigation'])}
-              menuItems={fifthMenuItems}
+              className={cx('primary-navigation')}
+              menuItems={primaryMenuItems}
             />
+          </div>
+          <div className={cx('third-wrapper')}>
+            {/* Feature Stories & Latest Travel Stories */}
+            <nav className={cx('feature-stories')}>
+              <NavigationMenu
+                className={cx('feature-navigation')}
+                menuItems={featureMenuItems}
+              />
+            </nav>
+            <nav className={cx('latest-stories')}>
+              <ul className={cx('menu-name')}>{'Latest Travel Stories'}</ul>
+              <ul className={cx('menu-content')}>
+                {latestStories.length !== 0 &&
+                  latestStories.slice(0, visiblePosts).map((post) => (
+                    <li key={post.id}>
+                      <a href={post.uri}>{post.title}</a>
+                    </li>
+                  ))}
+              </ul>
+            </nav>
+          </div>
+          <div className={cx('fourth-wrapper')}>
+            <div className={cx('left-wrapper')}>
+              {/* Third Menu {Static Pages Menu} */}
+              <NavigationMenu
+                className={cx(['third-navigation'])}
+                menuItems={thirdMenuItems}
+              />
+              {/* Fourth Menu {Newsletters Menu} */}
+              <NavigationMenu
+                className={cx(['fourth-navigation'])}
+                menuItems={fourthMenuItems}
+              />
+            </div>
+            <div className={cx('right-wrapper')}>
+              {/* Fifth Menu {Print Magazine Menu} */}
+              <NavigationMenu
+                className={cx(['fifth-navigation'])}
+                menuItems={fifthMenuItems}
+              />
+            </div>
           </div>
         </div>
       </div>
