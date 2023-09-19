@@ -2,6 +2,7 @@ import category from './category'
 import tag from './tag'
 import frontPage from './front-page'
 import page from './page'
+import pageContests from './page-contests'
 import pageHonorsCircle from './page-honors-circle'
 import pageLuxeList from './page-luxe-list'
 import single from './single'
@@ -17,6 +18,7 @@ export default {
   tag,
   'front-page': frontPage,
   page,
+  'page-contests': pageContests,
   'page-honors-circle': pageHonorsCircle,
   'page-luxe-list': pageLuxeList,
   single,

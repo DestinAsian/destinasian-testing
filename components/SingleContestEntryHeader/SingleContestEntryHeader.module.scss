@@ -2,14 +2,14 @@
 @import 'styles/fonts/typography';
 
 .component {
-  background-color: var(--wpe--color--light--blue);
+  background-color: var(--wpe--main--background--color);
   color: var(--wpe--color--black);
   position: relative;
   overflow: hidden;
-  padding: 1rem 0 0;
+  padding: 1rem 0;
 
   @media (min-width: $breakpoint-small) {
-    padding: 2rem 0 0;
+    padding: 2rem 0;
   }
 }
 
@@ -20,22 +20,22 @@
   padding: 0 1rem;
   flex-direction: column;
   row-gap: 0;
+  text-align: center;
 
   @media (min-width: $breakpoint-small) {
-    max-width: 50vw;
+    max-width: 700px;
     padding: 0 2rem;
   }
 }
 
-.title,
-.parent {
+.title {
   font-family: 'Gotham A', 'Gotham B';
   font-style: normal;
   font-weight: 800;
   line-height: 1.2;
   font-size: 1.75rem;
   color: var(--wpe--color--title);
-  text-transform: none;
+  text-transform: uppercase;
 
   @media (min-width: $breakpoint-extra-small) {
     font-size: 2.25rem;

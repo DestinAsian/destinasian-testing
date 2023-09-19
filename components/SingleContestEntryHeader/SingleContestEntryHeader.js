@@ -1,5 +1,5 @@
 import className from 'classnames/bind'
-import { Heading, Container, CategoryIcon, LocationIcon } from '..'
+import { Heading, Container } from '..'
 import styles from './SingleContestEntryHeader.module.scss'
 
 let cx = className.bind(styles)
