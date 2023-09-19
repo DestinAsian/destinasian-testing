@@ -87,6 +87,11 @@ export default function ContentWrapperContestFrontPage() {
   return (
     <article className={cx('component')}>
       <div className={cx('full-wrapper')}>
+        {allPosts.length === 0 && (
+          <div className={cx('no-contest')}>
+            {"We don't have any contests available right now..."}
+          </div>
+        )}
         {allPosts.length !== 0 &&
           allPosts.map((post, index) => (
             <React.Fragment key={post?.id}>
@@ -104,7 +109,7 @@ export default function ContentWrapperContestFrontPage() {
             )} */}
             </React.Fragment>
           ))}
-        {allPosts.length && (
+        {allPosts.length !== 0 && allPosts.length && (
           <div className="mx-auto my-0 flex max-w-[100vw] justify-center md:max-w-[50vw]	">
             {data?.contests?.pageInfo?.hasNextPage &&
               data?.contests?.pageInfo?.endCursor && (

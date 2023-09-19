@@ -28,7 +28,8 @@ export default function Component(props) {
   const fourthMenu = props?.data?.fourthHeaderMenuItems?.nodes ?? []
   const fifthMenu = props?.data?.fifthHeaderMenuItems?.nodes ?? []
   const featureMenu = props?.data?.featureHeaderMenuItems?.nodes ?? []
-  const { title, content, featuredImage, hcCaption, seo, uri } = props?.data?.page ?? []
+  const { title, content, featuredImage, hcCaption, seo, uri } =
+    props?.data?.page ?? []
   const posts = props?.data?.posts ?? []
   const editorials = props?.data?.editorials ?? []
 
@@ -75,7 +76,7 @@ export default function Component(props) {
           src="https://www.googletagmanager.com/ns.html?id=GTM-5BJVGS"
           height="0"
           width="0"
-          className="hidden invisible"
+          className="invisible hidden"
         ></iframe>
       </noscript>
       {/* End Google Tag Manager (noscript) */}
@@ -93,8 +94,8 @@ export default function Component(props) {
       <Main>
         <>
           <Container>
-            <EntryHeader contestTitle={title}/>
-            <ContentWrapperContestFrontPage/>
+            <EntryHeader contestTitle={title} />
+            <ContentWrapperContestFrontPage />
           </Container>
         </>
       </Main>

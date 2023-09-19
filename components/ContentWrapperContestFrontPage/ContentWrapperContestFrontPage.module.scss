@@ -7,7 +7,7 @@
   padding: 0;
   margin-bottom: 2rem;
 
-  .full-wrapper {   
+  .full-wrapper {
     margin: 0 auto;
     line-height: 1.2;
     padding: 0;
@@ -19,6 +19,16 @@
     flex-direction: column;
     row-gap: 0.25rem;
     padding: 1rem 0;
+  }
+
+  .no-contest {
+    margin: 0 auto;
+    width: 100vw;
+    text-align: center;
+
+    @media (min-width: $breakpoint-small) {
+      max-width: 700px;
+    }
   }
 
   :global {
