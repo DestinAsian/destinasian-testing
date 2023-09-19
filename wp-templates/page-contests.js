@@ -93,7 +93,7 @@ export default function Component(props) {
       <Main>
         <>
           <Container>
-            <SingleContestEntryHeader title={title}/>
+            <EntryHeader contestTitle={title}/>
             <ContentWrapperContestFrontPage/>
           </Container>
         </>

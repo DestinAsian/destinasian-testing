@@ -1,12 +1,10 @@
 import classNames from 'classnames/bind'
-import { FeaturedImage, CategoryIcon, LocationIcon, Container } from '..'
+import { FeaturedImage } from '..'
 import styles from './ContestPost.module.scss'
 
 let cx = classNames.bind(styles)
 
-const MAX_EXCERPT_LENGTH = 150 // Adjust the maximum length as needed
-
-export default function ContestPost({ title, uri, featuredImage }) {
+export default function ContestPost({ title, uri, featuredImage, date }) {
   return (
     <article className={cx('component')}>
       {featuredImage && (
@@ -25,7 +23,15 @@ export default function ContestPost({ title, uri, featuredImage }) {
           <h2 className={cx('title')}>{title}</h2>
         </a>
       </div>
-      <div className={cx('border-bottom')}></div>
+      <div className={cx('date-wrapper')}>
+        <h2 className={cx('date')}>
+          {'Contest Date: '}
+          {date}
+        </h2>
+      </div>
+      <div className={cx('content-wrapper-image')}>
+        <div className={cx('border-bottom')}></div>
+      </div>
     </article>
   )
 }

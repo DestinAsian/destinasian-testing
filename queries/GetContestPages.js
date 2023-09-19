@@ -18,7 +18,6 @@ export const GetContestPages = gql`
           uri
           title
           content
-          date
           excerpt
           featuredImage {
             node {
@@ -30,6 +29,9 @@ export const GetContestPages = gql`
                 height
               }
             }
+          }
+          contestDate {
+            contestDate
           }
         }
       }

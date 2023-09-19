@@ -14,6 +14,7 @@ export { ContentWrapperLL } from './ContentWrapperLL';
 export { ContentWrapperLLFrontPage } from './ContentWrapperLLFrontPage';
 export { ContentWrapperPage } from './ContentWrapperPage';
 export { ContentWrapperUpdate } from './ContentWrapperUpdate';
+export { ContestPost } from './ContestPost';
 export { DaGuideMenu } from './DaGuideMenu';
 export { EntryHeader } from './EntryHeader';
 export { EntryRelatedStories } from './EntryRelatedStories';

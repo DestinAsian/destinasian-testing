@@ -14,6 +14,7 @@ export default function EntryHeader({
   author,
   className,
   hcCaption,
+  contestTitle,
 }) {
   const hasText = parent || title || date || author
 
@@ -50,6 +51,12 @@ export default function EntryHeader({
             {hcCountryTitle}
           </Heading>
           <Heading className={cx('hc-caption')}>{hcCaption}</Heading>
+        </Container>
+      )}
+
+      {contestTitle && (
+        <Container>
+          <Heading className={cx('contest-title')}>{contestTitle}</Heading>
         </Container>
       )}
     </div>

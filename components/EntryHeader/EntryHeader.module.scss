@@ -67,7 +67,7 @@
   @media (min-width: $breakpoint-extra-small) {
     font-size: 1.75rem;
     margin: 0 auto;
-    width: 700px;
+    max-width: 700px;
   }
 
   @media (min-width: $breakpoint-medium) {
@@ -92,6 +92,28 @@
 
   @media (min-width: $breakpoint-medium) {
     font-size: 1.5rem;
+  }
+}
+
+.contest-title {
+  font-family: 'Gotham A', 'Gotham B';
+  font-style: normal;
+  font-weight: 800;
+  line-height: 1.6;
+  font-size: 1.7rem;
+  color: var(--wpe--color--title);
+  text-transform: uppercase;
+  text-align: center;
+  padding: 0 1rem;
+
+  @media (min-width: $breakpoint-extra-small) {
+    font-size: 1.75rem;
+    margin: 0 auto;
+    max-width: 700px;
+  }
+
+  @media (min-width: $breakpoint-medium) {
+    font-size: 2.5rem;
   }
 }
 
