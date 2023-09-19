@@ -11,7 +11,7 @@ import {
   ContentWrapperHCFrontPage,
   EntryHeader,
   SingleContestEntryHeader,
-  ContentWrapperContest,
+  ContentWrapperContestFrontPage,
 } from '../components'
 
 export default function Component(props) {
@@ -94,7 +94,7 @@ export default function Component(props) {
         <>
           <Container>
             <SingleContestEntryHeader title={title}/>
-            <ContentWrapperContest/>
+            <ContentWrapperContestFrontPage/>
           </Container>
         </>
       </Main>

@@ -6,6 +6,7 @@ export { Container } from './Container';
 export { ContentWrapper } from './ContentWrapper';
 export { ContentWrapperAdvertorial } from './ContentWrapperAdvertorial';
 export { ContentWrapperContest } from './ContentWrapperContest';
+export { ContentWrapperContestFrontPage } from './ContentWrapperContestFrontPage';
 export { ContentWrapperEditorial } from './ContentWrapperEditorial';
 export { ContentWrapperHC } from './ContentWrapperHC';
 export { ContentWrapperHCFrontPage } from './ContentWrapperHCFrontPage';
