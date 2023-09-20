@@ -1,4 +1,4 @@
-import { Container, FeaturedImage, LoadingSearchResult } from '../../components'
+import { FeaturedImage, LoadingSearchResult } from '../../components'
 import { FaSearch } from 'react-icons/fa'
 
 import styles from './SearchResults.module.scss'
@@ -31,7 +31,7 @@ export default function SearchResults({ searchResults, isLoading }) {
     <>
       <div className={styles.component}>
         {searchResults?.map((node) => (
-          <Container>
+          <div className={styles.contentWrapper}>
             {/* {node.featuredImage.node && (
               <div className={styles.wrapperImage}>
                 <a href={node.uri}>
@@ -90,7 +90,7 @@ export default function SearchResults({ searchResults, isLoading }) {
                 />
               </a>
             </div>
-          </Container>
+          </div>
         ))}
 
         {/* {isLoading === true && (

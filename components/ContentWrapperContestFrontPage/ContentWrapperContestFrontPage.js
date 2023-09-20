@@ -97,7 +97,6 @@ export default function ContentWrapperContestFrontPage() {
             <React.Fragment key={post?.id}>
               <ContestPost
                 title={post?.title}
-                date={post?.contestDate?.contestDate}
                 uri={post?.uri}
                 featuredImage={post?.featuredImage?.node}
               />

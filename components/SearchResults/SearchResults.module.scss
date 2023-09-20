@@ -23,6 +23,15 @@ $color-grey: #777;
   }
 }
 
+.contentWrapper {
+  width: 100%;
+  display: flex;
+}
+
+// .wrapperImage {
+//   width: 20%;
+// }
+
 .result {
   display: flex;
   left: 0;
@@ -36,7 +45,6 @@ $color-grey: #777;
 
   @media (min-width: $breakpoint-extra-small) {
     padding-bottom: 2rem;
-    width: 100%;
   }
 
   p {

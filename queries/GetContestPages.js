@@ -30,9 +30,6 @@ export const GetContestPages = gql`
               }
             }
           }
-          contestDate {
-            contestDate
-          }
         }
       }
     }

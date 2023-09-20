@@ -160,7 +160,14 @@ export default function HomepageStories(pinPosts) {
   }
 
   // Declare all posts
-  const allPosts = data?.contentNodes?.edges.map((post) => post.node) || []
+  const allPosts = (data?.contentNodes?.edges || [])
+    .map((post) => post.node)
+    .filter(
+      (post) =>
+        !['Airline News', 'Trade Talk'].includes(
+          post.categories?.edges[0]?.node?.name,
+        ),
+    )
 
   // Declare all pin posts
   const allPinPosts = [
@@ -220,10 +227,8 @@ export default function HomepageStories(pinPosts) {
             {/* Show 1st banner after 2 posts and then every 4 posts */}
             {(index - 1) % 4 === 0 && (
               <ModuleAd
-              bannerAd={
-                sortedBannerAdsArray[(index - 1) / 4]?.node?.content
-              }
-            />
+                bannerAd={sortedBannerAdsArray[(index - 1) / 4]?.node?.content}
+              />
             )}
           </React.Fragment>
         ))}

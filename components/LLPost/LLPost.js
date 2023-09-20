@@ -1,10 +1,10 @@
 import classNames from 'classnames/bind'
 import { FeaturedImage } from '..'
-import styles from './ContestPost.module.scss'
+import styles from './LLPost.module.scss'
 
 let cx = classNames.bind(styles)
 
-export default function ContestPost({ title, uri, featuredImage }) {
+export default function LLPost({ title, category, uri, featuredImage, parentTitle }) {
   return (
     <article className={cx('component')}>
       {featuredImage && (
@@ -16,6 +16,13 @@ export default function ContestPost({ title, uri, featuredImage }) {
               className={styles.featuredImage}
             />
           </a>
+        </div>
+      )}
+      {category && (
+        <div className={cx('content-wrapper')}>
+          <h5 className={cx('category')}>
+            {parentTitle} {' / '} {category}
+          </h5>
         </div>
       )}
       <div className={cx('content-wrapper')}>

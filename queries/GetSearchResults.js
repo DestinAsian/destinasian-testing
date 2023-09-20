@@ -1,5 +1,4 @@
 import { gql } from '@apollo/client'
-import { FeaturedImage } from '../components'
 
 export const GetSearchResults = gql`
   query GetSearchResults($first: Int!, $after: String, $search: String) {
@@ -25,6 +24,8 @@ export const GetSearchResults = gql`
                 ADVERTORIAL
                 HONORS_CIRCLE
                 UPDATE
+                CONTEST
+                LUXE_LIST
               ]
             }
           ) {
@@ -42,6 +43,17 @@ export const GetSearchResults = gql`
                 ... on Post {
                   title
                   excerpt
+                  featuredImage {
+                    node {
+                      id
+                      sourceUrl
+                      altText
+                      mediaDetails {
+                        width
+                        height
+                      }
+                    }
+                  }
                   categories {
                     edges {
                       node {
@@ -59,10 +71,32 @@ export const GetSearchResults = gql`
                 ... on HonorsCircle {
                   title
                   excerpt
+                  featuredImage {
+                    node {
+                      id
+                      sourceUrl
+                      altText
+                      mediaDetails {
+                        width
+                        height
+                      }
+                    }
+                  }
                 }
                 ... on Editorial {
                   title
                   excerpt
+                  featuredImage {
+                    node {
+                      id
+                      sourceUrl
+                      altText
+                      mediaDetails {
+                        width
+                        height
+                      }
+                    }
+                  }
                   categories {
                     edges {
                       node {
@@ -75,6 +109,46 @@ export const GetSearchResults = gql`
                 ... on Advertorial {
                   title
                   excerpt
+                  featuredImage {
+                    node {
+                      id
+                      sourceUrl
+                      altText
+                      mediaDetails {
+                        width
+                        height
+                      }
+                    }
+                  }
+                }
+                ... on LuxeList {
+                  title
+                  excerpt
+                  featuredImage {
+                    node {
+                      id
+                      sourceUrl
+                      altText
+                      mediaDetails {
+                        width
+                        height
+                      }
+                    }
+                  }
+                }
+                ... on Contest {
+                  title
+                  featuredImage {
+                    node {
+                      id
+                      sourceUrl
+                      altText
+                      mediaDetails {
+                        width
+                        height
+                      }
+                    }
+                  }
                 }
               }
             }

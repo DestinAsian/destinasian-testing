@@ -55,25 +55,6 @@
   }
 }
 
-.date-wrapper {
-  padding: 0 1rem 1rem;
-  top: 25%;
-  right: 0;
-  position: relative;
-  width: 100vw;
-  margin: 0 auto;
-
-  @media (min-width: $breakpoint-extra-small) {
-    max-width: 700px;
-  }
-
-  @media (min-width: $breakpoint-large) {
-    width: 15rem;
-    position: absolute;
-    font-size: 1rem;
-  }
-}
-
 .date {
   font-family: 'Chronicle Display A', 'Chronicle Display B';
   font-style: normal;
