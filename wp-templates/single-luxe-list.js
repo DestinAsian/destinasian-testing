@@ -15,8 +15,8 @@ import {
   SingleAdvertorialEntryHeader,
   LLPost,
   Button,
+  ContentWrapperLL,
 } from '../components'
-import { ContentWrapperLL } from '../components/ContentWrapperLL'
 
 export default function SingleLuxeList(props) {
   // Loading state for previews
@@ -44,6 +44,8 @@ export default function SingleLuxeList(props) {
     seo,
     uri,
     children,
+    databaseId,
+    luxeListLogo,
   } = props?.data?.luxeList
   // Latest Travel Stories
   const latestPosts = props?.data?.posts ?? []
@@ -51,80 +53,6 @@ export default function SingleLuxeList(props) {
 
   const latestMainPosts = []
   const latestMainEditorialPosts = []
-
-  const luxeListPosts = []
-
-  const [visiblePosts, setVisiblePosts] = useState(4)
-  const loadMorePosts = () => {
-    setVisiblePosts((prevVisiblePosts) => prevVisiblePosts + 4)
-
-    // // Call the fetchMoreROSBanner function to load additional banner ads
-    // fetchMoreROSBanner({
-    //   variables: {
-    //     first: bannerPerPage,
-    //     after: bannerROSData?.bannerAds?.pageInfo?.endCursor,
-    //   },
-    //   updateQuery: (prev, { fetchMoreResult }) => {
-    //     if (!fetchMoreResult) return prev
-    //     return {
-    //       ...prev,
-    //       bannerAds: {
-    //         ...fetchMoreResult.bannerAds,
-    //         edges: [
-    //           ...prev.bannerAds.edges,
-    //           ...fetchMoreResult.bannerAds.edges,
-    //         ],
-    //       },
-    //     }
-    //   },
-    // })
-
-    // fetchMoreSpecificBanner({
-    //   variables: {
-    //     first: bannerPerPage,
-    //     after: bannerSpecificData?.bannerAds?.pageInfo?.endCursor,
-    //   },
-    //   updateQuery: (prev, { fetchMoreResult }) => {
-    //     if (!fetchMoreResult) return prev
-    //     return {
-    //       ...prev,
-    //       bannerAds: {
-    //         ...fetchMoreResult.bannerAds,
-    //         edges: [
-    //           ...prev.bannerAds.edges,
-    //           ...fetchMoreResult.bannerAds.edges,
-    //         ],
-    //       },
-    //     }
-    //   },
-    // })
-  }
-
-  // load more posts when scrolled to bottom
-  const checkScrollBottom = () => {
-    const scrolledToBottom =
-      window.scrollY + window.innerHeight >=
-      document.documentElement.scrollHeight
-
-    if (scrolledToBottom) {
-      // Call the loadMorePosts function to load additional posts
-      loadMorePosts()
-    }
-  }
-
-  useEffect(() => {
-    const handleScroll = () => {
-      checkScrollBottom()
-    }
-
-    // Attach the event listener
-    window.addEventListener('scroll', handleScroll)
-
-    // Clean up the event listener when the component unmounts
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
-  }, [])
 
   // loop through all the latest categories posts
   latestPosts.edges.forEach((post) => {
@@ -141,27 +69,6 @@ export default function SingleLuxeList(props) {
     ...(latestMainPosts != null ? latestMainPosts : []),
     ...(latestMainEditorialPosts != null ? latestMainEditorialPosts : []),
   ]
-
-  // loop through all luxe list posts
-  children.edges.forEach((post) => {
-    luxeListPosts.push(post.node)
-  })
-
-  console.log(luxeListPosts)
-
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     checkScrollBottom()
-  //   }
-
-  //   // Attach the event listener
-  //   window.addEventListener('scroll', handleScroll)
-
-  //   // Clean up the event listener when the component unmounts
-  //   return () => {
-  //     window.removeEventListener('scroll', handleScroll)
-  //   }
-  // }, [])
 
   // sort posts by date
   const sortPostsByDate = (a, b) => {
@@ -219,51 +126,16 @@ export default function SingleLuxeList(props) {
             <SingleLLContainer>
               {/* {'countries'} */}
               {/* All posts sorted by mainPosts & date */}
-              <SingleLLFeaturedImage image={featuredImage?.node} />
-              <ContentWrapperLLFrontPage content={content} />
-              {luxeListPosts.length !== 0 &&
-                luxeListPosts.slice(0, visiblePosts).map((post, index) => (
-                  <React.Fragment key={post?.id}>
-                    <LLPost
-                      title={post?.title}
-                      uri={post?.uri}
-                      category={post?.categories?.edges[0]?.node?.name}
-                      categoryUri={post?.categories?.edges[0]?.node?.uri}
-                      featuredImage={post?.featuredImage?.node}
-                      parentTitle={title}
-                    />
-                  </React.Fragment>
-                ))}
-              {visiblePosts < luxeListPosts.length && (
-                <div className="mx-auto my-0 flex max-w-[100vw] justify-center md:max-w-[50vw]	">
-                  <Button onClick={loadMorePosts} className="gap-x-4	">
-                    Load More{' '}
-                    <svg
-                      className="h-auto w-8 origin-center rotate-90	"
-                      version="1.0"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="512.000000pt"
-                      height="512.000000pt"
-                      viewBox="0 0 512.000000 512.000000"
-                      preserveAspectRatio="xMidYMid meet"
-                    >
-                      <g
-                        transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
-                        fill="#000000"
-                        stroke="none"
-                      >
-                        <path
-                          d="M1387 5110 c-243 -62 -373 -329 -272 -560 27 -62 77 -114 989 -1027
-l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
--289 39 -117 106 -191 220 -245 59 -28 74 -31 160 -30 74 0 108 5 155 23 58
-22 106 70 1198 1160 1304 1302 1202 1185 1202 1371 0 186 102 69 -1202 1371
--1102 1101 -1140 1137 -1198 1159 -67 25 -189 34 -248 20z"
-                        />
-                      </g>
-                    </svg>
-                  </Button>
-                </div>
-              )}
+              <SingleLLFeaturedImage
+                mainLogo={luxeListLogo?.mainLogo}
+                secondaryLogo={luxeListLogo?.secondaryLogo}
+                id={databaseId}
+              />
+              <ContentWrapperLLFrontPage
+                content={content}
+                id={databaseId}
+                parentTitle={title}
+              />
             </SingleLLContainer>
           </>
         </Main>
@@ -288,9 +160,7 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
           <>
             <SingleLLContainer>
               {/* {'hotel'} */}
-              <SingleAdvertorialEntryHeader
-                title={title}
-              />
+              <SingleAdvertorialEntryHeader title={title} />
               {/* <SingleHCSlider images={images} /> */}
               <ContentWrapperLL content={content} images={images} />
             </SingleLLContainer>
@@ -323,7 +193,28 @@ SingleLuxeList.query = gql`
     luxeList(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
       title
       content
+      databaseId
       ...FeaturedImageFragment
+      luxeListLogo {
+        mainLogo {
+          id
+          sourceUrl
+          altText
+          mediaDetails {
+            width
+            height
+          }
+        }
+        secondaryLogo {
+          id
+          sourceUrl
+          altText
+          mediaDetails {
+            width
+            height
+          }
+        }
+      }
       author {
         node {
           name
@@ -352,40 +243,6 @@ SingleLuxeList.query = gql`
         }
       }
       ...FeaturedImageFragment
-      children(
-        where: {
-          contentTypes: LUXE_LIST
-          status: PUBLISH
-          orderby: { field: MODIFIED, order: DESC }
-        }
-        first: $first
-      ) {
-        edges {
-          node {
-            ... on LuxeList {
-              id
-              title
-              content
-              uri
-              ...FeaturedImageFragment
-              categories(where: {}) {
-                edges {
-                  node {
-                    id
-                    name
-                  }
-                }
-              }
-            }
-          }
-        }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
-        }
-      }
       parent {
         node {
           ... on HonorsCircle {

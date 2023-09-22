@@ -17,7 +17,7 @@ function shuffleArray(array) {
   return array
 }
 
-export default function CategoryStories(pinPosts, uri, databaseId) {
+export default function CategoryStories(pinPosts, uri, id) {
   // Fetching Posts
   const [isFetchingMore, setIsFetchingMore] = useState(false)
   // Declare state for banner ads
@@ -31,7 +31,7 @@ export default function CategoryStories(pinPosts, uri, databaseId) {
     variables: {
       first: postsPerPage,
       after: null,
-      termTaxonomy: 5,
+      id: id,
     },
     fetchPolicy: 'network-only',
     nextFetchPolicy: 'cache-and-network',
@@ -85,9 +85,6 @@ export default function CategoryStories(pinPosts, uri, databaseId) {
     fetchPolicy: 'network-only',
     nextFetchPolicy: 'cache-and-network',
   })
-
-  console.log(bannerSpecificData)
-  console.log(data)
 
   if (bannerSpecificError) {
     return <pre>{JSON.stringify(error)}</pre>

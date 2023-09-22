@@ -31,6 +31,7 @@ export { Heading } from './Heading';
 export { Hero } from './Hero';
 export { HomepageHeader } from './HomepageHeader';
 export { HomepageStories } from './HomepageStories';
+export { LLMenu } from './LLMenu';
 export { LLPost } from './LLPost';
 export { LoadingSearchResult } from './LoadingSearchResult';
 export { LoadMore } from './LoadMore';

@@ -6,12 +6,23 @@
   // color: var(--wpe--color--black);
   position: relative;
   overflow: hidden;
-  margin: 0;
+  margin: 0 auto;
   width: 100vw;
 
   @media (min-width: $breakpoint-extra-small) {
-    margin: 0 auto;
     max-width: 700px;
+  }
+
+  &.show {
+    height: 100vh;
+
+    @media ((min-width: $breakpoint-extra-small) and (max-width: $breakpoint-small)) {
+      height: calc(-3.5rem + 100vh);
+    }
+
+    @media (min-width: $breakpoint-small) {
+      height: calc(-4.5rem + 100vh);
+    }
   }
 }
 
@@ -36,6 +47,104 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+    }
+  }
+}
+
+.image-menu-wrapper {
+  display: flex;
+  width: 100%;
+  margin: 0 auto;
+  flex-direction: column;
+  row-gap: 0.5rem;
+  align-items: flex-end;
+  padding: 1rem;
+
+  @media (min-width: $breakpoint-small) {
+    padding: 1rem;
+  }
+
+  figure {
+    width: 10rem;
+    height: auto;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}
+
+.menu-button {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  button svg {
+    height: 3.5rem;
+  }
+}
+
+.close-icon {
+  display: flex;
+  margin-top: 0;
+  margin-bottom: 0;
+  background-color: transparent;
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  width: 1.3rem;
+
+  @media (min-width: $breakpoint-extra-small) {
+    width: 1.6rem;
+    height: 3.5rem;
+  }
+
+  @media (min-width: $breakpoint-medium) {
+    width: 1.8rem;
+  }
+}
+
+.close-button {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  button svg {
+    height: 3.5rem;
+  }
+}
+
+.full-menu-wrapper {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  z-index: 49;
+  top: -150vh;
+  background-color: var(--wpe--color--black);
+  color: var(--wpe--color--white);
+  margin: 0 auto;
+
+  @media (min-width: $breakpoint-extra-small) {
+    max-width: 700px;
+  }
+
+  &.show {
+    padding: 0;
+    gap: 1rem;
+    top: 5.5rem;
+    transition: top 0.4s ease-in-out;
+
+    @media ((min-width: $breakpoint-extra-small) and (max-width: $breakpoint-small)) {
+      top: 4.5rem;
+    }
+
+    @media (min-width: $breakpoint-small) {
+      top: 5.5rem;
     }
   }
 }

@@ -3,8 +3,6 @@ import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
 import { BlogInfoFragment } from '../fragments/GeneralSettings'
 import { PostFragment } from '../fragments/PostFragment'
-import { GetROSBannerAds } from '../queries/GetROSBannerAds'
-import { GetSpecificBannerAds } from '../queries/GetSpecificBannerAds'
 import {
   CategoryHeader,
   SecondaryHeader,
@@ -60,10 +58,6 @@ export default function Component(props) {
     destinationGuides,
   } = props?.data?.nodeByUri ?? []
 
-  // Declare state for banner ads
-  const [bannerAdsArray, setBannerAdsArray] = useState([])
-  const bannerPerPage = 15
-
   // // Post per fetching
   // const postsPerPage = 4
 
@@ -75,42 +69,6 @@ export default function Component(props) {
   //   fetchPolicy: 'network-only',
   //   nextFetchPolicy: 'cache-and-network',
   // })
-
-  // Get ROS Banner
-  const {
-    data: bannerROSData,
-    error: bannerROSError,
-    fetchMore: fetchMoreROSBanner,
-  } = useQuery(GetROSBannerAds, {
-    variables: {
-      first: bannerPerPage,
-      after: null,
-    },
-    fetchPolicy: 'network-only',
-    nextFetchPolicy: 'cache-and-network',
-  })
-
-  if (bannerROSError) {
-    return <pre>{JSON.stringify(error)}</pre>
-  }
-
-  // Get Specific Banner
-  const {
-    data: bannerSpecificData,
-    error: bannerSpecificError,
-    fetchMore: fetchMoreSpecificBanner,
-  } = useQuery(GetSpecificBannerAds, {
-    variables: {
-      first: bannerPerPage,
-      after: null,
-    },
-    fetchPolicy: 'network-only',
-    nextFetchPolicy: 'cache-and-network',
-  })
-
-  if (bannerSpecificError) {
-    return <pre>{JSON.stringify(error)}</pre>
-  }
 
   // Rest of World validation
   const rowValidation =
@@ -211,7 +169,7 @@ export default function Component(props) {
 
       <Main>
         <>
-          <CategoryStories pinPosts={pinPosts} uri={uri} databaseId={databaseId}/>
+          <CategoryStories pinPosts={pinPosts} uri={destinationGuides} id={databaseId}/>
         </>
       </Main>
       <Footer />

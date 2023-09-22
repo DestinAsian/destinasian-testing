@@ -1,19 +1,18 @@
 import { gql } from '@apollo/client'
 
 export const GetCategoryStories = gql`
-  query GetCategoryStories($first: Int, $after: String, $termTaxonomyId: [ID] = Int) {
-    categories(first: $first, after: $after, where: {termTaxonomyId: $termTaxonomyId}) {
-      edges {
-        node {
-          contentNodes {
-            edges {
-              node {
-                title
-                excerpt
-                content
-                uri
-              }
-            }
+  query GetCategoryStories($first: Int, $after: String, $id: ID!) {
+    category(id: $id, idType: DATABASE_ID) {
+      contentNodes(
+        first: $first
+        after: $after
+      ) {
+        edges {
+          node {
+            title
+            excerpt
+            content
+            uri
           }
         }
       }
