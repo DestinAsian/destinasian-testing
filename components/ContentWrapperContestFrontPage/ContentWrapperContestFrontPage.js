@@ -74,7 +74,7 @@ export default function ContentWrapperContestFrontPage() {
   if (loading) {
     return (
       <>
-        <div className="mx-auto my-0 flex max-w-[100vw] justify-center md:max-w-[50vw]	">
+        <div className="mx-auto my-0 flex max-w-[100vw] justify-center md:max-w-[700px]	">
           <Button className="gap-x-4	">{'Loading...'}</Button>
         </div>
       </>
@@ -109,7 +109,7 @@ export default function ContentWrapperContestFrontPage() {
             </React.Fragment>
           ))}
         {allPosts.length !== 0 && allPosts.length && (
-          <div className="mx-auto my-0 flex max-w-[100vw] justify-center md:max-w-[50vw]	">
+          <div className="mx-auto my-0 flex max-w-[100vw] justify-center md:max-w-[700px]	">
             {data?.contests?.pageInfo?.hasNextPage &&
               data?.contests?.pageInfo?.endCursor && (
                 <Button

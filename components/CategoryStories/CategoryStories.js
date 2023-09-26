@@ -398,7 +398,7 @@ export default function CategoryStories(pinPosts, uri, id) {
           </React.Fragment>
         ))}
       {visiblePosts < mergedPosts.length && (
-        <div className="mx-auto my-0 flex max-w-[100vw] justify-center md:max-w-[50vw]	">
+        <div className="mx-auto my-0 flex max-w-[100vw] justify-center md:max-w-[700px]	">
           <Button onClick={loadMorePosts} className="gap-x-4	">
             Load More{' '}
             <svg

@@ -1,13 +1,13 @@
 import className from 'classnames/bind'
 import { FeaturedImage } from '..'
 import { useState, useEffect } from 'react'
-import styles from './SingleLLFeaturedImage.module.scss'
+import styles from './SingleLLFrontPageFeaturedImage.module.scss'
 import { Container, FullMenu } from '../../components'
 import { LLMenu } from '../LLMenu'
 
 let cx = className.bind(styles)
 
-export default function SingleLLFeaturedImage({ mainLogo, secondaryLogo, databaseId }) {
+export default function SingleLLFrontPageFeaturedImage({ mainLogo, secondaryLogo, databaseId }) {
   const [isNavShown, setIsNavShown] = useState(false)
 
   // Stop scrolling pages when isNavShown

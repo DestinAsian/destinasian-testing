@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client'
 
-export const GetLuxeListStories = gql`
-  query GetLuxeListStories($first: Int, $after: String, $id: Int) {
-    luxeListBy(luxeListId: $id) {
+export const GetLuxeListMenu = gql`
+  query GetLuxeListMenu($first: Int, $after: String, $id: ID = "") {
+    luxeList(id: $id, idType: DATABASE_ID) {
       children(
         first: $first
         after: $after
@@ -19,19 +19,7 @@ export const GetLuxeListStories = gql`
             ... on LuxeList {
               id
               title
-              content
               uri
-              featuredImage {
-                node {
-                  id
-                  sourceUrl
-                  altText
-                  mediaDetails {
-                    width
-                    height
-                  }
-                }
-              }
               categories {
                 edges {
                   node {

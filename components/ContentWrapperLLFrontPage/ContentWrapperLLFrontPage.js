@@ -9,7 +9,7 @@ let cx = className.bind(styles)
 
 export default function ContentWrapperLLFrontPage({
   content,
-  id,
+  databaseId,
   parentTitle,
 }) {
   const [isFetchingMore, setIsFetchingMore] = useState(false)
@@ -20,57 +20,58 @@ export default function ContentWrapperLLFrontPage({
     variables: {
       first: postsPerPage,
       after: null,
-      id: id,
+      id: databaseId,
     },
     fetchPolicy: 'network-only',
     nextFetchPolicy: 'cache-and-network',
   })
 
-  const updateQuery = (previousResult, { fetchMoreResult }) => {
-    if (!fetchMoreResult) return previousResult
+  const luxeList = data?.luxeListBy
 
-    const prevEdges = previousResult.luxeList.children?.edges || []
-    const newEdges = fetchMoreResult.luxeList.children?.edges || []
+  const updateQuery = (prev, { fetchMoreResult }) => {
+    if (!fetchMoreResult) return prev
 
-    // Use a Set to keep track of unique post IDs
-    const uniquePostIds = new Set(prevEdges.map(({ node }) => node.id))
-
-    // Filter out any duplicate posts from newEdges
-    const filteredNewEdges = newEdges.filter(
-      ({ node }) => !uniquePostIds.has(node.id),
-    )
+    const prevEdges = prev?.luxeListBy?.children?.edges || []
+    const newEdges = fetchMoreResult?.luxeListBy?.children?.edges || []
 
     return {
-      luxeList: {
-        ...previousResult.luxeList,
+      ...prev,
+      luxeListBy: {
+        ...prev.luxeListBy,
         children: {
-          ...previousResult.luxeList.children,
-          edges: [...prevEdges, ...filteredNewEdges],
-          pageInfo: fetchMoreResult.luxeList.children.pageInfo,
+          ...prev.luxeListBy.children,
+          edges: [...prevEdges, ...newEdges],
+          pageInfo: fetchMoreResult.luxeListBy.children.pageInfo,
         },
       },
     }
   }
 
-  // Fetch more stories when scroll to bottom
+  // Function to fetch more posts
+  const fetchMorePosts = () => {
+    if (!isFetchingMore && luxeList?.children?.pageInfo?.hasNextPage) {
+      setIsFetchingMore(true)
+      fetchMore({
+        variables: {
+          after: luxeList?.children?.pageInfo?.endCursor,
+        },
+        updateQuery,
+      }).then(() => {
+        setIsFetchingMore(false) // Reset the flag after fetch is done
+      })
+    }
+  }
+
+  // Scroll event listener to detect when user scrolls to the bottom
   useEffect(() => {
     const handleScroll = () => {
       const scrolledToBottom =
         window.scrollY + window.innerHeight >=
         document.documentElement.scrollHeight
 
-      if (
-        scrolledToBottom &&
-        !isFetchingMore &&
-        data?.luxeList?.children?.pageInfo?.hasNextPage
-      ) {
-        fetchMore({
-          variables: {
-            first: postsPerPage,
-            after: data?.luxeList?.children?.pageInfo?.endCursor,
-          },
-          updateQuery,
-        })
+      if (scrolledToBottom) {
+        // Call the function to fetch more when scrolled to the bottom
+        fetchMorePosts()
       }
     }
 
@@ -79,7 +80,7 @@ export default function ContentWrapperLLFrontPage({
     return () => {
       window.removeEventListener('scroll', handleScroll)
     }
-  }, [data, fetchMore])
+  }, [data, isFetchingMore, luxeList])
 
   if (error) {
     return <pre>{JSON.stringify(error)}</pre>
@@ -88,7 +89,7 @@ export default function ContentWrapperLLFrontPage({
   if (loading) {
     return (
       <>
-        <div className="mx-auto my-0 flex max-w-[100vw] justify-center md:max-w-[50vw]	">
+        <div className="mx-auto my-0 flex max-w-[100vw] justify-center md:max-w-[700px]	">
           <Button className="gap-x-4	">{'Loading...'}</Button>
         </div>
       </>
@@ -96,8 +97,9 @@ export default function ContentWrapperLLFrontPage({
   }
 
   // Declare all posts
-  const allPosts =
-    data?.luxeList?.children?.edges.map((post) => post.node) || []
+  const allPosts = luxeList?.children?.edges.map((post) => post.node)
+
+  console.log(allPosts)
 
   return (
     <article className={cx('component')}>
@@ -125,26 +127,17 @@ export default function ContentWrapperLLFrontPage({
             )} */}
             </React.Fragment>
           ))}
-        {allPosts.length !== 0 && allPosts.length && (
-          <div className="mx-auto my-0 flex max-w-[100vw] justify-center md:max-w-[50vw]	">
-            {data?.luxeList?.children?.pageInfo?.hasNextPage &&
-              data?.luxeList?.children?.pageInfo?.endCursor && (
+        {allPosts.length && (
+          <div className="mx-auto my-0 flex max-w-[100vw] justify-center md:max-w-[700px]	">
+            {luxeList?.children?.pageInfo?.hasNextPage &&
+              luxeList?.children?.pageInfo?.endCursor && (
                 <Button
                   onClick={() => {
                     if (
                       !isFetchingMore &&
-                      data?.luxeList?.children?.pageInfo?.hasNextPage
+                      luxeList?.children?.pageInfo?.hasNextPage
                     ) {
-                      setIsFetchingMore(true)
-                      fetchMore({
-                        variables: {
-                          first: postsPerPage,
-                          after: data?.luxeList?.children?.pageInfo?.endCursor,
-                        },
-                        updateQuery,
-                      }).then(() => {
-                        setIsFetchingMore(false) // Reset the flag after fetch is done
-                      })
+                      fetchMorePosts()
                     }
                   }}
                   className="gap-x-4	"

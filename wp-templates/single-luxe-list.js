@@ -16,6 +16,8 @@ import {
   LLPost,
   Button,
   ContentWrapperLL,
+  SingleLLFrontPageFeaturedImage,
+  SingleLLEntryHeader,
 } from '../components'
 
 export default function SingleLuxeList(props) {
@@ -46,6 +48,7 @@ export default function SingleLuxeList(props) {
     children,
     databaseId,
     luxeListLogo,
+    categories,
   } = props?.data?.luxeList
   // Latest Travel Stories
   const latestPosts = props?.data?.posts ?? []
@@ -126,14 +129,14 @@ export default function SingleLuxeList(props) {
             <SingleLLContainer>
               {/* {'countries'} */}
               {/* All posts sorted by mainPosts & date */}
-              <SingleLLFeaturedImage
+              <SingleLLFrontPageFeaturedImage
                 mainLogo={luxeListLogo?.mainLogo}
                 secondaryLogo={luxeListLogo?.secondaryLogo}
-                id={databaseId}
+                databaseId={databaseId}
               />
               <ContentWrapperLLFrontPage
                 content={content}
-                id={databaseId}
+                databaseId={databaseId}
                 parentTitle={title}
               />
             </SingleLLContainer>
@@ -160,9 +163,14 @@ export default function SingleLuxeList(props) {
           <>
             <SingleLLContainer>
               {/* {'hotel'} */}
-              <SingleAdvertorialEntryHeader title={title} />
+              <SingleLLFeaturedImage
+                mainLogo={parent?.node?.luxeListLogo?.mainLogo}
+                secondaryLogo={parent?.node?.luxeListLogo?.secondaryLogo}
+                databaseId={parent?.node?.databaseId}
+              />
+              <SingleLLEntryHeader title={title} category={categories?.edges[0]?.node?.name}/>
               {/* <SingleHCSlider images={images} /> */}
-              <ContentWrapperLL content={content} images={images} />
+              <ContentWrapperLL content={content} images={images} databaseId={databaseId}/>
             </SingleLLContainer>
           </>
         </Main>
@@ -215,6 +223,13 @@ SingleLuxeList.query = gql`
           }
         }
       }
+      categories {
+        edges {
+          node {
+            name
+          }
+        }
+      }
       author {
         node {
           name
@@ -245,10 +260,28 @@ SingleLuxeList.query = gql`
       ...FeaturedImageFragment
       parent {
         node {
-          ... on HonorsCircle {
-            title
-            content
-            date
+          ... on LuxeList {
+            databaseId
+            luxeListLogo {
+              mainLogo {
+                id
+                sourceUrl
+                altText
+                mediaDetails {
+                  width
+                  height
+                }
+              }
+              secondaryLogo {
+                id
+                sourceUrl
+                altText
+                mediaDetails {
+                  width
+                  height
+                }
+              }
+            }
           }
         }
       }

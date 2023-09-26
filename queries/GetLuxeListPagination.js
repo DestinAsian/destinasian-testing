@@ -1,48 +1,31 @@
 import { gql } from '@apollo/client'
 
 export const GetLuxeListPagination = gql`
-  query GetLuxeListPagination($first: Int, $after: String, $id: ID!) {
-    luxeList(id: $id, idType: DATABASE_ID) {
+  query GetLuxeListPagination($first: Int, $after: String, $id: Int) {
+    luxeListBy(luxeListId: $id) {
+      menuOrder
       parent {
         node {
           ... on LuxeList {
+            id
             title
-            uri
-            children(first: $first, after: $after) {
+            children(
+              first: $first
+              after: $after
+              where: { orderby: { field: MENU_ORDER, order: ASC } }
+            ) {
               edges {
                 node {
                   ... on LuxeList {
                     id
                     title
-                    content
                     uri
-                    featuredImage {
-                      node {
-                        id
-                        sourceUrl
-                        altText
-                        mediaDetails {
-                          width
-                          height
-                        }
-                      }
-                    }
-                    categories {
-                      edges {
-                        node {
-                          id
-                          name
-                        }
-                      }
-                    }
                   }
                 }
               }
               pageInfo {
-                endCursor
                 hasNextPage
-                hasPreviousPage
-                startCursor
+                endCursor
               }
             }
           }

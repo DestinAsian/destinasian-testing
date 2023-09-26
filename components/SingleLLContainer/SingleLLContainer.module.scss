@@ -16,14 +16,4 @@
   * {
     color: var(--wpe--color--white);
   }
-
-  p {
-    font-family: 'Rubik Mono One', sans-serif;
-    font-size: 1rem;
-    font-weight: 400;
-
-    @media (min-width: $breakpoint-extra-small) {
-      font-size: 1.25rem;
-    }
-  }
 }
