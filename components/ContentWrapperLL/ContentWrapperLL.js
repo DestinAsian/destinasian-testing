@@ -43,22 +43,19 @@ export default function ContentWrapperLL({ content, images, databaseId }) {
     <article className={cx('component')}>
       {images[0] != null && (
         <div className={cx('with-slider-wrapper')}>
+          <SingleLLSlider images={images} />
           <div
             className={cx('content-wrapper')}
             dangerouslySetInnerHTML={{ __html: content }}
           />
-          <SingleLLSlider images={images} />
-          <div className={cx('pagination-wrapper')}>
-            {/* <ul style={{ padding: '0' }}>
-              {luxeListAll.map((post) => (
-                <div className={cx('pagination-content')}>
-                  {post?.title}
-                </div>
-              ))}
-            </ul> */}
-            {indexOfLuxeList}
-            {' / '}
-            {numberOfLuxeLists}
+          <div className={cx('navigation-wrapper')}>
+            <div className={cx('navigation-button')}>{'-'}</div>
+            <div className={cx('pagination-wrapper')}>
+              {indexOfLuxeList}
+              {' / '}
+              {numberOfLuxeLists}
+            </div>
+            <div className={cx('navigation-button')}>{'+'}</div>
           </div>
         </div>
       )}
@@ -68,10 +65,14 @@ export default function ContentWrapperLL({ content, images, databaseId }) {
             className={cx('content-wrapper')}
             dangerouslySetInnerHTML={{ __html: content }}
           />
-          <div className={cx('pagination-wrapper')}>
-            {indexOfLuxeList}
-            {' / '}
-            {numberOfLuxeLists}
+          <div className={cx('navigation-wrapper')}>
+            <div className={cx('navigation-button')}>{'-'}</div>
+            <div className={cx('pagination-wrapper')}>
+              {indexOfLuxeList}
+              {' / '}
+              {numberOfLuxeLists}
+            </div>
+            <div className={cx('navigation-button')}>{'+'}</div>
           </div>
         </div>
       )}

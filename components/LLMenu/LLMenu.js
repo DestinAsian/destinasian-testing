@@ -7,7 +7,7 @@ import { GetLuxeListMenu } from '../../queries/GetLuxeListMenu'
 
 let cx = classNames.bind(styles)
 
-export default function LLMenu({ secondaryLogo, databaseId }) {
+export default function LLMenu({ mainLogo, secondaryLogo, databaseId, uri }) {
   const [isFetchingMore, setIsFetchingMore] = useState(false)
   const postsPerPage = 20
 
@@ -102,14 +102,25 @@ export default function LLMenu({ secondaryLogo, databaseId }) {
       {/* Full menu */}
       <div className={cx('full-menu-content')}>
         <div className={cx('image-wrapper')}>
-          {secondaryLogo && (
-            <FeaturedImage
-              image={secondaryLogo}
-              layout={'intrinsic'}
-              className={cx('image')}
-              priority
-            />
-          )}
+          {secondaryLogo ? (
+            <a href={uri}>
+              <FeaturedImage
+                image={secondaryLogo}
+                layout={'intrinsic'}
+                className={cx('image')}
+                priority
+              />
+            </a>
+          ) : mainLogo ? (
+            <a href={uri}>
+              <FeaturedImage
+                image={mainLogo}
+                layout={'intrinsic'}
+                className={cx('image')}
+                priority
+              />
+            </a>
+          ) : null}
         </div>
         <div className={cx('menu-wrapper')}>
           {uniqueCategories.map((categoryName, index) => (

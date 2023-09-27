@@ -35,7 +35,7 @@
     flex-direction: column;
     row-gap: 0.5rem;
     align-items: flex-end;
-    padding: 1rem;
+    padding: 1rem 1rem 0;
 
     @media (min-width: $breakpoint-small) {
       padding: 1rem;
@@ -58,7 +58,7 @@
     flex-direction: column;
     flex-wrap: wrap;
     width: 100%;
-    padding: 1rem 1rem 7rem;
+    padding: 0 1rem 7rem;
     font-family: 'Rubik Mono One', sans-serif;
     font-weight: 400;
     text-align: right;
@@ -71,12 +71,12 @@
     }
 
     .content-wrapper {
-      padding: 0.5rem 0;
+      padding: 0.1rem 0;
     }
 
     .category-wrapper {
       font-size: 0.7rem;
-      padding: 2rem 0 1rem;
+      padding: 2rem 0 0.5rem;
       letter-spacing: 0.1rem;
     }
 

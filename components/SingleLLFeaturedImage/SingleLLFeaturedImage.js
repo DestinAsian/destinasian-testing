@@ -7,7 +7,7 @@ import { LLMenu } from '../LLMenu'
 
 let cx = className.bind(styles)
 
-export default function SingleLLFeaturedImage({ mainLogo, secondaryLogo, databaseId }) {
+export default function SingleLLFeaturedImage({ mainLogo, secondaryLogo, databaseId, uri }) {
   const [isNavShown, setIsNavShown] = useState(false)
 
   // Stop scrolling pages when isNavShown
@@ -142,7 +142,7 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
       <div
         className={cx(['full-menu-wrapper', isNavShown ? 'show' : undefined])}
       >
-        <LLMenu secondaryLogo={secondaryLogo} databaseId={databaseId}/>
+        <LLMenu mainLogo={mainLogo} secondaryLogo={secondaryLogo} databaseId={databaseId} uri={uri}/>
       </div>
     </div>
   )
