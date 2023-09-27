@@ -29,7 +29,7 @@
   flex-direction: column;
   row-gap: 0.5rem;
   align-items: flex-end;
-  padding: 2rem 1rem;
+  padding: 1rem;
 
   @media (min-width: $breakpoint-small) {
     padding: 2rem 0;
@@ -37,7 +37,10 @@
 
   figure {
     width: 5rem;
-    height: auto;
+    height: 5rem;
+    animation-name: pulse;
+    animation-duration: 1.5s;
+    animation-iteration-count: 2;
 
     img {
       width: 100%;
@@ -62,7 +65,7 @@
 
   figure {
     width: 5rem;
-    height: auto;
+    height: 5rem;
 
     img {
       width: 100%;
@@ -142,5 +145,17 @@
     // @media (min-width: $breakpoint-small) {
     //   top: 5.5rem;
     // }
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
   }
 }

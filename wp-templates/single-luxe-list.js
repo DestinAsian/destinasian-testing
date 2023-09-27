@@ -10,6 +10,7 @@ import {
   SEO,
   Header,
   SingleLLContainer,
+  SingleLLFrontPageContainer,
   ContentWrapperLLFrontPage,
   SingleLLFeaturedImage,
   SingleAdvertorialEntryHeader,
@@ -126,7 +127,7 @@ export default function SingleLuxeList(props) {
       {parent == null && (
         <Main>
           <>
-            <SingleLLContainer>
+            <SingleLLFrontPageContainer>
               {/* {'countries'} */}
               {/* All posts sorted by mainPosts & date */}
               <SingleLLFrontPageFeaturedImage
@@ -140,7 +141,7 @@ export default function SingleLuxeList(props) {
                 databaseId={databaseId}
                 parentTitle={title}
               />
-            </SingleLLContainer>
+            </SingleLLFrontPageContainer>
           </>
         </Main>
       )}

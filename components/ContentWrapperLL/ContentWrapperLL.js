@@ -19,16 +19,6 @@ export default function ContentWrapperLL({ content, images, databaseId }) {
     return <pre>{JSON.stringify(error)}</pre>
   }
 
-  if (loading) {
-    return (
-      <>
-        <div className="mx-auto my-0 flex max-w-[100vw] justify-center md:max-w-[700px]	">
-          <Button className="gap-x-4	">{'Loading...'}</Button>
-        </div>
-      </>
-    )
-  }
-
   const luxeListAll = data?.luxeListBy?.parent?.node?.children?.edges.map(
     (post) => post.node,
   )
@@ -37,13 +27,15 @@ export default function ContentWrapperLL({ content, images, databaseId }) {
   const indexOfLuxeList = data?.luxeListBy?.menuOrder
 
   // Total number of Luxe Lists in a year
-  const numberOfLuxeLists = luxeListAll.length
+  const numberOfLuxeLists = luxeListAll?.length
 
   return (
     <article className={cx('component')}>
       {images[0] != null && (
         <div className={cx('with-slider-wrapper')}>
-          <SingleLLSlider images={images} />
+          <div className={cx('slider-wrapper')}>
+            <SingleLLSlider images={images} />
+          </div>
           <div
             className={cx('content-wrapper')}
             dangerouslySetInnerHTML={{ __html: content }}
@@ -61,6 +53,7 @@ export default function ContentWrapperLL({ content, images, databaseId }) {
       )}
       {images[0] == null && (
         <div className={cx('with-slider-wrapper')}>
+          <div className={cx('slider-wrapper')}></div>
           <div
             className={cx('content-wrapper')}
             dangerouslySetInnerHTML={{ __html: content }}

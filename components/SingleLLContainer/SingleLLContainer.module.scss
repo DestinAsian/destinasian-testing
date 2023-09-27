@@ -10,11 +10,24 @@
   padding: 0 0 2rem;
   // padding: 0 0 7rem;
 
-  // @media (min-width: $breakpoint-extra-small) {
-  //   padding: 0 0 2rem;
-  // }
-
   * {
     color: var(--wpe--color--white);
+  }
+
+  @media (min-width: $breakpoint-extra-small) {
+    position: relative;
+    top: 0;
+    left: 50vw;
+    width: 50vw;
+  }
+
+  @media ((min-width: $breakpoint-extra-small) and (max-width: $breakpoint-small)) {
+    top: 0;
+    height: calc(-3.5rem + 100vh);
+  }
+
+  @media (min-width: $breakpoint-small) {
+    top: 0;
+    height: calc(-4.5rem + 100vh);
   }
 }

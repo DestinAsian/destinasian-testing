@@ -66,6 +66,7 @@ export { SingleHeader } from './SingleHeader';
 export { SingleLLContainer } from './SingleLLContainer';
 export { SingleLLEntryHeader } from './SingleLLEntryHeader';
 export { SingleLLFeaturedImage } from './SingleLLFeaturedImage';
+export { SingleLLFrontPageContainer } from './SingleLLFrontPageContainer';
 export { SingleLLFrontPageFeaturedImage } from './SingleLLFrontPageFeaturedImage';
 export { SingleLLSlider } from './SingleLLSlider';
 export { SingleSlider } from './SingleSlider';
