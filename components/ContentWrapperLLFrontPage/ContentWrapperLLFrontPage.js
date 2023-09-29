@@ -99,8 +99,6 @@ export default function ContentWrapperLLFrontPage({
   // Declare all posts
   const allPosts = luxeList?.children?.edges.map((post) => post.node)
 
-  console.log(allPosts)
-
   return (
     <article className={cx('component')}>
       <div

@@ -1,26 +1,16 @@
 @import 'styles/breakpoints';
 
 .component {
-  // padding-right: var(--wpe--container--padding-x);
-  // padding-left: var(--wpe--container--padding-x);
   margin-right: 0;
   margin-left: 0;
   width: 100vw;
   background-color: var(--wpe--color--black);
   padding: 0 0 2rem;
-  // padding: 0 0 7rem;
   overflow: hidden;
 
   * {
     color: var(--wpe--color--white);
   }
-
-  // @media (min-width: $breakpoint-extra-small) {
-  //   position: relative;
-  //   top: 0;
-  //   left: 50vw;
-  //   width: 50vw;
-  // }
 
   @media ((min-width: $breakpoint-extra-small) and (max-width: $breakpoint-small)) {
     top: 0;
