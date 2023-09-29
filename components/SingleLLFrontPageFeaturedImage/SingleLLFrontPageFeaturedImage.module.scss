@@ -15,6 +15,8 @@
 
   &.show {
     height: calc(-3.5rem + 100vh);
+    display: flex;
+    flex-direction: row-reverse;
 
     @media (min-width: $breakpoint-small) {
       height: calc(-4.5rem + 100vh);
@@ -31,7 +33,7 @@
   align-items: flex-end;
   padding: 1rem;
 
-  @media (min-width: $breakpoint-small) {
+  @media (min-width: $breakpoint-extra-small) {
     padding: 2rem 0;
   }
 
@@ -52,16 +54,10 @@
 
 .image-menu-wrapper {
   display: flex;
-  width: 100%;
-  margin: 0 auto;
+  width: fit-content;
+  margin: 0;
   flex-direction: column;
-  row-gap: 0.5rem;
-  align-items: flex-end;
-  padding: 1rem;
-
-  @media (min-width: $breakpoint-small) {
-    padding: 1rem;
-  }
+  padding: 2rem 1rem;
 
   figure {
     width: 5rem;
@@ -129,22 +125,13 @@
   margin: 0 auto;
 
   @media (min-width: $breakpoint-extra-small) {
-    max-width: 700px;
+    width: 100%;
+    margin-right: 3.5rem;
   }
 
   &.show {
-    padding: 0;
-    gap: 1rem;
-    top: 5rem;
-    transition: top 0.4s ease-in-out;
-
-    // @media ((min-width: $breakpoint-extra-small) and (max-width: $breakpoint-small)) {
-    //   top: 4.5rem;
-    // }
-
-    // @media (min-width: $breakpoint-small) {
-    //   top: 5.5rem;
-    // }
+    padding: 1rem 0;
+    top: 0;
   }
 }
 

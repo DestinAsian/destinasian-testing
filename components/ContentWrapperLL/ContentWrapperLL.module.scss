@@ -20,8 +20,8 @@
 
   .slider-wrapper {
     @media (min-width: $breakpoint-extra-small) {
-      position: absolute;
-      top: -34.258rem;
+      position: fixed;
+      top: 4.5rem;
       right: 50vw;
       width: 50vw;
       padding: 0;
@@ -43,10 +43,9 @@
     row-gap: 0.25rem;
     padding: 0 1rem;
     text-transform: none;
-    height: 15rem; // Set the desired height for the container
     overflow: hidden; // Hide overflow content
     border-left: 1px solid var(--wpe--color--white);
-    margin: 0.5rem 0 2rem 1rem;
+    margin: 0.5rem 0 2rem 0;
 
     @media (min-width: $breakpoint-extra-small) {
       padding: 0 2rem;
@@ -79,10 +78,19 @@
   }
 
   .navigation-button {
-    font-family: 'Rubik Mono One', sans-serif;
-    font-weight: 400;
-    font-size: 1.5rem;
-    text-align: center;
+    a {
+      font-family: 'Rubik Mono One', sans-serif;
+      font-weight: 400;
+      font-size: 1.5rem;
+      text-align: center;
+      color: var(--wpe--color--white);
+      text-decoration: none;
+
+      &:hover,
+      &:focus {
+        color: var(--wpe--color--orange);
+      }
+    }
   }
 
   :global {
@@ -109,10 +117,7 @@
       overflow-y: scroll; // Enable vertical scrolling
       height: 100%; // Take up the full height of the container
       /* Additional styles for the paragraph content */
-
-      @media (min-width: $breakpoint-extra-small) {
-        font-size: 1.25rem;
-      }
+      font-size: 1rem;
     }
 
     figure {

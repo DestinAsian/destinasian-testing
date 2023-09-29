@@ -3,6 +3,7 @@ import styles from './ContentWrapperLL.module.scss'
 import { SingleLLSlider, Button } from '../../components'
 import { GetLuxeListPagination } from '../../queries/GetLuxeListPagination'
 import { useQuery } from '@apollo/client'
+import React from 'react'
 
 let cx = className.bind(styles)
 
@@ -23,11 +24,19 @@ export default function ContentWrapperLL({ content, images, databaseId }) {
     (post) => post.node,
   )
 
-  // Index number for each of Hotel Page
+  // Index number for each of Individual Page
   const indexOfLuxeList = data?.luxeListBy?.menuOrder
 
   // Total number of Luxe Lists in a year
   const numberOfLuxeLists = luxeListAll?.length
+
+  // Navigation of luxe list individual page
+  const prevIndex = indexOfLuxeList - 1 - 1
+  const nextIndex = indexOfLuxeList - 1 + 1
+
+  const prevUri = prevIndex >= 0 ? luxeListAll[prevIndex].uri : null
+  const nextUri =
+    nextIndex < numberOfLuxeLists ? luxeListAll[nextIndex].uri : null
 
   return (
     <article className={cx('component')}>
@@ -41,13 +50,17 @@ export default function ContentWrapperLL({ content, images, databaseId }) {
             dangerouslySetInnerHTML={{ __html: content }}
           />
           <div className={cx('navigation-wrapper')}>
-            <div className={cx('navigation-button')}>{'-'}</div>
+            <div className={cx('navigation-button')}>
+              <a href={prevUri}>{'-'}</a>
+            </div>
             <div className={cx('pagination-wrapper')}>
               {indexOfLuxeList}
               {' / '}
               {numberOfLuxeLists}
             </div>
-            <div className={cx('navigation-button')}>{'+'}</div>
+            <div className={cx('navigation-button')}>
+              <a href={nextUri}>{'+'}</a>
+            </div>
           </div>
         </div>
       )}
@@ -59,13 +72,17 @@ export default function ContentWrapperLL({ content, images, databaseId }) {
             dangerouslySetInnerHTML={{ __html: content }}
           />
           <div className={cx('navigation-wrapper')}>
-            <div className={cx('navigation-button')}>{'-'}</div>
+            <div className={cx('navigation-button')}>
+              {prevUri && <a href={prevUri}>{'-'}</a>}
+            </div>
             <div className={cx('pagination-wrapper')}>
               {indexOfLuxeList}
               {' / '}
               {numberOfLuxeLists}
             </div>
-            <div className={cx('navigation-button')}>{'+'}</div>
+            <div className={cx('navigation-button')}>
+              {nextUri && <a href={nextUri}>{'+'}</a>}
+            </div>
           </div>
         </div>
       )}
