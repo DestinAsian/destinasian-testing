@@ -55,7 +55,7 @@
   }
 
   .navigation-wrapper {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     left: 0; /* Adjust left value as needed */
     width: 100%; /* Optional, to make it full-width within the parent */
@@ -63,8 +63,11 @@
     flex-direction: row;
     justify-content: center;
     column-gap: 1rem;
+    padding: 1rem;
+    background-color: var(--wpe--color--black);
 
     @media (min-width: $breakpoint-extra-small) {
+      position: absolute;
       justify-content: flex-end;
       padding: 0 2rem;
     }
