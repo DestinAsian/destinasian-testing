@@ -19,9 +19,10 @@ export default function LLPost({ title, category, uri, featuredImage, parentTitl
         </div>
       )}
       {category && (
-        <div className={cx('content-wrapper')}>
+        <div className={cx('category-wrapper')}>
           <h5 className={cx('category')}>
-            {parentTitle} {' / '} {category}
+            {/* {parentTitle} {' / '}  */}
+            {category}
           </h5>
         </div>
       )}

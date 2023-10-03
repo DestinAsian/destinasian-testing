@@ -27,6 +27,7 @@
   padding: 0 1rem 1rem;
   flex-direction: column;
   row-gap: 0.25rem;
+  align-items: flex-end;
 
   @media (min-width: $breakpoint-extra-small) {
     row-gap: 0.5rem;
@@ -35,15 +36,14 @@
 }
 
 .category {
-  color: var(--wpe--color--white);
+  color: var(--wpe--color--black);
+  background-color: var(--wpe--color--white);
   font-size: 0.8rem;
   line-height: 1.2;
   text-transform: uppercase;
   text-align: center;
-
-  @media (min-width: $breakpoint-extra-small) {
-    text-align: left;
-  }
+  padding: 0.3rem;
+  width: fit-content;
 }
 
 .title {
