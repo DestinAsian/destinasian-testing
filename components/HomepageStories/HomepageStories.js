@@ -23,7 +23,7 @@ export default function HomepageStories(pinPosts) {
   const [bannerAdsArray, setBannerAdsArray] = useState([])
   // Post per fetching
   const postsPerPage = 4
-  const bannerPerPage = 15
+  const bannerPerPage = 20
 
   // Get Stories / Posts
   const { data, error, loading, fetchMore } = useQuery(GetHomepageStories, {
@@ -112,6 +112,14 @@ export default function HomepageStories(pinPosts) {
     }
   }, [bannerData]) // Use bannerData as a dependency to trigger shuffling when new data arrives
 
+  // Concatenate the arrays to place ads with <img> tags first
+  const sortedBannerAdsArray = [...bannerAdsArray].reduce((uniqueAds, ad) => {
+    if (!uniqueAds.some((uniqueAd) => uniqueAd?.node?.id === ad?.node?.id)) {
+      uniqueAds.push(ad)
+    }
+    return uniqueAds
+  }, [])
+
   // Function to fetch more posts
   const fetchMorePosts = () => {
     if (!isFetchingMore && data?.contentNodes?.pageInfo?.hasNextPage) {
@@ -195,14 +203,6 @@ export default function HomepageStories(pinPosts) {
     [],
   )
 
-  // Concatenate the arrays to place ads with <img> tags first
-  const sortedBannerAdsArray = [...bannerAdsArray].reduce((uniqueAds, ad) => {
-    if (!uniqueAds.some((uniqueAd) => uniqueAd?.node?.id === ad?.node?.id)) {
-      uniqueAds.push(ad)
-    }
-    return uniqueAds
-  }, [])
-
   const numberOfBannerAds = sortedBannerAdsArray.length
 
   return (
@@ -232,9 +232,16 @@ export default function HomepageStories(pinPosts) {
             />
             {/* Show 1st banner after 2 posts and then every 4 posts */}
             {(index - 1) % 4 === 0 && (
-              <ModuleAd
-                bannerAd={sortedBannerAdsArray[(index - 1) / 4]?.node?.content}
-              />
+              // <div>
+              //   {((index - 1) / 4) % numberOfBannerAds}
+                <ModuleAd
+                  bannerAd={
+                    sortedBannerAdsArray[((index - 1) / 4) % numberOfBannerAds]
+                      ?.node?.content
+                  }
+                />
+              //   {numberOfBannerAds}
+              // </div>
             )}
           </React.Fragment>
         ))}

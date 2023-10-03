@@ -17,21 +17,25 @@ function shuffleArray(array) {
   return array
 }
 
-export default function CategoryStories(pinPosts, uri, id) {
+export default function CategoryStories(categoryUri) {
   // Fetching Posts
-  const [isFetchingMore, setIsFetchingMore] = useState(false)
+  // const [isFetchingMore, setIsFetchingMore] = useState(false)
   // Declare state for banner ads
   const [bannerAdsArray, setBannerAdsArray] = useState([])
   // Post per fetching
   const postsPerPage = 4
-  const bannerPerPage = 15
+  const bannerPerPage = 20
+
+  const uri = categoryUri?.categoryUri
+  const pinPosts = categoryUri?.pinPosts
+  const name = categoryUri?.name
 
   // Get Stories / Posts
   const { data, error, loading, fetchMore } = useQuery(GetCategoryStories, {
     variables: {
       first: postsPerPage,
       after: null,
-      id: id,
+      id: uri,
     },
     fetchPolicy: 'network-only',
     nextFetchPolicy: 'cache-and-network',
@@ -58,11 +62,10 @@ export default function CategoryStories(pinPosts, uri, id) {
   const {
     data: bannerROSData,
     error: bannerROSError,
-    fetchMore: fetchMoreROSBanner,
+    // fetchMore: fetchMoreROSBanner,
   } = useQuery(GetROSBannerAds, {
     variables: {
       first: bannerPerPage,
-      after: null,
     },
     fetchPolicy: 'network-only',
     nextFetchPolicy: 'cache-and-network',
@@ -76,11 +79,11 @@ export default function CategoryStories(pinPosts, uri, id) {
   const {
     data: bannerSpecificData,
     error: bannerSpecificError,
-    fetchMore: fetchMoreSpecificBanner,
+    // fetchMore: fetchMoreSpecificBanner,
   } = useQuery(GetSpecificBannerAds, {
     variables: {
       first: bannerPerPage,
-      after: null,
+      search: name,
     },
     fetchPolicy: 'network-only',
     nextFetchPolicy: 'cache-and-network',
@@ -89,12 +92,6 @@ export default function CategoryStories(pinPosts, uri, id) {
   if (bannerSpecificError) {
     return <pre>{JSON.stringify(error)}</pre>
   }
-
-  // Rest of World validation
-  // const rowValidation =
-  //   name !== 'Rest of World' && parent?.node?.name !== 'Rest of World'
-  //     ? true
-  //     : null
 
   // Load More Function
   const [visiblePosts, setVisiblePosts] = useState(4)
@@ -171,79 +168,35 @@ export default function CategoryStories(pinPosts, uri, id) {
 
   const mainPosts = []
   const childPosts = []
-  const mainEditorialPosts = []
-  const childEditorialPosts = []
-  const mainUpdatesPosts = []
 
   // loop through all the main categories posts
-  data?.categories?.edges?.forEach((post) => {
+  data?.category?.contentNodes?.edges?.forEach((post) => {
     mainPosts.push(post.node)
   })
 
-  // // loop through all the child categories and their posts
-  // children.edges.forEach((childCategory) => {
-  //   childCategory.node.posts.edges.forEach((post) => {
-  //     childPosts.push(post.node)
-  //   })
+  // loop through all the child categories and their posts
+  data?.category?.children?.edges?.forEach((childCategory) => {
+    childCategory.node?.contentNodes?.edges?.forEach((post) => {
+      childPosts.push(post.node)
+    })
 
-  //   childCategory.node.children.edges.forEach((grandChildCategory) => {
-  //     grandChildCategory.node.posts.edges.forEach((post) => {
-  //       childPosts.push(post.node)
-  //     })
-  //   })
-  // })
-
-  // // loop through all the main categories and their posts
-  // editorials.edges.forEach((post) => {
-  //   mainEditorialPosts.push(post.node)
-  // })
-
-  // // loop through all the child editorial categories and their posts
-  // children.edges.forEach((childCategory) => {
-  //   childCategory.node.editorials.edges.forEach((post) => {
-  //     childEditorialPosts.push(post.node)
-  //   })
-
-  //   childCategory.node.children.edges.forEach((grandChildCategory) => {
-  //     grandChildCategory.node.editorials.edges.forEach((post) => {
-  //       childEditorialPosts.push(post.node)
-  //     })
-  //   })
-  // })
-
-  // // loop through all the main categories and their posts
-  // updates.edges.forEach((post) => {
-  //   mainUpdatesPosts.push(post.node)
-  // })
-
-  // sort posts by date
-  const sortPostsByDate = (a, b) => {
-    const dateA = new Date(a.date)
-    const dateB = new Date(b.date)
-    return dateB - dateA // Sort in descending order
-  }
+    childCategory.node?.children?.edges?.forEach((grandChildCategory) => {
+      grandChildCategory.node?.contentNodes?.edges?.forEach((post) => {
+        childPosts.push(post.node)
+      })
+    })
+  })
 
   // define mainCatPostCards
-  const mainCatPosts = [
-    ...(mainPosts != null ? mainPosts : []),
-    ...(mainEditorialPosts != null ? mainEditorialPosts : []),
-    ...(mainUpdatesPosts != null ? mainUpdatesPosts : []),
-  ]
+  const mainCatPosts = [...(mainPosts != null ? mainPosts : [])]
 
   // define childCatPostCards
-  const childCatPosts = [
-    ...(childPosts != null ? childPosts : []),
-    ...(childEditorialPosts != null ? childEditorialPosts : []),
-  ]
-
-  // sortByDate mainCat & childCat Posts
-  const sortedMainPosts = mainCatPosts.sort(sortPostsByDate)
-  const sortedChildPosts = childCatPosts.sort(sortPostsByDate)
+  const childCatPosts = [...(childPosts != null ? childPosts : [])]
 
   // define allPosts
   const allPosts = [
-    ...(sortedMainPosts != null ? sortedMainPosts : []),
-    ...(sortedChildPosts != null ? sortedChildPosts : []),
+    ...(mainCatPosts != null ? mainCatPosts : []),
+    ...(childCatPosts != null ? childCatPosts : []),
   ]
 
   // Declare Pin Posts
@@ -397,8 +350,54 @@ export default function CategoryStories(pinPosts, uri, id) {
             )}
           </React.Fragment>
         ))}
+      {/* {mergedPosts.length && ( */}
       {visiblePosts < mergedPosts.length && (
         <div className="mx-auto my-0 flex max-w-[100vw] justify-center md:max-w-[700px]	">
+          {/* {allPosts?.contentNodes?.pageInfo?.hasNextPage &&
+            allPosts?.contentNodes?.pageInfo?.endCursor && (
+              <Button
+                onClick={() => {
+                  if (
+                    !isFetchingMore &&
+                    allPosts?.contentNodes?.pageInfo?.hasNextPage
+                  ) {
+                    fetchMorePosts()
+                  }
+                }}
+                className="gap-x-4	"
+              >
+                {isFetchingMore ? (
+                  'Loading...' // Display loading text when fetching
+                ) : (
+                  <>
+                    Load More{' '}
+                    <svg
+                      className="h-auto w-8 origin-center rotate-90"
+                      version="1.0"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="512.000000pt"
+                      height="512.000000pt"
+                      viewBox="0 0 512.000000 512.000000"
+                      preserveAspectRatio="xMidYMid meet"
+                    >
+                      <g
+                        transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+                        fill="#000000"
+                        stroke="none"
+                      >
+                        <path
+                          d="M1387 5110 c-243 -62 -373 -329 -272 -560 27 -62 77 -114 989 -1027
+l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
+-289 39 -117 106 -191 220 -245 59 -28 74 -31 160 -30 74 0 108 5 155 23 58
+22 106 70 1198 1160 1304 1302 1202 1185 1202 1371 0 186 102 69 -1202 1371
+-1102 1101 -1140 1137 -1198 1159 -67 25 -189 34 -248 20z"
+                        />
+                      </g>
+                    </svg>
+                  </>
+                )}
+              </Button>
+            )} */}
           <Button onClick={loadMorePosts} className="gap-x-4	">
             Load More{' '}
             <svg

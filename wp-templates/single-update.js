@@ -26,7 +26,7 @@ export default function SingleUpdate(props) {
     return <>Loading...</>
   }
 
-  const bannerPerPage = 15
+  const bannerPerPage = 20
 
   const { title: siteTitle, description: siteDescription } =
     props?.data?.generalSettings

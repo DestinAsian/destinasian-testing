@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
 import { BlogInfoFragment } from '../fragments/GeneralSettings'
-import { PostFragment } from '../fragments/PostFragment'
 import {
   CategoryHeader,
   SecondaryHeader,
@@ -169,7 +168,7 @@ export default function Component(props) {
 
       <Main>
         <>
-          <CategoryStories pinPosts={pinPosts} uri={destinationGuides} id={databaseId}/>
+          <CategoryStories categoryUri={uri} pinPosts={pinPosts} name={name}/>
         </>
       </Main>
       <Footer />
@@ -179,7 +178,6 @@ export default function Component(props) {
 
 Component.query = gql`
   ${BlogInfoFragment}
-  ${PostFragment}
   ${NavigationMenu.fragments.entry}
   ${FeaturedImage.fragments.entry}
   query GetCategoryPage(
@@ -294,106 +292,6 @@ Component.query = gql`
             }
           }
         }
-        posts(first: $first, where: { status: PUBLISH }) {
-          edges {
-            node {
-              id
-              title
-              content
-              date
-              uri
-              excerpt
-              ...FeaturedImageFragment
-              author {
-                node {
-                  name
-                }
-              }
-              categories {
-                edges {
-                  node {
-                    name
-                    uri
-                    parent {
-                      node {
-                        name
-                      }
-                    }
-                  }
-                }
-              }
-              acfCategoryIcon {
-                categoryLabel
-                chooseYourCategory
-                chooseIcon {
-                  mediaItemUrl
-                }
-              }
-              acfLocationIcon {
-                fieldGroupName
-                locationLabel
-                locationUrl
-              }
-            }
-          }
-        }
-        editorials(first: $first, where: { status: PUBLISH }) {
-          edges {
-            node {
-              id
-              title
-              content
-              date
-              uri
-              excerpt
-              ...FeaturedImageFragment
-              author {
-                node {
-                  name
-                }
-              }
-              categories {
-                edges {
-                  node {
-                    name
-                    uri
-                    parent {
-                      node {
-                        name
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-        updates(first: $first, where: { status: PUBLISH }) {
-          edges {
-            node {
-              id
-              title
-              content
-              date
-              uri
-              excerpt
-              ...FeaturedImageFragment
-              categories {
-                edges {
-                  node {
-                    name
-                    uri
-                    parent {
-                      node {
-                        name
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
         parent {
           node {
             name
@@ -422,7 +320,23 @@ Component.query = gql`
               posts {
                 edges {
                   node {
-                    ...PostFragment
+                    id
+                    title
+                    content
+                    date
+                    uri
+                    excerpt
+                    featuredImage {
+                      node {
+                        id
+                        sourceUrl
+                        altText
+                        mediaDetails {
+                          width
+                          height
+                        }
+                      }
+                    }
                     categories {
                       edges {
                         node {
@@ -460,7 +374,17 @@ Component.query = gql`
                     date
                     uri
                     excerpt
-                    ...FeaturedImageFragment
+                    featuredImage {
+                      node {
+                        id
+                        sourceUrl
+                        altText
+                        mediaDetails {
+                          width
+                          height
+                        }
+                      }
+                    }
                     author {
                       node {
                         name
@@ -474,77 +398,6 @@ Component.query = gql`
                           parent {
                             node {
                               name
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-              children {
-                edges {
-                  node {
-                    name
-                    uri
-                    posts {
-                      edges {
-                        node {
-                          ...PostFragment
-                          categories {
-                            edges {
-                              node {
-                                name
-                                uri
-                                parent {
-                                  node {
-                                    name
-                                  }
-                                }
-                              }
-                            }
-                          }
-                          acfCategoryIcon {
-                            categoryLabel
-                            chooseYourCategory
-                            chooseIcon {
-                              mediaItemUrl
-                            }
-                          }
-                          acfLocationIcon {
-                            fieldGroupName
-                            locationLabel
-                            locationUrl
-                          }
-                        }
-                      }
-                    }
-                    editorials {
-                      edges {
-                        node {
-                          id
-                          title
-                          content
-                          date
-                          uri
-                          excerpt
-                          ...FeaturedImageFragment
-                          author {
-                            node {
-                              name
-                            }
-                          }
-                          categories {
-                            edges {
-                              node {
-                                name
-                                uri
-                                parent {
-                                  node {
-                                    name
-                                  }
-                                }
-                              }
                             }
                           }
                         }
