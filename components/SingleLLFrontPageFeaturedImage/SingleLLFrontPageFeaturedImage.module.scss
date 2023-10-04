@@ -26,6 +26,7 @@
 
     @media (min-width: $breakpoint-extra-small) {
       height: calc(-4.5rem + 100vh);
+      max-width: 700px;
       transform: translate(-50%, 4.5rem);
     }
   }

@@ -14,11 +14,11 @@
 
   @media ((min-width: $breakpoint-extra-small) and (max-width: $breakpoint-small)) {
     top: 0;
-    height: calc(-3.5rem + 100vh);
+    min-height: calc(-3.5rem + 100vh);
   }
 
   @media (min-width: $breakpoint-small) {
     top: 0;
-    height: calc(-4.5rem + 100vh);
+    min-height: calc(-4.5rem + 100vh);
   }
 }

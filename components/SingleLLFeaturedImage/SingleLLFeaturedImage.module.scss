@@ -80,9 +80,9 @@
   // transform: translateY(3.5rem);
 
   @media (min-width: $breakpoint-extra-small) {
-    max-width: 700px;
-    transform: translate(-50%, 4.5rem);
-    padding: 1rem 0;
+    width: 50vw;
+    transform: translate(0, 4.5rem);
+    padding: 1rem 2rem;
   }
 }
 

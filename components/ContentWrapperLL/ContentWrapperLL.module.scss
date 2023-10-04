@@ -65,7 +65,9 @@
     background-color: var(--wpe--color--black);
 
     @media (min-width: $breakpoint-extra-small) {
-      position: absolute;
+      // position: absolute;
+      left: 50%;
+      width: 50vw;
       justify-content: flex-end;
       padding: 0 2rem;
     }
