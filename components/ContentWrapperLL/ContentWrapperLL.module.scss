@@ -9,7 +9,7 @@
   @media (min-width: $breakpoint-extra-small) {
     margin: 0 auto;
     background-color: var(--wpe--color--black);
-    width: 50vw;
+    width: 100%;
     position: relative;
   }
 
@@ -45,6 +45,7 @@
     text-transform: none;
     border-left: 1px solid var(--wpe--color--white);
     margin: 0.5rem 0 2rem 0;
+    overflow-x: hidden;
 
     @media (min-width: $breakpoint-extra-small) {
       padding: 0 2rem;
@@ -69,7 +70,7 @@
       left: 50%;
       width: 50vw;
       justify-content: flex-end;
-      padding: 0 2rem;
+      padding: 1rem 2rem;
     }
   }
 

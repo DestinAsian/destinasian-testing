@@ -60,7 +60,7 @@
   }
 }
 
-.sticky {
+.sticky-image-wrapper {
   background-color: var(--wpe--color--black);
   color: var(--wpe--color--white);
   position: fixed;
@@ -82,6 +82,17 @@
     max-width: 700px;
     transform: translate(-50%, 4.5rem);
     padding: 1rem 0;
+  }
+
+  figure {
+    width: 5rem;
+    height: 5rem;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   }
 }
 

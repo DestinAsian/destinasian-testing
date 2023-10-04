@@ -10,7 +10,7 @@
   width: 100vw;
 
   @media (min-width: $breakpoint-extra-small) {
-    width: 50vw;
+    width: 100%;
     padding: 0 0 2rem;
   }
 
@@ -61,7 +61,7 @@
   }
 }
 
-.sticky {
+.sticky-image-wrapper {
   background-color: var(--wpe--color--black);
   color: var(--wpe--color--white);
   position: fixed;
@@ -83,6 +83,17 @@
     width: 50vw;
     transform: translate(0, 4.5rem);
     padding: 1rem 2rem;
+  }
+
+  figure {
+    width: 5rem;
+    height: 5rem;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   }
 }
 
@@ -159,7 +170,7 @@
   margin: 0 2.5rem 0 0;
 
   @media (min-width: $breakpoint-extra-small) {
-    width: 100%;
+    width: 80%;
     margin-right: 3.5rem;
   }
 

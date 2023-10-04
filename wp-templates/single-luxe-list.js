@@ -162,36 +162,36 @@ export default function SingleLuxeList(props) {
         />
       )}
       {parent != null && (
-        <Main>
-          <>
-            {/* {'hotel'} */}
-            <SingleLLContainer>
-              <div className="sm:relative sm:left-[50vw] sm:flex sm:w-[50vw] sm:flex-col	sm:justify-between">
-                {/* First wrapper */}
-                <div>
-                  <SingleLLFeaturedImage
-                    mainLogo={parent?.node?.luxeListLogo?.mainLogo}
-                    secondaryLogo={parent?.node?.luxeListLogo?.secondaryLogo}
-                    databaseId={parent?.node?.databaseId}
-                    uri={parent?.node?.uri}
-                  />
+          <Main>
+            <>
+              {/* {'hotel'} */}
+              <SingleLLContainer>
+                <div className="sm:fixed sm:left-[50vw] sm:flex sm:h-[calc(100vh-4.5rem)] sm:w-[50vw] sm:flex-col	sm:justify-between">
+                  {/* First wrapper */}
+                  <div>
+                    <SingleLLFeaturedImage
+                      mainLogo={parent?.node?.luxeListLogo?.mainLogo}
+                      secondaryLogo={parent?.node?.luxeListLogo?.secondaryLogo}
+                      databaseId={parent?.node?.databaseId}
+                      uri={parent?.node?.uri}
+                    />
+                  </div>
+                  {/* Second wrapper */}
+                  <div>
+                    <SingleLLEntryHeader
+                      title={title}
+                      category={categories?.edges[0]?.node?.name}
+                    />
+                    <ContentWrapperLL
+                      content={content}
+                      images={images}
+                      databaseId={databaseId}
+                    />
+                  </div>
                 </div>
-                {/* Second wrapper */}
-                <div>
-                  <SingleLLEntryHeader
-                    title={title}
-                    category={categories?.edges[0]?.node?.name}
-                  />
-                  <ContentWrapperLL
-                    content={content}
-                    images={images}
-                    databaseId={databaseId}
-                  />
-                </div>
-              </div>
-            </SingleLLContainer>
-          </>
-        </Main>
+              </SingleLLContainer>
+            </>
+          </Main>
       )}
       {/* <Footer /> */}
     </>
