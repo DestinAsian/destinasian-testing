@@ -17,9 +17,16 @@
     height: calc(-3.5rem + 100vh);
     display: flex;
     flex-direction: row-reverse;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    width: 100%;
+    z-index: 900;
+    transform: translate(-50%, 3.5rem);
 
-    @media (min-width: $breakpoint-small) {
+    @media (min-width: $breakpoint-extra-small) {
       height: calc(-4.5rem + 100vh);
+      transform: translate(-50%, 4.5rem);
     }
   }
 }
@@ -49,6 +56,31 @@
       height: 100%;
       object-fit: cover;
     }
+  }
+}
+
+.sticky {
+  background-color: var(--wpe--color--black);
+  color: var(--wpe--color--white);
+  position: fixed;
+  padding: 1rem;
+  z-index: 900;
+  top: 0;
+
+  // Sticky menu with background
+  left: 50%;
+  width: 100%;
+  transform: translate(-50%, 3.5rem);
+
+  // Sticky menu without background
+  // right: 0;
+  // width: fit-content;
+  // transform: translateY(3.5rem);
+
+  @media (min-width: $breakpoint-extra-small) {
+    max-width: 700px;
+    transform: translate(-50%, 4.5rem);
+    padding: 1rem 0;
   }
 }
 

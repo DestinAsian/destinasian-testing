@@ -27,7 +27,7 @@
   padding: 0 1rem 1rem;
   flex-direction: column;
   row-gap: 0.25rem;
-  align-items: flex-end;
+  align-items: flex-start;
 
   @media (min-width: $breakpoint-extra-small) {
     row-gap: 0.5rem;

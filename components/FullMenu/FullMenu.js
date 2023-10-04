@@ -205,6 +205,21 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
                   ))}
               </ul>
             </nav>
+            <nav className={cx('feature-luxe-list')}>
+              <a
+                href={
+                  featureMenuItems[0]?.menu?.node?.luxeListLogoMenu
+                    ?.luxeListPage?.url
+                }
+              >
+                <img
+                  src={
+                    featureMenuItems[0]?.menu?.node?.luxeListLogoMenu?.mainLogo
+                      ?.mediaItemUrl
+                  }
+                />
+              </a>
+            </nav>
           </div>
           <div className={cx('fourth-wrapper')}>
             <div className={cx('left-wrapper')}>

@@ -65,6 +65,14 @@ NavigationMenu.fragments = {
       menu {
         node {
           name
+          luxeListLogoMenu {
+            mainLogo {
+              mediaItemUrl
+            }
+            luxeListPage {
+              url
+            }
+          }
         }
       }
     }

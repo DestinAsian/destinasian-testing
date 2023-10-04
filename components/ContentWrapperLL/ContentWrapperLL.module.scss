@@ -43,13 +43,11 @@
     row-gap: 0.25rem;
     padding: 0 1rem;
     text-transform: none;
-    overflow: hidden; // Hide overflow content
     border-left: 1px solid var(--wpe--color--white);
     margin: 0.5rem 0 2rem 0;
 
     @media (min-width: $breakpoint-extra-small) {
       padding: 0 2rem;
-      height: auto;
       border-left: none;
     }
   }
@@ -116,10 +114,6 @@
     p {
       font-family: 'Ringside Regular A', 'Ringside Regular B';
       font-weight: 400;
-      font-size: 1rem;
-      overflow-y: scroll; // Enable vertical scrolling
-      height: 100%; // Take up the full height of the container
-      /* Additional styles for the paragraph content */
       font-size: 1rem;
     }
 

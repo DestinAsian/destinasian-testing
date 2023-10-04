@@ -7,8 +7,14 @@ import { LLMenu } from '../LLMenu'
 
 let cx = className.bind(styles)
 
-export default function SingleLLFrontPageFeaturedImage({ mainLogo, secondaryLogo, databaseId, uri }) {
+export default function SingleLLFrontPageFeaturedImage({
+  mainLogo,
+  secondaryLogo,
+  databaseId,
+  uri,
+}) {
   const [isNavShown, setIsNavShown] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
 
   // Stop scrolling pages when isNavShown
   useEffect(() => {
@@ -18,14 +24,34 @@ export default function SingleLLFrontPageFeaturedImage({ mainLogo, secondaryLogo
       document.body.style.overflow = 'visible'
     }
   }, [isNavShown])
-  
+
+  useEffect(() => {
+    let prevScrollPos = window.scrollY > 0
+
+    function handleScroll() {
+      const currentScrollPos = window.scrollY
+      setIsScrolled(currentScrollPos < prevScrollPos && currentScrollPos > 0)
+      prevScrollPos = currentScrollPos
+    }
+
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
   return (
     <div
       className={cx(['component', className, isNavShown ? 'show' : undefined])}
     >
       {/* Responsive header */}
       {!isNavShown ? (
-        <div className={cx('image-wrapper')}>
+        <div
+          className={cx('image-wrapper', {
+            sticky: isScrolled ? 'sticky' : '',
+          })}
+        >
           {/* Menu Button */}
           {isNavShown == false ? (
             <div className={cx('menu-button')}>
@@ -142,7 +168,12 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
       <div
         className={cx(['full-menu-wrapper', isNavShown ? 'show' : undefined])}
       >
-        <LLMenu mainLogo={mainLogo} secondaryLogo={secondaryLogo} databaseId={databaseId} uri={uri}/>
+        <LLMenu
+          mainLogo={mainLogo}
+          secondaryLogo={secondaryLogo}
+          databaseId={databaseId}
+          uri={uri}
+        />
       </div>
     </div>
   )
