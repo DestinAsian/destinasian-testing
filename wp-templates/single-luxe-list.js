@@ -166,7 +166,7 @@ export default function SingleLuxeList(props) {
             <>
               {/* {'hotel'} */}
               <SingleLLContainer>
-                <div className="sm:fixed sm:left-[50vw] sm:flex sm:h-[calc(100vh-4.5rem)] sm:w-[50vw] sm:flex-col	sm:justify-between">
+                <div className="sm:fixed sm:left-[50vw] sm:flex sm:h-[100vh] sm:w-[50vw] sm:flex-col	sm:justify-between">
                   {/* First wrapper */}
                   <div>
                     <SingleLLFeaturedImage
@@ -177,7 +177,7 @@ export default function SingleLuxeList(props) {
                     />
                   </div>
                   {/* Second wrapper */}
-                  <div>
+                  <div className="sm:relative">
                     <SingleLLEntryHeader
                       title={title}
                       category={categories?.edges[0]?.node?.name}

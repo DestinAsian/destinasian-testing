@@ -26,12 +26,14 @@ export default function SingleLLFeaturedImage({
   }, [isNavShown])
 
   useEffect(() => {
-    let prevScrollPos = window.scrollY > 0
+    const prevScrollPos = window.scrollY > 0
 
     function handleScroll() {
       const currentScrollPos = window.scrollY
-      setIsScrolled(currentScrollPos < prevScrollPos && currentScrollPos > 0)
-      prevScrollPos = currentScrollPos
+
+      const scrollVar = currentScrollPos < prevScrollPos && currentScrollPos > 0
+
+      setIsScrolled(scrollVar)
     }
 
     window.addEventListener('scroll', handleScroll)
