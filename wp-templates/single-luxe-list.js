@@ -166,7 +166,7 @@ export default function SingleLuxeList(props) {
           <>
             {/* {'hotel'} */}
             <SingleLLContainer>
-              <div className="sm:fixed sm:left-[50vw] sm:flex sm:h-[100vh] sm:w-[50vw] sm:flex-col">
+              <div className="sm:fixed sm:left-[50vw] sm:flex sm:w-[50vw] sm:flex-col">
                 {/* First wrapper */}
                 <SingleLLFeaturedImage
                   mainLogo={parent?.node?.luxeListLogo?.mainLogo}
