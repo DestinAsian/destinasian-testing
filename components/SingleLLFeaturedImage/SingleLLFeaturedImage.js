@@ -30,7 +30,20 @@ export default function SingleLLFeaturedImage({
 
     function handleScroll() {
       const currentScrollPos = window.scrollY
-      setIsScrolled(currentScrollPos < prevScrollPos && currentScrollPos > 0)
+      const windowHeight = window.innerHeight
+      const documentHeight = document.documentElement.scrollHeight
+
+      // Check if the user is not at the bottom of the page
+      if (
+        currentScrollPos < prevScrollPos &&
+        currentScrollPos > 0 &&
+        currentScrollPos + windowHeight < documentHeight
+      ) {
+        setIsScrolled(true)
+      } else {
+        setIsScrolled(false)
+      }
+
       prevScrollPos = currentScrollPos
     }
 
