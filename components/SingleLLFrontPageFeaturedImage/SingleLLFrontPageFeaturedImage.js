@@ -26,14 +26,12 @@ export default function SingleLLFrontPageFeaturedImage({
   }, [isNavShown])
 
   useEffect(() => {
-    const prevScrollPos = window.scrollY > 0
+    let prevScrollPos = window.scrollY > 0
 
     function handleScroll() {
       const currentScrollPos = window.scrollY
-
-      const scrollVar = currentScrollPos < prevScrollPos && currentScrollPos > 0
-
-      setIsScrolled(scrollVar)
+      setIsScrolled(currentScrollPos < prevScrollPos && currentScrollPos > 0)
+      prevScrollPos = currentScrollPos
     }
 
     window.addEventListener('scroll', handleScroll)

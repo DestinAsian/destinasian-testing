@@ -8,8 +8,7 @@
   margin-bottom: 2rem;
   font-family: 'Rubik Mono One', sans-serif;
   font-weight: 400;
-  text-align: right;
-  text-align-last: right;
+  text-align: left;
 
   @media (min-width: $breakpoint-extra-small) {
     max-width: 700px;
@@ -42,10 +41,14 @@
 
 .category-wrapper {
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
+  padding-bottom: 0.5rem;
 }
 
 h5.category {
+  font-family: 'Ringside Regular A', 'Ringside Regular B';
+  font-style: normal;
+  font-weight: 700;
   color: var(--wpe--color--black);
   background-color: var(--wpe--color--white);
   font-size: 0.8rem;

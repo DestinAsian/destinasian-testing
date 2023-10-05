@@ -19,6 +19,7 @@
   transition: top 0.4s ease-in-out;
   flex-direction: column;
 
+
   * {
     text-transform: uppercase;
   }
@@ -57,6 +58,7 @@
   .menu-wrapper {
     display: flex;
     flex-direction: column;
+    align-items: flex-end;
     flex-wrap: wrap;
     width: 100%;
     padding: 0 1rem 7rem;
@@ -80,7 +82,15 @@
       letter-spacing: 0.1rem;
 
       .category {
-        color: slategray;
+        font-family: 'Ringside Regular A', 'Ringside Regular B';
+        font-style: normal;
+        font-weight: 700;
+        color: var(--wpe--color--black);
+        background-color: var(--wpe--color--white);
+        line-height: 1.2;
+        text-transform: uppercase;
+        padding: 0.2rem;
+        width: fit-content;
       }
     }
 

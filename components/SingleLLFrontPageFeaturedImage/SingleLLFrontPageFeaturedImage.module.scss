@@ -98,10 +98,15 @@
 
 .image-menu-wrapper {
   display: flex;
-  width: fit-content;
+  align-items: center;
+  width: 10%;
   margin: 0;
   flex-direction: column;
-  padding: 2rem 1rem;
+  padding: 2rem 0.5rem;
+
+  @media (min-width: $breakpoint-extra-small) {
+    padding: 2rem 1rem;
+  }
 
   figure {
     width: 5rem;
@@ -159,7 +164,7 @@
 
 .full-menu-wrapper {
   display: block;
-  width: 100%;
+  width: 90%;
   height: 100vh;
   position: absolute;
   z-index: 49;
@@ -169,7 +174,7 @@
   margin: 0 2.5rem 0 0;
 
   @media (min-width: $breakpoint-extra-small) {
-    width: 100%;
+    width: 90%;
     margin-right: 3.5rem;
   }
 
@@ -184,7 +189,7 @@
     transform: scale(1);
   }
   50% {
-    transform: scale(1.1);
+    transform: scale(0.9);
   }
   100% {
     transform: scale(1);
