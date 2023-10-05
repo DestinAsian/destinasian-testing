@@ -27,6 +27,7 @@
       width: 50vw;
       padding: 0;
       height: 100vh;
+      border-left: 2rem solid var(--wpe--color--black);
     }
 
     // @media ((min-width: $breakpoint-extra-small) and (max-width: $breakpoint-small)) {
@@ -44,7 +45,6 @@
     row-gap: 0.25rem;
     padding: 0 1rem;
     text-transform: none;
-    border-left: 1px solid var(--wpe--color--white);
     margin: 0.5rem 0 0 0;
     overflow-x: hidden;
 
@@ -68,7 +68,7 @@
     background-color: var(--wpe--color--black);
 
     @media (min-width: $breakpoint-extra-small) {
-      // position: absolute;
+      height: 5.25rem;
       left: 50%;
       width: 50vw;
       justify-content: center;

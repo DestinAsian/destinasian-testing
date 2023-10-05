@@ -5,12 +5,17 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/effect-fade'
+import 'swiper/css/pagination'
 import 'swiper/css/navigation'
 
 // import required modules
-import { EffectFade, Autoplay, Navigation } from 'swiper'
+import { EffectFade, Autoplay, Pagination, Navigation } from 'swiper'
 
 export default function SingleLLSlider({ images }) {
+  const pagination = {
+    clickable: true,
+  }
+
   return (
     <>
       <Swiper
@@ -21,11 +26,12 @@ export default function SingleLLSlider({ images }) {
           delay: 5000,
           disableOnInteraction: true,
         }}
+        pagination={pagination}
         navigation={{
           prevEl: '.swiper-custom-button-prev',
           nextEl: '.swiper-custom-button-next',
         }}
-        modules={[EffectFade, Autoplay, Navigation]}
+        modules={[EffectFade, Autoplay, Pagination, Navigation]}
         className="post-ll-swiper"
         style={{ display: images[0] ? 'block' : 'none' }}
       >

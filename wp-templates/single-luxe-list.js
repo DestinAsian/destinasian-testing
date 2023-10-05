@@ -167,24 +167,26 @@ export default function SingleLuxeList(props) {
             {/* {'hotel'} */}
             <SingleLLContainer>
               <div className="sm:fixed sm:left-[50vw] sm:flex sm:w-[50vw] sm:flex-col">
-                {/* First wrapper */}
-                <SingleLLFeaturedImage
-                  mainLogo={parent?.node?.luxeListLogo?.mainLogo}
-                  secondaryLogo={parent?.node?.luxeListLogo?.secondaryLogo}
-                  databaseId={parent?.node?.databaseId}
-                  uri={parent?.node?.uri}
-                />
-                {/* Second wrapper */}
-                <div className="sm:relative sm:mx-auto">
-                  <SingleLLEntryHeader
-                    title={title}
-                    category={categories?.edges[0]?.node?.name}
+                <div className="sm:relative sm:h-[100vh] sm:flex-row sm:flex-wrap sm:overflow-y-auto">
+                  {/* First wrapper */}
+                  <SingleLLFeaturedImage
+                    mainLogo={parent?.node?.luxeListLogo?.mainLogo}
+                    secondaryLogo={parent?.node?.luxeListLogo?.secondaryLogo}
+                    databaseId={parent?.node?.databaseId}
+                    uri={parent?.node?.uri}
                   />
-                  <ContentWrapperLL
-                    content={content}
-                    images={images}
-                    databaseId={databaseId}
-                  />
+                  {/* Second wrapper */}
+                  <div className="sm:relative sm:mx-auto">
+                    <SingleLLEntryHeader
+                      title={title}
+                      category={categories?.edges[0]?.node?.name}
+                    />
+                    <ContentWrapperLL
+                      content={content}
+                      images={images}
+                      databaseId={databaseId}
+                    />
+                  </div>
                 </div>
               </div>
             </SingleLLContainer>
