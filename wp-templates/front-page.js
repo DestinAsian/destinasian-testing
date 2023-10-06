@@ -77,10 +77,6 @@ export default function Component(props) {
   // sortByDate mainCat & childCat Posts
   const allPosts = mainCatPosts.sort(sortPostsByDate)
 
-  // Feature Well
-  const isDesktop = useMediaQuery({ minWidth: 640 })
-  const isMobile = useMediaQuery({ maxWidth: 639 })
-
   const featureWell = [
     {
       type: acfHomepageSlider?.typeSlide1,
@@ -149,25 +145,6 @@ export default function Component(props) {
             <div className="snap-start">
               {currentFeatureWell && (
                 <Container>
-                  {/* {isDesktop && (
-                    <FeatureWell
-                      type={currentFeatureWell?.type}
-                      videoSrc={currentFeatureWell?.videoSrc}
-                      desktopSrc={currentFeatureWell?.desktopSrc}
-                      url={currentFeatureWell?.url}
-                      caption={currentFeatureWell?.caption}
-                    />
-                  )}
-                  {isMobile && (
-                    <FeatureWell
-                      type={currentFeatureWell?.type}
-                      videoSrc={currentFeatureWell?.videoSrc}
-                      mobileSrc={currentFeatureWell?.mobileSrc}
-                      url={currentFeatureWell?.url}
-                      caption={currentFeatureWell?.caption}
-                    />
-                  )} */}
-
                   <FeatureWell featureWells={featureWell} />
                 </Container>
               )}

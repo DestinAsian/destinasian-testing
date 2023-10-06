@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState } from 'react'
 import className from 'classnames/bind'
 import styles from './FeatureWell.module.scss'
 import { useMediaQuery } from 'react-responsive'
@@ -19,8 +19,8 @@ let cx = className.bind(styles)
 export default function FeatureWell({ featureWells }) {
   const isDesktop = useMediaQuery({ minWidth: 640 })
   const isMobile = useMediaQuery({ maxWidth: 639 })
-
   const [IsMaximized, setIsMaximized] = useState(false)
+  const [slideIndex, setSlideIndex] = useState(0)
 
   // Maximized chevron when page load
   useEffect(() => {
@@ -35,6 +35,25 @@ export default function FeatureWell({ featureWells }) {
     <>
       <Div100vh>
         <Swiper
+          onSlideChange={(swiper) => {
+            // Get the current slide index from Swiper
+            const currentSlideIndex = swiper.activeIndex
+            const currentSlide = featureWells[currentSlideIndex]
+
+            if (currentSlide && currentSlide.type === 'video') {
+              const videoElement = document.getElementById(
+                `video-${currentSlideIndex}`,
+              )
+
+              if (videoElement) {
+                videoElement.currentTime = 0 // Start the video from the beginning
+                videoElement.play() // Play the video
+              }
+
+              // Update the slideIndex state to reflect the current slide
+              setSlideIndex(currentSlideIndex)
+            }
+          }}
           effect={'fade'}
           autoplay={{
             delay: 15000,
@@ -86,6 +105,7 @@ export default function FeatureWell({ featureWells }) {
                 <a href={featureWell.url}>
                   <div className={cx('video-wrapper')}>
                     <video
+                      id={`video-${index}`}
                       src={featureWell.videoSrc}
                       className="video-content"
                       loop

@@ -21,7 +21,8 @@ export default function CategoryStories(categoryUri) {
   // Fetching Posts
   // const [isFetchingMore, setIsFetchingMore] = useState(false)
   // Declare state for banner ads
-  const [bannerAdsArray, setBannerAdsArray] = useState([])
+  const [ROSAdsArray, setROSAdsArray] = useState([])
+  const [SpecificAdsArray, setSpecificAdsArray] = useState([])
   // Post per fetching
   const postsPerPage = 4
   const bannerPerPage = 20
@@ -97,48 +98,98 @@ export default function CategoryStories(categoryUri) {
   const [visiblePosts, setVisiblePosts] = useState(4)
   const loadMorePosts = () => {
     setVisiblePosts((prevVisiblePosts) => prevVisiblePosts + 4)
-
-    // // Call the fetchMoreROSBanner function to load additional banner ads
-    // fetchMoreROSBanner({
-    //   variables: {
-    //     first: bannerPerPage,
-    //     after: bannerROSData?.bannerAds?.pageInfo?.endCursor,
-    //   },
-    //   updateQuery: (prev, { fetchMoreResult }) => {
-    //     if (!fetchMoreResult) return prev
-    //     return {
-    //       ...prev,
-    //       bannerAds: {
-    //         ...fetchMoreResult.bannerAds,
-    //         edges: [
-    //           ...prev.bannerAds.edges,
-    //           ...fetchMoreResult.bannerAds.edges,
-    //         ],
-    //       },
-    //     }
-    //   },
-    // })
-
-    // fetchMoreSpecificBanner({
-    //   variables: {
-    //     first: bannerPerPage,
-    //     after: bannerSpecificData?.bannerAds?.pageInfo?.endCursor,
-    //   },
-    //   updateQuery: (prev, { fetchMoreResult }) => {
-    //     if (!fetchMoreResult) return prev
-    //     return {
-    //       ...prev,
-    //       bannerAds: {
-    //         ...fetchMoreResult.bannerAds,
-    //         edges: [
-    //           ...prev.bannerAds.edges,
-    //           ...fetchMoreResult.bannerAds.edges,
-    //         ],
-    //       },
-    //     }
-    //   },
-    // })
   }
+
+  // Function to shuffle the banner ads and store them in state
+  // ROS Banner
+  useEffect(() => {
+    const shuffleBannerAds = () => {
+      const bannerAdsArrayObj = Object.values(
+        bannerROSData?.bannerAds?.edges || [],
+      )
+
+      // Separate shuffled banner ads with <img> tags from those without
+      const bannerROSAdsWithImg = bannerAdsArrayObj.filter(
+        (bannerAd) => !bannerAd?.node?.content.includes('<!--'),
+      )
+
+      const pinROSAds = bannerROSAdsWithImg.filter(
+        (bannerAd) => !bannerAd?.node?.acfBannerAds?.pinAd === false || null,
+      )
+
+      const otherROSAds = bannerROSAdsWithImg.filter(
+        (bannerAd) => !bannerAd?.node?.acfBannerAds?.pinAd === true,
+      )
+
+      // Shuffle only the otherBannerAds array
+      const ROSOtherBannerAds = shuffleArray(otherROSAds)
+
+      // Concatenate the arrays with pinned ads first and shuffled other banner ads
+      const shuffledBannerAdsArray = [...pinROSAds, ...ROSOtherBannerAds]
+
+      setROSAdsArray(shuffledBannerAdsArray)
+    }
+
+    // Shuffle the banner ads when the component mounts
+    shuffleBannerAds()
+
+    // Shuffle the banner ads every 10 seconds
+    const shuffleInterval = setInterval(() => {
+      shuffleBannerAds()
+    }, 60000) // 10000 milliseconds = 10 seconds
+
+    // Cleanup the interval when the component unmounts
+    return () => {
+      clearInterval(shuffleInterval)
+    }
+  }, [bannerROSData]) // Use bannerROSData as a dependency to trigger shuffling when new data arrives
+
+  // Function to shuffle the banner ads and store them in state
+  // Specific Banner
+  useEffect(() => {
+    const shuffleBannerAds = () => {
+      const bannerAdsArrayObj = Object.values(
+        bannerSpecificData?.bannerAds?.edges || [],
+      )
+
+      // Separate shuffled banner ads with <img> tags from those without
+      const bannerSpecificAdsWithImg = bannerAdsArrayObj.filter(
+        (bannerAd) => !bannerAd?.node?.content.includes('<!--'),
+      )
+
+      const pinSpecificAds = bannerSpecificAdsWithImg.filter(
+        (bannerAd) => !bannerAd?.node?.acfBannerAds?.pinAd === false || null,
+      )
+
+      const otherSpecificAds = bannerSpecificAdsWithImg.filter(
+        (bannerAd) => !bannerAd?.node?.acfBannerAds?.pinAd === true,
+      )
+
+      // Shuffle only the otherBannerAds array
+      const SpecificOtherBannerAds = shuffleArray(otherSpecificAds)
+
+      // Concatenate the arrays with pinned ads first and shuffled other banner ads
+      const shuffledBannerAdsArray = [
+        ...pinSpecificAds,
+        ...SpecificOtherBannerAds,
+      ]
+
+      setSpecificAdsArray(shuffledBannerAdsArray)
+    }
+
+    // Shuffle the banner ads when the component mounts
+    shuffleBannerAds()
+
+    // Shuffle the banner ads every 10 seconds
+    const shuffleInterval = setInterval(() => {
+      shuffleBannerAds()
+    }, 60000) // 10000 milliseconds = 10 seconds
+
+    // Cleanup the interval when the component unmounts
+    return () => {
+      clearInterval(shuffleInterval)
+    }
+  }, [bannerSpecificData]) // Use bannerROSData as a dependency to trigger shuffling when new data arrives
 
   // load more posts when scrolled to bottom
   const checkScrollBottom = () => {
@@ -193,6 +244,16 @@ export default function CategoryStories(categoryUri) {
   // define childCatPostCards
   const childCatPosts = [...(childPosts != null ? childPosts : [])]
 
+  if (loading) {
+    return (
+      <>
+        <div className="mx-auto my-0 flex max-w-[100vw] justify-center md:max-w-[700px]	">
+          <Button className="gap-x-4	">{'Loading...'}</Button>
+        </div>
+      </>
+    )
+  }
+
   // define allPosts
   const allPosts = [
     ...(mainCatPosts != null ? mainCatPosts : []),
@@ -213,78 +274,8 @@ export default function CategoryStories(categoryUri) {
     [],
   )
 
-  // Function to shuffle the banner ads and store them in state
-  useEffect(() => {
-    const shuffleBannerAds = () => {
-      const bannerAdsArrayObj = Object.values(
-        bannerROSData?.bannerAds?.edges || [],
-      )
-
-      // Shuffle the array
-      const shuffledBannerAdsArray = shuffleArray(bannerAdsArrayObj)
-
-      setBannerAdsArray(shuffledBannerAdsArray)
-    }
-
-    // Shuffle the banner ads when the component mounts
-    shuffleBannerAds()
-
-    // Shuffle the banner ads every 10 seconds
-    const shuffleInterval = setInterval(() => {
-      shuffleBannerAds()
-    }, 60000) // 10000 milliseconds = 10 seconds
-
-    // Cleanup the interval when the component unmounts
-    return () => {
-      clearInterval(shuffleInterval)
-    }
-  }, [bannerROSData]) // Use bannerROSData as a dependency to trigger shuffling when new data arrives
-
-  // Separate shuffled banner ads with <img> tags from those without
-  const bannerROSAdsWithImg = bannerAdsArray.filter(
-    (bannerAd) => !bannerAd?.node?.content.includes('<!--'),
-  )
-
-  // Specific Banner Ads
-  const bannerSpecificAdsArray = bannerSpecificData?.bannerAds?.edges || []
-  const bannerSpecificAdsWithImg = bannerSpecificAdsArray.filter(
-    (bannerAd) => !bannerAd?.node?.content.includes('<!--'),
-  )
-
-  const matchingBannerAdsWithImg = bannerSpecificAdsWithImg.filter(
-    (bannerAd) => {
-      const anyOfUris = bannerAd?.node?.acfBannerAds?.anyOf?.map(
-        (anyOfItem) => anyOfItem.uri,
-      )
-      return anyOfUris && anyOfUris.includes(uri)
-    },
-  )
-
-  const pinROSAds = bannerROSAdsWithImg.filter(
-    (bannerAd) => !bannerAd?.node?.acfBannerAds?.pinAd === false || null,
-  )
-
-  const pinSpecificAds = matchingBannerAdsWithImg.filter(
-    (bannerAd) => !bannerAd?.node?.acfBannerAds?.pinAd === false || null,
-  )
-
   // Concatenate the arrays to place ads specificAds first
-  const sortedBannerAdsArray = [
-    ...matchingBannerAdsWithImg,
-    ...bannerROSAdsWithImg,
-  ].reduce((uniqueAds, ad) => {
-    if (!uniqueAds.some((uniqueAd) => uniqueAd?.node?.id === ad?.node?.id)) {
-      uniqueAds.push(ad)
-    }
-    return uniqueAds
-  }, [])
-
-  const pinAds = [...pinSpecificAds, ...pinROSAds]
-
-  const numberOfBannerAds = sortedBannerAdsArray.length
-  const numberOfPinAds = pinAds.length
-
-  const sortedBannerWithPin = [...pinAds, ...sortedBannerAdsArray].reduce(
+  const sortedBannerAdsArray = [...SpecificAdsArray, ...ROSAdsArray].reduce(
     (uniqueAds, ad) => {
       if (!uniqueAds.some((uniqueAd) => uniqueAd?.node?.id === ad?.node?.id)) {
         uniqueAds.push(ad)
@@ -294,7 +285,7 @@ export default function CategoryStories(categoryUri) {
     [],
   )
 
-  const numberOfSortedPinAds = sortedBannerWithPin.length
+  const numberOfBannerAds = sortedBannerAdsArray.length
 
   return (
     <div className={cx('component')}>
@@ -321,32 +312,14 @@ export default function CategoryStories(categoryUri) {
               locationLabel={post?.acfLocationIcon?.locationLabel}
               locationUrl={post?.acfLocationIcon?.locationUrl}
             />
-            {/* Check if pinAds is not an empty array */}
-            {numberOfPinAds > 0 && (
-              <>
-                {/* Loop through the rest of the banner ads */}
-                {(index - 1) % 4 === 0 && (
-                  <ModuleAd
-                    bannerAd={
-                      sortedBannerWithPin[(index - 1) / 4]?.node?.content
-                    }
-                  />
-                )}
-              </>
-            )}
-            {/* Check if pinAds is an empty array */}
-            {numberOfPinAds === 0 && (
-              <>
-                {(index - 1) % 4 === 0 && (
-                  <>
-                    <ModuleAd
-                      bannerAd={
-                        sortedBannerAdsArray[(index - 1) / 4]?.node?.content
-                      }
-                    />
-                  </>
-                )}
-              </>
+            {/* Show 1st banner after 2 posts and then every 4 posts */}
+            {(index - 1) % 4 === 0 && (
+              <ModuleAd
+                bannerAd={
+                  sortedBannerAdsArray[((index - 1) / 4) % numberOfBannerAds]
+                    ?.node?.content
+                }
+              />
             )}
           </React.Fragment>
         ))}

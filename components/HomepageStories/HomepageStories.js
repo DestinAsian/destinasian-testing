@@ -232,16 +232,12 @@ export default function HomepageStories(pinPosts) {
             />
             {/* Show 1st banner after 2 posts and then every 4 posts */}
             {(index - 1) % 4 === 0 && (
-              // <div>
-              //   {((index - 1) / 4) % numberOfBannerAds}
-                <ModuleAd
-                  bannerAd={
-                    sortedBannerAdsArray[((index - 1) / 4) % numberOfBannerAds]
-                      ?.node?.content
-                  }
-                />
-              //   {numberOfBannerAds}
-              // </div>
+              <ModuleAd
+                bannerAd={
+                  sortedBannerAdsArray[((index - 1) / 4) % numberOfBannerAds]
+                    ?.node?.content
+                }
+              />
             )}
           </React.Fragment>
         ))}
