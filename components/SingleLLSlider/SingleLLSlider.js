@@ -15,7 +15,7 @@ export default function SingleLLSlider({ images }) {
   const pagination = {
     clickable: true,
   }
-
+  
   return (
     <>
       <Swiper

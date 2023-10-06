@@ -1,5 +1,6 @@
 .post-ll-swiper {
   margin: 0;
+  padding-bottom: 2rem;
   height: 100%;
 }
 
@@ -18,14 +19,19 @@
 }
 
 .post-ll-swiper > .swiper-pagination > .swiper-pagination-bullet {
-  color: #ffffff;
-  background: #ffffff;
+  color: #494949;
+  background: #494949;
   border: 1px solid #000000;
+  padding: 0.5rem;
 }
 
 .post-ll-swiper > .swiper-pagination > .swiper-pagination-bullet-active {
   color: #fa4700;
   background: #fa4700;
+}
+
+.post-ll-swiper > .swiper-pagination {
+  bottom: var(--swiper-pagination-bottom, -0.75rem);
 }
 
 @media only screen and (min-width: 640px) {
@@ -37,10 +43,8 @@
     top: 50%;
     width: fit-content;
     height: fit-content;
-    bottom: auto;
-    left: -2.5rem;
-    padding: 0.5rem;
-    transform: rotateZ(90deg);
     position: fixed;
+    transform-origin: left;
+    transform: translate(5%, -100%) rotate(90deg);
   }
 }
