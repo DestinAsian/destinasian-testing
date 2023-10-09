@@ -15,7 +15,8 @@
   }
 }
 
-.content-wrapper, .category-wrapper {
+.content-wrapper,
+.category-wrapper {
   padding: 0.1rem 4vw;
   height: fit-content;
   border-right: 1px solid var(--wpe--color--white);
@@ -46,21 +47,19 @@
 }
 
 h5.category {
-  font-family: 'Ringside Regular A', 'Ringside Regular B';
-  font-style: normal;
-  font-weight: 700;
   color: var(--wpe--color--black);
   background-color: var(--wpe--color--white);
-  font-size: 0.8rem;
+  font-size: 0.6rem;
   line-height: 1.2;
   text-transform: uppercase;
   text-align: center;
-  padding: 0.6rem;
+  padding: 0.4rem;
   width: fit-content;
+  font-family: 'Ringside Regular A', 'Ringside Regular B';
+  font-weight: 700;
 
   @media (min-width: $breakpoint-extra-small) {
-    font-size: 1.15rem;
-    padding: 0.3rem;
+    font-size: 1rem;
   }
 }
 
@@ -68,10 +67,6 @@ h5.category {
   font-size: 1.65rem;
   line-height: 1.2;
   padding-bottom: 1rem;
-
-  @media (min-width: $breakpoint-extra-small) {
-    font-size: 1.7rem;
-  }
 
   @media (min-width: $breakpoint-extra-small) {
     font-size: 2.4rem;
