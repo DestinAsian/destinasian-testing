@@ -23,7 +23,7 @@
   margin: 0 auto;
   padding: 0 1rem 1rem;
   flex-direction: column;
-  row-gap: 0.25rem;
+  row-gap: 0.5rem;
   align-items: flex-start;
 
   @media (min-width: $breakpoint-extra-small) {
@@ -35,7 +35,7 @@
 .category {
   color: var(--wpe--color--black);
   background-color: var(--wpe--color--white);
-  font-size: 0.8rem;
+  font-size: 0.4rem;
   line-height: 1.2;
   text-transform: uppercase;
   text-align: center;

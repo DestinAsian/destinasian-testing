@@ -20,7 +20,6 @@ export default function FeatureWell({ featureWells }) {
   const isDesktop = useMediaQuery({ minWidth: 640 })
   const isMobile = useMediaQuery({ maxWidth: 639 })
   const [IsMaximized, setIsMaximized] = useState(false)
-  const [slideIndex, setSlideIndex] = useState(0)
 
   // Maximized chevron when page load
   useEffect(() => {

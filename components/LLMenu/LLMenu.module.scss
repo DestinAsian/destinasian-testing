@@ -19,7 +19,6 @@
   transition: top 0.4s ease-in-out;
   flex-direction: column;
 
-
   * {
     text-transform: uppercase;
   }
@@ -73,23 +72,24 @@
     }
 
     .content-wrapper {
-      padding: 0.1rem 0;
+      padding: 0.1rem 0 0.3rem;
     }
 
     .category-wrapper {
-      font-size: 0.6rem;
-      padding: 2rem 0 0.5rem;
+      padding: 2rem 0 1rem;
 
       .category {
+        color: var(--wpe--color--black);
+        background-color: var(--wpe--color--white);
+        font-size: 0.4rem;
+        line-height: 1.2;
+        text-transform: uppercase;
+        text-align: center;
+        padding: 0.6rem;
+        width: fit-content;
         font-family: 'Ringside Regular A', 'Ringside Regular B';
         font-style: normal;
         font-weight: 700;
-        color: var(--wpe--color--black);
-        background-color: var(--wpe--color--white);
-        line-height: 1.2;
-        text-transform: uppercase;
-        padding: 0.6rem;
-        width: fit-content;
       }
     }
 
