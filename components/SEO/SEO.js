@@ -124,6 +124,20 @@ export default function SEO({ title, description, imageUrl, url }) {
           href="https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap"
           rel="stylesheet"
         />
+
+        {/* Frmwrk Tracking Code */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+            (function(c,l,a,r,i,t,y){
+                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+            })(window, document, "clarity", "script", "j7qzcd7z4a");
+          `,
+          }}
+        ></script>
+        {/* End Frmwrk Tracking Code */}
       </Head>
     </>
   )
