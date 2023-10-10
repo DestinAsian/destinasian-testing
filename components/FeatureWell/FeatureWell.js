@@ -20,6 +20,7 @@ export default function FeatureWell({ featureWells }) {
   const isDesktop = useMediaQuery({ minWidth: 640 })
   const isMobile = useMediaQuery({ maxWidth: 639 })
   const [IsMaximized, setIsMaximized] = useState(false)
+  const [slideIndex, setSlideIndex] = useState(0); // Added slideIndex state
 
   // Maximized chevron when page load
   useEffect(() => {
@@ -104,7 +105,7 @@ export default function FeatureWell({ featureWells }) {
                 <a href={featureWell.url}>
                   <div className={cx('video-wrapper')}>
                     <video
-                      id={`video-${index}`}
+                      id={`video-${slideIndex}`}
                       src={featureWell.videoSrc}
                       className="video-content"
                       loop
