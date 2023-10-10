@@ -1,6 +1,5 @@
 .post-ll-swiper {
   margin: 0;
-  padding-bottom: 2rem;
   height: 100%;
 }
 
@@ -32,6 +31,7 @@
 
 .post-ll-swiper > .swiper-pagination {
   bottom: var(--swiper-pagination-bottom, -0.75rem);
+  display: none;
 }
 
 @media only screen and (min-width: 640px) {
@@ -40,6 +40,7 @@
   }
 
   .post-ll-swiper > .swiper-pagination {
+    display: block;
     top: 50%;
     width: fit-content;
     height: fit-content;
