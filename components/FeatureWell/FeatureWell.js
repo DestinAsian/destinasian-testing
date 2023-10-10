@@ -20,7 +20,6 @@ export default function FeatureWell({ featureWells }) {
   const isDesktop = useMediaQuery({ minWidth: 640 })
   const isMobile = useMediaQuery({ maxWidth: 639 })
   const [IsMaximized, setIsMaximized] = useState(false)
-  const [slideIndex, setSlideIndex] = useState(0); // Added slideIndex state
 
   // Maximized chevron when page load
   useEffect(() => {
@@ -40,7 +39,7 @@ export default function FeatureWell({ featureWells }) {
             const currentSlideIndex = swiper.activeIndex
             const currentSlide = featureWells[currentSlideIndex]
 
-            if (currentSlide && currentSlide.type === 'video') {
+            if (currentSlide.type === 'video') {
               const videoElement = document.getElementById(
                 `video-${currentSlideIndex}`,
               )
@@ -49,9 +48,6 @@ export default function FeatureWell({ featureWells }) {
                 videoElement.currentTime = 0 // Start the video from the beginning
                 videoElement.play() // Play the video
               }
-
-              // Update the slideIndex state to reflect the current slide
-              setSlideIndex(currentSlideIndex)
             }
           }}
           effect={'fade'}
@@ -105,7 +101,7 @@ export default function FeatureWell({ featureWells }) {
                 <a href={featureWell.url}>
                   <div className={cx('video-wrapper')}>
                     <video
-                      id={`video-${slideIndex}`}
+                      id={`video-${index}`}
                       src={featureWell.videoSrc}
                       className="video-content"
                       loop
