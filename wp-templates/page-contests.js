@@ -69,6 +69,7 @@ export default function Component(props) {
         description={seo?.metaDesc}
         imageUrl={featuredImage?.node?.sourceUrl}
         url={uri}
+        focuskw={seo?.focuskw}
       />
       {/* Google Tag Manager (noscript) */}
       <noscript>
@@ -131,6 +132,7 @@ Component.query = gql`
       seo {
         title
         metaDesc
+        focuskw
       }
       uri
     }

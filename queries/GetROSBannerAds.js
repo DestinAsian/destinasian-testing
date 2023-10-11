@@ -4,9 +4,7 @@ export const GetROSBannerAds = gql`
   query GetBannerAds($first: Int) {
     bannerAds(first: $first, where: { search: "ros" }) {
       pageInfo {
-        hasPreviousPage
         hasNextPage
-        startCursor
         endCursor
       }
       edges {

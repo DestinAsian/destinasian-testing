@@ -89,6 +89,7 @@ export default function SingleAdvertorial(props) {
         description={seo?.metaDesc}
         imageUrl={featuredImage?.node?.sourceUrl}
         url={uri}
+        focuskw={seo?.focuskw}
       />
       {/* Google Tag Manager (noscript) */}
       <noscript>
@@ -157,6 +158,7 @@ SingleAdvertorial.query = gql`
       seo {
         title
         metaDesc
+        focuskw
       }
       uri
       acfAdvertorialLabel {

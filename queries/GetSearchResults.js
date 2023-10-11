@@ -9,8 +9,6 @@ export const GetSearchResults = gql`
     ) {
       pageInfo {
         hasNextPage
-        hasPreviousPage
-        startCursor
         endCursor
       }
       edges {

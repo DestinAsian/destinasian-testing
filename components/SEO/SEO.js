@@ -11,8 +11,8 @@ import Head from 'next/head'
  *
  * @returns {React.ReactElement} The SEO component
  */
-export default function SEO({ title, description, imageUrl, url }) {
-  if (!title && !description && !imageUrl && !url) {
+export default function SEO({ title, description, imageUrl, url, focuskw }) {
+  if (!title && !description && !imageUrl && !url && !focuskw) {
     return null
   }
 
@@ -56,6 +56,14 @@ export default function SEO({ title, description, imageUrl, url }) {
             />
           </>
         )}
+
+        {focuskw && <meta name="keywords" content={focuskw} />}
+
+        {/* SEM Keywords */}
+        <meta
+          name="keywords"
+          content="travel magazine, luxury magazine, luxury travel magazine, travel news, travel reviews, luxury travel, hotel and airline booking, hotel reviews, airline news, travel video guides, travel deals, travel contest, travel website, online travel magazine, asia travel, philippines travel, hotel news, best hotels manila, hong kong restaurants, beach holidays, thailand travel, singapore restaurants, luxury train trips, luxury resorts, best hotels beijing, best hotels singapore, luxury holidays asia, japan travel, indonesia travel, southeast asia travel, cultural travel, asia travel magazine, india travel, island getaways, asia cruise, phuket resorts, bali resorts, bangkok restaurants, airline news, adventure travel asia, airline routes, best hotels hong kong, best hotels jakarta, luxe list, luxury travel asia, hong kong travel, bali travel, sri lanka travel, cambodia travel, luxury hotels, best hotels shanghai, vietnam travel, tokyo restaurants, singapore travel, china travel, maldives resorts, luxury cruise, best hotels southeast asia, best hotels tokyo"
+        />
 
         {/* Google tag (gtag.js) */}
         <script

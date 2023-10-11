@@ -11,8 +11,6 @@ export const GetLuxeListStories = gql`
         pageInfo {
           endCursor
           hasNextPage
-          hasPreviousPage
-          startCursor
         }
         edges {
           node {

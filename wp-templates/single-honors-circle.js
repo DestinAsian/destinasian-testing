@@ -110,6 +110,7 @@ export default function SingleHonorsCircle(props) {
         description={seo?.metaDesc}
         imageUrl={featuredImage?.node?.sourceUrl}
         url={uri}
+        focuskw={seo?.focuskw}
       />
       {/* Google Tag Manager (noscript) */}
       <noscript>
@@ -216,6 +217,7 @@ SingleHonorsCircle.query = gql`
       seo {
         title
         metaDesc
+        focuskw
       }
       uri
       hcLocation {

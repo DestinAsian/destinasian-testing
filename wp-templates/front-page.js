@@ -122,7 +122,18 @@ export default function Component(props) {
         description={seo?.metaDesc}
         imageUrl={featuredImage?.node?.sourceUrl}
         url={uri}
+        focuskw={seo?.focuskw}
       />
+      {/* Google Tag Manager (noscript) */}
+      <noscript>
+        <iframe
+          src="https://www.googletagmanager.com/ns.html?id=GTM-5BJVGS"
+          height="0"
+          width="0"
+          className="invisible hidden"
+        ></iframe>
+      </noscript>
+      {/* End Google Tag Manager (noscript) */}
       <HomepageHeader
         title={siteTitle}
         description={siteDescription}
@@ -185,6 +196,7 @@ Component.query = gql`
       seo {
         title
         metaDesc
+        focuskw
       }
       ...FeaturedImageFragment
       acfHomepageSlider {

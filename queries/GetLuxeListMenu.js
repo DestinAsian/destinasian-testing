@@ -11,8 +11,6 @@ export const GetLuxeListMenu = gql`
         pageInfo {
           endCursor
           hasNextPage
-          hasPreviousPage
-          startCursor
         }
         edges {
           node {

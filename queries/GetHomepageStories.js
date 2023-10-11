@@ -14,9 +14,7 @@ export const GetHomepageStories = gql`
       }
     ) {
       pageInfo {
-        hasPreviousPage
         hasNextPage
-        startCursor
         endCursor
       }
       edges {

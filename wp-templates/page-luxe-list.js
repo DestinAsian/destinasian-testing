@@ -1,18 +1,27 @@
+import React, { useState, useEffect } from 'react'
 import { gql } from '@apollo/client'
 import * as MENUS from '../constants/menus'
 import { BlogInfoFragment } from '../fragments/GeneralSettings'
 import {
-  HCHeader,
+  Footer,
   Main,
-  Container,
   NavigationMenu,
   FeaturedImage,
   SEO,
-  ContentWrapperHCFrontPage,
-  EntryHeader,
+  Header,
+  SingleLLContainer,
+  SingleLLFrontPageContainer,
+  ContentWrapperLLFrontPage,
+  SingleLLFeaturedImage,
+  SingleAdvertorialEntryHeader,
+  LLPost,
+  Button,
+  ContentWrapperLL,
+  SingleLLFrontPageFeaturedImage,
+  SingleLLEntryHeader,
 } from '../components'
 
-export default function Component(props) {
+export default function SingleLuxeList(props) {
   // Loading state for previews
   if (props.loading) {
     return <>Loading...</>
@@ -26,22 +35,44 @@ export default function Component(props) {
   const fourthMenu = props?.data?.fourthHeaderMenuItems?.nodes ?? []
   const fifthMenu = props?.data?.fifthHeaderMenuItems?.nodes ?? []
   const featureMenu = props?.data?.featureHeaderMenuItems?.nodes ?? []
-  const { title, content, featuredImage, hcCaption, seo, uri } = props?.data?.page ?? []
-  const posts = props?.data?.posts ?? []
-  const editorials = props?.data?.editorials ?? []
+  const footerMenu = props?.data?.footerMenuItems?.nodes ?? []
+  const {
+    title,
+    content,
+    featuredImage,
+    acfPostSlider,
+    parent,
+    hcLocation,
+    hcCaption,
+    seo,
+    uri,
+    children,
+    databaseId,
+    luxeListLogo,
+    categories,
+  } = props?.data?.luxeList
+  // Latest Travel Stories
+  const latestPosts = props?.data?.posts ?? []
+  const latestEditorials = props?.data?.editorials ?? []
 
-  const mainPosts = []
-  const mainEditorialPosts = []
+  const latestMainPosts = []
+  const latestMainEditorialPosts = []
 
-  // loop through all the main categories posts
-  posts.edges.forEach((post) => {
-    mainPosts.push(post.node)
+  // loop through all the latest categories posts
+  latestPosts.edges.forEach((post) => {
+    latestMainPosts.push(post.node)
   })
 
-  // loop through all the main categories and their posts
-  editorials.edges.forEach((post) => {
-    mainEditorialPosts.push(post.node)
+  // loop through all the latest categories and their posts
+  latestEditorials.edges.forEach((post) => {
+    latestMainEditorialPosts.push(post.node)
   })
+
+  // define latestCatPostCards
+  const latestMainCatPosts = [
+    ...(latestMainPosts != null ? latestMainPosts : []),
+    ...(latestMainEditorialPosts != null ? latestMainEditorialPosts : []),
+  ]
 
   // sort posts by date
   const sortPostsByDate = (a, b) => {
@@ -50,14 +81,16 @@ export default function Component(props) {
     return dateB - dateA // Sort in descending order
   }
 
-  // define mainCatPostCards
-  const mainCatPosts = [
-    ...(mainPosts != null ? mainPosts : []),
-    ...(mainEditorialPosts != null ? mainEditorialPosts : []),
-  ]
+  // sortByDate latestCat & childCat Posts
+  const latestAllPosts = latestMainCatPosts.sort(sortPostsByDate)
 
-  // sortByDate mainCat & childCat Posts
-  const allPosts = mainCatPosts.sort(sortPostsByDate)
+  const images = [
+    acfPostSlider.slide1 != null ? acfPostSlider.slide1.mediaItemUrl : null,
+    acfPostSlider.slide2 != null ? acfPostSlider.slide2.mediaItemUrl : null,
+    acfPostSlider.slide3 != null ? acfPostSlider.slide3.mediaItemUrl : null,
+    acfPostSlider.slide4 != null ? acfPostSlider.slide4.mediaItemUrl : null,
+    acfPostSlider.slide5 != null ? acfPostSlider.slide5.mediaItemUrl : null,
+  ]
 
   return (
     <>
@@ -66,6 +99,7 @@ export default function Component(props) {
         description={seo?.metaDesc}
         imageUrl={featuredImage?.node?.sourceUrl}
         url={uri}
+        focuskw={seo?.focuskw}
       />
       {/* Google Tag Manager (noscript) */}
       <noscript>
@@ -73,39 +107,103 @@ export default function Component(props) {
           src="https://www.googletagmanager.com/ns.html?id=GTM-5BJVGS"
           height="0"
           width="0"
-          className="hidden invisible"
+          className="invisible hidden"
         ></iframe>
       </noscript>
       {/* End Google Tag Manager (noscript) */}
-      <HCHeader
-        title={siteTitle}
-        description={siteDescription}
-        primaryMenuItems={primaryMenu}
-        secondaryMenuItems={secondaryMenu}
-        thirdMenuItems={thirdMenu}
-        fourthMenuItems={fourthMenu}
-        fifthMenuItems={fifthMenu}
-        featureMenuItems={featureMenu}
-        latestStories={allPosts}
-      />
-      <Main>
-        <>
-          <Container>
-            <EntryHeader hcTitle={title} hcCaption={hcCaption?.hcCaption}/>
-            <ContentWrapperHCFrontPage content={content}/>
-          </Container>
-        </>
-      </Main>
+      {/* Year pages */}
+      {parent == null && (
+        <Header
+          title={siteTitle}
+          description={siteDescription}
+          primaryMenuItems={primaryMenu}
+          secondaryMenuItems={secondaryMenu}
+          thirdMenuItems={thirdMenu}
+          fourthMenuItems={fourthMenu}
+          fifthMenuItems={fifthMenu}
+          featureMenuItems={featureMenu}
+          latestStories={latestAllPosts}
+        />
+      )}
+      {parent == null && (
+        <Main>
+          <>
+            <SingleLLFrontPageContainer>
+              {/* {'countries'} */}
+              {/* All posts sorted by mainPosts & date */}
+              <SingleLLFrontPageFeaturedImage
+                mainLogo={luxeListLogo?.mainLogo}
+                secondaryLogo={luxeListLogo?.secondaryLogo}
+                databaseId={databaseId}
+                uri={uri}
+              />
+              <ContentWrapperLLFrontPage
+                content={content}
+                databaseId={databaseId}
+                parentTitle={title}
+              />
+            </SingleLLFrontPageContainer>
+          </>
+        </Main>
+      )}
+
+      {/* Hotel pages */}
+      {parent != null && (
+        <Header
+          title={siteTitle}
+          description={siteDescription}
+          primaryMenuItems={primaryMenu}
+          secondaryMenuItems={secondaryMenu}
+          thirdMenuItems={thirdMenu}
+          fourthMenuItems={fourthMenu}
+          fifthMenuItems={fifthMenu}
+          featureMenuItems={featureMenu}
+          latestStories={latestAllPosts}
+        />
+      )}
+      {parent != null && (
+        <Main>
+          <>
+            {/* {'hotel'} */}
+            <SingleLLContainer>
+              <div className="sm:fixed sm:left-[50vw] sm:flex sm:h-[calc(100vh-4.5rem)] sm:w-[50vw] sm:flex-col	sm:justify-between">
+                {/* First wrapper */}
+                <div>
+                  <SingleLLFeaturedImage
+                    mainLogo={parent?.node?.luxeListLogo?.mainLogo}
+                    secondaryLogo={parent?.node?.luxeListLogo?.secondaryLogo}
+                    databaseId={parent?.node?.databaseId}
+                    uri={parent?.node?.uri}
+                  />
+                </div>
+                {/* Second wrapper */}
+                <div>
+                  <SingleLLEntryHeader
+                    title={title}
+                    category={categories?.edges[0]?.node?.name}
+                  />
+                  <ContentWrapperLL
+                    content={content}
+                    images={images}
+                    databaseId={databaseId}
+                  />
+                </div>
+              </div>
+            </SingleLLContainer>
+          </>
+        </Main>
+      )}
+      {/* <Footer /> */}
     </>
   )
 }
 
-Component.query = gql`
+SingleLuxeList.query = gql`
   ${BlogInfoFragment}
   ${NavigationMenu.fragments.entry}
   ${FeaturedImage.fragments.entry}
-  query GetPageData(
-    $databaseId: ID = "133599"
+  query GetPost(
+    $databaseId: ID!
     $headerLocation: MenuLocationEnum
     $secondHeaderLocation: MenuLocationEnum
     $thirdHeaderLocation: MenuLocationEnum
@@ -118,18 +216,95 @@ Component.query = gql`
     $where: RootQueryToPostConnectionWhereArgs = { status: PUBLISH }
     $where1: RootQueryToEditorialConnectionWhereArgs = { status: PUBLISH }
   ) {
-    page(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
+    luxeList(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
       title
       content
+      databaseId
       ...FeaturedImageFragment
-      hcCaption {
-        hcCaption
+      luxeListLogo {
+        mainLogo {
+          id
+          sourceUrl
+          altText
+          mediaDetails {
+            width
+            height
+          }
+        }
+        secondaryLogo {
+          id
+          sourceUrl
+          altText
+          mediaDetails {
+            width
+            height
+          }
+        }
+      }
+      categories {
+        edges {
+          node {
+            name
+          }
+        }
+      }
+      author {
+        node {
+          name
+        }
       }
       seo {
         title
         metaDesc
+        focuskw
       }
       uri
+      acfPostSlider {
+        slide1 {
+          mediaItemUrl
+        }
+        slide2 {
+          mediaItemUrl
+        }
+        slide3 {
+          mediaItemUrl
+        }
+        slide4 {
+          mediaItemUrl
+        }
+        slide5 {
+          mediaItemUrl
+        }
+      }
+      ...FeaturedImageFragment
+      parent {
+        node {
+          ... on LuxeList {
+            uri
+            databaseId
+            luxeListLogo {
+              mainLogo {
+                id
+                sourceUrl
+                altText
+                mediaDetails {
+                  width
+                  height
+                }
+              }
+              secondaryLogo {
+                id
+                sourceUrl
+                altText
+                mediaDetails {
+                  width
+                  height
+                }
+              }
+            }
+          }
+        }
+      }
     }
     posts(first: $first, where: $where) {
       edges {
@@ -195,11 +370,6 @@ Component.query = gql`
     generalSettings {
       ...BlogInfoFragment
     }
-    footerMenuItems: menuItems(where: { location: $footerLocation }) {
-      nodes {
-        ...NavigationMenuItemFragment
-      }
-    }
     headerMenuItems: menuItems(
       where: { location: $headerLocation }
       first: 20
@@ -248,12 +418,18 @@ Component.query = gql`
         ...NavigationMenuItemFragment
       }
     }
+    footerMenuItems: menuItems(where: { location: $footerLocation }) {
+      nodes {
+        ...NavigationMenuItemFragment
+      }
+    }
   }
 `
 
-Component.variables = ({ databaseId }, ctx) => {
+SingleLuxeList.variables = ({ databaseId }, ctx) => {
   return {
     databaseId,
+    asPreview: ctx?.asPreview,
     headerLocation: MENUS.PRIMARY_LOCATION,
     secondHeaderLocation: MENUS.SECONDARY_LOCATION,
     thirdHeaderLocation: MENUS.THIRD_LOCATION,
@@ -261,6 +437,5 @@ Component.variables = ({ databaseId }, ctx) => {
     fifthHeaderLocation: MENUS.FIFTH_LOCATION,
     featureHeaderLocation: MENUS.FEATURE_LOCATION,
     footerLocation: MENUS.FOOTER_LOCATION,
-    asPreview: ctx?.asPreview,
   }
 }

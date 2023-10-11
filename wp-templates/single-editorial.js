@@ -128,6 +128,7 @@ export default function SingleEditorial(props) {
         description={seo?.metaDesc}
         imageUrl={featuredImage?.node?.sourceUrl}
         url={uri}
+        focuskw={seo?.focuskw}
       />
       {/* Google Tag Manager (noscript) */}
       <noscript>

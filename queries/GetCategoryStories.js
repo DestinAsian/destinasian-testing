@@ -13,6 +13,10 @@ export const GetCategoryStories = gql`
           orderby: { field: DATE, order: DESC }
         }
       ) {
+        pageInfo {
+          endCursor
+          hasNextPage
+        }
         edges {
           node {
             ... on Post {
@@ -150,6 +154,10 @@ export const GetCategoryStories = gql`
                 orderby: { field: DATE, order: DESC }
               }
             ) {
+              pageInfo {
+                endCursor
+                hasNextPage
+              }
               edges {
                 node {
                   ... on Post {
@@ -282,6 +290,10 @@ export const GetCategoryStories = gql`
                       orderby: { field: DATE, order: DESC }
                     }
                   ) {
+                    pageInfo {
+                      endCursor
+                      hasNextPage
+                    }
                     edges {
                       node {
                         ... on Post {

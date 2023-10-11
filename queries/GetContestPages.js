@@ -7,9 +7,7 @@ export const GetContestPages = gql`
       where: { status: PUBLISH, orderby: { field: DATE, order: ASC } }
     ) {
       pageInfo {
-        hasPreviousPage
         hasNextPage
-        startCursor
         endCursor
       }
       edges {

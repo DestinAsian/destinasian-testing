@@ -100,6 +100,7 @@ export default function SingleLuxeList(props) {
         description={seo?.metaDesc}
         imageUrl={featuredImage?.node?.sourceUrl}
         url={uri}
+        focuskw={seo?.focuskw}
       />
       {/* Google Tag Manager (noscript) */}
       <noscript>
@@ -256,6 +257,7 @@ SingleLuxeList.query = gql`
       seo {
         title
         metaDesc
+        focuskw
       }
       uri
       acfPostSlider {

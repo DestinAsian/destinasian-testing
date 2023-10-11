@@ -24,7 +24,7 @@ export default function CategoryStories(categoryUri) {
   const [ROSAdsArray, setROSAdsArray] = useState([])
   const [SpecificAdsArray, setSpecificAdsArray] = useState([])
   // Post per fetching
-  const postsPerPage = 4
+  const postsPerPage = 20
   const bannerPerPage = 20
 
   const uri = categoryUri?.categoryUri
@@ -244,6 +244,17 @@ export default function CategoryStories(categoryUri) {
   // define childCatPostCards
   const childCatPosts = [...(childPosts != null ? childPosts : [])]
 
+  // sort posts by date
+  const sortPostsByDate = (a, b) => {
+    const dateA = new Date(a.date)
+    const dateB = new Date(b.date)
+    return dateB - dateA // Sort in descending order
+  }
+
+
+  const sortedMainPosts = mainCatPosts.sort(sortPostsByDate)
+  const sortedChildPosts = childCatPosts.sort(sortPostsByDate)
+
   if (loading) {
     return (
       <>
@@ -256,8 +267,8 @@ export default function CategoryStories(categoryUri) {
 
   // define allPosts
   const allPosts = [
-    ...(mainCatPosts != null ? mainCatPosts : []),
-    ...(childCatPosts != null ? childCatPosts : []),
+    ...(sortedMainPosts != null ? sortedMainPosts : []),
+    ...(sortedChildPosts != null ? sortedChildPosts : []),
   ]
 
   // Declare Pin Posts

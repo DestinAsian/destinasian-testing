@@ -86,6 +86,7 @@ export default function SingleContest(props) {
         description={seo?.metaDesc}
         imageUrl={featuredImage?.node?.sourceUrl}
         url={uri}
+        focuskw={seo?.focuskw}
       />
       {/* Google Tag Manager (noscript) */}
       <noscript>
@@ -152,6 +153,7 @@ SingleContest.query = gql`
       seo {
         title
         metaDesc
+        focuskw
       }
       uri
       acfPostSlider {

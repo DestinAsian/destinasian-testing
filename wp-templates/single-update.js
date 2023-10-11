@@ -165,6 +165,7 @@ export default function SingleUpdate(props) {
         description={seo?.metaDesc}
         imageUrl={featuredImage?.node?.sourceUrl}
         url={uri}
+        focuskw={seo?.focuskw}
       />
       <SingleHeader
         title={siteTitle}
@@ -249,6 +250,7 @@ SingleUpdate.query = gql`
       seo {
         title
         metaDesc
+        focuskw
       }
       uri
       ...FeaturedImageFragment

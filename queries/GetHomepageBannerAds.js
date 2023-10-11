@@ -4,9 +4,7 @@ export const GetHomepageBannerAds = gql`
   query GetBannerAds($first: Int) {
     bannerAds(first: $first, where: { search: "homepage" }) {
       pageInfo {
-        hasPreviousPage
         hasNextPage
-        startCursor
         endCursor
       }
       edges {
