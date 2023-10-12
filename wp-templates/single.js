@@ -1,6 +1,7 @@
 import { gql } from '@apollo/client'
 import * as MENUS from '../constants/menus'
 import { BlogInfoFragment } from '../fragments/GeneralSettings'
+import React, { useState, useEffect } from 'react'
 import {
   SingleHeader,
   Footer,
@@ -13,8 +14,19 @@ import {
   SEO,
   SingleSlider,
   SecondaryHeader,
+  EntryMoreReviews,
+  MoreReviews,
 } from '../components'
 // import defaultImage from '../assets/images/example-image.png'
+
+// Randomized Function
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[array[i], array[j]] = [array[j], array[i]]
+  }
+  return array
+}
 
 export default function Component(props) {
   // Loading state for previews
@@ -46,6 +58,7 @@ export default function Component(props) {
   const categories = props?.data?.post.categories?.edges ?? []
   const posts = props?.data?.posts ?? []
   const editorials = props?.data?.editorials ?? []
+  const moreReviews = categories[0]?.node?.posts ?? []
 
   // Rest of World validation
   const rowValidation =
@@ -88,6 +101,23 @@ export default function Component(props) {
     acfPostSlider.slide5 != null ? acfPostSlider.slide5.mediaItemUrl : null,
   ]
 
+  // Randomized slice function
+  function getRandomSlice(array, count) {
+    const shuffledArray = shuffleArray([...array])
+    return shuffledArray.slice(0, count)
+  }
+
+  // Shuffle the moreReviews before rendering
+  const [shuffledMoreReviews, setShuffledMoreReviews] = useState([])
+
+  useEffect(() => {
+    if (moreReviews && moreReviews.edges && shuffledMoreReviews.length === 0) {
+      // Check if shuffledMoreReviews is empty before shuffling
+      const shuffledSlice = getRandomSlice(moreReviews.edges, 3)
+      setShuffledMoreReviews(shuffledSlice)
+    }
+  }, [moreReviews])
+
   return (
     <>
       <SEO
@@ -103,7 +133,7 @@ export default function Component(props) {
           src="https://www.googletagmanager.com/ns.html?id=GTM-5BJVGS"
           height="0"
           width="0"
-          className="hidden invisible"
+          className="invisible hidden"
         ></iframe>
       </noscript>
       {/* End Google Tag Manager (noscript) */}
@@ -150,6 +180,27 @@ export default function Component(props) {
           <Container>
             <ContentWrapper content={content} />
           </Container>
+          <EntryMoreReviews
+            parentName={categories[0]?.node?.parent?.node?.name}
+            categoryName={categories[0]?.node?.name}
+            categoryUri={categories[0]?.node?.uri}
+          />
+          {shuffledMoreReviews.map((post) => (
+            <>
+              {post.node.title !== title && (
+                // Render the merged posts here
+                <MoreReviews
+                  key={post.node.id}
+                  title={post.node.title}
+                  excerpt={post.node.excerpt}
+                  uri={post.node.uri}
+                  category={post.node.categories.edges[0]?.node?.name}
+                  categoryUri={post.node.categories.edges[0]?.node?.uri}
+                  featuredImage={post.node.featuredImage?.node}
+                />
+              )}
+            </>
+          ))}
           {/* <ModuleAd /> */}
         </>
       </Main>
@@ -221,6 +272,44 @@ Component.query = gql`
                 node {
                   name
                   uri
+                }
+              }
+            }
+            posts {
+              edges {
+                node {
+                  id
+                  title
+                  content
+                  date
+                  uri
+                  excerpt
+                  ...FeaturedImageFragment
+                  categories {
+                    edges {
+                      node {
+                        name
+                        uri
+                        parent {
+                          node {
+                            name
+                          }
+                        }
+                      }
+                    }
+                  }
+                  acfCategoryIcon {
+                    categoryLabel
+                    chooseYourCategory
+                    chooseIcon {
+                      mediaItemUrl
+                    }
+                  }
+                  acfLocationIcon {
+                    fieldGroupName
+                    locationLabel
+                    locationUrl
+                  }
                 }
               }
             }

@@ -18,6 +18,15 @@ import {
   EntryRelatedStories,
 } from '../components'
 
+// Randomized Function
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[array[i], array[j]] = [array[j], array[i]]
+  }
+  return array
+}
+
 export default function SingleEditorial(props) {
   // Loading state for previews
   if (props.loading) {
@@ -50,16 +59,6 @@ export default function SingleEditorial(props) {
 
   const mainPosts = []
   const mainEditorialPosts = []
-  const mainRelatedStories = []
-
-  // Randomized Function
-  function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1))
-      ;[array[i], array[j]] = [array[j], array[i]]
-    }
-    return array
-  }
 
   // loop through all the main categories posts
   posts.edges.forEach((post) => {
@@ -136,7 +135,7 @@ export default function SingleEditorial(props) {
           src="https://www.googletagmanager.com/ns.html?id=GTM-5BJVGS"
           height="0"
           width="0"
-          className="hidden invisible"
+          className="invisible hidden"
         ></iframe>
       </noscript>
       {/* End Google Tag Manager (noscript) */}
