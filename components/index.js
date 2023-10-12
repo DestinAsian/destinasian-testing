@@ -1,3 +1,4 @@
+export { AdvertorialPost } from './AdvertorialPost';
 export { Button } from './Button';
 export { CategoryEntryHeader } from './CategoryEntryHeader';
 export { CategoryHeader } from './CategoryHeader';

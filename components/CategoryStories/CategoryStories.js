@@ -5,7 +5,8 @@ import { useQuery } from '@apollo/client'
 import { GetCategoryStories } from '../../queries/GetCategoryStories'
 import { GetROSBannerAds } from '../../queries/GetROSBannerAds'
 import { GetSpecificBannerAds } from '../../queries/GetSpecificBannerAds'
-import { Post, ModuleAd, Button } from '..'
+import { GetAdvertorialStories } from '../../queries/GetAdvertorialStories'
+import { Post, ModuleAd, Button, AdvertorialPost } from '..'
 
 let cx = classNames.bind(styles)
 
@@ -23,13 +24,17 @@ export default function CategoryStories(categoryUri) {
   // Declare state for banner ads
   const [ROSAdsArray, setROSAdsArray] = useState([])
   const [SpecificAdsArray, setSpecificAdsArray] = useState([])
+  const [AdvertorialArray, setAdvertorialArray] = useState([])
   // Post per fetching
   const postsPerPage = 20
   const bannerPerPage = 20
+  const advertPerPage = 10
 
   const uri = categoryUri?.categoryUri
   const pinPosts = categoryUri?.pinPosts
   const name = categoryUri?.name
+  const children = categoryUri?.children
+  const parent = categoryUri?.parent
 
   // Get Stories / Posts
   const { data, error, loading, fetchMore } = useQuery(GetCategoryStories, {
@@ -42,22 +47,22 @@ export default function CategoryStories(categoryUri) {
     nextFetchPolicy: 'cache-and-network',
   })
 
-  const updateQuery = (previousResult, { fetchMoreResult }) => {
-    if (!fetchMoreResult.categories.edges.length) {
-      return previousResult.categories
-    }
+  // const updateQuery = (previousResult, { fetchMoreResult }) => {
+  //   if (!fetchMoreResult.categories.edges.length) {
+  //     return previousResult.categories
+  //   }
 
-    return {
-      categories: {
-        ...previousResult.categories,
-        edges: [
-          ...previousResult.categories.edges,
-          ...fetchMoreResult.categories.edges,
-        ],
-        pageInfo: fetchMoreResult.categories.pageInfo,
-      },
-    }
-  }
+  //   return {
+  //     categories: {
+  //       ...previousResult.categories,
+  //       edges: [
+  //         ...previousResult.categories.edges,
+  //         ...fetchMoreResult.categories.edges,
+  //       ],
+  //       pageInfo: fetchMoreResult.categories.pageInfo,
+  //     },
+  //   }
+  // }
 
   // Get ROS Banner
   const {
@@ -91,6 +96,39 @@ export default function CategoryStories(categoryUri) {
   })
 
   if (bannerSpecificError) {
+    return <pre>{JSON.stringify(error)}</pre>
+  }
+
+  let queryVariables = {
+    first: advertPerPage,
+    search: null,
+  }
+
+  if (children?.edges?.length === 0) {
+    // Modify the variables based on the condition
+    queryVariables = {
+      search: parent, // Change this to the desired value
+    }
+  }
+
+  if (children?.edges?.length !== 0) {
+    // Modify the variables based on the condition
+    queryVariables = {
+      search: name, // Change this to the desired value
+    }
+  }
+
+  const {
+    data: advertorialsData,
+    error: advertorialsError,
+    // fetchMore: fetchMoreSpecificBanner,
+  } = useQuery(GetAdvertorialStories, {
+    variables: queryVariables, // Use the modified variables
+    fetchPolicy: 'network-only',
+    nextFetchPolicy: 'cache-and-network',
+  })
+
+  if (advertorialsError) {
     return <pre>{JSON.stringify(error)}</pre>
   }
 
@@ -145,6 +183,7 @@ export default function CategoryStories(categoryUri) {
   }, [bannerROSData]) // Use bannerROSData as a dependency to trigger shuffling when new data arrives
 
   // Function to shuffle the banner ads and store them in state
+
   // Specific Banner
   useEffect(() => {
     const shuffleBannerAds = () => {
@@ -217,6 +256,25 @@ export default function CategoryStories(categoryUri) {
     }
   }, [])
 
+  useEffect(() => {
+    const shuffleAdvertorialPost = () => {
+      const advertorialArray = Object.values(
+        advertorialsData?.advertorials?.edges || [],
+      )
+
+      // Shuffle only the otherBannerAds array
+      const shuffleAdvertorialPost = shuffleArray(advertorialArray)
+
+      // Concatenate the arrays with pinned ads first and shuffled other banner ads
+      const shuffledAdvertorialArray = [...shuffleAdvertorialPost]
+
+      setAdvertorialArray(shuffledAdvertorialArray)
+    }
+
+    // Shuffle the banner ads when the component mounts
+    shuffleAdvertorialPost()
+  }, [advertorialsData])
+
   const mainPosts = []
   const childPosts = []
 
@@ -250,7 +308,6 @@ export default function CategoryStories(categoryUri) {
     const dateB = new Date(b.date)
     return dateB - dateA // Sort in descending order
   }
-
 
   const sortedMainPosts = mainCatPosts.sort(sortPostsByDate)
   const sortedChildPosts = childCatPosts.sort(sortPostsByDate)
@@ -296,6 +353,10 @@ export default function CategoryStories(categoryUri) {
     [],
   )
 
+  // Declare 1 Advertorial Post
+  const getAdvertorialPost = AdvertorialArray[0]?.node
+  const numberOfAdvertorial = advertorialsData?.advertorials?.edges?.length
+
   const numberOfBannerAds = sortedBannerAdsArray.length
 
   return (
@@ -331,6 +392,20 @@ export default function CategoryStories(categoryUri) {
                     ?.node?.content
                 }
               />
+            )}
+            {index - 1 === 0 && (
+              <>
+                {numberOfAdvertorial !== 0 &&
+                  name !==
+                    ('Trade Talk' || 'Airline News' || 'Travel News') && (
+                    <AdvertorialPost
+                      title={getAdvertorialPost?.title}
+                      excerpt={getAdvertorialPost?.excerpt}
+                      uri={getAdvertorialPost?.uri}
+                      featuredImage={getAdvertorialPost?.featuredImage?.node}
+                    />
+                  )}
+              </>
             )}
           </React.Fragment>
         ))}

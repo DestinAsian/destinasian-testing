@@ -57,18 +57,6 @@ export default function Component(props) {
     destinationGuides,
   } = props?.data?.nodeByUri ?? []
 
-  // // Post per fetching
-  // const postsPerPage = 4
-
-  // // Get Posts
-  // const { data, error, loading, fetchMore } = useQuery(Component.query, {
-  //   variables: {
-  //     uri
-  //   },
-  //   fetchPolicy: 'network-only',
-  //   nextFetchPolicy: 'cache-and-network',
-  // })
-
   // Rest of World validation
   const rowValidation =
     name !== 'Rest of World' && parent?.node?.name !== 'Rest of World'
@@ -168,7 +156,13 @@ export default function Component(props) {
 
       <Main>
         <>
-          <CategoryStories categoryUri={uri} pinPosts={pinPosts} name={name}/>
+          <CategoryStories
+            categoryUri={uri}
+            pinPosts={pinPosts}
+            name={name}
+            children={children}
+            parent={parent?.node?.name}
+          />
         </>
       </Main>
       <Footer />
