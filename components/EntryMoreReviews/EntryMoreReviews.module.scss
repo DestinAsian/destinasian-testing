@@ -55,6 +55,14 @@
   }
 }
 
+.category-wrapper {
+  padding: 0 1rem;
+
+  @media (min-width: $breakpoint-extra-small) {
+    padding: 0;
+  }
+}
+
 .category {
   font-family: 'Ringside Regular A', 'Ringside Regular B';
   font-weight: 600;
