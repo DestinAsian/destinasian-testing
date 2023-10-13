@@ -3,38 +3,57 @@
 
 .component {
   width: 100vw;
-  margin: 0 auto;
+  padding-bottom: 2rem;
   line-height: 1;
-  margin-bottom: 2rem;
+  background-color: var(--wpe--color--light--green);
+}
+
+.main-wrapper {
+  margin: 0 auto;
+  padding: 1rem 1rem;
   display: flex;
+  align-items: flex-start;
 
   @media (min-width: $breakpoint-extra-small) {
     max-width: 700px;
+    padding: 1rem 0;
   }
 }
 
 .left-wrapper {
-  width: 60%;
+  width: 30%;
   display: block;
 }
 
 .right-wrapper {
-  width: 100%;
+  width: 70%;
   display: flex;
   flex-direction: column;
-  row-gap: 0.1rem;
-
-  @media (min-width: $breakpoint-extra-small) {
-    row-gap: 0.2rem;
-  }
+  row-gap: 0.5rem;
 }
 
 .content-wrapper {
   padding-left: 4vw;
-  height: fit-content;
 
   @media (min-width: $breakpoint-extra-small) {
     padding-left: 2vw;
+  }
+}
+
+.content-wrapper-image {
+  margin: 0 auto;
+  padding: 0;
+}
+
+figure.image {
+  width: 100%;
+  height: 10rem;
+
+  span,
+  img {
+    min-width: 100%;
+    min-height: 100%;
+    object-fit: cover;
   }
 }
 
@@ -50,8 +69,9 @@
 }
 
 .title {
-  font-family: 'Unit Slab Pro Black';
-  font-size: 1rem;
+  font-family: 'EB Garamond';
+  font-weight: 700;
+  font-size: 1.2rem;
   line-height: 1.2;
 
   @media (min-width: $breakpoint-extra-small) {
@@ -59,28 +79,10 @@
   }
 }
 
-.featuredImage {
-  min-width: 100%;
-  margin: 0;
-  margin-bottom: 1rem;
-  height: auto;
-  padding-left: 1rem;
-
-  @media (min-width: $breakpoint-extra-small) {
-    padding-left: 0;
-  }
-
-  span,
-  img {
-    min-width: 100%;
-  }
-}
-
 .excerpt {
-  font-family: 'Chronicle Display A', 'Chronicle Display B';
-  font-style: normal;
+  font-family: 'Ringside Regular A', 'Ringside Regular B';
   font-weight: 500;
-  font-size: 0.6rem;
+  font-size: 0.8rem;
   padding: 0 0 0.25rem;
 
   @media (min-width: $breakpoint-extra-small) {
@@ -98,10 +100,11 @@
 
 .border-bottom {
   width: 95%;
-  margin: 0 auto 2rem;
+  margin: 0 auto 1rem;
   border-bottom: 1px solid var(--wpe--color--grey);
 
   @media (min-width: $breakpoint-extra-small) {
     width: 100%;
+    max-width: 700px;
   }
 }

@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client'
 import * as MENUS from '../constants/menus'
 import { BlogInfoFragment } from '../fragments/GeneralSettings'
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import {
   SingleHeader,
   Footer,
@@ -16,17 +16,9 @@ import {
   SecondaryHeader,
   EntryMoreReviews,
   MoreReviews,
+  EntryPartnerContent,
+  PartnerContent,
 } from '../components'
-// import defaultImage from '../assets/images/example-image.png'
-
-// Randomized Function
-function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1))
-    ;[array[i], array[j]] = [array[j], array[i]]
-  }
-  return array
-}
 
 export default function Component(props) {
   // Loading state for previews
@@ -47,8 +39,7 @@ export default function Component(props) {
     title,
     content,
     featuredImage,
-    date,
-    author,
+    databaseId,
     acfPostSlider,
     acfCategoryIcon,
     acfLocationIcon,
@@ -58,7 +49,6 @@ export default function Component(props) {
   const categories = props?.data?.post.categories?.edges ?? []
   const posts = props?.data?.posts ?? []
   const editorials = props?.data?.editorials ?? []
-  const moreReviews = categories[0]?.node?.posts ?? []
 
   // Rest of World validation
   const rowValidation =
@@ -100,23 +90,6 @@ export default function Component(props) {
     acfPostSlider.slide4 != null ? acfPostSlider.slide4.mediaItemUrl : null,
     acfPostSlider.slide5 != null ? acfPostSlider.slide5.mediaItemUrl : null,
   ]
-
-  // Randomized slice function
-  function getRandomSlice(array, count) {
-    const shuffledArray = shuffleArray([...array])
-    return shuffledArray.slice(0, count)
-  }
-
-  // Shuffle the moreReviews before rendering
-  const [shuffledMoreReviews, setShuffledMoreReviews] = useState([])
-
-  useEffect(() => {
-    if (moreReviews && moreReviews.edges && shuffledMoreReviews.length === 0) {
-      // Check if shuffledMoreReviews is empty before shuffling
-      const shuffledSlice = getRandomSlice(moreReviews.edges, 3)
-      setShuffledMoreReviews(shuffledSlice)
-    }
-  }, [moreReviews])
 
   return (
     <>
@@ -185,22 +158,11 @@ export default function Component(props) {
             categoryName={categories[0]?.node?.name}
             categoryUri={categories[0]?.node?.uri}
           />
-          {shuffledMoreReviews.map((post) => (
-            <>
-              {post.node.title !== title && (
-                // Render the merged posts here
-                <MoreReviews
-                  key={post.node.id}
-                  title={post.node.title}
-                  excerpt={post.node.excerpt}
-                  uri={post.node.uri}
-                  category={post.node.categories.edges[0]?.node?.name}
-                  categoryUri={post.node.categories.edges[0]?.node?.uri}
-                  featuredImage={post.node.featuredImage?.node}
-                />
-              )}
-            </>
-          ))}
+          <MoreReviews databaseId={databaseId} />
+          <EntryPartnerContent />
+          <PartnerContent
+            parentName={categories[0]?.node?.parent?.node?.name}
+          />
           {/* <ModuleAd /> */}
         </>
       </Main>
@@ -229,6 +191,7 @@ Component.query = gql`
   ) {
     post(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
       title
+      databaseId
       content
       date
       author {
@@ -272,44 +235,6 @@ Component.query = gql`
                 node {
                   name
                   uri
-                }
-              }
-            }
-            posts {
-              edges {
-                node {
-                  id
-                  title
-                  content
-                  date
-                  uri
-                  excerpt
-                  ...FeaturedImageFragment
-                  categories {
-                    edges {
-                      node {
-                        name
-                        uri
-                        parent {
-                          node {
-                            name
-                          }
-                        }
-                      }
-                    }
-                  }
-                  acfCategoryIcon {
-                    categoryLabel
-                    chooseYourCategory
-                    chooseIcon {
-                      mediaItemUrl
-                    }
-                  }
-                  acfLocationIcon {
-                    fieldGroupName
-                    locationLabel
-                    locationUrl
-                  }
                 }
               }
             }

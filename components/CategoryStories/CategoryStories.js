@@ -28,7 +28,7 @@ export default function CategoryStories(categoryUri) {
   // Post per fetching
   const postsPerPage = 20
   const bannerPerPage = 20
-  const advertPerPage = 10
+  const advertPerPage = 5
 
   const uri = categoryUri?.categoryUri
   const pinPosts = categoryUri?.pinPosts
