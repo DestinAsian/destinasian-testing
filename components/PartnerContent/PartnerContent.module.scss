@@ -118,8 +118,6 @@ figure.image {
 }
 
 .excerpt {
-  font-family: 'Ringside Regular A', 'Ringside Regular B';
-  font-weight: 500;
   font-size: 0.8rem;
   padding: 0 0 0.25rem;
 
@@ -128,6 +126,8 @@ figure.image {
   }
 
   p {
+    font-family: 'Ringside Regular A', 'Ringside Regular B';
+    font-weight: 500;
     line-height: 1.5;
   }
 
@@ -137,8 +137,6 @@ figure.image {
 }
 
 .hc-excerpt {
-  font-family: 'Gotham A', 'Gotham B';
-  font-weight: 500;
   font-size: 0.8rem;
   padding: 0 0 0.25rem;
 
@@ -147,6 +145,8 @@ figure.image {
   }
 
   p {
+    font-family: 'Gotham A', 'Gotham B';
+    font-weight: 500;
     line-height: 1.5;
   }
 
