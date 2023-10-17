@@ -87,7 +87,11 @@ figure.image {
   font-family: 'Gotham A', 'Gotham B';
   text-transform: uppercase;
   font-weight: 700;
-  font-size: 0.8rem;
+  font-size: 0.6rem;
+
+  @media (min-width: $breakpoint-extra-small) {
+    font-size: 0.8rem;
+  }
 }
 
 .title {
