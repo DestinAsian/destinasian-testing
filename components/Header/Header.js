@@ -23,6 +23,8 @@ export default function Header({
   fifthMenuItems,
   featureMenuItems,
   latestStories,
+  menusLoading,
+  latestLoading,
 }) {
   const isDesktop = useMediaQuery({ minWidth: 768 })
   const [isNavShown, setIsNavShown] = useState(false)
@@ -58,7 +60,7 @@ export default function Header({
   }
 
   return (
-    <header className={cx('component', { sticky: isScrolled})}>
+    <header className={cx('component', { sticky: isScrolled })}>
       <SkipNavigationLink />
       {/* Responsive header */}
       {isDesktop || (!isDesktop && !isNavShown) ? (
@@ -81,9 +83,9 @@ export default function Header({
                   type="button"
                   className={cx('menu-icon')}
                   onClick={() => {
-                          setIsNavShown(!isNavShown)
-                          setSearchQuery('')
-                        }}
+                    setIsNavShown(!isNavShown)
+                    setSearchQuery('')
+                  }}
                   aria-label="Toggle navigation"
                   aria-controls={cx('full-menu-wrapper')}
                   aria-expanded={!isNavShown}
@@ -124,9 +126,9 @@ export default function Header({
                   type="button"
                   className={cx('close-icon')}
                   onClick={() => {
-                          setIsNavShown(!isNavShown)
-                          setSearchQuery('')
-                        }}
+                    setIsNavShown(!isNavShown)
+                    setSearchQuery('')
+                  }}
                   aria-label="Toggle navigation"
                   aria-controls={cx('full-menu-wrapper')}
                   aria-expanded={!isNavShown}
@@ -170,9 +172,9 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
               type="button"
               className={cx('close-icon')}
               onClick={() => {
-                          setIsNavShown(!isNavShown)
-                          setSearchQuery('')
-                        }}
+                setIsNavShown(!isNavShown)
+                setSearchQuery('')
+              }}
               aria-label="Toggle navigation"
               aria-controls={cx('primary-navigation')}
               aria-expanded={!isNavShown}
@@ -223,7 +225,9 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
           clearSearch={clearSearch}
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
-        /> 
+          menusLoading={menusLoading}
+          latestLoading={latestLoading}
+        />
       </div>
     </header>
   )

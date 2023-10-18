@@ -13,7 +13,6 @@ export default function SingleHCFeaturedImage({
         {image && (
           <FeaturedImage
             image={image}
-            layout={'fill'}
             className={cx('image')}
             priority
           />

@@ -1,6 +1,6 @@
-import { gql } from '@apollo/client';
-import * as MENUS from '../constants/menus';
-import { BlogInfoFragment } from '../fragments/GeneralSettings';
+import { gql, useQuery } from '@apollo/client'
+import * as MENUS from '../constants/menus'
+import { BlogInfoFragment } from '../fragments/GeneralSettings'
 import {
   Header,
   Footer,
@@ -11,14 +11,89 @@ import {
   FeaturedImage,
   Post,
   SEO,
-} from '../components';
+} from '../components'
+import { GetMenus } from '../queries/GetMenus'
+import { GetLatestStories } from '../queries/GetLatestStories'
 
 export default function Component(props) {
   const { title: siteTitle, description: siteDescription } =
-    props?.data?.generalSettings;
-  const primaryMenu = props?.data?.headerMenuItems?.nodes ?? [];
-  const footerMenu = props?.data?.footerMenuItems?.nodes ?? [];
-  const { name, posts } = props?.data?.nodeByUri;
+    props?.data?.generalSettings
+  const { name, posts } = props?.data?.nodeByUri
+
+  // Get menus
+  const { data: menusData, loading: menusLoading } = useQuery(GetMenus, {
+    variables: {
+      first: 20,
+      headerLocation: MENUS.PRIMARY_LOCATION,
+      secondHeaderLocation: MENUS.SECONDARY_LOCATION,
+      thirdHeaderLocation: MENUS.THIRD_LOCATION,
+      fourthHeaderLocation: MENUS.FOURTH_LOCATION,
+      fifthHeaderLocation: MENUS.FIFTH_LOCATION,
+      featureHeaderLocation: MENUS.FEATURE_LOCATION,
+    },
+    fetchPolicy: 'network-only',
+    nextFetchPolicy: 'cache-and-network',
+  })
+
+  const primaryMenu = menusData?.headerMenuItems?.nodes ?? []
+  const secondaryMenu = menusData?.secondHeaderMenuItems?.nodes ?? []
+  const thirdMenu = menusData?.thirdHeaderMenuItems?.nodes ?? []
+  const fourthMenu = menusData?.fourthHeaderMenuItems?.nodes ?? []
+  const fifthMenu = menusData?.fifthHeaderMenuItems?.nodes ?? []
+  const featureMenu = menusData?.featureHeaderMenuItems?.nodes ?? []
+
+  // Get latest travel stories
+  const { data: latestStories, loading: latestLoading } = useQuery(
+    GetLatestStories,
+    {
+      variables: {
+        first: 5,
+      },
+      fetchPolicy: 'network-only',
+      nextFetchPolicy: 'cache-and-network',
+    },
+  )
+
+  // Latest Travel Stories
+  const latestPosts = latestStories?.posts ?? []
+  const latestEditorials = latestStories?.editorials ?? []
+  const latestUpdates = latestStories?.updates ?? []
+
+  const latestMainPosts = []
+  const latestMainEditorialPosts = []
+  const latestMainUpdatesPosts = []
+
+  // loop through all the latest categories posts
+  latestPosts?.edges?.forEach((post) => {
+    latestMainPosts.push(post.node)
+  })
+
+  // loop through all the latest categories and their posts
+  latestEditorials?.edges?.forEach((post) => {
+    latestMainEditorialPosts.push(post.node)
+  })
+
+  // loop through all the latest categories and their posts
+  latestUpdates?.edges?.forEach((post) => {
+    latestMainUpdatesPosts.push(post.node)
+  })
+
+  // define latestCatPostCards
+  const latestMainCatPosts = [
+    ...(latestMainPosts != null ? latestMainPosts : []),
+    ...(latestMainEditorialPosts != null ? latestMainEditorialPosts : []),
+    ...(latestMainUpdatesPosts != null ? latestMainUpdatesPosts : []),
+  ]
+
+  // sort posts by date
+  const sortPostsByDate = (a, b) => {
+    const dateA = new Date(a.date)
+    const dateB = new Date(b.date)
+    return dateB - dateA // Sort in descending order
+  }
+
+  // sortByDate mainCat & childCat Posts
+  const allPosts = mainCatPosts.sort(sortPostsByDate)
 
   return (
     <>
@@ -29,7 +104,7 @@ export default function Component(props) {
           src="https://www.googletagmanager.com/ns.html?id=GTM-5BJVGS"
           height="0"
           width="0"
-          className="hidden invisible"
+          className="invisible hidden"
         ></iframe>
       </noscript>
       {/* End Google Tag Manager (noscript) */}
@@ -42,6 +117,9 @@ export default function Component(props) {
         fourthMenuItems={fourthMenu}
         fifthMenuItems={fifthMenu}
         featureMenuItems={featureMenu}
+        latestStories={allPosts}
+        menusLoading={menusLoading}
+        latestLoading={latestLoading}
       />
       <Main>
         <>
@@ -62,18 +140,13 @@ export default function Component(props) {
       </Main>
       <Footer title={siteTitle} menuItems={footerMenu} />
     </>
-  );
+  )
 }
 
 Component.query = gql`
   ${BlogInfoFragment}
-  ${NavigationMenu.fragments.entry}
   ${FeaturedImage.fragments.entry}
-  query GetTagPage(
-    $uri: String!
-    $headerLocation: MenuLocationEnum
-    $footerLocation: MenuLocationEnum
-  ) {
+  query GetTagPage($uri: String!) {
     nodeByUri(uri: $uri) {
       ... on Tag {
         name
@@ -99,23 +172,11 @@ Component.query = gql`
     generalSettings {
       ...BlogInfoFragment
     }
-    headerMenuItems: menuItems(where: { location: $headerLocation }) {
-      nodes {
-        ...NavigationMenuItemFragment
-      }
-    }
-    footerMenuItems: menuItems(where: { location: $footerLocation }) {
-      nodes {
-        ...NavigationMenuItemFragment
-      }
-    }
   }
-`;
+`
 
 Component.variables = ({ uri }) => {
   return {
     uri,
-    headerLocation: MENUS.PRIMARY_LOCATION,
-    footerLocation: MENUS.FOOTER_LOCATION,
-  };
-};
+  }
+}

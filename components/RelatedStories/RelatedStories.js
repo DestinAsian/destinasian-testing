@@ -29,7 +29,7 @@ export default function RelatedStories({
             <a href={uri}>
               <FeaturedImage
                 image={featuredImage}
-                layout=""
+                layout="intrinsic"
                 className={styles.featuredImage}
               />
             </a>

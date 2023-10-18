@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react'
-import { gql } from '@apollo/client'
+import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
 import { BlogInfoFragment } from '../fragments/GeneralSettings'
 import { PostFragment } from '../fragments/PostFragment'
-import { useMediaQuery } from 'react-responsive'
 import {
   HomepageHeader,
   Main,
   Container,
-  NavigationMenu,
   FeaturedImage,
   SEO,
   FeatureWell,
   HomepageStories,
 } from '../components'
+import { GetMenus } from '../queries/GetMenus'
+import { GetLatestStories } from '../queries/GetLatestStories'
 
 export default function Component(props) {
   // Loading state for previews
@@ -23,59 +23,10 @@ export default function Component(props) {
 
   const { title: siteTitle, description: siteDescription } =
     props?.data?.generalSettings
-  const primaryMenu = props?.data?.headerMenuItems?.nodes ?? []
-  const secondaryMenu = props?.data?.secondHeaderMenuItems?.nodes ?? []
-  const thirdMenu = props?.data?.thirdHeaderMenuItems?.nodes ?? []
-  const fourthMenu = props?.data?.fourthHeaderMenuItems?.nodes ?? []
-  const fifthMenu = props?.data?.fifthHeaderMenuItems?.nodes ?? []
-  const featureMenu = props?.data?.featureHeaderMenuItems?.nodes ?? []
-  const posts = props?.data?.posts ?? []
-  const editorials = props?.data?.editorials ?? []
-  const updates = props?.data?.updates ?? []
-  const {
-    content,
-    featuredImage,
-    acfHomepageSlider,
-    homepagePinPosts,
-    uri,
-    seo,
-  } = props?.data?.page ?? []
+  const { featuredImage, acfHomepageSlider, homepagePinPosts, uri, seo } =
+    props?.data?.page ?? []
 
-  const mainPosts = []
-  const mainEditorialPosts = []
-  const mainUpdatesPosts = []
-
-  // loop through all the main categories posts
-  posts.edges.forEach((post) => {
-    mainPosts.push(post.node)
-  })
-
-  // loop through all the main categories and their posts
-  editorials.edges.forEach((post) => {
-    mainEditorialPosts.push(post.node)
-  })
-
-  // loop through all the main categories and their posts
-  updates.edges.forEach((post) => {
-    mainUpdatesPosts.push(post.node)
-  })
-
-  // sort posts by date
-  const sortPostsByDate = (a, b) => {
-    const dateA = new Date(a.date)
-    const dateB = new Date(b.date)
-    return dateB - dateA // Sort in descending order
-  }
-
-  // define mainCatPostCards
-  const mainCatPosts = [
-    ...(mainPosts != null ? mainPosts : []),
-    ...(mainEditorialPosts != null ? mainEditorialPosts : []),
-    ...(mainUpdatesPosts != null ? mainUpdatesPosts : []),
-  ]
-
-  // sortByDate mainCat & childCat Posts
-  const allPosts = mainCatPosts.sort(sortPostsByDate)
+  const [currentFeatureWell, setCurrentFeatureWell] = useState(null)
 
   const featureWell = [
     {
@@ -104,8 +55,6 @@ export default function Component(props) {
     },
   ]
 
-  const [currentFeatureWell, setCurrentFeatureWell] = useState(null)
-
   useEffect(() => {
     const filteredFeatureWell = featureWell.filter((item) => item.type !== null)
 
@@ -114,6 +63,80 @@ export default function Component(props) {
       setCurrentFeatureWell(filteredFeatureWell[randomIndex])
     }
   }, [])
+
+  // Get menus
+  const { data: menusData, loading: menusLoading } = useQuery(GetMenus, {
+    variables: {
+      first: 20,
+      headerLocation: MENUS.PRIMARY_LOCATION,
+      secondHeaderLocation: MENUS.SECONDARY_LOCATION,
+      thirdHeaderLocation: MENUS.THIRD_LOCATION,
+      fourthHeaderLocation: MENUS.FOURTH_LOCATION,
+      fifthHeaderLocation: MENUS.FIFTH_LOCATION,
+      featureHeaderLocation: MENUS.FEATURE_LOCATION,
+    },
+    fetchPolicy: 'network-only',
+    nextFetchPolicy: 'cache-and-network',
+  })
+
+  const primaryMenu = menusData?.headerMenuItems?.nodes ?? []
+  const secondaryMenu = menusData?.secondHeaderMenuItems?.nodes ?? []
+  const thirdMenu = menusData?.thirdHeaderMenuItems?.nodes ?? []
+  const fourthMenu = menusData?.fourthHeaderMenuItems?.nodes ?? []
+  const fifthMenu = menusData?.fifthHeaderMenuItems?.nodes ?? []
+  const featureMenu = menusData?.featureHeaderMenuItems?.nodes ?? []
+
+  // Get latest travel stories
+  const { data: latestStories, loading: latestLoading } = useQuery(
+    GetLatestStories,
+    {
+      variables: {
+        first: 5,
+      },
+      fetchPolicy: 'network-only',
+      nextFetchPolicy: 'cache-and-network',
+    },
+  )
+
+  const posts = latestStories?.posts ?? []
+  const editorials = latestStories?.editorials ?? []
+  const updates = latestStories?.updates ?? []
+
+  const mainPosts = []
+  const mainEditorialPosts = []
+  const mainUpdatesPosts = []
+
+  // loop through all the main categories posts
+  posts?.edges?.forEach((post) => {
+    mainPosts.push(post.node)
+  })
+
+  // loop through all the main categories and their posts
+  editorials?.edges?.forEach((post) => {
+    mainEditorialPosts.push(post.node)
+  })
+
+  // loop through all the main categories and their posts
+  updates?.edges?.forEach((post) => {
+    mainUpdatesPosts.push(post.node)
+  })
+
+  // sort posts by date
+  const sortPostsByDate = (a, b) => {
+    const dateA = new Date(a.date)
+    const dateB = new Date(b.date)
+    return dateB - dateA // Sort in descending order
+  }
+
+  // define mainCatPostCards
+  const mainCatPosts = [
+    ...(mainPosts != null ? mainPosts : []),
+    ...(mainEditorialPosts != null ? mainEditorialPosts : []),
+    ...(mainUpdatesPosts != null ? mainUpdatesPosts : []),
+  ]
+
+  // sortByDate mainCat & childCat Posts
+  const allPosts = mainCatPosts.sort(sortPostsByDate)
 
   return (
     <>
@@ -145,6 +168,8 @@ export default function Component(props) {
         featureMenuItems={featureMenu}
         latestStories={allPosts}
         home={uri}
+        menusLoading={menusLoading}
+        latestLoading={latestLoading}
       />
       {/* <SecondaryHeader
         home={uri}
@@ -175,23 +200,10 @@ export default function Component(props) {
 Component.query = gql`
   ${BlogInfoFragment}
   ${PostFragment}
-  ${NavigationMenu.fragments.entry}
   ${FeaturedImage.fragments.entry}
-  query GetPageData(
-    $databaseId: ID!
-    $headerLocation: MenuLocationEnum
-    $secondHeaderLocation: MenuLocationEnum
-    $thirdHeaderLocation: MenuLocationEnum
-    $fourthHeaderLocation: MenuLocationEnum
-    $fifthHeaderLocation: MenuLocationEnum
-    $featureHeaderLocation: MenuLocationEnum
-    $asPreview: Boolean = false
-    $first: Int = 10
-    $first2: Int = 5
-  ) {
+  query GetPageData($databaseId: ID!, $asPreview: Boolean = false) {
     page(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
       title
-      content
       uri
       seo {
         title
@@ -264,8 +276,8 @@ Component.query = gql`
               categoryLabel
               chooseYourCategory
               chooseIcon {
-                  mediaItemUrl
-                }
+                mediaItemUrl
+              }
             }
             acfLocationIcon {
               fieldGroupName
@@ -327,8 +339,8 @@ Component.query = gql`
               categoryLabel
               chooseYourCategory
               chooseIcon {
-                  mediaItemUrl
-                }
+                mediaItemUrl
+              }
             }
             acfLocationIcon {
               fieldGroupName
@@ -390,8 +402,8 @@ Component.query = gql`
               categoryLabel
               chooseYourCategory
               chooseIcon {
-                  mediaItemUrl
-                }
+                mediaItemUrl
+              }
             }
             acfLocationIcon {
               fieldGroupName
@@ -453,8 +465,8 @@ Component.query = gql`
               categoryLabel
               chooseYourCategory
               chooseIcon {
-                  mediaItemUrl
-                }
+                mediaItemUrl
+              }
             }
             acfLocationIcon {
               fieldGroupName
@@ -516,8 +528,8 @@ Component.query = gql`
               categoryLabel
               chooseYourCategory
               chooseIcon {
-                  mediaItemUrl
-                }
+                mediaItemUrl
+              }
             }
             acfLocationIcon {
               fieldGroupName
@@ -555,146 +567,8 @@ Component.query = gql`
         }
       }
     }
-    posts(first: $first2, where: { status: PUBLISH }) {
-      edges {
-        node {
-          id
-          title
-          content
-          date
-          uri
-          excerpt
-          ...FeaturedImageFragment
-          categories {
-            edges {
-              node {
-                name
-                uri
-                parent {
-                  node {
-                    name
-                  }
-                }
-              }
-            }
-          }
-          acfCategoryIcon {
-            categoryLabel
-            chooseYourCategory
-            chooseIcon {
-                  mediaItemUrl
-                }
-          }
-          acfLocationIcon {
-            fieldGroupName
-            locationLabel
-            locationUrl
-          }
-        }
-      }
-    }
-    editorials(first: $first2, where: { status: PUBLISH }) {
-      edges {
-        node {
-          id
-          title
-          content
-          date
-          uri
-          excerpt
-          ...FeaturedImageFragment
-          categories {
-            edges {
-              node {
-                name
-                uri
-                parent {
-                  node {
-                    name
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-    updates(first: $first2, where: { status: PUBLISH }) {
-      edges {
-        node {
-          id
-          title
-          content
-          date
-          uri
-          excerpt
-          ...FeaturedImageFragment
-          categories {
-            edges {
-              node {
-                name
-                uri
-                parent {
-                  node {
-                    name
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
     generalSettings {
       ...BlogInfoFragment
-    }
-    headerMenuItems: menuItems(
-      where: { location: $headerLocation }
-      first: 20
-    ) {
-      nodes {
-        ...NavigationMenuItemFragment
-      }
-    }
-    secondHeaderMenuItems: menuItems(
-      where: { location: $secondHeaderLocation }
-      first: 20
-    ) {
-      nodes {
-        ...NavigationMenuItemFragment
-      }
-    }
-    thirdHeaderMenuItems: menuItems(
-      where: { location: $thirdHeaderLocation }
-      first: $first
-    ) {
-      nodes {
-        ...NavigationMenuItemFragment
-      }
-    }
-    fourthHeaderMenuItems: menuItems(
-      where: { location: $fourthHeaderLocation }
-      first: $first
-    ) {
-      nodes {
-        ...NavigationMenuItemFragment
-      }
-    }
-    fifthHeaderMenuItems: menuItems(
-      where: { location: $fifthHeaderLocation }
-      first: $first
-    ) {
-      nodes {
-        ...NavigationMenuItemFragment
-      }
-    }
-    featureHeaderMenuItems: menuItems(
-      where: { location: $featureHeaderLocation }
-      first: $first
-    ) {
-      nodes {
-        ...NavigationMenuItemFragment
-      }
     }
   }
 `
@@ -702,12 +576,6 @@ Component.query = gql`
 Component.variables = ({ databaseId }, ctx) => {
   return {
     databaseId,
-    headerLocation: MENUS.PRIMARY_LOCATION,
-    secondHeaderLocation: MENUS.SECONDARY_LOCATION,
-    thirdHeaderLocation: MENUS.THIRD_LOCATION,
-    fourthHeaderLocation: MENUS.FOURTH_LOCATION,
-    fifthHeaderLocation: MENUS.FIFTH_LOCATION,
-    featureHeaderLocation: MENUS.FEATURE_LOCATION,
     asPreview: ctx?.asPreview,
   }
 }

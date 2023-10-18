@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
 import { BlogInfoFragment } from '../fragments/GeneralSettings'
@@ -8,24 +7,13 @@ import {
   Main,
   Container,
   CategoryEntryHeader,
-  NavigationMenu,
-  Post,
   FeaturedImage,
   SEO,
-  ModuleAd,
-  Button,
   Footer,
   CategoryStories,
 } from '../components'
-
-// Randomized Function
-function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1))
-    ;[array[i], array[j]] = [array[j], array[i]]
-  }
-  return array
-}
+import { GetMenus } from '../queries/GetMenus'
+import { GetLatestStories } from '../queries/GetLatestStories'
 
 export default function Component(props) {
   // Loading state for previews
@@ -35,21 +23,11 @@ export default function Component(props) {
 
   const { title: siteTitle, description: siteDescription } =
     props?.data?.generalSettings
-  const primaryMenu = props?.data?.headerMenuItems?.nodes ?? []
-  const secondaryMenu = props?.data?.secondHeaderMenuItems?.nodes ?? []
-  const thirdMenu = props?.data?.thirdHeaderMenuItems?.nodes ?? []
-  const fourthMenu = props?.data?.fourthHeaderMenuItems?.nodes ?? []
-  const fifthMenu = props?.data?.fifthHeaderMenuItems?.nodes ?? []
-  const featureMenu = props?.data?.featureHeaderMenuItems?.nodes ?? []
   const {
     name,
     uri,
-    databaseId,
     description,
     categoryImages,
-    posts,
-    editorials,
-    updates,
     children,
     parent,
     pinPosts,
@@ -63,27 +41,69 @@ export default function Component(props) {
       ? true
       : null
 
+  // Get menus
+  const { data: menusData, loading: menusLoading } = useQuery(GetMenus, {
+    variables: {
+      first: 20,
+      headerLocation: MENUS.PRIMARY_LOCATION,
+      secondHeaderLocation: MENUS.SECONDARY_LOCATION,
+      thirdHeaderLocation: MENUS.THIRD_LOCATION,
+      fourthHeaderLocation: MENUS.FOURTH_LOCATION,
+      fifthHeaderLocation: MENUS.FIFTH_LOCATION,
+      featureHeaderLocation: MENUS.FEATURE_LOCATION,
+    },
+    fetchPolicy: 'network-only',
+    nextFetchPolicy: 'cache-and-network',
+  })
+
+  const primaryMenu = menusData?.headerMenuItems?.nodes ?? []
+  const secondaryMenu = menusData?.secondHeaderMenuItems?.nodes ?? []
+  const thirdMenu = menusData?.thirdHeaderMenuItems?.nodes ?? []
+  const fourthMenu = menusData?.fourthHeaderMenuItems?.nodes ?? []
+  const fifthMenu = menusData?.fifthHeaderMenuItems?.nodes ?? []
+  const featureMenu = menusData?.featureHeaderMenuItems?.nodes ?? []
+
+  // Get latest travel stories
+  const { data: latestStories, loading: latestLoading } = useQuery(
+    GetLatestStories,
+    {
+      variables: {
+        first: 5,
+      },
+      fetchPolicy: 'network-only',
+      nextFetchPolicy: 'cache-and-network',
+    },
+  )
+
   // Latest Travel Stories
-  const latestPosts = props?.data?.posts ?? []
-  const latestEditorials = props?.data?.editorials ?? []
+  const latestPosts = latestStories?.posts ?? []
+  const latestEditorials = latestStories?.editorials ?? []
+  const latestUpdates = latestStories?.updates ?? []
 
   const latestMainPosts = []
   const latestMainEditorialPosts = []
+  const latestMainUpdatesPosts = []
 
   // loop through all the latest categories posts
-  latestPosts.edges.forEach((post) => {
+  latestPosts?.edges?.forEach((post) => {
     latestMainPosts.push(post.node)
   })
 
   // loop through all the latest categories and their posts
-  latestEditorials.edges.forEach((post) => {
+  latestEditorials?.edges?.forEach((post) => {
     latestMainEditorialPosts.push(post.node)
+  })
+
+  // loop through all the latest categories and their posts
+  latestUpdates?.edges?.forEach((post) => {
+    latestMainUpdatesPosts.push(post.node)
   })
 
   // define latestCatPostCards
   const latestMainCatPosts = [
     ...(latestMainPosts != null ? latestMainPosts : []),
     ...(latestMainEditorialPosts != null ? latestMainEditorialPosts : []),
+    ...(latestMainUpdatesPosts != null ? latestMainUpdatesPosts : []),
   ]
 
   // sort posts by date
@@ -109,6 +129,8 @@ export default function Component(props) {
         fifthMenuItems={fifthMenu}
         featureMenuItems={featureMenu}
         latestStories={latestAllPosts}
+        menusLoading={menusLoading}
+        latestLoading={latestLoading}
       />
 
       {rowValidation && (
@@ -172,24 +194,11 @@ export default function Component(props) {
 
 Component.query = gql`
   ${BlogInfoFragment}
-  ${NavigationMenu.fragments.entry}
   ${FeaturedImage.fragments.entry}
-  query GetCategoryPage(
-    $uri: String!
-    $headerLocation: MenuLocationEnum
-    $secondHeaderLocation: MenuLocationEnum
-    $thirdHeaderLocation: MenuLocationEnum
-    $fourthHeaderLocation: MenuLocationEnum
-    $fifthHeaderLocation: MenuLocationEnum
-    $featureHeaderLocation: MenuLocationEnum
-    $first: Int
-    $where: RootQueryToPostConnectionWhereArgs = { status: PUBLISH }
-    $where1: RootQueryToEditorialConnectionWhereArgs = { status: PUBLISH }
-  ) {
+  query GetCategoryPage($uri: String!) {
     nodeByUri(uri: $uri) {
       ... on Category {
         name
-        databaseId
         uri
         description
         categoryImages {
@@ -405,120 +414,8 @@ Component.query = gql`
         }
       }
     }
-    posts(first: $first, where: $where) {
-      edges {
-        node {
-          id
-          title
-          content
-          date
-          uri
-          excerpt
-          ...FeaturedImageFragment
-          categories {
-            edges {
-              node {
-                name
-                uri
-                parent {
-                  node {
-                    name
-                  }
-                }
-              }
-            }
-          }
-          acfCategoryIcon {
-            categoryLabel
-            chooseYourCategory
-            chooseIcon {
-              mediaItemUrl
-            }
-          }
-          acfLocationIcon {
-            fieldGroupName
-            locationLabel
-            locationUrl
-          }
-        }
-      }
-    }
-    editorials(first: $first, where: $where1) {
-      edges {
-        node {
-          id
-          title
-          content
-          date
-          uri
-          excerpt
-          ...FeaturedImageFragment
-          categories {
-            edges {
-              node {
-                name
-                uri
-                parent {
-                  node {
-                    name
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
     generalSettings {
       ...BlogInfoFragment
-    }
-    headerMenuItems: menuItems(
-      where: { location: $headerLocation }
-      first: 20
-    ) {
-      nodes {
-        ...NavigationMenuItemFragment
-      }
-    }
-    secondHeaderMenuItems: menuItems(
-      where: { location: $secondHeaderLocation }
-      first: 20
-    ) {
-      nodes {
-        ...NavigationMenuItemFragment
-      }
-    }
-    thirdHeaderMenuItems: menuItems(
-      where: { location: $thirdHeaderLocation }
-      first: $first
-    ) {
-      nodes {
-        ...NavigationMenuItemFragment
-      }
-    }
-    fourthHeaderMenuItems: menuItems(
-      where: { location: $fourthHeaderLocation }
-      first: $first
-    ) {
-      nodes {
-        ...NavigationMenuItemFragment
-      }
-    }
-    fifthHeaderMenuItems: menuItems(
-      where: { location: $fifthHeaderLocation }
-      first: $first
-    ) {
-      nodes {
-        ...NavigationMenuItemFragment
-      }
-    }
-    featureHeaderMenuItems: menuItems(
-      where: { location: $featureHeaderLocation }
-      first: $first
-    ) {
-      nodes {
-        ...NavigationMenuItemFragment
-      }
     }
   }
 `
@@ -526,11 +423,5 @@ Component.query = gql`
 Component.variables = ({ uri }) => {
   return {
     uri,
-    headerLocation: MENUS.PRIMARY_LOCATION,
-    secondHeaderLocation: MENUS.SECONDARY_LOCATION,
-    thirdHeaderLocation: MENUS.THIRD_LOCATION,
-    fourthHeaderLocation: MENUS.FOURTH_LOCATION,
-    fifthHeaderLocation: MENUS.FIFTH_LOCATION,
-    featureHeaderLocation: MENUS.FEATURE_LOCATION,
   }
 }

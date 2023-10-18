@@ -1,7 +1,6 @@
 import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
 import { BlogInfoFragment } from '../fragments/GeneralSettings'
-import { useState, useEffect } from 'react'
 import { GetSpecificBannerAds } from '../queries/GetSpecificBannerAds'
 import {
   SingleHeader,
@@ -9,16 +8,22 @@ import {
   Main,
   Container,
   SingleUpdateEntryHeader,
-  NavigationMenu,
   FeaturedImage,
   SEO,
-  SingleEditorialFeaturedImage,
-  ContentWrapperEditorial,
   ModuleAd,
-  RelatedStories,
-  EntryRelatedStories,
   ContentWrapperUpdate,
 } from '../components'
+import { GetMenus } from '../queries/GetMenus'
+import { GetLatestStories } from '../queries/GetLatestStories'
+
+// Randomized Function
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[array[i], array[j]] = [array[j], array[i]]
+  }
+  return array
+}
 
 export default function SingleUpdate(props) {
   // Loading state for previews
@@ -30,41 +35,66 @@ export default function SingleUpdate(props) {
 
   const { title: siteTitle, description: siteDescription } =
     props?.data?.generalSettings
-  const primaryMenu = props?.data?.headerMenuItems?.nodes ?? []
-  const secondaryMenu = props?.data?.secondHeaderMenuItems?.nodes ?? []
-  const thirdMenu = props?.data?.thirdHeaderMenuItems?.nodes ?? []
-  const fourthMenu = props?.data?.fourthHeaderMenuItems?.nodes ?? []
-  const fifthMenu = props?.data?.fifthHeaderMenuItems?.nodes ?? []
-  const featureMenu = props?.data?.featureHeaderMenuItems?.nodes ?? []
-  const footerMenu = props?.data?.footerMenuItems?.nodes ?? []
   const { title, content, featuredImage, author, date, contentType, seo, uri } =
     props?.data?.update
   const categories = props?.data?.update?.categories?.edges ?? []
-  const posts = props?.data?.posts ?? []
-  const editorials = props?.data?.editorials ?? []
   const relatedStories = categories[0]?.node?.editorials ?? []
+
+  // Get menus
+  const { data: menusData, loading: menusLoading } = useQuery(GetMenus, {
+    variables: {
+      first: 20,
+      headerLocation: MENUS.PRIMARY_LOCATION,
+      secondHeaderLocation: MENUS.SECONDARY_LOCATION,
+      thirdHeaderLocation: MENUS.THIRD_LOCATION,
+      fourthHeaderLocation: MENUS.FOURTH_LOCATION,
+      fifthHeaderLocation: MENUS.FIFTH_LOCATION,
+      featureHeaderLocation: MENUS.FEATURE_LOCATION,
+    },
+    fetchPolicy: 'network-only',
+    nextFetchPolicy: 'cache-and-network',
+  })
+
+  const primaryMenu = menusData?.headerMenuItems?.nodes ?? []
+  const secondaryMenu = menusData?.secondHeaderMenuItems?.nodes ?? []
+  const thirdMenu = menusData?.thirdHeaderMenuItems?.nodes ?? []
+  const fourthMenu = menusData?.fourthHeaderMenuItems?.nodes ?? []
+  const fifthMenu = menusData?.fifthHeaderMenuItems?.nodes ?? []
+  const featureMenu = menusData?.featureHeaderMenuItems?.nodes ?? []
+
+  // Get latest travel stories
+  const { data: latestStories, loading: latestLoading } = useQuery(
+    GetLatestStories,
+    {
+      variables: {
+        first: 5,
+      },
+      fetchPolicy: 'network-only',
+      nextFetchPolicy: 'cache-and-network',
+    },
+  )
+
+  const posts = latestStories?.posts ?? []
+  const editorials = latestStories?.editorials ?? []
+  const updates = latestStories?.updates ?? []
 
   const mainPosts = []
   const mainEditorialPosts = []
-  const mainRelatedStories = []
-
-  // Randomized Function
-  function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1))
-      ;[array[i], array[j]] = [array[j], array[i]]
-    }
-    return array
-  }
+  const mainUpdatesPosts = []
 
   // loop through all the main categories posts
-  posts.edges.forEach((post) => {
+  posts?.edges?.forEach((post) => {
     mainPosts.push(post.node)
   })
 
   // loop through all the main categories and their posts
-  editorials.edges.forEach((post) => {
+  editorials?.edges?.forEach((post) => {
     mainEditorialPosts.push(post.node)
+  })
+
+  // loop through all the main categories and their posts
+  updates?.edges?.forEach((post) => {
+    mainUpdatesPosts.push(post.node)
   })
 
   // sort posts by date
@@ -78,28 +108,11 @@ export default function SingleUpdate(props) {
   const mainCatPosts = [
     ...(mainPosts != null ? mainPosts : []),
     ...(mainEditorialPosts != null ? mainEditorialPosts : []),
+    ...(mainUpdatesPosts != null ? mainUpdatesPosts : []),
   ]
 
   // sortByDate mainCat & childCat Posts
   const allPosts = mainCatPosts.sort(sortPostsByDate)
-
-  // const images = [
-  //   acfSingleEditorialSlider.slide1 != null
-  //     ? acfSingleEditorialSlider.slide1.mediaItemUrl
-  //     : null,
-  //   acfSingleEditorialSlider.slide2 != null
-  //     ? acfSingleEditorialSlider.slide2.mediaItemUrl
-  //     : null,
-  //   acfSingleEditorialSlider.slide3 != null
-  //     ? acfSingleEditorialSlider.slide3.mediaItemUrl
-  //     : null,
-  //   acfSingleEditorialSlider.slide4 != null
-  //     ? acfSingleEditorialSlider.slide4.mediaItemUrl
-  //     : null,
-  //   acfSingleEditorialSlider.slide5 != null
-  //     ? acfSingleEditorialSlider.slide5.mediaItemUrl
-  //     : null,
-  // ]
 
   // Get Specific Banner
   const {
@@ -135,28 +148,6 @@ export default function SingleUpdate(props) {
   )
 
   const sortedBannerAdsArray = [...matchingBannerAdsWithImg]
-  // .reduce((uniqueAds, ad) => {
-  //   if (!uniqueAds.some((uniqueAd) => uniqueAd?.node?.id === ad?.node?.id)) {
-  //     uniqueAds.push(ad)
-  //   }
-  //   return uniqueAds
-  // }, [])
-
-  // Randomized slice function
-  function getRandomSlice(array, count) {
-    const shuffledArray = shuffleArray([...array])
-    return shuffledArray.slice(0, count)
-  }
-
-  // Shuffle the relatedStories before rendering
-  const [shuffledRelatedStories, setShuffledRelatedStories] = useState([])
-
-  useEffect(() => {
-    if (relatedStories && relatedStories.edges) {
-      const shuffledSlice = getRandomSlice(relatedStories.edges, 5)
-      setShuffledRelatedStories(shuffledSlice)
-    }
-  }, [relatedStories])
 
   return (
     <>
@@ -177,11 +168,12 @@ export default function SingleUpdate(props) {
         fifthMenuItems={fifthMenu}
         featureMenuItems={featureMenu}
         latestStories={allPosts}
+        menusLoading={menusLoading}
+        latestLoading={latestLoading}
       />
       <Main>
         <>
           <Container>
-            {/* <SingleEditorialFeaturedImage image={featuredImage?.node} /> */}
             <SingleUpdateEntryHeader
               image={featuredImage?.node}
               title={title}
@@ -195,23 +187,6 @@ export default function SingleUpdate(props) {
             {sortedBannerAdsArray.map((bannerAd) => (
               <ModuleAd bannerAd={bannerAd?.node?.content} />
             ))}
-            {/* <EntryRelatedStories /> */}
-            {/* {shuffledRelatedStories.map((post) => (
-              <Container>
-                {post.node.title !== title && (
-                  // Render the merged posts here
-                  <RelatedStories
-                    key={post.node.id}
-                    title={post.node.title}
-                    excerpt={post.node.excerpt}
-                    uri={post.node.uri}
-                    category={post.node.categories.edges[0]?.node?.name}
-                    categoryUri={post.node.categories.edges[0]?.node?.uri}
-                    featuredImage={post.node.featuredImage?.node}
-                  />
-                )}
-              </Container>
-            ))} */}
           </Container>
         </>
       </Main>
@@ -222,22 +197,8 @@ export default function SingleUpdate(props) {
 
 SingleUpdate.query = gql`
   ${BlogInfoFragment}
-  ${NavigationMenu.fragments.entry}
   ${FeaturedImage.fragments.entry}
-  query GetPost(
-    $databaseId: ID!
-    $headerLocation: MenuLocationEnum
-    $secondHeaderLocation: MenuLocationEnum
-    $thirdHeaderLocation: MenuLocationEnum
-    $fourthHeaderLocation: MenuLocationEnum
-    $fifthHeaderLocation: MenuLocationEnum
-    $featureHeaderLocation: MenuLocationEnum
-    $footerLocation: MenuLocationEnum
-    $asPreview: Boolean = false
-    $first: Int = 10
-    $where: RootQueryToPostConnectionWhereArgs = { status: PUBLISH }
-    $where1: RootQueryToEditorialConnectionWhereArgs = { status: PUBLISH }
-  ) {
+  query GetPost($databaseId: ID!, $asPreview: Boolean = false) {
     update(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
       title
       content
@@ -309,122 +270,8 @@ SingleUpdate.query = gql`
       }
       ...FeaturedImageFragment
     }
-    posts(first: $first, where: $where) {
-      edges {
-        node {
-          id
-          title
-          content
-          date
-          uri
-          excerpt
-          ...FeaturedImageFragment
-          categories {
-            edges {
-              node {
-                name
-                uri
-                parent {
-                  node {
-                    name
-                  }
-                }
-              }
-            }
-          }
-          acfCategoryIcon {
-            categoryLabel
-            chooseYourCategory
-          }
-          acfLocationIcon {
-            fieldGroupName
-            locationLabel
-            locationUrl
-          }
-        }
-      }
-    }
-    editorials(first: $first, where: $where1) {
-      edges {
-        node {
-          id
-          title
-          content
-          date
-          uri
-          excerpt
-          ...FeaturedImageFragment
-          categories {
-            edges {
-              node {
-                name
-                uri
-                parent {
-                  node {
-                    name
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
     generalSettings {
       ...BlogInfoFragment
-    }
-    headerMenuItems: menuItems(
-      where: { location: $headerLocation }
-      first: 20
-    ) {
-      nodes {
-        ...NavigationMenuItemFragment
-      }
-    }
-    secondHeaderMenuItems: menuItems(
-      where: { location: $secondHeaderLocation }
-      first: 20
-    ) {
-      nodes {
-        ...NavigationMenuItemFragment
-      }
-    }
-    thirdHeaderMenuItems: menuItems(
-      where: { location: $thirdHeaderLocation }
-      first: $first
-    ) {
-      nodes {
-        ...NavigationMenuItemFragment
-      }
-    }
-    fourthHeaderMenuItems: menuItems(
-      where: { location: $fourthHeaderLocation }
-      first: $first
-    ) {
-      nodes {
-        ...NavigationMenuItemFragment
-      }
-    }
-    fifthHeaderMenuItems: menuItems(
-      where: { location: $fifthHeaderLocation }
-      first: $first
-    ) {
-      nodes {
-        ...NavigationMenuItemFragment
-      }
-    }
-    featureHeaderMenuItems: menuItems(
-      where: { location: $featureHeaderLocation }
-      first: $first
-    ) {
-      nodes {
-        ...NavigationMenuItemFragment
-      }
-    }
-    footerMenuItems: menuItems(where: { location: $footerLocation }) {
-      nodes {
-        ...NavigationMenuItemFragment
-      }
     }
   }
 `
@@ -433,12 +280,5 @@ SingleUpdate.variables = ({ databaseId }, ctx) => {
   return {
     databaseId,
     asPreview: ctx?.asPreview,
-    headerLocation: MENUS.PRIMARY_LOCATION,
-    secondHeaderLocation: MENUS.SECONDARY_LOCATION,
-    thirdHeaderLocation: MENUS.THIRD_LOCATION,
-    fourthHeaderLocation: MENUS.FOURTH_LOCATION,
-    fifthHeaderLocation: MENUS.FIFTH_LOCATION,
-    featureHeaderLocation: MENUS.FEATURE_LOCATION,
-    footerLocation: MENUS.FOOTER_LOCATION,
   }
 }

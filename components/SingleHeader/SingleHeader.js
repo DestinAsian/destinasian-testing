@@ -23,6 +23,8 @@ export default function SingleHeader({
   fifthMenuItems,
   featureMenuItems,
   latestStories,
+  menusLoading,
+  latestLoading,
 }) {
   const isDesktop = useMediaQuery({ minWidth: 768 })
   const [isNavShown, setIsNavShown] = useState(false)
@@ -223,6 +225,8 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
           clearSearch={clearSearch}
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
+          menusLoading={menusLoading}
+          latestLoading={latestLoading}
         />
       </div>
     </header>

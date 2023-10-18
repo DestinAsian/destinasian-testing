@@ -77,7 +77,7 @@ export default function ErrorPage({ image, title, content }) {
         {image && (
           <FeaturedImage
             image={image}
-            layout={'fill'}
+            layout={'intrinsic'}
             className={cx('image')}
             priority
           />
