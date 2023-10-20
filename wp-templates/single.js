@@ -230,7 +230,7 @@ Component.query = gql`
         focuskw
       }
       uri
-      categories {
+      categories(where: { childless: true }) {
         edges {
           node {
             name

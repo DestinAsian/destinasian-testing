@@ -259,7 +259,7 @@ Component.query = gql`
                 name
               }
             }
-            categories {
+            categories(where: { childless: true }) {
               edges {
                 node {
                   name
@@ -322,7 +322,7 @@ Component.query = gql`
                 name
               }
             }
-            categories {
+            categories(where: { childless: true }) {
               edges {
                 node {
                   name
@@ -385,7 +385,7 @@ Component.query = gql`
                 name
               }
             }
-            categories {
+            categories(where: { childless: true }) {
               edges {
                 node {
                   name
@@ -448,7 +448,7 @@ Component.query = gql`
                 name
               }
             }
-            categories {
+            categories(where: { childless: true }) {
               edges {
                 node {
                   name
@@ -511,7 +511,7 @@ Component.query = gql`
                 name
               }
             }
-            categories {
+            categories(where: { childless: true }) {
               edges {
                 node {
                   name

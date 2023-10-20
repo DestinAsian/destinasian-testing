@@ -16,15 +16,6 @@ import {
 import { GetMenus } from '../queries/GetMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
 
-// Randomized Function
-function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1))
-    ;[array[i], array[j]] = [array[j], array[i]]
-  }
-  return array
-}
-
 export default function SingleUpdate(props) {
   // Loading state for previews
   if (props.loading) {
@@ -118,7 +109,7 @@ export default function SingleUpdate(props) {
   const {
     data: bannerSpecificData,
     error: bannerSpecificError,
-    fetchMore: fetchMoreSpecificBanner,
+    // fetchMore: fetchMoreSpecificBanner,
   } = useQuery(GetSpecificBannerAds, {
     variables: {
       first: bannerPerPage,
@@ -178,8 +169,8 @@ export default function SingleUpdate(props) {
               image={featuredImage?.node}
               title={title}
               categoryUri={categories[0]?.node?.uri}
-              contentTypeName={contentType?.node?.graphqlPluralName}
               categoryName={categories[0]?.node?.name}
+              contentTypeName={contentType?.node?.graphqlPluralName}
               author={author.node.name}
               date={date}
             />

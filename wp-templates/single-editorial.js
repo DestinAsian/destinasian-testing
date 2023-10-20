@@ -8,7 +8,6 @@ import {
   Main,
   Container,
   SingleEditorialEntryHeader,
-  NavigationMenu,
   FeaturedImage,
   SEO,
   SingleEditorialFeaturedImage,

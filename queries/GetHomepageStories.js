@@ -7,8 +7,8 @@ export const GetHomepageStories = gql`
     contentNodes(
       first: $first
       after: $after
-      where: { 
-        status: PUBLISH, 
+      where: {
+        status: PUBLISH
         orderby: { field: DATE, order: DESC }
         contentTypes: [POST, EDITORIAL, UPDATE]
       }
@@ -27,7 +27,7 @@ export const GetHomepageStories = gql`
             date
             excerpt
             ...FeaturedImageFragment
-            categories {
+            categories(where: { childless: true }) {
               edges {
                 node {
                   name

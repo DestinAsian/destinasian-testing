@@ -117,7 +117,7 @@ export default function FeatureWell({ featureWells }) {
                   </div>
                 </a>
               )}
-              <div
+              {/* <div
                 className={cx('chevron-wrapper', {
                   maximized: IsMaximized,
                 })}
@@ -146,7 +146,7 @@ export default function FeatureWell({ featureWells }) {
                     </g>
                   </svg>
                 </a>
-              </div>
+              </div> */}
             </SwiperSlide>
           ))}
         </Swiper>

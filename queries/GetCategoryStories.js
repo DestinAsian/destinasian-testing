@@ -2,15 +2,20 @@ import { gql } from '@apollo/client'
 
 export const GetCategoryStories = gql`
   query GetCategoryStories($first: Int, $after: String, $id: ID!) {
-    category(id: $id, idType: URI) {
+    category(id: $id, idType: DATABASE_ID) {
       name
+      parent {
+        node {
+          name
+        }
+      }
       contentNodes(
         first: $first
         after: $after
         where: {
           status: PUBLISH
-          contentTypes: [POST, EDITORIAL, UPDATE]
-          orderby: { field: DATE, order: DESC }
+          contentTypes: [EDITORIAL, POST, UPDATE]
+          orderby: [{ field: DATE, order: DESC }]
         }
       ) {
         pageInfo {
@@ -42,7 +47,7 @@ export const GetCategoryStories = gql`
                   name
                 }
               }
-              categories {
+              categories(where: { childless: true }) {
                 edges {
                   node {
                     name
@@ -178,7 +183,7 @@ export const GetCategoryStories = gql`
                         }
                       }
                     }
-                    categories {
+                    categories(where: { childless: true }) {
                       edges {
                         node {
                           name
@@ -314,7 +319,7 @@ export const GetCategoryStories = gql`
                               }
                             }
                           }
-                          categories {
+                          categories(where: { childless: true }) {
                             edges {
                               node {
                                 name

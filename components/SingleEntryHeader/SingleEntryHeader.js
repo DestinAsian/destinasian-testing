@@ -31,7 +31,8 @@ export default function SingleEntryHeader({
               </a>
             )}
           <Heading className={cx('title')}>
-            {parent || null} {title}
+            {/* {parent || null} */}
+            {title}
           </Heading>
           <div className={cx('icon-wrapper')}>
             <CategoryIcon

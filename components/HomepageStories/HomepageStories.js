@@ -47,18 +47,17 @@ export default function HomepageStories(pinPosts) {
     },
   )
 
-  const updateQuery = (previousResult, { fetchMoreResult }) => {
-    if (!fetchMoreResult.contentNodes.edges.length) {
-      return previousResult.contentNodes
-    }
+  const updateQuery = (prev, { fetchMoreResult }) => {
+    if (!fetchMoreResult) return prev
+
+    const prevEdges = prev?.contentNodes?.edges || []
+    const newEdges = fetchMoreResult?.contentNodes?.edges || []
 
     return {
+      ...prev,
       contentNodes: {
-        ...previousResult.contentNodes,
-        edges: [
-          ...previousResult.contentNodes.edges,
-          ...fetchMoreResult.contentNodes.edges,
-        ],
+        ...prev.contentNodes,
+        edges: [...prevEdges, ...newEdges],
         pageInfo: fetchMoreResult.contentNodes.pageInfo,
       },
     }

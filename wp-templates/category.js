@@ -1,3 +1,4 @@
+import React from 'react'
 import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
 import { BlogInfoFragment } from '../fragments/GeneralSettings'
@@ -33,7 +34,8 @@ export default function Component(props) {
     pinPosts,
     countryCode,
     destinationGuides,
-  } = props?.data?.nodeByUri ?? []
+    databaseId,
+  } = props?.data?.category ?? []
 
   // Rest of World validation
   const rowValidation =
@@ -179,7 +181,7 @@ export default function Component(props) {
       <Main>
         <>
           <CategoryStories
-            categoryUri={uri}
+            categoryUri={databaseId}
             pinPosts={pinPosts}
             name={name}
             children={children}
@@ -195,213 +197,212 @@ export default function Component(props) {
 Component.query = gql`
   ${BlogInfoFragment}
   ${FeaturedImage.fragments.entry}
-  query GetCategoryPage($uri: String!) {
-    nodeByUri(uri: $uri) {
-      ... on Category {
-        name
-        uri
-        description
+  query GetCategoryPage($databaseId: ID!) {
+    category(id: $databaseId, idType: DATABASE_ID) {
+      name
+      uri
+      description
+      databaseId
+      categoryImages {
         categoryImages {
-          categoryImages {
-            mediaItemUrl
-          }
+          mediaItemUrl
         }
-        countryCode {
-          countryCode
-        }
-        destinationGuides {
-          destinationGuides
-        }
-        pinPosts {
-          pinPost {
-            ... on Post {
-              id
-              title
-              content
-              date
-              uri
-              excerpt
-              ...FeaturedImageFragment
-              author {
-                node {
-                  name
-                }
-              }
-              categories {
-                edges {
-                  node {
-                    name
-                    uri
-                    parent {
-                      node {
-                        name
-                      }
-                    }
-                  }
-                }
-              }
-              acfCategoryIcon {
-                categoryLabel
-                chooseYourCategory
-                chooseIcon {
-                  mediaItemUrl
-                }
-              }
-              acfLocationIcon {
-                fieldGroupName
-                locationLabel
-                locationUrl
-              }
-            }
-            ... on Editorial {
-              id
-              title
-              content
-              date
-              uri
-              excerpt
-              ...FeaturedImageFragment
-              author {
-                node {
-                  name
-                }
-              }
-              categories {
-                edges {
-                  node {
-                    name
-                    uri
-                    parent {
-                      node {
-                        name
-                      }
-                    }
-                  }
-                }
-              }
-            }
-            ... on Advertorial {
-              id
-              title
-              content
-              date
-              uri
-              ...FeaturedImageFragment
-              author {
-                node {
-                  name
-                }
-              }
-            }
-          }
-        }
-        parent {
-          node {
-            name
+      }
+      countryCode {
+        countryCode
+      }
+      destinationGuides {
+        destinationGuides
+      }
+      pinPosts {
+        pinPost {
+          ... on Post {
+            id
+            title
+            content
+            date
             uri
-            children(where: { childless: true }) {
+            excerpt
+            ...FeaturedImageFragment
+            author {
+              node {
+                name
+              }
+            }
+            categories(where: { childless: true }) {
               edges {
                 node {
                   name
                   uri
-                }
-              }
-            }
-            countryCode {
-              countryCode
-            }
-            destinationGuides {
-              destinationGuides
-            }
-          }
-        }
-        children {
-          edges {
-            node {
-              name
-              uri
-              posts {
-                edges {
-                  node {
-                    id
-                    title
-                    content
-                    date
-                    uri
-                    excerpt
-                    featuredImage {
-                      node {
-                        id
-                        sourceUrl
-                        altText
-                        mediaDetails {
-                          width
-                          height
-                        }
-                      }
-                    }
-                    categories {
-                      edges {
-                        node {
-                          name
-                          uri
-                          parent {
-                            node {
-                              name
-                            }
-                          }
-                        }
-                      }
-                    }
-                    acfCategoryIcon {
-                      categoryLabel
-                      chooseYourCategory
-                      chooseIcon {
-                        mediaItemUrl
-                      }
-                    }
-                    acfLocationIcon {
-                      fieldGroupName
-                      locationLabel
-                      locationUrl
+                  parent {
+                    node {
+                      name
                     }
                   }
                 }
               }
-              editorials {
-                edges {
-                  node {
-                    id
-                    title
-                    content
-                    date
-                    uri
-                    excerpt
-                    featuredImage {
+            }
+            acfCategoryIcon {
+              categoryLabel
+              chooseYourCategory
+              chooseIcon {
+                mediaItemUrl
+              }
+            }
+            acfLocationIcon {
+              fieldGroupName
+              locationLabel
+              locationUrl
+            }
+          }
+          ... on Editorial {
+            id
+            title
+            content
+            date
+            uri
+            excerpt
+            ...FeaturedImageFragment
+            author {
+              node {
+                name
+              }
+            }
+            categories {
+              edges {
+                node {
+                  name
+                  uri
+                  parent {
+                    node {
+                      name
+                    }
+                  }
+                }
+              }
+            }
+          }
+          ... on Advertorial {
+            id
+            title
+            content
+            date
+            uri
+            ...FeaturedImageFragment
+            author {
+              node {
+                name
+              }
+            }
+          }
+        }
+      }
+      parent {
+        node {
+          name
+          uri
+          children(where: { childless: true }) {
+            edges {
+              node {
+                name
+                uri
+              }
+            }
+          }
+          countryCode {
+            countryCode
+          }
+          destinationGuides {
+            destinationGuides
+          }
+        }
+      }
+      children {
+        edges {
+          node {
+            name
+            uri
+            posts {
+              edges {
+                node {
+                  id
+                  title
+                  content
+                  date
+                  uri
+                  excerpt
+                  featuredImage {
+                    node {
+                      id
+                      sourceUrl
+                      altText
+                      mediaDetails {
+                        width
+                        height
+                      }
+                    }
+                  }
+                  categories(where: { childless: true }) {
+                    edges {
                       node {
-                        id
-                        sourceUrl
-                        altText
-                        mediaDetails {
-                          width
-                          height
+                        name
+                        uri
+                        parent {
+                          node {
+                            name
+                          }
                         }
                       }
                     }
-                    author {
-                      node {
-                        name
+                  }
+                  acfCategoryIcon {
+                    categoryLabel
+                    chooseYourCategory
+                    chooseIcon {
+                      mediaItemUrl
+                    }
+                  }
+                  acfLocationIcon {
+                    fieldGroupName
+                    locationLabel
+                    locationUrl
+                  }
+                }
+              }
+            }
+            editorials {
+              edges {
+                node {
+                  id
+                  title
+                  content
+                  date
+                  uri
+                  excerpt
+                  featuredImage {
+                    node {
+                      id
+                      sourceUrl
+                      altText
+                      mediaDetails {
+                        width
+                        height
                       }
                     }
-                    categories {
-                      edges {
-                        node {
-                          name
-                          uri
-                          parent {
-                            node {
-                              name
-                            }
+                  }
+                  author {
+                    node {
+                      name
+                    }
+                  }
+                  categories {
+                    edges {
+                      node {
+                        name
+                        uri
+                        parent {
+                          node {
+                            name
                           }
                         }
                       }
@@ -420,8 +421,8 @@ Component.query = gql`
   }
 `
 
-Component.variables = ({ uri }) => {
+Component.variables = ({ databaseId }) => {
   return {
-    uri,
+    databaseId,
   }
 }

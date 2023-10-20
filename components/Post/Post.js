@@ -20,8 +20,6 @@ export default function Post({
   locationLabel,
   locationUrl,
   locationValidation,
-  contentType,
-  contentTypeUri,
 }) {
   let trimmedExcerpt = excerpt?.substring(0, MAX_EXCERPT_LENGTH)
   const lastSpaceIndex = trimmedExcerpt?.lastIndexOf(' ')
