@@ -27,6 +27,14 @@ export default function SearchResults({ searchResults, isLoading }) {
     )
   }
 
+  // // trimmedExcerpt
+  // let trimmedExcerpt = excerpt?.substring(0, MAX_EXCERPT_LENGTH)
+  // const lastSpaceIndex = trimmedExcerpt?.lastIndexOf(' ')
+
+  // if (lastSpaceIndex !== -1) {
+  //   trimmedExcerpt = trimmedExcerpt?.substring(0, lastSpaceIndex) + '...'
+  // }
+
   return (
     <>
       <div className={styles.component}>
@@ -82,6 +90,21 @@ export default function SearchResults({ searchResults, isLoading }) {
                   </h2>
                 </a>
               )}
+
+              {/* LuxeList */}
+              {node.contentType?.node?.graphqlPluralName == 'LuxeLists' && (
+                <a href={'/luxe-list/2023-lineup'}>
+                  <h2 className={styles.meta}>{'Luxe List'}</h2>
+                </a>
+              )}
+
+              {/* Contest */}
+              {node.contentType?.node?.graphqlPluralName == 'Contests' && (
+                <a href={'/contests'}>
+                  <h2 className={styles.meta}>{'Contest'}</h2>
+                </a>
+              )}
+
               <a href={node.uri}>
                 <div
                   dangerouslySetInnerHTML={{

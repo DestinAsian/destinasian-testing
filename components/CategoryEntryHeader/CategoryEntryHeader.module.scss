@@ -75,18 +75,15 @@
   padding: 1rem 4vw;
   color: var(--wpe--color--black);
   text-align: left;
-  font-size: 0.9rem;
+  font-size: 1.125rem;
 
   @media (min-width: $breakpoint-extra-small) {
-    font-size: 1.3rem;
+    font-size: 1.25rem;
   }
 
   @media (min-width: $breakpoint-small) {
     margin: 0 auto;
     width: 50vw;
-  }
-
-  @media (min-width: $breakpoint-small) {
     padding: 1rem 2vw;
   }
 }

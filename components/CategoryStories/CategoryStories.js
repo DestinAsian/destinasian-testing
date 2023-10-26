@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import classNames from 'classnames/bind'
 import styles from './CategoryStories.module.scss'
 import { useQuery } from '@apollo/client'
+import * as CONTENT_TYPES from '../../constants/contentTypes'
 import { GetCategoryStories } from '../../queries/GetCategoryStories'
 import { GetROSBannerAds } from '../../queries/GetROSBannerAds'
 import { GetSpecificBannerAds } from '../../queries/GetSpecificBannerAds'
@@ -36,13 +37,29 @@ export default function CategoryStories(categoryUri) {
   const children = categoryUri?.children
   const parent = categoryUri?.parent
 
-  // Get Stories / Posts
-  const { data, error, loading, fetchMore } = useQuery(GetCategoryStories, {
-    variables: {
+  let storiesVariable = {
+    first: postsPerPage,
+    after: null,
+    id: uri,
+    contentTypes: [CONTENT_TYPES.EDITORIAL, CONTENT_TYPES.POST],
+  }
+
+  // Editorial & Updates Stories
+  if (
+    (parent === null || parent === undefined) &&
+    children?.edges?.length === 0
+  ) {
+    storiesVariable = {
       first: postsPerPage,
       after: null,
       id: uri,
-    },
+      contentTypes: [CONTENT_TYPES.EDITORIAL, CONTENT_TYPES.UPDATE], // Change this to the desired value
+    }
+  }
+
+  // Get Stories / Posts
+  const { data, error, loading, fetchMore } = useQuery(GetCategoryStories, {
+    variables: storiesVariable,
     fetchPolicy: 'network-only',
     nextFetchPolicy: 'cache-and-network',
   })
@@ -97,7 +114,7 @@ export default function CategoryStories(categoryUri) {
     }
   }
 
-  if (data?.category?.parent?.node?.name === null) {
+  if (data?.category?.parent?.node?.name === (null || undefined)) {
     // Modify the variables based on the condition
     bannerVariable = {
       search: name, // Change this to the desired value

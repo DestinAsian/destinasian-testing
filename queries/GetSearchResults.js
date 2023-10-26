@@ -52,7 +52,7 @@ export const GetSearchResults = gql`
                       }
                     }
                   }
-                  categories {
+                  categories(where: { childless: true }) {
                     edges {
                       node {
                         name
@@ -136,6 +136,7 @@ export const GetSearchResults = gql`
                 }
                 ... on Contest {
                   title
+                  excerpt
                   featuredImage {
                     node {
                       id

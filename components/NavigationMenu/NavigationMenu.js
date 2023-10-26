@@ -1,6 +1,5 @@
 import classNames from 'classnames/bind'
 import { gql } from '@apollo/client'
-import Link from 'next/link'
 import styles from './NavigationMenu.module.scss'
 import stylesFromWP from './NavigationMenuClassesFromWP.module.scss'
 import flatListToHierarchical from '../../utilities/flatListToHierarchical'
@@ -33,7 +32,7 @@ export default function NavigationMenu({
 
           return (
             <li key={id} className={cxFromWp(cssClasses)}>
-              <Link href={path ?? ''}>{label ?? ''}</Link>
+              <a href={path ?? ''}>{label ?? ''}</a>
               {children.length ? renderMenu(children) : null}
             </li>
           )

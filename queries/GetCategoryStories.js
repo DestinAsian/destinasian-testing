@@ -1,7 +1,12 @@
 import { gql } from '@apollo/client'
 
 export const GetCategoryStories = gql`
-  query GetCategoryStories($first: Int, $after: String, $id: ID!) {
+  query GetCategoryStories(
+    $first: Int
+    $after: String
+    $id: ID!
+    $contentTypes: [ContentTypesOfCategoryEnum]
+  ) {
     category(id: $id, idType: DATABASE_ID) {
       name
       parent {
@@ -14,7 +19,7 @@ export const GetCategoryStories = gql`
         after: $after
         where: {
           status: PUBLISH
-          contentTypes: [EDITORIAL, POST, UPDATE]
+          contentTypes: $contentTypes
           orderby: [{ field: DATE, order: DESC }]
         }
       ) {

@@ -15,7 +15,11 @@ body {
   margin: 0;
   font-family: 'Ringside Regular A', 'Ringside Regular B';
   font-weight: 400;
-  font-size: 1rem;
+  font-size: 1.125rem;
+
+  @media (min-width: $breakpoint-extra-small) {
+    font-size: 1.25rem;
+  }
 }
 
 code {
@@ -45,6 +49,11 @@ p {
   margin: 0 0 1rem;
   letter-spacing: 1.15px;
   line-height: 1.6;
+  font-size: 1.125rem;
+
+  @media (min-width: $breakpoint-extra-small) {
+    font-size: 1.25rem;
+  }
 }
 
 a {
