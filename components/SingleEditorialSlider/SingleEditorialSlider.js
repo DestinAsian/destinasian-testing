@@ -37,7 +37,7 @@ export default function SingleEditorialSlider({ images }) {
           <div className="post-swiper-slide">
             {image && (
               <SwiperSlide key={index}>
-                <img src={image} />
+                <img src={image} loading="lazy" />
               </SwiperSlide>
             )}
           </div>

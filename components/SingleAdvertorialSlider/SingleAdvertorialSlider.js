@@ -39,7 +39,7 @@ export default function SingleAdvertorialSlider({ images }) {
           <div className="post-swiper-slide">
             {image && (
               <SwiperSlide key={index}>
-                <img src={image} />
+                <img src={image} loading="lazy" />
               </SwiperSlide>
             )}
           </div>

@@ -12,10 +12,10 @@ import 'swiper/css/navigation'
 import { EffectFade, Autoplay, Pagination, Navigation } from 'swiper'
 
 export default function SingleLLSlider({ images }) {
-  const pagination = {
-    clickable: true,
-  }
-  
+  const menuIndex = images?.map((image, index) => {
+    return index
+  })
+
   return (
     <>
       <Swiper
@@ -26,7 +26,14 @@ export default function SingleLLSlider({ images }) {
           delay: 5000,
           disableOnInteraction: true,
         }}
-        pagination={pagination}
+        pagination={{
+          clickable: true,
+          el: '.swiper-ll-custom-pagination',
+          clickable: true,
+          renderBullet: function (index, className) {
+            return `<span key="${menuIndex[index]}" class="${className}"></span>`
+          },
+        }}
         navigation={{
           prevEl: '.swiper-custom-button-prev',
           nextEl: '.swiper-custom-button-next',
@@ -39,12 +46,12 @@ export default function SingleLLSlider({ images }) {
           <div className="post-swiper-slide">
             {image && (
               <SwiperSlide key={index}>
-                <img src={image} />
+                <img src={image} loading="lazy" />
               </SwiperSlide>
             )}
           </div>
         ))}
-        {/* <div className="swiper-custom-button-prev">
+        <div className="swiper-custom-button-prev">
           <svg
             version="1.0"
             xmlns="http://www.w3.org/2000/svg"
@@ -91,8 +98,9 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
               />
             </g>
           </svg>
-        </div> */}
+        </div>
       </Swiper>
+      <div className="swiper-ll-custom-pagination"></div>
     </>
   )
 }

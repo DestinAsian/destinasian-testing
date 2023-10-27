@@ -2,11 +2,7 @@ import classNames from 'classnames/bind'
 import Link from 'next/link'
 import destinasianLogoBlk from '../../assets/logo/destinasian-logo.png'
 import destinasianLogoWht from '../../assets/logo/destinasianLogoWht.png'
-import {
-  Container,
-  SkipNavigationLink,
-  FullMenu,
-} from '..'
+import { Container, SkipNavigationLink, FullMenu } from '..'
 import styles from './HomepageHeader.module.scss'
 import { useState, useEffect } from 'react'
 import { useMediaQuery } from 'react-responsive'
@@ -72,9 +68,17 @@ export default function HomepageHeader({
               <Link href="/">
                 <a className={cx('title')}>
                   {isScrolled || isNavShown ? (
-                    <img src={destinasianLogoBlk.src} alt="Destinasian Logo" />
+                    <img
+                      src={destinasianLogoBlk.src}
+                      loading="lazy"
+                      alt="Destinasian Logo"
+                    />
                   ) : (
-                    <img src={destinasianLogoWht.src} alt="Destinasian Logo" />
+                    <img
+                      src={destinasianLogoWht.src}
+                      loading="lazy"
+                      alt="Destinasian Logo"
+                    />
                   )}
                 </a>
               </Link>

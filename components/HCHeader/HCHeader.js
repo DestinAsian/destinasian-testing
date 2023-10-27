@@ -66,13 +66,21 @@ export default function HCHeader({
               {isNavShown ? (
                 <Link href="/">
                   <a className={cx('title')}>
-                    <img src={destinasianLogo.src} alt="Destinasian Logo" />
+                    <img
+                      src={destinasianLogo.src}
+                      loading="lazy"
+                      alt="Destinasian Logo"
+                    />
                   </a>
                 </Link>
               ) : (
                 <Link href="/">
                   <a className={cx('title')}>
-                    <img src={destinasianLogo.src} alt="DestinAsian Logo" />
+                    <img
+                      src={destinasianLogo.src}
+                      loading="lazy"
+                      alt="DestinAsian Logo"
+                    />
                   </a>
                 </Link>
               )}

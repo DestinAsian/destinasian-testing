@@ -45,12 +45,12 @@
     row-gap: 0.25rem;
     padding: 0 1rem;
     text-transform: none;
-    margin: 0.5rem 0 0 0;
+    margin: 0 0 0 0;
     overflow-x: hidden;
 
     @media (min-width: $breakpoint-extra-small) {
       padding: 0 2rem;
-      margin: 0.5rem 0 5.25rem 0;
+      margin: 0 0 5.25rem 0;
       border-left: none;
     }
   }
@@ -113,6 +113,13 @@
       @media (min-width: $breakpoint-small) {
         padding: 0 0 1rem;
       }
+    }
+
+    i,
+    u,
+    strong,
+    b {
+      padding: 0;
     }
 
     p {

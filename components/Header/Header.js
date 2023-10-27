@@ -70,7 +70,7 @@ export default function Header({
             <div className={cx('brand')}>
               <Link href="/">
                 <a className={cx('title')}>
-                  <img src={destinasianLogo.src} />
+                  <img src={destinasianLogo.src} loading="lazy" />
                 </a>
               </Link>
             </div>

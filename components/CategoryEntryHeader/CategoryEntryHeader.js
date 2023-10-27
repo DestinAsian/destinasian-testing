@@ -40,7 +40,9 @@ export default function CategoryEntryHeader({
                   {parent || null} {title}
                 </Heading>
               )}
-              {image && <img src={image} className={cx('image')} />}
+              {image && (
+                <img src={image} loading="lazy" className={cx('image')} />
+              )}
               {children.length !== 0 && (
                 <p className={cx('description')}>{description}</p>
               )}

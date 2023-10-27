@@ -27,14 +27,6 @@
   aspect-ratio: 3 / 2;
 }
 
-/* .swiper-pagination-fraction {
-  left: auto;
-  right: 0;
-  width: 3.5rem;
-  font-size: 20px;
-  color: #ffffff;
-} */
-
 .swiper-pagination-bullet {
   width: 14px;
   height: 14px;
@@ -55,11 +47,13 @@
   border: 1px solid #000000;
 }
 
-/* @media only screen and (min-width: 640px) {
-  .swiper {
-    height: 50vh;
-  }
-} */
+.swiper-post-custom-pagination.swiper-pagination-bullets.swiper-pagination-horizontal {
+  display: flex;
+  bottom: auto;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0;
+}
 
 @media only screen and (min-width: 640px) {
   .post-swiper {

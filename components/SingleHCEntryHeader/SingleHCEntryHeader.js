@@ -34,7 +34,7 @@ export default function SingleHCEntryHeader({ title, locationLabel, caption }) {
         <div className={cx('icon-wrapper')}>
           {/* Location Icon */}
           <div className={cx('location-icon')}>
-            <img src={locationIcon.src} />
+            <img src={locationIcon.src} loading="lazy" />
           </div>
           {/* Location label */}
           <div className={cx('icon-label')}>{locationLabel}</div>

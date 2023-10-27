@@ -12,9 +12,9 @@ import 'swiper/css/navigation'
 import { EffectFade, Autoplay, Pagination, Navigation } from 'swiper'
 
 export default function SingleHCSlider({ images }) {
-  const pagination = {
-    clickable: true,
-  }
+  const menuIndex = images?.map((image, index) => {
+    return index
+  })
 
   return (
     <>
@@ -26,7 +26,14 @@ export default function SingleHCSlider({ images }) {
           delay: 5000,
           disableOnInteraction: true,
         }}
-        pagination={pagination}
+        pagination={{
+          clickable: true,
+          el: '.swiper-post-custom-pagination',
+          clickable: true,
+          renderBullet: function (index, className) {
+            return `<span key="${menuIndex[index]}" class="${className}"></span>`
+          },
+        }}
         navigation={{
           prevEl: '.swiper-custom-button-prev',
           nextEl: '.swiper-custom-button-next',
@@ -39,7 +46,7 @@ export default function SingleHCSlider({ images }) {
           <div className="post-swiper-slide">
             {image && (
               <SwiperSlide key={index}>
-                <img src={image} />
+                <img src={image} loading="lazy" />
               </SwiperSlide>
             )}
           </div>
@@ -93,6 +100,7 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
           </svg>
         </div>
       </Swiper>
+      <div className="swiper-post-custom-pagination"></div>
     </>
   )
 }

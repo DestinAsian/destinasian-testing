@@ -79,7 +79,7 @@ export default function FeatureWell({ featureWells }) {
                 <a href={featureWell.url}>
                   {isDesktop && (
                     <div className={cx('image-wrapper')}>
-                      <img src={featureWell.desktopSrc} />
+                      <img src={featureWell.desktopSrc} loading="lazy" />
                       <div className={cx('caption-wrapper')}>
                         {featureWell.caption}
                       </div>
@@ -88,7 +88,7 @@ export default function FeatureWell({ featureWells }) {
                   )}
                   {isMobile && (
                     <div className={cx('image-wrapper')}>
-                      <img src={featureWell.mobileSrc} />
+                      <img src={featureWell.mobileSrc} loading="lazy" />
                       <div className={cx('caption-wrapper')}>
                         {featureWell.caption}
                       </div>

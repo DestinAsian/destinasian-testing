@@ -148,16 +148,16 @@ export default function Footer() {
         </div>
         <div className={cx('logo-wrapper')}>
           <a href={'https://destinasian.co.id/'}>
-            <img src={daiLogo.src} />
+            <img src={daiLogo.src} loading="lazy" />
           </a>
           <a href={'https://daman.co.id/'}>
-            <img src={damanLogo.src} />
+            <img src={damanLogo.src} loading="lazy" />
           </a>
           <a href={'https://www.prestigeonline.com/id/'}>
-            <img src={prsLogo.src} />
+            <img src={prsLogo.src} loading="lazy" />
           </a>
           <a href={'https://scop3group.com/'}>
-            <img src={scop3Logo.src} />
+            <img src={scop3Logo.src} loading="lazy" />
           </a>
         </div>
       </div>

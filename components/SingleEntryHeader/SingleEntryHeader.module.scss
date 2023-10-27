@@ -6,11 +6,7 @@
   color: var(--wpe--color--black);
   position: relative;
   overflow: hidden;
-  margin: 1rem 0 0;
-
-  @media (min-width: $breakpoint-extra-small) {
-    margin: 2rem 0 0;
-  }
+  margin: 0;
 }
 
 .header-wrapper {
