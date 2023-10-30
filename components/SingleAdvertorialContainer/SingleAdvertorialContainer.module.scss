@@ -11,8 +11,8 @@
 
   p {
     font-family: 'Ringside Regular A', 'Ringside Regular B';
-    font-size: 1rem;
     font-weight: 300;
+    font-size: 1.125rem;
 
     @media (min-width: $breakpoint-extra-small) {
       font-size: 1.25rem;

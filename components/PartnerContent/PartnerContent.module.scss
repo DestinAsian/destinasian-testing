@@ -133,6 +133,11 @@ figure.image {
     font-family: 'Ringside Regular A', 'Ringside Regular B';
     font-weight: 500;
     line-height: 1.6;
+    font-size: 1.125rem;
+
+    @media (min-width: $breakpoint-extra-small) {
+      font-size: 1.25rem;
+    }
   }
 
   a {
@@ -152,6 +157,11 @@ figure.image {
     font-family: 'Gotham A', 'Gotham B';
     font-weight: 500;
     line-height: 1.6;
+    font-size: 1.125rem;
+
+    @media (min-width: $breakpoint-extra-small) {
+      font-size: 1.25rem;
+    }
   }
 
   a {

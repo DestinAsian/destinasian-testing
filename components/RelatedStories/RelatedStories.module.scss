@@ -31,6 +31,7 @@
 
 .content-wrapper {
   padding-left: 4vw;
+  padding-right: 1rem;
   height: fit-content;
 
   @media (min-width: $breakpoint-extra-small) {
@@ -51,7 +52,7 @@
 
 .title {
   font-family: 'Unit Slab Pro Black';
-  font-size: 1rem;
+  font-size: 1.2rem;
   line-height: 1.2;
 
   @media (min-width: $breakpoint-extra-small) {

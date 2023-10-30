@@ -74,6 +74,11 @@
   p {
     font-family: 'Ringside Regular A', 'Ringside Regular B';
     font-weight: 500;
+    font-size: 1.125rem;
+
+    @media (min-width: $breakpoint-extra-small) {
+      font-size: 1.25rem;
+    }
   }
 }
 
@@ -135,10 +140,10 @@
     p {
       font-family: 'Chronicle Display A', 'Chronicle Display B';
       font-weight: 500;
-      font-size: 0.9rem;
+      font-size: 1.125rem;
 
       @media (min-width: $breakpoint-extra-small) {
-        font-size: 1.3rem;
+        font-size: 1.25rem;
       }
     }
   }
