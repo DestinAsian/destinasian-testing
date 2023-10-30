@@ -1,4 +1,6 @@
 import Head from 'next/head'
+import { GetFavicon } from '../../queries/GetFavicon'
+import { useQuery } from '@apollo/client'
 
 /**
  * Provide SEO related meta tags to a page.
@@ -15,6 +17,13 @@ export default function SEO({ title, description, imageUrl, url, focuskw }) {
   if (!title && !description && !imageUrl && !url && !focuskw) {
     return null
   }
+
+  const { data } = useQuery(GetFavicon, {
+    fetchPolicy: 'network-only',
+    nextFetchPolicy: 'cache-and-network',
+  })
+
+  const favicon = data?.favicon?.mediaDetails?.sizes
 
   return (
     <>
@@ -58,6 +67,30 @@ export default function SEO({ title, description, imageUrl, url, focuskw }) {
         )}
 
         {focuskw && <meta name="keywords" content={focuskw} />}
+
+        {/* Favicon */}
+        {favicon?.length > 0 &&
+          favicon.map(({ width, sourceUrl }) => {
+            if (width === '180') {
+              return (
+                <link
+                  key={`fav-${width}x${width}`}
+                  rel="apple-touch-icon"
+                  href={sourceUrl}
+                  sizes={`${width}x${width}`}
+                />
+              )
+            }
+            return (
+              <link
+                key={`fav-${width}x${width}`}
+                rel="icon"
+                type="image/png"
+                sizes={`${width}x${width}`}
+                href={sourceUrl}
+              />
+            )
+          })}
 
         {/* SEM Keywords */}
         <meta
@@ -105,6 +138,9 @@ export default function SEO({ title, description, imageUrl, url, focuskw }) {
           <img src="https://api.fouanalytics.com/api/noscript-3102x8pmdtqpcf032cq8.gif" />
         </noscript>
         {/* <!-- END FOUANALYTICS ON-SITE EMBED CODE --> */}
+
+        {/* Favicon */}
+        <link rel="icon" href="../../assets/favicon.ico" sizes="any" />
 
         {/* Testing Typography Cloud */}
         <link
