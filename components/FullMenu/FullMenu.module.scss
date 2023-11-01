@@ -26,7 +26,7 @@
 
   @media (min-width: $breakpoint-extra-small) {
     padding: 0 1rem 2rem;
-    height: calc(-8.5rem + 100vh);
+    height: calc(-3.5rem + 100vh);
   }
 
   // Search Bar
@@ -211,7 +211,23 @@
     }
 
     .feature-luxe-list {
-      width: 42.5%;
+      width: 6.25rem;
+      height: 6.25rem;
+
+      @media (min-width: $breakpoint-extra-small) {
+        width: 7.5rem;
+        height: 7.5rem;
+      }
+
+      .menu-image {
+        width: 100%;
+        height: 100%;
+
+        img {
+          position: relative;
+          object-fit: contain;
+        }
+      }
     }
   }
 

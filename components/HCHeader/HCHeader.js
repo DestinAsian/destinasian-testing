@@ -7,6 +7,7 @@ import { Container, SkipNavigationLink, FullMenu } from '..'
 import styles from './HCHeader.module.scss'
 import { useState, useEffect } from 'react'
 import { useMediaQuery } from 'react-responsive'
+import Image from 'next/image'
 
 let cx = classNames.bind(styles)
 
@@ -66,9 +67,9 @@ export default function HCHeader({
               {isNavShown ? (
                 <Link href="/">
                   <a className={cx('title')}>
-                    <img
+                    <Image
                       src={destinasianLogo.src}
-                      loading="lazy"
+                      layout="fill"
                       alt="Destinasian Logo"
                     />
                   </a>
@@ -76,9 +77,9 @@ export default function HCHeader({
               ) : (
                 <Link href="/">
                   <a className={cx('title')}>
-                    <img
+                    <Image
                       src={destinasianLogo.src}
-                      loading="lazy"
+                      layout="fill"
                       alt="DestinAsian Logo"
                     />
                   </a>

@@ -20,8 +20,8 @@
 .swiper-ll-custom-pagination > .swiper-pagination-bullet {
   color: #494949;
   background: #494949;
-  border: 1px solid #000000;
   padding: 0.5rem;
+  opacity: 1;
 }
 
 .swiper-ll-custom-pagination > .swiper-pagination-bullet-active {

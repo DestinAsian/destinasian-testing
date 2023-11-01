@@ -4,6 +4,7 @@ import { NavigationMenu, SearchInput, SearchResults, Button } from '..'
 import styles from './FullMenu.module.scss'
 import { useState } from 'react'
 import { GetSearchResults } from '../../queries/GetSearchResults'
+import Image from 'next/future/image'
 
 let cx = classNames.bind(styles)
 
@@ -237,13 +238,18 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
                     ?.luxeListPage?.url
                 }
               >
-                <img
-                  src={
-                    featureMenuItems[0]?.menu?.node?.luxeListLogoMenu?.mainLogo
-                      ?.mediaItemUrl
-                  }
-                  loading="lazy"
-                />
+                <figure className={cx('menu-image')}>
+                  <Image
+                    src={
+                      featureMenuItems[0]?.menu?.node?.luxeListLogoMenu
+                        ?.mainLogo?.mediaItemUrl
+                    }
+                    width={120}
+                    height={120}
+                    style={{ position: 'static' }}
+                    alt="Menu Image"
+                  />
+                </figure>
               </a>
             </nav>
           </div>

@@ -13,6 +13,7 @@ import 'swiper/css/pagination'
 
 // import required modules
 import { EffectFade, Autoplay, Pagination } from 'swiper'
+import Image from 'next/image'
 
 let cx = className.bind(styles)
 
@@ -79,7 +80,11 @@ export default function FeatureWell({ featureWells }) {
                 <a href={featureWell.url}>
                   {isDesktop && (
                     <div className={cx('image-wrapper')}>
-                      <img src={featureWell.desktopSrc} loading="lazy" />
+                      <Image
+                        src={featureWell.desktopSrc}
+                        layout="fill"
+                        alt="Feature Well Image"
+                      />
                       <div className={cx('caption-wrapper')}>
                         {featureWell.caption}
                       </div>
@@ -88,7 +93,11 @@ export default function FeatureWell({ featureWells }) {
                   )}
                   {isMobile && (
                     <div className={cx('image-wrapper')}>
-                      <img src={featureWell.mobileSrc} loading="lazy" />
+                      <Image
+                        src={featureWell.mobileSrc}
+                        layout="fill"
+                        alt="Feature Well Image"
+                      />
                       <div className={cx('caption-wrapper')}>
                         {featureWell.caption}
                       </div>

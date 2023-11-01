@@ -5,6 +5,7 @@ import { Container, SkipNavigationLink, FullMenu } from '../../components'
 import styles from './CategoryHeader.module.scss'
 import { useState, useEffect } from 'react'
 import { useMediaQuery } from 'react-responsive'
+import Image from 'next/image'
 
 let cx = classNames.bind(styles)
 
@@ -62,9 +63,11 @@ export default function CategoryHeader({
             {/* DA logo */}
             <div className={cx('brand')}>
               <Link href="/">
-                <a className={cx('title')}>
-                  <img src={destinasianLogo.src} loading="lazy" />
-                </a>
+                <Image
+                  src={destinasianLogo.src}
+                  layout="fill"
+                  alt="Destinasian Logo"
+                />
               </Link>
             </div>
 

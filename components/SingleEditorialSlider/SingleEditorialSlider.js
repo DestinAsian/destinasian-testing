@@ -10,6 +10,7 @@ import 'swiper/css/navigation'
 
 // import required modules
 import { EffectFade, Autoplay, Pagination, Navigation } from 'swiper'
+import Image from 'next/image'
 
 export default function SingleEditorialSlider({ images }) {
   return (
@@ -37,7 +38,7 @@ export default function SingleEditorialSlider({ images }) {
           <div className="post-swiper-slide">
             {image && (
               <SwiperSlide key={index}>
-                <img src={image} loading="lazy" />
+                <Image src={image} layout="fill" alt="Slider Image" />
               </SwiperSlide>
             )}
           </div>

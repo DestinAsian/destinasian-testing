@@ -7,6 +7,7 @@ import { GetCategoryStories } from '../../queries/GetCategoryStories'
 import { GetROSBannerAds } from '../../queries/GetROSBannerAds'
 import { GetSpecificBannerAds } from '../../queries/GetSpecificBannerAds'
 import { GetAdvertorialStories } from '../../queries/GetAdvertorialStories'
+import { GetEditorialStories } from '../../queries/GetEditorialStories'
 import { Post, ModuleAd, Button, AdvertorialPost } from '..'
 
 let cx = classNames.bind(styles)
@@ -26,6 +27,7 @@ export default function CategoryStories(categoryUri) {
   const [ROSAdsArray, setROSAdsArray] = useState([])
   const [SpecificAdsArray, setSpecificAdsArray] = useState([])
   const [AdvertorialArray, setAdvertorialArray] = useState([])
+  const [EditorialArray, setEditorialArray] = useState([])
   // Post per fetching
   const postsPerPage = 4
   const bannerPerPage = 20
@@ -161,6 +163,7 @@ export default function CategoryStories(categoryUri) {
     }
   }
 
+  // Get Advertorial Stories
   const { data: advertorialsData, error: advertorialsError } = useQuery(
     GetAdvertorialStories,
     {
@@ -171,6 +174,20 @@ export default function CategoryStories(categoryUri) {
   )
 
   if (advertorialsError) {
+    return <pre>{JSON.stringify(error)}</pre>
+  }
+
+  // Get Editorial Stories
+  const { data: editorialsData, error: editorialsError } = useQuery(
+    GetEditorialStories,
+    {
+      variables: queryVariables, // Use the modified variables
+      fetchPolicy: 'network-only',
+      nextFetchPolicy: 'cache-and-network',
+    },
+  )
+
+  if (editorialsError) {
     return <pre>{JSON.stringify(error)}</pre>
   }
 
@@ -266,6 +283,7 @@ export default function CategoryStories(categoryUri) {
     }
   }, [bannerSpecificData]) // Use bannerROSData as a dependency to trigger shuffling when new data arrives
 
+  // Advertorial Stories
   useEffect(() => {
     const shuffleAdvertorialPost = () => {
       const advertorialArray = Object.values(
@@ -284,6 +302,26 @@ export default function CategoryStories(categoryUri) {
     // Shuffle the banner ads when the component mounts
     shuffleAdvertorialPost()
   }, [advertorialsData])
+
+  // Editorial Stories
+  useEffect(() => {
+    const shuffleEditorialPost = () => {
+      const editorialArray = Object.values(
+        editorialsData?.editorials?.edges || [],
+      )
+
+      // Shuffle only the otherBannerAds array
+      const shuffleEditorialPost = shuffleArray(editorialArray)
+
+      // Concatenate the arrays with pinned ads first and shuffled other banner ads
+      const shuffledEditorialArray = [...shuffleEditorialPost]
+
+      setEditorialArray(shuffledEditorialArray)
+    }
+
+    // Shuffle the banner ads when the component mounts
+    shuffleEditorialPost()
+  }, [editorialsData])
 
   // Function to fetch more posts
   const fetchMorePosts = () => {
@@ -368,6 +406,10 @@ export default function CategoryStories(categoryUri) {
   const getAdvertorialPost = AdvertorialArray[0]?.node
   const numberOfAdvertorial = advertorialsData?.advertorials?.edges?.length
 
+  // Declare 1 Editorial Post
+  const getEditorialPost = [EditorialArray[0]?.node, EditorialArray[1]?.node]
+  const numberOfEditorial = editorialsData?.editorials?.edges?.length
+
   const numberOfBannerAds = sortedBannerAdsArray.length
 
   return (
@@ -406,6 +448,20 @@ export default function CategoryStories(categoryUri) {
             )}
             {index - 1 === 0 && (
               <>
+                {/* Editorial Stories */}
+                {numberOfEditorial !== 0 &&
+                  name !== ('Trade Talk' || 'Airline News' || 'Travel News') &&
+                  getEditorialPost.map((post) => (
+                    <Post
+                      title={post?.title}
+                      excerpt={post?.excerpt}
+                      uri={post?.uri}
+                      featuredImage={post?.featuredImage?.node}
+                      category={post?.categories?.edges[0]?.node?.name}
+                      categoryUri={post?.categories?.edges[0]?.node?.uri}
+                    />
+                  ))}
+                {/* Advertorial Stories */}
                 {numberOfAdvertorial !== 0 &&
                   name !==
                     ('Trade Talk' || 'Airline News' || 'Travel News') && (

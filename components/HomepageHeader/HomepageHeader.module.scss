@@ -39,18 +39,19 @@
 }
 
 .brand {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   margin-left: 1rem;
+  width: 45%;
   height: 3.5rem;
+  position: relative;
 
   @media (min-width: $breakpoint-extra-small) {
+    width: 20%;
     margin-left: 2rem;
   }
 
   img {
     height: 1.3rem;
+    object-fit: contain;
 
     @media (min-width: $breakpoint-extra-small) {
       height: 1.6rem;

@@ -59,19 +59,18 @@
   margin: 0;
   margin-bottom: 1rem;
 
-  span, img {
+  span,
+  img {
     min-width: 100%;
   }
 }
 
 .excerpt {
-  font-family: 'Ringside Regular A', 'Ringside Regular B';
-  font-weight: 500;
-  font-size: 0.9rem;
   padding: 0 0 0.25rem;
 
-  @media (min-width: $breakpoint-extra-small) {
-    font-size: 1.3rem;
+  p {
+    font-family: 'Ringside Regular A', 'Ringside Regular B';
+    font-weight: 500;
   }
 
   a {

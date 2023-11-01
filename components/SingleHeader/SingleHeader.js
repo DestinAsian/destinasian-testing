@@ -12,6 +12,7 @@ import {
 import styles from './SingleHeader.module.scss'
 import { useState, useEffect } from 'react'
 import { useMediaQuery } from 'react-responsive'
+import Image from 'next/image'
 
 let cx = classNames.bind(styles)
 
@@ -70,7 +71,11 @@ export default function SingleHeader({
             <div className={cx('brand')}>
               <Link href="/">
                 <a className={cx('title')}>
-                  <img src={destinasianLogo.src} loading="lazy" />
+                  <Image
+                    src={destinasianLogo.src}
+                    layout="fill"
+                    alt="Destinasian Logo"
+                  />
                 </a>
               </Link>
             </div>

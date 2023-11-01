@@ -2,6 +2,7 @@ import className from 'classnames/bind'
 import styles from './LocationIcon.module.scss'
 
 import locationIcon from '../../assets/icons/icon-location.png'
+import Image from 'next/image'
 
 let cx = className.bind(styles)
 
@@ -18,7 +19,7 @@ export default function LocationIcon({
         {locationValidation == 'acfLocationIcon' && (
           <a href={locationUrl}>
             <div className={cx('icon')}>
-              <img src={locationIcon.src} loading="lazy" />
+              <Image src={locationIcon.src} layout="fill" alt="Location Icon" />
             </div>
           </a>
         )}
