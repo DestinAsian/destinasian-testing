@@ -44,12 +44,12 @@
 
 .brand {
   margin-left: 1rem;
-  width: 45%;
+  width: 10rem;
   height: 3.5rem;
   position: relative;
 
   @media (min-width: $breakpoint-extra-small) {
-    width: 20%;
+    width: 12rem;
     margin-left: 2rem;
   }
 

@@ -37,12 +37,6 @@ export default function Component(props) {
     databaseId,
   } = props?.data?.category ?? []
 
-  // Rest of World validation
-  const rowValidation =
-    name !== 'Rest of World' && parent?.node?.name !== 'Rest of World'
-      ? true
-      : null
-
   // Get menus
   const { data: menusData, loading: menusLoading } = useQuery(GetMenus, {
     variables: {
@@ -135,48 +129,30 @@ export default function Component(props) {
         latestLoading={latestLoading}
       />
 
-      {rowValidation && (
-        <SecondaryHeader
-          parent={parent}
-          children={children}
-          name={name}
-          uri={uri}
-          countryCode={countryCode}
-          parentUri={parent?.node?.uri}
-          parentName={parent?.node?.name}
-          parentCountryCode={parent?.node?.countryCode?.countryCode}
-          titleUri={uri}
-          titleName={name}
-          titleCountryCode={countryCode?.countryCode}
-          destinationGuides={destinationGuides?.destinationGuides}
-          parentDestinationGuides={
-            parent?.node?.destinationGuides?.destinationGuides
-          }
-        />
-      )}
+      <SecondaryHeader
+        databaseId={databaseId}
+      />
 
       {/* EntryHeader category name */}
-      {rowValidation && (
-        <Container>
-          {destinationGuides?.destinationGuides == 'yes' && (
-            <CategoryEntryHeader
-              title={`The DA Guide to ${name}`}
-              image={categoryImages?.categoryImages?.mediaItemUrl || null}
-              description={description || null}
-              children={children?.edges}
-            />
-          )}
-          {destinationGuides?.destinationGuides == null && (
-            <CategoryEntryHeader
-              parent={parent?.node?.name}
-              title={`${name}`}
-              image={categoryImages?.categoryImages?.mediaItemUrl || null}
-              description={description || null}
-              children={children?.edges}
-            />
-          )}
-        </Container>
-      )}
+      <Container>
+        {destinationGuides?.destinationGuides == 'yes' && (
+          <CategoryEntryHeader
+            title={`The DA Guide to ${name}`}
+            image={categoryImages?.categoryImages?.mediaItemUrl || null}
+            description={description || null}
+            children={children?.edges}
+          />
+        )}
+        {destinationGuides?.destinationGuides == null && (
+          <CategoryEntryHeader
+            parent={parent?.node?.name}
+            title={`${name}`}
+            image={categoryImages?.categoryImages?.mediaItemUrl || null}
+            description={description || null}
+            children={children?.edges}
+          />
+        )}
+      </Container>
 
       <Main>
         <>
@@ -186,6 +162,7 @@ export default function Component(props) {
             name={name}
             children={children}
             parent={parent?.node?.name}
+            ancestor={parent?.node?.parent?.node?.name}
           />
         </>
       </Main>
@@ -307,6 +284,11 @@ Component.query = gql`
                 name
                 uri
               }
+            }
+          }
+          parent {
+            node {
+              name
             }
           }
           countryCode {

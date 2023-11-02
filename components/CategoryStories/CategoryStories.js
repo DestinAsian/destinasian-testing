@@ -32,12 +32,14 @@ export default function CategoryStories(categoryUri) {
   const postsPerPage = 4
   const bannerPerPage = 20
   const advertPerPage = 5
+  const editorialPerPage = 10
 
   const uri = categoryUri?.categoryUri
   const pinPosts = categoryUri?.pinPosts
   const name = categoryUri?.name
   const children = categoryUri?.children
   const parent = categoryUri?.parent
+  const ancestor = categoryUri?.ancestor
 
   let storiesVariable = {
     first: postsPerPage,
@@ -144,6 +146,7 @@ export default function CategoryStories(categoryUri) {
     return <pre>{JSON.stringify(error)}</pre>
   }
 
+  // Advertorial Var
   let queryVariables = {
     first: advertPerPage,
     search: null,
@@ -177,11 +180,37 @@ export default function CategoryStories(categoryUri) {
     return <pre>{JSON.stringify(error)}</pre>
   }
 
+  // Editorial Var
+  let editorialVariables = {
+    first: editorialPerPage,
+    search: null,
+  }
+
+  if (data?.category?.children?.edges?.length === 0) {
+    // Modify the variables based on the condition
+    editorialVariables = {
+      search: ancestor ? ancestor : parent, // Change this to the desired value
+    }
+  }
+
+  if (data?.category?.children?.edges?.length !== 0) {
+    // Modify the variables based on the condition
+    editorialVariables = {
+      search: parent, // Change this to the desired value
+    }
+  }
+
+  if (data?.category?.parent === null) {
+    editorialVariables = {
+      search: name,
+    }
+  }
+
   // Get Editorial Stories
   const { data: editorialsData, error: editorialsError } = useQuery(
     GetEditorialStories,
     {
-      variables: queryVariables, // Use the modified variables
+      variables: editorialVariables, // Use the modified variables
       fetchPolicy: 'network-only',
       nextFetchPolicy: 'cache-and-network',
     },
@@ -306,9 +335,29 @@ export default function CategoryStories(categoryUri) {
   // Editorial Stories
   useEffect(() => {
     const shuffleEditorialPost = () => {
-      const editorialArray = Object.values(
-        editorialsData?.editorials?.edges || [],
-      )
+      // Create a Set to store unique databaseId values
+      const uniqueDatabaseIds = new Set()
+
+      // Initialize an array to store unique posts
+      const contentEditorials = []
+
+      // Loop through all the contentNodes posts
+      editorialsData?.tags?.edges?.forEach((contentNodes) => {
+        {
+          contentNodes?.node?.contentNodes?.edges?.length !== 0 &&
+            contentNodes.node?.contentNodes?.edges.forEach((post) => {
+              const { databaseId } = post.node
+
+              // Check if the databaseId is unique (not in the Set)
+              if (!uniqueDatabaseIds.has(databaseId)) {
+                uniqueDatabaseIds.add(databaseId) // Add the databaseId to the Set
+                contentEditorials.push(post.node) // Push the unique post to the array
+              }
+            })
+        }
+      })
+
+      const editorialArray = Object.values(contentEditorials || [])
 
       // Shuffle only the otherBannerAds array
       const shuffleEditorialPost = shuffleArray(editorialArray)
@@ -406,9 +455,12 @@ export default function CategoryStories(categoryUri) {
   const getAdvertorialPost = AdvertorialArray[0]?.node
   const numberOfAdvertorial = advertorialsData?.advertorials?.edges?.length
 
-  // Declare 1 Editorial Post
-  const getEditorialPost = [EditorialArray[0]?.node, EditorialArray[1]?.node]
-  const numberOfEditorial = editorialsData?.editorials?.edges?.length
+  // Declare 2 Editorial Post
+  const getEditorialPost = [
+    ...(EditorialArray[0] ? [EditorialArray[0]] : []),
+    ...(EditorialArray[1] ? [EditorialArray[1]] : []),
+  ]
+  const numberOfEditorial = EditorialArray.length
 
   const numberOfBannerAds = sortedBannerAdsArray.length
 
@@ -450,7 +502,6 @@ export default function CategoryStories(categoryUri) {
               <>
                 {/* Editorial Stories */}
                 {numberOfEditorial !== 0 &&
-                  name !== ('Trade Talk' || 'Airline News' || 'Travel News') &&
                   getEditorialPost.map((post) => (
                     <Post
                       title={post?.title}

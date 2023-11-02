@@ -42,10 +42,6 @@ export default function Component(props) {
   } = props?.data?.post
   const categories = props?.data?.post.categories?.edges ?? []
 
-  // Rest of World validation
-  const rowValidation =
-    categories[0]?.node?.parent?.node?.name !== 'Rest of World' ? true : null
-
   // Get menus
   const { data: menusData, loading: menusLoading } = useQuery(GetMenus, {
     variables: {
@@ -160,20 +156,10 @@ export default function Component(props) {
         menusLoading={menusLoading}
         latestLoading={latestLoading}
       />
-      {rowValidation && (
-        <SecondaryHeader
-          categories={categories[0]?.node?.parent}
-          categoryCountryCode={
-            categories[0]?.node?.parent?.node?.countryCode?.countryCode
-          }
-          categoryUri={categories[0]?.node?.parent?.node?.uri}
-          categoryName={categories[0]?.node?.parent?.node?.name}
-          categoryDestinationGuides={
-            categories[0]?.node?.parent?.node?.destinationGuides
-              ?.destinationGuides
-          }
-        />
-      )}
+      <SecondaryHeader
+        databaseId={databaseId}
+        categoryUri={categories[0]?.node?.parent?.node?.uri}
+      />
       <Main>
         <>
           <SingleSlider images={images} />

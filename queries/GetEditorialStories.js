@@ -2,35 +2,49 @@ import { gql } from '@apollo/client'
 
 export const GetEditorialStories = gql`
   query GetEditorialStories($first: Int, $search: String) {
-    editorials(
-      first: $first
-      where: {
-        status: PUBLISH
-        search: $search
-        orderby: { field: DATE, order: DESC }
+    tags(first: $first, where: { search: $search, hideEmpty: true }) {
+      pageInfo {
+        hasNextPage
+        endCursor
       }
-    ) {
       edges {
         node {
-          title
-          excerpt
-          uri
-          categories {
+          contentNodes(
+            first: 10
+            where: {
+              contentTypes: EDITORIAL
+              status: PUBLISH
+              orderby: { field: DATE, order: DESC }
+            }
+          ) {
             edges {
               node {
-                name
-                uri
-              }
-            }
-          }
-          featuredImage {
-            node {
-              id
-              sourceUrl
-              altText
-              mediaDetails {
-                width
-                height
+                id
+                databaseId
+                ... on Editorial {
+                  title
+                  excerpt
+                  uri
+                  categories {
+                    edges {
+                      node {
+                        name
+                        uri
+                      }
+                    }
+                  }
+                  featuredImage {
+                    node {
+                      id
+                      sourceUrl
+                      altText
+                      mediaDetails {
+                        width
+                        height
+                      }
+                    }
+                  }
+                }
               }
             }
           }
