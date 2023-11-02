@@ -41,7 +41,7 @@
   position: relative;
 
   @media (min-width: $breakpoint-extra-small) {
-    width: 12rem;
+    width: 14rem;
     margin-left: 2rem;
   }
 
@@ -170,7 +170,7 @@
     padding: 0;
     gap: 1rem;
     top: 2.5rem;
-    transition: top .4s ease-in-out;
+    transition: top 0.4s ease-in-out;
 
     @media ((min-width: $breakpoint-extra-small) and (max-width: $breakpoint-small)) {
       top: 3.5rem;
@@ -183,4 +183,3 @@
     }
   }
 }
-
