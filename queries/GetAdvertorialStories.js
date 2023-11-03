@@ -2,27 +2,41 @@ import { gql } from '@apollo/client'
 
 export const GetAdvertorialStories = gql`
   query GetAdvertorialStories($first: Int, $search: String) {
-    advertorials(
-      first: $first
-      where: {
-        status: PUBLISH
-        search: $search
-        orderby: { field: DATE, order: DESC }
+    tags(first: $first, where: { search: $search, hideEmpty: true }) {
+      pageInfo {
+        hasNextPage
+        endCursor
       }
-    ) {
       edges {
         node {
-          title
-          excerpt
-          uri
-          featuredImage {
-            node {
-              id
-              sourceUrl
-              altText
-              mediaDetails {
-                width
-                height
+          contentNodes(
+            first: 10
+            where: {
+              contentTypes: ADVERTORIAL
+              status: PUBLISH
+              orderby: { field: DATE, order: DESC }
+            }
+          ) {
+            edges {
+              node {
+                id
+                databaseId
+                ... on Advertorial {
+                  title
+                  excerpt
+                  uri
+                  featuredImage {
+                    node {
+                      id
+                      sourceUrl
+                      altText
+                      mediaDetails {
+                        width
+                        height
+                      }
+                    }
+                  }
+                }
               }
             }
           }
