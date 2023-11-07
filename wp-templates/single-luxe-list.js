@@ -17,7 +17,7 @@ import {
 import { GetMenus } from '../queries/GetMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
 
-export default function SingleLuxeList(props) {
+export default function Component(props) {
   // Loading state for previews
   if (props.loading) {
     return <>Loading...</>
@@ -231,7 +231,7 @@ export default function SingleLuxeList(props) {
   )
 }
 
-SingleLuxeList.query = gql`
+Component.query = gql`
   ${BlogInfoFragment}
   ${FeaturedImage.fragments.entry}
   query GetPost(
@@ -334,7 +334,7 @@ SingleLuxeList.query = gql`
   }
 `
 
-SingleLuxeList.variables = ({ databaseId }, ctx) => {
+Component.variables = ({ databaseId }, ctx) => {
   return {
     databaseId,
     asPreview: ctx?.asPreview,
