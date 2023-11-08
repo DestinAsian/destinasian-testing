@@ -18,7 +18,6 @@ export default function MyApp({ Component, pageProps }) {
   return (
     <FaustProvider pageProps={pageProps}>
       <Component {...pageProps} key={router.asPath} />
-      {console.log(router)}
     </FaustProvider>
   )
 }

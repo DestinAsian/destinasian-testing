@@ -16,7 +16,12 @@ export default function Preview(props) {
   }
 
   if (isAuthenticated === true) {
-    return <WordPressTemplate {...props} />
+    return (
+      <>
+        <WordPressTemplate {...props} />
+        {console.log(props)}
+      </>
+    )
   }
 
   return (
