@@ -1,4 +1,4 @@
-import { WordPressTemplate } from '@faustwp/core'
+import { getWordPressProps, WordPressTemplate } from '@faustwp/core'
 import { useAuth } from '@faustwp/core'
 import { Button } from '../components'
 
@@ -19,7 +19,6 @@ export default function Preview(props) {
     return (
       <>
         <WordPressTemplate {...props} />
-        {console.log(props)}
       </>
     )
   }

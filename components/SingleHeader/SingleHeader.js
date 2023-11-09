@@ -12,7 +12,7 @@ import {
 import styles from './SingleHeader.module.scss'
 import { useState, useEffect } from 'react'
 import { useMediaQuery } from 'react-responsive'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 
 let cx = classNames.bind(styles)
 
@@ -69,14 +69,12 @@ export default function SingleHeader({
           <div className={cx('navbar')}>
             {/* DA logo */}
             <div className={cx('brand')}>
-              <Link href="/">
-                <a className={cx('title')}>
-                  <Image
-                    src={destinasianLogo.src}
-                    layout="fill"
-                    alt="Destinasian Logo"
-                  />
-                </a>
+              <Link href="/" className={cx('title')}>
+                <Image
+                  src={destinasianLogo.src}
+                  layout="fill"
+                  alt="Destinasian Logo"
+                />
               </Link>
             </div>
 

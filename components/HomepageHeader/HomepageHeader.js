@@ -6,7 +6,7 @@ import { Container, SkipNavigationLink, FullMenu } from '..'
 import styles from './HomepageHeader.module.scss'
 import { useState, useEffect } from 'react'
 import { useMediaQuery } from 'react-responsive'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 
 let cx = classNames.bind(styles)
 
@@ -66,22 +66,20 @@ export default function HomepageHeader({
           <div className={cx('navbar')}>
             {/* DA logo */}
             <div className={cx('brand')}>
-              <Link href="/">
-                <a className={cx('title')}>
-                  {isScrolled || isNavShown ? (
-                    <Image
-                      src={destinasianLogoBlk.src}
-                      layout='fill'
-                      alt="Destinasian Logo"
-                    />
-                  ) : (
-                    <Image
-                      src={destinasianLogoWht.src}
-                      layout='fill'
-                      alt="Destinasian Logo"
-                    />
-                  )}
-                </a>
+              <Link href="/" className={cx('title')}>
+                {isScrolled || isNavShown ? (
+                  <Image
+                    src={destinasianLogoBlk.src}
+                    layout="fill"
+                    alt="Destinasian Logo"
+                  />
+                ) : (
+                  <Image
+                    src={destinasianLogoWht.src}
+                    layout="fill"
+                    alt="Destinasian Logo"
+                  />
+                )}
               </Link>
             </div>
 

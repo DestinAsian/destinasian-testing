@@ -13,7 +13,7 @@ import 'swiper/css/pagination'
 
 // import required modules
 import { EffectFade, Autoplay, Pagination } from 'swiper'
-import Image from 'next/image'
+import Image from "next/legacy/image"
 
 let cx = className.bind(styles)
 
