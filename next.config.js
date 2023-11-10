@@ -14,7 +14,7 @@ module.exports = withFaust({
       'localhost',
       process.env.NEXT_PUBLIC_WORDPRESS_URL,
     ],
-    // allowFutureImage: true,
+    allowFutureImage: true,
   },
   i18n: {
     locales: ['en'],
