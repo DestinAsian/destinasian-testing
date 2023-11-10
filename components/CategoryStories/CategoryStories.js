@@ -7,7 +7,7 @@ import { GetCategoryStories } from '../../queries/GetCategoryStories'
 import { GetROSBannerAds } from '../../queries/GetROSBannerAds'
 import { GetSpecificBannerAds } from '../../queries/GetSpecificBannerAds'
 import { GetAdvertorialStories } from '../../queries/GetAdvertorialStories'
-import { Post, ModuleAd, Button, AdvertorialPost, Footer } from '..'
+import { Post, ModuleAd, Button, AdvertorialPost } from '..'
 
 let cx = classNames.bind(styles)
 
@@ -492,7 +492,6 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
                 )}
               </Button>
             )}
-          {!data?.category?.contentNodes?.pageInfo?.hasNextPage && <Footer />}
         </div>
       )}
     </div>

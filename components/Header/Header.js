@@ -12,7 +12,7 @@ import {
 import styles from './Header.module.scss'
 import { useState, useEffect } from 'react'
 import { useMediaQuery } from 'react-responsive'
-import Image from 'next/legacy/image'
+import Image from 'next/image'
 
 let cx = classNames.bind(styles)
 
@@ -69,12 +69,14 @@ export default function Header({
           <div className={cx('navbar')}>
             {/* DA logo */}
             <div className={cx('brand')}>
-              <Link href="/" className={cx('title')}>
-                <Image
-                  src={destinasianLogo.src}
-                  layout="fill"
-                  alt="Destinasian Logo"
-                />
+              <Link href="/">
+                <a className={cx('title')}>
+                  <Image
+                    src={destinasianLogo.src}
+                    layout="fill"
+                    alt="Destinasian Logo"
+                  />
+                </a>
               </Link>
             </div>
 

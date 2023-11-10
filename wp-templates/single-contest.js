@@ -15,7 +15,7 @@ import {
 import { GetMenus } from '../queries/GetMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
 
-export default function Component(props) {
+export default function SingleContest(props) {
   // Loading state for previews
   if (props.loading) {
     return <>Loading...</>
@@ -154,7 +154,7 @@ export default function Component(props) {
   )
 }
 
-Component.query = gql`
+SingleContest.query = gql`
   ${BlogInfoFragment}
   ${FeaturedImage.fragments.entry}
   query GetPost($databaseId: ID!, $asPreview: Boolean = false) {
@@ -198,7 +198,7 @@ Component.query = gql`
   }
 `
 
-Component.variables = ({ databaseId }, ctx) => {
+SingleContest.variables = ({ databaseId }, ctx) => {
   return {
     databaseId,
     asPreview: ctx?.asPreview,

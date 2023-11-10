@@ -1,6 +1,6 @@
-import Link from 'next/link'
+import Link from 'next/link';
 
-import styles from './SearchRecommendations.module.scss'
+import styles from './SearchRecommendations.module.scss';
 
 /**
  * Render the SearchRecommendations component.
@@ -17,10 +17,12 @@ export default function SearchRecommendations({ categories }) {
       <ul>
         {categories?.map((node) => (
           <li key={node.databaseId}>
-            <Link href={node.uri}>{node.name}</Link>
+            <Link href={node.uri}>
+              <a>{node.name}</a>
+            </Link>
           </li>
         ))}
       </ul>
     </div>
-  )
+  );
 }

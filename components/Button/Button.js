@@ -1,6 +1,6 @@
-import Link from 'next/link'
+import Link from 'next/link';
 
-import styles from './Button.module.scss'
+import styles from './Button.module.scss';
 
 /**
  * Render the Button component.
@@ -18,15 +18,15 @@ export default function Button({
   children,
   ...props
 }) {
-  let buttonStyle
+  let buttonStyle;
   switch (styleType) {
     case 'secondary': {
-      buttonStyle = 'secondary'
-      break
+      buttonStyle = 'secondary';
+      break;
     }
     default: {
-      buttonStyle = 'primary'
-      break
+      buttonStyle = 'primary';
+      break;
     }
   }
 
@@ -34,19 +34,21 @@ export default function Button({
     styles.button,
     styles[`button-${buttonStyle}`],
     className ?? undefined,
-  ].join(' ')
+  ].join(' ');
 
   if (href) {
     return (
-      <Link href={href} role="button" className={buttonClassName} {...props}>
-        {children}
+      <Link href={href}>
+        <a role="button" href={href} className={buttonClassName} {...props}>
+          {children}
+        </a>
       </Link>
-    )
+    );
   }
 
   return (
     <button className={buttonClassName} {...props}>
       {children}
     </button>
-  )
+  );
 }

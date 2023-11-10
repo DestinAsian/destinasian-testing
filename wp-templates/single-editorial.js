@@ -27,7 +27,7 @@ function shuffleArray(array) {
   return array
 }
 
-export default function Component(props) {
+export default function SingleEditorial(props) {
   // Loading state for previews
   if (props.loading) {
     return <>Loading...</>
@@ -228,7 +228,7 @@ export default function Component(props) {
   )
 }
 
-Component.query = gql`
+SingleEditorial.query = gql`
   ${BlogInfoFragment}
   ${FeaturedImage.fragments.entry}
   query GetPost($databaseId: ID!, $asPreview: Boolean = false) {
@@ -314,7 +314,7 @@ Component.query = gql`
   }
 `
 
-Component.variables = ({ databaseId }, ctx) => {
+SingleEditorial.variables = ({ databaseId }, ctx) => {
   return {
     databaseId,
     asPreview: ctx?.asPreview,

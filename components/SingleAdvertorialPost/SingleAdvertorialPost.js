@@ -11,18 +11,22 @@ export default function SingleAdvertorialPost({ title, uri, featuredImage }) {
       {featuredImage && (
         <div className={cx('content-wrapper-image')}>
           <Link href={uri}>
-            <FeaturedImage
-              image={featuredImage}
-              layout="responsive"
-              className={styles.featuredImage}
-            />
+            <a>
+              <FeaturedImage
+                image={featuredImage}
+                layout="responsive"
+                className={styles.featuredImage}
+              />
+            </a>
           </Link>
         </div>
       )}
       <div className={cx('content-wrapper')}>
         <Link href={uri}>
-          <Heading className={cx('sponsored')}>{'Sponsored Post'}</Heading>
-          <Heading className={cx('title')}>{title}</Heading>
+          <a>
+            <Heading className={cx('sponsored')}>{'Sponsored Post'}</Heading>
+            <Heading className={cx('title')}>{title}</Heading>
+          </a>
         </Link>
       </div>
       <div className={cx('border-bottom')}></div>

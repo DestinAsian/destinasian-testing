@@ -128,20 +128,6 @@ export default function SEO({ title, description, imageUrl, url, focuskw }) {
         ></script>
         {/* End Google Tag Manager */}
 
-        {/* <!-- START FOUANALYTICS ON-SITE EMBED CODE --> */}
-        <script
-          src="https://api.fouanalytics.com/api/init-3102x8pmdtqpcf032cq8.js"
-          data-cfasync="false"
-          async
-        ></script>
-        <noscript>
-          <img src="https://api.fouanalytics.com/api/noscript-3102x8pmdtqpcf032cq8.gif" />
-        </noscript>
-        {/* <!-- END FOUANALYTICS ON-SITE EMBED CODE --> */}
-
-        {/* Favicon */}
-        <link rel="icon" href="../../assets/favicon.ico" sizes="any" />
-
         {/* Testing Typography Cloud */}
         <link
           rel="stylesheet"
