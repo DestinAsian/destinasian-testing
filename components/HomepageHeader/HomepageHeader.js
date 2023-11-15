@@ -6,7 +6,7 @@ import { Container, SkipNavigationLink, FullMenu } from '..'
 import styles from './HomepageHeader.module.scss'
 import { useState, useEffect } from 'react'
 import { useMediaQuery } from 'react-responsive'
-import Image from 'next/image'
+import Image from "next/legacy/image"
 
 let cx = classNames.bind(styles)
 

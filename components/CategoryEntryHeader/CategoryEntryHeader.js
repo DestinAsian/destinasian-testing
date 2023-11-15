@@ -1,7 +1,7 @@
 import className from 'classnames/bind'
 import { Heading, Container } from '..'
 import styles from './CategoryEntryHeader.module.scss'
-import Image from 'next/image'
+import Image from "next/legacy/image"
 
 let cx = className.bind(styles)
 
