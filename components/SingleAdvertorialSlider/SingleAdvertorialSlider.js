@@ -10,7 +10,7 @@ import 'swiper/css/navigation'
 
 // import required modules
 import { EffectFade, Autoplay, Pagination, Navigation } from 'swiper'
-import Image from 'next/image'
+import Image from "next/legacy/image"
 
 export default function SingleAdvertorialSlider({ images }) {
   const pagination = {
