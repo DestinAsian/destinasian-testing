@@ -7,7 +7,7 @@ import daiLogo from '../../assets/logo/DAI_logo.png'
 import damanLogo from '../../assets/logo/DAMAN_logo.png'
 import prsLogo from '../../assets/logo/Prestige_logo.png'
 import scop3Logo from '../../assets/logo/Scop3_logo.png'
-import Image from "next/legacy/image"
+import Image from "next/image"
 
 let cx = classNames.bind(styles)
 
@@ -149,29 +149,25 @@ export default function Footer() {
         </div>
         <div className={cx('logo-wrapper')}>
           <a href={'https://destinasian.co.id/'}>
-            <Image
-              src={daiLogo.src}
-              layout="fill"
-              alt="Destinasian Indonesia Logo"
-            />
+            <Image src={daiLogo.src} alt="Destinasian Indonesia Logo" fill sizes="100vw" />
           </a>
         </div>
         <div className={cx('logo-wrapper')}>
           <a href={'https://daman.co.id/'}>
-            <Image src={damanLogo.src} layout="fill" alt="DaMan Logo" />
+            <Image src={damanLogo.src} alt="DaMan Logo" fill sizes="100vw" />
           </a>
         </div>
         <div className={cx('logo-wrapper')}>
           <a href={'https://www.prestigeonline.com/id/'}>
-            <Image src={prsLogo.src} layout="fill" alt="Prestige Logo" />
+            <Image src={prsLogo.src} alt="Prestige Logo" fill sizes="100vw" />
           </a>
         </div>
         <div className={cx('logo-wrapper')}>
           <a href={'https://scop3group.com/'}>
-            <Image src={scop3Logo.src} layout="fill" alt="Scop3Group Logo" />
+            <Image src={scop3Logo.src} alt="Scop3Group Logo" fill sizes="100vw" />
           </a>
         </div>
       </div>
     </footer>
-  )
+  );
 }

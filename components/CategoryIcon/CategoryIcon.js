@@ -5,7 +5,7 @@ import attractionIcon from '../../assets/icons/icon-attraction.png'
 import diningIcon from '../../assets/icons/icon-dining.png'
 import hotelIcon from '../../assets/icons/icon-hotel.png'
 import nightlifeIcon from '../../assets/icons/icon-nightlife.png'
-import Image from "next/legacy/image"
+import Image from "next/image"
 
 let cx = className.bind(styles)
 
@@ -22,30 +22,22 @@ export default function CategoryIcon({
           {/* Generate category icon */}
           {chooseYourCategory == 'attraction' && (
             <div className={cx('icon')}>
-              <Image
-                src={attractionIcon.src}
-                layout="fill"
-                alt="Attraction Icon"
-              />
+              <Image src={attractionIcon.src} alt="Attraction Icon" fill sizes="100vw" />
             </div>
           )}
           {chooseYourCategory == 'dining' && (
             <div className={cx('icon')}>
-              <Image src={diningIcon.src} layout="fill" alt="Dining Icon" />
+              <Image src={diningIcon.src} alt="Dining Icon" fill sizes="100vw" />
             </div>
           )}
           {chooseYourCategory == 'hotel' && (
             <div className={cx('icon')}>
-              <Image src={hotelIcon.src} layout="fill" alt="Hotel Icon" />
+              <Image src={hotelIcon.src} alt="Hotel Icon" fill sizes="100vw" />
             </div>
           )}
           {chooseYourCategory == 'nightlife' && (
             <div className={cx('icon')}>
-              <Image
-                src={nightlifeIcon.src}
-                layout="fill"
-                alt="Nightlife Icon"
-              />
+              <Image src={nightlifeIcon.src} alt="Nightlife Icon" fill sizes="100vw" />
             </div>
           )}
           {/* Label for category icon */}
@@ -57,22 +49,22 @@ export default function CategoryIcon({
           {/* Generate category icon */}
           {chooseYourCategory == 'attraction' && (
             <div className={cx('icon')}>
-              <Image src={chooseIcon} layout="fill" alt="Attraction Icon" />
+              <Image src={chooseIcon} alt="Attraction Icon" fill sizes="100vw" />
             </div>
           )}
           {chooseYourCategory == 'dining' && (
             <div className={cx('icon')}>
-              <Image src={chooseIcon} layout="fill" alt="Dining Icon" />
+              <Image src={chooseIcon} alt="Dining Icon" fill sizes="100vw" />
             </div>
           )}
           {chooseYourCategory == 'hotel' && (
             <div className={cx('icon')}>
-              <Image src={chooseIcon} layout="fill" alt="Hotel Icon" />
+              <Image src={chooseIcon} alt="Hotel Icon" fill sizes="100vw" />
             </div>
           )}
           {chooseYourCategory == 'nightlife' && (
             <div className={cx('icon')}>
-              <Image src={chooseIcon} layout="fill" alt="Nightlife Icon" />
+              <Image src={chooseIcon} alt="Nightlife Icon" fill sizes="100vw" />
             </div>
           )}
           {/* Label for category icon */}
@@ -80,5 +72,5 @@ export default function CategoryIcon({
         </div>
       )}
     </div>
-  )
+  );
 }
