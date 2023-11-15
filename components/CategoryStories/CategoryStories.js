@@ -26,19 +26,16 @@ export default function CategoryStories(categoryUri) {
   const [ROSAdsArray, setROSAdsArray] = useState([])
   const [SpecificAdsArray, setSpecificAdsArray] = useState([])
   const [AdvertorialArray, setAdvertorialArray] = useState([])
-  const [EditorialArray, setEditorialArray] = useState([])
   // Post per fetching
   const postsPerPage = 4
   const bannerPerPage = 20
   const advertPerPage = 5
-  const editorialPerPage = 10
 
   const uri = categoryUri?.categoryUri
   const pinPosts = categoryUri?.pinPosts
   const name = categoryUri?.name
   const children = categoryUri?.children
   const parent = categoryUri?.parent
-  const ancestor = categoryUri?.ancestor
 
   let storiesVariable = {
     first: postsPerPage,
@@ -63,6 +60,9 @@ export default function CategoryStories(categoryUri) {
   // Get Stories / Posts
   const { data, error, loading, fetchMore } = useQuery(GetCategoryStories, {
     variables: storiesVariable,
+    fetchOptions: {
+      mode: 'no-cors',
+    },
     fetchPolicy: 'network-only',
     nextFetchPolicy: 'cache-and-network',
   })

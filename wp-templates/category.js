@@ -162,7 +162,6 @@ export default function Component(props) {
             name={name}
             children={children}
             parent={parent?.node?.name}
-            ancestor={parent?.node?.parent?.node?.name}
           />
         </>
       </Main>

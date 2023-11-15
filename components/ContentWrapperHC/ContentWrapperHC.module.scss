@@ -41,7 +41,7 @@
       padding: 0 1rem 0.5rem;
 
       @media (min-width: $breakpoint-small) {
-        padding: 0 0 1rem;
+        padding: 0 2rem 1rem;
       }
     }
 
@@ -75,7 +75,8 @@
 
     p:has(img),
     img,
-    a, div.column {
+    a,
+    div.column {
       padding: 0.5rem 0 0.5rem;
 
       @media (min-width: $breakpoint-small) {
@@ -205,6 +206,38 @@
 
       @media (min-width: $breakpoint-small) {
         padding: 1rem 0;
+      }
+    }
+
+    .breakout-box-wrapper {
+      display: flex;
+      flex-direction: column;
+      padding: 0 0 1rem;
+      margin-bottom: 1rem;
+      background-color: var(--wpe--color--cream);
+
+      span.breakout-box-title {
+        padding: 2rem 1rem;
+        font-family: 'Hoefler Text A', 'Hoefler Text B';
+        font-weight: 700;
+        line-height: 1.2;
+        font-size: 2.25rem;
+        color: var(--wpe--color--title);
+        text-transform: none;
+        width: 100%;
+
+        @media (min-width: $breakpoint-extra-small) {
+          padding: 2rem;
+          font-size: 2.75rem;
+        }
+      }
+
+      p {
+        padding: 0 1rem 1rem;
+
+        @media (min-width: $breakpoint-extra-small) {
+          padding: 0 2rem 1rem;
+        }
       }
     }
   }
