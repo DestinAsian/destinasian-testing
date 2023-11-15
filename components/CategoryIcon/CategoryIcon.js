@@ -5,7 +5,7 @@ import attractionIcon from '../../assets/icons/icon-attraction.png'
 import diningIcon from '../../assets/icons/icon-dining.png'
 import hotelIcon from '../../assets/icons/icon-hotel.png'
 import nightlifeIcon from '../../assets/icons/icon-nightlife.png'
-import Image from "next/legacy/image"
+import Image from 'next/image'
 
 let cx = className.bind(styles)
 

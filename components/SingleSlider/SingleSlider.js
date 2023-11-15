@@ -10,7 +10,7 @@ import 'swiper/css/navigation'
 
 // import required modules
 import { EffectFade, Autoplay, Pagination, Navigation } from 'swiper'
-import Image from "next/legacy/image"
+import Image from 'next/image'
 
 export default function SingleSlider({ images }) {
   const menuIndex = images?.map((image, index) => {

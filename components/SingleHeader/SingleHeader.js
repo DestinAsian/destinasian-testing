@@ -12,7 +12,7 @@ import {
 import styles from './SingleHeader.module.scss'
 import { useState, useEffect } from 'react'
 import { useMediaQuery } from 'react-responsive'
-import Image from "next/legacy/image"
+import Image from 'next/image'
 
 let cx = classNames.bind(styles)
 

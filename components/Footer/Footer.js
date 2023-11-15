@@ -7,7 +7,7 @@ import daiLogo from '../../assets/logo/DAI_logo.png'
 import damanLogo from '../../assets/logo/DAMAN_logo.png'
 import prsLogo from '../../assets/logo/Prestige_logo.png'
 import scop3Logo from '../../assets/logo/Scop3_logo.png'
-import Image from "next/legacy/image"
+import Image from 'next/image'
 
 let cx = classNames.bind(styles)
 
