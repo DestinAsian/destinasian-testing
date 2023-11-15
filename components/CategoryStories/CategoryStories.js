@@ -60,9 +60,6 @@ export default function CategoryStories(categoryUri) {
   // Get Stories / Posts
   const { data, error, loading, fetchMore } = useQuery(GetCategoryStories, {
     variables: storiesVariable,
-    fetchOptions: {
-      mode: 'no-cors',
-    },
     fetchPolicy: 'network-only',
     nextFetchPolicy: 'cache-and-network',
   })
@@ -108,8 +105,8 @@ export default function CategoryStories(categoryUri) {
   }
 
   if (
-    data?.category?.children?.edges?.length === 0 &&
-    data?.category?.parent?.node?.name !== null
+    children?.edges?.length === 0 &&
+    parent?.node?.name !== null
   ) {
     // Modify the variables based on the condition
     bannerVariable = {
@@ -117,7 +114,7 @@ export default function CategoryStories(categoryUri) {
     }
   }
 
-  if (data?.category?.parent?.node?.name === (null || undefined)) {
+  if (parent?.node?.name === (null || undefined)) {
     // Modify the variables based on the condition
     bannerVariable = {
       search: name, // Change this to the desired value
@@ -151,14 +148,14 @@ export default function CategoryStories(categoryUri) {
     search: null,
   }
 
-  if (data?.category?.children?.edges?.length === 0) {
+  if (children?.edges?.length === 0) {
     // Modify the variables based on the condition
     queryVariables = {
       search: parent, // Change this to the desired value
     }
   }
 
-  if (data?.category?.children?.edges?.length !== 0) {
+  if (children?.edges?.length !== 0) {
     // Modify the variables based on the condition
     queryVariables = {
       search: name, // Change this to the desired value

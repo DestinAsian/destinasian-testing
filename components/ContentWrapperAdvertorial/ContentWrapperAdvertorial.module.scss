@@ -192,6 +192,10 @@
       background-color: var(--wpe--color--cyan);
       border-bottom: solid 1rem var(--wpe--color--black);
 
+      p {
+        padding: 0;
+      }
+
       span.breakout-box-title {
         padding: 2rem 1rem;
         font-family: 'EB Garamond';
@@ -208,7 +212,7 @@
         }
       }
 
-      p {
+      p.breakout-box-text {
         padding: 0 1rem 1rem;
 
         @media (min-width: $breakpoint-extra-small) {

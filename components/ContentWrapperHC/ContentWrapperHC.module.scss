@@ -216,6 +216,10 @@
       margin-bottom: 1rem;
       background-color: var(--wpe--color--cream);
 
+      p {
+        padding: 0;
+      }
+
       span.breakout-box-title {
         padding: 2rem 1rem;
         font-family: 'Hoefler Text A', 'Hoefler Text B';
@@ -232,7 +236,7 @@
         }
       }
 
-      p {
+      p.breakout-box-text {
         padding: 0 1rem 1rem;
 
         @media (min-width: $breakpoint-extra-small) {
