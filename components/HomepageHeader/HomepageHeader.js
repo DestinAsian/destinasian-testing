@@ -66,22 +66,22 @@ export default function HomepageHeader({
           <div className={cx('navbar')}>
             {/* DA logo */}
             <div className={cx('brand')}>
-              <Link href="/">
-                <a className={cx('title')}>
-                  {isScrolled || isNavShown ? (
-                    <Image
-                      src={destinasianLogoBlk.src}
-                      layout='fill'
-                      alt="Destinasian Logo"
-                    />
-                  ) : (
-                    <Image
-                      src={destinasianLogoWht.src}
-                      layout='fill'
-                      alt="Destinasian Logo"
-                    />
-                  )}
-                </a>
+              <Link href="/" className={cx('title')}>
+
+                {isScrolled || isNavShown ? (
+                  <Image
+                    src={destinasianLogoBlk.src}
+                    layout='fill'
+                    alt="Destinasian Logo"
+                  />
+                ) : (
+                  <Image
+                    src={destinasianLogoWht.src}
+                    layout='fill'
+                    alt="Destinasian Logo"
+                  />
+                )}
+
               </Link>
             </div>
 
@@ -488,5 +488,5 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
         />
       </div>
     </header>
-  )
+  );
 }

@@ -38,11 +38,11 @@ export default function Button({
 
   if (href) {
     return (
-      <Link href={href}>
-        <a role="button" href={href} className={buttonClassName} {...props}>
-          {children}
-        </a>
-      </Link>
+      (<Link href={href} role="button" className={buttonClassName} {...props}>
+
+        {children}
+
+      </Link>)
     );
   }
 

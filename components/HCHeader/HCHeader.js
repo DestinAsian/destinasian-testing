@@ -65,25 +65,25 @@ export default function HCHeader({
             {/* DA logo */}
             <div className={cx('brand')}>
               {isNavShown ? (
-                <Link href="/">
-                  <a className={cx('title')}>
-                    <Image
-                      src={destinasianLogo.src}
-                      layout="fill"
-                      alt="Destinasian Logo"
-                    />
-                  </a>
-                </Link>
+                (<Link href="/" className={cx('title')}>
+
+                  <Image
+                    src={destinasianLogo.src}
+                    layout="fill"
+                    alt="Destinasian Logo"
+                  />
+
+                </Link>)
               ) : (
-                <Link href="/">
-                  <a className={cx('title')}>
-                    <Image
-                      src={destinasianLogo.src}
-                      layout="fill"
-                      alt="DestinAsian Logo"
-                    />
-                  </a>
-                </Link>
+                (<Link href="/" className={cx('title')}>
+
+                  <Image
+                    src={destinasianLogo.src}
+                    layout="fill"
+                    alt="DestinAsian Logo"
+                  />
+
+                </Link>)
               )}
             </div>
 
@@ -242,5 +242,5 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
         />
       </div>
     </header>
-  )
+  );
 }

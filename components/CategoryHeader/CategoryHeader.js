@@ -62,7 +62,7 @@ export default function CategoryHeader({
           <div className={cx('navbar')}>
             {/* DA logo */}
             <div className={cx('brand')}>
-              <Link href="/">
+              <Link href="/" legacyBehavior>
                 <Image
                   src={destinasianLogo.src}
                   layout="fill"
@@ -226,5 +226,5 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
         />
       </div>
     </header>
-  )
+  );
 }
