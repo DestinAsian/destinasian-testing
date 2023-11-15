@@ -22,6 +22,14 @@
   * {
     text-transform: uppercase;
     font-size: 1rem;
+
+    @media (min-width: $breakpoint-extra-small) {
+      font-size: 0.7rem;
+    }
+
+    @media (min-width: $breakpoint-large) {
+      font-size: 1rem;
+    }
   }
 
   @media (min-width: $breakpoint-extra-small) {
@@ -88,11 +96,13 @@
     }
 
     ul {
+      font-size: 1rem;
+
       @media (min-width: $breakpoint-extra-small) {
-        font-size: 0.75rem;
+        font-size: 0.7rem;
       }
 
-      @media (min-width: $breakpoint-small) {
+      @media (min-width: $breakpoint-large) {
         font-size: 1rem;
       }
     }
@@ -215,6 +225,11 @@
       height: 6.25rem;
 
       @media (min-width: $breakpoint-extra-small) {
+        width: 5rem;
+        height: 5rem;
+      }
+
+      @media (min-width: $breakpoint-large) {
         width: 7.5rem;
         height: 7.5rem;
       }
