@@ -4,7 +4,7 @@ import { NavigationMenu, SearchInput, SearchResults, Button } from '..'
 import styles from './FullMenu.module.scss'
 import { useState } from 'react'
 import { GetSearchResults } from '../../queries/GetSearchResults'
-import Image from 'next/image'
+import Image from 'next/future/image'
 
 let cx = classNames.bind(styles)
 

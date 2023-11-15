@@ -9,12 +9,14 @@ module.exports = withFaust({
     includePaths: ['node_modules'],
   },
   images: {
-    domains: [
-      getWpHostname(),
-      'localhost',
-      process.env.NEXT_PUBLIC_WORDPRESS_URL,
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: getWpHostname(),
+        port: '',
+        pathname: '/**',
+      },
     ],
-    allowFutureImage: true,
   },
   i18n: {
     locales: ['en'],
