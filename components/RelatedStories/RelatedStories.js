@@ -29,7 +29,6 @@ export default function RelatedStories({
             <a href={uri}>
               <FeaturedImage
                 image={featuredImage}
-                layout="intrinsic"
                 className={styles.featuredImage}
               />
             </a>

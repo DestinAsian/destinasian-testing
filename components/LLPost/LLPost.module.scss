@@ -35,6 +35,10 @@
   border: 1px solid var(--wpe--color--white);
   border-bottom: none;
 
+  figure {
+    position: relative;
+  }
+
   @media (min-width: $breakpoint-extra-small) {
     max-width: 700px;
   }

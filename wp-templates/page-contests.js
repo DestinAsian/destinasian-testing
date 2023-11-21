@@ -2,13 +2,13 @@ import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
 import { BlogInfoFragment } from '../fragments/GeneralSettings'
 import {
-  HCHeader,
   Main,
   Container,
   FeaturedImage,
   SEO,
   EntryHeader,
   ContentWrapperContestFrontPage,
+  Header,
 } from '../components'
 import { GetMenus } from '../queries/GetMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
@@ -116,7 +116,7 @@ export default function Component(props) {
         ></iframe>
       </noscript>
       {/* End Google Tag Manager (noscript) */}
-      <HCHeader
+      <Header
         title={siteTitle}
         description={siteDescription}
         primaryMenuItems={primaryMenu}

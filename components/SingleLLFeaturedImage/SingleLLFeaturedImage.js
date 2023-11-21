@@ -80,7 +80,6 @@ export default function SingleLLFeaturedImage({
                     {mainLogo && (
                       <FeaturedImage
                         image={mainLogo}
-                        layout={'intrinsic'}
                         className={cx('image')}
                         priority
                       />
@@ -151,7 +150,6 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
                     {mainLogo && (
                       <FeaturedImage
                         image={mainLogo}
-                        layout={'intrinsic'}
                         className={cx('image')}
                         priority
                       />

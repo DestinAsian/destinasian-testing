@@ -11,13 +11,10 @@ export default function SingleAdvertorialPost({ title, uri, featuredImage }) {
       {featuredImage && (
         <div className={cx('content-wrapper-image')}>
           <Link href={uri}>
-
             <FeaturedImage
               image={featuredImage}
-              layout="responsive"
               className={styles.featuredImage}
             />
-
           </Link>
         </div>
       )}

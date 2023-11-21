@@ -21,7 +21,6 @@ export default function SingleHCPost({ title, excerpt, uri, featuredImage }) {
           <a href={uri}>
             <FeaturedImage
               image={featuredImage}
-              layout="intrinsic"
               className={styles.featuredImage}
             />
           </a>

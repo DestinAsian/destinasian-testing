@@ -18,6 +18,12 @@
   display: block;
 }
 
+.content-wrapper-image {
+  figure {
+    position: relative;
+  }
+}
+
 .right-wrapper {
   width: 100%;
   display: flex;

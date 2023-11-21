@@ -26,7 +26,6 @@ export default function AdvertorialPost({
           <a href={uri}>
             <FeaturedImage
               image={featuredImage}
-              layout="intrinsic"
               className={styles.featuredImage}
             />
           </a>

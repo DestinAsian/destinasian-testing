@@ -65,6 +65,10 @@
 .content-wrapper-image {
   margin: 0 auto;
   padding: 0;
+
+  figure {
+    position: relative;
+  }
 }
 
 figure.image {

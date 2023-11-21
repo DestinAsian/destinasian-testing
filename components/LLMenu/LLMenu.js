@@ -106,7 +106,6 @@ export default function LLMenu({ mainLogo, secondaryLogo, databaseId, uri }) {
             <a href={uri}>
               <FeaturedImage
                 image={secondaryLogo}
-                layout={'intrinsic'}
                 className={cx('image')}
                 priority
               />
@@ -115,7 +114,6 @@ export default function LLMenu({ mainLogo, secondaryLogo, databaseId, uri }) {
             <a href={uri}>
               <FeaturedImage
                 image={mainLogo}
-                layout={'intrinsic'}
                 className={cx('image')}
                 priority
               />

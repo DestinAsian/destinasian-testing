@@ -6,7 +6,7 @@ export default function FeaturedImage({
   height,
   className,
   priority,
-  layout,
+  fill,
   ...props
 }) {
   const src = image?.sourceUrl;
@@ -14,22 +14,22 @@ export default function FeaturedImage({
 
   width = width ? width : image?.mediaDetails?.width;
   height = height ? height : image?.mediaDetails?.height;
-  layout = layout ?? 'fill';
 
   return src && width && height ? (
     <figure className={className}>
       <Image
         src={src}
         alt={altText}
-        layout={layout}
+        fill={fill}
         width={width}
         height={height}
         priority={priority}
         {...props}
-        style={{
-          maxWidth: "100%",
-          height: "auto"
-        }} />
+        // style={{
+        //   maxWidth: "100%",
+        //   height: "auto"
+        // }} 
+        />
     </figure>
   ) : null;
 }

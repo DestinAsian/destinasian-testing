@@ -12,7 +12,6 @@ export default function LLPost({ title, category, uri, featuredImage, parentTitl
           <a href={uri}>
             <FeaturedImage
               image={featuredImage}
-              layout="intrinsic"
               className={styles.featuredImage}
             />
           </a>

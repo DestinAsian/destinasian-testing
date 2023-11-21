@@ -20,6 +20,10 @@
 .content-wrapper-image {
   width: 100%;
   height: auto;
+
+  figure {
+    position: relative;
+  }
 }
 
 .content-wrapper {

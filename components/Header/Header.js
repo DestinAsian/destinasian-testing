@@ -1,12 +1,9 @@
-import { gql, useQuery } from '@apollo/client'
 import classNames from 'classnames/bind'
 import Link from 'next/link'
 import destinasianLogo from '../../assets/logo/destinasian-logo.png'
 import {
   Container,
-  NavigationMenu,
   SkipNavigationLink,
-  Button,
   FullMenu,
 } from '../../components'
 import styles from './Header.module.scss'

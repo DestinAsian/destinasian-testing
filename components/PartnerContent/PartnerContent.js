@@ -119,7 +119,6 @@ export default function PartnerContent({ parentName }) {
                     <div className={cx('content-wrapper-image')}>
                       <FeaturedImage
                         image={post?.node?.featuredImage?.node}
-                        layout={'responsive'}
                         className={cx('image')}
                       />
                     </div>
