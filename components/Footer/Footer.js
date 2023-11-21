@@ -7,7 +7,7 @@ import daiLogo from '../../assets/logo/DAI_logo.png'
 import damanLogo from '../../assets/logo/DAMAN_logo.png'
 import prsLogo from '../../assets/logo/Prestige_logo.png'
 import scop3Logo from '../../assets/logo/Scop3_logo.png'
-import Image from "next/image"
+import Image from 'next/image'
 
 let cx = classNames.bind(styles)
 
@@ -19,11 +19,12 @@ export default function Footer() {
 
   return (
     <footer className={cx('component')}>
-      <Container>
-        <div
-          className={cx('footer-wrapper')}
-          dangerouslySetInnerHTML={{
-            __html: `<div id="mc_embed_shell">
+      <div className={cx('container-wrapper')}>
+        <Container>
+          <div
+            className={cx('footer-wrapper')}
+            dangerouslySetInnerHTML={{
+              __html: `<div id="mc_embed_shell">
             <div id="mc_embed_signup">
               <form
               action="https://destinasian.us5.list-manage.com/subscribe/post?u=ee44e7f13f448e90776db3877&amp;id=d4a22bd002&amp;f_id=00d7c2e1f0"
@@ -34,8 +35,8 @@ export default function Footer() {
               target="_blank"
               >
                 <div id="mc_embed_signup_scroll">
-                  <h2>Stay inspired with our newsletters</h2>
-                  <div class="border-divider"></div>
+                  <h2>Stay inspired with our DestinAsian newsletters</h2>
+                  <div class="divider"></div>
                   <div class="content-wrapper">
                     <div class="mc-field-wrapper mc-field-group input-group">
                       <ul>
@@ -124,50 +125,76 @@ export default function Footer() {
             </div>
           </div>
           `,
-          }}
-        />
-      </Container>
-      <div className={cx('menu-wrapper')}>
-        <a href={aboutUri}>
-          <h2>{'About'}</h2>
-        </a>
-        <a href={privacyUri}>
-          <h2>{'Privacy Policy'}</h2>
-        </a>
-        <a href={contactUri}>
-          <h2>{'Contact'}</h2>
-        </a>
-        <a href={socialUri}>
-          <h2>{'Socials'}</h2>
-        </a>
-      </div>
-      <div className={cx('menu-wrapper')}>
-        <div className={cx('copyright-wrapper')}>
-          <h5>
-            {'Copyright '}&copy;{' 2023'}
-          </h5>
-        </div>
-        <div className={cx('logo-wrapper')}>
-          <a href={'https://destinasian.co.id/'}>
-            <Image src={daiLogo.src} alt="Destinasian Indonesia Logo" fill sizes="100vw" />
+            }}
+          />
+        </Container>
+        <div className={cx('upper-menu-wrapper')}>
+          <a href={aboutUri}>
+            <h2>{'About'}</h2>
+          </a>
+          <a href={privacyUri}>
+            <h2>{'Privacy Policy'}</h2>
+          </a>
+          <a href={contactUri}>
+            <h2>{'Contact'}</h2>
+          </a>
+          <a href={socialUri}>
+            <h2>{'Socials'}</h2>
           </a>
         </div>
-        <div className={cx('logo-wrapper')}>
-          <a href={'https://daman.co.id/'}>
-            <Image src={damanLogo.src} alt="DaMan Logo" fill sizes="100vw" />
-          </a>
-        </div>
-        <div className={cx('logo-wrapper')}>
-          <a href={'https://www.prestigeonline.com/id/'}>
-            <Image src={prsLogo.src} alt="Prestige Logo" fill sizes="100vw" />
-          </a>
-        </div>
-        <div className={cx('logo-wrapper')}>
-          <a href={'https://scop3group.com/'}>
-            <Image src={scop3Logo.src} alt="Scop3Group Logo" fill sizes="100vw" />
-          </a>
+        <div className={cx('border-divider')}></div>
+        <div className={cx('bottom-menu-wrapper')}>
+          <div className={cx('left-menu-wrapper')}>
+            <div className={cx('copyright-wrapper')}>
+              <h5>
+                {'Copyright '}&copy;{' 2023'}
+              </h5>
+            </div>
+          </div>
+          <div className={cx('right-menu-wrapper')}>
+            <div className={cx('logo-wrapper')}>
+              <a href={'https://destinasian.co.id/'}>
+                <Image
+                  src={daiLogo.src}
+                  alt="Destinasian Indonesia Logo"
+                  fill
+                  sizes="100vw"
+                />
+              </a>
+            </div>
+            <div className={cx('logo-wrapper')}>
+              <a href={'https://daman.co.id/'}>
+                <Image
+                  src={damanLogo.src}
+                  alt="DaMan Logo"
+                  fill
+                  sizes="100vw"
+                />
+              </a>
+            </div>
+            <div className={cx('logo-wrapper')}>
+              <a href={'https://www.prestigeonline.com/id/'}>
+                <Image
+                  src={prsLogo.src}
+                  alt="Prestige Logo"
+                  fill
+                  sizes="100vw"
+                />
+              </a>
+            </div>
+            <div className={cx('logo-wrapper')}>
+              <a href={'https://scop3group.com/'}>
+                <Image
+                  src={scop3Logo.src}
+                  alt="Scop3Group Logo"
+                  fill
+                  sizes="100vw"
+                />
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </footer>
-  );
+  )
 }

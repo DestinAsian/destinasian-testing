@@ -1,20 +1,25 @@
 #mc_embed_signup * {
-  color: #929292;
+  color: #000000;
 }
 
 #mc_embed_signup h2 {
+  font-family: 'Unit Slab Pro Black';
   text-align: center;
-  text-transform: uppercase;
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: 700;
   padding: 0 1rem;
+  color: #000000;
 }
 
-#mc_embed_signup input::placeholder, #mc_embed_signup select::placeholder {
+#mc_embed_signup input::placeholder,
+#mc_embed_signup select::placeholder {
   color: #929292;
 }
 
 .content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 0.5rem 1rem 0;
 }
 
@@ -24,13 +29,16 @@
   flex-direction: row;
   width: 100%;
   padding-bottom: 0.5rem;
-  column-gap: 0.5rem;
   align-items: center;
 }
 
 .mc-field-group {
   display: flex;
   flex-direction: column;
+}
+
+.divider {
+  padding-top: 0.5rem;
 }
 
 .border-divider {
@@ -103,12 +111,12 @@ input[type='checkbox'] + label::after {
   background-color: #ffffff;
   transition: background-color 0.2s;
   border-radius: 1rem;
-  border: 1px solid #929292;
+  border: 1px solid #000000;
 }
 
 /* Checkbox Button */
 .checkbox-button:checked + label::after {
-  background-color: #929292;
+  background-color: #000000;
 }
 
 .checkbox-button + label::before {
@@ -123,7 +131,7 @@ input[type='checkbox'] + label::after {
   z-index: 2;
   transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   border-radius: 1rem;
-  border: 1px solid #929292;
+  border: 1px solid #000000;
 }
 
 .text-form,
@@ -131,7 +139,9 @@ input[type='checkbox'] + label::after {
   font-size: 0.7rem;
   width: 100%;
   padding: 0.5rem;
-  border-radius: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.24);
+  border-right: none;
+  border-radius: 0.3rem 0 0 0.3rem;
 }
 
 .text-form {
@@ -139,17 +149,19 @@ input[type='checkbox'] + label::after {
 }
 
 .submit-button {
-  background-color: #929292;
+  background-color: #000000;
   color: #ffffff !important;
   font-size: 0.7rem;
   padding: 0.5rem 2rem;
-  border-radius: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.24);
+  border-left: none;
+  border-radius: 0 0.3rem 0.3rem 0;
   cursor: pointer;
 }
 
 @media only screen and (min-width: 640px) {
   #mc_embed_signup h2 {
-    font-size: 1.2rem;
+    font-size: 1.8rem;
   }
 
   .content-wrapper {
@@ -159,6 +171,7 @@ input[type='checkbox'] + label::after {
   .mc-field-group-two-column,
   .mc-field-wrapper {
     padding-bottom: 1rem;
+    width: 80%;
   }
 
   /* .input-group ul {
