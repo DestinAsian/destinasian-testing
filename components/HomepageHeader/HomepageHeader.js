@@ -69,9 +69,9 @@ export default function HomepageHeader({
               <Link href="/" className={cx('title')}>
 
                 {isScrolled || isNavShown ? (
-                  <Image src={destinasianLogoBlk.src} alt="Destinasian Logo" fill sizes="100vw" />
+                  <Image src={destinasianLogoBlk.src} alt="Destinasian Logo" fill sizes="100%" />
                 ) : (
-                  <Image src={destinasianLogoWht.src} alt="Destinasian Logo" fill sizes="100vw" />
+                  <Image src={destinasianLogoWht.src} alt="Destinasian Logo" fill sizes="100%" />
                 )}
 
               </Link>

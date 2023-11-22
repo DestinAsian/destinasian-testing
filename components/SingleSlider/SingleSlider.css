@@ -20,6 +20,11 @@
   object-fit: cover;
 }
 
+.swiper-slide .slide-caption {
+  position: relative;
+  color: #ffffff;
+}
+
 .swiper {
   margin-left: auto;
   margin-right: auto;

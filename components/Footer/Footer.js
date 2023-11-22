@@ -158,7 +158,7 @@ export default function Footer() {
                   src={daiLogo.src}
                   alt="Destinasian Indonesia Logo"
                   fill
-                  sizes="100vw"
+                  sizes="100%"
                 />
               </a>
             </div>
@@ -168,7 +168,7 @@ export default function Footer() {
                   src={damanLogo.src}
                   alt="DaMan Logo"
                   fill
-                  sizes="100vw"
+                  sizes="100%"
                 />
               </a>
             </div>
@@ -178,7 +178,7 @@ export default function Footer() {
                   src={prsLogo.src}
                   alt="Prestige Logo"
                   fill
-                  sizes="100vw"
+                  sizes="100%"
                 />
               </a>
             </div>
@@ -188,7 +188,7 @@ export default function Footer() {
                   src={scop3Logo.src}
                   alt="Scop3Group Logo"
                   fill
-                  sizes="100vw"
+                  sizes="100%"
                 />
               </a>
             </div>
