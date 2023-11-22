@@ -15,7 +15,6 @@ import {
   SecondaryHeader,
   EntryMoreReviews,
   MoreReviews,
-  EntryPartnerContent,
   PartnerContent,
 } from '../components'
 import { GetMenus } from '../queries/GetMenus'
@@ -199,7 +198,6 @@ export default function Component(props) {
             categoryUri={categories[0]?.node?.uri}
           />
           <MoreReviews databaseId={databaseId} />
-          <EntryPartnerContent />
           <PartnerContent
             parentName={categories[0]?.node?.parent?.node?.name}
           />

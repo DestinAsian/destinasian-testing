@@ -101,10 +101,9 @@ export default function PartnerContent({ parentName }) {
 
   // Show only the first 2 items from shuffledAdvContent
   const firstTwoContent = shuffledAdvContent.slice(0, 2)
-  const firstContent = shuffledAdvContent.slice(0, 1)
 
   // Show only the first item from shuffledHcContent
-  const firstHcContent = shuffledHcContent.slice(0, 1)
+  const firstHcContent = shuffledHcContent.slice(0, 2)
 
   return (
     <>
@@ -121,11 +120,19 @@ export default function PartnerContent({ parentName }) {
                         image={post?.node?.featuredImage?.node}
                         className={cx('image')}
                       />
+                      <div className={cx('border-right-adv')}></div>
                     </div>
                   </a>
                 )}
               </div>
               <div className={cx('right-wrapper')}>
+              <div className={cx('content-wrapper')}>
+                  <a href={hcFrontPage?.uri}>
+                    <h2 className={cx('sub-title-adv')}>
+                      {'Partner Content'}
+                    </h2>
+                  </a>
+                </div>
                 <div className={cx('content-wrapper')}>
                   <a href={post?.node?.uri}>
                     <h2 className={cx('title')}>{post?.node?.title}</h2>
@@ -146,9 +153,6 @@ export default function PartnerContent({ parentName }) {
                   )}
               </div>
             </article>
-            {post?.node?.title === firstContent[0]?.node?.title && (
-              <div className={cx('border-bottom')}></div>
-            )}
           </>
         ))}
       </div>
@@ -165,6 +169,7 @@ export default function PartnerContent({ parentName }) {
                         image={post?.node?.featuredImage?.node}
                         className={cx('image')}
                       />
+                      <div className={cx('border-right-hc')}></div>
                     </div>
                   </a>
                 )}

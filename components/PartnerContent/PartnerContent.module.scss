@@ -4,9 +4,11 @@
 .adv-component {
   width: 100vw;
   line-height: 1;
-  background-color: var(--wpe--color--light--green);
+  background-color: var(--wpe--color--white);
+  padding-top: 5rem;
 
   @media (min-width: $breakpoint-extra-small) {
+    padding-top: 8rem;
     padding-bottom: 1rem;
   }
 }
@@ -15,7 +17,7 @@
   width: 100vw;
   padding-bottom: 2rem;
   line-height: 1;
-  background-color: var(--wpe--color--light--yellow);
+  background-color: var(--wpe--color--white);
 
   @media (min-width: $breakpoint-extra-small) {
     padding-top: 1rem;
@@ -43,7 +45,11 @@
   width: 70%;
   display: flex;
   flex-direction: column;
-  row-gap: 0.5rem;
+  row-gap: 0.3rem;
+
+  @media (min-width: $breakpoint-extra-small) {
+    row-gap: 0.5rem;
+  }
 }
 
 .content-wrapper {
@@ -65,9 +71,18 @@
 .content-wrapper-image {
   margin: 0 auto;
   padding: 0;
+  display: flex;
 
   figure {
     position: relative;
+  }
+
+  .border-right-adv {
+    border-right: 0.5rem solid var(--wpe--color--light--green);
+  }
+
+  .border-right-hc {
+    border-right: 0.5rem solid var(--wpe--color--yellow);
   }
 }
 
@@ -87,11 +102,25 @@ figure.image {
   }
 }
 
+.sub-title-adv {
+  font-family: 'Ringside Regular A', 'Ringside Regular B';
+  font-weight: 500;
+  line-height: 1.6;
+  text-transform: uppercase;
+  font-size: 0.6rem;
+  color: rgba(0, 0, 0, 0.5);
+
+  @media (min-width: $breakpoint-extra-small) {
+    font-size: 0.8rem;
+  }
+}
+
 .honors-circle {
   font-family: 'Gotham A', 'Gotham B';
   text-transform: uppercase;
-  font-weight: 700;
+  font-weight: 500;
   font-size: 0.6rem;
+  color: var(--wpe--color--yellow);
 
   @media (min-width: $breakpoint-extra-small) {
     font-size: 0.8rem;
@@ -101,7 +130,7 @@ figure.image {
 .title {
   font-family: 'EB Garamond';
   font-weight: 700;
-  font-size: 1.2rem;
+  font-size: 1rem;
   line-height: 1.2;
 
   @media (min-width: $breakpoint-extra-small) {
@@ -112,7 +141,7 @@ figure.image {
 .hc-title {
   font-family: 'Hoefler Text A', 'Hoefler Text B';
   font-weight: 700;
-  font-size: 1.2rem;
+  font-size: 1rem;
   line-height: 1.2;
   text-transform: none;
 
@@ -126,21 +155,16 @@ figure.image {
 }
 
 .excerpt {
-  font-size: 0.8rem;
   padding: 0 0 0.25rem;
-
-  @media (min-width: $breakpoint-extra-small) {
-    font-size: 1rem;
-  }
 
   p {
     font-family: 'Ringside Regular A', 'Ringside Regular B';
     font-weight: 500;
     line-height: 1.6;
-    font-size: 1.125rem;
+    font-size: 0.65rem;
 
     @media (min-width: $breakpoint-extra-small) {
-      font-size: 1.25rem;
+      font-size: 0.95rem;
     }
   }
 
@@ -150,36 +174,20 @@ figure.image {
 }
 
 .hc-excerpt {
-  font-size: 0.8rem;
   padding: 0 0 0.25rem;
-
-  @media (min-width: $breakpoint-extra-small) {
-    font-size: 1rem;
-  }
 
   p {
     font-family: 'Gotham A', 'Gotham B';
     font-weight: 500;
     line-height: 1.6;
-    font-size: 1.125rem;
+    font-size: 0.65rem;
 
     @media (min-width: $breakpoint-extra-small) {
-      font-size: 1.25rem;
+      font-size: 0.95rem;
     }
   }
 
   a {
     display: none;
-  }
-}
-
-.border-bottom {
-  width: 95%;
-  margin: 0 auto;
-  border-bottom: 1px solid var(--wpe--color--grey);
-
-  @media (min-width: $breakpoint-extra-small) {
-    width: 100%;
-    max-width: 700px;
   }
 }

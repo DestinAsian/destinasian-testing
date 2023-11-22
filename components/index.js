@@ -21,7 +21,6 @@ export { DaGuideMenu } from './DaGuideMenu';
 export { EntryHeader } from './EntryHeader';
 export { EntryMoreReviews } from './EntryMoreReviews';
 export { EntryRelatedStories } from './EntryRelatedStories';
-export { EntryPartnerContent } from './EntryPartnerContent';
 export { ErrorPage } from './ErrorPage';
 export { FeaturedImage } from './FeaturedImage';
 export { FeatureWell } from './FeatureWell';

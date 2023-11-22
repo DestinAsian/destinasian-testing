@@ -12,7 +12,6 @@ export default function EntryMoreReviews({
     <article className={cx('component')}>
       <div className={cx('entry-wrapper')}>
         <div className={cx('entry-title')}>{'More Reviews'}</div>
-        <div className={cx('entry-border')}></div>
       </div>
       <div className={cx('category-wrapper')}>
         <a href={categoryUri}>
