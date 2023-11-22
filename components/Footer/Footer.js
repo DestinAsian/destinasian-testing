@@ -1,13 +1,14 @@
 import classNames from 'classnames/bind'
 import { Container } from '..'
 import styles from './Footer.module.scss'
+import Image from 'next/image'
+import Link from 'next/link'
 
 // DAMG Logo
 import daiLogo from '../../assets/logo/DAI_logo.png'
 import damanLogo from '../../assets/logo/DAMAN_logo.png'
 import prsLogo from '../../assets/logo/Prestige_logo.png'
 import scop3Logo from '../../assets/logo/Scop3_logo.png'
-import Image from 'next/image'
 
 let cx = classNames.bind(styles)
 
@@ -130,18 +131,18 @@ export default function Footer() {
         </div>
         <Container>
           <div className={cx('upper-menu-wrapper')}>
-            <a href={aboutUri}>
+            <Link href={aboutUri}>
               <h2>{'About'}</h2>
-            </a>
-            <a href={privacyUri}>
+            </Link>
+            <Link href={privacyUri}>
               <h2>{'Privacy Policy'}</h2>
-            </a>
-            <a href={contactUri}>
+            </Link>
+            <Link href={contactUri}>
               <h2>{'Contact'}</h2>
-            </a>
-            <a href={socialUri}>
+            </Link>
+            <Link href={socialUri}>
               <h2>{'Socials'}</h2>
-            </a>
+            </Link>
           </div>
           <div className={cx('border-divider')}></div>
           <div className={cx('bottom-menu-wrapper')}>
@@ -154,44 +155,44 @@ export default function Footer() {
             </div>
             <div className={cx('right-menu-wrapper')}>
               <div className={cx('logo-wrapper')}>
-                <a href={'https://destinasian.co.id/'}>
+                <Link href={'https://destinasian.co.id/'}>
                   <Image
                     src={daiLogo.src}
                     alt="Destinasian Indonesia Logo"
                     fill
                     sizes="100%"
                   />
-                </a>
+                </Link>
               </div>
               <div className={cx('logo-wrapper')}>
-                <a href={'https://daman.co.id/'}>
+                <Link href={'https://daman.co.id/'}>
                   <Image
                     src={damanLogo.src}
                     alt="DaMan Logo"
                     fill
                     sizes="100%"
                   />
-                </a>
+                </Link>
               </div>
               <div className={cx('logo-wrapper')}>
-                <a href={'https://www.prestigeonline.com/id/'}>
+                <Link href={'https://www.prestigeonline.com/id/'}>
                   <Image
                     src={prsLogo.src}
                     alt="Prestige Logo"
                     fill
                     sizes="100%"
                   />
-                </a>
+                </Link>
               </div>
               <div className={cx('logo-wrapper')}>
-                <a href={'https://scop3group.com/'}>
+                <Link href={'https://scop3group.com/'}>
                   <Image
                     src={scop3Logo.src}
                     alt="Scop3Group Logo"
                     fill
                     sizes="100%"
                   />
-                </a>
+                </Link>
               </div>
             </div>
           </div>

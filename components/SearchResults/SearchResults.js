@@ -45,7 +45,6 @@ export default function SearchResults({ searchResults, isLoading }) {
                 <a href={node.uri}>
                   <FeaturedImage
                     image={node.featuredImage.node}
-                    layout="intrinsic"
                     className={styles.featuredImage}
                   />
                 </a>

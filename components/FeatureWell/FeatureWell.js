@@ -13,7 +13,7 @@ import 'swiper/css/pagination'
 
 // import required modules
 import { EffectFade, Autoplay, Pagination } from 'swiper'
-import Image from "next/image"
+import Image from 'next/image'
 
 let cx = className.bind(styles)
 
@@ -31,36 +31,37 @@ export default function FeatureWell({ featureWells }) {
     return () => clearTimeout(timeout)
   }, [])
 
-  return <>
-    <Div100vh>
-      <Swiper
-        onSlideChange={(swiper) => {
-          // Get the current slide index from Swiper
-          const currentSlideIndex = swiper.activeIndex
-          const currentSlide = featureWells[currentSlideIndex]
+  return (
+    <>
+      <Div100vh>
+        <Swiper
+          onSlideChange={(swiper) => {
+            // Get the current slide index from Swiper
+            const currentSlideIndex = swiper.activeIndex
+            const currentSlide = featureWells[currentSlideIndex]
 
-          if (currentSlide.type === 'video') {
-            const videoElement = document.getElementById(
-              `video-${currentSlideIndex}`,
-            )
+            if (currentSlide.type === 'video') {
+              const videoElement = document.getElementById(
+                `video-${currentSlideIndex}`,
+              )
 
-            if (videoElement) {
-              videoElement.currentTime = 0 // Start the video from the beginning
-              videoElement.play() // Play the video
+              if (videoElement) {
+                videoElement.currentTime = 0 // Start the video from the beginning
+                videoElement.play() // Play the video
+              }
             }
-          }
-        }}
-        effect={'fade'}
-        autoplay={{
-          delay: 15000,
-          disableOnInteraction: false,
-        }}
-        pagination={{
-          el: '.swiper-custom-pagination',
-          clickable: 'true',
-          type: 'bullets',
-          renderBullet: function (i, className) {
-            return `
+          }}
+          effect={'fade'}
+          autoplay={{
+            delay: 15000,
+            disableOnInteraction: false,
+          }}
+          pagination={{
+            el: '.swiper-custom-pagination',
+            clickable: 'true',
+            type: 'bullets',
+            renderBullet: function (i, className) {
+              return `
             <button class="${className}">
             <svg class= "progress">
             <circle class="circle-origin" cx="16" cy="16" r="10.5"></circle>
@@ -68,56 +69,66 @@ export default function FeatureWell({ featureWells }) {
             <span></span>
             </button>
             `
-          },
-        }}
-        modules={[EffectFade, Autoplay, Pagination]}
-        className="fw-swiper-wrapper"
-      >
-        {featureWells?.map((featureWell, index) => (
-          <SwiperSlide key={index}>
-            {featureWell.type === 'image' && (
-              <a href={featureWell.url}>
-                {isDesktop && (
-                  <div className={cx('image-wrapper')}>
-                    <Image src={featureWell.desktopSrc} alt="Feature Well Image" fill sizes="100%" />
-                    <div className={cx('caption-wrapper')}>
-                      {featureWell.caption}
+            },
+          }}
+          modules={[EffectFade, Autoplay, Pagination]}
+          className="fw-swiper-wrapper"
+        >
+          {featureWells?.map((featureWell, index) => (
+            <SwiperSlide key={index}>
+              {featureWell.type === 'image' && (
+                <a href={featureWell.url}>
+                  {isDesktop && (
+                    <div className={cx('image-wrapper')}>
+                      <Image
+                        src={featureWell.desktopSrc}
+                        alt="Feature Well Image"
+                        fill
+                        sizes="100%"
+                      />
+                      <div className={cx('caption-wrapper')}>
+                        {featureWell.caption}
+                      </div>
+                      <div className={cx('bottom-gradient')}></div>
                     </div>
-                    <div className={cx('bottom-gradient')}></div>
-                  </div>
-                )}
-                {isMobile && (
-                  <div className={cx('image-wrapper')}>
-                    <Image src={featureWell.mobileSrc} alt="Feature Well Image" fill sizes="100%" />
-                    <div className={cx('caption-wrapper')}>
-                      {featureWell.caption}
+                  )}
+                  {isMobile && (
+                    <div className={cx('image-wrapper')}>
+                      <Image
+                        src={featureWell.mobileSrc}
+                        alt="Feature Well Image"
+                        fill
+                        sizes="100%"
+                      />
+                      <div className={cx('caption-wrapper')}>
+                        {featureWell.caption}
+                      </div>
+                      <div className={cx('bottom-gradient')}></div>
                     </div>
-                    <div className={cx('bottom-gradient')}></div>
-                  </div>
-                )}
-              </a>
-            )}
-            {featureWell.type === 'video' && (
-              <a href={featureWell.url}>
-                <div className={cx('video-wrapper')}>
-                  <video
-                    id={`video-${index}`}
-                    src={featureWell.videoSrc}
-                    className="video-content"
-                    loop
-                    autoPlay
-                    playsInline
-                    muted
-                  />
+                  )}
+                </a>
+              )}
+              {featureWell.type === 'video' && (
+                <a href={featureWell.url}>
+                  <div className={cx('video-wrapper')}>
+                    <video
+                      id={`video-${index}`}
+                      src={featureWell.videoSrc}
+                      className="video-content"
+                      loop
+                      autoPlay
+                      playsInline
+                      muted
+                    />
 
-                  <div className={cx('caption-wrapper')}>
-                    {featureWell.caption}
+                    <div className={cx('caption-wrapper')}>
+                      {featureWell.caption}
+                    </div>
+                    <div className={cx('bottom-gradient')}></div>
                   </div>
-                  <div className={cx('bottom-gradient')}></div>
-                </div>
-              </a>
-            )}
-            {/* <div
+                </a>
+              )}
+              {/* <div
               className={cx('chevron-wrapper', {
                 maximized: IsMaximized,
               })}
@@ -147,10 +158,11 @@ export default function FeatureWell({ featureWells }) {
                 </svg>
               </a>
             </div> */}
-          </SwiperSlide>
-        ))}
-      </Swiper>
-      <div class="swiper-custom-pagination"></div>
-    </Div100vh>
-  </>;
+            </SwiperSlide>
+          ))}
+        </Swiper>
+        <div class="swiper-custom-pagination"></div>
+      </Div100vh>
+    </>
+  )
 }
