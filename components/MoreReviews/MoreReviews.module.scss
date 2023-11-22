@@ -5,7 +5,7 @@
   width: 100vw;
   line-height: 1;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   padding: 0 1rem 1rem;
   background-color: var(--wpe--color--white);
 
@@ -25,6 +25,18 @@
   }
 }
 
+.row-wrapper {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  column-gap: 0.5rem;
+
+  @media (min-width: $breakpoint-extra-small) {
+    column-gap: 1rem;
+  }
+}
+
 .title {
   font-family: 'Unit Slab Pro Black';
   font-size: 1rem;
@@ -35,48 +47,34 @@
   }
 }
 
-.featuredImage {
-  min-width: 100%;
-  margin: 0;
-  margin-bottom: 1rem;
-  height: auto;
-  padding-left: 1rem;
-
-  @media (min-width: $breakpoint-extra-small) {
-    padding-left: 0;
-  }
-
-  span,
-  img {
-    min-width: 100%;
-  }
-}
-
-.excerpt {
-  font-family: 'Chronicle Display A', 'Chronicle Display B';
+.icon-wrapper {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  column-gap: 0.25rem;
+  font-family: 'Ringside Regular A', 'Ringside Regular B';
   font-weight: 500;
-  font-size: 0.6rem;
-  padding: 0 0 0.25rem;
+  padding-bottom: 0.75rem;
 
   @media (min-width: $breakpoint-extra-small) {
-    font-size: 1rem;
+    column-gap: 0.5rem;
   }
 
-  p {
-    line-height: 1.6;
+  span {
+    font-size: 0.5rem !important;
+
+    @media (min-width: $breakpoint-extra-small) {
+      font-size: 1rem !important;
+    }
   }
 
-  a {
-    display: none;
-  }
-}
+  figure {
+    width: 0.6rem !important;
+    height: 0.6rem !important;
 
-.border-bottom {
-  width: 95%;
-  margin: 0 auto 2rem;
-  border-bottom: 1px solid var(--wpe--color--grey);
-
-  @media (min-width: $breakpoint-extra-small) {
-    width: 100%;
+    @media (min-width: $breakpoint-extra-small) {
+      width: 1.1rem !important;
+      height: 1.1rem !important;
+    }
   }
 }

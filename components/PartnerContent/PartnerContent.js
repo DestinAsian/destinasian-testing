@@ -92,7 +92,7 @@ export default function PartnerContent({ parentName }) {
   if (loading) {
     return (
       <>
-        <div className="mx-auto my-0 flex max-w-[100vw] justify-center md:max-w-[700px]	">
+        <div className="mx-auto my-0 flex max-w-[100vw] justify-center	bg-white ">
           <Button className="gap-x-4	">{'Loading...'}</Button>
         </div>
       </>

@@ -3,7 +3,8 @@ import React, { useState, useEffect } from 'react'
 import classNames from 'classnames/bind'
 import styles from './MoreReviews.module.scss'
 import { GetMoreReviews } from '../../queries/GetMoreReviews'
-import { Button } from '../../components'
+import { Button, CategoryIcon, LocationIcon } from '../../components'
+import Link from 'next/link'
 
 let cx = classNames.bind(styles)
 
@@ -51,24 +52,44 @@ export default function MoreReviews({ databaseId }) {
   if (loading) {
     return (
       <>
-        <div className="mx-auto my-0 flex max-w-[100vw] justify-center md:max-w-[700px]	">
-          <Button className="gap-x-4	">{'Loading...'}</Button>
+        <div className="mx-auto my-0 flex max-w-[100vw] justify-center	bg-white ">
+          <Button className="gap-x-4 ">{'Loading...'}</Button>
         </div>
       </>
     )
   }
 
   // Show only the first 3 items from shuffledMoreReviews
-  const firstThreeReviews = shuffledMoreReviews.slice(0, 3);
+  const firstThreeReviews = shuffledMoreReviews.slice(0, 3)
 
   return (
     <>
       {firstThreeReviews.map((post) => (
         <article className={cx('component')}>
           <div className={cx('content-wrapper')}>
-            <a href={post?.node?.uri}>
-              <h2 className={cx('title')}>{post?.node?.title}</h2>
-            </a>
+            <Link href={post?.node?.uri}>
+              <div className={cx('row-wrapper')}>
+                <h2 className={cx('title')}>{post?.node?.title}</h2>
+                <div className={cx('icon-wrapper')}>
+                  <CategoryIcon
+                    chooseYourCategory={
+                      post?.node?.acfCategoryIcon?.chooseYourCategory
+                    }
+                    chooseIcon={
+                      post?.node?.acfCategoryIcon?.chooseIcon?.mediaItemUrl
+                    }
+                    categoryLabel={post?.node?.acfCategoryIcon?.categoryLabel}
+                  />
+                  <LocationIcon
+                    locationValidation={
+                      post?.node?.acfLocationIcon?.fieldGroupName
+                    }
+                    locationLabel={post?.node?.acfLocationIcon?.locationLabel}
+                    locationUrl={post?.node?.acfLocationIcon?.locationUrl}
+                  />
+                </div>
+              </div>
+            </Link>
           </div>
         </article>
       ))}

@@ -11,6 +11,18 @@ export const GetMoreReviews = gql`
                 node {
                   title
                   uri
+                  acfCategoryIcon {
+                    categoryLabel
+                    chooseYourCategory
+                    chooseIcon {
+                      mediaItemUrl
+                    }
+                  }
+                  acfLocationIcon {
+                    fieldGroupName
+                    locationLabel
+                    locationUrl
+                  }
                 }
               }
             }

@@ -21,54 +21,54 @@ export default function CategoryIcon({
         <div className={cx('icon-wrapper')}>
           {/* Generate category icon */}
           {chooseYourCategory == 'attraction' && (
-            <div className={cx('icon')}>
+            <figure className={cx('icon')}>
               <Image src={attractionIcon.src} alt="Attraction Icon" fill sizes="100%" />
-            </div>
+            </figure>
           )}
           {chooseYourCategory == 'dining' && (
-            <div className={cx('icon')}>
+            <figure className={cx('icon')}>
               <Image src={diningIcon.src} alt="Dining Icon" fill sizes="100%" />
-            </div>
+            </figure>
           )}
           {chooseYourCategory == 'hotel' && (
-            <div className={cx('icon')}>
+            <figure className={cx('icon')}>
               <Image src={hotelIcon.src} alt="Hotel Icon" fill sizes="100%" />
-            </div>
+            </figure>
           )}
           {chooseYourCategory == 'nightlife' && (
-            <div className={cx('icon')}>
+            <figure className={cx('icon')}>
               <Image src={nightlifeIcon.src} alt="Nightlife Icon" fill sizes="100%" />
-            </div>
+            </figure>
           )}
           {/* Label for category icon */}
-          <div className={cx('category-label')}>{categoryLabel}</div>
+          <span className={cx('category-label')}>{categoryLabel}</span>
         </div>
       )}
       {chooseIcon && (
         <div className={cx('icon-wrapper')}>
           {/* Generate category icon */}
           {chooseYourCategory == 'attraction' && (
-            <div className={cx('icon')}>
+            <figure className={cx('icon')}>
               <Image src={chooseIcon} alt="Attraction Icon" fill sizes="100%" />
-            </div>
+            </figure>
           )}
           {chooseYourCategory == 'dining' && (
-            <div className={cx('icon')}>
+            <figure className={cx('icon')}>
               <Image src={chooseIcon} alt="Dining Icon" fill sizes="100%" />
-            </div>
+            </figure>
           )}
           {chooseYourCategory == 'hotel' && (
-            <div className={cx('icon')}>
+            <figure className={cx('icon')}>
               <Image src={chooseIcon} alt="Hotel Icon" fill sizes="100%" />
-            </div>
+            </figure>
           )}
           {chooseYourCategory == 'nightlife' && (
-            <div className={cx('icon')}>
+            <figure className={cx('icon')}>
               <Image src={chooseIcon} alt="Nightlife Icon" fill sizes="100%" />
-            </div>
+            </figure>
           )}
           {/* Label for category icon */}
-          <div className={cx('category-label')}>{categoryLabel}</div>
+          <span className={cx('category-label')}>{categoryLabel}</span>
         </div>
       )}
     </div>
