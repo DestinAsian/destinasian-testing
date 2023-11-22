@@ -4,6 +4,7 @@ import classNames from 'classnames/bind'
 import styles from './PartnerContent.module.scss'
 import { GetPartnerContent } from '../../queries/GetPartnerContent'
 import { Button, FeaturedImage } from '../../components'
+import Link from 'next/link'
 
 let cx = classNames.bind(styles)
 
@@ -114,7 +115,7 @@ export default function PartnerContent({ parentName }) {
             <article className={cx('main-wrapper')}>
               <div className={cx('left-wrapper')}>
                 {post?.node?.featuredImage && (
-                  <a href={post?.node?.uri}>
+                  <Link href={post?.node?.uri}>
                     <div className={cx('content-wrapper-image')}>
                       <FeaturedImage
                         image={post?.node?.featuredImage?.node}
@@ -122,33 +123,33 @@ export default function PartnerContent({ parentName }) {
                       />
                       <div className={cx('border-right-adv')}></div>
                     </div>
-                  </a>
+                  </Link>
                 )}
               </div>
               <div className={cx('right-wrapper')}>
               <div className={cx('content-wrapper')}>
-                  <a href={hcFrontPage?.uri}>
+                  <Link href={hcFrontPage?.uri}>
                     <h2 className={cx('sub-title-adv')}>
                       {'Partner Content'}
                     </h2>
-                  </a>
+                  </Link>
                 </div>
                 <div className={cx('content-wrapper')}>
-                  <a href={post?.node?.uri}>
+                  <Link href={post?.node?.uri}>
                     <h2 className={cx('title')}>{post?.node?.title}</h2>
-                  </a>
+                  </Link>
                 </div>
                 {post?.node?.excerpt !== undefined &&
                   post?.node?.excerpt !== null && (
                     <div className={cx('content-wrapper')}>
-                      <a href={post?.node?.uri}>
+                      <Link href={post?.node?.uri}>
                         <div
                           className={cx('excerpt', 'truncate-text')} // Add the class here
                           dangerouslySetInnerHTML={{
                             __html: truncateText(post?.node?.excerpt),
                           }}
                         />
-                      </a>
+                      </Link>
                     </div>
                   )}
               </div>
@@ -163,7 +164,7 @@ export default function PartnerContent({ parentName }) {
             <article className={cx('main-wrapper')}>
               <div className={cx('left-wrapper')}>
                 {post?.node?.featuredImage && (
-                  <a href={post?.node?.uri}>
+                  <Link href={post?.node?.uri}>
                     <div className={cx('content-wrapper-image')}>
                       <FeaturedImage
                         image={post?.node?.featuredImage?.node}
@@ -171,33 +172,33 @@ export default function PartnerContent({ parentName }) {
                       />
                       <div className={cx('border-right-hc')}></div>
                     </div>
-                  </a>
+                  </Link>
                 )}
               </div>
               <div className={cx('right-wrapper')}>
                 <div className={cx('hc-content-wrapper')}>
-                  <a href={hcFrontPage?.uri}>
+                  <Link href={hcFrontPage?.uri}>
                     <h2 className={cx('honors-circle')}>
                       {hcFrontPage?.title}
                     </h2>
-                  </a>
+                  </Link>
                 </div>
                 <div className={cx('hc-content-wrapper')}>
-                  <a href={post?.node?.uri}>
+                  <Link href={post?.node?.uri}>
                     <h2 className={cx('hc-title')}>{post?.node?.title}</h2>
-                  </a>
+                  </Link>
                 </div>
                 {post?.node?.excerpt !== undefined &&
                   post?.node?.excerpt !== null && (
                     <div className={cx('hc-content-wrapper')}>
-                      <a href={post?.node?.uri}>
+                      <Link href={post?.node?.uri}>
                         <div
                           className={cx('hc-excerpt', 'truncate-text')} // Add the class here
                           dangerouslySetInnerHTML={{
                             __html: truncateText(post?.node?.excerpt),
                           }}
                         />
-                      </a>
+                      </Link>
                     </div>
                   )}
               </div>
