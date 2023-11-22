@@ -48,7 +48,7 @@ export default function SingleSlider({ images }) {
             {image && (
               <SwiperSlide key={index}>
                 <Image src={image[0]} alt="Slider Image" fill sizes="100%" />
-                <div className={'slide-caption'}>{image[1]}</div>
+                <figcaption className={'slide-caption'}>{image[1]}</figcaption>
               </SwiperSlide>
             )}
           </div>

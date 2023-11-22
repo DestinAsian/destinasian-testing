@@ -43,7 +43,15 @@
       padding: 0;
 
       figcaption {
-        display: none;
+        display: flex;
+        padding: 0;
+        padding-right: 1rem;
+        justify-content: flex-end;
+        color: var(--wpe--color--grey);
+
+        @media (min-width: $breakpoint-extra-small) {
+          padding-right: 0;
+        }
       }
     }
 

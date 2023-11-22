@@ -116,14 +116,22 @@
 }
 
 .swiper-slide img {
-  width: 100%;
-  height: 100%;
+  padding-bottom: 2rem;
   object-fit: cover;
 }
 
 .swiper-slide .slide-caption {
+  background-color: #f5f5f5;
+  height: 1.5rem;
   position: relative;
-  color: #ffffff;
+  top: 100%;
+  transform: translateY(-105%);
+  display: flex;
+  padding: 0;
+  padding-right: 1rem;
+  justify-content: flex-end;
+  color: #929292;
+  font-size: 1rem;
 }
 
 .swiper {
@@ -156,7 +164,7 @@
   bottom: auto;
   justify-content: center;
   align-items: center;
-  padding: 1rem 0;
+  padding: 0.5rem 0 1rem;
 }
 
 .post-editorial-swiper {
@@ -268,6 +276,13 @@
     transform-origin: left;
     transform: translate(10%, -100%) rotate(90deg);
     padding: 0;
+  }
+
+  .swiper-slide .slide-caption {
+    padding-right: 0;
+    transform: translateY(-80%);
+    font-size: 1.25rem;
+    height: 1.875rem;
   }
 }
 
