@@ -56,12 +56,12 @@
 }
 
 .category-wrapper {
-  padding: 0 1rem;
+  padding: 0 1rem 0.75rem;
   margin: 0 auto;
   width: 100%;
 
   @media (min-width: $breakpoint-extra-small) {
-    padding: 0;
+    padding: 0 0 0.75rem;
     max-width: 700px;
   }
 }
@@ -72,7 +72,6 @@
   font-size: 0.6rem;
   text-transform: uppercase;
   line-height: 1.2;
-  padding-bottom: 1rem;
 
   @media (min-width: $breakpoint-extra-small) {
     font-size: 1rem;
