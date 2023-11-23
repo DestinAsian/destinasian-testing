@@ -171,9 +171,7 @@ export default function PartnerContent({ parentName }) {
 
   // Declare 2 HC Post
   const getHCPost = [HCArray[0] || null, HCArray[1] || null]
-
-  console.log(getAdvertorialPost)
-
+  
   return (
     <>
       {/* Adv Content */}
