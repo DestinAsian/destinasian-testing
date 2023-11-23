@@ -116,8 +116,11 @@
 }
 
 .swiper-slide img {
-  padding-bottom: 2rem;
   object-fit: cover;
+}
+
+.post-swiper > .swiper-wrapper > .swiper-slide > img {
+  padding-bottom: 2rem;
 }
 
 .swiper-slide .slide-caption {
