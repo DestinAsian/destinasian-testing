@@ -2,6 +2,8 @@ import { useQuery } from '@apollo/client'
 import React, { useState, useEffect } from 'react'
 import classNames from 'classnames/bind'
 import styles from './PartnerContent.module.scss'
+import { GetAdvertorialStories } from '../../queries/GetAdvertorialStories'
+import { GetHCStories } from '../../queries/GetHCStories'
 import { GetPartnerContent } from '../../queries/GetPartnerContent'
 import { Button, FeaturedImage } from '../../components'
 import Link from 'next/link'
@@ -37,174 +39,320 @@ function truncateText(text) {
 
 export default function PartnerContent({ parentName }) {
   // Initialize a state variable to hold shuffled more reviews
-  const [shuffledAdvContent, setShuffledAdvContent] = useState([])
-  const [shuffledHcContent, setShuffledHcContent] = useState([])
+  const [AdvertorialArray, setAdvertorialArray] = useState([])
+  const [HCArray, setHCArray] = useState([])
 
-  const contentPerPage = 10
+  const hcFrontPage = '/honors-circle'
 
-  // Get Stories
-  const { data, error, loading } = useQuery(GetPartnerContent, {
-    variables: {
-      first: contentPerPage,
-      search: parentName,
-      id: '/honors-circle',
+  // // Get Stories
+  // const { data, error, loading } = useQuery(GetPartnerContent, {
+  //   variables: {
+  //     first: contentPerPage,
+  //     search: parentName,
+  //     id: '/honors-circle',
+  //   },
+  //   fetchPolicy: 'network-only',
+  //   nextFetchPolicy: 'cache-and-network',
+  // })
+
+  // Get Advertorial Stories
+  const { data: advertorialsData, error: advertorialsError } = useQuery(
+    GetAdvertorialStories,
+    {
+      variables: { search: parentName }, // Use the modified variables
+      fetchPolicy: 'network-only',
+      nextFetchPolicy: 'cache-and-network',
     },
-    fetchPolicy: 'network-only',
-    nextFetchPolicy: 'cache-and-network',
-  })
+  )
 
-  // advertorial content
-  const advContent = data?.advertorials?.edges ?? []
-
-  // honorsCircle content
-  const hcContent = data?.honorsCircles?.edges ?? []
-
-  const hcFrontPage = data?.page
-
-  // Use an effect to shuffle more reviews when data changes
-  // Advertorial content
-  useEffect(() => {
-    if (advContent && advContent.length > 0) {
-      // Clone the partnerContent array to avoid modifying the original data
-      const clonedAdvContent = [...advContent]
-      // Shuffle the cloned array
-      const shuffledArray = shuffleArray(clonedAdvContent)
-      // Set the shuffled array in state
-      setShuffledAdvContent(shuffledArray)
-    }
-  }, [advContent]) // Trigger shuffling when partnerContent changes
-
-  // HC content
-  useEffect(() => {
-    if (hcContent && hcContent.length > 0) {
-      // Clone the partnerContent array to avoid modifying the original data
-      const clonedHcContent = [...hcContent]
-      // Shuffle the cloned array
-      const shuffledArray = shuffleArray(clonedHcContent)
-      // Set the shuffled array in state
-      setShuffledHcContent(shuffledArray)
-    }
-  }, [hcContent]) // Trigger shuffling when partnerContent changes
-
-  if (error) {
+  if (advertorialsError) {
     return <pre>{JSON.stringify(error)}</pre>
   }
 
-  if (loading) {
-    return (
-      <>
-        <div className="mx-auto my-0 flex max-w-[100vw] justify-center	bg-white ">
-          <Button className="gap-x-4	">{'Loading...'}</Button>
-        </div>
-      </>
-    )
+  // Get HC Stories
+  const { data: honorsCirclesData, error: honorsCirclesError } = useQuery(
+    GetHCStories,
+    {
+      variables: { search: parentName }, // Use the modified variables
+      fetchPolicy: 'network-only',
+      nextFetchPolicy: 'cache-and-network',
+    },
+  )
+
+  if (honorsCirclesError) {
+    return <pre>{JSON.stringify(error)}</pre>
   }
 
-  // Show only the first 2 items from shuffledAdvContent
-  const firstTwoContent = shuffledAdvContent.slice(0, 2)
+  // Advertorial Stories
+  useEffect(() => {
+    const shuffleAdvertorialPost = () => {
+      // Create a Set to store unique databaseId values
+      const uniqueDatabaseIds = new Set()
 
-  // Show only the first item from shuffledHcContent
-  const firstHcContent = shuffledHcContent.slice(0, 2)
+      // Initialize an array to store unique posts
+      const contentAdvertorials = []
+
+      // Loop through all the contentNodes posts
+      advertorialsData?.tags?.edges?.forEach((contentNodes) => {
+        {
+          contentNodes?.node?.contentNodes?.edges?.length !== 0 &&
+            contentNodes?.node?.contentNodes?.edges.forEach((post) => {
+              const { databaseId } = post.node
+
+              // Check if the databaseId is unique (not in the Set)
+              if (!uniqueDatabaseIds.has(databaseId)) {
+                uniqueDatabaseIds.add(databaseId) // Add the databaseId to the Set
+                contentAdvertorials.push(post.node) // Push the unique post to the array
+              }
+            })
+        }
+      })
+
+      const advertorialArray = Object.values(contentAdvertorials || [])
+
+      // Shuffle only the otherBannerAds array
+      const shuffleAdvertorialPost = shuffleArray(advertorialArray)
+
+      // Concatenate the arrays with pinned ads first and shuffled other banner ads
+      const shuffledAdvertorialArray = [...shuffleAdvertorialPost]
+
+      setAdvertorialArray(shuffledAdvertorialArray)
+    }
+
+    // Shuffle the banner ads when the component mounts
+    shuffleAdvertorialPost()
+  }, [advertorialsData])
+
+  // HC Stories
+  useEffect(() => {
+    const shuffleHCPost = () => {
+      // Create a Set to store unique databaseId values
+      const uniqueDatabaseIds = new Set()
+
+      // Initialize an array to store unique posts
+      const contentHonorsCircles = []
+
+      // Loop through all the contentNodes posts
+      honorsCirclesData?.tags?.edges?.forEach((contentNodes) => {
+        {
+          contentNodes?.node?.contentNodes?.edges?.length !== 0 &&
+            contentNodes?.node?.contentNodes?.edges.forEach((post) => {
+              const { databaseId } = post.node
+
+              // Check if the databaseId is unique (not in the Set)
+              if (!uniqueDatabaseIds.has(databaseId)) {
+                uniqueDatabaseIds.add(databaseId) // Add the databaseId to the Set
+                contentHonorsCircles.push(post.node) // Push the unique post to the array
+              }
+            })
+        }
+      })
+
+      const HCArray = Object.values(contentHonorsCircles || [])
+
+      // Shuffle only the otherBannerAds array
+      const shuffleHCPost = shuffleArray(HCArray)
+
+      // Concatenate the arrays with pinned ads first and shuffled other banner ads
+      const shuffledHCArray = [...shuffleHCPost]
+
+      setHCArray(shuffledHCArray)
+    }
+
+    // Shuffle the banner ads when the component mounts
+    shuffleHCPost()
+  }, [honorsCirclesData])
+
+  // Declare 2 Advertorial Post
+  const getAdvertorialPost = [
+    AdvertorialArray[0] || null,
+    AdvertorialArray[1] || null,
+  ]
+
+  // Declare 2 HC Post
+  const getHCPost = [HCArray[0] || null, HCArray[1] || null]
+
+  console.log(getAdvertorialPost)
 
   return (
     <>
       {/* Adv Content */}
       <div className={cx('adv-component')}>
-        {firstTwoContent.map((post) => (
-          <>
-            <article className={cx('main-wrapper')}>
-              <div className={cx('left-wrapper')}>
-                {post?.node?.featuredImage && (
-                  <Link href={post?.node?.uri}>
-                    <div className={cx('content-wrapper-image')}>
-                      <FeaturedImage
-                        image={post?.node?.featuredImage?.node}
-                        className={cx('image')}
-                      />
-                      <div className={cx('border-right-adv')}></div>
-                    </div>
-                  </Link>
-                )}
-              </div>
-              <div className={cx('right-wrapper')}>
+        {getAdvertorialPost[0] !== null && (
+          <article className={cx('main-wrapper')}>
+            <div className={cx('left-wrapper')}>
+              {getAdvertorialPost[0]?.featuredImage && (
+                <Link href={getAdvertorialPost[0]?.uri}>
+                  <div className={cx('content-wrapper-image')}>
+                    <FeaturedImage
+                      image={getAdvertorialPost[0]?.featuredImage?.node}
+                      className={cx('image')}
+                    />
+                    <div className={cx('border-right-adv')}></div>
+                  </div>
+                </Link>
+              )}
+            </div>
+            <div className={cx('right-wrapper')}>
               <div className={cx('content-wrapper')}>
-                  <Link href={hcFrontPage?.uri}>
-                    <h2 className={cx('sub-title-adv')}>
-                      {'Partner Content'}
-                    </h2>
-                  </Link>
-                </div>
-                <div className={cx('content-wrapper')}>
-                  <Link href={post?.node?.uri}>
-                    <h2 className={cx('title')}>{post?.node?.title}</h2>
-                  </Link>
-                </div>
-                {post?.node?.excerpt !== undefined &&
-                  post?.node?.excerpt !== null && (
-                    <div className={cx('content-wrapper')}>
-                      <Link href={post?.node?.uri}>
-                        <div
-                          className={cx('excerpt', 'truncate-text')} // Add the class here
-                          dangerouslySetInnerHTML={{
-                            __html: truncateText(post?.node?.excerpt),
-                          }}
-                        />
-                      </Link>
-                    </div>
-                  )}
+                <Link href={getAdvertorialPost[0]?.uri}>
+                  <h2 className={cx('sub-title-adv')}>{'Partner Content'}</h2>
+                </Link>
               </div>
-            </article>
-          </>
-        ))}
+              <div className={cx('content-wrapper')}>
+                <Link href={getAdvertorialPost[0]?.uri}>
+                  <h2 className={cx('title')}>
+                    {getAdvertorialPost[0]?.title}
+                  </h2>
+                </Link>
+              </div>
+              {getAdvertorialPost[0]?.excerpt !== undefined &&
+                getAdvertorialPost[0]?.excerpt !== null && (
+                  <div className={cx('content-wrapper')}>
+                    <Link href={getAdvertorialPost[0]?.uri}>
+                      <div
+                        className={cx('excerpt', 'truncate-text')} // Add the class here
+                        dangerouslySetInnerHTML={{
+                          __html: truncateText(getAdvertorialPost[0]?.excerpt),
+                        }}
+                      />
+                    </Link>
+                  </div>
+                )}
+            </div>
+          </article>
+        )}
+        {getAdvertorialPost[1] !== null && (
+          <article className={cx('main-wrapper')}>
+            <div className={cx('left-wrapper')}>
+              {getAdvertorialPost[1]?.featuredImage && (
+                <Link href={getAdvertorialPost[1]?.uri}>
+                  <div className={cx('content-wrapper-image')}>
+                    <FeaturedImage
+                      image={getAdvertorialPost[1]?.featuredImage?.node}
+                      className={cx('image')}
+                    />
+                    <div className={cx('border-right-adv')}></div>
+                  </div>
+                </Link>
+              )}
+            </div>
+            <div className={cx('right-wrapper')}>
+              <div className={cx('content-wrapper')}>
+                <Link href={getAdvertorialPost[1]?.uri}>
+                  <h2 className={cx('sub-title-adv')}>{'Partner Content'}</h2>
+                </Link>
+              </div>
+              <div className={cx('content-wrapper')}>
+                <Link href={getAdvertorialPost[1]?.uri}>
+                  <h2 className={cx('title')}>
+                    {getAdvertorialPost[1]?.title}
+                  </h2>
+                </Link>
+              </div>
+              {getAdvertorialPost[1]?.excerpt !== undefined &&
+                getAdvertorialPost[1]?.excerpt !== null && (
+                  <div className={cx('content-wrapper')}>
+                    <Link href={getAdvertorialPost[1]?.uri}>
+                      <div
+                        className={cx('excerpt', 'truncate-text')} // Add the class here
+                        dangerouslySetInnerHTML={{
+                          __html: truncateText(getAdvertorialPost[1]?.excerpt),
+                        }}
+                      />
+                    </Link>
+                  </div>
+                )}
+            </div>
+          </article>
+        )}
       </div>
       {/* HC Content */}
       <div className={cx('hc-component')}>
-        {firstHcContent.map((post) => (
-          <>
-            <article className={cx('main-wrapper')}>
-              <div className={cx('left-wrapper')}>
-                {post?.node?.featuredImage && (
-                  <Link href={post?.node?.uri}>
-                    <div className={cx('content-wrapper-image')}>
-                      <FeaturedImage
-                        image={post?.node?.featuredImage?.node}
-                        className={cx('image')}
+        {getHCPost[0] !== null && (
+          <article className={cx('main-wrapper')}>
+            <div className={cx('left-wrapper')}>
+              {getHCPost[0]?.featuredImage && (
+                <Link href={getHCPost[0]?.uri}>
+                  <div className={cx('content-wrapper-image')}>
+                    <FeaturedImage
+                      image={getHCPost[0]?.featuredImage?.node}
+                      className={cx('image')}
+                    />
+                    <div className={cx('border-right-hc')}></div>
+                  </div>
+                </Link>
+              )}
+            </div>
+            <div className={cx('right-wrapper')}>
+              <div className={cx('hc-content-wrapper')}>
+                <Link href={hcFrontPage}>
+                  <h2 className={cx('honors-circle')}>{'Honors Circle'}</h2>
+                </Link>
+              </div>
+              <div className={cx('hc-content-wrapper')}>
+                <Link href={getHCPost[0]?.uri}>
+                  <h2 className={cx('hc-title')}>{getHCPost[0]?.title}</h2>
+                </Link>
+              </div>
+              {getHCPost[0]?.excerpt !== undefined &&
+                getHCPost[0]?.excerpt !== null && (
+                  <div className={cx('hc-content-wrapper')}>
+                    <Link href={getHCPost[0]?.uri}>
+                      <div
+                        className={cx('hc-excerpt', 'truncate-text')} // Add the class here
+                        dangerouslySetInnerHTML={{
+                          __html: truncateText(getHCPost[0]?.excerpt),
+                        }}
                       />
-                      <div className={cx('border-right-hc')}></div>
-                    </div>
-                  </Link>
+                    </Link>
+                  </div>
                 )}
+            </div>
+          </article>
+        )}
+        {getHCPost[1] !== null && (
+          <article className={cx('main-wrapper')}>
+            <div className={cx('left-wrapper')}>
+              {getHCPost[1]?.featuredImage && (
+                <Link href={getHCPost[1]?.uri}>
+                  <div className={cx('content-wrapper-image')}>
+                    <FeaturedImage
+                      image={getHCPost[1]?.featuredImage?.node}
+                      className={cx('image')}
+                    />
+                    <div className={cx('border-right-hc')}></div>
+                  </div>
+                </Link>
+              )}
+            </div>
+            <div className={cx('right-wrapper')}>
+              <div className={cx('hc-content-wrapper')}>
+                <Link href={hcFrontPage}>
+                  <h2 className={cx('honors-circle')}>{'Honors Circle'}</h2>
+                </Link>
               </div>
-              <div className={cx('right-wrapper')}>
-                <div className={cx('hc-content-wrapper')}>
-                  <Link href={hcFrontPage?.uri}>
-                    <h2 className={cx('honors-circle')}>
-                      {hcFrontPage?.title}
-                    </h2>
-                  </Link>
-                </div>
-                <div className={cx('hc-content-wrapper')}>
-                  <Link href={post?.node?.uri}>
-                    <h2 className={cx('hc-title')}>{post?.node?.title}</h2>
-                  </Link>
-                </div>
-                {post?.node?.excerpt !== undefined &&
-                  post?.node?.excerpt !== null && (
-                    <div className={cx('hc-content-wrapper')}>
-                      <Link href={post?.node?.uri}>
-                        <div
-                          className={cx('hc-excerpt', 'truncate-text')} // Add the class here
-                          dangerouslySetInnerHTML={{
-                            __html: truncateText(post?.node?.excerpt),
-                          }}
-                        />
-                      </Link>
-                    </div>
-                  )}
+              <div className={cx('hc-content-wrapper')}>
+                <Link href={getHCPost[1]?.uri}>
+                  <h2 className={cx('hc-title')}>{getHCPost[1]?.title}</h2>
+                </Link>
               </div>
-            </article>
-          </>
-        ))}
+              {getHCPost[1]?.excerpt !== undefined &&
+                getHCPost[1]?.excerpt !== null && (
+                  <div className={cx('hc-content-wrapper')}>
+                    <Link href={getHCPost[1]?.uri}>
+                      <div
+                        className={cx('hc-excerpt', 'truncate-text')} // Add the class here
+                        dangerouslySetInnerHTML={{
+                          __html: truncateText(getHCPost[1]?.excerpt),
+                        }}
+                      />
+                    </Link>
+                  </div>
+                )}
+            </div>
+          </article>
+        )}
       </div>
     </>
   )

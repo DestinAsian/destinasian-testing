@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client'
 
-export const GetAdvertorialStories = gql`
-  query GetAdvertorialStories($search: String) {
+export const GetHCStories = gql`
+  query GetHCStories($search: String) {
     tags(first: 100, where: { search: $search, hideEmpty: true }) {
       pageInfo {
         hasNextPage
@@ -12,7 +12,7 @@ export const GetAdvertorialStories = gql`
           contentNodes(
             first: 10
             where: {
-              contentTypes: ADVERTORIAL
+              contentTypes: HONORS_CIRCLE
               status: PUBLISH
               orderby: { field: DATE, order: DESC }
             }
@@ -21,7 +21,7 @@ export const GetAdvertorialStories = gql`
               node {
                 id
                 databaseId
-                ... on Advertorial {
+                ... on HonorsCircle {
                   title
                   excerpt
                   uri

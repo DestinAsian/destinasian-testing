@@ -9,7 +9,6 @@
 
   @media (min-width: $breakpoint-extra-small) {
     padding-top: 8rem;
-    padding-bottom: 1rem;
   }
 }
 
@@ -18,10 +17,6 @@
   padding-bottom: 2rem;
   line-height: 1;
   background-color: var(--wpe--color--white);
-
-  @media (min-width: $breakpoint-extra-small) {
-    padding-top: 1rem;
-  }
 }
 
 .main-wrapper {
