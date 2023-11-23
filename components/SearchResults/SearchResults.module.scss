@@ -30,10 +30,15 @@ $color-grey: #777;
   align-items: flex-start;
   column-gap: 1rem;
   padding-bottom: 2rem;
+  justify-content: center;
 }
 
 .left-wrapper {
-  width: 30%;
+  width: 7rem;
+
+  @media (min-width: $breakpoint-extra-small) {
+    width: 12rem;
+  }
 }
 
 .right-wrapper {
@@ -51,7 +56,7 @@ $color-grey: #777;
     position: relative;
 
     @media (min-width: $breakpoint-extra-small) {
-      height: 10rem;
+      height: 12rem;
     }
 
     span,
@@ -81,9 +86,11 @@ $color-grey: #777;
   flex-wrap: wrap;
   justify-content: space-between;
   column-gap: 0.25rem;
+  row-gap: 0.1rem;
 
   @media (min-width: $breakpoint-extra-small) {
     column-gap: 0.5rem;
+    row-gap: 0.2rem;
   }
 
   * {
