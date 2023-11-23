@@ -88,6 +88,21 @@ iframe {
   }
 }
 
+a.more-link {
+  font-family: 'Chronicle Display A', 'Chronicle Display B';
+  font-weight: 700;
+  font-size: 0.65rem;
+
+  @media (min-width: $breakpoint-extra-small) {
+    font-size: 0.95rem;
+  }
+}
+
+span.screen-reader-text {
+  display: none;
+}
+
+
 ::-moz-selection {
   color: var(--wpe--color--white);
   background-color: var(--wpe--color--accent);

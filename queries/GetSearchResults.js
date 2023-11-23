@@ -41,6 +41,7 @@ export const GetSearchResults = gql`
                 ... on Post {
                   title
                   excerpt
+                  date
                   featuredImage {
                     node {
                       id
@@ -65,10 +66,23 @@ export const GetSearchResults = gql`
                       }
                     }
                   }
+                  acfCategoryIcon {
+                    categoryLabel
+                    chooseYourCategory
+                    chooseIcon {
+                      mediaItemUrl
+                    }
+                  }
+                  acfLocationIcon {
+                    fieldGroupName
+                    locationLabel
+                    locationUrl
+                  }
                 }
                 ... on HonorsCircle {
                   title
                   excerpt
+                  date
                   featuredImage {
                     node {
                       id
@@ -84,6 +98,7 @@ export const GetSearchResults = gql`
                 ... on Editorial {
                   title
                   excerpt
+                  date
                   featuredImage {
                     node {
                       id
@@ -107,6 +122,7 @@ export const GetSearchResults = gql`
                 ... on Advertorial {
                   title
                   excerpt
+                  date
                   featuredImage {
                     node {
                       id
@@ -122,6 +138,7 @@ export const GetSearchResults = gql`
                 ... on LuxeList {
                   title
                   excerpt
+                  date
                   featuredImage {
                     node {
                       id
@@ -137,6 +154,7 @@ export const GetSearchResults = gql`
                 ... on Contest {
                   title
                   excerpt
+                  date
                   featuredImage {
                     node {
                       id

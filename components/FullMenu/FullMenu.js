@@ -90,7 +90,7 @@ export default function FullMenu({
   }
 
   // Check if the search query is empty and no search results are loading, then hide the SearchResults component
-  const isSearchResultsVisible = !!(searchQuery && !searchResultsLoading)
+  const isSearchResultsVisible = !!(searchQuery)
 
   // Create a Set to store unique databaseId values
   const uniqueDatabaseIds = new Set()
