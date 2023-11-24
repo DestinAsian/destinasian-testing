@@ -171,7 +171,7 @@ export default function PartnerContent({ parentName }) {
 
   // Declare 2 HC Post
   const getHCPost = [HCArray[0] || null, HCArray[1] || null]
-  
+
   return (
     <>
       {/* Adv Content */}
@@ -351,6 +351,7 @@ export default function PartnerContent({ parentName }) {
             </div>
           </article>
         )}
+        <div className={cx('border-divider')}></div>
       </div>
     </>
   )

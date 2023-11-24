@@ -150,6 +150,8 @@ export default function SearchResults({ searchResults, isLoading }) {
                       <h2 className={cx('meta')}>{'Contest'}</h2>
                     </Link>
                   )}
+
+                  {/* Update */}
                 </div>
 
                 <Link href={node?.uri}>
@@ -157,6 +159,9 @@ export default function SearchResults({ searchResults, isLoading }) {
                 </Link>
 
                 <div className={cx('meta-wrapper')}>
+                  <div className={cx('date-wrapper')}>
+                    <PostInfo date={node?.date} className={cx('meta')} />
+                  </div>
                   {node?.acfCategoryIcon && node?.acfLocationIcon && (
                     <div className={cx('icon-wrapper')}>
                       <CategoryIcon
@@ -177,24 +182,21 @@ export default function SearchResults({ searchResults, isLoading }) {
                       />
                     </div>
                   )}
-
-                  <div className={cx('date-wrapper')}>
-                    <PostInfo date={node?.date} className={cx('meta')} />
-                  </div>
                 </div>
 
                 {node?.excerpt && (
-                <Link href={node?.uri}>
-                  <div
-                    dangerouslySetInnerHTML={{
-                      __html: calculateTrimmedExcerpt(
-                        node?.excerpt,
-                        node?.uri,
-                        node?.title,
-                      ),
-                    }}
-                  />
-                </Link>)}
+                  <Link href={node?.uri}>
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: calculateTrimmedExcerpt(
+                          node?.excerpt,
+                          node?.uri,
+                          node?.title,
+                        ),
+                      }}
+                    />
+                  </Link>
+                )}
               </div>
             </div>
           </div>
