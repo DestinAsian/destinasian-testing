@@ -119,6 +119,30 @@ export const GetSearchResults = gql`
                     }
                   }
                 }
+                ... on Update {
+                  title
+                  excerpt
+                  date
+                  featuredImage {
+                    node {
+                      id
+                      sourceUrl
+                      altText
+                      mediaDetails {
+                        width
+                        height
+                      }
+                    }
+                  }
+                  categories {
+                    edges {
+                      node {
+                        name
+                        uri
+                      }
+                    }
+                  }
+                }
                 ... on Advertorial {
                   title
                   excerpt

@@ -118,6 +118,16 @@ export default function SearchResults({ searchResults, isLoading }) {
                     </Link>
                   )}
 
+                  {/* Update */}
+                  {node?.contentType?.node?.graphqlPluralName == 'Updates' && (
+                    <Link href={node?.categories?.edges[0]?.node?.uri}>
+                      <h2 className={cx('meta')}>
+                        {node?.categories?.edges[0]?.node?.parent?.node?.name}{' '}
+                        {node?.categories?.edges[0]?.node?.name}
+                      </h2>
+                    </Link>
+                  )}
+
                   {/* HonorsCircle */}
                   {node?.contentType?.node?.graphqlPluralName ==
                     'HonorsCircles' && (
@@ -150,8 +160,6 @@ export default function SearchResults({ searchResults, isLoading }) {
                       <h2 className={cx('meta')}>{'Contest'}</h2>
                     </Link>
                   )}
-
-                  {/* Update */}
                 </div>
 
                 <Link href={node?.uri}>
