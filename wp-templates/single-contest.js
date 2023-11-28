@@ -101,11 +101,46 @@ export default function SingleContest(props) {
   const allPosts = mainCatPosts.sort(sortPostsByDate)
 
   const images = [
-    acfPostSlider.slide1 != null ? acfPostSlider.slide1.mediaItemUrl : null,
-    acfPostSlider.slide2 != null ? acfPostSlider.slide2.mediaItemUrl : null,
-    acfPostSlider.slide3 != null ? acfPostSlider.slide3.mediaItemUrl : null,
-    acfPostSlider.slide4 != null ? acfPostSlider.slide4.mediaItemUrl : null,
-    acfPostSlider.slide5 != null ? acfPostSlider.slide5.mediaItemUrl : null,
+    [
+      acfPostSlider?.slide1 != null
+        ? acfPostSlider?.slide1?.mediaItemUrl
+        : null,
+      acfPostSlider?.slideCaption1 != null
+        ? acfPostSlider?.slideCaption1
+        : null,
+    ],
+    [
+      acfPostSlider?.slide2 != null
+        ? acfPostSlider?.slide2?.mediaItemUrl
+        : null,
+      acfPostSlider?.slideCaption2 != null
+        ? acfPostSlider?.slideCaption2
+        : null,
+    ],
+    [
+      acfPostSlider?.slide3 != null
+        ? acfPostSlider?.slide3?.mediaItemUrl
+        : null,
+      acfPostSlider?.slideCaption3 != null
+        ? acfPostSlider?.slideCaption3
+        : null,
+    ],
+    [
+      acfPostSlider?.slide4 != null
+        ? acfPostSlider?.slide4?.mediaItemUrl
+        : null,
+      acfPostSlider?.slideCaption4 != null
+        ? acfPostSlider?.slideCaption4
+        : null,
+    ],
+    [
+      acfPostSlider?.slide5 != null
+        ? acfPostSlider?.slide5?.mediaItemUrl
+        : null,
+      acfPostSlider?.slideCaption5 != null
+        ? acfPostSlider?.slideCaption5
+        : null,
+    ],
   ]
 
   return (
