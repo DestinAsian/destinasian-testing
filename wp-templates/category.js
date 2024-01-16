@@ -33,6 +33,8 @@ export default function Component(props) {
     pinPosts,
     destinationGuides,
     databaseId,
+    seo,
+    uri,
   } = props?.data?.category ?? []
 
   // Get menus
@@ -112,7 +114,22 @@ export default function Component(props) {
 
   return (
     <>
-      <SEO title={siteTitle} description={siteDescription} />
+      <SEO
+        title={seo?.title}
+        description={seo?.metaDesc}
+        imageUrl={categoryImages?.categoryImages?.mediaItemUrl}
+        url={uri}
+        focuskw={seo?.focuskw}
+      />
+      {/* Google Tag Manager (noscript) */}
+      <noscript>
+        <iframe
+          src="https://www.googletagmanager.com/ns.html?id=GTM-5BJVGS"
+          height="0"
+          width="0"
+          className="invisible hidden"
+        ></iframe>
+      </noscript>
       <CategoryHeader
         title={siteTitle}
         description={siteDescription}
@@ -127,9 +144,7 @@ export default function Component(props) {
         latestLoading={latestLoading}
       />
 
-      <SecondaryHeader
-        databaseId={databaseId}
-      />
+      <SecondaryHeader databaseId={databaseId} />
 
       {/* EntryHeader category name */}
       <Container>
@@ -177,6 +192,12 @@ Component.query = gql`
       name
       description
       databaseId
+      uri
+      seo {
+        title
+        metaDesc
+        focuskw
+      }
       categoryImages {
         categoryImages {
           mediaItemUrl

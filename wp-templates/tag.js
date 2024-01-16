@@ -11,6 +11,7 @@ import {
   FeaturedImage,
   Post,
   SEO,
+  TagStories,
 } from '../components'
 import { GetMenus } from '../queries/GetMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
@@ -18,7 +19,12 @@ import { GetLatestStories } from '../queries/GetLatestStories'
 export default function Component(props) {
   const { title: siteTitle, description: siteDescription } =
     props?.data?.generalSettings
-  const { name, posts } = props?.data?.nodeByUri
+    const {
+      name,
+      databaseId,
+      seo,
+      uri,
+    } = props?.data?.tag ?? []
 
   // Get menus
   const { data: menusData, loading: menusLoading } = useQuery(GetMenus, {
@@ -92,22 +98,18 @@ export default function Component(props) {
     return dateB - dateA // Sort in descending order
   }
 
-  // sortByDate mainCat & childCat Posts
-  const allPosts = mainCatPosts.sort(sortPostsByDate)
+  // sortByDate latestCat & childCat Posts
+  const latestAllPosts = latestMainCatPosts.sort(sortPostsByDate)
 
   return (
     <>
-      <SEO title={siteTitle} description={siteDescription} />
-      {/* Google Tag Manager (noscript) */}
-      <noscript>
-        <iframe
-          src="https://www.googletagmanager.com/ns.html?id=GTM-5BJVGS"
-          height="0"
-          width="0"
-          className="invisible hidden"
-        ></iframe>
-      </noscript>
-      {/* End Google Tag Manager (noscript) */}
+      <SEO
+        title={seo?.title}
+        description={seo?.metaDesc}
+        url={uri}
+        focuskw={seo?.focuskw}
+      />
+
       <Header
         title={siteTitle}
         description={siteDescription}
@@ -117,56 +119,34 @@ export default function Component(props) {
         fourthMenuItems={fourthMenu}
         fifthMenuItems={fifthMenu}
         featureMenuItems={featureMenu}
-        latestStories={allPosts}
+        latestStories={latestAllPosts}
         menusLoading={menusLoading}
         latestLoading={latestLoading}
       />
       <Main>
         <>
-          <EntryHeader title={`Tag: ${name}`} />
-          <Container>
-            {posts.edges.map((post) => (
-              <Post
-                title={post.node.title}
-                content={post.node.content}
-                date={post.node.date}
-                author={post.node.author?.node.name}
-                uri={post.node.uri}
-                featuredImage={post.node.featuredImage?.node}
-              />
-            ))}
-          </Container>
+          <TagStories
+            tagUri={databaseId}
+            name={name}
+          />
         </>
       </Main>
-      <Footer title={siteTitle} menuItems={footerMenu} />
+      <Footer />
     </>
   )
 }
 
 Component.query = gql`
   ${BlogInfoFragment}
-  ${FeaturedImage.fragments.entry}
-  query GetTagPage($uri: String!) {
-    nodeByUri(uri: $uri) {
-      ... on Tag {
-        name
-        posts {
-          edges {
-            node {
-              id
-              title
-              content
-              date
-              uri
-              ...FeaturedImageFragment
-              author {
-                node {
-                  name
-                }
-              }
-            }
-          }
-        }
+  query GetTagPage($databaseId: ID!) {
+    tag(id: $databaseId, idType: DATABASE_ID) {
+      name
+      databaseId
+      uri
+      seo {
+        title
+        metaDesc
+        focuskw
       }
     }
     generalSettings {
@@ -175,8 +155,8 @@ Component.query = gql`
   }
 `
 
-Component.variables = ({ uri }) => {
+Component.variables = ({ databaseId }) => {
   return {
-    uri,
+    databaseId,
   }
 }

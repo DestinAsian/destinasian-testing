@@ -76,3 +76,4 @@ export { SingleLLSlider } from './SingleLLSlider';
 export { SingleSlider } from './SingleSlider';
 export { SingleUpdateEntryHeader } from './SingleUpdateEntryHeader';
 export { SkipNavigationLink } from './SkipNavigationLink';
+export { TagStories } from './TagStories';
