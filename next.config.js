@@ -17,6 +17,7 @@ module.exports = withFaust({
         pathname: '/**',
       },
     ],
+    unoptimized: true,
   },
   i18n: {
     locales: ['en'],
