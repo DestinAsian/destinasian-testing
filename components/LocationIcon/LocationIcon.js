@@ -25,6 +25,7 @@ export default function LocationIcon({
                 alt="Location Icon"
                 fill
                 sizes="100%"
+                priority
               />
             </Link>
           </figure>

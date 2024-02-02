@@ -69,6 +69,7 @@ export default function HCHeader({
                     alt="Destinasian Logo"
                     fill
                     sizes="100%"
+                    priority
                   />
                 ) : (
                   <Image
@@ -76,6 +77,7 @@ export default function HCHeader({
                     alt="DestinAsian Logo"
                     fill
                     sizes="100%"
+                    priority
                   />
                 )}
               </div>

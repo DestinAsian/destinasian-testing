@@ -73,6 +73,7 @@ export default function HomepageHeader({
                     alt="Destinasian Logo"
                     fill
                     sizes="100%"
+                    priority
                   />
                 ) : (
                   <Image
@@ -80,6 +81,7 @@ export default function HomepageHeader({
                     alt="Destinasian Logo"
                     fill
                     sizes="100%"
+                    priority
                   />
                 )}
               </div>

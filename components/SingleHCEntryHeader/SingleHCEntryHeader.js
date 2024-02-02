@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react'
 import locationIcon from '../../assets/icons/icon-location.png'
 import captionIcon from '../../assets/icons/icon-hc-caption.png'
 import hcLogo from '../../assets/logo/honors-circle-logo.png'
-import Image from "next/image"
+import Image from 'next/image'
 
 let cx = className.bind(styles)
 
@@ -35,12 +35,18 @@ export default function SingleHCEntryHeader({ title, locationLabel, caption }) {
         <div className={cx('icon-wrapper')}>
           {/* Location Icon */}
           <div className={cx('location-icon')}>
-            <Image src={locationIcon.src} alt="Location Icon" fill sizes="100%" />
+            <Image
+              src={locationIcon.src}
+              alt="Location Icon"
+              fill
+              sizes="100%"
+              priority
+            />
           </div>
           {/* Location label */}
           <div className={cx('icon-label')}>{locationLabel}</div>
         </div>
       </div>
     </div>
-  );
+  )
 }

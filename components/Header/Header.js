@@ -68,6 +68,7 @@ export default function Header({
                   alt="Destinasian Logo"
                   fill
                   sizes="100%"
+                  priority
                 />
               </div>
             </Link>

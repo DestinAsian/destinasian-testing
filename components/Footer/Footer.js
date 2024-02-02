@@ -161,6 +161,7 @@ export default function Footer() {
                     alt="Destinasian Indonesia Logo"
                     fill
                     sizes="100%"
+                    priority
                   />
                 </Link>
               </div>
@@ -171,6 +172,7 @@ export default function Footer() {
                     alt="DaMan Logo"
                     fill
                     sizes="100%"
+                    priority
                   />
                 </Link>
               </div>
@@ -181,6 +183,7 @@ export default function Footer() {
                     alt="Prestige Logo"
                     fill
                     sizes="100%"
+                    priority
                   />
                 </Link>
               </div>
@@ -191,6 +194,7 @@ export default function Footer() {
                     alt="Scop3Group Logo"
                     fill
                     sizes="100%"
+                    priority
                   />
                 </Link>
               </div>

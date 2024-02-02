@@ -47,7 +47,13 @@ export default function SingleSlider({ images }) {
           <div className="post-swiper-slide">
             {image[0] && (
               <SwiperSlide key={index}>
-                <Image src={image[0]} alt="Slider Image" fill sizes="100%" />
+                <Image
+                  src={image[0]}
+                  alt="Slider Image"
+                  fill
+                  sizes="100%"
+                  priority
+                />
                 <figcaption className={'slide-caption'}>{image[1]}</figcaption>
               </SwiperSlide>
             )}

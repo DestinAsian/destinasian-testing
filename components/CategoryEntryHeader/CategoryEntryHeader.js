@@ -1,7 +1,7 @@
 import className from 'classnames/bind'
 import { Heading, Container } from '..'
 import styles from './CategoryEntryHeader.module.scss'
-import Image from "next/image"
+import Image from 'next/image'
 
 let cx = className.bind(styles)
 
@@ -43,7 +43,7 @@ export default function CategoryEntryHeader({
               )}
               {image && (
                 <figure className={cx('image')}>
-                  <Image src={image} alt={title} fill sizes="100%" />
+                  <Image src={image} alt={title} fill sizes="100%" priority />
                 </figure>
               )}
               {children.length !== 0 && (
@@ -54,5 +54,5 @@ export default function CategoryEntryHeader({
         )}
       </div>
     </div>
-  );
+  )
 }

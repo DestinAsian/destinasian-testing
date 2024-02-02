@@ -72,6 +72,7 @@ export default function SingleHeader({
                   alt="Destinasian Logo"
                   fill
                   sizes="100%"
+                  priority
                 />
               </div>
             </Link>

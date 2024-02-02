@@ -85,6 +85,7 @@ export default function FeatureWell({ featureWells }) {
                         alt="Feature Well Image"
                         fill
                         sizes="100%"
+                        priority
                       />
                       <div className={cx('caption-wrapper')}>
                         {featureWell.caption}
@@ -99,6 +100,7 @@ export default function FeatureWell({ featureWells }) {
                         alt="Feature Well Image"
                         fill
                         sizes="100%"
+                        priority
                       />
                       <div className={cx('caption-wrapper')}>
                         {featureWell.caption}
