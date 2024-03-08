@@ -31,11 +31,15 @@ export default function RCAHeader({
   isNavShown,
   setIsNavShown,
   isRCANavShown,
+  setIsRCANavShown,
 }) {
   const isDesktop = useMediaQuery({ minWidth: 768 })
   const [isScrolled, setIsScrolled] = useState(false)
 
   const isParent = parent == null
+  const navShown = isNavShown && !isRCANavShown
+  const rcaNavShown = isRCANavShown && !isNavShown
+  const twoNavShown = isNavShown && isRCANavShown
 
   // Add sticky header on scroll
   useEffect(() => {
@@ -62,8 +66,9 @@ export default function RCAHeader({
       className={cx('component', {
         sticky: isScrolled,
         parentColor: isParent,
-        navShown: isNavShown,
-        rcaNavShown: isRCANavShown, 
+        navShown: navShown,
+        rcaNavShown: rcaNavShown,
+        twoNavShown: twoNavShown,
       })}
     >
       <SkipNavigationLink />

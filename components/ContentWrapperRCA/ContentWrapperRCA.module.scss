@@ -76,6 +76,8 @@
   }
 
   .content-index {
+    font-family: 'Ringside Regular A', 'Ringside Regular B';
+    font-weight: 700;
     color: var(--wpe--color--white--smoke);
 
     svg {
@@ -85,7 +87,7 @@
     }
   }
 
-  .content-name {
+  .content-list {
     padding: 0;
     display: flex;
     flex-direction: row;
@@ -94,6 +96,11 @@
     justify-content: flex-start;
     align-items: center;
     width: 100%;
+  }
+
+  .content-property-name {
+    font-family: 'Unit Slab Pro Black';
+    line-height: 1.2;
   }
 
   .content-url {

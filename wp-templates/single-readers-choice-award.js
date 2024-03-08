@@ -313,6 +313,7 @@ export default function singleRca(props) {
             isNavShown={isNavShown}
             setIsNavShown={setIsNavShown}
             isRCANavShown={isRCANavShown}
+            setIsRCANavShown={setIsRCANavShown}
           />
           <Main>
             <>

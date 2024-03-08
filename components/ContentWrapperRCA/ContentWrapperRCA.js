@@ -137,7 +137,7 @@ export default function ContentWrapperRCA({
                   key={index}
                 >
                   <button
-                    className={cx('content-name')}
+                    className={cx('content-list')}
                     onClick={() => {
                       slideTo(index)
                       handleSlideChange(index)
