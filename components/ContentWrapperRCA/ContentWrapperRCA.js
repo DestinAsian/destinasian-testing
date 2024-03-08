@@ -16,7 +16,7 @@ export default function ContentWrapperRCA({
   uri,
   rcaIndexData,
 }) {
-  const batchSize = 30
+  const batchSize = 100
   const [isNavShown, setIsNavShown] = useState(false)
   const [swiperRef, setSwiperRef] = useState(null)
   const [activeIndex, setActiveIndex] = useState(0)
@@ -86,8 +86,6 @@ export default function ContentWrapperRCA({
 
   // Total number of RCAs in a year
   const numberOfRCA = rcaAll?.length
-
-  console.log(indexOfRCA)
 
   // Navigation of RCA individual page
   const prevIndex = indexOfRCA - 1 - 1
