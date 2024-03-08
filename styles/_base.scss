@@ -83,7 +83,7 @@ iframe {
   float: left;
   line-height: 1;
 
-    @media (min-width: $breakpoint-extra-small) {
+  @media (min-width: $breakpoint-extra-small) {
     font-size: 10rem;
   }
 }
@@ -102,6 +102,9 @@ span.screen-reader-text {
   display: none;
 }
 
+li.unclickable > a {
+  pointer-events: none;
+}
 
 ::-moz-selection {
   color: var(--wpe--color--white);

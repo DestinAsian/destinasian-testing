@@ -14,7 +14,7 @@ $input-border-color: rgb(221, 221, 221);
   top: 50%;
   left: 1rem;
   transform: translateY(-50%);
-  color: var(--color-black);
+  color: var(--wpe--color--black);
 
   @media (min-width: $breakpoint-extra-small) {
     width: 1.5rem;
@@ -28,7 +28,7 @@ $input-border-color: rgb(221, 221, 221);
   top: 50%;
   right: 1rem;
   transform: translateY(-50%);
-  color: var(--color-black);
+  color: var(--wpe--color--black);
 
   @media (min-width: $breakpoint-extra-small) {
     display: block;

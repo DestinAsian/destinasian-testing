@@ -1,0 +1,176 @@
+@import 'styles/breakpoints';
+
+.component {
+  background-color: transparent;
+  font-family: 'Ringside Regular A', 'Ringside Regular B';
+  font-weight: 700;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: flex-start;
+}
+
+.full-menu-content {
+  display: block;
+  height: calc(-10.5rem + 100vh);
+  width: 100%;
+  overflow-x: hidden;
+  padding: 0 0 7rem;
+  transition: transform 0.1s ease-out;
+  transition: top 0.4s ease-in-out;
+  flex-direction: column;
+
+  * {
+    font-size: 1rem;
+    text-transform: uppercase;
+    color: var(--wpe--color--white--smoke);
+  }
+
+  @media (min-width: $breakpoint-extra-small) {
+    padding: 0 0 2rem;
+    height: calc(-4.5rem + 100vh);
+    width: 100%;
+  }
+
+  .image-wrapper {
+    display: flex;
+    width: 100%;
+    margin: 0 auto;
+    flex-direction: column;
+    row-gap: 0.5rem;
+    align-items: flex-end;
+    padding: 1rem 1rem 0;
+
+    @media (min-width: $breakpoint-small) {
+      padding: 1rem;
+    }
+
+    figure {
+      width: 5rem;
+      height: 5rem;
+      position: relative;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+
+  .menu-wrapper {
+    display: block;
+    width: 100%;
+    height: calc(-4rem + 100vh);
+    padding: 0 1rem 7rem;
+    font-weight: 400;
+    text-align: left;
+
+    :global {
+      // Scope WordPress block styles within ContentWrapper.
+      @import 'styles/blocks';
+
+      * {
+        font-family: 'ChunkFive-Regular';
+        color: var(--wpe--color--white--smoke);
+        white-space: normal;
+        letter-spacing: 0.05rem;
+      }
+
+      nav > ul {
+        padding: 0.5rem 0 2rem;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        font-size: 1.5rem;
+        line-height: 1.2;
+        text-transform: uppercase;
+        // width: fit-content;
+        font-family: 'ChunkFive-Regular';
+        font-weight: 400;
+
+        @media (min-width: $breakpoint-extra-small) {
+          flex-direction: column;
+          flex-wrap: wrap;
+          max-height: calc(-16rem + 100vh);
+        }
+
+        li ul {
+          flex-direction: column;
+        }
+      }
+
+      nav > ul > li {
+        flex: 1 1 30%;
+        max-height: 100%;
+
+        @media (min-width: $breakpoint-extra-small) {
+          flex: 1 0 33.33%; /* Three items in each row */
+          box-sizing: border-box;
+          max-width: 100%;
+        }
+      }
+
+      ul {
+        padding: 0 0 2rem;
+
+        @media (min-width: $breakpoint-extra-small) {
+          padding: 0 0 4rem;
+        }
+
+        a:hover,
+        a:focus {
+          color: var(--wpe--color--dark--sand);
+        }
+      }
+
+      nav > ul > li > a {
+        font-size: 1.5rem;
+        line-height: 1.2;
+        text-transform: uppercase;
+        text-align: center;
+        padding: 0.5rem 0;
+        font-family: 'ChunkFive-Regular';
+        font-weight: 400;
+      }
+
+      ul > li > a {
+        font-size: 1rem;
+        word-spacing: 0;
+        text-transform: capitalize;
+        width: fit-content;
+        padding: 0.1rem 0;
+      }
+    }
+
+    @media (min-width: $breakpoint-extra-small) {
+      padding: 1rem 1rem 7rem;
+      margin: 0 auto;
+    }
+  }
+
+  .close-button {
+    display: none;
+
+    @media (min-width: $breakpoint-extra-small) {
+      display: block;
+      position: absolute;
+      left: 60vw;
+      width: 40vw;
+      bottom: 2rem;
+      text-align: center;
+    }
+
+    .close-icon {
+      margin: 0 auto;
+      width: 50%;
+      display: flex;
+      justify-content: center;
+    }
+
+    svg {
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+}

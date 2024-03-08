@@ -12,7 +12,8 @@ import singleAdvertorial from './single-advertorial'
 import singleHonorsCircle from './single-honors-circle'
 import singleUpdate from './single-update'
 import singleContest from './single-contest'
-import SingleLuxeList from './single-luxe-list'
+import singleLuxeList from './single-luxe-list'
+import singleRca from './single-readers-choice-award'
 
 export default {
   category,
@@ -29,5 +30,6 @@ export default {
   'single-honors-circle': singleHonorsCircle,
   'single-update': singleUpdate,
   'single-contest': singleContest,
-  'single-luxe-list': SingleLuxeList,
+  'single-luxe-list': singleLuxeList,
+  'single-readers-choice-award': singleRca,
 }

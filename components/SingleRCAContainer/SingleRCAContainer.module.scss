@@ -1,0 +1,25 @@
+@import 'styles/breakpoints';
+
+.component {
+  margin-right: 0;
+  margin-left: 0;
+  width: 100vw;
+  background-color: var(--wpe--color--deep--black);
+  padding: 0 0 2rem;
+  overflow: hidden;
+
+  @media ((min-width: $breakpoint-extra-small) and (max-width: $breakpoint-small)) {
+    top: 0;
+    min-height: calc(-3.5rem + 100vh);
+  }
+
+  @media (min-width: $breakpoint-small) {
+    top: 0;
+    min-height: calc(-4.5rem + 100vh);
+  }
+
+  img {
+    object-fit: cover;
+    object-position: center;
+  }
+}
