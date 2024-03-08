@@ -30,6 +30,7 @@ export default function RCAHeader({
   uri,
   isNavShown,
   setIsNavShown,
+  isRCANavShown,
 }) {
   const isDesktop = useMediaQuery({ minWidth: 768 })
   const [isScrolled, setIsScrolled] = useState(false)
@@ -62,6 +63,7 @@ export default function RCAHeader({
         sticky: isScrolled,
         parentColor: isParent,
         navShown: isNavShown,
+        rcaNavShown: isRCANavShown, 
       })}
     >
       <SkipNavigationLink />

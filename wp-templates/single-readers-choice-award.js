@@ -23,6 +23,7 @@ export default function singleRca(props) {
   }
 
   const [isNavShown, setIsNavShown] = useState(false)
+  const [isRCANavShown, setIsRCANavShown] = useState(false)
 
   // Stop scrolling pages when isNavShown
   useEffect(() => {
@@ -32,6 +33,15 @@ export default function singleRca(props) {
       document.body.style.overflow = 'visible'
     }
   }, [isNavShown])
+
+  // Stop scrolling pages when isNavShown
+  useEffect(() => {
+    if (isRCANavShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isRCANavShown])
 
   const {
     title,
@@ -288,6 +298,7 @@ export default function singleRca(props) {
             parent={parent}
             isNavShown={isNavShown}
             setIsNavShown={setIsNavShown}
+            isRCANavShown={isRCANavShown}
           />
           <Main>
             <>
@@ -307,6 +318,9 @@ export default function singleRca(props) {
                         parentDatabaseId={parent?.node?.databaseId}
                         uri={parent?.node?.uri}
                         rcaIndexData={rcaIndexData}
+                        sliderLoading={sliderLoading}
+                        isNavShown={isRCANavShown}
+                        setIsNavShown={setIsRCANavShown}
                       />
                     </div>
                   </div>
