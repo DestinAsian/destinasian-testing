@@ -1,7 +1,6 @@
 import className from 'classnames/bind'
 import styles from './ContentWrapperRCAFrontPage.module.scss'
 import React from 'react'
-import Link from 'next/link'
 
 let cx = className.bind(styles)
 
