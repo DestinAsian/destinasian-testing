@@ -14,6 +14,7 @@ import {
 import { GetMenus } from '../queries/GetMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
 import { GetRCASlider } from '../queries/GetRCASlider'
+import { GetRCAPagination } from '../queries/GetRCAPagination'
 import { useEffect, useState } from 'react'
 
 export default function singleRca(props) {
@@ -22,6 +23,7 @@ export default function singleRca(props) {
     return <>Loading...</>
   }
 
+  const batchSize = 100
   const [isNavShown, setIsNavShown] = useState(false)
   const [isRCANavShown, setIsRCANavShown] = useState(false)
 
@@ -128,6 +130,16 @@ export default function singleRca(props) {
 
   // sortByDate latestCat & childCat Posts
   const latestAllPosts = latestMainCatPosts.sort(sortPostsByDate)
+
+  // Get RCA Pagination
+  const { data: paginationData, loading: paginationLoading } = useQuery(
+    GetRCAPagination,
+    {
+      variables: { first: batchSize, after: null, id: databaseId },
+      fetchPolicy: 'network-only',
+      nextFetchPolicy: 'cache-and-network',
+    },
+  )
 
   // Get menus
   const { data: sliderData, loading: sliderLoading } = useQuery(GetRCASlider, {
@@ -270,8 +282,10 @@ export default function singleRca(props) {
                     <div className="sm:relative sm:mx-auto">
                       <ContentWrapperRCAFrontPage
                         content={content}
-                        databaseId={databaseId}
-                        uri={uri}
+                        firstIndex={
+                          paginationData?.readersChoiceAwardBy?.children
+                            ?.edges[0]?.node?.uri
+                        }
                       />
                     </div>
                   </div>
@@ -314,13 +328,14 @@ export default function singleRca(props) {
                       />
                       <ContentWrapperRCA
                         images={rcaImages}
-                        databaseId={databaseId}
                         parentDatabaseId={parent?.node?.databaseId}
                         uri={parent?.node?.uri}
                         rcaIndexData={rcaIndexData}
                         sliderLoading={sliderLoading}
                         isNavShown={isRCANavShown}
                         setIsNavShown={setIsRCANavShown}
+                        paginationData={paginationData}
+                        paginationLoading={paginationLoading}
                       />
                     </div>
                   </div>

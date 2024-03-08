@@ -1,25 +1,23 @@
 import className from 'classnames/bind'
 import styles from './ContentWrapperRCA.module.scss'
 import { RCAFullMenu, SingleRCASlider } from '../../components'
-import { useQuery } from '@apollo/client'
 import React, { useRef } from 'react'
 import { useEffect, useState } from 'react'
-import { GetRCAPagination } from '../../queries/GetRCAPagination'
 import Link from 'next/link'
 
 let cx = className.bind(styles)
 
 export default function ContentWrapperRCA({
   images,
-  databaseId,
   parentDatabaseId,
   uri,
   rcaIndexData,
   sliderLoading,
   isNavShown,
   setIsNavShown,
+  paginationData,
+  paginationLoading,
 }) {
-  const batchSize = 100
   const [swiperRef, setSwiperRef] = useState(null)
   const [activeIndex, setActiveIndex] = useState(0)
   const [hash, setHash] = useState('')
@@ -60,13 +58,13 @@ export default function ContentWrapperRCA({
 
   // console.log('Active Index: ' + activeIndex)
 
-  const { data, loading, error, fetchMore } = useQuery(GetRCAPagination, {
-    variables: { first: batchSize, after: null, id: databaseId },
-    fetchPolicy: 'network-only',
-    nextFetchPolicy: 'cache-and-network',
-  })
+  // const { data, loading, error, fetchMore } = useQuery(GetRCAPagination, {
+  //   variables: { first: batchSize, after: null, id: databaseId },
+  //   fetchPolicy: 'network-only',
+  //   nextFetchPolicy: 'cache-and-network',
+  // })
 
-  if (loading || sliderLoading) {
+  if (paginationLoading || sliderLoading) {
     return (
       <>
         <div className="mx-auto my-0 flex max-w-[100vw] justify-center md:max-w-[700px]	">
@@ -93,16 +91,13 @@ export default function ContentWrapperRCA({
     )
   }
 
-  if (error) {
-    return <pre>{JSON.stringify(error)}</pre>
-  }
-
-  const rcaAll = data?.readersChoiceAwardBy?.parent?.node?.children?.edges.map(
-    (post) => post.node,
-  )
+  const rcaAll =
+    paginationData?.readersChoiceAwardBy?.parent?.node?.children?.edges.map(
+      (post) => post.node,
+    )
 
   // Index number for each of Individual Page
-  const indexOfRCA = data?.readersChoiceAwardBy?.menuOrder
+  const indexOfRCA = paginationData?.readersChoiceAwardBy?.menuOrder
 
   // Total number of RCAs in a year
   const numberOfRCA = rcaAll?.length

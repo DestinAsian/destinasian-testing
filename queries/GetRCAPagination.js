@@ -31,6 +31,18 @@ export const GetRCAPagination = gql`
           }
         }
       }
+      children(
+        where: { orderby: { field: MENU_ORDER, order: ASC } }
+        first: 1
+      ) {
+        edges {
+          node {
+            ... on ReadersChoiceAward {
+              uri
+            }
+          }
+        }
+      }
     }
   }
 `
