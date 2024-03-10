@@ -47,13 +47,13 @@
   }
 
   .button-pagination {
-    padding: 0 1rem 0.5rem;
+    padding: 0.25rem 1rem 0.25rem;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 
     @media (min-width: $breakpoint-extra-small) {
-      padding: 0 2rem 1rem;
+      padding: 0.5rem 2rem 0.5rem;
     }
 
     &.active {
