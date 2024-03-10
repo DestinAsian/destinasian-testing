@@ -323,11 +323,9 @@ export default function singleRca(props) {
                   <div className="sm:relative sm:h-[100vh] sm:flex-row sm:flex-wrap sm:overflow-y-auto">
                     {/* First wrapper */}
                     <div className="sm:relative sm:mx-auto">
-                      <SingleRCAEntryHeader
+                      <ContentWrapperRCA
                         title={title}
                         category={categories?.edges[0]?.node?.name}
-                      />
-                      <ContentWrapperRCA
                         images={rcaImages}
                         parentDatabaseId={parent?.node?.databaseId}
                         uri={parent?.node?.uri}

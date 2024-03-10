@@ -12,18 +12,21 @@
   font-weight: 400;
   letter-spacing: 0.08rem;
   padding: 0;
+  top: 20rem;
+  height: fit-content;
 
   @media (min-width: $breakpoint-extra-small) {
     max-width: 700px;
-    padding: 0 5rem 0;
-    margin: 0 auto 2rem;
+    padding: 0 5rem 2rem;
+    margin: 0 auto;
+    top: 0;
   }
 }
 
 .header-wrapper {
   display: flex;
   margin: 0 auto;
-  padding: 0 1rem 1rem;
+  padding: 1rem;
   flex-direction: row-reverse;
   row-gap: 0.5rem;
   align-items: flex-start;
@@ -39,7 +42,7 @@
 .category {
   color: var(--wpe--color--black);
   background-color: var(--wpe--color--white--smoke);
-  font-size: 0.6rem;
+  font-size: 0.5rem;
   line-height: 1.2;
   text-transform: uppercase;
   text-align: center;
@@ -47,14 +50,23 @@
   width: fit-content;
   font-family: 'Ringside Regular A', 'Ringside Regular B';
   font-weight: 700;
+  letter-spacing: normal;
+
+  @media (min-width: $breakpoint-extra-small) {
+    font-size: 0.6rem;
+  }
 }
 
 .title {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   line-height: 1.2;
   text-transform: uppercase;
   color: var(--wpe--color--white--smoke);
   text-align: left;
   text-align-last: left;
   letter-spacing: 0.08rem;
+
+  @media (min-width: $breakpoint-extra-small) {
+    font-size: 1.5rem;
+  }
 }

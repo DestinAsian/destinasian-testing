@@ -1,6 +1,10 @@
 import className from 'classnames/bind'
 import styles from './ContentWrapperRCA.module.scss'
-import { RCAFullMenu, SingleRCASlider } from '../../components'
+import {
+  RCAFullMenu,
+  SingleRCAEntryHeader,
+  SingleRCASlider,
+} from '../../components'
 import React, { useRef } from 'react'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
@@ -8,6 +12,8 @@ import Link from 'next/link'
 let cx = className.bind(styles)
 
 export default function ContentWrapperRCA({
+  title,
+  category,
   images,
   parentDatabaseId,
   uri,
@@ -123,6 +129,7 @@ export default function ContentWrapperRCA({
         </div>
       )}
       {images[0] == null && <div className={cx('slider-wrapper')}></div>}
+      <SingleRCAEntryHeader title={title} category={category} />
       <article className={cx('component')}>
         <div className={cx('with-slider-wrapper')}>
           <div className={cx('content-wrapper')}>

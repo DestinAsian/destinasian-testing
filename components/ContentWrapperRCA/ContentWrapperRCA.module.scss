@@ -5,6 +5,9 @@
   margin: 0 auto;
   line-height: 1.2;
   padding: 0;
+  position: relative;
+  top: 20rem;
+  height: 100vh;
 
   @media (min-width: $breakpoint-extra-small) {
     margin: 0 auto;
@@ -12,6 +15,7 @@
     width: 100%;
     position: relative;
     max-width: 700px;
+    top: 0;
   }
 
   .content-wrapper {
@@ -43,13 +47,13 @@
   }
 
   .button-pagination {
-    padding: 0.5rem 1rem 0.5rem;
+    padding: 0 1rem 0.5rem;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 
     @media (min-width: $breakpoint-extra-small) {
-      padding: 0.5rem 2rem 0.5rem;
+      padding: 0 2rem 1rem;
     }
 
     &.active {
@@ -73,6 +77,11 @@
     padding: 0.25rem 0;
     min-width: 2rem;
     text-align: left;
+    font-size: 1rem;
+
+    @media (min-width: $breakpoint-extra-small) {
+      font-size: 1.25rem;
+    }
   }
 
   .content-index {
@@ -100,7 +109,11 @@
 
   .content-property-name {
     font-family: 'Unit Slab Pro Black';
-    line-height: 1.2;
+    line-height: 1;
+
+    @media (min-width: $breakpoint-extra-small) {
+      line-height: 1.2;
+    }
   }
 
   .content-url {
@@ -122,7 +135,7 @@
         font-weight: 400;
 
         &:hover {
-          color: var(--wpe--color--dark--sand);
+          color: var(--wpe--color--white--smoke);
         }
       }
     }
@@ -157,7 +170,7 @@
     justify-content: center;
     width: 30%;
     box-sizing: border-box;
-    min-height: 5rem;
+    min-height: 3rem;
     height: 100%;
 
     @media (min-width: $breakpoint-small) {
@@ -174,7 +187,7 @@
 
       &:hover,
       &:focus {
-        color: var(--wpe--color--dark--sand);
+        color: var(--wpe--color--white--smoke);
       }
 
       @media (min-width: $breakpoint-small) {
@@ -187,15 +200,21 @@
       padding: 0 1rem;
 
       svg {
-        width: 2rem;
-        height: 2rem;
+        width: 1rem;
+        height: 1rem;
+
+        @media (min-width: $breakpoint-extra-small) {
+          width: 1.5rem;
+          height: 1.5rem;
+        }
+
         path {
-          stroke: var(--wpe--color--white--smoke);
+          stroke: var(--wpe--color--grey);
         }
         &:hover,
         &:focus {
           path {
-            stroke: var(--wpe--color--dark--sand);
+            stroke: var(--wpe--color--white--smoke);
           }
         }
       }
@@ -206,15 +225,21 @@
       padding: 0 1rem;
 
       svg {
-        width: 2rem;
-        height: 2rem;
+        width: 1rem;
+        height: 1rem;
+
+        @media (min-width: $breakpoint-extra-small) {
+          width: 1.5rem;
+          height: 1.5rem;
+        }
+
         path {
-          stroke: var(--wpe--color--white--smoke);
+          stroke: var(--wpe--color--grey);
         }
         &:hover,
         &:focus {
           path {
-            stroke: var(--wpe--color--dark--sand);
+            stroke: var(--wpe--color--white--smoke);
           }
         }
       }
@@ -232,7 +257,7 @@
     justify-content: center;
     width: 40%;
     box-sizing: border-box;
-    min-height: 5rem;
+    min-height: 3rem;
     height: 100%;
 
     @media (min-width: $breakpoint-small) {
@@ -257,7 +282,8 @@
 
     &:hover,
     &:focus {
-      color: var(--wpe--color--dark--sand);
+      color: var(--wpe--color--white--smoke);
+      text-decoration: underline;
     }
 
     @media (min-width: $breakpoint-small) {
@@ -360,7 +386,7 @@
 
       &:hover,
       &:focus {
-        color: var(--wpe--color--dark--sand);
+        color: var(--wpe--color--white--smoke);
         text-decoration: none;
       }
     }
@@ -466,11 +492,13 @@
 }
 
 .slider-wrapper {
-  padding: 0 0 0.5rem;
-
-  @media (min-width: $breakpoint-small) {
-    padding: 0 0 1rem;
-  }
+  position: fixed;
+  top: 3.5rem;
+  left: 0;
+  width: 100vw;
+  padding: 0;
+  height: 20rem;
+  z-index: 48;
 
   @media (min-width: $breakpoint-extra-small) {
     position: fixed;
@@ -492,7 +520,7 @@
   width: 100vw;
   height: 100vh;
   position: fixed;
-  z-index: 51;
+  z-index: 49;
   top: -150vh;
   background-color: var(--wpe--color--jet--grey);
   color: var(--wpe--color--black);
@@ -501,7 +529,7 @@
     padding: 0;
     gap: 1rem;
     top: 3.5rem;
-    height: calc(-8.5rem + 100vh);
+    height: calc(-6.5rem + 100vh);
     transition: top 0.4s ease-in-out;
 
     @media (min-width: $breakpoint-small) {

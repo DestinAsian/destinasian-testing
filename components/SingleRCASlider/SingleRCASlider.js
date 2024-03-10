@@ -37,7 +37,7 @@ export default function SingleRCASlider({
         // }}
         effect={'fade'}
         loop={true}
-        direction={'vertical'}
+        direction={'horizontal'}
         pagination={{
           clickable: true,
           el: '.swiper-rca-custom-pagination',

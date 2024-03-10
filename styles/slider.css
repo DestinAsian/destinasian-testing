@@ -282,7 +282,7 @@
   background: #ebb232;
 }
 
-.swiper-rca-custom-pagination.swiper-pagination-bullets.swiper-pagination-vertical {
+.swiper-rca-custom-pagination.swiper-pagination-bullets.swiper-pagination-horizontal {
   display: none;
   bottom: auto;
   justify-content: center;
@@ -323,7 +323,7 @@
     padding: 0;
   }
 
-  .swiper-rca-custom-pagination.swiper-pagination-bullets.swiper-pagination-vertical {
+  .swiper-rca-custom-pagination.swiper-pagination-bullets.swiper-pagination-horizontal {
     display: block;
     top: 50%;
     left: 0.5rem;
@@ -335,7 +335,7 @@
     padding: 0;
   }
 
-  .swiper-rca-custom-pagination.swiper-pagination-bullets.swiper-pagination-vertical
+  .swiper-rca-custom-pagination.swiper-pagination-bullets.swiper-pagination-horizontal
     .swiper-pagination-bullet {
     margin: var(--swiper-pagination-bullet-vertical-gap, 8px) 0;
     display: block;

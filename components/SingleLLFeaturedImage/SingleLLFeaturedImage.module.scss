@@ -22,7 +22,7 @@
     top: 0;
     left: 50%;
     width: 100%;
-    z-index: 900;
+    z-index: 49;
     transform: translate(-50%, 3.5rem);
     background-color: var(--wpe--color--black);
 
@@ -70,7 +70,7 @@
   color: var(--wpe--color--white);
   position: fixed;
   padding: 1rem;
-  z-index: 900;
+  z-index: 49;
   top: 0;
 
   // Sticky menu with background
