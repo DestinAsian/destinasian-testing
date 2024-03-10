@@ -153,11 +153,13 @@
     padding: 0;
     background-color: var(--wpe--color--deep--black);
     align-items: center;
+    z-index: 49;
 
     @media (min-width: $breakpoint-extra-small) {
       height: 5.25rem;
       left: 60vw;
       width: 40vw;
+      z-index: 48;
       // padding: 1rem 2rem;
     }
   }
@@ -498,7 +500,7 @@
   width: 100vw;
   padding: 0;
   height: 20rem;
-  z-index: 48;
+  z-index: 47;
 
   @media (min-width: $breakpoint-extra-small) {
     position: fixed;
@@ -520,7 +522,7 @@
   width: 100vw;
   height: 100vh;
   position: fixed;
-  z-index: 49;
+  z-index: 48;
   top: -150vh;
   background-color: var(--wpe--color--jet--grey);
   color: var(--wpe--color--black);
@@ -529,7 +531,7 @@
     padding: 0;
     gap: 1rem;
     top: 3.5rem;
-    height: calc(-6.5rem + 100vh);
+    height: calc(-4.5rem + 100vh);
     transition: top 0.4s ease-in-out;
 
     @media (min-width: $breakpoint-small) {

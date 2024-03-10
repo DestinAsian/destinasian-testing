@@ -152,12 +152,7 @@
   }
 
   .close-button {
-    display: block;
-    position: absolute;
-    left: 0;
-    width: 100vw;
-    bottom: 0.5rem;
-    text-align: center;
+    display: none;
 
     @media (min-width: $breakpoint-extra-small) {
       display: block;
@@ -176,13 +171,8 @@
     }
 
     svg {
-      width: 1.2rem;
-      height: 1.2rem;
-
-      @media (min-width: $breakpoint-extra-small) {
-        width: 2rem;
-        height: 2rem;
-      }
+      width: 2rem;
+      height: 2rem;
     }
   }
 }
