@@ -61,7 +61,7 @@
   .menu-wrapper {
     display: block;
     width: 100%;
-    height: calc(-4rem + 100vh);
+    height: 100%;
     padding: 0 1rem 7rem;
     font-weight: 400;
     text-align: left;
@@ -80,6 +80,10 @@
         color: var(--wpe--color--white--smoke);
         white-space: normal;
         letter-spacing: 0.08rem;
+      }
+
+      nav {
+        padding: 0 0 5rem;
       }
 
       nav > ul {
