@@ -3,7 +3,7 @@
 .component {
   color: var(--wpe--header--color);
   background-color: var(--wpe--color--deep--black);
-  position: relative;
+  position: fixed;
   width: 100%;
   z-index: 50;
 }

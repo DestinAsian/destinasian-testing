@@ -7,14 +7,12 @@
   background-color: var(--wpe--color--deep--black);
   padding: 0 0 2rem;
   overflow: hidden;
-
-  @media ((min-width: $breakpoint-extra-small) and (max-width: $breakpoint-small)) {
-    top: 0;
-    min-height: calc(-3.5rem + 100vh);
-  }
+  position: relative;
+  top: 3.5rem;
+  min-height: 100vh;
 
   @media (min-width: $breakpoint-small) {
-    top: 0;
+    top: 4.5rem;
     min-height: calc(-4.5rem + 100vh);
   }
 

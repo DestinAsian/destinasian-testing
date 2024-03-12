@@ -5,7 +5,6 @@ import React from 'react'
 let cx = className.bind(styles)
 
 export default function ContentWrapperRCAFrontPage({ content, firstIndex }) {
-  console.log(firstIndex)
   return (
     <article className={cx('component')}>
       <div

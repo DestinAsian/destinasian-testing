@@ -50,8 +50,6 @@ export default function ContentWrapperRCA({
     }
   }, [hash])
 
-  // console.log(swiperRef)
-
   const slideTo = (index) => {
     swiperRef.slideTo(index)
 
@@ -61,8 +59,6 @@ export default function ContentWrapperRCA({
   const handleSlideChange = (index) => {
     setActiveIndex(index)
   }
-
-  // console.log('Active Index: ' + activeIndex)
 
   // const { data, loading, error, fetchMore } = useQuery(GetRCAPagination, {
   //   variables: { first: batchSize, after: null, id: databaseId },
