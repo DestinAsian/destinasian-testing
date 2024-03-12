@@ -7,7 +7,7 @@
   padding: 0;
   position: relative;
   top: 20rem;
-  height: 100vh;
+  height: calc(7rem + 100vh);
 
   @media (min-width: $breakpoint-extra-small) {
     margin: 0 auto;
@@ -27,8 +27,12 @@
   }
 
   .with-slider-wrapper {
-    padding: 0 0 5rem;
-    position: relative; /* Ensure positioning context for children */
+    padding: 0 0 7rem;
+    position: relative;
+
+    @media (min-width: $breakpoint-extra-small) {
+      padding: 0 0 5rem;
+    }
   }
 
   .content-wrapper {
