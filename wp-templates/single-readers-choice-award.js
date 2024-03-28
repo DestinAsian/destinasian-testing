@@ -53,7 +53,6 @@ export default function singleRca(props) {
     uri,
     databaseId,
     categories,
-    content,
   } = props?.data?.readersChoiceAward
 
   // Get menus
@@ -275,10 +274,17 @@ export default function singleRca(props) {
               <SingleRCAContainer
                 parent={parent}
                 image={featuredImage?.node?.sourceUrl}
+                firstUri={
+                  paginationData?.readersChoiceAwardBy?.children?.edges[0]?.node
+                    ?.uri
+                }
+                databaseId={databaseId}
+                uri={uri}
+                isNavShown={isRCANavShown}
+                setIsNavShown={setIsRCANavShown}
               >
-                <div className="sm:fixed sm:left-[70vw] sm:flex sm:w-[30vw] sm:flex-col">
+                {/* <div className="sm:fixed sm:left-[70vw] sm:flex sm:w-[30vw] sm:flex-col">
                   <div className="sm:relative sm:h-[100vh] sm:flex-row sm:flex-wrap sm:overflow-y-auto">
-                    {/* First wrapper */}
                     <div className="sm:relative sm:mx-auto">
                       <ContentWrapperRCAFrontPage
                         content={content}
@@ -289,7 +295,7 @@ export default function singleRca(props) {
                       />
                     </div>
                   </div>
-                </div>
+                </div> */}
               </SingleRCAContainer>
             </>
           </Main>

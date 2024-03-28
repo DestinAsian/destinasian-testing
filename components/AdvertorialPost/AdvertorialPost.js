@@ -34,7 +34,7 @@ export default function AdvertorialPost({
 
       <div className={cx('content-wrapper')}>
         <a href={uri}>
-          <h5 className={cx('category')}>{'Partner Post'}</h5>
+          <h5 className={cx('category')}>{'Partner Content'}</h5>
         </a>
       </div>
 

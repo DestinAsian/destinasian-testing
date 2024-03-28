@@ -184,7 +184,7 @@ export default function SecondaryHeader({ databaseId, home, categoryUri }) {
                     <DaGuideMenu
                       categories={
                         data?.post?.categories?.edges[0]?.node?.parent?.node
-                          ?.name
+                          ?.countryCode?.countryCode
                       }
                       categoryUri={
                         data?.post?.categories?.edges[0]?.node?.parent?.node
