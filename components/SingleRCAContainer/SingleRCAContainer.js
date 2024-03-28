@@ -3,7 +3,7 @@ import className from 'classnames/bind'
 import styles from './SingleRCAContainer.module.scss'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
-import { RCAFullMenu } from '../../components'
+import { Button, RCAFullMenu } from '../../components'
 
 let cx = className.bind(styles)
 
@@ -11,7 +11,6 @@ export default function SingleRCAContainer({
   children,
   parent,
   image,
-  firstUri,
   databaseId,
   uri,
   isNavShown,
@@ -35,18 +34,25 @@ export default function SingleRCAContainer({
     <>
       {isParent ? (
         <div className={styles.component}>
-          {firstUri && (
-            <Link href={firstUri}>
-              <Image
-                src={image}
-                alt={'RCA Image'}
-                fill
-                sizes="100%"
-                priority
-                onLoad={() => setImageLoaded(true)}
-              />
-            </Link>
-          )}
+          <button
+            type="button"
+            className={cx('menu-icon')}
+            onClick={() => {
+              setIsNavShown(!isNavShown)
+            }}
+            aria-label="Toggle navigation"
+            aria-controls={cx('full-menu-wrapper')}
+            aria-expanded={!isNavShown}
+          >
+            <Image
+              src={image}
+              alt={'RCA Image'}
+              fill
+              sizes="100%"
+              priority
+              onLoad={() => setImageLoaded(true)}
+            />
+          </button>
           <div
             className={cx([
               'rca-menu-wrapper',

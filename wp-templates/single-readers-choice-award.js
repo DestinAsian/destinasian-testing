@@ -274,10 +274,6 @@ export default function singleRca(props) {
               <SingleRCAContainer
                 parent={parent}
                 image={featuredImage?.node?.sourceUrl}
-                firstUri={
-                  paginationData?.readersChoiceAwardBy?.children?.edges[0]?.node
-                    ?.uri
-                }
                 databaseId={databaseId}
                 uri={uri}
                 isNavShown={isRCANavShown}
