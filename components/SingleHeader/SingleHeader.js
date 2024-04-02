@@ -5,11 +5,16 @@ import {
   Container,
   SkipNavigationLink,
   FullMenu,
+  SearchInput,
+  SearchResults,
+  Button,
 } from '../../components'
 import styles from './SingleHeader.module.scss'
 import { useState, useEffect } from 'react'
 import { useMediaQuery } from 'react-responsive'
 import Image from 'next/image'
+import { useQuery } from '@apollo/client'
+import { GetSearchResults } from '../../queries/GetSearchResults'
 
 let cx = classNames.bind(styles)
 
@@ -49,13 +54,62 @@ export default function SingleHeader({
       window.removeEventListener('scroll', handleScroll)
     }
   }, [])
-
+  // Search function content
   const [searchQuery, setSearchQuery] = useState('')
+  const postsPerPage = 100
 
   // Clear search input
   const clearSearch = () => {
     setSearchQuery('') // Reset the search query
   }
+
+  // Add search query function
+  const {
+    data: searchResultsData,
+    loading: searchResultsLoading,
+    error: searchResultsError,
+  } = useQuery(GetSearchResults, {
+    variables: {
+      first: postsPerPage,
+      after: null,
+      search: searchQuery,
+    },
+    skip: searchQuery === '',
+    fetchPolicy: 'network-only',
+    nextFetchPolicy: 'cache-and-network',
+  })
+
+  // Check if the search query is empty and no search results are loading, then hide the SearchResults component
+  const isSearchResultsVisible = !!searchQuery
+
+  // Create a Set to store unique databaseId values
+  const uniqueDatabaseIds = new Set()
+
+  // Initialize an array to store unique posts
+  const contentNodesPosts = []
+
+  // Loop through all the contentNodes posts
+  searchResultsData?.tags?.edges.forEach((contentNodes) => {
+    contentNodes.node?.contentNodes?.edges.forEach((post) => {
+      const { databaseId } = post.node
+
+      // Check if the databaseId is unique (not in the Set)
+      if (!uniqueDatabaseIds.has(databaseId)) {
+        uniqueDatabaseIds.add(databaseId) // Add the databaseId to the Set
+        contentNodesPosts.push(post.node) // Push the unique post to the array
+      }
+    })
+  })
+
+  // Sort contentNodesPosts array by date
+  contentNodesPosts.sort((a, b) => {
+    // Assuming your date is stored in 'date' property of the post objects
+    const dateA = new Date(a.date);
+    const dateB = new Date(b.date);
+
+    // Compare the dates
+    return dateB - dateA;
+  });
 
   return (
     <header className={cx('components', { sticky: isScrolled })}>
@@ -212,6 +266,33 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
         </Container>
       )}
 
+      {/* Search Bar */}
+      <div className={cx('search-bar-wrapper', { stickySearch: isScrolled })}>
+        <div className={cx('search-input-wrapper')}>
+          <SearchInput
+            value={searchQuery}
+            onChange={(newValue) => setSearchQuery(newValue)}
+            clearSearch={clearSearch}
+          />
+        </div>
+        <div className={cx('search-result-wrapper')}>
+          {searchResultsError && (
+            <div className={cx('alert-error')}>
+              {'An error has occurred. Please refresh and try again.'}
+            </div>
+          )}
+
+          {/* Conditionally render the SearchResults component */}
+          {isSearchResultsVisible && (
+            <SearchResults
+              searchResults={contentNodesPosts}
+              isLoading={searchResultsLoading}
+            />
+          )}
+          
+        </div>
+      </div>
+
       {/* Full menu */}
       <div
         className={cx(['full-menu-wrapper', isNavShown ? 'show' : undefined])}
@@ -229,6 +310,10 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
           setSearchQuery={setSearchQuery}
           menusLoading={menusLoading}
           latestLoading={latestLoading}
+          contentNodesPosts={contentNodesPosts}
+          searchResultsLoading={searchResultsLoading}
+          searchResultsError={searchResultsError}
+          isSearchResultsVisible={isSearchResultsVisible}
         />
       </div>
     </header>

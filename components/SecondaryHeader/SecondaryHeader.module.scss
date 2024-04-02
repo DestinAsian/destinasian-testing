@@ -57,12 +57,13 @@
   top: 0;
   left: 0;
   width: 100%;
-  transform: translateY(3.5rem);
+  transform: translateY(6.5rem);
   // transition: transform 0.5s ease-in-out;
 
   @media (min-width: $breakpoint-extra-small) {
     top: 0;
-    transform: translateY(4.5rem);
+    transform: translateY(8.125rem);
+    height: 4rem;
   }
 }
 

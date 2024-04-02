@@ -71,6 +71,16 @@ export default function ErrorPage({ image, title, content }) {
     })
   })
 
+  // Sort contentNodesPosts array by date
+  contentNodesPosts.sort((a, b) => {
+    // Assuming your date is stored in 'date' property of the post objects
+    const dateA = new Date(a.date);
+    const dateB = new Date(b.date);
+
+    // Compare the dates
+    return dateB - dateA;
+  });
+
   return (
     <div className={cx(['component', className])}>
       <div className={cx('image-wrapper')}>

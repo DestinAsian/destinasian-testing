@@ -44,7 +44,7 @@ export default function SearchResults({ searchResults, isLoading }) {
           <div role="status">
             <svg
               aria-hidden="true"
-              className="mr-2 h-[80vh] w-8 animate-spin fill-black text-gray-200 dark:text-gray-600"
+              className="h-[88vh] sm:h-[86vh] mr-2 w-8 animate-spin fill-black text-gray-200 dark:text-gray-600"
               viewBox="0 0 100 101"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
