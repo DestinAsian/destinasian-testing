@@ -35,6 +35,8 @@ export default function Component(props) {
       desktopSrc: acfHomepageSlider?.desktopSlide2?.mediaItemUrl,
       mobileSrc: acfHomepageSlider?.mobileSlide2?.mediaItemUrl,
       url: acfHomepageSlider?.slideLink1,
+      category: acfHomepageSlider?.slideCategory1,
+      categoryLink: acfHomepageSlider?.slideCategoryLink1,
       caption: acfHomepageSlider?.slideCaption1,
     },
     {
@@ -43,6 +45,8 @@ export default function Component(props) {
       mobileSrc: acfHomepageSlider?.mobileSlide2?.mediaItemUrl,
       videoSrc: acfHomepageSlider?.video2?.mediaItemUrl,
       url: acfHomepageSlider?.slideLink2,
+      category: acfHomepageSlider?.slideCategory2,
+      categoryLink: acfHomepageSlider?.slideCategoryLink2,
       caption: acfHomepageSlider?.slideCaption2,
     },
     {
@@ -51,6 +55,8 @@ export default function Component(props) {
       mobileSrc: acfHomepageSlider?.mobileSlide3?.mediaItemUrl,
       videoSrc: acfHomepageSlider?.video3?.mediaItemUrl,
       url: acfHomepageSlider?.slideLink3,
+      category: acfHomepageSlider?.slideCategory3,
+      categoryLink: acfHomepageSlider?.slideCategoryLink3,
       caption: acfHomepageSlider?.slideCaption3,
     },
   ]
@@ -242,6 +248,12 @@ Component.query = gql`
         slideCaption1
         slideCaption2
         slideCaption3
+        slideCategory1
+        slideCategory2
+        slideCategory3
+        slideCategoryLink1
+        slideCategoryLink2
+        slideCategoryLink3
         slideLink1
         slideLink2
         slideLink3

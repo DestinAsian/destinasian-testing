@@ -24,6 +24,7 @@ export const GetSearchResults = gql`
                 UPDATE
                 CONTEST
                 LUXE_LIST
+                READERS_CHOICE_AWARD
               ]
             }
           ) {
@@ -176,6 +177,22 @@ export const GetSearchResults = gql`
                   }
                 }
                 ... on Contest {
+                  title
+                  excerpt
+                  date
+                  featuredImage {
+                    node {
+                      id
+                      sourceUrl
+                      altText
+                      mediaDetails {
+                        width
+                        height
+                      }
+                    }
+                  }
+                }
+                ... on ReadersChoiceAward {
                   title
                   excerpt
                   date

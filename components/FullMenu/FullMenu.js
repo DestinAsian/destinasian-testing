@@ -58,7 +58,11 @@ export default function FullMenu({
   return (
     <div className={cx('component')}>
       {/* Full menu */}
-      <div className={cx('full-menu-content')}>
+      <div
+        className={cx('full-menu-content', {
+          searchVisible: isSearchResultsVisible,
+        })}
+      >
         {/* Search Bar */}
         <div className={cx('search-bar-wrapper')}>
           <div className={cx('search-input-wrapper')}>
@@ -113,7 +117,9 @@ export default function FullMenu({
                 <ul className={cx('menu-content')}>
                   {latestStories.slice(0, visiblePosts).map((post) => (
                     <li key={post.id}>
-                      <a href={post.uri}>{post.title}</a>
+                      <a href={post.uri} className={cx('menu-item')}>
+                        {post.title}
+                      </a>
                     </li>
                   ))}
                 </ul>

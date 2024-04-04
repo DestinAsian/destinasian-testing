@@ -44,7 +44,7 @@ export default function SearchResults({ searchResults, isLoading }) {
           <div role="status">
             <svg
               aria-hidden="true"
-              className="h-[88vh] sm:h-[86vh] mr-2 w-8 animate-spin fill-black text-gray-200 dark:text-gray-600"
+              className="mr-2 h-[88vh] w-8 animate-spin fill-black text-gray-200 dark:text-gray-600 sm:h-[86vh]"
               viewBox="0 0 100 101"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -132,7 +132,9 @@ export default function SearchResults({ searchResults, isLoading }) {
                   {node?.contentType?.node?.graphqlPluralName ==
                     'HonorsCircles' && (
                     <Link href={'/honors-circle'}>
-                      <h2 className={cx('meta')}>{'Honors Circle'}</h2>
+                      <h2 className={cx('meta', 'meta-hc')}>
+                        {'Honors Circle'}
+                      </h2>
                     </Link>
                   )}
 
@@ -140,18 +142,14 @@ export default function SearchResults({ searchResults, isLoading }) {
                   {node?.contentType?.node?.graphqlPluralName ==
                     'Advertorials' && (
                     <Link href={node?.uri}>
-                      <h2 className={cx('meta')}>
-                        {node?.contentType?.node?.label}
-                      </h2>
+                      <h2 className={cx('meta')}>{'Partner Post'}</h2>
                     </Link>
                   )}
 
                   {/* LuxeList */}
                   {node?.contentType?.node?.graphqlPluralName ==
                     'LuxeLists' && (
-                    <Link href={'/luxe-list/2023-lineup'}>
-                      <h2 className={cx('meta')}>{'Luxe List'}</h2>
-                    </Link>
+                    <h2 className={cx('meta')}>{'Luxe List'}</h2>
                   )}
 
                   {/* Contest */}
@@ -160,11 +158,78 @@ export default function SearchResults({ searchResults, isLoading }) {
                       <h2 className={cx('meta')}>{'Contest'}</h2>
                     </Link>
                   )}
+
+                  {/* Readers Choice Awards */}
+                  {node?.contentType?.node?.graphqlPluralName ==
+                    'ReadersChoiceAwards' && (
+                    <h2 className={cx('meta')}>{'Readers’ Choice Awards'}</h2>
+                  )}
                 </div>
 
-                <Link href={node?.uri}>
-                  <h2 className={cx('title')}>{node?.title}</h2>
-                </Link>
+                <div className={cx('title-wrapper')}>
+                  {/* Destinations */}
+                  {node?.contentType?.node?.graphqlPluralName ==
+                    'Editorials' && (
+                    <Link href={node?.uri}>
+                      <h2 className={cx('title')}>{node?.title}</h2>
+                    </Link>
+                  )}
+
+                  {/* Destination Guides */}
+                  {node?.contentType?.node?.graphqlPluralName == 'posts' && (
+                    <Link href={node?.uri}>
+                      <h2 className={cx('title')}>{node?.title}</h2>
+                    </Link>
+                  )}
+
+                  {/* Update */}
+                  {node?.contentType?.node?.graphqlPluralName == 'Updates' && (
+                    <Link href={node?.uri}>
+                      <h2 className={cx('title')}>{node?.title}</h2>
+                    </Link>
+                  )}
+
+                  {/* HonorsCircle */}
+                  {node?.contentType?.node?.graphqlPluralName ==
+                    'HonorsCircles' && (
+                    <Link href={node?.uri}>
+                      <h2 className={cx('title', 'title-hc')}>{node?.title}</h2>
+                    </Link>
+                  )}
+
+                  {/* Advertorials */}
+                  {node?.contentType?.node?.graphqlPluralName ==
+                    'Advertorials' && (
+                    <Link href={node?.uri}>
+                      <h2 className={cx('title', 'title-advertorial')}>
+                        {node?.title}
+                      </h2>
+                    </Link>
+                  )}
+
+                  {/* LuxeList */}
+                  {node?.contentType?.node?.graphqlPluralName ==
+                    'LuxeLists' && (
+                    <Link href={node?.uri}>
+                      <h2 className={cx('title', 'title-ll')}>{node?.title}</h2>
+                    </Link>
+                  )}
+
+                  {/* Contest */}
+                  {node?.contentType?.node?.graphqlPluralName == 'Contests' && (
+                    <Link href={node?.uri}>
+                      <h2 className={cx('title', 'title-contest')}>{node?.title}</h2>
+                    </Link>
+                  )}
+
+                  {/* Readers Choice Awards */}
+                  {node?.contentType?.node?.graphqlPluralName ==
+                    'ReadersChoiceAwards' && (
+                    <Link href={node?.uri}>
+                      <h2 className={cx('title', 'title-rca')}>{node?.title}</h2>
+                    </Link>
+                  )}
+                </div>
 
                 <div className={cx('meta-wrapper')}>
                   <div className={cx('date-wrapper')}>

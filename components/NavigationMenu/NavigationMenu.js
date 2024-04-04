@@ -7,10 +7,7 @@ import flatListToHierarchical from '../../utilities/flatListToHierarchical'
 let cx = classNames.bind(styles)
 let cxFromWp = classNames.bind(stylesFromWP)
 
-export default function NavigationMenu({
-  menuItems,
-  className,
-}) {
+export default function NavigationMenu({ menuItems, className }) {
   if (!menuItems) {
     return null
   }
@@ -32,7 +29,9 @@ export default function NavigationMenu({
 
           return (
             <li key={id} className={cxFromWp(cssClasses)}>
-              <a href={path ?? ''}>{label ?? ''}</a>
+              <a href={path ?? ''} className={cx('menu-item')}>
+                {label ?? ''}
+              </a>
               {children.length ? renderMenu(children) : null}
             </li>
           )
