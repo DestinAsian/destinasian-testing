@@ -152,7 +152,7 @@ export default function HomepageStories(pinPosts) {
     return () => {
       window.removeEventListener('scroll', handleScroll)
     }
-  }, [data, fetchMore])
+  }, [fetchMorePosts])
 
   if (error) {
     return <pre>{JSON.stringify(error)}</pre>

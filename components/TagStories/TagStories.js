@@ -289,7 +289,7 @@ export default function TagStories(tagUri) {
     return () => {
       window.removeEventListener('scroll', handleScroll)
     }
-  }, [data, fetchMore])
+  }, [fetchMorePosts])
 
   if (error) {
     return <pre>{JSON.stringify(error)}</pre>

@@ -325,25 +325,25 @@ export default function CategoryStories(categoryUri) {
     }
   }
 
-  // Scroll event listener to detect when user scrolls to the bottom
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrolledToBottom =
-        window.scrollY + window.innerHeight >=
-        document.documentElement.scrollHeight
+  // // Scroll event listener to detect when user scrolls to the bottom
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     const scrolledToBottom =
+  //       window.scrollY + window.innerHeight >=
+  //       document.documentElement.scrollHeight
 
-      if (scrolledToBottom) {
-        // Call the function to fetch more when scrolled to the bottom
-        fetchMorePosts()
-      }
-    }
+  //     if (scrolledToBottom) {
+  //       // Call the function to fetch more when scrolled to the bottom
+  //       fetchMorePosts()
+  //     }
+  //   }
 
-    window.addEventListener('scroll', handleScroll)
+  //   window.addEventListener('scroll', handleScroll)
 
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
-  }, [data, fetchMore])
+  //   return () => {
+  //     window.removeEventListener('scroll', handleScroll)
+  //   }
+  // }, [fetchMorePosts])
 
   if (error) {
     return <pre>{JSON.stringify(error)}</pre>
