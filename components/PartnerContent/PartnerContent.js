@@ -194,7 +194,7 @@ export default function PartnerContent({ parentName }) {
             <div className={cx('right-wrapper')}>
               <div className={cx('content-wrapper')}>
                 <Link href={getAdvertorialPost[0]?.uri}>
-                  <h2 className={cx('sub-title-adv')}>{'Partner Post'}</h2>
+                  <h2 className={cx('sub-title-adv')}>{'Partner Content'}</h2>
                 </Link>
               </div>
               <div className={cx('content-wrapper')}>
@@ -238,7 +238,7 @@ export default function PartnerContent({ parentName }) {
             <div className={cx('right-wrapper')}>
               <div className={cx('content-wrapper')}>
                 <Link href={getAdvertorialPost[1]?.uri}>
-                  <h2 className={cx('sub-title-adv')}>{'Partner Post'}</h2>
+                  <h2 className={cx('sub-title-adv')}>{'Partner Content'}</h2>
                 </Link>
               </div>
               <div className={cx('content-wrapper')}>

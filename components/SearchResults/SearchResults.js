@@ -142,7 +142,7 @@ export default function SearchResults({ searchResults, isLoading }) {
                   {node?.contentType?.node?.graphqlPluralName ==
                     'Advertorials' && (
                     <Link href={node?.uri}>
-                      <h2 className={cx('meta')}>{'Partner Post'}</h2>
+                      <h2 className={cx('meta')}>{'Partner Content'}</h2>
                     </Link>
                   )}
 
