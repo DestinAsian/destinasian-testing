@@ -218,7 +218,9 @@ export default function SearchResults({ searchResults, isLoading }) {
                   {/* Contest */}
                   {node?.contentType?.node?.graphqlPluralName == 'Contests' && (
                     <Link href={node?.uri}>
-                      <h2 className={cx('title', 'title-contest')}>{node?.title}</h2>
+                      <h2 className={cx('title', 'title-contest')}>
+                        {node?.title}
+                      </h2>
                     </Link>
                   )}
 
@@ -226,7 +228,9 @@ export default function SearchResults({ searchResults, isLoading }) {
                   {node?.contentType?.node?.graphqlPluralName ==
                     'ReadersChoiceAwards' && (
                     <Link href={node?.uri}>
-                      <h2 className={cx('title', 'title-rca')}>{node?.title}</h2>
+                      <h2 className={cx('title', 'title-rca')}>
+                        {node?.title}
+                      </h2>
                     </Link>
                   )}
                 </div>
@@ -257,7 +261,7 @@ export default function SearchResults({ searchResults, isLoading }) {
                   )}
                 </div>
 
-                {node?.excerpt && (
+                {node?.excerpt && node?.uri && (
                   <Link href={node?.uri}>
                     <div
                       dangerouslySetInnerHTML={{

@@ -4,6 +4,7 @@ import { Button, LLPost, FeaturedImage } from '..'
 import styles from './LLMenu.module.scss'
 import React, { useState, useEffect } from 'react'
 import { GetLuxeListMenu } from '../../queries/GetLuxeListMenu'
+import Link from 'next/link'
 
 let cx = classNames.bind(styles)
 
@@ -102,22 +103,22 @@ export default function LLMenu({ mainLogo, secondaryLogo, databaseId, uri }) {
       {/* Full menu */}
       <div className={cx('full-menu-content')}>
         <div className={cx('image-wrapper')}>
-          {secondaryLogo ? (
-            <a href={uri}>
+          {secondaryLogo && uri ? (
+            <Link href={uri}>
               <FeaturedImage
                 image={secondaryLogo}
                 className={cx('image')}
                 priority
               />
-            </a>
-          ) : mainLogo ? (
-            <a href={uri}>
+            </Link>
+          ) : mainLogo && uri ? (
+            <Link href={uri}>
               <FeaturedImage
                 image={mainLogo}
                 className={cx('image')}
                 priority
               />
-            </a>
+            </Link>
           ) : null}
         </div>
         <div className={cx('menu-wrapper')}>
@@ -132,9 +133,11 @@ export default function LLMenu({ mainLogo, secondaryLogo, databaseId, uri }) {
                   return (
                     <div className={cx('content-wrapper')} key={post?.id}>
                       <div className={cx('title-wrapper')}>
-                        <a href={post?.uri}>
-                          <h2 className={cx('title')}>{post?.title}</h2>
-                        </a>
+                        {post?.uri && (
+                          <Link href={post?.uri}>
+                            <h2 className={cx('title')}>{post?.title}</h2>
+                          </Link>
+                        )}
                       </div>
                     </div>
                   )

@@ -1,5 +1,6 @@
 import classNames from 'classnames/bind'
 import styles from './EntryMoreReviews.module.scss'
+import Link from 'next/link'
 
 let cx = classNames.bind(styles)
 
@@ -14,11 +15,13 @@ export default function EntryMoreReviews({
         <div className={cx('entry-title')}>{'More Reviews'}</div>
       </div>
       <div className={cx('category-wrapper')}>
-        <a href={categoryUri}>
-          <h2 className={cx('category')}>
-            {parentName} {categoryName}
-          </h2>
-        </a>
+        {categoryUri && (
+          <Link href={categoryUri}>
+            <h2 className={cx('category')}>
+              {parentName} {categoryName}
+            </h2>
+          </Link>
+        )}
       </div>
     </article>
   )

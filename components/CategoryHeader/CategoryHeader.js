@@ -120,7 +120,7 @@ export default function CategoryHeader({
           <div className={cx('navbar')}>
             {/* DA logo */}
             <div className={cx('brand')}>
-              <Link href="/" legacyBehavior>
+              <Link href="/">
                 <Image
                   src={destinasianLogo.src}
                   alt="Destinasian Logo"

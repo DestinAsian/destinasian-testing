@@ -1,6 +1,7 @@
 import classNames from 'classnames/bind'
 import { FeaturedImage } from '..'
 import styles from './ContestPost.module.scss'
+import Link from 'next/link'
 
 let cx = classNames.bind(styles)
 
@@ -9,18 +10,22 @@ export default function ContestPost({ title, uri, featuredImage }) {
     <article className={cx('component')}>
       {featuredImage && (
         <div className={cx('content-wrapper-image')}>
-          <a href={uri}>
-            <FeaturedImage
-              image={featuredImage}
-              className={styles.featuredImage}
-            />
-          </a>
+          {uri && (
+            <Link href={uri}>
+              <FeaturedImage
+                image={featuredImage}
+                className={styles.featuredImage}
+              />
+            </Link>
+          )}
         </div>
       )}
       <div className={cx('content-wrapper')}>
-        <a href={uri}>
-          <h2 className={cx('title')}>{title}</h2>
-        </a>
+        {uri && (
+          <Link href={uri}>
+            <h2 className={cx('title')}>{title}</h2>
+          </Link>
+        )}
       </div>
       <div className={cx('content-wrapper-image')}>
         <div className={cx('border-bottom')}></div>

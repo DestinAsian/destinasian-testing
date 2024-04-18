@@ -2,6 +2,7 @@ import className from 'classnames/bind'
 import { Heading, FormatDate } from '..'
 import styles from './SingleEditorialEntryHeader.module.scss'
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
 
 let cx = className.bind(styles)
 
@@ -29,12 +30,13 @@ export default function SingleEditorialEntryHeader({
     <div className={cx('component', { maximized: isMaximized })}>
       <div className={cx('header-wrapper')}>
         {parentCategory !== 'Rest of World' &&
-          categoryName !== 'Rest of World' && (
-            <a href={categoryUri}>
+          categoryName !== 'Rest of World' && 
+          categoryUri && (
+            <Link href={categoryUri}>
               <div className={cx('category-name')}>
                 {parentCategory} {categoryName}
               </div>
-            </a>
+            </Link>
           )}
         <Heading className={cx('title')}>
           {parent || null} {title}

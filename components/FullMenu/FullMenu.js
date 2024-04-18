@@ -3,6 +3,7 @@ import { NavigationMenu, SearchInput, SearchResults } from '..'
 import styles from './FullMenu.module.scss'
 import { useState } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 
 let cx = classNames.bind(styles)
 
@@ -116,10 +117,12 @@ export default function FullMenu({
                 <ul className={cx('menu-name')}>{'Latest Travel Stories'}</ul>
                 <ul className={cx('menu-content')}>
                   {latestStories.slice(0, visiblePosts).map((post) => (
-                    <li key={post.id}>
-                      <a href={post.uri} className={cx('menu-item')}>
-                        {post.title}
-                      </a>
+                    <li key={post?.id}>
+                      {post?.uri && (
+                        <Link href={post?.uri} className={cx('menu-item')}>
+                          {post?.title}
+                        </Link>
+                      )}
                     </li>
                   ))}
                 </ul>

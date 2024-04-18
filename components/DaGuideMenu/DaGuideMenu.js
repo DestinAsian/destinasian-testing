@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import className from 'classnames/bind'
 import { Heading, Container } from '..'
 import styles from './DaGuideMenu.module.scss'
+import Link from 'next/link'
 
 let cx = className.bind(styles)
 
@@ -40,10 +41,10 @@ export default function DaGuideMenu({
         {hasTitle && (
           <div className={cx('text')}>
             <Container>
-              {!!title && (
-                <a href={titleUri}>
+              {!!title && titleUri && (
+                <Link href={titleUri}>
                   <Heading className={cx('title')}>{title}</Heading>
-                </a>
+                </Link>
               )}
               <div
                 className={cx([
@@ -54,12 +55,14 @@ export default function DaGuideMenu({
                 {/* Index menu */}
                 <div className={cx('index-menu-content')}>
                   <div className={cx('first-wrapper')}>
-                    <a href={titleUri}>
-                      <>
-                        {'The DA Guide to '}
-                        {titleName}
-                      </>
-                    </a>
+                    {titleUri && (
+                      <Link href={titleUri}>
+                        <>
+                          {'The DA Guide to '}
+                          {titleName}
+                        </>
+                      </Link>
+                    )}
                   </div>
                   <div className={cx('second-wrapper')}>
                     {/* Secondary Menu {Destinations Menu} */}
@@ -74,10 +77,10 @@ export default function DaGuideMenu({
         {hasParent && (
           <div className={cx('text')}>
             <Container>
-              {!!parent && (
-                <a href={parentUri}>
+              {!!parent && parentUri && (
+                <Link href={parentUri}>
                   <Heading className={cx('title')}>{parent}</Heading>
-                </a>
+                </Link>
               )}
               <div
                 className={cx([
@@ -88,16 +91,16 @@ export default function DaGuideMenu({
                 {/* Index menu */}
                 <div className={cx('index-menu-content')}>
                   <div className={cx('first-wrapper')}>
-                    {parentDestinationGuides == 'yes' && (
-                      <a href={parentUri}>
+                    {parentDestinationGuides == 'yes' && parentUri && (
+                      <Link href={parentUri}>
                         <>
                           {'The DA Guide to '}
                           {parentName}
                         </>
-                      </a>
+                      </Link>
                     )}
-                    {parentDestinationGuides == null && (
-                      <a href={parentUri}>{parentName}</a>
+                    {parentDestinationGuides == null && parentUri && (
+                      <Link href={parentUri}>{parentName}</Link>
                     )}
                   </div>
                   <div className={cx('second-wrapper')}></div>
@@ -111,10 +114,10 @@ export default function DaGuideMenu({
         {hasCategory && (
           <div className={cx('text')}>
             <Container>
-              {!!categories && (
-                <a href={categoryUri}>
+              {!!categories && categoryUri && (
+                <Link href={categoryUri}>
                   <Heading className={cx('title')}>{categories}</Heading>
-                </a>
+                </Link>
               )}
               <div
                 className={cx([
@@ -125,12 +128,14 @@ export default function DaGuideMenu({
                 {/* Index menu */}
                 <div className={cx('index-menu-content')}>
                   <div className={cx('first-wrapper')}>
-                    <a href={categoryUri}>
-                      <>
-                        {'The DA Guide to '}
-                        {categoryName}
-                      </>
-                    </a>
+                    {categoryUri && (
+                      <Link href={categoryUri}>
+                        <>
+                          {'The DA Guide to '}
+                          {categoryName}
+                        </>
+                      </Link>
+                    )}
                   </div>
                   <div className={cx('second-wrapper')}>
                     {/* Secondary Menu {Destinations Menu} */}

@@ -15,6 +15,7 @@ import {
 } from '../components'
 import { GetMenus } from '../queries/GetMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
+import { eb_garamond, rubik_mono_one } from '../styles/fonts/fonts'
 
 export default function SingleUpdate(props) {
   // Loading state for previews
@@ -141,7 +142,7 @@ export default function SingleUpdate(props) {
   const sortedBannerAdsArray = [...matchingBannerAdsWithImg]
 
   return (
-    <>
+    <main className={`${eb_garamond.variable} ${rubik_mono_one.variable}`}>
       <SEO
         title={seo?.title}
         description={seo?.metaDesc}
@@ -182,7 +183,7 @@ export default function SingleUpdate(props) {
         </>
       </Main>
       <Footer />
-    </>
+    </main>
   )
 }
 

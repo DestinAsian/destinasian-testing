@@ -1,6 +1,7 @@
 import classNames from 'classnames/bind'
 import { FeaturedImage, CategoryIcon, LocationIcon, Container } from '..'
 import styles from './AdvertorialPost.module.scss'
+import Link from 'next/link'  
 
 let cx = classNames.bind(styles)
 
@@ -23,34 +24,42 @@ export default function AdvertorialPost({
     <article className={cx('component')}>
       {featuredImage && (
         <div className={cx('content-wrapper-image')}>
-          <a href={uri}>
-            <FeaturedImage
-              image={featuredImage}
-              className={styles.featuredImage}
-            />
-          </a>
+          {uri && (
+            <Link href={uri}>
+              <FeaturedImage
+                image={featuredImage}
+                className={styles.featuredImage}
+              />
+            </Link>
+          )}
         </div>
       )}
 
       <div className={cx('content-wrapper')}>
-        <a href={uri}>
-          <h5 className={cx('category')}>{'Partner Content'}</h5>
-        </a>
+        {uri && (
+          <Link href={uri}>
+            <h5 className={cx('category')}>{'Partner Content'}</h5>
+          </Link>
+        )}
       </div>
 
       <div className={cx('content-wrapper')}>
-        <a href={uri}>
-          <h2 className={cx('title')}>{title}</h2>
-        </a>
+        {uri && (
+          <Link href={uri}>
+            <h2 className={cx('title')}>{title}</h2>
+          </Link>
+        )}
       </div>
       {excerpt !== undefined && excerpt !== null && (
         <div className={cx('content-wrapper')}>
-          <a href={uri}>
-            <div
-              className={cx('excerpt')}
-              dangerouslySetInnerHTML={{ __html: trimmedExcerpt }}
-            />
-          </a>
+          {uri && (
+            <Link href={uri}>
+              <div
+                className={cx('excerpt')}
+                dangerouslySetInnerHTML={{ __html: trimmedExcerpt }}
+              />
+            </Link>
+          )}
         </div>
       )}
       <div className={cx('border-bottom')}></div>

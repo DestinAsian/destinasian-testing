@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import classNames from 'classnames/bind'
 import { FeaturedImage, Heading } from '../../components'
-import styles from './SingleAdvertorialPost.module.scss'
+import styles from './SingleAdvertorialPost.module.scss'  
 
 let cx = classNames.bind(styles)
 

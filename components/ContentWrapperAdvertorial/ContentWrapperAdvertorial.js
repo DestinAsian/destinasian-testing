@@ -2,7 +2,7 @@ import className from 'classnames/bind';
 import styles from './ContentWrapperAdvertorial.module.scss';
 import { useEffect, useState } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import Image from "next/image";
+import Image from "next/image";  ;
 
 let cx = className.bind(styles);
 
@@ -18,8 +18,8 @@ export default function ContentWrapperAdvertorial({ content, children }) {
       // Parse the HTML content
       const doc = parser.parseFromString(content, "text/html");
 
-      // Get only image elements with src containing "staging.destinasian.com"
-      const imageElements = doc.querySelectorAll('img[src*="staging.destinasian.com"]');
+      // Get only image elements with src containing "testing.destinasian.com"
+      const imageElements = doc.querySelectorAll('img[src*="testing.destinasian.com"]');
 
       // Replace <img> elements with <Image> components
       imageElements.forEach((img) => {

@@ -15,16 +15,12 @@ import {
 } from '../components'
 import { GetMenus } from '../queries/GetMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
+import { eb_garamond, rubik_mono_one } from '../styles/fonts/fonts'
 
 export default function Component(props) {
   const { title: siteTitle, description: siteDescription } =
     props?.data?.generalSettings
-    const {
-      name,
-      databaseId,
-      seo,
-      uri,
-    } = props?.data?.tag ?? []
+  const { name, databaseId, seo, uri } = props?.data?.tag ?? []
 
   // Get menus
   const { data: menusData, loading: menusLoading } = useQuery(GetMenus, {
@@ -102,7 +98,7 @@ export default function Component(props) {
   const latestAllPosts = latestMainCatPosts.sort(sortPostsByDate)
 
   return (
-    <>
+    <main className={`${eb_garamond.variable} ${rubik_mono_one.variable}`}>
       <SEO
         title={seo?.title}
         description={seo?.metaDesc}
@@ -125,14 +121,11 @@ export default function Component(props) {
       />
       <Main>
         <>
-          <TagStories
-            tagUri={databaseId}
-            name={name}
-          />
+          <TagStories tagUri={databaseId} name={name} />
         </>
       </Main>
       <Footer />
-    </>
+    </main>
   )
 }
 

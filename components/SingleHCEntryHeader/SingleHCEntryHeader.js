@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react'
 import locationIcon from '../../assets/icons/icon-location.png'
 import captionIcon from '../../assets/icons/icon-hc-caption.png'
 import hcLogo from '../../assets/logo/honors-circle-logo.png'
-import Image from 'next/image'
+import Image from 'next/image'  
 
 let cx = className.bind(styles)
 
@@ -22,7 +22,11 @@ export default function SingleHCEntryHeader({ title, locationLabel, caption }) {
   }, [])
 
   return (
-    <div className={cx('component', { maximized: isMaximized })}>
+    <div
+      className={cx('component', eb_garamond.className, {
+        maximized: isMaximized,
+      })}
+    >
       {/* HC Icon */}
       <div className={cx('hc-wrapper')}>
         <div className={cx('hc-label')}>{'Honors Circle'}</div>

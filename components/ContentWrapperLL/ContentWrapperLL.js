@@ -7,6 +7,7 @@ import React from 'react'
 import { useEffect, useState } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import Image from 'next/image'
+import Link from 'next/link'
 
 let cx = className.bind(styles)
 
@@ -24,7 +25,9 @@ export default function ContentWrapperLL({ content, images, databaseId }) {
       const doc = parser.parseFromString(content, 'text/html')
 
       // Get only image elements with src containing "testing.destinasian.com"
-      const imageElements = doc.querySelectorAll('img[src*="testing.destinasian.com"]');
+      const imageElements = doc.querySelectorAll(
+        'img[src*="testing.destinasian.com"]',
+      )
 
       // Replace <img> elements with <Image> components
       imageElements.forEach((img) => {
@@ -101,7 +104,7 @@ export default function ContentWrapperLL({ content, images, databaseId }) {
           />
           <div className={cx('navigation-wrapper')}>
             <div className={cx('navigation-button')}>
-              <a href={prevUri}>{'-'}</a>
+              {prevUri && <Link href={prevUri}>{'-'}</Link>}
             </div>
             <div className={cx('pagination-wrapper')}>
               {indexOfLuxeList}
@@ -109,7 +112,7 @@ export default function ContentWrapperLL({ content, images, databaseId }) {
               {numberOfLuxeLists}
             </div>
             <div className={cx('navigation-button')}>
-              <a href={nextUri}>{'+'}</a>
+              {nextUri && <Link href={nextUri}>{'+'}</Link>}
             </div>
           </div>
         </div>
@@ -123,7 +126,7 @@ export default function ContentWrapperLL({ content, images, databaseId }) {
           />
           <div className={cx('navigation-wrapper')}>
             <div className={cx('navigation-button')}>
-              {prevUri && <a href={prevUri}>{'-'}</a>}
+              {prevUri && <Link href={prevUri}>{'-'}</Link>}
             </div>
             <div className={cx('pagination-wrapper')}>
               {indexOfLuxeList}
@@ -131,7 +134,7 @@ export default function ContentWrapperLL({ content, images, databaseId }) {
               {numberOfLuxeLists}
             </div>
             <div className={cx('navigation-button')}>
-              {nextUri && <a href={nextUri}>{'+'}</a>}
+              {nextUri && <Link href={nextUri}>{'+'}</Link>}
             </div>
           </div>
         </div>

@@ -77,7 +77,7 @@
   }
 
   .pagination-wrapper {
-    font-family: 'Rubik Mono One', sans-serif;
+    font-family: var(--font--rubik--mono--one);;
     font-weight: 400;
     font-size: 1.5rem;
     text-align: center;
@@ -85,7 +85,7 @@
 
   .navigation-button {
     a {
-      font-family: 'Rubik Mono One', sans-serif;
+      font-family: var(--font--rubik--mono--one);;
       font-weight: 400;
       font-size: 1.5rem;
       text-align: center;

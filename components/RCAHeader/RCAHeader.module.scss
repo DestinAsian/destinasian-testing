@@ -229,7 +229,7 @@
   .search-result-wrapper {
     position: absolute;
     display: grid;
-    background-color: var(--wpe--main--background-color);
+    background-color: var(--wpe--color--deep--black);
     top: 6.5rem;
     left: 0;
     width: 100%;
@@ -249,12 +249,33 @@
       color: var(--wpe--color--red);
       text-align: center;
     }
+
+    div {
+      background-color: transparent;
+    }
+
+    // Turn Category Icon to white
+    div > div > div > div > figure {
+      img {
+        filter: brightness(0) invert(1) grayscale(100%);
+      }
+    }
   }
 }
 
 .stickySearch {
   display: flex;
-  background-color: var(--wpe--main--background-color);
+  background-color: var(--wpe--color--deep--black);
+
+  * {
+    color: var(--wpe--color--white--smoke);
+    fill: var(--wpe--color--white--smoke);
+    stroke: var(--wpe--color--white--smoke);
+
+    input {
+      border-color: var(--wpe--color--white--smoke);
+    }
+  }
 }
 
 .full-menu-wrapper {

@@ -1,7 +1,7 @@
 import className from 'classnames/bind'
-import { Heading, FormatDate, Container } from '..'
+import { Heading, FormatDate } from '..'
 import styles from './SingleUpdateEntryHeader.module.scss'
-import { useState, useEffect } from 'react'
+import Link from 'next/link'
 
 let cx = className.bind(styles)
 
@@ -17,16 +17,19 @@ export default function SingleUpdateEntryHeader({
   return (
     <div className={cx('component')}>
       <div className={cx('header-wrapper')}>
-        <a href={categoryUri}>
-          <div className={cx('category-name')}>
-            {contentTypeName}{' '}
-            {categoryName && (
-              <div className={cx('category-name')}>
-                {'- '}{categoryName}
-              </div>
-            )}
-          </div>
-        </a>
+        {categoryUri && (
+          <Link href={categoryUri}>
+            <div className={cx('category-name')}>
+              {contentTypeName}{' '}
+              {categoryName && (
+                <div className={cx('category-name')}>
+                  {'- '}
+                  {categoryName}
+                </div>
+              )}
+            </div>
+          </Link>
+        )}
         <Heading className={cx('title')}>
           {parent || null} {title}
         </Heading>

@@ -3,6 +3,7 @@ import { gql } from '@apollo/client'
 import styles from './NavigationMenu.module.scss'
 import stylesFromWP from './NavigationMenuClassesFromWP.module.scss'
 import flatListToHierarchical from '../../utilities/flatListToHierarchical'
+import Link from 'next/link'
 
 let cx = classNames.bind(styles)
 let cxFromWp = classNames.bind(stylesFromWP)
@@ -29,9 +30,9 @@ export default function NavigationMenu({ menuItems, className }) {
 
           return (
             <li key={id} className={cxFromWp(cssClasses)}>
-              <a href={path ?? ''} className={cx('menu-item')}>
+              <Link href={path ?? '/'} className={cx('menu-item')}>
                 {label ?? ''}
-              </a>
+              </Link>
               {children.length ? renderMenu(children) : null}
             </li>
           )

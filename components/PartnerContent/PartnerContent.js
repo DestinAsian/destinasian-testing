@@ -6,7 +6,7 @@ import { GetAdvertorialStories } from '../../queries/GetAdvertorialStories'
 import { GetHCStories } from '../../queries/GetHCStories'
 import { GetPartnerContent } from '../../queries/GetPartnerContent'
 import { Button, FeaturedImage } from '../../components'
-import Link from 'next/link'
+import Link from 'next/link'  
 
 let cx = classNames.bind(styles)
 

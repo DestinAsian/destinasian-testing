@@ -14,6 +14,7 @@ import {
 } from '../components'
 import { GetMenus } from '../queries/GetMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
+import { eb_garamond, rubik_mono_one } from '../styles/fonts/fonts'
 
 export default function SingleAdvertorial(props) {
   // Loading state for previews
@@ -23,8 +24,15 @@ export default function SingleAdvertorial(props) {
 
   const { title: siteTitle, description: siteDescription } =
     props?.data?.generalSettings
-  const { title, content, featuredImage, acfPostSlider, acfAdvertorialLabel, seo, uri } =
-    props?.data?.advertorial
+  const {
+    title,
+    content,
+    featuredImage,
+    acfPostSlider,
+    acfAdvertorialLabel,
+    seo,
+    uri,
+  } = props?.data?.advertorial
   // Get menus
   const { data: menusData, loading: menusLoading } = useQuery(GetMenus, {
     variables: {
@@ -100,25 +108,15 @@ export default function SingleAdvertorial(props) {
   const allPosts = mainCatPosts.sort(sortPostsByDate)
 
   const images = [
-    acfPostSlider.slide1 != null
-      ? acfPostSlider.slide1.mediaItemUrl
-      : null,
-    acfPostSlider.slide2 != null
-      ? acfPostSlider.slide2.mediaItemUrl
-      : null,
-    acfPostSlider.slide3 != null
-      ? acfPostSlider.slide3.mediaItemUrl
-      : null,
-    acfPostSlider.slide4 != null
-      ? acfPostSlider.slide4.mediaItemUrl
-      : null,
-    acfPostSlider.slide5 != null
-      ? acfPostSlider.slide5.mediaItemUrl
-      : null,
+    acfPostSlider.slide1 != null ? acfPostSlider.slide1.mediaItemUrl : null,
+    acfPostSlider.slide2 != null ? acfPostSlider.slide2.mediaItemUrl : null,
+    acfPostSlider.slide3 != null ? acfPostSlider.slide3.mediaItemUrl : null,
+    acfPostSlider.slide4 != null ? acfPostSlider.slide4.mediaItemUrl : null,
+    acfPostSlider.slide5 != null ? acfPostSlider.slide5.mediaItemUrl : null,
   ]
 
   return (
-    <>
+    <main className={`${eb_garamond.variable} ${rubik_mono_one.variable}`}>
       <SEO
         title={seo?.title}
         description={seo?.metaDesc}
@@ -126,16 +124,6 @@ export default function SingleAdvertorial(props) {
         url={uri}
         focuskw={seo?.focuskw}
       />
-      {/* Google Tag Manager (noscript) */}
-      <noscript>
-        <iframe
-          src="https://www.googletagmanager.com/ns.html?id=GTM-5BJVGS"
-          height="0"
-          width="0"
-          className="hidden invisible"
-        ></iframe>
-      </noscript>
-      {/* End Google Tag Manager (noscript) */}
       <SingleHeader
         title={siteTitle}
         description={siteDescription}
@@ -153,24 +141,24 @@ export default function SingleAdvertorial(props) {
         <>
           <SingleAdvertorialContainer>
             <SingleAdvertorialSlider images={images} />
-            <SingleAdvertorialEntryHeader title={title} label={acfAdvertorialLabel?.advertorialLabel}/>
+            <SingleAdvertorialEntryHeader
+              title={title}
+              label={acfAdvertorialLabel?.advertorialLabel}
+            />
             <ContentWrapperAdvertorial content={content} />
             {/* <ModuleAd /> */}
           </SingleAdvertorialContainer>
         </>
       </Main>
       <Footer />
-    </>
+    </main>
   )
 }
 
 SingleAdvertorial.query = gql`
   ${BlogInfoFragment}
   ${FeaturedImage.fragments.entry}
-  query GetPost(
-    $databaseId: ID!
-    $asPreview: Boolean = false
-  ) {
+  query GetPost($databaseId: ID!, $asPreview: Boolean = false) {
     advertorial(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
       title
       content

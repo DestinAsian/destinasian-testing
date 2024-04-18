@@ -551,7 +551,7 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
       )}
 
       {/* Search Bar */}
-      <div className={cx('search-bar-wrapper', { stickySearch: isScrolled })}>
+      {/* <div className={cx('search-bar-wrapper', { stickySearch: isScrolled })}>
         <div className={cx('search-input-wrapper')}>
           <SearchInput
             value={searchQuery}
@@ -566,7 +566,6 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
             </div>
           )}
 
-          {/* Conditionally render the SearchResults component */}
           {isSearchResultsVisible && (
             <SearchResults
               searchResults={contentNodesPosts}
@@ -575,7 +574,7 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
           )}
           
         </div>
-      </div>
+      </div> */}
 
       {/* Full menu */}
       <div

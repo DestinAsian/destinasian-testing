@@ -175,17 +175,23 @@ export default function ContentWrapperRCA({
           </div>
           <div className={cx('navigation-wrapper')}>
             <div className={cx('navigation-button')}>
-              <a href={prevUri} className={cx('prev-button')}>
-                <svg
-                  width="60"
-                  height="90"
-                  viewBox="0 0 60 90"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M52 8L15 45L52 82" stroke="none" stroke-width="20" />
-                </svg>
-              </a>
+              {prevUri && (
+                <Link href={prevUri} className={cx('prev-button')}>
+                  <svg
+                    width="60"
+                    height="90"
+                    viewBox="0 0 60 90"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M52 8L15 45L52 82"
+                      stroke="none"
+                      stroke-width="20"
+                    />
+                  </svg>
+                </Link>
+              )}
             </div>
             <div className={cx('menu-wrapper')}>
               <button
@@ -317,21 +323,23 @@ export default function ContentWrapperRCA({
               </button>
             </div>
             <div className={cx('navigation-button')}>
-              <a href={nextUri} className={cx('next-button')}>
-                <svg
-                  width="60"
-                  height="90"
-                  viewBox="0 0 60 90"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M8 82L45 45L8.00001 8"
-                    stroke="none"
-                    stroke-width="20"
-                  />
-                </svg>
-              </a>
+              {nextUri && (
+                <Link href={nextUri} className={cx('next-button')}>
+                  <svg
+                    width="60"
+                    height="90"
+                    viewBox="0 0 60 90"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M8 82L45 45L8.00001 8"
+                      stroke="none"
+                      stroke-width="20"
+                    />
+                  </svg>
+                </Link>
+              )}
             </div>
           </div>
         </div>

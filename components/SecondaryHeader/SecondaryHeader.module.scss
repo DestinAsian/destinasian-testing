@@ -63,7 +63,7 @@
   @media (min-width: $breakpoint-extra-small) {
     top: 0;
     transform: translateY(8.125rem);
-    height: 4rem;
+    max-height: 4rem;
   }
 }
 

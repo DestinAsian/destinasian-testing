@@ -1,6 +1,7 @@
 import className from 'classnames/bind'
 import { Heading, Container, CategoryIcon, LocationIcon } from '..'
 import styles from './SingleEntryHeader.module.scss'
+import Link from 'next/link'
 
 let cx = className.bind(styles)
 
@@ -23,12 +24,13 @@ export default function SingleEntryHeader({
       <Container>
         <div className={cx('header-wrapper')}>
           {parentCategory !== 'Rest of World' &&
-            categoryName !== 'Rest of World' && (
-              <a href={categoryUri}>
+            categoryName !== 'Rest of World' &&
+            categoryUri && (
+              <Link href={categoryUri}>
                 <div className={cx('category-name')}>
                   {parentCategory} {categoryName}
                 </div>
-              </a>
+              </Link>
             )}
           <Heading className={cx('title')}>
             {/* {parent || null} */}

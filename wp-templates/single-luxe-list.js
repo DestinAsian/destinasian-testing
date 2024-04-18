@@ -16,6 +16,7 @@ import {
 } from '../components'
 import { GetMenus } from '../queries/GetMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
+import { eb_garamond, rubik_mono_one } from '../styles/fonts/fonts'
 
 export default function singleLuxeList(props) {
   // Loading state for previews
@@ -122,7 +123,7 @@ export default function singleLuxeList(props) {
   ]
 
   return (
-    <>
+    <main className={`${eb_garamond.variable} ${rubik_mono_one.variable}`}>
       <SEO
         title={seo?.title}
         description={seo?.metaDesc}
@@ -130,16 +131,6 @@ export default function singleLuxeList(props) {
         url={uri}
         focuskw={seo?.focuskw}
       />
-      {/* Google Tag Manager (noscript) */}
-      <noscript>
-        <iframe
-          src="https://www.googletagmanager.com/ns.html?id=GTM-5BJVGS"
-          height="0"
-          width="0"
-          className="invisible hidden"
-        ></iframe>
-      </noscript>
-      {/* End Google Tag Manager (noscript) */}
       {/* Year pages */}
       {parent == null && (
         <Header
@@ -227,7 +218,7 @@ export default function singleLuxeList(props) {
         </Main>
       )}
       {/* <Footer /> */}
-    </>
+    </main>
   )
 }
 

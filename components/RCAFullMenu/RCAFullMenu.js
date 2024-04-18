@@ -5,6 +5,7 @@ import styles from './RCAFullMenu.module.scss'
 import React, { useState, useEffect } from 'react'
 import * as MENUS from '../../constants/menus'
 import { GetRCAMenu } from '../../queries/GetRCAMenu'
+import Link from 'next/link'
 
 let cx = classNames.bind(styles)
 
@@ -74,9 +75,11 @@ export default function RCAFullMenu({
                     return (
                       <div className={cx('content-wrapper')} key={post?.id}>
                         <div className={cx('title-wrapper')}>
-                          <a href={post?.uri}>
+                        {post?.uri && (
+                          <Link href={post?.uri}>
                             <h2 className={cx('title')}>{post?.title}</h2>
-                          </a>
+                          </Link>
+                        )}
                         </div>
                       </div>
                     )

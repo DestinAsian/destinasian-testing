@@ -14,6 +14,7 @@ import 'swiper/css/pagination'
 // import required modules
 import { EffectFade, Autoplay, Pagination } from 'swiper'
 import Image from 'next/image'
+import Link from 'next/link'
 
 let cx = className.bind(styles)
 
@@ -67,7 +68,7 @@ export default function FeatureWell({ featureWells }) {
           {featureWells?.map((featureWell, index) => (
             <SwiperSlide key={index}>
               {featureWell.type === 'image' && (
-                <a href={featureWell.url}>
+                <Link href={featureWell.url}>
                   {isDesktop && (
                     <div className={cx('image-wrapper')}>
                       <Image
@@ -80,11 +81,11 @@ export default function FeatureWell({ featureWells }) {
                       <div className={cx('caption-wrapper')}>
                         {featureWell.category && (
                           <div className={cx('category-wrapper')}>
-                            <a href={featureWell.categoryLink}>
+                            <Link href={featureWell.categoryLink}>
                               <h1 className={cx('category')}>
                                 {featureWell.category}
                               </h1>
-                            </a>
+                            </Link>
                           </div>
                         )}
                         <h1 className={cx('caption')}>{featureWell.caption}</h1>
@@ -104,11 +105,11 @@ export default function FeatureWell({ featureWells }) {
                       <div className={cx('caption-wrapper')}>
                         {featureWell.category && (
                           <div className={cx('category-wrapper')}>
-                            <a href={featureWell.categoryLink}>
+                            <Link href={featureWell.categoryLink}>
                               <h1 className={cx('category')}>
                                 {featureWell.category}
                               </h1>
-                            </a>
+                            </Link>
                           </div>
                         )}
                         <h1 className={cx('caption')}>{featureWell.caption}</h1>
@@ -116,10 +117,10 @@ export default function FeatureWell({ featureWells }) {
                       <div className={cx('bottom-gradient')}></div>
                     </div>
                   )}
-                </a>
+                </Link>
               )}
               {featureWell.type === 'video' && (
-                <a href={featureWell.url}>
+                <Link href={featureWell.url}>
                   <div className={cx('video-wrapper')}>
                     <video
                       id={`video-${index}`}
@@ -134,18 +135,18 @@ export default function FeatureWell({ featureWells }) {
                     <div className={cx('caption-wrapper')}>
                       {featureWell.category && (
                         <div className={cx('category-wrapper')}>
-                          <a href={featureWell.categoryLink}>
+                          <Link href={featureWell.categoryLink}>
                             <h1 className={cx('category')}>
                               {featureWell.category}
                             </h1>
-                          </a>
+                          </Link>
                         </div>
                       )}
                       <h1 className={cx('caption')}>{featureWell.caption}</h1>
                     </div>
                     <div className={cx('bottom-gradient')}></div>
                   </div>
-                </a>
+                </Link>
               )}
             </SwiperSlide>
           ))}

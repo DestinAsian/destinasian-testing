@@ -37,6 +37,10 @@ $input-border-color: rgb(221, 221, 221);
   svg {
     width: 1rem;
     height: 1rem;
+
+    g {
+      fill: var(--wpe--color--black);
+    }
   }
 }
 
