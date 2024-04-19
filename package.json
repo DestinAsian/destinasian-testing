@@ -3,10 +3,10 @@
   "private": true,
   "version": "0.1.0",
   "scripts": {
-    "dev": "faust dev",
+    "dev": "faust dev --port 3001",
     "build": "faust build",
     "generate": "faust generatePossibleTypes",
-    "start": "faust start"
+    "start": "faust start --port 3001"
   },
   "dependencies": {
     "@apollo/client": "^3.8.7",
