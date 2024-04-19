@@ -106,6 +106,14 @@ li.unclickable > a {
   pointer-events: none;
 }
 
+div.hc-socmed img {
+  padding: 0.5rem 0.25rem 0.5rem;
+
+  @media (min-width: $breakpoint-extra-small) {
+    padding: 0.75rem 0.25rem 0.75rem;
+  }
+}
+
 ::-moz-selection {
   color: var(--wpe--color--white);
   background-color: var(--wpe--color--accent);
