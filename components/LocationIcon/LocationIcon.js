@@ -17,7 +17,7 @@ export default function LocationIcon({
     <div className={cx(['component', className])}>
       <div className={cx('icon-wrapper')}>
         {/* Location Icon */}
-        {locationValidation == 'acfLocationIcon' && (
+        {locationValidation == 'acfLocationIcon' && locationUrl && (
           <figure className={cx('icon')}>
             <Link href={locationUrl} className={cx('link')}>
               <Image
@@ -31,9 +31,11 @@ export default function LocationIcon({
           </figure>
         )}
         {/* Location label */}
-        <Link href={locationUrl} className={cx('link')}>
-          <span className={cx('location-label')}>{locationLabel}</span>
-        </Link>
+        {locationUrl && (
+          <Link href={locationUrl} className={cx('link')}>
+            <span className={cx('location-label')}>{locationLabel}</span>
+          </Link>
+        )}
       </div>
     </div>
   )

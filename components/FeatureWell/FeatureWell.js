@@ -67,7 +67,7 @@ export default function FeatureWell({ featureWells }) {
         >
           {featureWells?.map((featureWell, index) => (
             <SwiperSlide key={index}>
-              {featureWell.type === 'image' && (
+              {featureWell.type === 'image' && featureWell.url && (
                 <Link href={featureWell.url}>
                   {isDesktop && (
                     <div className={cx('image-wrapper')}>
@@ -79,7 +79,7 @@ export default function FeatureWell({ featureWells }) {
                         priority
                       />
                       <div className={cx('caption-wrapper')}>
-                        {featureWell.category && (
+                        {featureWell.category && featureWell.categoryLink && (
                           <div className={cx('category-wrapper')}>
                             <Link href={featureWell.categoryLink}>
                               <h1 className={cx('category')}>
@@ -103,7 +103,7 @@ export default function FeatureWell({ featureWells }) {
                         priority
                       />
                       <div className={cx('caption-wrapper')}>
-                        {featureWell.category && (
+                        {featureWell.category && featureWell.categoryLink && (
                           <div className={cx('category-wrapper')}>
                             <Link href={featureWell.categoryLink}>
                               <h1 className={cx('category')}>
@@ -119,7 +119,7 @@ export default function FeatureWell({ featureWells }) {
                   )}
                 </Link>
               )}
-              {featureWell.type === 'video' && (
+              {featureWell.type === 'video' && featureWell.url && (
                 <Link href={featureWell.url}>
                   <div className={cx('video-wrapper')}>
                     <video
@@ -133,7 +133,7 @@ export default function FeatureWell({ featureWells }) {
                     />
 
                     <div className={cx('caption-wrapper')}>
-                      {featureWell.category && (
+                      {featureWell.category && featureWell.categoryLink && (
                         <div className={cx('category-wrapper')}>
                           <Link href={featureWell.categoryLink}>
                             <h1 className={cx('category')}>

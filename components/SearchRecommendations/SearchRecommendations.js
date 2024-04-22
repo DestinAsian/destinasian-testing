@@ -15,8 +15,10 @@ export default function SearchRecommendations({ categories }) {
       <h4>Browse by Category</h4>
       <ul>
         {categories?.map((node) => (
-          <li key={node.databaseId}>
-            <Link href={node.uri}>{node.name}</Link>
+          <li key={node?.databaseId}>
+            {node?.uri && (
+              <Link href={node?.uri}>{node?.name}</Link>
+            )}
           </li>
         ))}
       </ul>

@@ -18,6 +18,8 @@ export default function Footer() {
   const contactUri = '/contact'
   const socialUri = '/socials'
 
+  const year = new Date().getFullYear()
+
   return (
     <footer className={cx('component')}>
       <div className={cx('container-wrapper')}>
@@ -131,25 +133,33 @@ export default function Footer() {
         </div>
         <Container>
           <div className={cx('upper-menu-wrapper')}>
-            <Link href={aboutUri}>
-              <h2>{'About'}</h2>
-            </Link>
-            <Link href={privacyUri}>
-              <h2>{'Privacy Policy'}</h2>
-            </Link>
-            <Link href={contactUri}>
-              <h2>{'Contact'}</h2>
-            </Link>
-            <Link href={socialUri}>
-              <h2>{'Socials'}</h2>
-            </Link>
+            {aboutUri && (
+              <Link href={aboutUri}>
+                <h2>{'About'}</h2>
+              </Link>
+            )}
+            {privacyUri && (
+              <Link href={privacyUri}>
+                <h2>{'Privacy Policy'}</h2>
+              </Link>
+            )}
+            {contactUri && (
+              <Link href={contactUri}>
+                <h2>{'Contact'}</h2>
+              </Link>
+            )}
+            {socialUri && (
+              <Link href={socialUri}>
+                <h2>{'Socials'}</h2>
+              </Link>
+            )}
           </div>
           <div className={cx('border-divider')}></div>
           <div className={cx('bottom-menu-wrapper')}>
             <div className={cx('left-menu-wrapper')}>
               <div className={cx('copyright-wrapper')}>
                 <h5>
-                  {'Copyright '}&copy;{' 2023'}
+                  {'Copyright '}&copy; {year}
                 </h5>
               </div>
             </div>

@@ -67,29 +67,31 @@ export default function MoreReviews({ databaseId }) {
       {firstThreeReviews.map((post) => (
         <article className={cx('component')}>
           <div className={cx('content-wrapper')}>
-            <Link href={post?.node?.uri}>
-              <div className={cx('row-wrapper')}>
-                <h2 className={cx('title')}>{post?.node?.title}</h2>
-                <div className={cx('icon-wrapper')}>
-                  <CategoryIcon
-                    chooseYourCategory={
-                      post?.node?.acfCategoryIcon?.chooseYourCategory
-                    }
-                    chooseIcon={
-                      post?.node?.acfCategoryIcon?.chooseIcon?.mediaItemUrl
-                    }
-                    categoryLabel={post?.node?.acfCategoryIcon?.categoryLabel}
-                  />
-                  <LocationIcon
-                    locationValidation={
-                      post?.node?.acfLocationIcon?.fieldGroupName
-                    }
-                    locationLabel={post?.node?.acfLocationIcon?.locationLabel}
-                    locationUrl={post?.node?.acfLocationIcon?.locationUrl}
-                  />
+            {post?.node?.uri && (
+              <Link href={post?.node?.uri}>
+                <div className={cx('row-wrapper')}>
+                  <h2 className={cx('title')}>{post?.node?.title}</h2>
+                  <div className={cx('icon-wrapper')}>
+                    <CategoryIcon
+                      chooseYourCategory={
+                        post?.node?.acfCategoryIcon?.chooseYourCategory
+                      }
+                      chooseIcon={
+                        post?.node?.acfCategoryIcon?.chooseIcon?.mediaItemUrl
+                      }
+                      categoryLabel={post?.node?.acfCategoryIcon?.categoryLabel}
+                    />
+                    <LocationIcon
+                      locationValidation={
+                        post?.node?.acfLocationIcon?.fieldGroupName
+                      }
+                      locationLabel={post?.node?.acfLocationIcon?.locationLabel}
+                      locationUrl={post?.node?.acfLocationIcon?.locationUrl}
+                    />
+                  </div>
                 </div>
-              </div>
-            </Link>
+              </Link>
+            )}
           </div>
         </article>
       ))}

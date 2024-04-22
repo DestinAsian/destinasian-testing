@@ -6,7 +6,7 @@ import { GetAdvertorialStories } from '../../queries/GetAdvertorialStories'
 import { GetHCStories } from '../../queries/GetHCStories'
 import { GetPartnerContent } from '../../queries/GetPartnerContent'
 import { Button, FeaturedImage } from '../../components'
-import Link from 'next/link'  
+import Link from 'next/link'
 
 let cx = classNames.bind(styles)
 
@@ -176,7 +176,7 @@ export default function PartnerContent({ parentName }) {
     <>
       {/* Adv Content */}
       <div className={cx('adv-component')}>
-        {getAdvertorialPost[0] !== null && (
+        {getAdvertorialPost[0] !== null && getAdvertorialPost[0]?.uri && (
           <article className={cx('main-wrapper')}>
             <div className={cx('left-wrapper')}>
               {getAdvertorialPost[0]?.featuredImage && (
@@ -220,7 +220,7 @@ export default function PartnerContent({ parentName }) {
             </div>
           </article>
         )}
-        {getAdvertorialPost[1] !== null && (
+        {getAdvertorialPost[1] !== null && getAdvertorialPost[1]?.uri && (
           <article className={cx('main-wrapper')}>
             <div className={cx('left-wrapper')}>
               {getAdvertorialPost[1]?.featuredImage && (
@@ -267,7 +267,7 @@ export default function PartnerContent({ parentName }) {
       </div>
       {/* HC Content */}
       <div className={cx('hc-component')}>
-        {getHCPost[0] !== null && (
+        {getHCPost[0] !== null && getHCPost[0]?.uri && (
           <article className={cx('main-wrapper')}>
             <div className={cx('left-wrapper')}>
               {getHCPost[0]?.featuredImage && (
@@ -309,7 +309,7 @@ export default function PartnerContent({ parentName }) {
             </div>
           </article>
         )}
-        {getHCPost[1] !== null && (
+        {getHCPost[1] !== null && getHCPost[1]?.uri && (
           <article className={cx('main-wrapper')}>
             <div className={cx('left-wrapper')}>
               {getHCPost[1]?.featuredImage && (
