@@ -129,26 +129,29 @@ export default function FullMenu({
               </nav>
             )}
             <nav className={cx('feature-luxe-list')}>
-              <a
-                href={
-                  featureMenuItems[0]?.menu?.node?.luxeListLogoMenu
-                    ?.luxeListPage?.url
-                }
-              >
-                <figure className={cx('menu-image')}>
-                  <Image
-                    src={
-                      featureMenuItems[0]?.menu?.node?.luxeListLogoMenu
-                        ?.mainLogo?.mediaItemUrl
-                    }
-                    width={120}
-                    height={120}
-                    style={{ position: 'static' }}
-                    alt="Menu Image"
-                    priority
-                  />
-                </figure>
-              </a>
+              {featureMenuItems[0]?.menu?.node?.luxeListLogoMenu?.luxeListPage
+                ?.url && (
+                <Link
+                  href={
+                    featureMenuItems[0]?.menu?.node?.luxeListLogoMenu
+                      ?.luxeListPage?.url
+                  }
+                >
+                  <figure className={cx('menu-image')}>
+                    <Image
+                      src={
+                        featureMenuItems[0]?.menu?.node?.luxeListLogoMenu
+                          ?.mainLogo?.mediaItemUrl
+                      }
+                      width={120}
+                      height={120}
+                      style={{ position: 'static' }}
+                      alt="Menu Image"
+                      priority
+                    />
+                  </figure>
+                </Link>
+              )}
             </nav>
           </div>
           <div className={cx('fourth-wrapper')}>

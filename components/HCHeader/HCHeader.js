@@ -3,12 +3,10 @@ import Link from 'next/link'
 import destinasianLogo from '../../assets/logo/destinasian-logo.png'
 import {
   Container,
-  SkipNavigationLink,
   FullMenu,
   SearchInput,
   SearchResults,
-  Button,
-} from '..'
+} from '../../components'
 import styles from './HCHeader.module.scss'
 import { useState, useEffect } from 'react'
 import { useMediaQuery } from 'react-responsive'
@@ -113,7 +111,6 @@ export default function HCHeader({
 
   return (
     <header className={cx('component', { sticky: isScrolled })}>
-      <SkipNavigationLink />
       {/* Responsive header */}
       {isDesktop || (!isDesktop && !isNavShown) ? (
         <Container>

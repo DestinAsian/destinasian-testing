@@ -4,12 +4,7 @@ import destinasianLogoGold from '../../assets/logo/destinasian-logo-gold.png'
 import destinasianLogo from '../../assets/logo/destinasian-logo.png'
 import {
   Container,
-  SkipNavigationLink,
   FullMenu,
-  SearchInput,
-  SearchResults,
-  RCAFullMenu,
-  Button,
 } from '../../components'
 import styles from './RCAHeader.module.scss'
 import { useState, useEffect } from 'react'
@@ -31,12 +26,9 @@ export default function RCAHeader({
   menusLoading,
   latestLoading,
   parent,
-  databaseId,
-  uri,
   isNavShown,
   setIsNavShown,
   isRCANavShown,
-  setIsRCANavShown,
 }) {
   const isDesktop = useMediaQuery({ minWidth: 768 })
   const [isScrolled, setIsScrolled] = useState(false)
@@ -125,7 +117,6 @@ export default function RCAHeader({
         twoNavShown: twoNavShown,
       })}
     >
-      <SkipNavigationLink />
       {/* Responsive header */}
       {isDesktop || (!isDesktop && !isNavShown) ? (
         <Container>

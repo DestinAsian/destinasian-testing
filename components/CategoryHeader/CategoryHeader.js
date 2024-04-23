@@ -3,11 +3,9 @@ import Link from 'next/link'
 import destinasianLogo from '../../assets/logo/destinasian-logo.png'
 import {
   Container,
-  SkipNavigationLink,
   FullMenu,
   SearchInput,
   SearchResults,
-  Button,
 } from '../../components'
 import styles from './CategoryHeader.module.scss'
 import { useState, useEffect } from 'react'
@@ -113,7 +111,6 @@ export default function CategoryHeader({
 
   return (
     <header className={cx('components', { sticky: isScrolled })}>
-      <SkipNavigationLink />
       {/* Responsive header */}
       {isDesktop || (!isDesktop && !isNavShown) ? (
         <Container>

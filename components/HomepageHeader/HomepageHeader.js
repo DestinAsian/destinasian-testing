@@ -4,12 +4,10 @@ import destinasianLogoBlk from '../../assets/logo/destinasian-logo.png'
 import destinasianLogoWht from '../../assets/logo/destinasianLogoWht.png'
 import {
   Container,
-  SkipNavigationLink,
   FullMenu,
   SearchInput,
   SearchResults,
-  Button,
-} from '..'
+} from '../../components'
 import styles from './HomepageHeader.module.scss'
 import { useState, useEffect } from 'react'
 import { useMediaQuery } from 'react-responsive'
@@ -118,7 +116,6 @@ export default function HomepageHeader({
     <header
       className={cx('component', { sticky: isScrolled, white: isNavShown })}
     >
-      <SkipNavigationLink />
       {/* Responsive header */}
       {isDesktop || (!isDesktop && !isNavShown) ? (
         <Container>
