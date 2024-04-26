@@ -36,22 +36,24 @@ export default function ErrorPage({ image, title, content }) {
   })
 
   // Update query when load more button clicked
-  const updateQuery = (previousResult, { fetchMoreResult }) => {
-    if (!fetchMoreResult.tags.edges.length) {
-      return previousResult.tags
-    }
+  const updateQuery = (prev, { fetchMoreResult }) => {
+    if (!fetchMoreResult) return prev
 
     return {
+      ...searchResultsData,
       tags: {
-        ...previousResult.tags,
-        edges: [...previousResult.tags.edges, ...fetchMoreResult.tags.edges],
-        pageInfo: fetchMoreResult.tags.pageInfo,
+        ...searchResultsData?.tags,
+        edges: [
+          ...searchResultsData?.tags?.edges,
+          ...fetchMoreResult?.tags?.edges,
+        ],
+        pageInfo: fetchMoreResult?.tags?.pageInfo,
       },
     }
   }
 
   // Check if the search query is empty and no search results are loading, then hide the SearchResults component
-  const isSearchResultsVisible = !!(searchQuery)
+  const isSearchResultsVisible = !!searchQuery
 
   // Create a Set to store unique databaseId values
   const uniqueDatabaseIds = new Set()
@@ -75,12 +77,12 @@ export default function ErrorPage({ image, title, content }) {
   // Sort contentNodesPosts array by date
   contentNodesPosts.sort((a, b) => {
     // Assuming your date is stored in 'date' property of the post objects
-    const dateA = new Date(a.date);
-    const dateB = new Date(b.date);
+    const dateA = new Date(a.date)
+    const dateB = new Date(b.date)
 
     // Compare the dates
-    return dateB - dateA;
-  });
+    return dateB - dateA
+  })
 
   return (
     <div className={cx(['component', className])}>

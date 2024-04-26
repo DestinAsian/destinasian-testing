@@ -24,10 +24,8 @@ export default function ContentWrapperLL({ content, images, databaseId }) {
       // Parse the HTML content
       const doc = parser.parseFromString(content, 'text/html')
 
-      // Get only image elements with src containing "testing.destinasian.com"
-      const imageElements = doc.querySelectorAll(
-        'img[src*="testing.destinasian.com"]',
-      )
+      // Get only image elements with src containing "staging.destinasian.com"
+      const imageElements = doc.querySelectorAll('img[src*="staging.destinasian.com"]');
 
       // Replace <img> elements with <Image> components
       imageElements.forEach((img) => {

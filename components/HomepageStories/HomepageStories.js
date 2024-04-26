@@ -50,15 +50,15 @@ export default function HomepageStories(pinPosts) {
   const updateQuery = (prev, { fetchMoreResult }) => {
     if (!fetchMoreResult) return prev
 
-    const prevEdges = prev?.contentNodes?.edges || []
+    const prevEdges = data?.contentNodes?.edges || []
     const newEdges = fetchMoreResult?.contentNodes?.edges || []
 
     return {
-      ...prev,
+      ...data,
       contentNodes: {
-        ...prev.contentNodes,
+        ...data?.contentNodes,
         edges: [...prevEdges, ...newEdges],
-        pageInfo: fetchMoreResult.contentNodes.pageInfo,
+        pageInfo: fetchMoreResult?.contentNodes?.pageInfo,
       },
     }
   }

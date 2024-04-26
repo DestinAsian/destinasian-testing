@@ -23,20 +23,20 @@ export default function LLMenu({ mainLogo, secondaryLogo, databaseId, uri }) {
     nextFetchPolicy: 'cache-and-network',
   })
 
-  const updateQuery = (previousResult, { fetchMoreResult }) => {
-    if (!fetchMoreResult.luxeList.children.edges.length) {
-      return previousResult.luxeList.children
-    }
+  const updateQuery = (prev, { fetchMoreResult }) => {
+    if (!fetchMoreResult) return prev
 
     return {
+      ...data,
       luxeList: {
+        ...data?.luxeList,
         children: {
-          ...previousResult.luxeList.children,
+          ...prev?.luxeList?.children,
           edges: [
-            ...previousResult.luxeList.children?.edges,
-            ...fetchMoreResult.luxeList.children?.edges,
+            ...prev?.luxeList?.children?.edges,
+            ...fetchMoreResult?.luxeList?.children?.edges,
           ],
-          pageInfo: fetchMoreResult.luxeList.children.pageInfo,
+          pageInfo: fetchMoreResult?.luxeList?.children?.pageInfo,
         },
       },
     }

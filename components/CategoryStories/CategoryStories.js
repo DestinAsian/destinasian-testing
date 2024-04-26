@@ -67,17 +67,17 @@ export default function CategoryStories(categoryUri) {
   const updateQuery = (prev, { fetchMoreResult }) => {
     if (!fetchMoreResult) return prev
 
-    const prevEdges = prev?.category?.contentNodes?.edges || []
+    const prevEdges = data?.category?.contentNodes?.edges || []
     const newEdges = fetchMoreResult?.category?.contentNodes?.edges || []
 
     return {
-      ...prev,
+      ...data,
       category: {
-        ...prev.category,
+        ...data?.category,
         contentNodes: {
-          ...prev.category.contentNodes,
+          ...data?.category?.contentNodes,
           edges: [...prevEdges, ...newEdges],
-          pageInfo: fetchMoreResult.category.contentNodes.pageInfo,
+          pageInfo: fetchMoreResult?.category?.contentNodes?.pageInfo,
         },
       },
     }

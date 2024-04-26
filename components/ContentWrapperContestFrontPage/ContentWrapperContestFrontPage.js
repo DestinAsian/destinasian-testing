@@ -21,19 +21,17 @@ export default function ContentWrapperContestFrontPage() {
     nextFetchPolicy: 'cache-and-network',
   })
 
-  const updateQuery = (previousResult, { fetchMoreResult }) => {
-    if (!fetchMoreResult.contests.edges.length) {
-      return previousResult.contests
+  const updateQuery = (prev, { fetchMoreResult }) => {
+    if (!fetchMoreResult) {
+      return prev
     }
 
     return {
+      ...data,
       contests: {
-        ...previousResult.contests,
-        edges: [
-          ...previousResult.contests.edges,
-          ...fetchMoreResult.contests.edges,
-        ],
-        pageInfo: fetchMoreResult.contests.pageInfo,
+        ...data?.contests,
+        edges: [...data?.contests?.edges, ...fetchMoreResult?.contests?.edges],
+        pageInfo: fetchMoreResult?.contests?.pageInfo,
       },
     }
   }

@@ -27,8 +27,10 @@ export default function ContentWrapperLLFrontPage({
       // Parse the HTML content
       const doc = parser.parseFromString(content, 'text/html')
 
-      // Get only image elements with src containing "testing.destinasian.com"
-      const imageElements = doc.querySelectorAll('img[src*="testing.destinasian.com"]');
+      // Get only image elements with src containing "staging.destinasian.com"
+      const imageElements = doc.querySelectorAll(
+        'img[src*="staging.destinasian.com"]',
+      )
 
       // Replace <img> elements with <Image> components
       imageElements.forEach((img) => {
@@ -80,17 +82,17 @@ export default function ContentWrapperLLFrontPage({
   const updateQuery = (prev, { fetchMoreResult }) => {
     if (!fetchMoreResult) return prev
 
-    const prevEdges = prev?.luxeListBy?.children?.edges || []
+    const prevEdges = data?.luxeListBy?.children?.edges || []
     const newEdges = fetchMoreResult?.luxeListBy?.children?.edges || []
 
     return {
-      ...prev,
+      ...data,
       luxeListBy: {
-        ...prev.luxeListBy,
+        ...data?.luxeListBy,
         children: {
-          ...prev.luxeListBy.children,
+          ...data?.luxeListBy?.children,
           edges: [...prevEdges, ...newEdges],
-          pageInfo: fetchMoreResult.luxeListBy.children.pageInfo,
+          pageInfo: fetchMoreResult?.luxeListBy?.children?.pageInfo,
         },
       },
     }

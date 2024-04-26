@@ -38,7 +38,11 @@ export default function TagStories(tagUri) {
     first: postsPerPage,
     after: null,
     id: uri,
-    contentTypes: [CONTENT_TYPES.EDITORIAL, CONTENT_TYPES.POST, CONTENT_TYPES.UPDATE],
+    contentTypes: [
+      CONTENT_TYPES.EDITORIAL,
+      CONTENT_TYPES.POST,
+      CONTENT_TYPES.UPDATE,
+    ],
   }
 
   // Get Stories / Posts
@@ -51,17 +55,17 @@ export default function TagStories(tagUri) {
   const updateQuery = (prev, { fetchMoreResult }) => {
     if (!fetchMoreResult) return prev
 
-    const prevEdges = prev?.tag?.contentNodes?.edges || []
+    const prevEdges = data?.tag?.contentNodes?.edges || []
     const newEdges = fetchMoreResult?.tag?.contentNodes?.edges || []
 
     return {
-      ...prev,
+      ...data,
       tag: {
-        ...prev.tag,
+        ...data?.tag,
         contentNodes: {
-          ...prev.tag.contentNodes,
+          ...data?.tag?.contentNodes,
           edges: [...prevEdges, ...newEdges],
-          pageInfo: fetchMoreResult.tag.contentNodes.pageInfo,
+          pageInfo: fetchMoreResult?.tag?.contentNodes?.pageInfo,
         },
       },
     }
@@ -255,10 +259,7 @@ export default function TagStories(tagUri) {
 
   // Function to fetch more posts
   const fetchMorePosts = () => {
-    if (
-      !isFetchingMore &&
-      data?.tag?.contentNodes?.pageInfo?.hasNextPage
-    ) {
+    if (!isFetchingMore && data?.tag?.contentNodes?.pageInfo?.hasNextPage) {
       setIsFetchingMore(true)
       fetchMore({
         variables: {
@@ -308,15 +309,12 @@ export default function TagStories(tagUri) {
   const allPosts = data?.tag?.contentNodes?.edges?.map((post) => post.node)
 
   // Merge All posts and Pin posts
-  const mergedPosts = [...allPosts].reduce(
-    (uniquePosts, post) => {
-      if (!uniquePosts.some((uniquePost) => uniquePost?.id === post?.id)) {
-        uniquePosts.push(post)
-      }
-      return uniquePosts
-    },
-    [],
-  )
+  const mergedPosts = [...allPosts].reduce((uniquePosts, post) => {
+    if (!uniquePosts.some((uniquePost) => uniquePost?.id === post?.id)) {
+      uniquePosts.push(post)
+    }
+    return uniquePosts
+  }, [])
 
   // Concatenate the arrays to place ads specificAds first
   const sortedBannerAdsArray = [...SpecificAdsArray, ...ROSAdsArray].reduce(
