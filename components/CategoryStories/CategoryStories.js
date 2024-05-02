@@ -449,7 +449,7 @@ export default function CategoryStories(categoryUri) {
         ))}
       {/* {mergedPosts.length && ( */}
       {mergedPosts.length && (
-        <div className="mx-auto my-0 flex max-w-[100vw] justify-center md:max-w-[700px]	">
+        <div className="mx-auto my-0 flex w-[100vw] justify-center ">
           {data?.category?.contentNodes?.pageInfo?.hasNextPage &&
             data?.category?.contentNodes?.pageInfo?.endCursor && (
               <Button
