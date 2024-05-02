@@ -15,6 +15,7 @@
     flex-direction: row;
     justify-content: center;
     column-gap: 2rem;
+    max-width: calc(1400px + 2rem);
   }
 
   .post-wrapper,
