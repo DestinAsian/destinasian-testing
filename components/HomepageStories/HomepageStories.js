@@ -4,7 +4,7 @@ import styles from './HomepageStories.module.scss'
 import { useQuery } from '@apollo/client'
 import { GetHomepageStories } from '../../queries/GetHomepageStories'
 import { GetHomepageBannerAds } from '../../queries/GetHomepageBannerAds'
-import { Post, ModuleAd, Button } from '..'
+import { Button, PostTwoColumns, ModuleAdTwoColumns } from '../../components'
 
 let cx = classNames.bind(styles)
 
@@ -209,39 +209,43 @@ export default function HomepageStories(pinPosts) {
       {mergedPosts.length !== 0 &&
         mergedPosts.map((post, index) => (
           <React.Fragment key={post?.id}>
-            <Post
-              title={post?.title}
-              excerpt={post?.excerpt}
-              content={post?.content}
-              date={post?.date}
-              author={post?.author?.node?.name}
-              uri={post?.uri}
-              parentCategory={
-                post?.categories?.edges[0]?.node?.parent?.node?.name
-              }
-              category={post?.categories?.edges[0]?.node?.name}
-              categoryUri={post?.categories?.edges[0]?.node?.uri}
-              featuredImage={post?.featuredImage?.node}
-              chooseYourCategory={post?.acfCategoryIcon?.chooseYourCategory}
-              chooseIcon={post?.acfCategoryIcon?.chooseIcon?.mediaItemUrl}
-              categoryLabel={post?.acfCategoryIcon?.categoryLabel}
-              locationValidation={post?.acfLocationIcon?.fieldGroupName}
-              locationLabel={post?.acfLocationIcon?.locationLabel}
-              locationUrl={post?.acfLocationIcon?.locationUrl}
-            />
+            <div className={cx('post-wrapper')}>
+              <PostTwoColumns
+                title={post?.title}
+                excerpt={post?.excerpt}
+                content={post?.content}
+                date={post?.date}
+                author={post?.author?.node?.name}
+                uri={post?.uri}
+                parentCategory={
+                  post?.categories?.edges[0]?.node?.parent?.node?.name
+                }
+                category={post?.categories?.edges[0]?.node?.name}
+                categoryUri={post?.categories?.edges[0]?.node?.uri}
+                featuredImage={post?.featuredImage?.node}
+                chooseYourCategory={post?.acfCategoryIcon?.chooseYourCategory}
+                chooseIcon={post?.acfCategoryIcon?.chooseIcon?.mediaItemUrl}
+                categoryLabel={post?.acfCategoryIcon?.categoryLabel}
+                locationValidation={post?.acfLocationIcon?.fieldGroupName}
+                locationLabel={post?.acfLocationIcon?.locationLabel}
+                locationUrl={post?.acfLocationIcon?.locationUrl}
+              />
+            </div>
             {/* Show 1st banner after 2 posts and then every 4 posts */}
             {(index - 1) % 4 === 0 && (
-              <ModuleAd
-                bannerAd={
-                  sortedBannerAdsArray[((index - 1) / 4) % numberOfBannerAds]
-                    ?.node?.content
-                }
-              />
+              <div className={cx('ad-wrapper')}>
+                <ModuleAdTwoColumns
+                  bannerAd={
+                    sortedBannerAdsArray[((index - 1) / 4) % numberOfBannerAds]
+                      ?.node?.content
+                  }
+                />
+              </div>
             )}
           </React.Fragment>
         ))}
       {mergedPosts.length && (
-        <div className="mx-auto my-0 flex max-w-[100vw] justify-center md:max-w-[700px]	">
+        <div className="mx-auto my-0 flex w-[100vw] justify-center ">
           {data?.contentNodes?.pageInfo?.hasNextPage &&
             data?.contentNodes?.pageInfo?.endCursor && (
               <Button

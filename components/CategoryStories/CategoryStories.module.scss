@@ -1,2 +1,33 @@
 @import 'styles/breakpoints';
 
+.component {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0;
+  margin-right: auto;
+  margin-left: auto;
+  width: 100vw;
+  position: relative;
+
+  @media (min-width: $breakpoint-small) {
+    flex-direction: row;
+    justify-content: center;
+    column-gap: 1rem;
+  }
+
+  .post-wrapper,
+  .ad-wrapper {
+    width: 100vw;
+    max-width: 700px;
+
+    @media (min-width: $breakpoint-small) {
+      width: calc(50vw - 1rem);
+    }
+  }
+
+  //   @media (min-width: $breakpoint-medium) {
+  //     max-width: var(--wpe--container--max--width);
+  //   }
+}

@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client'
 import { useState } from 'react'
 import className from 'classnames/bind'
-import { SearchInput, SearchResults, FeaturedImage, Button } from '..'
+import { SearchInput, SearchResults, FeaturedImage, Button } from '../../components'
 import styles from './ErrorPage.module.scss'
 import { GetSearchResults } from '../../queries/GetSearchResults'
 import appConfig from '../../app.config'

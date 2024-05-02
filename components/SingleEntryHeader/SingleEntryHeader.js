@@ -1,5 +1,5 @@
 import className from 'classnames/bind'
-import { Heading, Container, CategoryIcon, LocationIcon } from '..'
+import { Heading, Container, CategoryIcon, LocationIcon } from '../../components'
 import styles from './SingleEntryHeader.module.scss'
 import Link from 'next/link'
 

@@ -1,5 +1,5 @@
 import className from 'classnames/bind'
-import { Heading } from '..'
+import { Heading } from '../../components'
 import styles from './SingleHCEntryHeader.module.scss'
 import { useState, useEffect } from 'react'
 import locationIcon from '../../assets/icons/icon-location.png'

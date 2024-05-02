@@ -1,18 +1,16 @@
 import classNames from 'classnames/bind'
-import { FeaturedImage } from '../../components'
-import styles from './RelatedStories.module.scss'
+import { FeaturedImage, CategoryIcon, LocationIcon, Container } from '../../components'
+import styles from './AdvertorialPostTwoColumns.module.scss'
 import Link from 'next/link'
 
 let cx = classNames.bind(styles)
 
-const MAX_EXCERPT_LENGTH = 100 // Adjust the maximum length as needed
+const MAX_EXCERPT_LENGTH = 150 // Adjust the maximum length as needed
 
-export default function RelatedStories({
+export default function AdvertorialPostTwoColumns({
   title,
   excerpt,
   uri,
-  category,
-  categoryUri,
   featuredImage,
 }) {
   let trimmedExcerpt = excerpt?.substring(0, MAX_EXCERPT_LENGTH)
@@ -24,7 +22,7 @@ export default function RelatedStories({
 
   return (
     <article className={cx('component')}>
-      <div className={cx('left-wrapper')}>
+      <div className={cx('container-wrapper')}>
         {featuredImage && (
           <div className={cx('content-wrapper-image')}>
             {uri && (
@@ -37,17 +35,13 @@ export default function RelatedStories({
             )}
           </div>
         )}
-      </div>
-      <div className={cx('right-wrapper')}>
-        {category && (
-          <div className={cx('content-wrapper')}>
-            {categoryUri && (
-              <Link href={categoryUri}>
-                <h5 className={cx('category')}>{category}</h5>
-              </Link>
-            )}
-          </div>
-        )}
+        <div className={cx('content-wrapper')}>
+          {uri && (
+            <Link href={uri}>
+              <h5 className={cx('category')}>{'Partner Content'}</h5>
+            </Link>
+          )}
+        </div>
         <div className={cx('content-wrapper')}>
           {uri && (
             <Link href={uri}>
@@ -68,6 +62,7 @@ export default function RelatedStories({
           </div>
         )}
       </div>
+      <div className={cx('border-bottom')}></div>
     </article>
   )
 }

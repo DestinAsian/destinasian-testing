@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client'
 import classNames from 'classnames/bind'
-import { Button, LLPost, FeaturedImage } from '..'
+import { Button, LLPost, FeaturedImage } from '../../components'
 import styles from './LLMenu.module.scss'
 import React, { useState, useEffect } from 'react'
 import { GetLuxeListMenu } from '../../queries/GetLuxeListMenu'

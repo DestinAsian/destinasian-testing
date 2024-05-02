@@ -1,5 +1,5 @@
 import className from 'classnames/bind'
-import { FeaturedImage } from '..'
+import { FeaturedImage } from '../../components'
 import styles from './SingleEditorialFeaturedImage.module.scss'
 
 let cx = className.bind(styles)

@@ -1,5 +1,5 @@
 import className from 'classnames/bind'
-import { FeaturedImage } from '..'
+import { FeaturedImage } from '../../components'
 import { useState, useEffect } from 'react'
 import styles from './SingleLLFrontPageFeaturedImage.module.scss'
 import { Container, FullMenu } from '../../components'

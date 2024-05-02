@@ -1,5 +1,5 @@
 import className from 'classnames/bind'
-import { Heading, FormatDate } from '..'
+import { Heading, FormatDate } from '../../components'
 import styles from './SingleUpdateEntryHeader.module.scss'
 import Link from 'next/link'
 

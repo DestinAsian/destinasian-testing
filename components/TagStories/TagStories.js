@@ -7,7 +7,7 @@ import { GetTagStories } from '../../queries/GetTagStories'
 import { GetROSBannerAds } from '../../queries/GetROSBannerAds'
 import { GetSpecificBannerAds } from '../../queries/GetSpecificBannerAds'
 import { GetAdvertorialStories } from '../../queries/GetAdvertorialStories'
-import { Post, ModuleAd, Button, AdvertorialPost } from '..'
+import { Post, ModuleAd, Button, AdvertorialPost } from '../../components'
 
 let cx = classNames.bind(styles)
 

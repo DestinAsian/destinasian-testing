@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind'
-import { FeaturedImage } from '..'
+import { FeaturedImage } from '../../components'
 import styles from './LLPost.module.scss'
 import Link from 'next/link'
 

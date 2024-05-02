@@ -1,5 +1,5 @@
 import className from 'classnames/bind'
-import { Heading, Container } from '..'
+import { Heading, Container } from '../../components'
 import styles from './CategoryEntryHeader.module.scss'
 import Image from 'next/image'
 

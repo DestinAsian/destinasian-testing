@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import className from 'classnames/bind'
-import { Heading, Container } from '..'
+import { Heading, Container } from '../../components'
 import styles from './DaGuideMenu.module.scss'
 import Link from 'next/link'
 

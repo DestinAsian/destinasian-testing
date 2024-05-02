@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind'
-import { Container } from '..'
+import { Container } from '../../components'
 import styles from './Footer.module.scss'
 import Image from 'next/image'
 import Link from 'next/link'

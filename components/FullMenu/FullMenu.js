@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind'
-import { NavigationMenu, SearchInput, SearchResults } from '..'
+import { NavigationMenu, SearchInput, SearchResults } from '../../components'
 import styles from './FullMenu.module.scss'
 import { useState } from 'react'
 import Image from 'next/image'

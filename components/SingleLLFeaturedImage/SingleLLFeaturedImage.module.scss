@@ -23,7 +23,7 @@
     left: 50%;
     width: 100%;
     z-index: 49;
-    transform: translate(-50%, 3.5rem);
+    transform: translate(-50%, 6.5rem);
     background-color: var(--wpe--color--black);
 
     @media (min-width: $breakpoint-extra-small) {
@@ -76,7 +76,7 @@
   // Sticky menu with background
   left: 50%;
   width: 100%;
-  transform: translate(-50%, 3.5rem);
+  transform: translate(-50%, 6.5rem);
 
   // Sticky menu without background
   // right: 0;

@@ -7,7 +7,12 @@ import { GetCategoryStories } from '../../queries/GetCategoryStories'
 import { GetROSBannerAds } from '../../queries/GetROSBannerAds'
 import { GetSpecificBannerAds } from '../../queries/GetSpecificBannerAds'
 import { GetAdvertorialStories } from '../../queries/GetAdvertorialStories'
-import { Post, ModuleAd, Button, AdvertorialPost } from '..'
+import {
+  Button,
+  PostTwoColumns,
+  ModuleAdTwoColumns,
+  AdvertorialPostTwoColumns,
+} from '../../components'
 
 let cx = classNames.bind(styles)
 
@@ -104,10 +109,7 @@ export default function CategoryStories(categoryUri) {
     search: name,
   }
 
-  if (
-    children?.edges?.length === 0 &&
-    parent?.node?.name !== null
-  ) {
+  if (children?.edges?.length === 0 && parent?.node?.name !== null) {
     // Modify the variables based on the condition
     bannerVariable = {
       search: parent, // Change this to the desired value
@@ -397,47 +399,51 @@ export default function CategoryStories(categoryUri) {
       {mergedPosts.length !== 0 &&
         mergedPosts.map((post, index) => (
           <React.Fragment key={post?.id}>
-            <Post
-              title={post?.title}
-              excerpt={post?.excerpt}
-              content={post?.content}
-              date={post?.date}
-              author={post?.author?.node?.name}
-              uri={post?.uri}
-              parentCategory={
-                post?.categories?.edges[0]?.node?.parent?.node?.name
-              }
-              category={post?.categories?.edges[0]?.node?.name}
-              categoryUri={post?.categories?.edges[0]?.node?.uri}
-              featuredImage={post?.featuredImage?.node}
-              chooseYourCategory={post?.acfCategoryIcon?.chooseYourCategory}
-              chooseIcon={post?.acfCategoryIcon?.chooseIcon?.mediaItemUrl}
-              categoryLabel={post?.acfCategoryIcon?.categoryLabel}
-              locationValidation={post?.acfLocationIcon?.fieldGroupName}
-              locationLabel={post?.acfLocationIcon?.locationLabel}
-              locationUrl={post?.acfLocationIcon?.locationUrl}
-            />
+            <div className={cx('post-wrapper')}>
+              <PostTwoColumns
+                title={post?.title}
+                excerpt={post?.excerpt}
+                content={post?.content}
+                date={post?.date}
+                author={post?.author?.node?.name}
+                uri={post?.uri}
+                parentCategory={
+                  post?.categories?.edges[0]?.node?.parent?.node?.name
+                }
+                category={post?.categories?.edges[0]?.node?.name}
+                categoryUri={post?.categories?.edges[0]?.node?.uri}
+                featuredImage={post?.featuredImage?.node}
+                chooseYourCategory={post?.acfCategoryIcon?.chooseYourCategory}
+                chooseIcon={post?.acfCategoryIcon?.chooseIcon?.mediaItemUrl}
+                categoryLabel={post?.acfCategoryIcon?.categoryLabel}
+                locationValidation={post?.acfLocationIcon?.fieldGroupName}
+                locationLabel={post?.acfLocationIcon?.locationLabel}
+                locationUrl={post?.acfLocationIcon?.locationUrl}
+              />
+            </div>
             {/* Show 1st banner after 2 posts and then every 4 posts */}
             {(index - 1) % 4 === 0 && (
-              <ModuleAd
-                bannerAd={
-                  sortedBannerAdsArray[((index - 1) / 4) % numberOfBannerAds]
-                    ?.node?.content
-                }
-              />
+              <div className={cx('ad-wrapper')}>
+                <ModuleAdTwoColumns
+                  bannerAd={
+                    sortedBannerAdsArray[((index - 1) / 4) % numberOfBannerAds]
+                      ?.node?.content
+                  }
+                />
+              </div>
             )}
             {index - 1 === 2 && (
-              <>
+              <div className={cx('ad-wrapper')}>
                 {/* Advertorial Stories */}
                 {numberOfAdvertorial !== 0 && (
-                  <AdvertorialPost
+                  <AdvertorialPostTwoColumns
                     title={getAdvertorialPost?.title}
                     excerpt={getAdvertorialPost?.excerpt}
                     uri={getAdvertorialPost?.uri}
                     featuredImage={getAdvertorialPost?.featuredImage?.node}
                   />
                 )}
-              </>
+              </div>
             )}
           </React.Fragment>
         ))}

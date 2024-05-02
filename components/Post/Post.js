@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind'
-import { FeaturedImage, CategoryIcon, LocationIcon, Container } from '..'
+import { FeaturedImage, CategoryIcon, LocationIcon, Container } from '../../components'
 import styles from './Post.module.scss'
 import Link from 'next/link'
 

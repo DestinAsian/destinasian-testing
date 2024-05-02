@@ -1,5 +1,5 @@
 import className from 'classnames/bind'
-import { Heading } from '..'
+import { Heading } from '../../components'
 import styles from './SingleAdvertorialEntryHeader.module.scss'  
 
 let cx = className.bind(styles)

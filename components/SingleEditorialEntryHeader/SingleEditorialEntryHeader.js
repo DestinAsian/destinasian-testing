@@ -1,5 +1,5 @@
 import className from 'classnames/bind'
-import { Heading, FormatDate } from '..'
+import { Heading, FormatDate } from '../../components'
 import styles from './SingleEditorialEntryHeader.module.scss'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'

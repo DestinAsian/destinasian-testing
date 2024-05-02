@@ -1,4 +1,5 @@
 export { AdvertorialPost } from './AdvertorialPost';
+export { AdvertorialPostTwoColumns } from './AdvertorialPostTwoColumns';
 export { Button } from './Button';
 export { CategoryEntryHeader } from './CategoryEntryHeader';
 export { CategoryHeader } from './CategoryHeader';
@@ -42,10 +43,12 @@ export { LoadMore } from './LoadMore';
 export { LocationIcon } from './LocationIcon';
 export { Main } from './Main';
 export { ModuleAd } from './ModuleAd';
+export { ModuleAdTwoColumns } from './ModuleAdTwoColumns';
 export { MoreReviews } from './MoreReviews';
 export { NavigationMenu } from './NavigationMenu';
 export { PartnerContent } from './PartnerContent';
 export { Post } from './Post';
+export { PostTwoColumns } from './PostTwoColumns';
 export { PostInfo } from './PostInfo';
 export { RCAFullMenu } from './RCAFullMenu';
 export { RCAHeader } from './RCAHeader';

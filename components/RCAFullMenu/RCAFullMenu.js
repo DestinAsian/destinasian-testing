@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client'
 import classNames from 'classnames/bind'
-import { Button, FeaturedImage, NavigationMenu } from '..'
+import { Button, FeaturedImage, NavigationMenu } from '../../components'
 import styles from './RCAFullMenu.module.scss'
 import React, { useState, useEffect } from 'react'
 import * as MENUS from '../../constants/menus'
