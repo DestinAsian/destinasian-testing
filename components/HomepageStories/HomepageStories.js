@@ -4,7 +4,7 @@ import styles from './HomepageStories.module.scss'
 import { useQuery } from '@apollo/client'
 import { GetHomepageStories } from '../../queries/GetHomepageStories'
 import { GetHomepageBannerAds } from '../../queries/GetHomepageBannerAds'
-import { Button, PostTwoColumns, ModuleAdTwoColumns } from '../../components'
+import { Button, PostTwoColumns, ModuleAdTwoColumns, ModuleAd } from '../../components'
 
 let cx = classNames.bind(styles)
 
@@ -234,7 +234,7 @@ export default function HomepageStories(pinPosts) {
             {/* Show 1st banner after 2 posts and then every 4 posts */}
             {(index - 1) % 4 === 0 && (
               <div className={cx('ad-wrapper')}>
-                <ModuleAdTwoColumns
+                <ModuleAd
                   bannerAd={
                     sortedBannerAdsArray[((index - 1) / 4) % numberOfBannerAds]
                       ?.node?.content

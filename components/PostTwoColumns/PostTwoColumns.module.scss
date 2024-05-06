@@ -13,13 +13,15 @@
 }
 
 .container-wrapper {
-  @media (min-width: $breakpoint-extra-small) {
-    min-height: 45rem;
-  }
+  height: auto;
 
-  @media (min-width: $breakpoint-medium) {
-    min-height: 50rem;
-  }
+  // @media (min-width: $breakpoint-extra-small) {
+  //   min-height: 45rem;
+  // }
+
+  // @media (min-width: $breakpoint-medium) {
+  //   min-height: 50rem;
+  // }
 }
 
 .content-wrapper-image {
@@ -144,5 +146,6 @@
 
   @media (min-width: $breakpoint-small) {
     width: 100%;
+    border: none;
   }
 }

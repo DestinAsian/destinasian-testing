@@ -12,6 +12,7 @@ import {
   PostTwoColumns,
   ModuleAdTwoColumns,
   AdvertorialPostTwoColumns,
+  ModuleAd,
 } from '../../components'
 
 let cx = classNames.bind(styles)
@@ -424,7 +425,7 @@ export default function CategoryStories(categoryUri) {
             {/* Show 1st banner after 2 posts and then every 4 posts */}
             {(index - 1) % 4 === 0 && (
               <div className={cx('ad-wrapper')}>
-                <ModuleAdTwoColumns
+                <ModuleAd
                   bannerAd={
                     sortedBannerAdsArray[((index - 1) / 4) % numberOfBannerAds]
                       ?.node?.content
@@ -449,7 +450,7 @@ export default function CategoryStories(categoryUri) {
         ))}
       {/* {mergedPosts.length && ( */}
       {mergedPosts.length && (
-        <div className="mx-auto my-0 flex w-[100vw] justify-center ">
+        <div className="mx-auto my-0 flex w-[100vw] justify-center	">
           {data?.category?.contentNodes?.pageInfo?.hasNextPage &&
             data?.category?.contentNodes?.pageInfo?.endCursor && (
               <Button
