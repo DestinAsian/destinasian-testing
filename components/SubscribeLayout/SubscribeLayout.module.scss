@@ -1,0 +1,361 @@
+@import 'styles/breakpoints';
+
+.component {
+  width: 100vw;
+  margin: 0 auto;
+  line-height: 1.2;
+  padding: 0;
+  margin-bottom: 2rem;
+
+  // @media (min-width: $breakpoint-small) {
+  //   max-width: 700px;
+  // }
+
+  .first-wrapper,
+  .second-wrapper,
+  .third-wrapper,
+  .fourth-wrapper,
+  .fifth-wrapper {
+    padding: 2rem 0 2rem;
+    margin-right: auto;
+    margin-left: auto;
+    width: 100vw;
+    position: relative;
+
+    @media (min-width: $breakpoint-small) {
+      max-width: calc(1000px + 2rem);
+      padding: 4rem 0 4rem;
+    }
+  }
+
+  .border-bottom {
+    width: 95%;
+    margin: 0 auto;
+    border-bottom: 0.25rem solid var(--wpe--color--black--cow);
+
+    @media (min-width: $breakpoint-small) {
+      max-width: calc(1000px + 2rem);
+    }
+  }
+
+  .first-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-right: auto;
+    margin-left: auto;
+    width: 100vw;
+    position: relative;
+    row-gap: 2rem;
+    padding: 0 0 2rem;
+
+    @media (min-width: $breakpoint-small) {
+      flex-direction: row;
+      justify-content: center;
+      align-items: flex-end;
+      column-gap: 2rem;
+      max-width: calc(1000px + 2rem);
+      padding: 0 0 4rem;
+    }
+
+    .image-wrapper {
+      width: 100%;
+      position: relative;
+
+      @media (min-width: $breakpoint-extra-small) {
+        width: calc(50% - 2rem);
+      }
+
+      img {
+        width: 100%;
+        object-fit: contain;
+      }
+    }
+
+    .content-wrapper {
+      display: flex;
+      flex-direction: column;
+      row-gap: 0.25rem;
+      padding: 0 1rem;
+      width: 100%;
+      font-family: 'Ringside Regular A', 'Ringside Regular B';
+      font-weight: 400;
+      font-size: 1rem;
+      line-height: 1.2;
+
+      @media (min-width: $breakpoint-small) {
+        padding: 0;
+        width: calc(50% - 2rem);
+      }
+    }
+  }
+
+  .second-wrapper {
+    display: flex;
+    width: 100vw;
+    position: relative;
+    row-gap: 2rem;
+    flex-direction: column;
+    align-items: center;
+
+    @media (min-width: $breakpoint-small) {
+      max-width: calc(1000px + 2rem);
+    }
+
+    .title-wrapper {
+      width: auto;
+      position: relative;
+      font-family: 'Unit Slab Pro Black';
+      line-height: 1.2;
+      font-size: 1.75rem;
+      font-weight: 400;
+      color: var(--wpe--color--title);
+      padding: 0 1rem;
+      text-align: center;
+
+      @media (min-width: $breakpoint-small) {
+        font-size: 2.5rem;
+      }
+    }
+
+    .image-wrapper {
+      width: 70%;
+      position: relative;
+
+      @media (min-width: $breakpoint-small) {
+        width: 40%;
+      }
+
+      img {
+        width: 100%;
+        object-fit: contain;
+      }
+    }
+
+    .subscribe-form {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      width: 100%;
+      padding: 0 1rem;
+
+      @media (min-width: $breakpoint-extra-small) {
+        min-width: 30rem;
+        width: 30rem;
+        max-width: 100%;
+        padding: 0;
+      }
+
+      label {
+        font-family: 'Unit Slab Pro Black';
+        line-height: 1.2;
+        font-size: 1rem;
+        font-weight: 400;
+
+        @media (min-width: $breakpoint-extra-small) {
+          font-size: 1.25rem;
+        }
+      }
+
+      select {
+        background-color: var(--wpe--color--white--smoke);
+        color: var(--wpe--color--black);
+        font-family: 'Unit Slab Pro Black';
+        line-height: 1.2;
+        font-size: 1.5rem;
+        font-weight: 400;
+        border: 1px solid var(--wpe--color--black);
+        padding: 2rem 2.5rem 2rem 1rem;
+        margin: 0;
+        box-sizing: border-box;
+        cursor: pointer;
+        // Select Arrow
+        appearance: none;
+        background: url("data:image/svg+xml;utf8,<svg width='66' height='33' viewBox='0 0 66 33' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M33 33L0.957065 0.750002L65.0429 0.750007L33 33Z' fill='black'/></svg>")
+          no-repeat;
+        background-position: right 0.5rem top 50%;
+        background-size: 1rem;
+        width: 100%;
+
+        @media (min-width: $breakpoint-extra-small) {
+          min-width: 30rem;
+          width: 30rem;
+          max-width: 100%;
+        }
+
+        @media (min-width: $breakpoint-extra-small) {
+          font-size: 1.75rem;
+        }
+      }
+
+      select:focus-visible {
+        text-decoration: none;
+        outline: none;
+      }
+
+      select::-ms-expand {
+        display: none;
+      }
+    }
+  }
+
+  .third-wrapper {
+    display: flex;
+    width: 100vw;
+    position: relative;
+    row-gap: 2rem;
+    flex-direction: column;
+    align-items: center;
+
+    @media (min-width: $breakpoint-small) {
+      max-width: calc(1000px + 2rem);
+    }
+
+    .title-wrapper {
+      width: auto;
+      position: relative;
+      font-family: 'Unit Slab Pro Black';
+      line-height: 1.2;
+      font-size: 1.75rem;
+      font-weight: 400;
+      color: var(--wpe--color--title);
+      padding: 0 1rem;
+      text-align: center;
+
+      @media (min-width: $breakpoint-small) {
+        font-size: 2.5rem;
+      }
+    }
+
+    .digital-platform-wrapper {
+      display: flex;
+      width: 80%;
+      padding-top: 0.5rem;
+      padding-bottom: 1rem;
+      justify-content: space-between;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-content: center;
+      align-items: center;
+      column-gap: 1rem;
+
+      @media (min-width: $breakpoint-extra-small) {
+        padding-top: 1rem;
+        padding-bottom: 2rem;
+      }
+    }
+
+    .logo-wrapper {
+      align-items: flex-start;
+      // padding: 1.5rem 0 0;
+      position: relative;
+      width: calc(50% - 1rem);
+      height: 5rem;
+
+      @media (min-width: $breakpoint-extra-small) {
+        width: calc(25% - 1rem);
+        height: 7rem;
+      }
+
+      img {
+        object-fit: contain;
+        object-position: center;
+        padding: 1rem;
+      }
+    }
+  }
+
+  .fourth-wrapper {
+    display: flex;
+    width: 100vw;
+    position: relative;
+    row-gap: 2rem;
+    flex-direction: column;
+    align-items: flex-start;
+
+    @media (min-width: $breakpoint-small) {
+      max-width: calc(1000px + 2rem);
+    }
+
+    .title-wrapper {
+      width: auto;
+      position: relative;
+      font-family: 'Unit Slab Pro Black';
+      line-height: 1.2;
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--wpe--color--title);
+      padding: 0 1rem;
+      text-align: left;
+
+      @media (min-width: $breakpoint-small) {
+        font-size: 2rem;
+        padding: 0;
+      }
+    }
+  }
+
+  .fifth-wrapper {
+    display: flex;
+    width: 100vw;
+    position: relative;
+    row-gap: 2rem;
+    flex-direction: column;
+    align-items: flex-start;
+
+    @media (min-width: $breakpoint-small) {
+      max-width: calc(1000px + 2rem);
+    }
+
+    .title-wrapper {
+      width: auto;
+      position: relative;
+      font-family: 'Unit Slab Pro Black';
+      line-height: 1.2;
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--wpe--color--title);
+      padding: 0 1rem;
+      text-align: left;
+
+      @media (min-width: $breakpoint-small) {
+        font-size: 2rem;
+        padding: 0;
+      }
+    }
+
+    .subscribe-form {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      width: auto;
+      padding: 0 1rem;
+
+      @media (min-width: $breakpoint-extra-small) {
+        // max-width: 100%;
+        padding: 0;
+      }
+
+      button {
+        font-family: 'Unit Slab Pro Black';
+        line-height: 1.2;
+        font-size: 1rem;
+        font-weight: 400;
+        background-color: var(--wpe--color--black);
+        color: var(--wpe--color--white);
+        padding: 1rem 2rem;
+
+        @media (min-width: $breakpoint-extra-small) {
+          font-size: 1.25rem;
+        }
+      }
+    }
+  }
+}
