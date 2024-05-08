@@ -18,6 +18,9 @@ import mediaCarrierLogo from '../../assets/logo/da-digital-platform/media-carrie
 import nookNewstandLogo from '../../assets/logo/da-digital-platform/nook-newstand-logo.png'
 import untitledLogo from '../../assets/logo/da-digital-platform/untitled-logo.png'
 
+// Test Image
+import testImage from '../../assets/images/example-image.png'
+
 let cx = className.bind(styles)
 
 export default function SubscribeLayout({ databaseId, content }) {
@@ -202,10 +205,28 @@ export default function SubscribeLayout({ databaseId, content }) {
       <div className={cx('border-bottom')}></div>
       <div className={cx('fourth-wrapper')}>
         <div className={cx('title-wrapper')}>{'Payment'}</div>
+        <div className={cx('image-wrapper')}>
+          <Image
+            src={testImage.src}
+            alt="Test Image"
+            fill
+            sizes="100%"
+            priority
+          />
+        </div>
       </div>
       <div className={cx('border-bottom')}></div>
       <div className={cx('fifth-wrapper')}>
         <div className={cx('title-wrapper')}>{'Review and Submit'}</div>
+        <div className={cx('image-wrapper')}>
+          <Image
+            src={testImage.src}
+            alt="Test Image"
+            fill
+            sizes="100%"
+            priority
+          />
+        </div>
         <form className={cx('subscribe-form')}>
           <button type="submit">{'Subscribe'}</button>
         </form>
