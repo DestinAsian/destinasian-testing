@@ -81,7 +81,7 @@ export default function SubscribeLayout({ databaseId, content }) {
         <form className={cx('subscribe-form')}>
           <label>{'Select your plan'}</label>
           <select defaultValue={'1-year'} required>
-            <option value="" disabled selected>
+            <option value="" disabled>
               {'Select Your Subscription Plan'}
             </option>
             {magazine.map((magazine) => (
@@ -91,7 +91,7 @@ export default function SubscribeLayout({ databaseId, content }) {
             ))}
           </select>
           <select required>
-            <option value="" disabled selected>
+            <option value="" disabled>
               {'Select Your Shipping Country'}
             </option>
             {shipping.map((shipping) => (
