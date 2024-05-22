@@ -224,18 +224,25 @@
       font-weight: 700;
     }
 
-    .feature-luxe-list {
-      width: 6.25rem;
-      height: 6.25rem;
+    .play-icon {
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: none;
+      position: absolute;
+    }
+
+    .feature-video {
+      width: 50%;
+      height: 7.25rem;
 
       @media (min-width: $breakpoint-extra-small) {
-        width: 5rem;
-        height: 5rem;
+        width: 100%;
+        height: 6rem;
       }
 
       @media (min-width: $breakpoint-large) {
-        width: 7.5rem;
-        height: 7.5rem;
+        height: 8.5rem;
       }
 
       .menu-image {

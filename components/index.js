@@ -20,6 +20,7 @@ export { ContentWrapperRCA } from './ContentWrapperRCA';
 export { ContentWrapperRCAFrontPage } from './ContentWrapperRCAFrontPage';
 export { ContentWrapperSubscribe } from './ContentWrapperSubscribe';
 export { ContentWrapperUpdate } from './ContentWrapperUpdate';
+export { ContentWrapperVideo } from './ContentWrapperVideo';
 export { ContestPost } from './ContestPost';
 export { DaGuideMenu } from './DaGuideMenu';
 export { EntryHeader } from './EntryHeader';

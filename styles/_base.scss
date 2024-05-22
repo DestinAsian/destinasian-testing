@@ -114,6 +114,15 @@ div.hc-socmed img {
   }
 }
 
+div > .yt-lite > .play-icon {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: no-repeat center / 15% 25%;
+  background-image: url(../assets/icons/play-button.png);
+  position: absolute;
+}
+
 ::-moz-selection {
   color: var(--wpe--color--white);
   background-color: var(--wpe--color--accent);

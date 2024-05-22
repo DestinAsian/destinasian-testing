@@ -28,45 +28,30 @@ export default function SEO({ title, description, imageUrl, url, focuskw }) {
   return (
     <>
       <Head>
-        <meta property="og:type" content="website" />
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta name="viewport" content="width=device-width, user-scalable=no" />
-
         {title && (
           <>
             <title>{title}</title>
             <meta name="title" content={title} />
-            <meta property="og:title" content={title} />
-            <meta property="twitter:title" content={title} />
           </>
         )}
 
         {description && (
           <>
             <meta name="description" content={description} />
-            <meta property="og:description" content={description} />
-            <meta property="twitter:description" content={description} />
           </>
         )}
 
         {imageUrl && (
           <>
             <meta property="og:image" content={imageUrl} />
-            <meta property="twitter:image" content={imageUrl} />
           </>
         )}
 
         {url && (
           <>
             <meta property="og:url" content={'https://destinasian.com' + url} />
-            <meta
-              property="twitter:url"
-              content={'https://destinasian.com' + url}
-            />
           </>
         )}
-
-        {focuskw && <meta name="keywords" content={focuskw} />}
 
         {/* Favicon */}
         {favicon?.length > 0 &&
@@ -91,12 +76,6 @@ export default function SEO({ title, description, imageUrl, url, focuskw }) {
               />
             )
           })}
-
-        {/* SEM Keywords */}
-        <meta
-          name="keywords"
-          content="travel magazine, luxury magazine, luxury travel magazine, travel news, travel reviews, luxury travel, hotel and airline booking, hotel reviews, airline news, travel video guides, travel deals, travel contest, travel website, online travel magazine, asia travel, philippines travel, hotel news, best hotels manila, hong kong restaurants, beach holidays, thailand travel, singapore restaurants, luxury train trips, luxury resorts, best hotels beijing, best hotels singapore, luxury holidays asia, japan travel, indonesia travel, southeast asia travel, cultural travel, asia travel magazine, india travel, island getaways, asia cruise, phuket resorts, bali resorts, bangkok restaurants, airline news, adventure travel asia, airline routes, best hotels hong kong, best hotels jakarta, luxe list, luxury travel asia, hong kong travel, bali travel, sri lanka travel, cambodia travel, luxury hotels, best hotels shanghai, vietnam travel, tokyo restaurants, singapore travel, china travel, maldives resorts, luxury cruise, best hotels southeast asia, best hotels tokyo"
-        />
 
         {/* Testing Typography Cloud */}
         <link

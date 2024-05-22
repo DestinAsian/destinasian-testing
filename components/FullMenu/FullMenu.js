@@ -4,6 +4,10 @@ import styles from './FullMenu.module.scss'
 import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import LiteYouTubeEmbed from 'react-lite-youtube-embed'
+import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css'
+import { useQuery } from '@apollo/client'
+import { GetVideos } from '../../queries/GetVideos'
 
 let cx = classNames.bind(styles)
 
@@ -25,6 +29,26 @@ export default function FullMenu({
   searchResultsError,
   isSearchResultsVisible,
 }) {
+  const offsetPosts = 1
+  // LatestStories content
+  const [visiblePosts] = useState(3)
+
+  const containsYouTube = (content) => {
+    return content.includes('youtube')
+  }
+
+  // Get DAMAN Pulse Offset
+  const { data: firstData } = useQuery(GetVideos, {
+    variables: {
+      after: null,
+      first: offsetPosts,
+    },
+    fetchPolicy: 'network-only',
+    nextFetchPolicy: 'cache-and-network',
+  })
+
+  const latestVideos = firstData?.videos?.edges[0]
+
   // Loading Menu
   if (menusLoading || latestLoading) {
     return (
@@ -53,8 +77,17 @@ export default function FullMenu({
     )
   }
 
-  // LatestStories content
-  const [visiblePosts] = useState(3)
+  // Extract Youtube Video
+  const extractYouTubeVideoId = (embedUrl) => {
+    const match = embedUrl.match(/\/embed\/([^?"]+)/)
+    return match ? match[1] : null
+  }
+
+  // Extract Local Video
+  const extractVideoSrc = (content) => {
+    const match = content.match(/<video[^>]*>\s*<source[^>]*src="([^"]+)"/)
+    return match ? match[1] : null
+  }
 
   return (
     <div className={cx('component')}>
@@ -128,7 +161,7 @@ export default function FullMenu({
                 </ul>
               </nav>
             )}
-            <nav className={cx('feature-luxe-list')}>
+            <nav className={cx('feature-video')}>
               {featureMenuItems[0]?.menu?.node?.luxeListLogoMenu?.luxeListPage
                 ?.url && (
                 <Link
@@ -137,19 +170,29 @@ export default function FullMenu({
                       ?.luxeListPage?.url
                   }
                 >
-                  <figure className={cx('menu-image')}>
-                    <Image
-                      src={
-                        featureMenuItems[0]?.menu?.node?.luxeListLogoMenu
-                          ?.mainLogo?.mediaItemUrl
-                      }
-                      width={120}
-                      height={120}
-                      style={{ position: 'static' }}
-                      alt="Menu Image"
-                      priority
-                    />
-                  </figure>
+                  <div className={cx('iframe-wrapper')}>
+                    {containsYouTube(latestVideos?.node?.content) ? (
+                      <LiteYouTubeEmbed
+                        id={extractYouTubeVideoId(latestVideos?.node?.content)}
+                        title={latestVideos?.node?.title}
+                        // muted={true}
+                        // params={params(latestVideos?.node?.content)}
+                        playerClass={cx('play-icon')}
+                        poster="maxresdefault"
+                        webp={true}
+                      />
+                    ) : (
+                      <div className={cx('local-video-wrapper')}>
+                        <video
+                          src={extractVideoSrc(latestVideos?.node?.content)}
+                          className="video-content"
+                          loop
+                          autoPlay
+                          muted
+                        />
+                      </div>
+                    )}
+                  </div>
                 </Link>
               )}
             </nav>
