@@ -123,6 +123,19 @@ div > .yt-lite > .play-icon {
   position: absolute;
 }
 
+li.rca-full-menu {
+  font-family: 'ChunkFive-Regular';
+}
+
+li.hc-full-menu {
+  font-family: 'Hoefler Text A', 'Hoefler Text B';
+  font-weight: 700;
+}
+
+li.ll-full-menu {
+  font-family: var(--font--rubik--mono--one);
+}
+
 ::-moz-selection {
   color: var(--wpe--color--white);
   background-color: var(--wpe--color--accent);

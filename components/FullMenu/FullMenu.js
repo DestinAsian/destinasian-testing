@@ -1,5 +1,10 @@
 import classNames from 'classnames/bind'
-import { NavigationMenu, SearchInput, SearchResults } from '../../components'
+import {
+  Container,
+  NavigationMenu,
+  SearchInput,
+  SearchResults,
+} from '../../components'
 import styles from './FullMenu.module.scss'
 import { useState } from 'react'
 import Image from 'next/image'
@@ -162,35 +167,40 @@ export default function FullMenu({
               </nav>
             )}
             <nav className={cx('feature-video')}>
-              {featureMenuItems[0]?.menu?.node?.luxeListLogoMenu?.luxeListPage
+              <ul className={cx('menu-name')}>
+                {'Videos Produced By DestinAsian'}
+              </ul>
+              {featureMenuItems[0]?.menu?.node?.videosThumbnailMenu?.videosPage
                 ?.url && (
                 <Link
                   href={
-                    featureMenuItems[0]?.menu?.node?.luxeListLogoMenu
-                      ?.luxeListPage?.url
+                    featureMenuItems[0]?.menu?.node?.videosThumbnailMenu
+                      ?.videosPage?.url
                   }
                 >
                   <div className={cx('iframe-wrapper')}>
                     {containsYouTube(latestVideos?.node?.content) ? (
-                      <LiteYouTubeEmbed
-                        id={extractYouTubeVideoId(latestVideos?.node?.content)}
-                        title={latestVideos?.node?.title}
-                        // muted={true}
-                        // params={params(latestVideos?.node?.content)}
-                        playerClass={cx('play-icon')}
-                        poster="maxresdefault"
-                        webp={true}
-                      />
+                      <Container>
+                        <LiteYouTubeEmbed
+                          id={extractYouTubeVideoId(
+                            latestVideos?.node?.content,
+                          )}
+                          title={latestVideos?.node?.title}
+                          playerClass={cx('play-icon')}
+                          poster="maxresdefault"
+                          webp={true}
+                        />
+                        <div className={cx('disabled-overlay')}></div>
+                      </Container>
                     ) : (
-                      <div className={cx('local-video-wrapper')}>
+                      <Container>
                         <video
                           src={extractVideoSrc(latestVideos?.node?.content)}
                           className="video-content"
-                          loop
-                          autoPlay
                           muted
                         />
-                      </div>
+                        <div className={cx('disabled-overlay')}></div>
+                      </Container>
                     )}
                   </div>
                 </Link>
