@@ -133,7 +133,7 @@ export default function ContentWrapperVideo() {
                     <LiteYouTubeEmbed
                       id={extractYouTubeVideoId(latestVideos?.node?.content)}
                       title={latestVideos?.node?.title}
-                      // muted={true}
+                      muted={true}
                       params={params(latestVideos?.node?.content)}
                       playerClass="play-icon"
                       poster="maxresdefault"
