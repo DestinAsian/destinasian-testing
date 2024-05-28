@@ -13,11 +13,8 @@ import { useQuery } from '@apollo/client'
  *
  * @returns {React.ReactElement} The SEO component
  */
-export default function SEO({ title, description, imageUrl, url, focuskw }) {
-  if (!title && !description && !imageUrl && !url && !focuskw) {
-    return null
-  }
-
+export default function SEO() {
+  
   const { data } = useQuery(GetFavicon, {
     fetchPolicy: 'network-only',
     nextFetchPolicy: 'cache-and-network',
