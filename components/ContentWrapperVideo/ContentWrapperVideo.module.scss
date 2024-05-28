@@ -102,6 +102,11 @@
     @media (min-width: $breakpoint-medium) {
       font-size: 2.5rem;
     }
+
+    .title {
+      max-width: calc(1400px + 2rem);
+      margin: 0 auto;
+    }
   }
 
   .other-video-wrapper {

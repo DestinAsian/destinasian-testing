@@ -157,7 +157,9 @@ export default function ContentWrapperVideo() {
                 latestVideos?.node?.videosAcf?.videoLink && (
                   <Link href={latestVideos?.node?.videosAcf?.videoLink}>
                     <div className={cx('first-title-wrapper')}>
-                      <h2>{latestVideos?.node?.title}</h2>
+                      <h2 className={cx('title')}>
+                        {latestVideos?.node?.title}
+                      </h2>
                     </div>
                   </Link>
                 )}
