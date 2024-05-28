@@ -161,13 +161,7 @@ export default function Component(props) {
 
   return (
     <main className={`${eb_garamond.variable} ${rubik_mono_one.variable}`}>
-      {/* <SEO
-        title={seo?.title}
-        description={seo?.metaDesc}
-        imageUrl={featuredImage?.node?.sourceUrl}
-        url={uri}
-        focuskw={seo?.focuskw}
-      /> */}
+      <SEO />
       <SingleHeader
         title={siteTitle}
         description={siteDescription}

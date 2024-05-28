@@ -28,31 +28,6 @@ export default function SEO({ title, description, imageUrl, url, focuskw }) {
   return (
     <>
       <Head>
-        {title && (
-          <>
-            <title>{title}</title>
-            <meta name="title" content={title} />
-          </>
-        )}
-
-        {description && (
-          <>
-            <meta name="description" content={description} />
-          </>
-        )}
-
-        {imageUrl && (
-          <>
-            <meta property="og:image" content={imageUrl} />
-          </>
-        )}
-
-        {url && (
-          <>
-            <meta property="og:url" content={'https://destinasian.com' + url} />
-          </>
-        )}
-
         {/* Favicon */}
         {favicon?.length > 0 &&
           favicon.map(({ width, sourceUrl }) => {
