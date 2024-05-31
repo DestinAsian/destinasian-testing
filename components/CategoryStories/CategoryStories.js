@@ -59,7 +59,7 @@ export default function CategoryStories(categoryUri) {
       first: postsPerPage,
       after: null,
       id: uri,
-      contentTypes: [CONTENT_TYPES.EDITORIAL, CONTENT_TYPES.UPDATE], // Change this to the desired value
+      contentTypes: [CONTENT_TYPES.EDITORIAL, CONTENT_TYPES.UPDATE],
     }
   }
 
@@ -107,27 +107,53 @@ export default function CategoryStories(categoryUri) {
 
   let bannerVariable = {
     first: bannerPerPage,
-    search: name,
+    search: null,
   }
 
-  if (children?.edges?.length === 0 && parent?.node?.name !== null) {
+  // Advertorial Var
+  let queryVariables = {
+    first: advertPerPage,
+    search: null,
+  }
+
+  // Main Category
+  if (!parent) {
     // Modify the variables based on the condition
     bannerVariable = {
-      search: parent, // Change this to the desired value
+      search: name,
+    }
+    queryVariables = {
+      search: name,
     }
   }
 
-  if (parent?.node?.name === (null || undefined)) {
+  // Sub Category
+  if (children?.edges?.length !== 0 && parent !== (null || undefined)) {
     // Modify the variables based on the condition
     bannerVariable = {
-      search: name, // Change this to the desired value
+      search: name,
+    }
+    queryVariables = {
+      search: name,
     }
   }
 
+  // Child of Sub Category
+  if (children?.edges?.length === 0 && parent !== (null || undefined)) {
+    // Modify the variables based on the condition
+    bannerVariable = {
+      search: parent,
+    }
+    queryVariables = {
+      search: parent,
+    }
+  }
+
+  // Specific Category with no sub category
   if (name === ('Trade Talk' || 'Airline News' || 'Travel News')) {
     // Modify the variables based on the condition
     bannerVariable = {
-      search: name, // Change this to the desired value
+      search: name,
     }
   }
 
@@ -143,26 +169,6 @@ export default function CategoryStories(categoryUri) {
 
   if (bannerSpecificError) {
     return <pre>{JSON.stringify(error)}</pre>
-  }
-
-  // Advertorial Var
-  let queryVariables = {
-    first: advertPerPage,
-    search: null,
-  }
-
-  if (children?.edges?.length === 0) {
-    // Modify the variables based on the condition
-    queryVariables = {
-      search: parent, // Change this to the desired value
-    }
-  }
-
-  if (children?.edges?.length !== 0) {
-    // Modify the variables based on the condition
-    queryVariables = {
-      search: name, // Change this to the desired value
-    }
   }
 
   // Get Advertorial Stories
@@ -192,19 +198,11 @@ export default function CategoryStories(categoryUri) {
         (bannerAd) => !bannerAd?.node?.content.includes('<!--'),
       )
 
-      const pinROSAds = bannerROSAdsWithImg.filter(
-        (bannerAd) => !bannerAd?.node?.acfBannerAds?.pinAd === false || null,
-      )
-
-      const otherROSAds = bannerROSAdsWithImg.filter(
-        (bannerAd) => !bannerAd?.node?.acfBannerAds?.pinAd === true,
-      )
-
       // Shuffle only the otherBannerAds array
-      const ROSOtherBannerAds = shuffleArray(otherROSAds)
+      const ROSBannerAds = shuffleArray(bannerROSAdsWithImg)
 
       // Concatenate the arrays with pinned ads first and shuffled other banner ads
-      const shuffledBannerAdsArray = [...pinROSAds, ...ROSOtherBannerAds]
+      const shuffledBannerAdsArray = [...ROSBannerAds]
 
       setROSAdsArray(shuffledBannerAdsArray)
     }
@@ -236,22 +234,11 @@ export default function CategoryStories(categoryUri) {
         (bannerAd) => !bannerAd?.node?.content.includes('<!--'),
       )
 
-      const pinSpecificAds = bannerSpecificAdsWithImg.filter(
-        (bannerAd) => !bannerAd?.node?.acfBannerAds?.pinAd === false || null,
-      )
-
-      const otherSpecificAds = bannerSpecificAdsWithImg.filter(
-        (bannerAd) => !bannerAd?.node?.acfBannerAds?.pinAd === true,
-      )
-
       // Shuffle only the otherBannerAds array
-      const SpecificOtherBannerAds = shuffleArray(otherSpecificAds)
+      const SpecificBannerAds = shuffleArray(bannerSpecificAdsWithImg)
 
       // Concatenate the arrays with pinned ads first and shuffled other banner ads
-      const shuffledBannerAdsArray = [
-        ...pinSpecificAds,
-        ...SpecificOtherBannerAds,
-      ]
+      const shuffledBannerAdsArray = [...SpecificBannerAds]
 
       setSpecificAdsArray(shuffledBannerAdsArray)
     }
@@ -295,15 +282,18 @@ export default function CategoryStories(categoryUri) {
         }
       })
 
-      const advertorialArray = Object.values(contentAdvertorials || [])
+      // const advertorialArray = Object.values(contentAdvertorials || [])
 
       // Shuffle only the otherBannerAds array
-      const shuffleAdvertorialPost = shuffleArray(advertorialArray)
+      const shuffleAdvertorialPost = shuffleArray(contentAdvertorials)
 
       // Concatenate the arrays with pinned ads first and shuffled other banner ads
       const shuffledAdvertorialArray = [...shuffleAdvertorialPost]
 
-      setAdvertorialArray(shuffledAdvertorialArray)
+      // Get the last two elements
+      const lastTwoAdvertorials = shuffledAdvertorialArray.slice(-2)
+
+      setAdvertorialArray(lastTwoAdvertorials)
     }
 
     // Shuffle the banner ads when the component mounts
@@ -362,6 +352,7 @@ export default function CategoryStories(categoryUri) {
     )
   }
 
+  // Declare all posts
   const allPosts = data?.category?.contentNodes?.edges?.map((post) => post.node)
 
   // Declare Pin Posts
@@ -389,8 +380,8 @@ export default function CategoryStories(categoryUri) {
     [],
   )
 
-  // Declare 1 Advertorial Post
-  const getAdvertorialPost = AdvertorialArray[0]
+  // Declare 2 Advertorial Post
+  const getAdvertorialPost = [...AdvertorialArray]
   const numberOfAdvertorial = AdvertorialArray.length
 
   const numberOfBannerAds = sortedBannerAdsArray.length
@@ -424,7 +415,7 @@ export default function CategoryStories(categoryUri) {
             </div>
             {/* Show 1st banner after 2 posts and then every 4 posts */}
             {(index - 1) % 4 === 0 && (
-              <div className={cx('ad-wrapper')}>
+              <div className={cx('banner-ad-wrapper')}>
                 <ModuleAd
                   bannerAd={
                     sortedBannerAdsArray[((index - 1) / 4) % numberOfBannerAds]
@@ -434,14 +425,27 @@ export default function CategoryStories(categoryUri) {
               </div>
             )}
             {index - 1 === 2 && (
-              <div className={cx('ad-wrapper')}>
+              <div className={cx('advertorial-wrapper')}>
                 {/* Advertorial Stories */}
                 {numberOfAdvertorial !== 0 && (
                   <AdvertorialPostTwoColumns
-                    title={getAdvertorialPost?.title}
-                    excerpt={getAdvertorialPost?.excerpt}
-                    uri={getAdvertorialPost?.uri}
-                    featuredImage={getAdvertorialPost?.featuredImage?.node}
+                    title={getAdvertorialPost[0]?.title}
+                    excerpt={getAdvertorialPost[0]?.excerpt}
+                    uri={getAdvertorialPost[0]?.uri}
+                    featuredImage={getAdvertorialPost[0]?.featuredImage?.node}
+                  />
+                )}
+              </div>
+            )}
+            {index - 1 === 2 && (
+              <div className={cx('advertorial-wrapper')}>
+                {/* Advertorial Stories */}
+                {numberOfAdvertorial !== 0 && numberOfAdvertorial > 1 && (
+                  <AdvertorialPostTwoColumns
+                    title={getAdvertorialPost[1]?.title}
+                    excerpt={getAdvertorialPost[1]?.excerpt}
+                    uri={getAdvertorialPost[1]?.uri}
+                    featuredImage={getAdvertorialPost[1]?.featuredImage?.node}
                   />
                 )}
               </div>

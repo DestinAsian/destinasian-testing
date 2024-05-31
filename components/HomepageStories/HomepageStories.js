@@ -4,7 +4,8 @@ import styles from './HomepageStories.module.scss'
 import { useQuery } from '@apollo/client'
 import { GetHomepageStories } from '../../queries/GetHomepageStories'
 import { GetHomepageBannerAds } from '../../queries/GetHomepageBannerAds'
-import { Button, PostTwoColumns, ModuleAdTwoColumns, ModuleAd } from '../../components'
+import { Button, PostTwoColumns, ModuleAd, AdvertorialPostTwoColumns } from '../../components'
+import { GetAdvertorialStories } from '../../queries/GetAdvertorialStories'
 
 let cx = classNames.bind(styles)
 
@@ -21,9 +22,11 @@ export default function HomepageStories(pinPosts) {
   const [isFetchingMore, setIsFetchingMore] = useState(false)
   // Declare state for banner ads
   const [bannerAdsArray, setBannerAdsArray] = useState([])
+  const [AdvertorialArray, setAdvertorialArray] = useState([])
   // Post per fetching
   const postsPerPage = 4
   const bannerPerPage = 20
+  const advertPerPage = 5
 
   // Get Stories / Posts
   const { data, error, loading, fetchMore } = useQuery(GetHomepageStories, {
@@ -46,6 +49,23 @@ export default function HomepageStories(pinPosts) {
       nextFetchPolicy: 'cache-and-network',
     },
   )
+
+  // Get Advertorial Stories
+  const { data: advertorialsData, error: advertorialsError } = useQuery(
+    GetAdvertorialStories,
+    {
+      variables: {
+        first: advertPerPage,
+        search: null,
+      },
+      fetchPolicy: 'network-only',
+      nextFetchPolicy: 'cache-and-network',
+    },
+  )
+
+  if (advertorialsError) {
+    return <pre>{JSON.stringify(error)}</pre>
+  }
 
   const updateQuery = (prev, { fetchMoreResult }) => {
     if (!fetchMoreResult) return prev
@@ -75,24 +95,11 @@ export default function HomepageStories(pinPosts) {
         (bannerAd) => !bannerAd?.node?.content.includes('<!--'),
       )
 
-      // Filter out pinHomepageAds that have pinAd as true
-      const pinHomepageAds = bannerAdsWithImg.filter(
-        (bannerAd) => bannerAd?.node?.acfBannerAds?.pinAd === true,
-      )
-
-      // Filter out banner ads that are not pin ads
-      const otherBannerAds = bannerAdsWithImg.filter(
-        (bannerAd) => bannerAd?.node?.acfBannerAds?.pinAd !== true,
-      )
-
       // Shuffle only the otherBannerAds array
-      const shuffledOtherBannerAds = shuffleArray(otherBannerAds)
+      const shuffledBannerAds = shuffleArray(bannerAdsWithImg)
 
       // Concatenate the arrays with pinned ads first and shuffled other banner ads
-      const shuffledBannerAdsArray = [
-        ...pinHomepageAds,
-        ...shuffledOtherBannerAds,
-      ]
+      const shuffledBannerAdsArray = [...shuffledBannerAds]
 
       setBannerAdsArray(shuffledBannerAdsArray)
     }
@@ -110,6 +117,48 @@ export default function HomepageStories(pinPosts) {
       clearInterval(shuffleInterval)
     }
   }, [bannerData]) // Use bannerData as a dependency to trigger shuffling when new data arrives
+
+  useEffect(() => {
+    const shuffleAdvertorialPost = () => {
+      // Create a Set to store unique databaseId values
+      const uniqueDatabaseIds = new Set()
+
+      // Initialize an array to store unique posts
+      const contentAdvertorials = []
+
+      // Loop through all the contentNodes posts
+      advertorialsData?.tags?.edges?.forEach((contentNodes) => {
+        {
+          contentNodes?.node?.contentNodes?.edges?.length !== 0 &&
+            contentNodes.node?.contentNodes?.edges.forEach((post) => {
+              const { databaseId } = post.node
+
+              // Check if the databaseId is unique (not in the Set)
+              if (!uniqueDatabaseIds.has(databaseId)) {
+                uniqueDatabaseIds.add(databaseId) // Add the databaseId to the Set
+                contentAdvertorials.push(post.node) // Push the unique post to the array
+              }
+            })
+        }
+      })
+
+      // const advertorialArray = Object.values(contentAdvertorials || [])
+
+      // Shuffle only the otherBannerAds array
+      const shuffleAdvertorialPost = shuffleArray(contentAdvertorials)
+
+      // Concatenate the arrays with pinned ads first and shuffled other banner ads
+      const shuffledAdvertorialArray = [...shuffleAdvertorialPost]
+
+      // Get the last two elements
+      const lastTwoAdvertorials = shuffledAdvertorialArray.slice(-2)
+
+      setAdvertorialArray(lastTwoAdvertorials)
+    }
+
+    // Shuffle the banner ads when the component mounts
+    shuffleAdvertorialPost()
+  }, [advertorialsData])
 
   // Concatenate the arrays to place ads with <img> tags first
   const sortedBannerAdsArray = [...bannerAdsArray].reduce((uniqueAds, ad) => {
@@ -202,6 +251,10 @@ export default function HomepageStories(pinPosts) {
     [],
   )
 
+  // Declare 2 Advertorial Post
+  const getAdvertorialPost = [...AdvertorialArray]
+  const numberOfAdvertorial = AdvertorialArray.length
+
   const numberOfBannerAds = sortedBannerAdsArray.length
 
   return (
@@ -233,13 +286,39 @@ export default function HomepageStories(pinPosts) {
             </div>
             {/* Show 1st banner after 2 posts and then every 4 posts */}
             {(index - 1) % 4 === 0 && (
-              <div className={cx('ad-wrapper')}>
+              <div className={cx('banner-ad-wrapper')}>
                 <ModuleAd
                   bannerAd={
                     sortedBannerAdsArray[((index - 1) / 4) % numberOfBannerAds]
                       ?.node?.content
                   }
                 />
+              </div>
+            )}
+            {index - 1 === 2 && (
+              <div className={cx('advertorial-wrapper')}>
+                {/* Advertorial Stories */}
+                {numberOfAdvertorial !== 0 && (
+                  <AdvertorialPostTwoColumns
+                    title={getAdvertorialPost[0]?.title}
+                    excerpt={getAdvertorialPost[0]?.excerpt}
+                    uri={getAdvertorialPost[0]?.uri}
+                    featuredImage={getAdvertorialPost[0]?.featuredImage?.node}
+                  />
+                )}
+              </div>
+            )}
+            {index - 1 === 2 && (
+              <div className={cx('advertorial-wrapper')}>
+                {/* Advertorial Stories */}
+                {numberOfAdvertorial !== 0 && numberOfAdvertorial > 1 && (
+                  <AdvertorialPostTwoColumns
+                    title={getAdvertorialPost[1]?.title}
+                    excerpt={getAdvertorialPost[1]?.excerpt}
+                    uri={getAdvertorialPost[1]?.uri}
+                    featuredImage={getAdvertorialPost[1]?.featuredImage?.node}
+                  />
+                )}
               </div>
             )}
           </React.Fragment>

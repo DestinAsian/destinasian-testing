@@ -140,7 +140,6 @@ export default function SingleAdvertorial(props) {
               label={acfAdvertorialLabel?.advertorialLabel}
             />
             <ContentWrapperAdvertorial content={content} />
-            {/* <ModuleAd /> */}
           </SingleAdvertorialContainer>
         </>
       </Main>

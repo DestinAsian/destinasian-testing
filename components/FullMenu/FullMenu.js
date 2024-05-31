@@ -7,7 +7,6 @@ import {
 } from '../../components'
 import styles from './FullMenu.module.scss'
 import { useState } from 'react'
-import Image from 'next/image'
 import Link from 'next/link'
 import LiteYouTubeEmbed from 'react-lite-youtube-embed'
 import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css'
@@ -38,12 +37,8 @@ export default function FullMenu({
   // LatestStories content
   const [visiblePosts] = useState(3)
 
-  const containsYouTube = (content) => {
-    return content.includes('youtube')
-  }
-
-  // Get DAMAN Pulse Offset
-  const { data: firstData } = useQuery(GetVideos, {
+  // Get Last DA Videos
+  const { data: firstData, loading } = useQuery(GetVideos, {
     variables: {
       after: null,
       first: offsetPosts,
@@ -53,6 +48,13 @@ export default function FullMenu({
   })
 
   const latestVideos = firstData?.videos?.edges[0]
+
+  // Not doing validation when loading the data
+  const containsYouTube = (content) => {
+    if (!loading) {
+      return content.includes('youtube')
+    }
+  }
 
   // Loading Menu
   if (menusLoading || latestLoading) {

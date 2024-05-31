@@ -18,7 +18,8 @@
     max-width: calc(1400px + 2rem);
   }
 
-  .post-wrapper {
+  .post-wrapper,
+  .advertorial-wrapper {
     width: 100vw;
     max-width: 700px;
 
@@ -27,11 +28,7 @@
     }
   }
 
-  .ad-wrapper {
+  .banner-ad-wrapper {
     width: 100vw;
   }
-
-  //   @media (min-width: $breakpoint-medium) {
-  //     max-width: var(--wpe--container--max--width);
-  //   }
 }

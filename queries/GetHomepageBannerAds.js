@@ -12,12 +12,6 @@ export const GetHomepageBannerAds = gql`
           id
           content
           title
-          acfBannerAds {
-            anyOf {
-              uri
-            }
-            pinAd
-          }
         }
       }
     }

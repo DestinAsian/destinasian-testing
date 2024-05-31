@@ -187,7 +187,6 @@ export default function SingleEditorial(props) {
               date={date}
             />
             <ContentWrapperEditorial content={content} images={images} />
-            {/* <ModuleAd banner1={}/> */}
             <EntryRelatedStories />
             {shuffledRelatedStories.map((post) => (
               <Container>

@@ -106,41 +106,6 @@ export default function SingleUpdate(props) {
   // sortByDate mainCat & childCat Posts
   const allPosts = mainCatPosts.sort(sortPostsByDate)
 
-  // Get Specific Banner
-  const {
-    data: bannerSpecificData,
-    error: bannerSpecificError,
-    // fetchMore: fetchMoreSpecificBanner,
-  } = useQuery(GetSpecificBannerAds, {
-    variables: {
-      first: bannerPerPage,
-      after: null,
-    },
-    fetchPolicy: 'network-only',
-    nextFetchPolicy: 'cache-and-network',
-  })
-
-  if (bannerSpecificError) {
-    return <pre>{JSON.stringify(error)}</pre>
-  }
-
-  // Specific Banner Ads
-  const bannerSpecificAdsArray = bannerSpecificData?.bannerAds?.edges || []
-  const bannerSpecificAdsWithImg = bannerSpecificAdsArray.filter(
-    (bannerAd) => !bannerAd?.node?.content.includes('<!--'),
-  )
-
-  const matchingBannerAdsWithImg = bannerSpecificAdsWithImg.filter(
-    (bannerAd) => {
-      const anyOfUris = bannerAd?.node?.acfBannerAds?.anyOf?.map(
-        (anyOfItem) => anyOfItem.uri,
-      )
-      return anyOfUris && anyOfUris.includes(categories[0]?.node?.uri)
-    },
-  )
-
-  const sortedBannerAdsArray = [...matchingBannerAdsWithImg]
-
   return (
     <main className={`${eb_garamond.variable} ${rubik_mono_one.variable}`}>
       <SEO />
@@ -170,9 +135,6 @@ export default function SingleUpdate(props) {
               date={date}
             />
             <ContentWrapperUpdate content={content} />
-            {sortedBannerAdsArray.map((bannerAd) => (
-              <ModuleAd bannerAd={bannerAd?.node?.content} />
-            ))}
           </Container>
         </>
       </Main>

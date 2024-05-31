@@ -94,12 +94,6 @@ ModuleAdTwoColumns.fragments = {
         node {
           content
           title
-          acfBannerAds {
-            anyOf {
-              uri
-            }
-            pinAd
-          }
         }
       }
     }

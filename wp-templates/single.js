@@ -206,7 +206,6 @@ export default function Component(props) {
           <PartnerContent
             parentName={categories[0]?.node?.parent?.node?.name}
           />
-          {/* <ModuleAd /> */}
         </>
       </Main>
       <Footer />

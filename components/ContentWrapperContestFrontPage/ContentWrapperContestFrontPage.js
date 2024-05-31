@@ -98,12 +98,6 @@ export default function ContentWrapperContestFrontPage() {
                 uri={post?.uri}
                 featuredImage={post?.featuredImage?.node}
               />
-              {/* Show 1st banner after 2 posts and then every 4 posts */}
-              {/* {(index - 1) % 4 === 0 && (
-              <ModuleAd
-                bannerAd={sortedBannerAdsArray[(index - 1) / 4]?.node?.content}
-              />
-            )} */}
             </React.Fragment>
           ))}
         {allPosts.length !== 0 && allPosts.length && (

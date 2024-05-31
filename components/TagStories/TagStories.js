@@ -139,19 +139,12 @@ export default function TagStories(tagUri) {
         (bannerAd) => !bannerAd?.node?.content.includes('<!--'),
       )
 
-      const pinROSAds = bannerROSAdsWithImg.filter(
-        (bannerAd) => !bannerAd?.node?.acfBannerAds?.pinAd === false || null,
-      )
-
-      const otherROSAds = bannerROSAdsWithImg.filter(
-        (bannerAd) => !bannerAd?.node?.acfBannerAds?.pinAd === true,
-      )
 
       // Shuffle only the otherBannerAds array
-      const ROSOtherBannerAds = shuffleArray(otherROSAds)
+      const ROSBannerAds = shuffleArray(bannerROSAdsWithImg)
 
       // Concatenate the arrays with pinned ads first and shuffled other banner ads
-      const shuffledBannerAdsArray = [...pinROSAds, ...ROSOtherBannerAds]
+      const shuffledBannerAdsArray = [...ROSBannerAds]
 
       setROSAdsArray(shuffledBannerAdsArray)
     }
@@ -183,22 +176,11 @@ export default function TagStories(tagUri) {
         (bannerAd) => !bannerAd?.node?.content.includes('<!--'),
       )
 
-      const pinSpecificAds = bannerSpecificAdsWithImg.filter(
-        (bannerAd) => !bannerAd?.node?.acfBannerAds?.pinAd === false || null,
-      )
-
-      const otherSpecificAds = bannerSpecificAdsWithImg.filter(
-        (bannerAd) => !bannerAd?.node?.acfBannerAds?.pinAd === true,
-      )
-
       // Shuffle only the otherBannerAds array
-      const SpecificOtherBannerAds = shuffleArray(otherSpecificAds)
+      const SpecificBannerAds = shuffleArray(bannerSpecificAdsWithImg)
 
       // Concatenate the arrays with pinned ads first and shuffled other banner ads
-      const shuffledBannerAdsArray = [
-        ...pinSpecificAds,
-        ...SpecificOtherBannerAds,
-      ]
+      const shuffledBannerAdsArray = [...SpecificBannerAds]
 
       setSpecificAdsArray(shuffledBannerAdsArray)
     }
