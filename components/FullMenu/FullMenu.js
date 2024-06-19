@@ -1,17 +1,9 @@
 import classNames from 'classnames/bind'
-import {
-  Container,
-  NavigationMenu,
-  SearchInput,
-  SearchResults,
-} from '../../components'
+import { NavigationMenu, SearchInput, SearchResults } from '../../components'
 import styles from './FullMenu.module.scss'
 import { useState } from 'react'
 import Link from 'next/link'
-import LiteYouTubeEmbed from 'react-lite-youtube-embed'
-import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css'
-import { useQuery } from '@apollo/client'
-import { GetVideos } from '../../queries/GetVideos'
+import Image from 'next/image'
 
 let cx = classNames.bind(styles)
 
@@ -33,28 +25,8 @@ export default function FullMenu({
   searchResultsError,
   isSearchResultsVisible,
 }) {
-  const offsetPosts = 1
   // LatestStories content
   const [visiblePosts] = useState(3)
-
-  // Get Last DA Videos
-  const { data: firstData, loading } = useQuery(GetVideos, {
-    variables: {
-      after: null,
-      first: offsetPosts,
-    },
-    fetchPolicy: 'network-only',
-    nextFetchPolicy: 'cache-and-network',
-  })
-
-  const latestVideos = firstData?.videos?.edges[0]
-
-  // Not doing validation when loading the data
-  const containsYouTube = (content) => {
-    if (!loading) {
-      return content.includes('youtube')
-    }
-  }
 
   // Loading Menu
   if (menusLoading || latestLoading) {
@@ -82,18 +54,6 @@ export default function FullMenu({
         </div>
       </>
     )
-  }
-
-  // Extract Youtube Video
-  const extractYouTubeVideoId = (embedUrl) => {
-    const match = embedUrl.match(/\/embed\/([^?"]+)/)
-    return match ? match[1] : null
-  }
-
-  // Extract Local Video
-  const extractVideoSrc = (content) => {
-    const match = content.match(/<video[^>]*>\s*<source[^>]*src="([^"]+)"/)
-    return match ? match[1] : null
   }
 
   return (
@@ -180,30 +140,33 @@ export default function FullMenu({
                       ?.videosPage?.url
                   }
                 >
-                  <div className={cx('iframe-wrapper')}>
-                    {containsYouTube(latestVideos?.node?.content) ? (
-                      <Container>
-                        <LiteYouTubeEmbed
-                          id={extractYouTubeVideoId(
-                            latestVideos?.node?.content,
-                          )}
-                          title={latestVideos?.node?.title}
-                          playerClass={cx('play-icon')}
-                          poster="maxresdefault"
-                          webp={true}
-                        />
-                        <div className={cx('disabled-overlay')}></div>
-                      </Container>
-                    ) : (
-                      <Container>
-                        <video
-                          src={extractVideoSrc(latestVideos?.node?.content)}
-                          className="video-content"
-                          muted
-                        />
-                        <div className={cx('disabled-overlay')}></div>
-                      </Container>
-                    )}
+                  <div className={cx('thumbnail-wrapper')}>
+                    <Image
+                      src={
+                        featureMenuItems[0]?.menu?.node?.videosThumbnailMenu
+                          ?.videosThumbnail?.sourceUrl
+                      }
+                      alt={
+                        featureMenuItems[0]?.menu?.node?.videosThumbnailMenu
+                          ?.videosThumbnail?.altText
+                      }
+                      width={
+                        featureMenuItems[0]?.menu?.node?.videosThumbnailMenu
+                          ?.videosThumbnail?.mediaDetails?.width
+                          ? featureMenuItems[0]?.menu?.node?.videosThumbnailMenu
+                              ?.videosThumbnail?.mediaDetails?.width
+                          : '1280'
+                      }
+                      height={
+                        featureMenuItems[0]?.menu?.node?.videosThumbnailMenu
+                          ?.videosThumbnail?.mediaDetails?.height
+                          ? featureMenuItems[0]?.menu?.node?.videosThumbnailMenu
+                              ?.videosThumbnail?.mediaDetails?.height
+                          : '720'
+                      }
+                      sizes="100%"
+                      priority
+                    />
                   </div>
                 </Link>
               )}

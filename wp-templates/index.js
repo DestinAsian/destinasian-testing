@@ -5,8 +5,8 @@ import page from './page'
 import page404 from './page-404-page'
 import pageContests from './page-contests'
 import pageHonorsCircle from './page-honors-circle'
+import pageNewsletter from './page-newsletter'
 import pageLuxeList from './page-luxe-list'
-import pageSubscribe from './page-subscribe'
 import pageVideos from './page-videos'
 import single from './single'
 import singleEditorial from './single-editorial'
@@ -26,7 +26,7 @@ export default {
   'page-contests': pageContests,
   'page-honors-circle': pageHonorsCircle,
   'page-luxe-list': pageLuxeList,
-  'page-subscribe': pageSubscribe,
+  'page-newsletter': pageNewsletter,
   'page-videos': pageVideos,
   single,
   'single-editorial': singleEditorial,

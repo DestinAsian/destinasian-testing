@@ -10,7 +10,6 @@ import { GetAdvertorialStories } from '../../queries/GetAdvertorialStories'
 import {
   Button,
   PostTwoColumns,
-  ModuleAdTwoColumns,
   AdvertorialPostTwoColumns,
   ModuleAd,
 } from '../../components'
@@ -35,7 +34,6 @@ export default function CategoryStories(categoryUri) {
   // Post per fetching
   const postsPerPage = 4
   const bannerPerPage = 20
-  const advertPerPage = 5
 
   const uri = categoryUri?.categoryUri
   const pinPosts = categoryUri?.pinPosts
@@ -112,7 +110,6 @@ export default function CategoryStories(categoryUri) {
 
   // Advertorial Var
   let queryVariables = {
-    first: advertPerPage,
     search: null,
   }
 
@@ -280,6 +277,16 @@ export default function CategoryStories(categoryUri) {
               }
             })
         }
+      })
+
+      // Sort contentNodesPosts array by date
+      contentAdvertorials.sort((a, b) => {
+        // Assuming your date is stored in 'date' property of the post objects
+        const dateA = new Date(a.date)
+        const dateB = new Date(b.date)
+
+        // Compare the dates
+        return dateB - dateA
       })
 
       // const advertorialArray = Object.values(contentAdvertorials || [])

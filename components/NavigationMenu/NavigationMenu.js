@@ -70,6 +70,14 @@ NavigationMenu.fragments = {
             videosPage {
               url
             }
+            videosThumbnail {
+              sourceUrl
+              altText
+              mediaDetails {
+                width
+                height
+              }
+            }
           }
         }
       }

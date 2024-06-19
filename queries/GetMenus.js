@@ -11,7 +11,7 @@ export const GetMenus = gql`
     $fourthHeaderLocation: MenuLocationEnum
     $fifthHeaderLocation: MenuLocationEnum
     $featureHeaderLocation: MenuLocationEnum
-    ) {
+  ) {
     headerMenuItems: menuItems(
       where: { location: $headerLocation }
       first: $first

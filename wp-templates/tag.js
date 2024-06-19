@@ -14,6 +14,7 @@ import {
   TagStories,
 } from '../components'
 import { GetMenus } from '../queries/GetMenus'
+import { GetFooterMenus } from '../queries/GetFooterMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
 import { eb_garamond, rubik_mono_one } from '../styles/fonts/fonts'
 
@@ -37,12 +38,29 @@ export default function Component(props) {
     nextFetchPolicy: 'cache-and-network',
   })
 
+  // Header Menu
   const primaryMenu = menusData?.headerMenuItems?.nodes ?? []
   const secondaryMenu = menusData?.secondHeaderMenuItems?.nodes ?? []
   const thirdMenu = menusData?.thirdHeaderMenuItems?.nodes ?? []
   const fourthMenu = menusData?.fourthHeaderMenuItems?.nodes ?? []
   const fifthMenu = menusData?.fifthHeaderMenuItems?.nodes ?? []
   const featureMenu = menusData?.featureHeaderMenuItems?.nodes ?? []
+
+  // Get Footer menus
+  const { data: footerMenusData, loading: footerMenusLoading } = useQuery(
+    GetFooterMenus,
+    {
+      variables: {
+        first: 50,
+        footerHeaderLocation: MENUS.FOOTER_LOCATION,
+      },
+      fetchPolicy: 'network-only',
+      nextFetchPolicy: 'cache-and-network',
+    },
+  )
+
+  // Footer Menu
+  const footerMenu = footerMenusData?.footerHeaderMenuItems?.nodes ?? []
 
   // Get latest travel stories
   const { data: latestStories, loading: latestLoading } = useQuery(
@@ -119,7 +137,7 @@ export default function Component(props) {
           <TagStories tagUri={databaseId} name={name} />
         </>
       </Main>
-      <Footer />
+      <Footer footerMenu={footerMenu} />
     </main>
   )
 }

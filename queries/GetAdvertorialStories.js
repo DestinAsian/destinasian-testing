@@ -10,7 +10,6 @@ export const GetAdvertorialStories = gql`
       edges {
         node {
           contentNodes(
-            first: 10
             where: {
               contentTypes: ADVERTORIAL
               status: PUBLISH
