@@ -39,6 +39,7 @@ export default function Footer(footerMenu) {
             menuItems={footerMenuItems}
           />
         </div>
+        <div className={cx('border-divider')}></div>
         <Container>
           <div className={cx('upper-menu-wrapper')}>
             <div className={cx('upper-left-menu-wrapper')}>
@@ -183,7 +184,6 @@ export default function Footer(footerMenu) {
               )}
             </div>
           </div>
-          <div className={cx('border-divider')}></div>
           <div className={cx('bottom-menu-wrapper')}>
             <div className={cx('left-menu-wrapper')}>
               {privacyUri && (

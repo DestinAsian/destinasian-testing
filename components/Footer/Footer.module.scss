@@ -148,30 +148,28 @@
   }
 
   .upper-menu-wrapper {
-    padding-bottom: 1rem;
+    padding-top: 1rem;
     column-gap: 1rem;
 
     @media (min-width: $breakpoint-extra-small) {
+      padding-top: 2rem;
       column-gap: 2rem;
     }
   }
 
   .bottom-menu-wrapper {
     flex-direction: row;
-    padding-top: 0.5rem;
-
-    @media (min-width: $breakpoint-extra-small) {
-      padding-top: 1rem;
-    }
+    padding-top: 0;
   }
 
   .upper-left-menu-wrapper,
   .upper-right-menu-wrapper {
-    padding: 0 0 1rem;
+    padding: 0 0 0.5rem;
     justify-content: flex-start;
     column-gap: 0.5rem;
 
     @media (min-width: $breakpoint-extra-small) {
+      padding: 0 0 1rem;
       column-gap: 1rem;
     }
   }
@@ -228,7 +226,6 @@
     width: 75%;
     justify-content: space-between;
     padding: 0.5rem 0.5rem 1rem;
-    background-color: var(--wpe--main--background-color);
 
     @media (min-width: $breakpoint-extra-small) {
       padding-top: 1rem;
