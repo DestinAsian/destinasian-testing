@@ -6,7 +6,6 @@ import {
   CategoryHeader,
   SecondaryHeader,
   Main,
-  Container,
   CategoryEntryHeader,
   FeaturedImage,
   SEO,
@@ -29,10 +28,10 @@ export default function Component(props) {
   const {
     name,
     description,
-    categoryImages,
     children,
     parent,
     pinPosts,
+    categoryImages,
     destinationGuides,
     databaseId,
     seo,
@@ -131,6 +130,25 @@ export default function Component(props) {
   // sortByDate latestCat & childCat Posts
   const latestAllPosts = latestMainCatPosts.sort(sortPostsByDate)
 
+  // Category Slider
+  const categorySlider = [
+    categoryImages.categorySlide1 != null
+      ? categoryImages.categorySlide1.mediaItemUrl
+      : null,
+    categoryImages.categorySlide2 != null
+      ? categoryImages.categorySlide2.mediaItemUrl
+      : null,
+    categoryImages.categorySlide3 != null
+      ? categoryImages.categorySlide3.mediaItemUrl
+      : null,
+    categoryImages.categorySlide4 != null
+      ? categoryImages.categorySlide4.mediaItemUrl
+      : null,
+    categoryImages.categorySlide5 != null
+      ? categoryImages.categorySlide5.mediaItemUrl
+      : null,
+  ]
+
   return (
     <main className={`${eb_garamond.variable} ${rubik_mono_one.variable}`}>
       <SEO />
@@ -147,30 +165,18 @@ export default function Component(props) {
         menusLoading={menusLoading}
         latestLoading={latestLoading}
       />
-
       <SecondaryHeader databaseId={databaseId} />
-
       {/* EntryHeader category name */}
-      <Container>
-        {destinationGuides?.destinationGuides == 'yes' && (
-          <CategoryEntryHeader
-            title={`The DA Guide to ${name}`}
-            image={categoryImages?.categoryImages?.mediaItemUrl || null}
-            description={description || null}
-            children={children?.edges}
-          />
-        )}
-        {destinationGuides?.destinationGuides == null && (
-          <CategoryEntryHeader
-            parent={parent?.node?.name}
-            title={`${name}`}
-            image={categoryImages?.categoryImages?.mediaItemUrl || null}
-            description={description || null}
-            children={children?.edges}
-          />
-        )}
-      </Container>
-
+      <CategoryEntryHeader
+        parent={parent?.node?.name}
+        title={name}
+        destinationGuides={destinationGuides?.destinationGuides}
+        changeToSlider={categoryImages?.changeToSlider}
+        guidesTitle={destinationGuides?.guidesTitle}
+        categorySlider={categorySlider}
+        image={categoryImages?.categoryImages?.mediaItemUrl}
+        description={description}
+      />
       <Main>
         <>
           <CategoryStories
@@ -202,12 +208,29 @@ Component.query = gql`
         focuskw
       }
       categoryImages {
+        changeToSlider
+        categorySlide1 {
+          mediaItemUrl
+        }
+        categorySlide2 {
+          mediaItemUrl
+        }
+        categorySlide3 {
+          mediaItemUrl
+        }
+        categorySlide4 {
+          mediaItemUrl
+        }
+        categorySlide5 {
+          mediaItemUrl
+        }
         categoryImages {
           mediaItemUrl
         }
       }
       destinationGuides {
         destinationGuides
+        guidesTitle
       }
       pinPosts {
         pinPost {
