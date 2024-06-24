@@ -19,6 +19,7 @@ let cx = className.bind(styles)
 
 export default function CategoryEntryHeader({
   parent,
+  children,
   title,
   destinationGuides,
   changeToSlider,
@@ -52,7 +53,12 @@ export default function CategoryEntryHeader({
                 <Container>
                   {title && (
                     <Heading className={cx('title')}>
-                      {guidesTitle ? guidesTitle : title}
+                      {children.length !== 0 &&
+                        (guidesTitle ? guidesTitle : title)}
+                      {children.length === 0 &&
+                        (guidesTitle
+                          ? guidesTitle
+                          : (parent ? parent : null) + ' ' + title)}
                     </Heading>
                   )}
                   {categorySlider ? (
@@ -173,7 +179,12 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
                 <Container>
                   {title && (
                     <Heading className={cx('title')}>
-                      {guidesTitle ? guidesTitle : title}
+                      {children.length !== 0 &&
+                        (guidesTitle ? guidesTitle : title)}
+                      {children.length === 0 &&
+                        (guidesTitle
+                          ? guidesTitle
+                          : (parent ? parent : null) + ' ' + title)}
                     </Heading>
                   )}
                   {image && (
@@ -205,7 +216,14 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
                 <Container>
                   {title && (
                     <Heading className={cx('title')}>
-                      {guidesTitle ? guidesTitle : 'The DA Guide to ' + title}
+                      {children.length !== 0 &&
+                        (guidesTitle
+                          ? guidesTitle
+                          : 'The DA Guide to ' + title)}
+                      {children.length === 0 &&
+                        (guidesTitle
+                          ? guidesTitle
+                          : (parent ? parent : null) + ' ' + title)}
                     </Heading>
                   )}
                   {categorySlider ? (
@@ -326,11 +344,14 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
                 <Container>
                   {title && (
                     <Heading className={cx('title')}>
-                      {guidesTitle
-                        ? guidesTitle
-                        : parent
-                        ? parent + ' ' + title
-                        : title}
+                      {children.length !== 0 &&
+                        (guidesTitle
+                          ? guidesTitle
+                          : 'The DA Guide to ' + title)}
+                      {children.length === 0 &&
+                        (guidesTitle
+                          ? guidesTitle
+                          : (parent ? parent : null) + ' ' + title)}
                     </Heading>
                   )}
                   {image && (

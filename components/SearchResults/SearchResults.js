@@ -1,5 +1,6 @@
 import {
   CategoryIcon,
+  Container,
   FeaturedImage,
   LocationIcon,
   PostInfo,
@@ -9,6 +10,7 @@ import className from 'classnames/bind'
 
 import styles from './SearchResults.module.scss'
 import Link from 'next/link'
+import Image from 'next/image'
 
 let cx = className.bind(styles)
 
@@ -44,7 +46,7 @@ export default function SearchResults({ searchResults, isLoading }) {
           <div role="status">
             <svg
               aria-hidden="true"
-              className="mr-2 h-[88vh] w-8 animate-spin fill-black text-gray-200 dark:text-gray-600 sm:h-[86vh]"
+              className="mr-2 h-[88vh] w-8 animate-spin fill-black text-gray-200 sm:h-[86vh] dark:text-gray-600"
               viewBox="0 0 100 101"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -77,219 +79,338 @@ export default function SearchResults({ searchResults, isLoading }) {
     return `${trimmedExcerpt} <a class="more-link" href="${uri}">Continue reading <span class="screen-reader-text">${title}</span></a>`
   }
 
+  console.log(searchResults[1]?.categoryImages)
+
   return (
     <>
       <div className={cx('component')}>
         {searchResults?.map((node) => (
-          <div className={cx('content-wrapper')}>
-            <div className={cx('left-wrapper')}>
-              {node?.featuredImage?.node && node?.uri && (
-                <Link href={node?.uri}>
-                  <div className={cx('wrapper-image')}>
-                    <FeaturedImage
-                      image={node?.featuredImage?.node}
-                      className={cx('featured-image')}
-                    />
+          <Container>
+            {node?.__typename === 'Category' ? (
+              // Search Result for Categories
+              <div className={cx('content-wrapper')}>
+                <div className={cx('left-wrapper')}>
+                  {node?.categoryImages?.changeToSlider === null &&
+                    node?.categoryImages?.categoryImages?.sourceUrl &&
+                    node?.uri && (
+                      <Link href={node?.uri}>
+                        <div className={cx('wrapper-image')}>
+                          <div className={cx('featured-image')}>
+                            <Image
+                              src={
+                                node?.categoryImages?.categoryImages?.sourceUrl
+                              }
+                              alt={'Category Images ' + node?.title}
+                              fill
+                              sizes="100%"
+                              priority
+                            />
+                          </div>
+                        </div>
+                      </Link>
+                    )}
+                  {node?.categoryImages?.changeToSlider === 'yes' &&
+                    node?.categoryImages?.categorySlide1?.sourceUrl &&
+                    node?.uri && (
+                      <Link href={node?.uri}>
+                        <div className={cx('wrapper-image')}>
+                          <div className={cx('featured-image')}>
+                            <Image
+                              src={
+                                node?.categoryImages?.categorySlide1?.sourceUrl
+                              }
+                              alt={'Category Images ' + node?.title}
+                              fill
+                              sizes="100%"
+                              priority
+                            />
+                          </div>
+                        </div>
+                      </Link>
+                    )}
+                </div>
+
+                <div className={cx('right-wrapper')}>
+                  <div key={node?.databaseId} className={cx('result')}>
+                    {node?.children?.edges?.length !== 0 && (
+                      <div className={cx('title-wrapper')}>
+                        <Link href={node?.uri}>
+                          <h2 className={cx('title')}>{node?.name}</h2>
+                        </Link>
+                      </div>
+                    )}
+                    {node?.children?.edges?.length === 0 && (
+                      <div className={cx('title-wrapper')}>
+                        <Link href={node?.uri}>
+                          <h2 className={cx('title')}>
+                            {(node?.parent?.node?.name
+                              ? node?.parent?.node?.name
+                              : null) +
+                              ' ' +
+                              node?.name}
+                          </h2>
+                        </Link>
+                      </div>
+                    )}
+                    {node?.description && node?.uri && (
+                      <Link href={node?.uri}>
+                        <p
+                          dangerouslySetInnerHTML={{
+                            __html: calculateTrimmedExcerpt(
+                              node?.description,
+                              node?.uri,
+                              node?.title,
+                            ),
+                          }}
+                        />
+                      </Link>
+                    )}
                   </div>
-                </Link>
-              )}
-            </div>
-
-            <div className={cx('right-wrapper')}>
-              <div key={node?.databaseId} className={cx('result')}>
-                <div className={cx('category-wrapper')}>
-                  {/* Destinations */}
-                  {node?.contentType?.node?.graphqlPluralName == 'Editorials' &&
-                    node?.categories?.edges[0]?.node?.uri && (
-                      <Link href={node?.categories?.edges[0]?.node?.uri}>
-                        <h2 className={cx('meta')}>
-                          {node?.categories?.edges[0]?.node?.name}
-                        </h2>
-                      </Link>
-                    )}
-
-                  {/* Destination Guides */}
-                  {node?.contentType?.node?.graphqlPluralName == 'posts' &&
-                    node?.categories?.edges[0]?.node?.uri && (
-                      <Link href={node?.categories?.edges[0]?.node?.uri}>
-                        <h2 className={cx('meta')}>
-                          {node?.categories?.edges[0]?.node?.parent?.node?.name}{' '}
-                          {node?.categories?.edges[0]?.node?.name}
-                        </h2>
-                      </Link>
-                    )}
-
-                  {/* Update */}
-                  {node?.contentType?.node?.graphqlPluralName == 'Updates' &&
-                    node?.categories?.edges[0]?.node?.uri && (
-                      <Link href={node?.categories?.edges[0]?.node?.uri}>
-                        <h2 className={cx('meta')}>
-                          {node?.categories?.edges[0]?.node?.parent?.node?.name}{' '}
-                          {node?.categories?.edges[0]?.node?.name}
-                        </h2>
-                      </Link>
-                    )}
-
-                  {/* HonorsCircle */}
-                  {node?.contentType?.node?.graphqlPluralName ==
-                    'HonorsCircles' && (
-                    <Link href={'/honors-circle'}>
-                      <h2 className={cx('meta', 'meta-hc')}>
-                        {'Honors Circle'}
-                      </h2>
-                    </Link>
-                  )}
-
-                  {/* Advertorials */}
-                  {node?.contentType?.node?.graphqlPluralName ==
-                    'Advertorials' &&
-                    node?.uri && (
-                      <Link href={node?.uri}>
-                        <h2 className={cx('meta')}>{'Partner Content'}</h2>
-                      </Link>
-                    )}
-
-                  {/* LuxeList */}
-                  {node?.contentType?.node?.graphqlPluralName ==
-                    'LuxeLists' && (
-                    <h2 className={cx('meta')}>{'Luxe List'}</h2>
-                  )}
-
-                  {/* Contest */}
-                  {node?.contentType?.node?.graphqlPluralName == 'Contests' && (
-                    <Link href={'/contests'}>
-                      <h2 className={cx('meta')}>{'Contest'}</h2>
-                    </Link>
-                  )}
-
-                  {/* Readers Choice Awards */}
-                  {node?.contentType?.node?.graphqlPluralName ==
-                    'ReadersChoiceAwards' && (
-                    <h2 className={cx('meta')}>{'Readers’ Choice Awards'}</h2>
-                  )}
                 </div>
-
-                <div className={cx('title-wrapper')}>
-                  {/* Destinations */}
-                  {node?.contentType?.node?.graphqlPluralName == 'Editorials' &&
-                    node?.uri && (
-                      <Link href={node?.uri}>
-                        <h2 className={cx('title')}>{node?.title}</h2>
-                      </Link>
-                    )}
-
-                  {/* Destination Guides */}
-                  {node?.contentType?.node?.graphqlPluralName == 'posts' &&
-                    node?.uri && (
-                      <Link href={node?.uri}>
-                        <h2 className={cx('title')}>{node?.title}</h2>
-                      </Link>
-                    )}
-
-                  {/* Update */}
-                  {node?.contentType?.node?.graphqlPluralName == 'Updates' &&
-                    node?.uri && (
-                      <Link href={node?.uri}>
-                        <h2 className={cx('title')}>{node?.title}</h2>
-                      </Link>
-                    )}
-
-                  {/* HonorsCircle */}
-                  {node?.contentType?.node?.graphqlPluralName ==
-                    'HonorsCircles' &&
-                    node?.uri && (
-                      <Link href={node?.uri}>
-                        <h2 className={cx('title', 'title-hc')}>
-                          {node?.title}
-                        </h2>
-                      </Link>
-                    )}
-
-                  {/* Advertorials */}
-                  {node?.contentType?.node?.graphqlPluralName ==
-                    'Advertorials' &&
-                    node?.uri && (
-                      <Link href={node?.uri}>
-                        <h2 className={cx('title', 'title-advertorial')}>
-                          {node?.title}
-                        </h2>
-                      </Link>
-                    )}
-
-                  {/* LuxeList */}
-                  {node?.contentType?.node?.graphqlPluralName == 'LuxeLists' &&
-                    node?.uri && (
-                      <Link href={node?.uri}>
-                        <h2 className={cx('title', 'title-ll')}>
-                          {node?.title}
-                        </h2>
-                      </Link>
-                    )}
-
-                  {/* Contest */}
-                  {node?.contentType?.node?.graphqlPluralName == 'Contests' &&
-                    node?.uri && (
-                      <Link href={node?.uri}>
-                        <h2 className={cx('title', 'title-contest')}>
-                          {node?.title}
-                        </h2>
-                      </Link>
-                    )}
-
-                  {/* Readers Choice Awards */}
-                  {node?.contentType?.node?.graphqlPluralName ==
-                    'ReadersChoiceAwards' &&
-                    node?.uri && (
-                      <Link href={node?.uri}>
-                        <h2 className={cx('title', 'title-rca')}>
-                          {node?.title}
-                        </h2>
-                      </Link>
-                    )}
-                </div>
-
-                <div className={cx('meta-wrapper')}>
-                  <div className={cx('date-wrapper')}>
-                    <PostInfo date={node?.date} className={cx('meta')} />
-                  </div>
-                  {node?.acfCategoryIcon && node?.acfLocationIcon && (
-                    <div className={cx('icon-wrapper')}>
-                      <CategoryIcon
-                        chooseYourCategory={
-                          node?.acfCategoryIcon?.chooseYourCategory
-                        }
-                        chooseIcon={
-                          node?.acfCategoryIcon?.chooseIcon?.mediaItemUrl
-                        }
-                        categoryLabel={node?.acfCategoryIcon?.categoryLabel}
-                      />
-                      <LocationIcon
-                        locationValidation={
-                          node?.acfLocationIcon?.fieldGroupName
-                        }
-                        locationLabel={node?.acfLocationIcon?.locationLabel}
-                        locationUrl={node?.acfLocationIcon?.locationUrl}
-                      />
-                    </div>
-                  )}
-                </div>
-
-                {node?.excerpt && node?.uri && (
-                  <Link href={node?.uri}>
-                    <div
-                      dangerouslySetInnerHTML={{
-                        __html: calculateTrimmedExcerpt(
-                          node?.excerpt,
-                          node?.uri,
-                          node?.title,
-                        ),
-                      }}
-                    />
-                  </Link>
-                )}
               </div>
-            </div>
-          </div>
+            ) : (
+              // Search Result for Tags
+              <div className={cx('content-wrapper')}>
+                <div className={cx('left-wrapper')}>
+                  {node?.featuredImage?.node && node?.uri && (
+                    <Link href={node?.uri}>
+                      <div className={cx('wrapper-image')}>
+                        <FeaturedImage
+                          image={node?.featuredImage?.node}
+                          className={cx('featured-image')}
+                        />
+                      </div>
+                    </Link>
+                  )}
+                </div>
+
+                <div className={cx('right-wrapper')}>
+                  <div key={node?.databaseId} className={cx('result')}>
+                    {/* No Category in Pages */}
+                    {node?.contentType?.node?.graphqlPluralName ==
+                    'pages' ? null : (
+                      <div className={cx('category-wrapper')}>
+                        {/* Destinations */}
+                        {node?.contentType?.node?.graphqlPluralName ==
+                          'Editorials' &&
+                          node?.categories?.edges[0]?.node?.uri && (
+                            <Link href={node?.categories?.edges[0]?.node?.uri}>
+                              <h2 className={cx('meta')}>
+                                {node?.categories?.edges[0]?.node?.name}
+                              </h2>
+                            </Link>
+                          )}
+
+                        {/* Destination Guides */}
+                        {node?.contentType?.node?.graphqlPluralName ==
+                          'posts' &&
+                          node?.categories?.edges[0]?.node?.uri && (
+                            <Link href={node?.categories?.edges[0]?.node?.uri}>
+                              <h2 className={cx('meta')}>
+                                {
+                                  node?.categories?.edges[0]?.node?.parent?.node
+                                    ?.name
+                                }{' '}
+                                {node?.categories?.edges[0]?.node?.name}
+                              </h2>
+                            </Link>
+                          )}
+
+                        {/* Update */}
+                        {node?.contentType?.node?.graphqlPluralName ==
+                          'Updates' &&
+                          node?.categories?.edges[0]?.node?.uri && (
+                            <Link href={node?.categories?.edges[0]?.node?.uri}>
+                              <h2 className={cx('meta')}>
+                                {
+                                  node?.categories?.edges[0]?.node?.parent?.node
+                                    ?.name
+                                }{' '}
+                                {node?.categories?.edges[0]?.node?.name}
+                              </h2>
+                            </Link>
+                          )}
+
+                        {/* HonorsCircle */}
+                        {node?.contentType?.node?.graphqlPluralName ==
+                          'HonorsCircles' && (
+                          <Link href={'/honors-circle'}>
+                            <h2 className={cx('meta', 'meta-hc')}>
+                              {'Honors Circle'}
+                            </h2>
+                          </Link>
+                        )}
+
+                        {/* Advertorials */}
+                        {node?.contentType?.node?.graphqlPluralName ==
+                          'Advertorials' &&
+                          node?.uri && (
+                            <Link href={node?.uri}>
+                              <h2 className={cx('meta')}>
+                                {'Partner Content'}
+                              </h2>
+                            </Link>
+                          )}
+
+                        {/* LuxeList */}
+                        {node?.contentType?.node?.graphqlPluralName ==
+                          'LuxeLists' && (
+                          <h2 className={cx('meta')}>{'Luxe List'}</h2>
+                        )}
+
+                        {/* Contest */}
+                        {node?.contentType?.node?.graphqlPluralName ==
+                          'Contests' && (
+                          <Link href={'/contests'}>
+                            <h2 className={cx('meta')}>{'Contest'}</h2>
+                          </Link>
+                        )}
+
+                        {/* Readers Choice Awards */}
+                        {node?.contentType?.node?.graphqlPluralName ==
+                          'ReadersChoiceAwards' && (
+                          <h2 className={cx('meta')}>
+                            {'Readers’ Choice Awards'}
+                          </h2>
+                        )}
+                      </div>
+                    )}
+
+                    <div className={cx('title-wrapper')}>
+                      {/* Destinations */}
+                      {node?.contentType?.node?.graphqlPluralName ==
+                        'Editorials' &&
+                        node?.uri && (
+                          <Link href={node?.uri}>
+                            <h2 className={cx('title')}>{node?.title}</h2>
+                          </Link>
+                        )}
+
+                      {/* Destination Guides */}
+                      {node?.contentType?.node?.graphqlPluralName == 'posts' &&
+                        node?.uri && (
+                          <Link href={node?.uri}>
+                            <h2 className={cx('title')}>{node?.title}</h2>
+                          </Link>
+                        )}
+
+                      {/* Pages */}
+                      {node?.contentType?.node?.graphqlPluralName == 'pages' &&
+                        node?.uri && (
+                          <Link href={node?.uri}>
+                            <h2 className={cx('title')}>{node?.title}</h2>
+                          </Link>
+                        )}
+
+                      {/* Update */}
+                      {node?.contentType?.node?.graphqlPluralName ==
+                        'Updates' &&
+                        node?.uri && (
+                          <Link href={node?.uri}>
+                            <h2 className={cx('title')}>{node?.title}</h2>
+                          </Link>
+                        )}
+
+                      {/* HonorsCircle */}
+                      {node?.contentType?.node?.graphqlPluralName ==
+                        'HonorsCircles' &&
+                        node?.uri && (
+                          <Link href={node?.uri}>
+                            <h2 className={cx('title', 'title-hc')}>
+                              {node?.title}
+                            </h2>
+                          </Link>
+                        )}
+
+                      {/* Advertorials */}
+                      {node?.contentType?.node?.graphqlPluralName ==
+                        'Advertorials' &&
+                        node?.uri && (
+                          <Link href={node?.uri}>
+                            <h2 className={cx('title', 'title-advertorial')}>
+                              {node?.title}
+                            </h2>
+                          </Link>
+                        )}
+
+                      {/* LuxeList */}
+                      {node?.contentType?.node?.graphqlPluralName ==
+                        'LuxeLists' &&
+                        node?.uri && (
+                          <Link href={node?.uri}>
+                            <h2 className={cx('title', 'title-ll')}>
+                              {node?.title}
+                            </h2>
+                          </Link>
+                        )}
+
+                      {/* Contest */}
+                      {node?.contentType?.node?.graphqlPluralName ==
+                        'Contests' &&
+                        node?.uri && (
+                          <Link href={node?.uri}>
+                            <h2 className={cx('title', 'title-contest')}>
+                              {node?.title}
+                            </h2>
+                          </Link>
+                        )}
+
+                      {/* Readers Choice Awards */}
+                      {node?.contentType?.node?.graphqlPluralName ==
+                        'ReadersChoiceAwards' &&
+                        node?.uri && (
+                          <Link href={node?.uri}>
+                            <h2 className={cx('title', 'title-rca')}>
+                              {node?.title}
+                            </h2>
+                          </Link>
+                        )}
+                    </div>
+
+                    <div className={cx('meta-wrapper')}>
+                      <div className={cx('date-wrapper')}>
+                        <PostInfo date={node?.date} className={cx('meta')} />
+                      </div>
+                      {node?.acfCategoryIcon && node?.acfLocationIcon && (
+                        <div className={cx('icon-wrapper')}>
+                          <CategoryIcon
+                            chooseYourCategory={
+                              node?.acfCategoryIcon?.chooseYourCategory
+                            }
+                            chooseIcon={
+                              node?.acfCategoryIcon?.chooseIcon?.mediaItemUrl
+                            }
+                            categoryLabel={node?.acfCategoryIcon?.categoryLabel}
+                          />
+                          <LocationIcon
+                            locationValidation={
+                              node?.acfLocationIcon?.fieldGroupName
+                            }
+                            locationLabel={node?.acfLocationIcon?.locationLabel}
+                            locationUrl={node?.acfLocationIcon?.locationUrl}
+                          />
+                        </div>
+                      )}
+                    </div>
+
+                    {node?.excerpt && node?.uri && (
+                      <Link href={node?.uri}>
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: calculateTrimmedExcerpt(
+                              node?.excerpt,
+                              node?.uri,
+                              node?.title,
+                            ),
+                          }}
+                        />
+                      </Link>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
+          </Container>
         ))}
       </div>
     </>

@@ -84,15 +84,24 @@ export default function RCAHeader({
   // Initialize an array to store unique posts
   const contentNodesPosts = []
 
-  // Loop through all the contentNodes posts
-  searchResultsData?.tags?.edges.forEach((contentNodes) => {
+  // Loop through categories (assuming similar structure)
+  searchResultsData?.categories?.edges?.forEach((post) => {
+    const { databaseId } = post.node
+
+    if (!uniqueDatabaseIds.has(databaseId)) {
+      uniqueDatabaseIds.add(databaseId)
+      contentNodesPosts.push(post.node)
+    }
+  })
+
+  // Loop through tags
+  searchResultsData?.tags?.edges?.forEach((contentNodes) => {
     contentNodes.node?.contentNodes?.edges.forEach((post) => {
       const { databaseId } = post.node
 
-      // Check if the databaseId is unique (not in the Set)
       if (!uniqueDatabaseIds.has(databaseId)) {
-        uniqueDatabaseIds.add(databaseId) // Add the databaseId to the Set
-        contentNodesPosts.push(post.node) // Push the unique post to the array
+        uniqueDatabaseIds.add(databaseId)
+        contentNodesPosts.push(post.node)
       }
     })
   })
@@ -100,12 +109,12 @@ export default function RCAHeader({
   // Sort contentNodesPosts array by date
   contentNodesPosts.sort((a, b) => {
     // Assuming your date is stored in 'date' property of the post objects
-    const dateA = new Date(a.date);
-    const dateB = new Date(b.date);
+    const dateA = new Date(a.date)
+    const dateB = new Date(b.date)
 
     // Compare the dates
-    return dateB - dateA;
-  });
+    return dateB - dateA
+  })
 
   return (
     <header

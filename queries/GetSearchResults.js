@@ -2,6 +2,49 @@ import { gql } from '@apollo/client'
 
 export const GetSearchResults = gql`
   query GetSearchResults($first: Int!, $after: String, $search: String) {
+    categories(
+      first: $first
+      after: $after
+      where: { search: $search, hideEmpty: true }
+    ) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      edges {
+        node {
+          uri
+          databaseId
+          name
+          description
+          parent {
+            node {
+              name
+            }
+          }
+          children {
+            edges {
+              node {
+                name
+                uri
+              }
+            }
+          }
+          categoryImages {
+            changeToSlider
+            categoryImages {
+              sourceUrl
+            }
+            categorySlide1 {
+              sourceUrl
+            }
+          }
+          destinationGuides {
+            guidesTitle
+          }
+        }
+      }
+    }
     tags(
       first: $first
       after: $after
@@ -18,6 +61,7 @@ export const GetSearchResults = gql`
               status: PUBLISH
               contentTypes: [
                 POST
+                PAGE
                 EDITORIAL
                 ADVERTORIAL
                 HONORS_CIRCLE
@@ -30,7 +74,6 @@ export const GetSearchResults = gql`
           ) {
             edges {
               node {
-                id
                 uri
                 databaseId
                 contentType {
@@ -45,7 +88,6 @@ export const GetSearchResults = gql`
                   date
                   featuredImage {
                     node {
-                      id
                       sourceUrl
                       altText
                       mediaDetails {
@@ -80,13 +122,26 @@ export const GetSearchResults = gql`
                     locationUrl
                   }
                 }
+                ... on Page {
+                  title
+                  date
+                  featuredImage {
+                    node {
+                      sourceUrl
+                      altText
+                      mediaDetails {
+                        width
+                        height
+                      }
+                    }
+                  }
+                }
                 ... on HonorsCircle {
                   title
                   excerpt
                   date
                   featuredImage {
                     node {
-                      id
                       sourceUrl
                       altText
                       mediaDetails {
@@ -102,7 +157,6 @@ export const GetSearchResults = gql`
                   date
                   featuredImage {
                     node {
-                      id
                       sourceUrl
                       altText
                       mediaDetails {
@@ -126,7 +180,6 @@ export const GetSearchResults = gql`
                   date
                   featuredImage {
                     node {
-                      id
                       sourceUrl
                       altText
                       mediaDetails {
@@ -150,7 +203,6 @@ export const GetSearchResults = gql`
                   date
                   featuredImage {
                     node {
-                      id
                       sourceUrl
                       altText
                       mediaDetails {
@@ -166,7 +218,6 @@ export const GetSearchResults = gql`
                   date
                   featuredImage {
                     node {
-                      id
                       sourceUrl
                       altText
                       mediaDetails {
@@ -182,7 +233,6 @@ export const GetSearchResults = gql`
                   date
                   featuredImage {
                     node {
-                      id
                       sourceUrl
                       altText
                       mediaDetails {
@@ -198,7 +248,6 @@ export const GetSearchResults = gql`
                   date
                   featuredImage {
                     node {
-                      id
                       sourceUrl
                       altText
                       mediaDetails {

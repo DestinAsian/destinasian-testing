@@ -169,6 +169,7 @@ export default function Component(props) {
       {/* EntryHeader category name */}
       <CategoryEntryHeader
         parent={parent?.node?.name}
+        children={children?.edges}
         title={name}
         destinationGuides={destinationGuides?.destinationGuides}
         changeToSlider={categoryImages?.changeToSlider}
