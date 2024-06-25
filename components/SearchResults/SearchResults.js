@@ -79,8 +79,6 @@ export default function SearchResults({ searchResults, isLoading }) {
     return `${trimmedExcerpt} <a class="more-link" href="${uri}">Continue reading <span class="screen-reader-text">${title}</span></a>`
   }
 
-  console.log(searchResults[1]?.categoryImages)
-
   return (
     <>
       <div className={cx('component')}>
@@ -145,7 +143,7 @@ export default function SearchResults({ searchResults, isLoading }) {
                           <h2 className={cx('title')}>
                             {(node?.parent?.node?.name
                               ? node?.parent?.node?.name
-                              : null) +
+                              : '') +
                               ' ' +
                               node?.name}
                           </h2>

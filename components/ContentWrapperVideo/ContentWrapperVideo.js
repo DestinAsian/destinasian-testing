@@ -3,7 +3,7 @@ import React, { useState, useRef } from 'react'
 import className from 'classnames/bind'
 import styles from './ContentWrapperVideo.module.scss'
 import { GetVideos } from '../../queries/GetVideos'
-import { Button } from '../../components'
+import { Button, Heading } from '../../components'
 import LiteYouTubeEmbed from 'react-lite-youtube-embed'
 import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css'
 import Link from 'next/link'
@@ -153,16 +153,58 @@ export default function ContentWrapperVideo() {
                   )}
                 </div>
               )}
-              {latestVideos?.node?.title &&
-                latestVideos?.node?.videosAcf?.videoLink && (
-                  <Link href={latestVideos?.node?.videosAcf?.videoLink}>
-                    <div className={cx('first-title-wrapper')}>
+              <div className={cx('first-video-text-wrapper')}>
+                <div className={cx('first-guides-text-wrapper')}>
+                  {latestVideos?.node?.videosAcf?.guidesCategoryLink &&
+                    latestVideos?.node?.videosAcf?.guidesCategoryText && (
+                      <Link
+                        href={latestVideos?.node?.videosAcf?.guidesCategoryLink}
+                      >
+                        <Heading className={cx('first-guides-text')}>
+                          {latestVideos?.node?.videosAcf?.guidesCategoryText}
+                        </Heading>
+                      </Link>
+                    )}
+                  {latestVideos?.node?.videosAcf?.guidesCategoryLink === null &&
+                    latestVideos?.node?.videosAcf?.guidesCategoryText && (
+                      <Heading className={cx('first-guides-text')}>
+                        {latestVideos?.node?.videosAcf?.guidesCategoryText}
+                      </Heading>
+                    )}
+                </div>
+                <div className={cx('first-title-wrapper')}>
+                  {latestVideos?.node?.videosAcf?.videoLink &&
+                    latestVideos?.node?.title && (
+                      <Link href={latestVideos?.node?.videosAcf?.videoLink}>
+                        <h2 className={cx('title')}>
+                          {latestVideos?.node?.title}
+                        </h2>
+                      </Link>
+                    )}
+                  {latestVideos?.node?.videosAcf?.videoLink === null &&
+                    latestVideos?.node?.title && (
                       <h2 className={cx('title')}>
                         {latestVideos?.node?.title}
                       </h2>
-                    </div>
-                  </Link>
-                )}
+                    )}
+                </div>
+                <div className={cx('first-custom-text-wrapper')}>
+                  {latestVideos?.node?.videosAcf?.customLink &&
+                    latestVideos?.node?.videosAcf?.customText && (
+                      <Link href={latestVideos?.node?.videosAcf?.customLink}>
+                        <Heading className={cx('first-custom-text')}>
+                          {latestVideos?.node?.videosAcf?.customText}
+                        </Heading>
+                      </Link>
+                    )}
+                  {latestVideos?.node?.videosAcf?.customLink === null &&
+                    latestVideos?.node?.videosAcf?.customText && (
+                      <Heading className={cx('first-custom-text')}>
+                        {latestVideos?.node?.videosAcf?.customText}
+                      </Heading>
+                    )}
+                </div>
+              </div>
             </div>
           </div>
         )}
@@ -207,13 +249,49 @@ export default function ContentWrapperVideo() {
                     )}
                   </div>
                 )}
-                {post?.node?.title && post?.node?.videosAcf?.videoLink && (
-                  <Link href={post?.node?.videosAcf?.videoLink}>
-                    <div className={cx('other-title-wrapper')}>
-                      <h2>{post?.node?.title}</h2>
-                    </div>
-                  </Link>
-                )}
+                <div className={cx('other-video-text-wrapper')}>
+                  <div className={cx('other-guides-text-wrapper')}>
+                    {post?.node?.videosAcf?.guidesCategoryLink &&
+                      post?.node?.videosAcf?.guidesCategoryText && (
+                        <Link href={post?.node?.videosAcf?.guidesCategoryLink}>
+                          <Heading className={cx('other-guides-text')}>
+                            {post?.node?.videosAcf?.guidesCategoryText}
+                          </Heading>
+                        </Link>
+                      )}
+                    {post?.node?.videosAcf?.guidesCategoryLink === null &&
+                      post?.node?.videosAcf?.guidesCategoryText && (
+                        <Heading className={cx('other-guides-text')}>
+                          {post?.node?.videosAcf?.guidesCategoryText}
+                        </Heading>
+                      )}
+                  </div>
+                  <div className={cx('other-title-wrapper')}>
+                    {post?.node?.videosAcf?.videoLink && post?.node?.title && (
+                      <Link href={post?.node?.videosAcf?.videoLink}>
+                        <h2>{post?.node?.title}</h2>
+                      </Link>
+                    )}
+                    {post?.node?.videosAcf?.videoLink === null &&
+                      post?.node?.title && <h2>{post?.node?.title}</h2>}
+                  </div>
+                  <div className={cx('other-custom-text-wrapper')}>
+                    {post?.node?.videosAcf?.customLink &&
+                      post?.node?.videosAcf?.customText && (
+                        <Link href={post?.node?.videosAcf?.customLink}>
+                          <Heading className={cx('other-custom-text')}>
+                            {post?.node?.videosAcf?.customText}
+                          </Heading>
+                        </Link>
+                      )}
+                    {post?.node?.videosAcf?.customLink === null &&
+                      post?.node?.videosAcf?.customText && (
+                        <Heading className={cx('other-custom-text')}>
+                          {post?.node?.videosAcf?.customText}
+                        </Heading>
+                      )}
+                  </div>
+                </div>
               </div>
             ))}
           {otherVideos.length && (

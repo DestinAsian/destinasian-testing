@@ -19,6 +19,10 @@ export const GetVideos = gql`
           content
           videosAcf {
             videoLink
+            guidesCategoryLink
+            guidesCategoryText
+            customLink
+            customText
           }
         }
       }
