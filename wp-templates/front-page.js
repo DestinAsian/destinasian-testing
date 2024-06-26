@@ -39,6 +39,7 @@ export default function Component(props) {
       category: acfHomepageSlider?.slideCategory1,
       categoryLink: acfHomepageSlider?.slideCategoryLink1,
       caption: acfHomepageSlider?.slideCaption1,
+      standFirst: acfHomepageSlider?.slideStandFirst1,
     },
     {
       type: acfHomepageSlider?.typeSlide2,
@@ -49,6 +50,7 @@ export default function Component(props) {
       category: acfHomepageSlider?.slideCategory2,
       categoryLink: acfHomepageSlider?.slideCategoryLink2,
       caption: acfHomepageSlider?.slideCaption2,
+      standFirst: acfHomepageSlider?.slideStandFirst2,
     },
     {
       type: acfHomepageSlider?.typeSlide3,
@@ -59,6 +61,7 @@ export default function Component(props) {
       category: acfHomepageSlider?.slideCategory3,
       categoryLink: acfHomepageSlider?.slideCategoryLink3,
       caption: acfHomepageSlider?.slideCaption3,
+      standFirst: acfHomepageSlider?.slideStandFirst3,
     },
   ]
 
@@ -233,6 +236,9 @@ Component.query = gql`
         slideCaption1
         slideCaption2
         slideCaption3
+        slideStandFirst1
+        slideStandFirst2
+        slideStandFirst3
         slideCategory1
         slideCategory2
         slideCategory3

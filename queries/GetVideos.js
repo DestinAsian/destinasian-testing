@@ -17,6 +17,11 @@ export const GetVideos = gql`
           id
           title
           content
+          featuredImage {
+            node {
+              sourceUrl
+            }
+          }
           videosAcf {
             videoLink
             guidesCategoryLink

@@ -18,6 +18,24 @@ export default function ContentWrapperVideo() {
   const [isPlaying, setIsPlaying] = useState(false)
   const videoRef = useRef(null)
 
+  // Extract Youtube Video
+  const extractYouTubeVideoId = (embedUrl) => {
+    const match = embedUrl.match(/\/embed\/([^?"]+)/)
+    return match ? match[1] : null
+  }
+
+  // Extract Local Video
+  const extractVideoSrc = (content) => {
+    const match = content.match(/<video[^>]*>\s*<source[^>]*src="([^"]+)"/)
+    return match ? match[1] : null
+  }
+
+  const params = (content) => {
+    const videoId = extractYouTubeVideoId(content)
+    const url = `&playlist=${videoId}&loop=1&controls=0&disablekb=1');`
+    return url ? url : null
+  }
+
   const handlePlayPause = () => {
     if (isPlaying) {
       videoRef.current.pause()
@@ -103,23 +121,7 @@ export default function ContentWrapperVideo() {
   // Other Post
   const otherVideos = data?.videos?.edges?.map((post) => post)
 
-  // Extract Youtube Video
-  const extractYouTubeVideoId = (embedUrl) => {
-    const match = embedUrl.match(/\/embed\/([^?"]+)/)
-    return match ? match[1] : null
-  }
-
-  // Extract Local Video
-  const extractVideoSrc = (content) => {
-    const match = content.match(/<video[^>]*>\s*<source[^>]*src="([^"]+)"/)
-    return match ? match[1] : null
-  }
-
-  const params = (content) => {
-    const videoId = extractYouTubeVideoId(content)
-    const url = `&playlist=${videoId}&loop=1&controls=0&disablekb=1');`
-    return url ? url : null
-  }
+  console.log(otherVideos[5]?.node?.featuredImage)
 
   return (
     <div className={cx('component')}>
@@ -148,6 +150,9 @@ export default function ContentWrapperVideo() {
                         loop
                         autoPlay
                         muted
+                        poster={
+                          latestVideos?.node?.featuredImage?.node?.sourceUrl
+                        }
                       />
                     </div>
                   )}
@@ -232,6 +237,7 @@ export default function ContentWrapperVideo() {
                           className="video-content"
                           loop
                           muted
+                          poster={post?.node?.featuredImage?.node?.sourceUrl}
                         />
                         {!isPlaying && (
                           <button

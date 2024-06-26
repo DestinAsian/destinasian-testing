@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import className from 'classnames/bind'
 import styles from './FeatureWell.module.scss'
 import { useMediaQuery } from 'react-responsive'
@@ -22,6 +22,25 @@ export default function FeatureWell({ featureWells }) {
   const isDesktop = useMediaQuery({ minWidth: 640 })
   const isMobile = useMediaQuery({ maxWidth: 639 })
 
+  const captionRefs = useRef([])
+  const [captionWidths, setCaptionWidths] = useState([])
+
+  const updateCaptionWidths = () => {
+    const widths = captionRefs.current.map((ref) => ref?.offsetWidth || 0)
+    setCaptionWidths(widths)
+    captionRefs.current.forEach((ref, index) => {
+      if (ref) {
+        ref.style.setProperty('--caption-width', `${widths[index]}px`)
+      }
+    })
+  }
+
+  useEffect(() => {
+    updateCaptionWidths()
+    window.addEventListener('resize', updateCaptionWidths)
+    return () => window.removeEventListener('resize', updateCaptionWidths)
+  }, [])
+
   return (
     <>
       <Div100vh>
@@ -43,10 +62,10 @@ export default function FeatureWell({ featureWells }) {
             }
           }}
           effect={'fade'}
-          autoplay={{
-            delay: 15000,
-            disableOnInteraction: false,
-          }}
+          // autoplay={{
+          //   delay: 15000,
+          //   disableOnInteraction: false,
+          // }}
           pagination={{
             el: '.swiper-custom-pagination',
             clickable: 'true',
@@ -80,7 +99,14 @@ export default function FeatureWell({ featureWells }) {
                       />
                       <div className={cx('caption-wrapper')}>
                         {featureWell.category && featureWell.categoryLink && (
-                          <div className={cx('category-wrapper')}>
+                          <div
+                            style={{
+                              width: captionWidths[index]
+                                ? `${captionWidths[index]}px`
+                                : 'auto',
+                            }}
+                            className={cx('category-wrapper')}
+                          >
                             <Link href={featureWell.categoryLink}>
                               <h1 className={cx('category')}>
                                 {featureWell.category}
@@ -88,7 +114,28 @@ export default function FeatureWell({ featureWells }) {
                             </Link>
                           </div>
                         )}
-                        <h1 className={cx('caption')}>{featureWell.caption}</h1>
+                        {featureWell.caption && (
+                          <h1
+                            ref={(el) => (captionRefs.current[index] = el)}
+                            className={cx('caption')}
+                          >
+                            {featureWell.caption}
+                          </h1>
+                        )}
+                        {featureWell.standFirst && (
+                          <div
+                            style={{
+                              width: captionWidths[index]
+                                ? `${captionWidths[index]}px`
+                                : 'auto',
+                            }}
+                            className={cx('stand-first-wrapper')}
+                          >
+                            <h2 className={cx('stand-first')}>
+                              {featureWell.standFirst}
+                            </h2>
+                          </div>
+                        )}
                       </div>
                       <div className={cx('bottom-gradient')}></div>
                     </div>
@@ -104,7 +151,14 @@ export default function FeatureWell({ featureWells }) {
                       />
                       <div className={cx('caption-wrapper')}>
                         {featureWell.category && featureWell.categoryLink && (
-                          <div className={cx('category-wrapper')}>
+                          <div
+                            style={{
+                              width: captionWidths[index]
+                                ? `${captionWidths[index]}px`
+                                : 'auto',
+                            }}
+                            className={cx('category-wrapper')}
+                          >
                             <Link href={featureWell.categoryLink}>
                               <h1 className={cx('category')}>
                                 {featureWell.category}
@@ -112,7 +166,28 @@ export default function FeatureWell({ featureWells }) {
                             </Link>
                           </div>
                         )}
-                        <h1 className={cx('caption')}>{featureWell.caption}</h1>
+                        {featureWell.caption && (
+                          <h1
+                            ref={(el) => (captionRefs.current[index] = el)}
+                            className={cx('caption')}
+                          >
+                            {featureWell.caption}
+                          </h1>
+                        )}
+                        {featureWell.standFirst && (
+                          <div
+                            style={{
+                              width: captionWidths[index]
+                                ? `${captionWidths[index]}px`
+                                : 'auto',
+                            }}
+                            className={cx('stand-first-wrapper')}
+                          >
+                            <h2 className={cx('stand-first')}>
+                              {featureWell.standFirst}
+                            </h2>
+                          </div>
+                        )}
                       </div>
                       <div className={cx('bottom-gradient')}></div>
                     </div>
@@ -134,7 +209,14 @@ export default function FeatureWell({ featureWells }) {
 
                     <div className={cx('caption-wrapper')}>
                       {featureWell.category && featureWell.categoryLink && (
-                        <div className={cx('category-wrapper')}>
+                        <div
+                          style={{
+                            width: captionWidths[index]
+                              ? `${captionWidths[index]}px`
+                              : 'auto',
+                          }}
+                          className={cx('category-wrapper')}
+                        >
                           <Link href={featureWell.categoryLink}>
                             <h1 className={cx('category')}>
                               {featureWell.category}
@@ -142,7 +224,28 @@ export default function FeatureWell({ featureWells }) {
                           </Link>
                         </div>
                       )}
-                      <h1 className={cx('caption')}>{featureWell.caption}</h1>
+                      {featureWell.caption && (
+                        <h1
+                          ref={(el) => (captionRefs.current[index] = el)}
+                          className={cx('caption')}
+                        >
+                          {featureWell.caption}
+                        </h1>
+                      )}
+                      {featureWell.standFirst && (
+                        <div
+                          style={{
+                            width: captionWidths[index]
+                              ? `${captionWidths[index]}px`
+                              : 'auto',
+                          }}
+                          className={cx('stand-first-wrapper')}
+                        >
+                          <h2 className={cx('stand-first')}>
+                            {featureWell.standFirst}
+                          </h2>
+                        </div>
+                      )}
                     </div>
                     <div className={cx('bottom-gradient')}></div>
                   </div>
