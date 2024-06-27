@@ -26,6 +26,7 @@ export default function CategoryEntryHeader({
   guidesTitle,
   categorySlider,
   image,
+  imageCaption,
   description,
   className,
 }) {
@@ -88,15 +89,20 @@ export default function CategoryEntryHeader({
                       >
                         {categorySlider?.map((image, index) => (
                           <div className="post-swiper-slide">
-                            {image && (
+                            {image[0] && (
                               <SwiperSlide key={index}>
                                 <Image
-                                  src={image}
+                                  src={image[0]}
                                   alt={'Slider Image' + index}
                                   fill
                                   sizes="100%"
                                   priority
                                 />
+                                {image[1] && (
+                                  <figcaption className={'slide-caption'}>
+                                    {image[1]}
+                                  </figcaption>
+                                )}
                               </SwiperSlide>
                             )}
                           </div>
@@ -163,6 +169,11 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
                           priority
                         />
                       )}
+                      {imageCaption && (
+                        <figcaption className={'image-caption'}>
+                          {imageCaption}
+                        </figcaption>
+                      )}
                     </figure>
                   )}
                   {description && (
@@ -196,6 +207,11 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
                         sizes="100%"
                         priority
                       />
+                      {imageCaption && (
+                        <figcaption className={'image-caption'}>
+                          {imageCaption}
+                        </figcaption>
+                      )}
                     </figure>
                   )}
                   {description && (
@@ -253,15 +269,20 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
                       >
                         {categorySlider?.map((image, index) => (
                           <div className="post-swiper-slide">
-                            {image && (
+                            {image[0] && (
                               <SwiperSlide key={index}>
                                 <Image
-                                  src={image}
+                                  src={image[0]}
                                   alt={'Slider Image' + index}
                                   fill
                                   sizes="100%"
                                   priority
                                 />
+                                {image[1] && (
+                                  <figcaption className={'slide-caption'}>
+                                    {image[1]}
+                                  </figcaption>
+                                )}
                               </SwiperSlide>
                             )}
                           </div>
@@ -328,6 +349,11 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
                           priority
                         />
                       )}
+                      {imageCaption && (
+                        <figcaption className={'image-caption'}>
+                          {imageCaption}
+                        </figcaption>
+                      )}
                     </figure>
                   )}
                   {description && (
@@ -363,6 +389,11 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
                         sizes="100%"
                         priority
                       />
+                      {imageCaption && (
+                        <figcaption className={'image-caption'}>
+                          {imageCaption}
+                        </figcaption>
+                      )}
                     </figure>
                   )}
                   {description && (

@@ -132,21 +132,46 @@ export default function Component(props) {
 
   // Category Slider
   const categorySlider = [
-    categoryImages.categorySlide1 != null
-      ? categoryImages.categorySlide1.mediaItemUrl
-      : null,
-    categoryImages.categorySlide2 != null
-      ? categoryImages.categorySlide2.mediaItemUrl
-      : null,
-    categoryImages.categorySlide3 != null
-      ? categoryImages.categorySlide3.mediaItemUrl
-      : null,
-    categoryImages.categorySlide4 != null
-      ? categoryImages.categorySlide4.mediaItemUrl
-      : null,
-    categoryImages.categorySlide5 != null
-      ? categoryImages.categorySlide5.mediaItemUrl
-      : null,
+    [
+      categoryImages.categorySlide1 != null
+        ? categoryImages.categorySlide1.mediaItemUrl
+        : null,
+      categoryImages.categorySlideCaption1 != null
+        ? categoryImages?.categorySlideCaption1
+        : null,
+    ],
+    [
+      categoryImages.categorySlide2 != null
+        ? categoryImages.categorySlide2.mediaItemUrl
+        : null,
+      categoryImages.categorySlideCaption2 != null
+        ? categoryImages?.categorySlideCaption2
+        : null,
+    ],
+    [
+      categoryImages.categorySlide3 != null
+        ? categoryImages.categorySlide3.mediaItemUrl
+        : null,
+      categoryImages.categorySlideCaption3 != null
+        ? categoryImages?.categorySlideCaption3
+        : null,
+    ],
+    [
+      categoryImages.categorySlide4 != null
+        ? categoryImages.categorySlide4.mediaItemUrl
+        : null,
+      categoryImages.categorySlideCaption4 != null
+        ? categoryImages?.categorySlideCaption4
+        : null,
+    ],
+    [
+      categoryImages.categorySlide5 != null
+        ? categoryImages.categorySlide5.mediaItemUrl
+        : null,
+      categoryImages.categorySlideCaption5 != null
+        ? categoryImages?.categorySlideCaption5
+        : null,
+    ],
   ]
 
   return (
@@ -176,6 +201,7 @@ export default function Component(props) {
         guidesTitle={destinationGuides?.guidesTitle}
         categorySlider={categorySlider}
         image={categoryImages?.categoryImages?.mediaItemUrl}
+        imageCaption={categoryImages?.categoryImagesCaption}
         description={description}
       />
       <Main>
@@ -228,6 +254,12 @@ Component.query = gql`
         categoryImages {
           mediaItemUrl
         }
+        categorySlideCaption1
+        categorySlideCaption2
+        categorySlideCaption3
+        categorySlideCaption4
+        categorySlideCaption5
+        categoryImagesCaption
       }
       destinationGuides {
         destinationGuides

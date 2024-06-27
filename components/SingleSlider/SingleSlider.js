@@ -54,7 +54,11 @@ export default function SingleSlider({ images }) {
                   sizes="100%"
                   priority
                 />
-                <figcaption className={'slide-caption'}>{image[1]}</figcaption>
+                {image[1] && (
+                  <figcaption className={'slide-caption'}>
+                    {image[1]}
+                  </figcaption>
+                )}
               </SwiperSlide>
             )}
           </div>

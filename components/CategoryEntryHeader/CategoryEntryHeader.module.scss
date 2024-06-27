@@ -67,7 +67,12 @@
 }
 
 .image {
-  height: 60vh;
+  aspect-ratio: 3 / 2;
+  height: auto;
+
+  @media (min-width: $breakpoint-extra-small) {
+    height: 60vh;
+  }
 }
 
 .image,
@@ -80,6 +85,28 @@
   img {
     object-fit: cover;
     object-position: center;
+  }
+
+  figcaption {
+    background-color: var(--wpe--color--white--smoke);
+    color: var(--wpe--color--grey);
+    height: 2rem;
+    position: relative;
+    top: 100%;
+    transform: translateY(-100%);
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    line-height: 1;
+
+    @media (min-width: $breakpoint-extra-small) {
+      padding: 0;
+      font-size: 1rem;
+      justify-content: center;
+    }
   }
 }
 

@@ -62,10 +62,10 @@ export default function FeatureWell({ featureWells }) {
             }
           }}
           effect={'fade'}
-          // autoplay={{
-          //   delay: 15000,
-          //   disableOnInteraction: false,
-          // }}
+          autoplay={{
+            delay: 15000,
+            disableOnInteraction: false,
+          }}
           pagination={{
             el: '.swiper-custom-pagination',
             clickable: 'true',
