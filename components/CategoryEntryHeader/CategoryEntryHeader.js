@@ -100,7 +100,7 @@ export default function CategoryEntryHeader({
                                 />
                                 {image[1] && (
                                   <figcaption className={'slide-caption'}>
-                                    {image[1]}
+                                    <span className={'caption'}>{image[1]}</span>
                                   </figcaption>
                                 )}
                               </SwiperSlide>
@@ -170,8 +170,8 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
                         />
                       )}
                       {imageCaption && (
-                        <figcaption className={'image-caption'}>
-                          {imageCaption}
+                        <figcaption className={cx('image-caption')}>
+                          <span className={cx('caption')}>{imageCaption}</span>
                         </figcaption>
                       )}
                     </figure>
@@ -208,8 +208,8 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
                         priority
                       />
                       {imageCaption && (
-                        <figcaption className={'image-caption'}>
-                          {imageCaption}
+                        <figcaption className={cx('image-caption')}>
+                          <span className={cx('caption')}>{imageCaption}</span>
                         </figcaption>
                       )}
                     </figure>
@@ -280,7 +280,7 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
                                 />
                                 {image[1] && (
                                   <figcaption className={'slide-caption'}>
-                                    {image[1]}
+                                    <span className={'caption'}>{image[1]}</span>
                                   </figcaption>
                                 )}
                               </SwiperSlide>
@@ -350,8 +350,8 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
                         />
                       )}
                       {imageCaption && (
-                        <figcaption className={'image-caption'}>
-                          {imageCaption}
+                        <figcaption className={cx('image-caption')}>
+                          <span className={cx('caption')}>{imageCaption}</span>
                         </figcaption>
                       )}
                     </figure>
@@ -390,8 +390,8 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
                         priority
                       />
                       {imageCaption && (
-                        <figcaption className={'image-caption'}>
-                          {imageCaption}
+                        <figcaption className={cx('image-caption')}>
+                          <span className={cx('caption')}>{imageCaption}</span>
                         </figcaption>
                       )}
                     </figure>
