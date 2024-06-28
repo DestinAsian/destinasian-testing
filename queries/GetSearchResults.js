@@ -42,6 +42,16 @@ export const GetSearchResults = gql`
           destinationGuides {
             guidesTitle
           }
+          contentNodes(first: 10, where: { contentTypes: POST }) {
+            edges {
+              node {
+                ... on Post {
+                  title
+                  uri
+                }
+              }
+            }
+          }
         }
       }
     }

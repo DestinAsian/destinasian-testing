@@ -163,6 +163,52 @@ export default function SearchResults({ searchResults, isLoading }) {
                         />
                       </Link>
                     )}
+                    {node?.children?.edges?.length !== 0 ? (
+                      // Main Guides Category posts
+                      <div className={cx('main-category-post')}>
+                        {node?.children?.edges?.map((post, index, array) => (
+                          <div
+                            key={index}
+                            className={cx('main-category-post-wrapper')}
+                          >
+                            <Link href={post?.node?.uri}>
+                              <div className={cx('category-post-wrapper')}>
+                                <p className={cx('category-post')}>
+                                  {post?.node?.name}
+                                </p>
+                              </div>
+                            </Link>
+                            {/* Border gap */}
+                            {index !== array.length - 1 && (
+                              <div className={cx('border-gap')}></div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      // Sub Guides Category posts
+                      <div className={cx('sub-category-post')}>
+                        {node?.contentNodes?.edges?.map(
+                          (post, index, array) => (
+                            <div
+                              key={index}
+                              className={cx('sub-category-post-wrapper')}
+                            >
+                              <Link href={post?.node?.uri}>
+                                <div className={cx('category-post-wrapper')}>
+                                  <p className={cx('category-post')}>
+                                    {post?.node?.title}
+                                  </p>
+                                </div>
+                              </Link>
+                              {index !== array.length - 1 && (
+                                <div className={cx('border-gap')}></div>
+                              )}
+                            </div>
+                          ),
+                        )}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

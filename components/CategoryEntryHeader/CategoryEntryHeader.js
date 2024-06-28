@@ -59,7 +59,7 @@ export default function CategoryEntryHeader({
                       {children.length === 0 &&
                         (guidesTitle
                           ? guidesTitle
-                          : (parent ? parent : null) + ' ' + title)}
+                          : (parent ? parent : '') + ' ' + title)}
                     </Heading>
                   )}
                   {categorySlider ? (
@@ -195,7 +195,7 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
                       {children.length === 0 &&
                         (guidesTitle
                           ? guidesTitle
-                          : (parent ? parent : null) + ' ' + title)}
+                          : (parent ? parent : '') + ' ' + title)}
                     </Heading>
                   )}
                   {image && (
@@ -239,7 +239,7 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
                       {children.length === 0 &&
                         (guidesTitle
                           ? guidesTitle
-                          : (parent ? parent : null) + ' ' + title)}
+                          : (parent ? parent : '') + ' ' + title)}
                     </Heading>
                   )}
                   {categorySlider ? (
@@ -377,7 +377,7 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
                       {children.length === 0 &&
                         (guidesTitle
                           ? guidesTitle
-                          : (parent ? parent : null) + ' ' + title)}
+                          : (parent ? parent : '') + ' ' + title)}
                     </Heading>
                   )}
                   {image && (

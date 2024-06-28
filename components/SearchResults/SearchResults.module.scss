@@ -34,7 +34,7 @@ $color-grey: #777;
   min-width: calc(100vw - 2rem);
 
   @media (min-width: $breakpoint-extra-small) {
-    min-width: 700px;
+    min-width: calc(700px - 2rem);
   }
 }
 
@@ -193,6 +193,47 @@ $color-grey: #777;
 
 .title-rca {
   font-family: 'ChunkFive-Regular';
+}
+
+.main-category-post,
+.sub-category-post {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 0.25rem;
+
+  @media (min-width: $breakpoint-extra-small) {
+    column-gap: 0.5rem;
+  }
+}
+
+.main-category-post-wrapper,
+.sub-category-post-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.category-post-wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.category-post {
+  font-size: 0.6rem;
+
+  @media (min-width: $breakpoint-extra-small) {
+    font-size: 0.8rem;
+  }
+}
+
+.border-gap {
+  border-right: 1px solid var(--wpe--color--black);
+  height: 70%;
+  padding-right: 0.25rem;
+
+  @media (min-width: $breakpoint-extra-small) {
+    padding-right: 0.5rem;
+  }
 }
 
 .result {

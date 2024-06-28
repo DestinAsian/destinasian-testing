@@ -286,6 +286,11 @@
   padding: 1rem 0;
 }
 
+.post-category-swiper > .swiper-wrapper > .swiper-slide > .slide-caption > .caption {
+  width: 100%;
+  text-align: right;
+}
+
 @media only screen and (min-width: 640px) {
   .post-swiper {
     max-width: 700px;
@@ -356,7 +361,6 @@
   .post-category-swiper > .swiper-wrapper > .swiper-slide > .slide-caption > .caption {
     width: 100%;
     max-width: 700px;
-    text-align: right;
   }
 }
 
