@@ -62,6 +62,7 @@
   font-size: 1.2rem;
 }
 
+// Slider caption
 .image,
 .image-slider {
   padding-top: 1rem;
@@ -113,11 +114,50 @@
 
 .image {
   aspect-ratio: 3 / 2;
-  height: auto;
   margin-bottom: 1rem;
 
   @media (min-width: $breakpoint-extra-small) {
     height: 60vh;
+  }
+
+  // Image only sub guides caption
+  .image-caption {
+    color: var(--wpe--color--grey);
+    height: 2rem;
+    position: relative;
+    height: 100%;
+    padding: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    line-height: 1;
+
+    @media (min-width: $breakpoint-extra-small) {
+      font-size: 1rem;
+      justify-content: center;
+      margin-bottom: 0;
+    }
+
+    .caption-wrapper {
+      background-color: var(--wpe--color--white--smoke);
+      padding: 0.5rem 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .caption {
+      width: 100%;
+      max-width: calc(1400px + 2rem);
+      text-align: right;
+      padding: 0 1rem;
+
+      @media (min-width: calc(1400px + 2rem)) {
+        padding: 0;
+      }
+    }
   }
 }
 
