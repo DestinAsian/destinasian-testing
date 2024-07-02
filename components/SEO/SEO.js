@@ -57,7 +57,7 @@ export default function SEO() {
         />
 
         {/* StatCounter Code */}
-        <Script id="statcounter-script">
+        {/* <Script id="statcounter-script">
           {`
             var sc_project=13013151;
             var sc_invisible=0;
@@ -81,7 +81,7 @@ export default function SEO() {
               />
             </a>
           </div>
-        </noscript>
+        </noscript> */}
         {/* End StatCounter Code */}
       </Head>
     </>
