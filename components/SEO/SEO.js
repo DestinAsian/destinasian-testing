@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import { GetFavicon } from '../../queries/GetFavicon'
 import { useQuery } from '@apollo/client'
+import Script from 'next/script'
 
 /**
  * Provide SEO related meta tags to a page.
@@ -14,7 +15,6 @@ import { useQuery } from '@apollo/client'
  * @returns {React.ReactElement} The SEO component
  */
 export default function SEO() {
-  
   const { data } = useQuery(GetFavicon, {
     fetchPolicy: 'network-only',
     nextFetchPolicy: 'cache-and-network',
@@ -55,6 +55,34 @@ export default function SEO() {
           type="text/css"
           href="https://cloud.typography.com/7429004/6477832/css/fonts.css"
         />
+
+        {/* StatCounter Code */}
+        <Script id="statcounter-script">
+          {`
+            var sc_project=13013151;
+            var sc_invisible=0;
+            var sc_security="384de620";
+            var scJsHost = (("https:" == document.location.protocol) ? "https://secure." : "http://www.");
+            document.write("<script type='text/javascript' src='" + scJsHost + "statcounter.com/counter/counter.js'></" + "script>");
+          `}
+        </Script>
+        <noscript>
+          <div className="statcounter">
+            <a
+              title="Web Analytics"
+              href="http://statcounter.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                className="statcounter"
+                src="//c.statcounter.com/13013151/0/384de620/0"
+                alt="Web Analytics"
+              />
+            </a>
+          </div>
+        </noscript>
+        {/* End StatCounter Code */}
       </Head>
     </>
   )
