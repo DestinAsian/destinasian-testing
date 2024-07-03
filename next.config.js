@@ -22,9 +22,13 @@ module.exports = withFaust({
     locales: ['en'],
     defaultLocale: 'en',
   },
-  redirects: {
-    source: '/advertorial/*',
-    destination: '/partner-content/*',
-    permanent: true, // This indicates a 301 permanent redirect
+  async redirects() {
+    return [
+      {
+        source: '/advertorial/:slug*',
+        destination: '/partner-content/:slug*',
+        permanent: true, // This indicates a 301 permanent redirect
+      },
+    ]
   },
 })
