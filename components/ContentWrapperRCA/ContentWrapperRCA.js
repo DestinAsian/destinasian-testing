@@ -111,8 +111,6 @@ export default function ContentWrapperRCA({
   const prevUri = prevIndex >= 0 ? rcaAll[prevIndex].uri : null
   const nextUri = nextIndex < numberOfRCA ? rcaAll[nextIndex].uri : null
 
-  console.log(activeIndex)
-
   return (
     <>
       {images[0] != null && (

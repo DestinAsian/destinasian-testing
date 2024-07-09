@@ -121,8 +121,6 @@ export default function ContentWrapperVideo() {
   // Other Post
   const otherVideos = data?.videos?.edges?.map((post) => post)
 
-  console.log(otherVideos[5]?.node?.featuredImage)
-
   return (
     <div className={cx('component')}>
       <div className={cx('full-wrapper')}>

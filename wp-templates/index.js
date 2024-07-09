@@ -7,6 +7,7 @@ import pageContests from './page-contests'
 import pageHonorsCircle from './page-honors-circle'
 import pageNewsletter from './page-newsletter'
 import pageLuxeList from './page-luxe-list'
+import pageTravelGuides from './page-travel-guides'
 import pageVideos from './page-videos'
 import single from './single'
 import singleEditorial from './single-editorial'
@@ -27,6 +28,7 @@ export default {
   'page-honors-circle': pageHonorsCircle,
   'page-luxe-list': pageLuxeList,
   'page-newsletter': pageNewsletter,
+  'page-travel-guides': pageTravelGuides,
   'page-videos': pageVideos,
   single,
   'single-editorial': singleEditorial,

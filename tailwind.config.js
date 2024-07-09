@@ -4,6 +4,7 @@ module.exports = {
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './wp-templates/**/*.{js,ts,jsx,tsx,mdx}',
+    // './node_modules/flowbite-react/lib/**/*.js',
   ],
   theme: {
     extend: {
@@ -33,6 +34,7 @@ module.exports = {
     },
   },
   variants: {},
-  plugins: [],
+  plugins: [
+    // require('flowbite/plugin')
+  ],
 }
-

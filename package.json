@@ -20,6 +20,8 @@
     "@wordpress/block-library": "^8.22.0",
     "algoliasearch": "^4.17.0",
     "classnames": "^2.3.1",
+    "flowbite": "^2.4.1",
+    "flowbite-react": "^0.10.1",
     "framer-motion": "^11.1.9",
     "graphql": "^16.6.0",
     "keen-slider": "^6.8.5",
