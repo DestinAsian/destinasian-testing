@@ -14,12 +14,20 @@ export const GetPrimaryMenu = gql`
                 id
                 name
                 uri
+                destinationGuides {
+                  guidesTitle
+                }
                 children(first: 4, where: { order: ASC, orderby: NAME }) {
                   edges {
                     node {
                       id
                       name
                       uri
+                      parent {
+                        node {
+                          name
+                        }
+                      }
                       posts(
                         first: 10
                         where: {

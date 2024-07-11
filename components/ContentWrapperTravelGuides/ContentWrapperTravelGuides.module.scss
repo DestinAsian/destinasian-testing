@@ -3,7 +3,14 @@
 .component {
   width: 100vw;
   margin: 0 auto;
+  font-family: 'Unit Slab Pro';
   line-height: 1.2;
+  font-size: 1.125rem;
+
+  @media (min-width: $breakpoint-extra-small) {
+    font-size: 1.25rem;
+  }
+
   padding: 0;
   margin-bottom: 2rem;
 
@@ -11,7 +18,8 @@
     max-width: 700px;
   }
 
-  .content-wrapper {
+  .content-wrapper,
+  .guides-list-wrapper {
     display: flex;
     flex-direction: column;
     row-gap: 0.25rem;
@@ -20,11 +28,162 @@
     @media (min-width: $breakpoint-small) {
       padding: 1rem 0;
     }
+
+    p {
+      font-family: 'Unit Slab Pro Thin';
+      font-weight: 700;
+      line-height: 1.6;
+      font-size: 1.125rem;
+
+      @media (min-width: $breakpoint-extra-small) {
+        font-size: 1.25rem;
+      }
+    }
   }
 
-  .name {
-    padding-left: 1rem;
-    font-size: 1rem;
+  .guides-list-wrapper {
+    padding-top: 0;
+  }
+
+  .main-guides-title {
+    .title {
+      font-family: 'Unit Slab Pro Black';
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--wpe--color--white);
+      background-color: var(--wpe--color--black);
+      padding: 0.5rem 0.75rem;
+      display: flex;
+      text-transform: uppercase;
+      justify-content: center;
+      align-items: center;
+      width: fit-content;
+
+      @media (min-width: $breakpoint-medium) {
+        font-size: 1.25rem;
+      }
+    }
+  }
+
+  .main-guides-heading {
+    padding-top: 0.5rem;
+
+    @media (min-width: $breakpoint-extra-small) {
+      padding-top: 1rem;
+    }
+
+    .title {
+      font-family: 'Unit Slab Pro Black';
+      font-size: 0.8rem;
+      font-weight: 600;
+
+      @media (min-width: $breakpoint-medium) {
+        font-size: 1.25rem;
+      }
+    }
+  }
+
+  .accordion-wrapper {
+    padding: 0.25rem 0 2rem;
+
+    @media (min-width: $breakpoint-extra-small) {
+      padding: 0.5rem 0 2rem;
+    }
+  }
+
+  .accordion-title-wrapper {
+    width: 100%;
+    padding: 0 0 0.5rem;
+    border-bottom: 1px solid var(--wpe--color--black);
+
+    button {
+      padding: 0;
+      width: 100%;
+      height: fit-content;
+      justify-content: space-between;
+      align-items: center;
+
+      h2 {
+        padding: 0;
+        height: fit-content;
+        font-family: 'Unit Slab Pro Thin Italic';
+        font-weight: 700;
+        font-size: 0.65rem;
+
+        @media (min-width: $breakpoint-extra-small) {
+          font-size: 1.15rem;
+        }
+      }
+
+      svg {
+        width: 1rem;
+        height: 1rem;
+      }
+    }
+
+    .accordion-title {
+      width: 100%;
+      padding: 0;
+
+      .titles {
+        padding: 0;
+      }
+    }
+  }
+
+  .accordion-content-wrapper {
+    padding: 0;
+  }
+
+  .accordion-content {
+    padding: 2rem 0;
+
+    .first-wrapper {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 1rem;
+
+      .sub-guides-wrapper {
+        width: calc(50% - 1rem);
+
+        .sub-guides-title {
+          padding: 0 0 0.5rem;
+        }
+
+        .name-wrapper {
+          padding-left: 1rem;
+          .name {
+            font-size: 1rem;
+          }
+        }
+      }
+    }
+
+    .second-wrapper {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding-top: 1rem;
+
+      .partner-content-wrapper,
+      .honors-circle-wrapper {
+        width: calc(50% - 1rem);
+
+        .partner-content-title,
+        .honors-circle-title {
+          padding: 0 0 0.5rem;
+        }
+
+        .name-wrapper {
+          padding-left: 1rem;
+          .name {
+            font-size: 1rem;
+          }
+        }
+      }
+    }
   }
 
   :global {
@@ -33,12 +192,11 @@
 
     * {
       max-width: 100%;
-      font-family: 'Unit Slab Pro Black';
-      padding: 0 0 0.5rem;
+      // padding: 0 0 0.5rem;
 
-      @media (min-width: $breakpoint-small) {
-        padding: 0 0 1rem;
-      }
+      // @media (min-width: $breakpoint-small) {
+      //   padding: 0 0 1rem;
+      // }
     }
 
     i,
@@ -69,7 +227,6 @@
     h6 {
       margin: 0;
       font-weight: 700;
-      letter-spacing: 1.15px;
     }
 
     p:has(img),

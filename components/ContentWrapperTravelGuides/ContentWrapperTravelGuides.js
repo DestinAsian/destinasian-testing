@@ -3,11 +3,11 @@ import { PRIMARY_LOCATION } from '../../constants/menus'
 import className from 'classnames/bind'
 import styles from './ContentWrapperTravelGuides.module.scss'
 import React, { useEffect, useState } from 'react'
-import { GetPrimaryMenu } from '../../queries/GetPrimaryMenu'
 import Link from 'next/link'
-import { Container } from '../../components'
 import { Accordion } from 'flowbite-react'
+import { GetPrimaryMenu } from '../../queries/GetPrimaryMenu'
 import { GetTravelGuides } from '../../queries/GetTravelGuides'
+import { Heading } from '../../components'
 
 let cx = className.bind(styles)
 
@@ -94,10 +94,9 @@ export default function ContentWrapperTravelGuides({ content }) {
         }
         setResults(allResults)
       } catch (error) {
-        console.error(error)
+        return <pre>{JSON.stringify(error)}</pre>
       }
     }
-
     fetchData()
     setLoading(false)
   }, [client, mainCategoryLabels])
@@ -130,8 +129,6 @@ export default function ContentWrapperTravelGuides({ content }) {
     )
   }
 
-  console.log(results)
-
   return (
     <article className={cx('component')}>
       <div
@@ -140,7 +137,7 @@ export default function ContentWrapperTravelGuides({ content }) {
       />
       <div className={cx('guides-list-wrapper')}>
         {primaryMenu.map((category, index) => (
-          <Container>
+          <>
             <div className={cx('main-guides-title')}>
               {category?.node?.connectedNode?.node?.uri &&
                 category?.node?.connectedNode?.node?.name && (
@@ -151,100 +148,127 @@ export default function ContentWrapperTravelGuides({ content }) {
                   </Link>
                 )}
             </div>
-            <Accordion collapseAll>
-              <Accordion.Panel>
-                <Accordion.Title>
-                  <div className={cx('main-guides-title')}>
-                    {category?.node?.connectedNode?.node?.uri &&
-                      category?.node?.connectedNode?.node?.name && (
-                        <button className={cx('title')}>
-                          {'See more of ' +
-                            category?.node?.connectedNode?.node?.name +
-                            '...'}
-                        </button>
-                      )}
+            <div className={cx('main-guides-heading')}>
+              {category?.node?.connectedNode?.node?.name && (
+                <Heading className={cx('title')}>
+                  {category?.node?.connectedNode?.node?.destinationGuides
+                    ?.guidesTitle
+                    ? category?.node?.connectedNode?.node?.destinationGuides
+                        ?.guidesTitle
+                    : 'The DA Guide to ' +
+                      category?.node?.connectedNode?.node?.name}
+                </Heading>
+              )}
+            </div>
+            <div className={cx('accordion-wrapper')}>
+              <Accordion collapseAll className="p-0">
+                <Accordion.Panel>
+                  <div className={cx('accordion-title-wrapper')}>
+                    <Accordion.Title>
+                      <div className={cx('accordion-title')}>
+                        {category?.node?.connectedNode?.node?.uri &&
+                          category?.node?.connectedNode?.node?.name && (
+                            <button className={cx('title')}>
+                              {'See more of ' +
+                                category?.node?.connectedNode?.node?.name +
+                                '...'}
+                            </button>
+                          )}
+                      </div>
+                    </Accordion.Title>
                   </div>
-                </Accordion.Title>
-                <Accordion.Content>
-                  {category?.node?.connectedNode?.node?.children?.edges?.map(
-                    (category) => (
-                      <>
-                        <div className={cx('sub-guides-title')}>
-                          {category?.node?.uri && category?.node?.name && (
-                            <Link href={category?.node?.uri}>
-                              <span className={cx('content-title')}>
-                                {category?.node?.name}
-                              </span>
-                            </Link>
+                  <div className={cx('accordion-content-wrapper')}>
+                    <Accordion.Content>
+                      <div className={cx('accordion-content')}>
+                        <div className={cx('first-wrapper')}>
+                          {category?.node?.connectedNode?.node?.children?.edges?.map(
+                            (category) => (
+                              <div className={cx('sub-guides-wrapper')}>
+                                <div className={cx('sub-guides-title')}>
+                                  {category?.node?.uri &&
+                                    category?.node?.name &&
+                                    category?.node?.parent?.node?.name && (
+                                      <Link href={category?.node?.uri}>
+                                        <span className={cx('content-title')}>
+                                          {category?.node?.parent?.node?.name +
+                                            ' ' +
+                                            category?.node?.name}
+                                        </span>
+                                      </Link>
+                                    )}
+                                </div>
+                                {category?.node?.posts?.edges?.map((post) => (
+                                  <div className={cx('posts-wrapper')}>
+                                    {post?.node?.title && post?.node?.uri && (
+                                      <div className={cx('name-wrapper')}>
+                                        <Link href={post?.node?.uri}>
+                                          <span className={cx('name')}>
+                                            {post?.node?.title}
+                                          </span>
+                                        </Link>
+                                      </div>
+                                    )}
+                                  </div>
+                                ))}
+                              </div>
+                            ),
                           )}
                         </div>
-                        {category?.node?.posts?.edges?.map((post) => (
-                          <div className={cx('posts-wrapper')}>
-                            {post?.node?.title && post?.node?.uri && (
-                              <Link href={post?.node?.uri}>
-                                <span className={cx('name')}>
-                                  {post?.node?.title}
-                                </span>
-                              </Link>
+                        <div className={cx('second-wrapper')}>
+                          <div className={cx('partner-content-wrapper')}>
+                            <div className={cx('partner-content-title')}>
+                              <span className={cx('content-title')}>
+                                {'Partner Content'}
+                              </span>
+                            </div>
+                            {results[index]?.data?.advertorials?.map(
+                              (advertorial) => (
+                                <div
+                                  className={cx('name-wrapper')}
+                                  key={advertorial?.databaseId}
+                                >
+                                  {advertorial?.title && advertorial?.uri && (
+                                    <Link href={advertorial?.uri}>
+                                      <span className={cx('name')}>
+                                        {advertorial?.title}
+                                      </span>
+                                    </Link>
+                                  )}
+                                </div>
+                              ),
                             )}
                           </div>
-                        ))}
-                      </>
-                    ),
-                  )}
-                  <div className={cx('partner-content-title')}>
-                    <span className={cx('content-title')}>
-                      {'Partner Content'}
-                    </span>
+                          <div className={cx('honors-circle-wrapper')}>
+                            <div className={cx('honors-circle-title')}>
+                              <span className={cx('content-title')}>
+                                {'Honors Circle'}
+                              </span>
+                            </div>
+                            {results[index]?.data?.honorsCircles?.map(
+                              (honorsCircle) => (
+                                <div
+                                  className={cx('name-wrapper')}
+                                  key={honorsCircle?.databaseId}
+                                >
+                                  {honorsCircle?.title && honorsCircle?.uri && (
+                                    <Link href={honorsCircle?.uri}>
+                                      <span className={cx('name')}>
+                                        {honorsCircle?.title}
+                                      </span>
+                                    </Link>
+                                  )}
+                                </div>
+                              ),
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </Accordion.Content>
                   </div>
-                  {results[index]?.data?.advertorials?.map((advertorial) => (
-                    <div
-                      className={cx('partner-content-wrapper')}
-                      key={advertorial?.databaseId}
-                    >
-                      {advertorial?.title && advertorial?.uri && (
-                        <Link href={advertorial?.uri}>
-                          <span className={cx('name')}>
-                            {advertorial?.title}
-                          </span>
-                        </Link>
-                      )}
-                    </div>
-                  ))}
-                  <div className={cx('honors-circle-title')}>
-                    <span className={cx('content-title')}>
-                      {'Honors Circle'}
-                    </span>
-                  </div>
-                  {results[index]?.data?.honorsCircles?.map((honorsCircle) => (
-                    <div
-                      className={cx('honors-circle-wrapper')}
-                      key={honorsCircle?.databaseId}
-                    >
-                      {honorsCircle?.title && honorsCircle?.uri && (
-                        <Link href={honorsCircle?.uri}>
-                          <span className={cx('name')}>
-                            {honorsCircle?.title}
-                          </span>
-                        </Link>
-                      )}
-                    </div>
-                  ))}
-                  {/* {honorsCircles?.map((honorsCircle) => (
-                    <div className={cx('honors-circle-wrapper')}>
-                      {honorsCircle?.title && honorsCircle?.uri && (
-                        <Link href={honorsCircle?.uri}>
-                          <span className={cx('name')}>
-                            {honorsCircle?.title}
-                          </span>
-                        </Link>
-                      )}
-                    </div>
-                  ))} */}
-                </Accordion.Content>
-              </Accordion.Panel>
-            </Accordion>
-          </Container>
+                </Accordion.Panel>
+              </Accordion>
+            </div>
+          </>
         ))}
       </div>
     </article>

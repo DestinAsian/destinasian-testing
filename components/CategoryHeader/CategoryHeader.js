@@ -54,7 +54,7 @@ export default function CategoryHeader({
   }, [])
   // Search function content
   const [searchQuery, setSearchQuery] = useState('')
-  const postsPerPage = 100
+  const postsPerPage = 1000
 
   // Clear search input
   const clearSearch = () => {

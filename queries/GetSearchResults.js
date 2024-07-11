@@ -81,6 +81,7 @@ export const GetSearchResults = gql`
                 READERS_CHOICE_AWARD
               ]
             }
+            first: $first
           ) {
             edges {
               node {
