@@ -11,6 +11,7 @@ import {
   FeaturedImage,
   SEO,
   ContentWrapperTravelGuides,
+  TravelGuidesEntryHeader,
 } from '../components'
 import { GetMenus } from '../queries/GetMenus'
 import { GetFooterMenus } from '../queries/GetFooterMenus'
@@ -138,7 +139,7 @@ export default function Component(props) {
       <Main>
         <>
           {headerFooterVisibility?.headerVisibility == true ? null : (
-            <EntryHeader title={title} />
+            <TravelGuidesEntryHeader title={title} />
           )}
           <Container>
             <ContentWrapperTravelGuides content={content} />
