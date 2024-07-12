@@ -51,7 +51,7 @@ export default function TravelGuidesEntryHeader({ title }) {
     <div
       className={cx(['component', className, isNavShown ? 'show' : undefined])}
     >
-      <div className={cx('content-wrapper')}>
+      <div className={cx(['content-wrapper', isNavShown ? 'show' : undefined])}>
         <div className={cx('title-wrapper')}>
           {title && <Heading className={cx('title')}>{title}</Heading>}
         </div>
@@ -60,7 +60,7 @@ export default function TravelGuidesEntryHeader({ title }) {
         {!isNavShown ? (
           <>
             {!isScrolled && (
-              <div className={cx('image-wrapper')}>
+              <div className={cx('text-menu-wrapper')}>
                 {/* Menu Button */}
                 {isNavShown == false ? (
                   <div className={cx('menu-button')}>
@@ -123,7 +123,7 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
               </div>
             )}
             {isScrolled && (
-              <div className={cx('sticky-image-wrapper')}>
+              <div className={cx('sticky-text-menu-wrapper')}>
                 {/* Menu Button */}
                 {isNavShown == false ? (
                   <div className={cx('menu-button')}>
