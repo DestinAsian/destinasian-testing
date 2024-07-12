@@ -101,7 +101,7 @@ export default function TravelGuidesEntryHeader({ title }) {
                       >
                         <g
                           transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
-                          fill="#ffffff"
+                          fill="#000000"
                           stroke="none"
                         >
                           <path
@@ -164,7 +164,7 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
                       >
                         <g
                           transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
-                          fill="#ffffff"
+                          fill="#000000"
                           stroke="none"
                         >
                           <path
@@ -210,7 +210,7 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
                 >
                   <g
                     transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
-                    fill="#ffffff"
+                    fill="#000000"
                     stroke="none"
                   >
                     <path

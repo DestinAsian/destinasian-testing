@@ -103,10 +103,10 @@ export default function TravelGuidesMenu({}) {
       {/* Full menu */}
       <div className={cx('full-menu-content')}>
         {/* Footer Menu {DestinAsian Guides Menu} */}
-        {/* <NavigationMenu
+        <NavigationMenu
           className={cx('footer-navigation')}
           menuItems={footerMenu}
-        /> */}
+        />
       </div>
     </div>
   )
