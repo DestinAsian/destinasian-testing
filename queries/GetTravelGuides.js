@@ -12,6 +12,11 @@ export const GetTravelGuides = gql`
                 databaseId
                 title
                 uri
+                featuredImage {
+                  node {
+                    sourceUrl
+                  }
+                }
               }
             }
           }
@@ -22,6 +27,11 @@ export const GetTravelGuides = gql`
                 databaseId
                 title
                 uri
+                featuredImage {
+                  node {
+                    sourceUrl
+                  }
+                }
               }
             }
           }

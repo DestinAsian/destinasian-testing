@@ -14,6 +14,11 @@ export const GetPrimaryMenu = gql`
                 id
                 name
                 uri
+                categoryImages {
+                  categoryImages {
+                    sourceUrl
+                  }
+                }
                 destinationGuides {
                   guidesTitle
                 }
@@ -23,6 +28,11 @@ export const GetPrimaryMenu = gql`
                       id
                       name
                       uri
+                      categoryImages {
+                        categoryImages {
+                          sourceUrl
+                        }
+                      }
                       parent {
                         node {
                           name
