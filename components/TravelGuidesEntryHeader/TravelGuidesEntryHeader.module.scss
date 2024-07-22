@@ -165,7 +165,11 @@
   }
 
   &.show {
-    padding: 3.5rem 0 1rem;
+    padding: 3rem 0 1rem;
     top: 0;
+
+    @media (min-width: $breakpoint-extra-small) {
+      padding: 4rem 0 1rem;
+    }
   }
 }

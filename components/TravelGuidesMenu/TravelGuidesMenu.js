@@ -10,6 +10,7 @@ import { GetPrimaryMenu } from '../../queries/GetPrimaryMenu'
 import { GetTravelGuides } from '../../queries/GetTravelGuides'
 import { GetTravelGuidesMenu } from '../../queries/GetTravelGuidesMenu'
 import { Heading } from '../../components'
+import attractionIcon from '../../assets/icons/icon-attraction.png'
 
 let cx = classNames.bind(styles)
 
@@ -17,6 +18,8 @@ export default function TravelGuidesMenu() {
   const [results, setResults] = useState([])
   const [loading, setLoading] = useState(true)
   const client = useApolloClient() // Use Apollo Client instance
+
+  const CustomIcon = () => <span className={cx('custom-icon')}>{'+'}</span>
 
   // Get menus
   const { data: menusData, loading: menusLoading } = useQuery(GetPrimaryMenu, {
@@ -152,7 +155,7 @@ export default function TravelGuidesMenu() {
 
   function renderMenu(items) {
     return (
-      <Accordion collapseAll>
+      <Accordion collapseAll arrowIcon={CustomIcon}>
         {items.map((item, index) => {
           const { path, label, parentId, children, connectedNode } = item
 
@@ -328,7 +331,6 @@ export default function TravelGuidesMenu() {
   return (
     <div className={cx('component')}>
       {/* Full menu */}
-      {console.log(hierarchicalMenuItems)}
       <div className={cx('full-menu-content')}>
         {renderMenu(hierarchicalMenuItems)}
       </div>

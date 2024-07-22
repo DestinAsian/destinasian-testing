@@ -14,6 +14,7 @@ let cx = classNames.bind(styles)
 export default function SecondaryHeader({ databaseId, home, categoryUri }) {
   const [currentUrl, setCurrentUrl] = useState('')
   const [categoryUrl, setCategoryUrl] = useState('')
+  const [isNavShown, setIsNavShown] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const [prevScrollY, setPrevScrollY] = useState(0)
 
@@ -45,6 +46,15 @@ export default function SecondaryHeader({ databaseId, home, categoryUri }) {
     return categoryUrl === uri
   }
 
+  // Stop scrolling pages when isNavShown
+  useEffect(() => {
+    if (isNavShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isNavShown])
+
   // Show sticky header when scroll down, Hide it when scroll up
   useEffect(() => {
     function handleScroll() {
@@ -66,13 +76,25 @@ export default function SecondaryHeader({ databaseId, home, categoryUri }) {
   return (
     <nav className={cx('component')}>
       {home == undefined && (
-        <div className={cx('container-wrapper', { sticky: isScrolled })}>
+        <div
+          className={cx(
+            'container-wrapper',
+            { sticky: isScrolled },
+            isNavShown ? 'show' : undefined,
+          )}
+        >
           <div className={cx('navbar')}>
             {/* Parent category navigation */}
             {data?.category?.children?.edges?.length != 0 &&
               data?.category?.children != null &&
               data?.category?.children != undefined && (
-                <ParentNavigation databaseId={databaseId} isActive={isActive} />
+                <ParentNavigation
+                  databaseId={databaseId}
+                  isActive={isActive}
+                  isNavShown={isNavShown}
+                  setIsNavShown={setIsNavShown}
+                  isScrolled={isScrolled}
+                />
               )}
             {/* Children category navigation */}
             {!data?.category?.children?.edges?.length &&
@@ -82,6 +104,9 @@ export default function SecondaryHeader({ databaseId, home, categoryUri }) {
                 <ChildrenNavigation
                   databaseId={databaseId}
                   isActive={isActive}
+                  isNavShown={isNavShown}
+                  setIsNavShown={setIsNavShown}
+                  isScrolled={isScrolled}
                 />
               )}
             {/* Single post navigation */}
@@ -89,6 +114,9 @@ export default function SecondaryHeader({ databaseId, home, categoryUri }) {
               <SingleNavigation
                 databaseId={databaseId}
                 isActiveCategory={isActiveCategory}
+                isNavShown={isNavShown}
+                setIsNavShown={setIsNavShown}
+                isScrolled={isScrolled}
               />
             )}
           </div>

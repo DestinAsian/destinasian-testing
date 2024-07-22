@@ -46,29 +46,6 @@ export default function DaGuideMenu({
                   <Heading className={cx('title')}>{title}</Heading>
                 </Link>
               )}
-              <div
-                className={cx([
-                  'index-menu-wrapper',
-                  isNavShown ? 'show' : undefined,
-                ])}
-              >
-                {/* Index menu */}
-                <div className={cx('index-menu-content')}>
-                  <div className={cx('first-wrapper')}>
-                    {titleUri && (
-                      <Link href={titleUri}>
-                        <>
-                          {'The DA Guide to '}
-                          {titleName}
-                        </>
-                      </Link>
-                    )}
-                  </div>
-                  <div className={cx('second-wrapper')}>
-                    {/* Secondary Menu {Destinations Menu} */}
-                  </div>
-                </div>
-              </div>
             </Container>
           </div>
         )}
@@ -82,30 +59,6 @@ export default function DaGuideMenu({
                   <Heading className={cx('title')}>{parent}</Heading>
                 </Link>
               )}
-              <div
-                className={cx([
-                  'index-menu-wrapper',
-                  isNavShown ? 'show' : undefined,
-                ])}
-              >
-                {/* Index menu */}
-                <div className={cx('index-menu-content')}>
-                  <div className={cx('first-wrapper')}>
-                    {parentDestinationGuides == 'yes' && parentUri && (
-                      <Link href={parentUri}>
-                        <>
-                          {'The DA Guide to '}
-                          {parentName}
-                        </>
-                      </Link>
-                    )}
-                    {parentDestinationGuides == null && parentUri && (
-                      <Link href={parentUri}>{parentName}</Link>
-                    )}
-                  </div>
-                  <div className={cx('second-wrapper')}></div>
-                </div>
-              </div>
             </Container>
           </div>
         )}
@@ -119,13 +72,12 @@ export default function DaGuideMenu({
                   <Heading className={cx('title')}>{categories}</Heading>
                 </Link>
               )}
-              <div
+              {/* <div
                 className={cx([
                   'index-menu-wrapper',
                   isNavShown ? 'show' : undefined,
                 ])}
               >
-                {/* Index menu */}
                 <div className={cx('index-menu-content')}>
                   <div className={cx('first-wrapper')}>
                     {categoryUri && (
@@ -138,10 +90,9 @@ export default function DaGuideMenu({
                     )}
                   </div>
                   <div className={cx('second-wrapper')}>
-                    {/* Secondary Menu {Destinations Menu} */}
                   </div>
                 </div>
-              </div>
+              </div> */}
             </Container>
           </div>
         )}
