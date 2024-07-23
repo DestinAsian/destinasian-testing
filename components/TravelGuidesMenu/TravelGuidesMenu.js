@@ -10,6 +10,7 @@ import { GetPrimaryMenu } from '../../queries/GetPrimaryMenu'
 import { GetTravelGuides } from '../../queries/GetTravelGuides'
 import { GetTravelGuidesMenu } from '../../queries/GetTravelGuidesMenu'
 import { Heading } from '../../components'
+import Image from 'next/image'
 
 let cx = classNames.bind(styles)
 
@@ -203,6 +204,41 @@ export default function TravelGuidesMenu() {
                         </div>
                         <div className={cx('second-wrapper')}>
                           <div className={cx('partner-content-wrapper')}>
+                            <div className={cx('left-wrapper')}>
+                              {results[index]?.data?.advertorials?.map(
+                                (advertorial, index) => (
+                                  <>
+                                    {index === 0 && (
+                                      <>
+                                        {advertorial?.uri &&
+                                          advertorial?.title &&
+                                          advertorial?.featuredImage?.node
+                                            ?.sourceUrl && (
+                                            <Link href={advertorial?.uri}>
+                                              <div
+                                                className={cx('image-wrapper')}
+                                              >
+                                                <div className={cx('image')}>
+                                                  <Image
+                                                    src={
+                                                      advertorial?.featuredImage
+                                                        ?.node?.sourceUrl
+                                                    }
+                                                    alt={advertorial?.title}
+                                                    fill
+                                                    sizes="100%"
+                                                    priority
+                                                  />
+                                                </div>
+                                              </div>
+                                            </Link>
+                                          )}
+                                      </>
+                                    )}
+                                  </>
+                                ),
+                              )}
+                            </div>
                             <div className={cx('right-wrapper')}>
                               <div className={cx('partner-content-title')}>
                                 <span className={cx('content-title')}>
@@ -250,6 +286,42 @@ export default function TravelGuidesMenu() {
                             </div>
                           </div>
                           <div className={cx('honors-circle-wrapper')}>
+                            <div className={cx('left-wrapper')}>
+                              {results[index]?.data?.honorsCircles?.map(
+                                (honorsCircle, index) => (
+                                  <>
+                                    {index === 0 && (
+                                      <>
+                                        {honorsCircle?.uri &&
+                                          honorsCircle?.title &&
+                                          honorsCircle?.featuredImage?.node
+                                            ?.sourceUrl && (
+                                            <Link href={honorsCircle?.uri}>
+                                              <div
+                                                className={cx('image-wrapper')}
+                                              >
+                                                <div className={cx('image')}>
+                                                  <Image
+                                                    src={
+                                                      honorsCircle
+                                                        ?.featuredImage?.node
+                                                        ?.sourceUrl
+                                                    }
+                                                    alt={honorsCircle?.title}
+                                                    fill
+                                                    sizes="100%"
+                                                    priority
+                                                  />
+                                                </div>
+                                              </div>
+                                            </Link>
+                                          )}
+                                      </>
+                                    )}
+                                  </>
+                                ),
+                              )}
+                            </div>
                             <div className={cx('right-wrapper')}>
                               <div className={cx('honors-circle-title')}>
                                 <span className={cx('content-title')}>
@@ -300,41 +372,70 @@ export default function TravelGuidesMenu() {
                     </Accordion.Content>
                   </div>
                 ) : (
-                  <div className={cx('sub-guides-wrapper')}>
-                    <div className={cx('sub-guides-content')}>
-                      <div className={cx('sub-guides-title')}>
-                        {path && (
-                          <Link href={path}>
-                            <span className={cx('title')}>
-                              {connectedNode?.node?.parent &&
-                                connectedNode?.node?.parent?.node?.name}{' '}
-                              {label ?? ''}
-                            </span>
+                  <>
+                    <div className={cx('left-wrapper')}>
+                      {connectedNode?.node?.uri &&
+                        connectedNode?.node?.name &&
+                        connectedNode?.node?.categoryImages?.categoryImages && (
+                          <Link href={connectedNode?.node?.uri}>
+                            <div className={cx('image-wrapper')}>
+                              <div className={cx('image')}>
+                                <Image
+                                  src={
+                                    connectedNode?.node?.categoryImages
+                                      ?.categoryImages?.sourceUrl
+                                  }
+                                  alt={connectedNode?.node?.name}
+                                  fill
+                                  sizes="100%"
+                                  priority
+                                />
+                              </div>
+                            </div>
                           </Link>
                         )}
-                      </div>
-                      <div className={cx('posts-wrapper')}>
-                        {connectedNode.node?.posts?.edges?.map(
-                          (post, index, array) => (
-                            <div className={cx('posts-content-wrapper')}>
-                              {post?.node?.title && post?.node?.uri && (
-                                <Link href={post?.node?.uri}>
-                                  <div className={cx('name-wrapper')}>
-                                    <div className={cx('content-name-wrapper')}>
-                                      <span className={cx('name')}>
-                                        {post?.node?.title}
-                                        {index !== array.length - 1 && ' |'}
-                                      </span>
-                                    </div>
-                                  </div>
-                                </Link>
-                              )}
-                            </div>
-                          ),
-                        )}
+                    </div>
+                    <div className={cx('right-wrapper')}>
+                      <div className={cx('sub-guides-wrapper')}>
+                        <div className={cx('sub-guides-content')}>
+                          <div className={cx('sub-guides-title')}>
+                            {path && (
+                              <Link href={path}>
+                                <span className={cx('title')}>
+                                  {connectedNode?.node?.parent &&
+                                    connectedNode?.node?.parent?.node
+                                      ?.name}{' '}
+                                  {label ?? ''}
+                                </span>
+                              </Link>
+                            )}
+                          </div>
+                          <div className={cx('posts-wrapper')}>
+                            {connectedNode.node?.posts?.edges?.map(
+                              (post, index, array) => (
+                                <div className={cx('posts-content-wrapper')}>
+                                  {post?.node?.title && post?.node?.uri && (
+                                    <Link href={post?.node?.uri}>
+                                      <div className={cx('name-wrapper')}>
+                                        <div
+                                          className={cx('content-name-wrapper')}
+                                        >
+                                          <span className={cx('name')}>
+                                            {post?.node?.title}
+                                            {index !== array.length - 1 && ' |'}
+                                          </span>
+                                        </div>
+                                      </div>
+                                    </Link>
+                                  )}
+                                </div>
+                              ),
+                            )}
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  </>
                 )}
               </div>
             </Accordion.Panel>

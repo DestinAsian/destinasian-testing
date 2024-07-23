@@ -19,6 +19,16 @@ export const GetTravelGuidesMenu = gql`
           node {
             ... on Category {
               name
+              uri
+              categoryImages {
+                changeToSlider
+                categoryImages {
+                  sourceUrl
+                }
+                categorySlide1 {
+                  sourceUrl
+                }
+              }
               destinationGuides {
                 guidesTitle
               }

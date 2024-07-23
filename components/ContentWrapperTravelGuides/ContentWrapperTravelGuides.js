@@ -1,12 +1,14 @@
 import { useQuery, useApolloClient } from '@apollo/client'
-import { PRIMARY_LOCATION } from '../../constants/menus'
+import { FOOTER_LOCATION, PRIMARY_LOCATION } from '../../constants/menus'
 import className from 'classnames/bind'
 import styles from './ContentWrapperTravelGuides.module.scss'
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { Accordion } from 'flowbite-react'
+import flatListToHierarchical from '../../utilities/flatListToHierarchical'
 import { GetPrimaryMenu } from '../../queries/GetPrimaryMenu'
 import { GetTravelGuides } from '../../queries/GetTravelGuides'
+import { GetTravelGuidesMenu } from '../../queries/GetTravelGuidesMenu'
 import { Heading } from '../../components'
 import Image from 'next/image'
 
@@ -16,6 +18,8 @@ export default function ContentWrapperTravelGuides({ content }) {
   const [results, setResults] = useState([])
   const [loading, setLoading] = useState(true)
   const client = useApolloClient() // Use Apollo Client instance
+
+  const CustomIcon = () => <span className={cx('custom-icon')}>{'+'}</span>
 
   // Get menus
   const { data: menusData, loading: menusLoading } = useQuery(GetPrimaryMenu, {
@@ -102,8 +106,27 @@ export default function ContentWrapperTravelGuides({ content }) {
     setLoading(false)
   }, [client, mainCategoryLabels])
 
+  // Get Footer menus
+  const { data: footerMenusData, loading: footerMenusLoading } = useQuery(
+    GetTravelGuidesMenu,
+    {
+      variables: {
+        first: 50,
+        footerHeaderLocation: FOOTER_LOCATION,
+      },
+      fetchPolicy: 'network-only',
+      nextFetchPolicy: 'cache-and-network',
+    },
+  )
+
+  // Footer Menu
+  const footerMenu = footerMenusData?.footerHeaderMenuItems?.nodes ?? []
+
+  // Based on https://www.wpgraphql.com/docs/menus/#hierarchical-data
+  const hierarchicalMenuItems = flatListToHierarchical(footerMenu)
+
   // Loading state
-  if (loading || menusLoading) {
+  if (loading || menusLoading || footerMenusLoading) {
     return (
       <>
         <div className="mx-auto my-0 flex max-w-[100vw] justify-center md:max-w-[700px]">
@@ -130,142 +153,54 @@ export default function ContentWrapperTravelGuides({ content }) {
     )
   }
 
-  return (
-    <article className={cx('component')}>
-      <div
-        className={cx('content-wrapper')}
-        dangerouslySetInnerHTML={{ __html: content ?? '' }}
-      />
-      <div className={cx('guides-list-wrapper')}>
-        {primaryMenu.map((category, index) => (
-          <>
-            <div className={cx('main-guides-title')}>
-              {category?.node?.connectedNode?.node?.uri &&
-                category?.node?.connectedNode?.node?.name && (
-                  <Link href={category?.node?.connectedNode?.node?.uri}>
-                    <span className={cx('title')}>
-                      {category?.node?.connectedNode?.node?.name}
-                    </span>
-                  </Link>
-                )}
-            </div>
-            <div className={cx('main-guides-heading')}>
-              {category?.node?.connectedNode?.node?.name && (
-                <Heading className={cx('title')}>
-                  {category?.node?.connectedNode?.node?.destinationGuides
-                    ?.guidesTitle
-                    ? category?.node?.connectedNode?.node?.destinationGuides
-                        ?.guidesTitle
-                    : 'The DA Guide to ' +
-                      category?.node?.connectedNode?.node?.name}
-                </Heading>
-              )}
-            </div>
-            <div className={cx('accordion-wrapper')}>
-              <Accordion collapseAll className="p-0">
-                <Accordion.Panel>
+  function renderMenu(items) {
+    return (
+      <Accordion collapseAll arrowIcon={CustomIcon}>
+        {items.map((item, index) => {
+          const { path, label, parentId, children, connectedNode } = item
+
+          // @TODO - Remove guard clause after ghost menu items are no longer appended to array.
+          if (!item.hasOwnProperty('__typename')) {
+            return null
+          }
+
+          return (
+            <Accordion.Panel>
+              <div className={cx('accordion-wrapper')}>
+                {/* Main Guides */}
+                {parentId === null && (
                   <div className={cx('accordion-title-wrapper')}>
+                    <div className={cx('accordion-title')}>
+                      {path && (
+                        <Link href={path}>
+                          <span className={cx('title')}>
+                            {connectedNode?.node?.countryCode?.countryCode &&
+                              connectedNode?.node?.countryCode?.countryCode}
+                          </span>
+                        </Link>
+                      )}
+                    </div>
                     <Accordion.Title>
-                      <div className={cx('accordion-title')}>
-                        {category?.node?.connectedNode?.node?.uri &&
-                          category?.node?.connectedNode?.node?.name && (
-                            <button className={cx('title')}>
-                              {'See more of ' +
-                                category?.node?.connectedNode?.node?.name +
-                                '...'}
-                            </button>
-                          )}
+                      <div className={cx('main-guides-heading')}>
+                        {connectedNode?.node?.name && (
+                          <Heading className={cx('title')}>
+                            {connectedNode?.node?.destinationGuides?.guidesTitle
+                              ? connectedNode?.node?.destinationGuides
+                                  ?.guidesTitle
+                              : 'The DA Guide to ' + connectedNode?.node?.name}
+                          </Heading>
+                        )}
                       </div>
                     </Accordion.Title>
                   </div>
+                )}
+                {/* Sub Guides */}
+                {children.length > 0 ? (
                   <div className={cx('accordion-content-wrapper')}>
                     <Accordion.Content>
                       <div className={cx('accordion-content')}>
                         <div className={cx('first-wrapper')}>
-                          {category?.node?.connectedNode?.node?.children?.edges?.map(
-                            (category) => (
-                              <div className={cx('sub-guides-wrapper')}>
-                                <div className={cx('left-wrapper')}>
-                                  {category?.node?.uri &&
-                                    category?.node?.name &&
-                                    category?.node?.categoryImages
-                                      ?.categoryImages && (
-                                      <Link href={category?.node?.uri}>
-                                        <div className={cx('image-wrapper')}>
-                                          <div className={cx('image')}>
-                                            <Image
-                                              src={
-                                                category?.node?.categoryImages
-                                                  ?.categoryImages?.sourceUrl
-                                              }
-                                              alt={category?.node?.name}
-                                              fill
-                                              sizes="100%"
-                                              priority
-                                            />
-                                          </div>
-                                        </div>
-                                      </Link>
-                                    )}
-                                </div>
-                                <div className={cx('right-wrapper')}>
-                                  <div className={cx('sub-guides-content')}>
-                                    <div className={cx('sub-guides-title')}>
-                                      {category?.node?.uri &&
-                                        category?.node?.name &&
-                                        category?.node?.parent?.node?.name && (
-                                          <Link href={category?.node?.uri}>
-                                            <span className={cx('title')}>
-                                              {category?.node?.parent?.node
-                                                ?.name +
-                                                ' ' +
-                                                category?.node?.name}
-                                            </span>
-                                          </Link>
-                                        )}
-                                    </div>
-                                    <div className={cx('posts-wrapper')}>
-                                      {category?.node?.posts?.edges?.map(
-                                        (post, index, array) => (
-                                          <div
-                                            className={cx(
-                                              'posts-content-wrapper',
-                                            )}
-                                          >
-                                            {post?.node?.title &&
-                                              post?.node?.uri && (
-                                                <Link href={post?.node?.uri}>
-                                                  <div
-                                                    className={cx(
-                                                      'name-wrapper',
-                                                    )}
-                                                  >
-                                                    <div
-                                                      className={cx(
-                                                        'content-name-wrapper',
-                                                      )}
-                                                    >
-                                                      <span
-                                                        className={cx('name')}
-                                                      >
-                                                        {post?.node?.title}
-                                                        {index !==
-                                                          array.length - 1 &&
-                                                          ' |'}
-                                                      </span>
-                                                    </div>
-                                                  </div>
-                                                </Link>
-                                              )}
-                                          </div>
-                                        ),
-                                      )}
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            ),
-                          )}
+                          {renderMenu(children)}
                         </div>
                         <div className={cx('second-wrapper')}>
                           <div className={cx('partner-content-wrapper')}>
@@ -310,6 +245,7 @@ export default function ContentWrapperTravelGuides({ content }) {
                                   {'Partner Content'}
                                 </span>
                               </div>
+                              {console.log(results[index]?.data?.advertorials)}
                               <div className={cx('posts-wrapper')}>
                                 {results[index]?.data?.advertorials?.map(
                                   (advertorial, index, array) => (
@@ -337,6 +273,14 @@ export default function ContentWrapperTravelGuides({ content }) {
                                         )}
                                     </div>
                                   ),
+                                )}
+                                {results[index]?.data?.advertorials?.length ===
+                                  0 && (
+                                  <span className={cx('name-error')}>
+                                    {
+                                      'There is no Partner Content existing right now...'
+                                    }
+                                  </span>
                                 )}
                               </div>
                             </div>
@@ -412,6 +356,14 @@ export default function ContentWrapperTravelGuides({ content }) {
                                     </div>
                                   ),
                                 )}
+                                {results[index]?.data?.honorsCircles?.length ===
+                                  0 && (
+                                  <span className={cx('name-error')}>
+                                    {
+                                      'There is no Honors Circle existing right now'
+                                    }
+                                  </span>
+                                )}
                               </div>
                             </div>
                           </div>
@@ -419,11 +371,88 @@ export default function ContentWrapperTravelGuides({ content }) {
                       </div>
                     </Accordion.Content>
                   </div>
-                </Accordion.Panel>
-              </Accordion>
-            </div>
-          </>
-        ))}
+                ) : (
+                  <>
+                    <div className={cx('left-wrapper')}>
+                      {connectedNode?.node?.uri &&
+                        connectedNode?.node?.name &&
+                        connectedNode?.node?.categoryImages?.categoryImages && (
+                          <Link href={connectedNode?.node?.uri}>
+                            <div className={cx('image-wrapper')}>
+                              <div className={cx('image')}>
+                                <Image
+                                  src={
+                                    connectedNode?.node?.categoryImages
+                                      ?.categoryImages?.sourceUrl
+                                  }
+                                  alt={connectedNode?.node?.name}
+                                  fill
+                                  sizes="100%"
+                                  priority
+                                />
+                              </div>
+                            </div>
+                          </Link>
+                        )}
+                    </div>
+                    <div className={cx('right-wrapper')}>
+                      <div className={cx('sub-guides-wrapper')}>
+                        <div className={cx('sub-guides-content')}>
+                          <div className={cx('sub-guides-title')}>
+                            {path && (
+                              <Link href={path}>
+                                <span className={cx('title')}>
+                                  {connectedNode?.node?.parent &&
+                                    connectedNode?.node?.parent?.node
+                                      ?.name}{' '}
+                                  {label ?? ''}
+                                </span>
+                              </Link>
+                            )}
+                          </div>
+                          <div className={cx('posts-wrapper')}>
+                            {connectedNode.node?.posts?.edges?.map(
+                              (post, index, array) => (
+                                <div className={cx('posts-content-wrapper')}>
+                                  {post?.node?.title && post?.node?.uri && (
+                                    <Link href={post?.node?.uri}>
+                                      <div className={cx('name-wrapper')}>
+                                        <div
+                                          className={cx('content-name-wrapper')}
+                                        >
+                                          <span className={cx('name')}>
+                                            {post?.node?.title}
+                                            {index !== array.length - 1 && ' |'}
+                                          </span>
+                                        </div>
+                                      </div>
+                                    </Link>
+                                  )}
+                                </div>
+                              ),
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                )}
+              </div>
+            </Accordion.Panel>
+          )
+        })}
+      </Accordion>
+    )
+  }
+
+  return (
+    <article className={cx('component')}>
+      <div
+        className={cx('content-wrapper')}
+        dangerouslySetInnerHTML={{ __html: content ?? '' }}
+      />
+      <div className={cx('guides-list-wrapper')}>
+        {renderMenu(hierarchicalMenuItems)}
       </div>
     </article>
   )
