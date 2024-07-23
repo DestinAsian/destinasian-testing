@@ -18,6 +18,13 @@
     max-width: 700px;
   }
 
+  a {
+    :hover,
+    :focus {
+      text-decoration: underline;
+    }
+  }
+
   .content-wrapper,
   .guides-list-wrapper {
     display: flex;
@@ -47,7 +54,7 @@
 
   .custom-icon {
     font-family: 'Unit Slab Pro Black';
-    font-weight: 600;
+    font-weight: 400;
     color: var(--wpe--color--black);
     font-size: 1rem;
 
@@ -125,7 +132,7 @@
     .main-guides-heading {
       .title {
         font-family: 'Unit Slab Pro Black';
-        font-weight: 600;
+        font-weight: 400;
         font-size: 0.875rem;
 
         @media (min-width: $breakpoint-medium) {
@@ -223,7 +230,7 @@
 
           .title {
             font-family: 'Unit Slab Pro Black';
-            font-weight: 600;
+            font-weight: 400;
             font-size: 0.875rem;
 
             @media (min-width: $breakpoint-medium) {
@@ -348,7 +355,7 @@
         .partner-content-title,
         .honors-circle-title {
           font-family: 'Unit Slab Pro Black';
-          font-weight: 600;
+          font-weight: 400;
           padding: 0 0 0.25rem;
           font-size: 0.875rem;
 
