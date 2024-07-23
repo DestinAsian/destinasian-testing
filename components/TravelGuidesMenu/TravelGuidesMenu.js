@@ -10,7 +10,6 @@ import { GetPrimaryMenu } from '../../queries/GetPrimaryMenu'
 import { GetTravelGuides } from '../../queries/GetTravelGuides'
 import { GetTravelGuidesMenu } from '../../queries/GetTravelGuidesMenu'
 import { Heading } from '../../components'
-import attractionIcon from '../../assets/icons/icon-attraction.png'
 
 let cx = classNames.bind(styles)
 
@@ -170,17 +169,17 @@ export default function TravelGuidesMenu() {
                 {/* Main Guides */}
                 {parentId === null && (
                   <div className={cx('accordion-title-wrapper')}>
+                    <div className={cx('accordion-title')}>
+                      {path && (
+                        <Link href={path}>
+                          <span className={cx('title')}>
+                            {connectedNode?.node?.countryCode?.countryCode &&
+                              connectedNode?.node?.countryCode?.countryCode}
+                          </span>
+                        </Link>
+                      )}
+                    </div>
                     <Accordion.Title>
-                      <div className={cx('accordion-title')}>
-                        {path && (
-                          <Link href={path}>
-                            <span className={cx('title')}>
-                              {connectedNode?.node?.countryCode?.countryCode &&
-                                connectedNode?.node?.countryCode?.countryCode}
-                            </span>
-                          </Link>
-                        )}
-                      </div>
                       <div className={cx('main-guides-heading')}>
                         {connectedNode?.node?.name && (
                           <Heading className={cx('title')}>
@@ -210,6 +209,7 @@ export default function TravelGuidesMenu() {
                                   {'Partner Content'}
                                 </span>
                               </div>
+                              {console.log(results[index]?.data?.advertorials)}
                               <div className={cx('posts-wrapper')}>
                                 {results[index]?.data?.advertorials?.map(
                                   (advertorial, index, array) => (
@@ -237,6 +237,14 @@ export default function TravelGuidesMenu() {
                                         )}
                                     </div>
                                   ),
+                                )}
+                                {results[index]?.data?.advertorials?.length ===
+                                  0 && (
+                                  <span className={cx('name-error')}>
+                                    {
+                                      'There is no Partner Content existing right now...'
+                                    }
+                                  </span>
                                 )}
                               </div>
                             </div>
@@ -275,6 +283,14 @@ export default function TravelGuidesMenu() {
                                         )}
                                     </div>
                                   ),
+                                )}
+                                {results[index]?.data?.honorsCircles?.length ===
+                                  0 && (
+                                  <span className={cx('name-error')}>
+                                    {
+                                      'There is no Honors Circle existing right now'
+                                    }
+                                  </span>
                                 )}
                               </div>
                             </div>
