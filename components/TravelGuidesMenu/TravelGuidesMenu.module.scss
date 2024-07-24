@@ -65,6 +65,10 @@
 
   a {
     width: fit-content;
+    :hover,
+    :focus {
+      text-decoration: none;
+    }
   }
 
   button {
@@ -210,6 +214,13 @@
 
         @media (min-width: $breakpoint-medium) {
           padding: 0 0 0.5rem;
+        }
+
+        a {
+          :hover,
+          :focus {
+            text-decoration: none;
+          }
         }
 
         .title {

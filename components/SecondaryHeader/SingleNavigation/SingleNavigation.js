@@ -88,7 +88,7 @@ export default function SingleNavigation({
                       aria-controls={cx('full-menu-wrapper')}
                       aria-expanded={!isNavShown}
                     >
-                      {'Select Guides'}
+                      {'All Guides'}
                     </button>
                   </div>
                 ) : (
@@ -151,7 +151,7 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
                       aria-controls={cx('full-menu-wrapper')}
                       aria-expanded={!isNavShown}
                     >
-                      {'Select Guides'}
+                      {'All Guides'}
                     </button>
                   </div>
                 ) : (
