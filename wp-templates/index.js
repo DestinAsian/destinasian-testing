@@ -17,6 +17,7 @@ import singleUpdate from './single-update'
 import singleContest from './single-contest'
 import singleLuxeList from './single-luxe-list'
 import singleRca from './single-readers-choice-award'
+import singleLuxuryTravel from './single-luxury-travel'
 
 export default {
   category,
@@ -38,4 +39,5 @@ export default {
   'single-contest': singleContest,
   'single-luxe-list': singleLuxeList,
   'single-readers-choice-award': singleRca,
+  'single-luxury-travel': singleLuxuryTravel,
 }

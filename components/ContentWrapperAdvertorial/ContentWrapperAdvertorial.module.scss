@@ -27,12 +27,21 @@
     // Scope WordPress block styles within ContentWrapper.
     @import 'styles/blocks';
 
+    .dropcap {
+      font-family: var(--font--rubik);
+      line-height: 1;
+
+      @media (min-width: $breakpoint-small) {
+        line-height: 0.8;
+      }
+    }
+
     * {
       max-width: 100%;
       padding: 0 1rem 0.5rem;
 
       @media (min-width: $breakpoint-small) {
-        padding: 0 2rem 1rem;
+        padding: 0 0 1rem;
       }
     }
 

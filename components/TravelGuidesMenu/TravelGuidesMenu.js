@@ -14,10 +14,20 @@ import Image from 'next/image'
 
 let cx = classNames.bind(styles)
 
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[array[i], array[j]] = [array[j], array[i]]
+  }
+  return array
+}
+
 export default function TravelGuidesMenu() {
   const [results, setResults] = useState([])
   const [loading, setLoading] = useState(true)
   const client = useApolloClient() // Use Apollo Client instance
+  const [PartnerContentArray, setPartnerContent] = useState([])
+  const [HonorsCircleArray, setHonorsCircle] = useState([])
 
   const CustomIcon = () => <span className={cx('custom-icon')}>{'+'}</span>
 
@@ -82,6 +92,20 @@ export default function TravelGuidesMenu() {
     return { advertorials, honorsCircles }
   }
 
+  // Get Advertorial Stories
+  const { data: travelGuidesData, error: travelGuidesError } = useQuery(
+    GetTravelGuides,
+    {
+      variables: { search: null },
+      fetchPolicy: 'network-only',
+      nextFetchPolicy: 'cache-and-network',
+    },
+  )
+
+  if (travelGuidesError) {
+    return <pre>{JSON.stringify(error)}</pre>
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true)
@@ -105,6 +129,112 @@ export default function TravelGuidesMenu() {
     fetchData()
     setLoading(false)
   }, [client, mainCategoryLabels])
+
+  // Random Partner Content Stories
+  useEffect(() => {
+    const shufflePartnerContentPost = () => {
+      // Create a Set to store unique databaseId values
+      const uniqueDatabaseIds = new Set()
+
+      // Initialize an array to store unique posts
+      const contentPartnerContent = []
+
+      // Loop through all the contentNodes posts
+      travelGuidesData?.tags?.edges?.forEach((contentNodes) => {
+        {
+          contentNodes?.node?.advertorials?.edges?.length !== 0 &&
+            contentNodes.node?.advertorials?.edges.forEach((post) => {
+              const { databaseId } = post.node
+
+              // Check if the databaseId is unique (not in the Set)
+              if (!uniqueDatabaseIds.has(databaseId)) {
+                uniqueDatabaseIds.add(databaseId) // Add the databaseId to the Set
+                contentPartnerContent.push(post.node) // Push the unique post to the array
+              }
+            })
+        }
+      })
+
+      // Sort contentNodesPosts array by date
+      contentPartnerContent.sort((a, b) => {
+        // Assuming your date is stored in 'date' property of the post objects
+        const dateA = new Date(a.date)
+        const dateB = new Date(b.date)
+
+        // Compare the dates
+        return dateB - dateA
+      })
+
+      // const TravelGuidesArray = Object.values(contentPartnerContent || [])
+
+      // Shuffle only the otherBannerAds array
+      const shuffleAdvertorialPost = shuffleArray(contentPartnerContent)
+
+      // Concatenate the arrays with pinned ads first and shuffled other banner ads
+      const shuffledPartnerContent = [...shuffleAdvertorialPost]
+
+      // Get the last two elements
+      const lastFivePartnerContent = shuffledPartnerContent.slice(-5)
+
+      setPartnerContent(lastFivePartnerContent)
+    }
+
+    // Shuffle the banner ads when the component mounts
+    shufflePartnerContentPost()
+  }, [travelGuidesData])
+
+  // Random Honors Circle Stories
+  useEffect(() => {
+    const shuffleHonorsCirclePost = () => {
+      // Create a Set to store unique databaseId values
+      const uniqueDatabaseIds = new Set()
+
+      // Initialize an array to store unique posts
+      const contentHonorsCircle = []
+
+      // Loop through all the contentNodes posts
+      travelGuidesData?.tags?.edges?.forEach((contentNodes) => {
+        {
+          contentNodes?.node?.honorsCircles?.edges?.length !== 0 &&
+            contentNodes.node?.honorsCircles?.edges.forEach((post) => {
+              const { databaseId } = post.node
+
+              // Check if the databaseId is unique (not in the Set)
+              if (!uniqueDatabaseIds.has(databaseId)) {
+                uniqueDatabaseIds.add(databaseId) // Add the databaseId to the Set
+                contentHonorsCircle.push(post.node) // Push the unique post to the array
+              }
+            })
+        }
+      })
+
+      // Sort contentNodesPosts array by date
+      contentHonorsCircle.sort((a, b) => {
+        // Assuming your date is stored in 'date' property of the post objects
+        const dateA = new Date(a.date)
+        const dateB = new Date(b.date)
+
+        // Compare the dates
+        return dateB - dateA
+      })
+
+      // const TravelGuidesArray = Object.values(contentHonorsCircle || [])
+
+      // Shuffle only the otherBannerAds array
+      const shuffleHonorsCirclePost = shuffleArray(contentHonorsCircle)
+
+      // Concatenate the arrays with pinned ads first and shuffled other banner ads
+      const shuffledHonorsCircle = [...shuffleHonorsCirclePost]
+
+      // Get the last two elements
+      const lastFiveHonorsCircle = shuffledHonorsCircle.slice(-5)
+
+      setHonorsCircle(lastFiveHonorsCircle)
+    }
+
+    // Shuffle the banner ads when the component mounts
+    shuffleHonorsCirclePost()
+  }, [travelGuidesData])
 
   // Get Footer menus
   const { data: footerMenusData, loading: footerMenusLoading } = useQuery(
@@ -152,6 +282,11 @@ export default function TravelGuidesMenu() {
       </>
     )
   }
+
+  const getHonorsCircle = [...HonorsCircleArray]
+  const getPartnerContent = [...PartnerContentArray]
+
+  console.log(getHonorsCircle[0])
 
   function renderMenu(items) {
     return (
@@ -238,6 +373,33 @@ export default function TravelGuidesMenu() {
                                   </>
                                 ),
                               )}
+                              {results[index]?.data?.advertorials?.length ===
+                                0 && (
+                                <>
+                                  {getPartnerContent[0]?.uri &&
+                                    getPartnerContent[0]?.title &&
+                                    getPartnerContent[0]?.featuredImage?.node
+                                      ?.sourceUrl && (
+                                      <Link href={getPartnerContent[0]?.uri}>
+                                        <div className={cx('image-wrapper')}>
+                                          <div className={cx('image')}>
+                                            <Image
+                                              src={
+                                                getPartnerContent[0]
+                                                  ?.featuredImage?.node
+                                                  ?.sourceUrl
+                                              }
+                                              alt={getPartnerContent[0]?.title}
+                                              fill
+                                              sizes="100%"
+                                              priority
+                                            />
+                                          </div>
+                                        </div>
+                                      </Link>
+                                    )}
+                                </>
+                              )}
                             </div>
                             <div className={cx('right-wrapper')}>
                               <div className={cx('partner-content-title')}>
@@ -245,7 +407,6 @@ export default function TravelGuidesMenu() {
                                   {'Partner Content'}
                                 </span>
                               </div>
-                              {console.log(results[index]?.data?.advertorials)}
                               <div className={cx('posts-wrapper')}>
                                 {results[index]?.data?.advertorials?.map(
                                   (advertorial, index, array) => (
@@ -276,11 +437,42 @@ export default function TravelGuidesMenu() {
                                 )}
                                 {results[index]?.data?.advertorials?.length ===
                                   0 && (
-                                  <span className={cx('name-error')}>
-                                    {
-                                      'There is no Partner Content existing right now...'
-                                    }
-                                  </span>
+                                  <>
+                                    {getPartnerContent?.map(
+                                      (advertorial, index, array) => (
+                                        <div
+                                          className={cx(
+                                            'posts-content-wrapper',
+                                          )}
+                                          key={advertorial?.databaseId}
+                                        >
+                                          {advertorial?.title &&
+                                            advertorial?.uri && (
+                                              <Link href={advertorial?.uri}>
+                                                <div
+                                                  className={cx('name-wrapper')}
+                                                >
+                                                  <div
+                                                    className={cx(
+                                                      'content-name-wrapper',
+                                                    )}
+                                                  >
+                                                    <span
+                                                      className={cx('name')}
+                                                    >
+                                                      {advertorial?.title}
+                                                      {index !==
+                                                        array.length - 1 &&
+                                                        ' |'}
+                                                    </span>
+                                                  </div>
+                                                </div>
+                                              </Link>
+                                            )}
+                                        </div>
+                                      ),
+                                    )}
+                                  </>
                                 )}
                               </div>
                             </div>
@@ -321,6 +513,33 @@ export default function TravelGuidesMenu() {
                                   </>
                                 ),
                               )}
+                              {results[index]?.data?.honorsCircles?.length ===
+                                0 && (
+                                <>
+                                  {getHonorsCircle[0]?.uri &&
+                                    getHonorsCircle[0]?.title &&
+                                    getHonorsCircle[0]?.featuredImage?.node
+                                      ?.sourceUrl && (
+                                      <Link href={getHonorsCircle[0]?.uri}>
+                                        <div className={cx('image-wrapper')}>
+                                          <div className={cx('image')}>
+                                            <Image
+                                              src={
+                                                getHonorsCircle[0]
+                                                  ?.featuredImage?.node
+                                                  ?.sourceUrl
+                                              }
+                                              alt={getHonorsCircle[0]?.title}
+                                              fill
+                                              sizes="100%"
+                                              priority
+                                            />
+                                          </div>
+                                        </div>
+                                      </Link>
+                                    )}
+                                </>
+                              )}
                             </div>
                             <div className={cx('right-wrapper')}>
                               <div className={cx('honors-circle-title')}>
@@ -358,11 +577,42 @@ export default function TravelGuidesMenu() {
                                 )}
                                 {results[index]?.data?.honorsCircles?.length ===
                                   0 && (
-                                  <span className={cx('name-error')}>
-                                    {
-                                      'There is no Honors Circle existing right now'
-                                    }
-                                  </span>
+                                  <>
+                                    {getHonorsCircle?.map(
+                                      (honorsCircle, index, array) => (
+                                        <div
+                                          className={cx(
+                                            'posts-content-wrapper',
+                                          )}
+                                          key={honorsCircle?.databaseId}
+                                        >
+                                          {honorsCircle?.title &&
+                                            honorsCircle?.uri && (
+                                              <Link href={honorsCircle?.uri}>
+                                                <div
+                                                  className={cx('name-wrapper')}
+                                                >
+                                                  <div
+                                                    className={cx(
+                                                      'content-name-wrapper',
+                                                    )}
+                                                  >
+                                                    <span
+                                                      className={cx('name')}
+                                                    >
+                                                      {honorsCircle?.title}
+                                                      {index !==
+                                                        array.length - 1 &&
+                                                        ' |'}
+                                                    </span>
+                                                  </div>
+                                                </div>
+                                              </Link>
+                                            )}
+                                        </div>
+                                      ),
+                                    )}
+                                  </>
                                 )}
                               </div>
                             </div>
