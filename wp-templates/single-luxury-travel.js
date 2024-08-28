@@ -11,6 +11,7 @@ import {
   SEO,
   SingleAdvertorialSlider,
   ContentWrapperAdvertorial,
+  LuxuryTravelStories,
 } from '../components'
 import { GetMenus } from '../queries/GetMenus'
 import { GetFooterMenus } from '../queries/GetFooterMenus'
@@ -27,7 +28,9 @@ export default function SingleLuxuryTravel(props) {
     props?.data?.generalSettings
   const {
     title,
+    databaseId,
     content,
+    parent,
     featuredImage,
     acfPostSlider,
     acfAdvertorialLabel,
@@ -135,7 +138,9 @@ export default function SingleLuxuryTravel(props) {
   ]
 
   return (
-    <main className={`${eb_garamond.variable} ${rubik_mono_one.variable} ${rubik.variable}`}>
+    <main
+      className={`${eb_garamond.variable} ${rubik_mono_one.variable} ${rubik.variable}`}
+    >
       <SEO />
       <SingleHeader
         title={siteTitle}
@@ -159,6 +164,13 @@ export default function SingleLuxuryTravel(props) {
               label={acfAdvertorialLabel?.advertorialLabel}
             />
             <ContentWrapperAdvertorial content={content} />
+            <LuxuryTravelStories
+              luxuryTravelId={databaseId}
+              name={parent?.node?.title}
+            />
+            {/* pinPosts={pinPosts}
+            children={children}
+            parent={parent?.node?.name} */}
           </SingleAdvertorialContainer>
         </>
       </Main>
@@ -173,8 +185,16 @@ SingleLuxuryTravel.query = gql`
   query GetPost($databaseId: ID!, $asPreview: Boolean = false) {
     luxuryTravel(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
       title
+      databaseId
       content
       date
+      parent {
+        node {
+          ... on LuxuryTravel {
+            title
+          }
+        }
+      }
       ...FeaturedImageFragment
       author {
         node {
@@ -207,7 +227,6 @@ SingleLuxuryTravel.query = gql`
           mediaItemUrl
         }
       }
-      ...FeaturedImageFragment
     }
     generalSettings {
       ...BlogInfoFragment

@@ -286,8 +286,6 @@ export default function TravelGuidesMenu() {
   const getHonorsCircle = [...HonorsCircleArray]
   const getPartnerContent = [...PartnerContentArray]
 
-  console.log(getHonorsCircle[0])
-
   function renderMenu(items) {
     return (
       <Accordion collapseAll arrowIcon={CustomIcon}>
