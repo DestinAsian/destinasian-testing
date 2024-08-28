@@ -245,10 +245,6 @@ export default function LuxuryTravelStories(luxuryTravelId) {
     return uniqueAds
   }, [])
 
-  // Declare 2 Advertorial Post
-  // const getAdvertorialPost = [...AdvertorialArray]
-  // const numberOfAdvertorial = AdvertorialArray.length
-
   const numberOfBannerAds = sortedBannerAdsArray.length
 
   return (
@@ -318,23 +314,26 @@ export default function LuxuryTravelStories(luxuryTravelId) {
               </div>
             )}
             {post?.contentTypeName === 'honors-circle' && (
-              <div className={cx('advertorial-wrapper')}>
-                {/* Advertorial Stories */}
+              <div className={cx('hc-wrapper')}>
+                {/* Honors Circle Stories */}
                 <PostTwoColumns
                   title={post?.title}
                   excerpt={post?.excerpt}
                   uri={post?.uri}
+                  category={post?.contentType?.node?.label}
+                  categoryUri={post?.uri}
                   featuredImage={post?.featuredImage?.node}
                 />
               </div>
             )}
             {/* Show 1st banner after 4 posts and then every 4 posts */}
-            {index > 0 && (index - 1) % 4 === 0 && (
+            {(index - 1) % 4 === 2 && (
               <div className={cx('banner-ad-wrapper')}>
                 <ModuleAd
                   bannerAd={
-                    sortedBannerAdsArray[((index - 1) / 4) % numberOfBannerAds]
-                      ?.node?.content
+                    sortedBannerAdsArray[
+                      Math.floor((index - 1) / 4) % numberOfBannerAds
+                    ]?.node?.content
                   }
                 />
               </div>

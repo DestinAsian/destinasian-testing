@@ -9,9 +9,9 @@ import {
   SingleAdvertorialEntryHeader,
   FeaturedImage,
   SEO,
-  SingleAdvertorialSlider,
   ContentWrapperAdvertorial,
   LuxuryTravelStories,
+  SingleLuxuryTravelSlider,
 } from '../components'
 import { GetMenus } from '../queries/GetMenus'
 import { GetFooterMenus } from '../queries/GetFooterMenus'
@@ -130,11 +130,26 @@ export default function SingleLuxuryTravel(props) {
   const allPosts = mainCatPosts.sort(sortPostsByDate)
 
   const images = [
-    acfPostSlider.slide1 != null ? acfPostSlider.slide1.mediaItemUrl : null,
-    acfPostSlider.slide2 != null ? acfPostSlider.slide2.mediaItemUrl : null,
-    acfPostSlider.slide3 != null ? acfPostSlider.slide3.mediaItemUrl : null,
-    acfPostSlider.slide4 != null ? acfPostSlider.slide4.mediaItemUrl : null,
-    acfPostSlider.slide5 != null ? acfPostSlider.slide5.mediaItemUrl : null,
+    [
+      acfPostSlider.slide1 != null ? acfPostSlider.slide1.mediaItemUrl : null,
+      acfPostSlider.slideCaption1 != null ? acfPostSlider.slideCaption1 : null,
+    ],
+    [
+      acfPostSlider.slide2 != null ? acfPostSlider.slide2.mediaItemUrl : null,
+      acfPostSlider.slideCaption2 != null ? acfPostSlider.slideCaption2 : null,
+    ],
+    [
+      acfPostSlider.slide3 != null ? acfPostSlider.slide3.mediaItemUrl : null,
+      acfPostSlider.slideCaption3 != null ? acfPostSlider.slideCaption3 : null,
+    ],
+    [
+      acfPostSlider.slide4 != null ? acfPostSlider.slide4.mediaItemUrl : null,
+      acfPostSlider.slideCaption4 != null ? acfPostSlider.slideCaption4 : null,
+    ],
+    [
+      acfPostSlider.slide5 != null ? acfPostSlider.slide5.mediaItemUrl : null,
+      acfPostSlider.slideCaption5 != null ? acfPostSlider.slideCaption5 : null,
+    ],
   ]
 
   return (
@@ -158,19 +173,16 @@ export default function SingleLuxuryTravel(props) {
       <Main>
         <>
           <SingleAdvertorialContainer>
-            <SingleAdvertorialSlider images={images} />
             <SingleAdvertorialEntryHeader
               title={title}
               label={acfAdvertorialLabel?.advertorialLabel}
             />
+            <SingleLuxuryTravelSlider images={images} />
             <ContentWrapperAdvertorial content={content} />
             <LuxuryTravelStories
               luxuryTravelId={databaseId}
               name={parent?.node?.title}
             />
-            {/* pinPosts={pinPosts}
-            children={children}
-            parent={parent?.node?.name} */}
           </SingleAdvertorialContainer>
         </>
       </Main>
@@ -226,6 +238,11 @@ SingleLuxuryTravel.query = gql`
         slide5 {
           mediaItemUrl
         }
+        slideCaption1
+        slideCaption2
+        slideCaption3
+        slideCaption4
+        slideCaption5
       }
     }
     generalSettings {

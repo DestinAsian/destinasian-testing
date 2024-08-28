@@ -140,6 +140,11 @@ export const GetLuxuryTravelStories = gql`
             contentTypeName
             title
             excerpt
+            contentType {
+              node {
+                label
+              }
+            }
             featuredImage {
               node {
                 id
