@@ -12,6 +12,7 @@ import {
   ContentWrapperAdvertorial,
   LuxuryTravelStories,
   SingleLuxuryTravelSlider,
+  LuxuryTravelDirectory,
 } from '../components'
 import { GetMenus } from '../queries/GetMenus'
 import { GetFooterMenus } from '../queries/GetFooterMenus'
@@ -36,6 +37,7 @@ export default function SingleLuxuryTravel(props) {
     acfAdvertorialLabel,
     seo,
     uri,
+    luxuryTravelDirectory,
   } = props?.data?.luxuryTravel
 
   // Get menus
@@ -183,6 +185,7 @@ export default function SingleLuxuryTravel(props) {
               luxuryTravelId={databaseId}
               name={parent?.node?.title}
             />
+            <LuxuryTravelDirectory content={luxuryTravelDirectory?.directory} />
           </SingleAdvertorialContainer>
         </>
       </Main>
@@ -243,6 +246,9 @@ SingleLuxuryTravel.query = gql`
         slideCaption3
         slideCaption4
         slideCaption5
+      }
+      luxuryTravelDirectory {
+        directory
       }
     }
     generalSettings {

@@ -13,9 +13,9 @@ import { EffectFade, Autoplay, Pagination, Navigation } from 'swiper'
 import Image from 'next/image'
 
 export default function SingleLuxuryTravelSlider({ images }) {
-  const pagination = {
-    clickable: true,
-  }
+  const menuIndex = images?.map((image, index) => {
+    return index
+  })
 
   return (
     <>
@@ -27,13 +27,20 @@ export default function SingleLuxuryTravelSlider({ images }) {
           delay: 25000,
           disableOnInteraction: true,
         }}
-        pagination={pagination}
+        pagination={{
+          clickable: true,
+          el: '.swiper-lt-custom-pagination',
+          clickable: true,
+          renderBullet: function (index, className) {
+            return `<span key="${menuIndex[index]}" class="${className}"></span>`
+          },
+        }}
         navigation={{
           prevEl: '.swiper-custom-button-prev',
           nextEl: '.swiper-custom-button-next',
         }}
         modules={[EffectFade, Autoplay, Pagination, Navigation]}
-        className="post-advertorial-swiper"
+        className="post-luxury-travel-swiper"
         style={{ display: images[0] ? 'block' : 'none' }}
       >
         {images?.map((image, index) => (
@@ -105,6 +112,7 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
           </svg>
         </div>
       </Swiper>
+      <div class="swiper-lt-custom-pagination"></div>
     </>
   )
 }
