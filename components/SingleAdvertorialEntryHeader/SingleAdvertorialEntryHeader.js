@@ -7,10 +7,11 @@ let cx = className.bind(styles)
 export default function SingleAdvertorialEntryHeader({
   title,
   label,
+  luxuryClass
 }) {
 
   return (
-    <div className={cx('component', className)}>
+    <div className={cx('component', className, luxuryClass)}>
       <div className={cx('header-wrapper')}>
       <Heading className={cx('sponsored')}>
           {label}

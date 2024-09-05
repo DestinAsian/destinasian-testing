@@ -4,7 +4,6 @@ import styles from './LuxuryTravelStories.module.scss'
 import { useQuery } from '@apollo/client'
 import * as CONTENT_TYPES from '../../constants/contentTypes'
 import { GetCategoryStories } from '../../queries/GetCategoryStories'
-import { GetROSBannerAds } from '../../queries/GetROSBannerAds'
 import { GetSpecificBannerAds } from '../../queries/GetSpecificBannerAds'
 import { GetAdvertorialStories } from '../../queries/GetAdvertorialStories'
 import {
@@ -27,7 +26,6 @@ function shuffleArray(array) {
 
 export default function LuxuryTravelStories(luxuryTravelId) {
   // Declare state for banner ads
-  const [ROSAdsArray, setROSAdsArray] = useState([])
   const [SpecificAdsArray, setSpecificAdsArray] = useState([])
   // Post per fetching
   const postsPerPage = 10
@@ -42,22 +40,6 @@ export default function LuxuryTravelStories(luxuryTravelId) {
     fetchPolicy: 'network-only',
     nextFetchPolicy: 'cache-and-network',
   })
-
-  // Get ROS Banner
-  const { data: bannerROSData, error: bannerROSError } = useQuery(
-    GetROSBannerAds,
-    {
-      variables: {
-        first: bannerPerPage,
-      },
-      fetchPolicy: 'network-only',
-      nextFetchPolicy: 'cache-and-network',
-    },
-  )
-
-  if (bannerROSError) {
-    return <pre>{JSON.stringify(error)}</pre>
-  }
 
   let bannerVariable = {
     first: bannerPerPage,
@@ -121,42 +103,6 @@ export default function LuxuryTravelStories(luxuryTravelId) {
   }
 
   // Function to shuffle the banner ads and store them in state
-  // ROS Banner
-  useEffect(() => {
-    const shuffleBannerAds = () => {
-      const bannerAdsArrayObj = Object.values(
-        bannerROSData?.bannerAds?.edges || [],
-      )
-
-      // Separate shuffled banner ads with <img> tags from those without
-      const bannerROSAdsWithImg = bannerAdsArrayObj.filter(
-        (bannerAd) => !bannerAd?.node?.content.includes('<!--'),
-      )
-
-      // Shuffle only the otherBannerAds array
-      const ROSBannerAds = shuffleArray(bannerROSAdsWithImg)
-
-      // Concatenate the arrays with pinned ads first and shuffled other banner ads
-      const shuffledBannerAdsArray = [...ROSBannerAds]
-
-      setROSAdsArray(shuffledBannerAdsArray)
-    }
-
-    // Shuffle the banner ads when the component mounts
-    shuffleBannerAds()
-
-    // Shuffle the banner ads every 10 seconds
-    const shuffleInterval = setInterval(() => {
-      shuffleBannerAds()
-    }, 60000) // 10000 milliseconds = 10 seconds
-
-    // Cleanup the interval when the component unmounts
-    return () => {
-      clearInterval(shuffleInterval)
-    }
-  }, [bannerROSData]) // Use bannerROSData as a dependency to trigger shuffling when new data arrives
-
-  // Function to shuffle the banner ads and store them in state
   // Specific Banner
   useEffect(() => {
     const shuffleBannerAds = () => {
@@ -190,7 +136,7 @@ export default function LuxuryTravelStories(luxuryTravelId) {
     return () => {
       clearInterval(shuffleInterval)
     }
-  }, [bannerSpecificData]) // Use bannerROSData as a dependency to trigger shuffling when new data arrives
+  }, [bannerSpecificData])
 
   // // Scroll event listener to detect when user scrolls to the bottom
   // useEffect(() => {
@@ -217,20 +163,25 @@ export default function LuxuryTravelStories(luxuryTravelId) {
   }
 
   if (loading) {
-    return (
-      <>
-        <div className="mx-auto my-0 flex max-w-[100vw] justify-center md:max-w-[700px]	">
-          <Button className="gap-x-4	">{'Loading...'}</Button>
-        </div>
-      </>
-    )
+    return null
   }
 
   // // Declare all posts
   const allPosts = data?.luxuryTravel?.luxuryTravelPinPosts?.pinPosts
+  const allMoreStories = data?.luxuryTravel?.luxuryTravelPinPosts?.moreStories
 
-  // Merge All posts and Pin posts
+  console.log(allMoreStories)
+
+  // All posts
   const mergedPosts = [...allPosts].reduce((uniquePosts, post) => {
+    if (!uniquePosts.some((uniquePost) => uniquePost?.id === post?.id)) {
+      uniquePosts.push(post)
+    }
+    return uniquePosts
+  }, [])
+
+  // More Stories posts
+  const moreStories = [...allMoreStories].reduce((uniquePosts, post) => {
     if (!uniquePosts.some((uniquePost) => uniquePost?.id === post?.id)) {
       uniquePosts.push(post)
     }
@@ -249,97 +200,193 @@ export default function LuxuryTravelStories(luxuryTravelId) {
 
   return (
     <div className={cx('component')}>
-      {mergedPosts.length !== 0 &&
-        mergedPosts.map((post, index) => (
-          <React.Fragment key={post?.id}>
-            {post?.contentTypeName === 'post' && (
-              <div className={cx('post-wrapper')}>
-                {/* Post / Guides Stories */}
-                <PostTwoColumns
-                  title={post?.title}
-                  excerpt={post?.excerpt}
-                  content={post?.content}
-                  date={post?.date}
-                  author={post?.author?.node?.name}
-                  uri={post?.uri}
-                  parentCategory={
-                    post?.categories?.edges[0]?.node?.parent?.node?.name
-                  }
-                  category={post?.categories?.edges[0]?.node?.name}
-                  categoryUri={post?.categories?.edges[0]?.node?.uri}
-                  featuredImage={post?.featuredImage?.node}
-                  chooseYourCategory={post?.acfCategoryIcon?.chooseYourCategory}
-                  chooseIcon={post?.acfCategoryIcon?.chooseIcon?.mediaItemUrl}
-                  categoryLabel={post?.acfCategoryIcon?.categoryLabel}
-                  locationValidation={post?.acfLocationIcon?.fieldGroupName}
-                  locationLabel={post?.acfLocationIcon?.locationLabel}
-                  locationUrl={post?.acfLocationIcon?.locationUrl}
-                />
-              </div>
-            )}
-            {post?.contentTypeName === 'editorial' && (
-              <div className={cx('post-wrapper')}>
-                {/* Editorials, Updates Stories */}
-                <PostTwoColumns
-                  title={post?.title}
-                  excerpt={post?.excerpt}
-                  content={post?.content}
-                  date={post?.date}
-                  author={post?.author?.node?.name}
-                  uri={post?.uri}
-                  parentCategory={
-                    post?.categories?.edges[0]?.node?.parent?.node?.name
-                  }
-                  category={post?.categories?.edges[0]?.node?.name}
-                  categoryUri={post?.categories?.edges[0]?.node?.uri}
-                  featuredImage={post?.featuredImage?.node}
-                  chooseYourCategory={post?.acfCategoryIcon?.chooseYourCategory}
-                  chooseIcon={post?.acfCategoryIcon?.chooseIcon?.mediaItemUrl}
-                  categoryLabel={post?.acfCategoryIcon?.categoryLabel}
-                  locationValidation={post?.acfLocationIcon?.fieldGroupName}
-                  locationLabel={post?.acfLocationIcon?.locationLabel}
-                  locationUrl={post?.acfLocationIcon?.locationUrl}
-                />
-              </div>
-            )}
-            {post?.contentTypeName === 'advertorial' && (
-              <div className={cx('advertorial-wrapper')}>
-                {/* Advertorial Stories */}
-                <AdvertorialPostTwoColumns
-                  title={post?.title}
-                  excerpt={post?.excerpt}
-                  uri={post?.uri}
-                  featuredImage={post?.featuredImage?.node}
-                />
-              </div>
-            )}
-            {post?.contentTypeName === 'honors-circle' && (
-              <div className={cx('hc-wrapper')}>
-                {/* Honors Circle Stories */}
-                <PostTwoColumns
-                  title={post?.title}
-                  excerpt={post?.excerpt}
-                  uri={post?.uri}
-                  category={post?.contentType?.node?.label}
-                  categoryUri={post?.uri}
-                  featuredImage={post?.featuredImage?.node}
-                />
-              </div>
-            )}
-            {/* Show 1st banner after 4 posts and then every 4 posts */}
-            {(index - 1) % 4 === 2 && (
-              <div className={cx('banner-ad-wrapper')}>
-                <ModuleAd
-                  bannerAd={
-                    sortedBannerAdsArray[
-                      Math.floor((index - 1) / 4) % numberOfBannerAds
-                    ]?.node?.content
-                  }
-                />
-              </div>
-            )}
-          </React.Fragment>
-        ))}
+      <div className={cx('pin-posts-wrapper')}>
+        {mergedPosts.length !== 0 &&
+          mergedPosts.map((post, index) => (
+            <React.Fragment key={post?.id}>
+              {post?.contentTypeName === 'post' && (
+                <div className={cx('post-wrapper')}>
+                  {/* Post / Guides Stories */}
+                  <PostTwoColumns
+                    title={post?.title}
+                    excerpt={post?.excerpt}
+                    content={post?.content}
+                    date={post?.date}
+                    author={post?.author?.node?.name}
+                    uri={post?.uri}
+                    parentCategory={
+                      post?.categories?.edges[0]?.node?.parent?.node?.name
+                    }
+                    category={post?.categories?.edges[0]?.node?.name}
+                    categoryUri={post?.categories?.edges[0]?.node?.uri}
+                    featuredImage={post?.featuredImage?.node}
+                    chooseYourCategory={
+                      post?.acfCategoryIcon?.chooseYourCategory
+                    }
+                    chooseIcon={post?.acfCategoryIcon?.chooseIcon?.mediaItemUrl}
+                    categoryLabel={post?.acfCategoryIcon?.categoryLabel}
+                    locationValidation={post?.acfLocationIcon?.fieldGroupName}
+                    locationLabel={post?.acfLocationIcon?.locationLabel}
+                    locationUrl={post?.acfLocationIcon?.locationUrl}
+                  />
+                </div>
+              )}
+              {post?.contentTypeName === 'editorial' && (
+                <div className={cx('post-wrapper')}>
+                  {/* Editorials, Updates Stories */}
+                  <PostTwoColumns
+                    title={post?.title}
+                    excerpt={post?.excerpt}
+                    content={post?.content}
+                    date={post?.date}
+                    author={post?.author?.node?.name}
+                    uri={post?.uri}
+                    parentCategory={
+                      post?.categories?.edges[0]?.node?.parent?.node?.name
+                    }
+                    category={post?.categories?.edges[0]?.node?.name}
+                    categoryUri={post?.categories?.edges[0]?.node?.uri}
+                    featuredImage={post?.featuredImage?.node}
+                    chooseYourCategory={
+                      post?.acfCategoryIcon?.chooseYourCategory
+                    }
+                    chooseIcon={post?.acfCategoryIcon?.chooseIcon?.mediaItemUrl}
+                    categoryLabel={post?.acfCategoryIcon?.categoryLabel}
+                    locationValidation={post?.acfLocationIcon?.fieldGroupName}
+                    locationLabel={post?.acfLocationIcon?.locationLabel}
+                    locationUrl={post?.acfLocationIcon?.locationUrl}
+                  />
+                </div>
+              )}
+              {post?.contentTypeName === 'advertorial' && (
+                <div className={cx('advertorial-wrapper')}>
+                  {/* Advertorial Stories */}
+                  <AdvertorialPostTwoColumns
+                    title={post?.title}
+                    excerpt={post?.excerpt}
+                    uri={post?.uri}
+                    featuredImage={post?.featuredImage?.node}
+                  />
+                </div>
+              )}
+              {post?.contentTypeName === 'honors-circle' && (
+                <div className={cx('hc-wrapper')}>
+                  {/* Honors Circle Stories */}
+                  <PostTwoColumns
+                    title={post?.title}
+                    excerpt={post?.excerpt}
+                    uri={post?.uri}
+                    category={post?.contentType?.node?.label}
+                    categoryUri={post?.uri}
+                    featuredImage={post?.featuredImage?.node}
+                  />
+                </div>
+              )}
+              {/* Show 1st banner after 4 posts and then every 4 posts */}
+              {(index - 1) % 4 === 2 && (
+                <div className={cx('banner-ad-wrapper')}>
+                  <ModuleAd
+                    bannerAd={
+                      sortedBannerAdsArray[
+                        Math.floor((index - 1) / 4) % numberOfBannerAds
+                      ]?.node?.content
+                    }
+                  />
+                </div>
+              )}
+            </React.Fragment>
+          ))}
+      </div>
+      <div className={cx('border-bottom')}></div>
+      <div className={cx('more-stories-wrapper')}>
+        <div className={cx('more-stories-title')}>{'More Stories'}</div>
+        <div className={cx('more-stories-content')}>
+          {moreStories.length !== 0 &&
+            moreStories.map((post, index) => (
+              <React.Fragment key={post?.id}>
+                {post?.contentTypeName === 'post' && (
+                  <div className={cx('post-wrapper')}>
+                    {/* Post / Guides Stories */}
+                    <PostTwoColumns
+                      title={post?.title}
+                      excerpt={post?.excerpt}
+                      content={post?.content}
+                      date={post?.date}
+                      author={post?.author?.node?.name}
+                      uri={post?.uri}
+                      parentCategory={
+                        post?.categories?.edges[0]?.node?.parent?.node?.name
+                      }
+                      category={post?.categories?.edges[0]?.node?.name}
+                      categoryUri={post?.categories?.edges[0]?.node?.uri}
+                      chooseYourCategory={
+                        post?.acfCategoryIcon?.chooseYourCategory
+                      }
+                      chooseIcon={
+                        post?.acfCategoryIcon?.chooseIcon?.mediaItemUrl
+                      }
+                      categoryLabel={post?.acfCategoryIcon?.categoryLabel}
+                      locationValidation={post?.acfLocationIcon?.fieldGroupName}
+                      locationLabel={post?.acfLocationIcon?.locationLabel}
+                      locationUrl={post?.acfLocationIcon?.locationUrl}
+                    />
+                  </div>
+                )}
+                {post?.contentTypeName === 'editorial' && (
+                  <div className={cx('post-wrapper')}>
+                    {/* Editorials, Updates Stories */}
+                    <PostTwoColumns
+                      title={post?.title}
+                      excerpt={post?.excerpt}
+                      content={post?.content}
+                      date={post?.date}
+                      author={post?.author?.node?.name}
+                      uri={post?.uri}
+                      parentCategory={
+                        post?.categories?.edges[0]?.node?.parent?.node?.name
+                      }
+                      category={post?.categories?.edges[0]?.node?.name}
+                      categoryUri={post?.categories?.edges[0]?.node?.uri}
+                      chooseYourCategory={
+                        post?.acfCategoryIcon?.chooseYourCategory
+                      }
+                      chooseIcon={
+                        post?.acfCategoryIcon?.chooseIcon?.mediaItemUrl
+                      }
+                      categoryLabel={post?.acfCategoryIcon?.categoryLabel}
+                      locationValidation={post?.acfLocationIcon?.fieldGroupName}
+                      locationLabel={post?.acfLocationIcon?.locationLabel}
+                      locationUrl={post?.acfLocationIcon?.locationUrl}
+                    />
+                  </div>
+                )}
+                {post?.contentTypeName === 'advertorial' && (
+                  <div className={cx('advertorial-wrapper')}>
+                    {/* Advertorial Stories */}
+                    <AdvertorialPostTwoColumns
+                      title={post?.title}
+                      excerpt={post?.excerpt}
+                      uri={post?.uri}
+                    />
+                  </div>
+                )}
+                {post?.contentTypeName === 'honors-circle' && (
+                  <div className={cx('hc-wrapper')}>
+                    {/* Honors Circle Stories */}
+                    <PostTwoColumns
+                      title={post?.title}
+                      excerpt={post?.excerpt}
+                      uri={post?.uri}
+                      category={post?.contentType?.node?.label}
+                      categoryUri={post?.uri}
+                    />
+                  </div>
+                )}
+              </React.Fragment>
+            ))}
+        </div>
+      </div>
+      <div className={cx('border-bottom')}></div>
     </div>
   )
 }

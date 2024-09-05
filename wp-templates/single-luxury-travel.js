@@ -178,6 +178,7 @@ export default function SingleLuxuryTravel(props) {
             <SingleAdvertorialEntryHeader
               title={title}
               label={acfAdvertorialLabel?.advertorialLabel}
+              luxuryClass={"luxuryClass"}
             />
             <SingleLuxuryTravelSlider images={images} />
             <ContentWrapperAdvertorial content={content} />

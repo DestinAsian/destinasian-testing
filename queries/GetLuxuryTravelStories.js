@@ -158,6 +158,105 @@ export const GetLuxuryTravelStories = gql`
             }
           }
         }
+        moreStories {
+          ... on Post {
+            id
+            uri
+            contentTypeName
+            title
+            content
+            date
+            excerpt
+            categories(where: { childless: true }) {
+              edges {
+                node {
+                  name
+                  uri
+                  parent {
+                    node {
+                      name
+                    }
+                  }
+                }
+              }
+            }
+            acfCategoryIcon {
+              categoryLabel
+              chooseYourCategory
+              chooseIcon {
+                mediaItemUrl
+              }
+            }
+            acfLocationIcon {
+              fieldGroupName
+              locationLabel
+              locationUrl
+            }
+          }
+          ... on Editorial {
+            id
+            uri
+            contentTypeName
+            title
+            content
+            date
+            excerpt
+            categories {
+              edges {
+                node {
+                  name
+                  uri
+                  parent {
+                    node {
+                      name
+                    }
+                  }
+                }
+              }
+            }
+          }
+          ... on Update {
+            id
+            uri
+            contentTypeName
+            title
+            content
+            date
+            excerpt
+            categories {
+              edges {
+                node {
+                  name
+                  uri
+                  parent {
+                    node {
+                      name
+                    }
+                  }
+                }
+              }
+            }
+          }
+          ... on Advertorial {
+            id
+            uri
+            contentTypeName
+            title
+            excerpt
+          }
+          ... on HonorsCircle {
+            id
+            uri
+            contentTypeName
+            title
+            excerpt
+            contentType {
+              node {
+                label
+              }
+            }
+          }
+        }
       }
     }
   }
