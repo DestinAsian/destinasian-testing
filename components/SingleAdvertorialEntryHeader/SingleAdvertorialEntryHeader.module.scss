@@ -22,11 +22,17 @@
 
 .luxuryClass {
   display: flex;
+  background-color: transparent;
   align-items: flex-start;
-  padding: 1rem 1rem 2rem;
+  padding: 0 1rem 1rem;
 
   @media (min-width: $breakpoint-small) {
-    padding: 1.5rem 3rem 3rem;
+    padding: 0 3rem 1rem;
+    min-height: auto;
+  }
+
+  h1 {
+    color: var(--wpe--color--black);
   }
 }
 
