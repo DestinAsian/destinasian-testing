@@ -116,7 +116,7 @@ export default function CategoryHeader({
 
     // Compare the dates
     return dateB - dateA
-  })
+  });
 
   return (
     <header className={cx('components', { sticky: isScrolled })}>
@@ -136,9 +136,6 @@ export default function CategoryHeader({
                 />
               </Link>
             </div>
-
-            {/* Search Bar Desktop */}
-            
 
             {/* Menu Button */}
             {isNavShown == false ? (
@@ -275,8 +272,32 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
         </Container>
       )}
 
-      {/* Search Bar Mobile */}
-      
+      {/* Search Bar */}
+      <div className={cx('search-bar-wrapper', { stickySearch: isScrolled })}>
+        <div className={cx('search-input-wrapper')}>
+          <SearchInput
+            value={searchQuery}
+            onChange={(newValue) => setSearchQuery(newValue)}
+            clearSearch={clearSearch}
+          />
+        </div>
+        <div className={cx('search-result-wrapper')}>
+          {searchResultsError && (
+            <div className={cx('alert-error')}>
+              {'An error has occurred. Please refresh and try again.'}
+            </div>
+          )}
+
+          {/* Conditionally render the SearchResults component */}
+          {isSearchResultsVisible && (
+            <SearchResults
+              searchResults={contentNodesPosts}
+              isLoading={searchResultsLoading}
+            />
+          )}
+          
+        </div>
+      </div>
 
       {/* Full menu */}
       <div

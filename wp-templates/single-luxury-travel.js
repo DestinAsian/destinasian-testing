@@ -175,18 +175,24 @@ export default function SingleLuxuryTravel(props) {
       <Main>
         <>
           <SingleAdvertorialContainer>
-            <SingleLuxuryTravelSlider images={images} />
+            <SingleLuxuryTravelSlider
+              images={images}
+              parent={parent?.node?.title}
+            />
             <SingleAdvertorialEntryHeader
               title={title}
               label={acfAdvertorialLabel?.advertorialLabel}
-              luxuryClass={"luxuryClass"}
+              luxuryClass={'luxuryClass'}
             />
             <ContentWrapperAdvertorial content={content} />
             <LuxuryTravelStories
               luxuryTravelId={databaseId}
-              name={parent?.node?.title}
+              parent={parent?.node?.title}
             />
-            <LuxuryTravelDirectory content={luxuryTravelDirectory?.directory} />
+            <LuxuryTravelDirectory
+              content={luxuryTravelDirectory?.directory}
+              parent={parent?.node?.title}
+            />
           </SingleAdvertorialContainer>
         </>
       </Main>

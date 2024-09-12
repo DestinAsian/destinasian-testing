@@ -18,13 +18,17 @@ import { EffectFade, Autoplay, Pagination, Navigation } from 'swiper'
 
 let cx = className.bind(styles)
 
-export default function SingleLuxuryTravelSlider({ images }) {
+export default function SingleLuxuryTravelSlider({ images, parent }) {
   const [isMounted, setIsMounted] = useState(false) // To ensure client-side rendering
   const height = use100vh()
 
   // Media queries
   const isDesktop = useMediaQuery({ minWidth: 640 })
   const isMobile = useMediaQuery({ maxWidth: 639 })
+
+  if (!parent) {
+    return null
+  }
 
   // Ensures client-side rendering before using client-specific logic
   useEffect(() => {
