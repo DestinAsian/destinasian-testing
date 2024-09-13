@@ -26,7 +26,7 @@ export default function SingleLuxuryTravelSlider({ images, parent }) {
   const isDesktop = useMediaQuery({ minWidth: 640 })
   const isMobile = useMediaQuery({ maxWidth: 639 })
 
-  if (!parent) {
+  if (!images || !parent) {
     return null
   }
 

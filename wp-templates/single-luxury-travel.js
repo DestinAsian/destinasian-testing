@@ -18,6 +18,7 @@ import { GetMenus } from '../queries/GetMenus'
 import { GetFooterMenus } from '../queries/GetFooterMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
 import { eb_garamond, rubik, rubik_mono_one } from '../styles/fonts/fonts'
+import React, { useEffect, useState } from 'react'
 
 export default function SingleLuxuryTravel(props) {
   // Loading state for previews
@@ -39,6 +40,8 @@ export default function SingleLuxuryTravel(props) {
     uri,
     luxuryTravelDirectory,
   } = props?.data?.luxuryTravel
+
+  const [visibleComponent, setVisibleComponent] = useState(null)
 
   // Get menus
   const { data: menusData, loading: menusLoading } = useQuery(GetMenus, {
@@ -90,6 +93,30 @@ export default function SingleLuxuryTravel(props) {
       nextFetchPolicy: 'cache-and-network',
     },
   )
+
+  // Function to check if a section is in view
+  const handleScroll = () => {
+    const sections = document.querySelectorAll('.snap-section')
+    sections.forEach((section) => {
+      const rect = section.getBoundingClientRect()
+      if (rect.top >= 0 && rect.top < window.innerHeight / 2) {
+        setVisibleComponent(section.dataset.id)
+      }
+    })
+  }
+
+  // Attach the scroll listener when component mounts
+  useEffect(() => {
+    const scrollContainer = document.querySelector('.scroll-snap-container')
+    scrollContainer.addEventListener('scroll', handleScroll)
+
+    // Clean up event listener on unmount
+    return () => {
+      scrollContainer.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
+  console.log(visibleComponent)
 
   const posts = latestStories?.posts ?? []
   const editorials = latestStories?.editorials ?? []
@@ -171,32 +198,56 @@ export default function SingleLuxuryTravel(props) {
         latestStories={allPosts}
         menusLoading={menusLoading}
         latestLoading={latestLoading}
+        visibleComponent={visibleComponent}
       />
       <Main>
         <>
           <SingleAdvertorialContainer>
-            <SingleLuxuryTravelSlider
-              images={images}
-              parent={parent?.node?.title}
-            />
-            <SingleAdvertorialEntryHeader
-              title={title}
-              label={acfAdvertorialLabel?.advertorialLabel}
-              luxuryClass={'luxuryClass'}
-            />
-            <ContentWrapperAdvertorial content={content} />
-            <LuxuryTravelStories
-              luxuryTravelId={databaseId}
-              parent={parent?.node?.title}
-            />
-            <LuxuryTravelDirectory
-              content={luxuryTravelDirectory?.directory}
-              parent={parent?.node?.title}
-            />
+            <div
+              className="scroll-snap-container h-screen w-screen snap-y snap-mandatory overflow-y-scroll"
+              onScroll={handleScroll}
+            >
+              <section className="snap-section snap-start snap-always" data-id="section1">
+                <SingleLuxuryTravelSlider
+                  images={images}
+                  parent={parent?.node?.title}
+                />
+              </section>
+              <section className="snap-section snap-start snap-always" data-id="section2">
+                <SingleAdvertorialEntryHeader
+                  title={title}
+                  label={acfAdvertorialLabel?.advertorialLabel}
+                  luxuryClass={'luxuryClass'}
+                />
+                <ContentWrapperAdvertorial content={content} />
+              </section>
+              <section className="snap-section snap-start snap-always" data-id="section3">
+                <LuxuryTravelStories
+                  luxuryTravelId={databaseId}
+                  parent={parent?.node?.title}
+                />
+              </section>
+              <section className="snap-section snap-start snap-always" data-id="section4">
+                <LuxuryTravelDirectory
+                  content={luxuryTravelDirectory?.directory}
+                  parent={parent?.node?.title}
+                />
+              </section>
+              <section className="snap-section snap-start snap-always" data-id="section5">
+                <Footer footerMenu={footerMenu} />
+              </section>
+            </div>
+            {/* Conditionally Render Component */}
+            {visibleComponent === 'section2' && (
+              <div className="fixed bottom-5 right-5 rounded-lg bg-white p-4 shadow-lg">
+                <h2 className="text-lg font-bold">
+                  You are viewing Section 2!
+                </h2>
+              </div>
+            )}
           </SingleAdvertorialContainer>
         </>
       </Main>
-      <Footer footerMenu={footerMenu} />
     </main>
   )
 }

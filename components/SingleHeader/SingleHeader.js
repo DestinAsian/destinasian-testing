@@ -26,32 +26,35 @@ export default function SingleHeader({
   latestStories,
   menusLoading,
   latestLoading,
+  visibleComponent,
 }) {
   const isDesktop = useMediaQuery({ minWidth: 768 })
   const [isNavShown, setIsNavShown] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
 
-  // Stop scrolling pages when isNavShown
-  useEffect(() => {
-    if (isNavShown) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'visible'
-    }
-  }, [isNavShown])
+  console.log(visibleComponent)
 
-  // Add sticky header on scroll
-  useEffect(() => {
-    function handleScroll() {
-      setIsScrolled(window.scrollY > 0)
-    }
+  // // Stop scrolling pages when isNavShown
+  // useEffect(() => {
+  //   if (isNavShown) {
+  //     document.body.style.overflow = 'hidden'
+  //   } else {
+  //     document.body.style.overflow = 'visible'
+  //   }
+  // }, [isNavShown])
 
-    window.addEventListener('scroll', handleScroll)
+  // // Add sticky header on scroll
+  // useEffect(() => {
+  //   function handleScroll() {
+  //     setIsScrolled(window.scrollY > 0)
+  //   }
 
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
-  }, [])
+  //   window.addEventListener('scroll', handleScroll)
+
+  //   return () => {
+  //     window.removeEventListener('scroll', handleScroll)
+  //   }
+  // }, [])
   // Search function content
   const [searchQuery, setSearchQuery] = useState('')
   const postsPerPage = 1000
@@ -119,7 +122,7 @@ export default function SingleHeader({
   })
 
   return (
-    <header className={cx('components', { sticky: isScrolled })}>
+    <header className={cx('components', { sticky: visibleComponent })}>
       {/* Responsive header */}
       {isDesktop || (!isDesktop && !isNavShown) ? (
         <Container>
@@ -273,7 +276,7 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
       )}
 
       {/* Search Bar */}
-      <div className={cx('search-bar-wrapper', { stickySearch: isScrolled })}>
+      <div className={cx('search-bar-wrapper', { stickySearch: visibleComponent })}>
         <div className={cx('search-input-wrapper')}>
           <SearchInput
             value={searchQuery}
