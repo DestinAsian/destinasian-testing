@@ -244,6 +244,14 @@
       font-family: 'Ringside Regular A', 'Ringside Regular B';
       padding: 0;
 
+      h1 {
+        font-size: 0.8rem;
+
+        @media (min-width: $breakpoint-small) {
+          font-size: 1rem;
+        }
+      }
+
       .directory-wrapper {
         padding: 0 4vw;
 
@@ -261,9 +269,11 @@
         background-color: var(--wpe--color--black);
         color: var(--wpe--color--white);
         padding: 0.5rem 4vw;
+        font-size: 0.9rem;
 
         @media (min-width: $breakpoint-small) {
           padding: 0.5rem 2vw;
+          font-size: 1.1rem;
         }
       }
 
