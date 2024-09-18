@@ -35,7 +35,7 @@ export default function SingleLuxuryTravelSlider({ images, parent }) {
     setIsMounted(true)
   }, [])
 
-  const mobileHeight = isMobile ? height / 1.5 : '67vh'
+  const mobileHeight = isMobile && 'auto'
   const desktopHeight = isDesktop ? height : '100vh'
 
   const menuIndex = images?.map((image, index) => index)
@@ -46,6 +46,10 @@ export default function SingleLuxuryTravelSlider({ images, parent }) {
         spaceBetween={30}
         effect={'fade'}
         loop={true}
+        autoplay={{
+          delay: 25000,
+          disableOnInteraction: true,
+        }}
         pagination={{
           clickable: true,
           el: '.swiper-lt-custom-pagination',
@@ -75,13 +79,13 @@ export default function SingleLuxuryTravelSlider({ images, parent }) {
                       priority
                     />
                   </div>
-                  {image[1] && (
+                  {/* {image[1] && (
                     <div className={cx('caption-wrapper')}>
                       <figcaption className={'slide-caption'}>
                         <span className={'caption'}>{image[1]}</span>
                       </figcaption>
                     </div>
-                  )}
+                  )} */}
                 </div>
               </SwiperSlide>
             )}

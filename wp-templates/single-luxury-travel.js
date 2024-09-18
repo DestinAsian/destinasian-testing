@@ -213,7 +213,7 @@ export default function SingleLuxuryTravel(props) {
                   parent={parent?.node?.title}
                 />
               </section>
-              <section className="snap-section snap-start snap-always" data-id="section2">
+              <section className="snap-section snap-start snap-always pt-[3.5rem] sm:pt-[4.5rem]" data-id="section2">
                 <SingleAdvertorialEntryHeader
                   title={title}
                   label={acfAdvertorialLabel?.advertorialLabel}
@@ -221,30 +221,22 @@ export default function SingleLuxuryTravel(props) {
                 />
                 <ContentWrapperAdvertorial content={content} />
               </section>
-              <section className="snap-section snap-start snap-always" data-id="section3">
+              <section className="snap-section snap-start snap-always pt-[3.5rem] sm:pt-[4.5rem]" data-id="section3">
                 <LuxuryTravelStories
                   luxuryTravelId={databaseId}
                   parent={parent?.node?.title}
                 />
               </section>
-              <section className="snap-section snap-start snap-always" data-id="section4">
+              <section className="snap-section snap-start snap-always pt-[3.5rem] sm:pt-[4.5rem]" data-id="section4">
                 <LuxuryTravelDirectory
                   content={luxuryTravelDirectory?.directory}
                   parent={parent?.node?.title}
                 />
               </section>
-              <section className="snap-section snap-start snap-always" data-id="section5">
+              <section className="snap-section snap-start snap-always pt-[3.5rem] sm:pt-[4.5rem]" data-id="section5">
                 <Footer footerMenu={footerMenu} />
               </section>
             </div>
-            {/* Conditionally Render Component */}
-            {visibleComponent === 'section2' && (
-              <div className="fixed bottom-5 right-5 rounded-lg bg-white p-4 shadow-lg">
-                <h2 className="text-lg font-bold">
-                  You are viewing Section 2!
-                </h2>
-              </div>
-            )}
           </SingleAdvertorialContainer>
         </>
       </Main>
