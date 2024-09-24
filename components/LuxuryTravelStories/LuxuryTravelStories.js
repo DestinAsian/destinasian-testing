@@ -175,8 +175,6 @@ export default function LuxuryTravelStories(luxuryTravelId) {
     return uniquePosts
   }, [])
 
-  console.log(mergedPosts)
-
   // Concatenate the arrays to place ads specificAds first
   const sortedBannerAdsArray = [...SpecificAdsArray].reduce((uniqueAds, ad) => {
     if (!uniqueAds.some((uniqueAd) => uniqueAd?.node?.id === ad?.node?.id)) {
