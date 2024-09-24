@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import className from 'classnames/bind'
 import styles from './SingleLuxuryTravelSlider.module.scss'
 import Image from 'next/image'
-import { use100vh } from 'react-div-100vh'
 import { useMediaQuery } from 'react-responsive'
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -20,7 +19,6 @@ let cx = className.bind(styles)
 
 export default function SingleLuxuryTravelSlider({ images, parent }) {
   const [isMounted, setIsMounted] = useState(false) // To ensure client-side rendering
-  const height = use100vh()
 
   // Media queries
   const isDesktop = useMediaQuery({ minWidth: 640 })
@@ -36,7 +34,7 @@ export default function SingleLuxuryTravelSlider({ images, parent }) {
   }, [])
 
   const mobileHeight = isMobile && 'auto'
-  const desktopHeight = isDesktop ? height : '100vh'
+  const desktopHeight = isDesktop && '93vh'
 
   const menuIndex = images?.map((image, index) => index)
 

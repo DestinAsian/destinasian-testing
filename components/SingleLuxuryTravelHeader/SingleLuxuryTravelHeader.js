@@ -7,7 +7,7 @@ import {
   SearchInput,
   SearchResults,
 } from '../../components'
-import styles from './SingleHeader.module.scss'
+import styles from './SingleLuxuryTravelHeader.module.scss'
 import { useState, useEffect } from 'react'
 import { useMediaQuery } from 'react-responsive'
 import Image from 'next/image'
@@ -16,7 +16,7 @@ import { GetSearchResults } from '../../queries/GetSearchResults'
 
 let cx = classNames.bind(styles)
 
-export default function SingleHeader({
+export default function SingleLuxuryTravelHeader({
   primaryMenuItems,
   secondaryMenuItems,
   thirdMenuItems,
@@ -26,32 +26,35 @@ export default function SingleHeader({
   latestStories,
   menusLoading,
   latestLoading,
+  visibleComponent,
 }) {
+  // Media queries
   const isDesktop = useMediaQuery({ minWidth: 768 })
+  const isMobile = useMediaQuery({ maxWidth: 767 })
   const [isNavShown, setIsNavShown] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
 
-  // Stop scrolling pages when isNavShown
-  useEffect(() => {
-    if (isNavShown) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'visible'
-    }
-  }, [isNavShown])
+  // // Stop scrolling pages when isNavShown
+  // useEffect(() => {
+  //   if (isNavShown) {
+  //     document.body.style.overflow = 'hidden'
+  //   } else {
+  //     document.body.style.overflow = 'visible'
+  //   }
+  // }, [isNavShown])
 
-  // Add sticky header on scroll
-  useEffect(() => {
-    function handleScroll() {
-      setIsScrolled(window.scrollY > 0)
-    }
+  // // Add sticky header on scroll
+  // useEffect(() => {
+  //   function handleScroll() {
+  //     setIsScrolled(window.scrollY > 0)
+  //   }
 
-    window.addEventListener('scroll', handleScroll)
+  //   window.addEventListener('scroll', handleScroll)
 
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
-  }, [])
+  //   return () => {
+  //     window.removeEventListener('scroll', handleScroll)
+  //   }
+  // }, [])
   // Search function content
   const [searchQuery, setSearchQuery] = useState('')
   const postsPerPage = 1000
@@ -116,10 +119,10 @@ export default function SingleHeader({
 
     // Compare the dates
     return dateB - dateA
-  });
+  })
 
   return (
-    <header className={cx('components', { sticky: isScrolled })}>
+    <header className={cx('components', { sticky: visibleComponent })}>
       {/* Responsive header */}
       {isDesktop || (!isDesktop && !isNavShown) ? (
         <Container>
@@ -136,6 +139,31 @@ export default function SingleHeader({
                 />
               </div>
             </Link>
+            {/* Search Bar */}
+            {/* {isNavShown == false ? (
+              <div className={cx('search-bar-wrapper')}>
+                <div className={cx('search-input-wrapper')}>
+                  <SearchInput
+                    value={searchQuery}
+                    onChange={(newValue) => setSearchQuery(newValue)}
+                    clearSearch={clearSearch}
+                  />
+                </div>
+                <div className={cx('search-result-wrapper')}>
+                  {searchResultsError && (
+                    <div className={cx('alert-error')}>
+                      {'An error has occurred. Please refresh and try again.'}
+                    </div>
+                  )}
+                  {isSearchResultsVisible && (
+                    <SearchResults
+                      searchResults={contentNodesPosts}
+                      isLoading={searchResultsLoading}
+                    />
+                  )}
+                </div>
+              </div>
+            ) : null} */}
 
             {/* Menu Button */}
             {isNavShown == false ? (
@@ -271,33 +299,6 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
           </div>
         </Container>
       )}
-
-      {/* Search Bar */}
-      <div className={cx('search-bar-wrapper', { stickySearch: isScrolled })}>
-        <div className={cx('search-input-wrapper')}>
-          <SearchInput
-            value={searchQuery}
-            onChange={(newValue) => setSearchQuery(newValue)}
-            clearSearch={clearSearch}
-          />
-        </div>
-        <div className={cx('search-result-wrapper')}>
-          {searchResultsError && (
-            <div className={cx('alert-error')}>
-              {'An error has occurred. Please refresh and try again.'}
-            </div>
-          )}
-
-          {/* Conditionally render the SearchResults component */}
-          {isSearchResultsVisible && (
-            <SearchResults
-              searchResults={contentNodesPosts}
-              isLoading={searchResultsLoading}
-            />
-          )}
-          
-        </div>
-      </div>
 
       {/* Full menu */}
       <div

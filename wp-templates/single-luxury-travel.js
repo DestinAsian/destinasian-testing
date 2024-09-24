@@ -3,6 +3,7 @@ import * as MENUS from '../constants/menus'
 import { BlogInfoFragment } from '../fragments/GeneralSettings'
 import {
   SingleHeader,
+  SingleLuxuryTravelHeader,
   Footer,
   Main,
   SingleAdvertorialContainer,
@@ -38,6 +39,7 @@ export default function SingleLuxuryTravel(props) {
     acfAdvertorialLabel,
     seo,
     uri,
+    luxuryTravelPinPosts,
     luxuryTravelDirectory,
   } = props?.data?.luxuryTravel
 
@@ -116,8 +118,6 @@ export default function SingleLuxuryTravel(props) {
     }
   }, [])
 
-  console.log(visibleComponent)
-
   const posts = latestStories?.posts ?? []
   const editorials = latestStories?.editorials ?? []
   const updates = latestStories?.updates ?? []
@@ -186,7 +186,7 @@ export default function SingleLuxuryTravel(props) {
       className={`${eb_garamond.variable} ${rubik_mono_one.variable} ${rubik.variable}`}
     >
       <SEO />
-      <SingleHeader
+      <SingleLuxuryTravelHeader
         title={siteTitle}
         description={siteDescription}
         primaryMenuItems={primaryMenu}
@@ -207,13 +207,19 @@ export default function SingleLuxuryTravel(props) {
               className="scroll-snap-container h-screen w-screen snap-y snap-mandatory overflow-y-scroll"
               onScroll={handleScroll}
             >
-              <section className="snap-section snap-start snap-always" data-id="section1">
+              <section
+                className="snap-section snap-start snap-always"
+                data-id="section1"
+              >
                 <SingleLuxuryTravelSlider
                   images={images}
                   parent={parent?.node?.title}
                 />
               </section>
-              <section className="snap-section snap-start snap-always pt-[3.5rem] sm:pt-[4.5rem]" data-id="section2">
+              <section
+                className="snap-section snap-start snap-always pt-[3.5rem] sm:pt-[4.5rem]"
+                data-id="section2"
+              >
                 <SingleAdvertorialEntryHeader
                   title={title}
                   label={acfAdvertorialLabel?.advertorialLabel}
@@ -221,19 +227,28 @@ export default function SingleLuxuryTravel(props) {
                 />
                 <ContentWrapperAdvertorial content={content} />
               </section>
-              <section className="snap-section snap-start snap-always pt-[3.5rem] sm:pt-[4.5rem]" data-id="section3">
+              <section
+                className="snap-section snap-start snap-always pt-[3.5rem] sm:pt-[4.5rem]"
+                data-id="section3"
+              >
                 <LuxuryTravelStories
                   luxuryTravelId={databaseId}
                   parent={parent?.node?.title}
                 />
               </section>
-              <section className="snap-section snap-start snap-always pt-[3.5rem] sm:pt-[4.5rem]" data-id="section4">
+              <section
+                className="snap-section snap-start snap-always pt-[3.5rem] sm:pt-[4.5rem]"
+                data-id="section4"
+              >
                 <LuxuryTravelDirectory
                   content={luxuryTravelDirectory?.directory}
                   parent={parent?.node?.title}
                 />
               </section>
-              <section className="snap-section snap-start snap-always pt-[3.5rem] sm:pt-[4.5rem]" data-id="section5">
+              <section
+                className="snap-section snap-start snap-always pt-[3.5rem] sm:pt-[4.5rem]"
+                data-id="section5"
+              >
                 <Footer footerMenu={footerMenu} />
               </section>
             </div>
@@ -299,6 +314,261 @@ SingleLuxuryTravel.query = gql`
       }
       luxuryTravelDirectory {
         directory
+      }
+      luxuryTravelPinPosts {
+        pinPosts {
+          ... on Post {
+            id
+            uri
+            contentTypeName
+            title
+            content
+            date
+            excerpt
+            featuredImage {
+              node {
+                id
+                sourceUrl
+                altText
+                mediaDetails {
+                  width
+                  height
+                }
+              }
+            }
+            categories(where: { childless: true }) {
+              edges {
+                node {
+                  name
+                  uri
+                  parent {
+                    node {
+                      name
+                    }
+                  }
+                }
+              }
+            }
+            acfCategoryIcon {
+              categoryLabel
+              chooseYourCategory
+              chooseIcon {
+                mediaItemUrl
+              }
+            }
+            acfLocationIcon {
+              fieldGroupName
+              locationLabel
+              locationUrl
+            }
+          }
+          ... on Editorial {
+            id
+            uri
+            contentTypeName
+            title
+            content
+            date
+            excerpt
+            featuredImage {
+              node {
+                id
+                sourceUrl
+                altText
+                mediaDetails {
+                  width
+                  height
+                }
+              }
+            }
+            categories {
+              edges {
+                node {
+                  name
+                  uri
+                  parent {
+                    node {
+                      name
+                    }
+                  }
+                }
+              }
+            }
+          }
+          ... on Update {
+            id
+            uri
+            contentTypeName
+            title
+            content
+            date
+            excerpt
+            featuredImage {
+              node {
+                id
+                sourceUrl
+                altText
+                mediaDetails {
+                  width
+                  height
+                }
+              }
+            }
+            categories {
+              edges {
+                node {
+                  name
+                  uri
+                  parent {
+                    node {
+                      name
+                    }
+                  }
+                }
+              }
+            }
+          }
+          ... on Advertorial {
+            id
+            uri
+            contentTypeName
+            title
+            excerpt
+            featuredImage {
+              node {
+                id
+                sourceUrl
+                altText
+                mediaDetails {
+                  width
+                  height
+                }
+              }
+            }
+          }
+          ... on HonorsCircle {
+            id
+            uri
+            contentTypeName
+            title
+            excerpt
+            contentType {
+              node {
+                label
+              }
+            }
+            featuredImage {
+              node {
+                id
+                sourceUrl
+                altText
+                mediaDetails {
+                  width
+                  height
+                }
+              }
+            }
+          }
+        }
+        moreStories {
+          ... on Post {
+            id
+            uri
+            contentTypeName
+            title
+            content
+            date
+            excerpt
+            categories(where: { childless: true }) {
+              edges {
+                node {
+                  name
+                  uri
+                  parent {
+                    node {
+                      name
+                    }
+                  }
+                }
+              }
+            }
+            acfCategoryIcon {
+              categoryLabel
+              chooseYourCategory
+              chooseIcon {
+                mediaItemUrl
+              }
+            }
+            acfLocationIcon {
+              fieldGroupName
+              locationLabel
+              locationUrl
+            }
+          }
+          ... on Editorial {
+            id
+            uri
+            contentTypeName
+            title
+            content
+            date
+            excerpt
+            categories {
+              edges {
+                node {
+                  name
+                  uri
+                  parent {
+                    node {
+                      name
+                    }
+                  }
+                }
+              }
+            }
+          }
+          ... on Update {
+            id
+            uri
+            contentTypeName
+            title
+            content
+            date
+            excerpt
+            categories {
+              edges {
+                node {
+                  name
+                  uri
+                  parent {
+                    node {
+                      name
+                    }
+                  }
+                }
+              }
+            }
+          }
+          ... on Advertorial {
+            id
+            uri
+            contentTypeName
+            title
+            excerpt
+          }
+          ... on HonorsCircle {
+            id
+            uri
+            contentTypeName
+            title
+            excerpt
+            contentType {
+              node {
+                label
+              }
+            }
+          }
+        }
       }
     }
     generalSettings {

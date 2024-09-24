@@ -12,7 +12,6 @@ import {
   AdvertorialPostTwoColumns,
   ModuleAd,
 } from '../../components'
-import { GetLuxuryTravelStories } from '../../queries/GetLuxuryTravelStories'
 
 let cx = classNames.bind(styles)
 
@@ -33,17 +32,11 @@ export default function LuxuryTravelStories(luxuryTravelId) {
 
   const databaseId = luxuryTravelId?.luxuryTravelId
   const parent = luxuryTravelId?.parent
+  const luxuryTravelPinPosts = luxuryTravelId?.luxuryTravelPinPosts
 
   if (!parent) {
     return null
   }
-
-  // Get Stories / Posts
-  const { data, error, loading } = useQuery(GetLuxuryTravelStories, {
-    variables: { id: databaseId },
-    fetchPolicy: 'network-only',
-    nextFetchPolicy: 'cache-and-network',
-  })
 
   let bannerVariable = {
     first: bannerPerPage,
@@ -162,20 +155,12 @@ export default function LuxuryTravelStories(luxuryTravelId) {
   //   }
   // }, [fetchMorePosts])
 
-  if (error) {
-    return <pre>{JSON.stringify(error)}</pre>
-  }
-
-  if (loading) {
-    return null
-  }
-
   // Declare all posts
-  const allPosts = data?.luxuryTravel?.luxuryTravelPinPosts?.pinPosts
-  const allMoreStories = data?.luxuryTravel?.luxuryTravelPinPosts?.moreStories
+  const allPosts = luxuryTravelPinPosts?.pinPosts
+  const allMoreStories = luxuryTravelPinPosts?.moreStories
 
   // All posts
-  const mergedPosts = [...allPosts].reduce((uniquePosts, post) => {
+  const mergedPosts = [allPosts].reduce((uniquePosts, post) => {
     if (!uniquePosts.some((uniquePost) => uniquePost?.id === post?.id)) {
       uniquePosts.push(post)
     }
@@ -183,12 +168,14 @@ export default function LuxuryTravelStories(luxuryTravelId) {
   }, [])
 
   // More Stories posts
-  const moreStories = [...allMoreStories].reduce((uniquePosts, post) => {
+  const moreStories = [allMoreStories].reduce((uniquePosts, post) => {
     if (!uniquePosts.some((uniquePost) => uniquePost?.id === post?.id)) {
       uniquePosts.push(post)
     }
     return uniquePosts
   }, [])
+
+  console.log(mergedPosts)
 
   // Concatenate the arrays to place ads specificAds first
   const sortedBannerAdsArray = [...SpecificAdsArray].reduce((uniqueAds, ad) => {
@@ -205,8 +192,8 @@ export default function LuxuryTravelStories(luxuryTravelId) {
       {!!parent && (
         <>
           <div className={cx('pin-posts-wrapper')}>
-            {mergedPosts.length !== 0 &&
-              mergedPosts.map((post, index) => (
+            {mergedPosts[0].length !== 0 &&
+              mergedPosts[0].map((post, index) => (
                 <React.Fragment key={post?.id}>
                   {post?.contentTypeName === 'post' && (
                     <div className={cx('post-wrapper')}>
@@ -313,8 +300,8 @@ export default function LuxuryTravelStories(luxuryTravelId) {
           <div className={cx('more-stories-wrapper')}>
             <div className={cx('more-stories-title')}>{'More Stories'}</div>
             <div className={cx('more-stories-content')}>
-              {moreStories.length !== 0 &&
-                moreStories.map((post, index) => (
+              {moreStories[0].length !== 0 &&
+                moreStories[0].map((post, index) => (
                   <React.Fragment key={post?.id}>
                     {post?.contentTypeName === 'post' && (
                       <div className={cx('post-wrapper')}>
