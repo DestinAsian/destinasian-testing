@@ -23,53 +23,53 @@ export default function LLMenu({ mainLogo, secondaryLogo, databaseId, uri }) {
     nextFetchPolicy: 'cache-and-network',
   })
 
-  const updateQuery = (prev, { fetchMoreResult }) => {
-    if (!fetchMoreResult) return prev
+  // const updateQuery = (prev, { fetchMoreResult }) => {
+  //   if (!fetchMoreResult) return prev
 
-    return {
-      ...data,
-      luxeList: {
-        ...data?.luxeList,
-        children: {
-          ...prev?.luxeList?.children,
-          edges: [
-            ...prev?.luxeList?.children?.edges,
-            ...fetchMoreResult?.luxeList?.children?.edges,
-          ],
-          pageInfo: fetchMoreResult?.luxeList?.children?.pageInfo,
-        },
-      },
-    }
-  }
+  //   return {
+  //     ...data,
+  //     luxeList: {
+  //       ...data?.luxeList,
+  //       children: {
+  //         ...prev?.luxeList?.children,
+  //         edges: [
+  //           ...prev?.luxeList?.children?.edges,
+  //           ...fetchMoreResult?.luxeList?.children?.edges,
+  //         ],
+  //         pageInfo: fetchMoreResult?.luxeList?.children?.pageInfo,
+  //       },
+  //     },
+  //   }
+  // }
 
-  // Fetch more stories when scroll to bottom
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrolledToBottom =
-        window.scrollY + window.innerHeight >=
-        document.documentElement.scrollHeight
+  // // Fetch more stories when scroll to bottom
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     const scrolledToBottom =
+  //       window.scrollY + window.innerHeight >=
+  //       document.documentElement.scrollHeight
 
-      if (
-        scrolledToBottom &&
-        !isFetchingMore &&
-        data?.luxeList?.children?.pageInfo?.hasNextPage
-      ) {
-        fetchMore({
-          variables: {
-            first: postsPerPage,
-            after: data?.luxeList?.children?.pageInfo?.endCursor,
-          },
-          updateQuery,
-        })
-      }
-    }
+  //     if (
+  //       scrolledToBottom &&
+  //       !isFetchingMore &&
+  //       data?.luxeList?.children?.pageInfo?.hasNextPage
+  //     ) {
+  //       fetchMore({
+  //         variables: {
+  //           first: postsPerPage,
+  //           after: data?.luxeList?.children?.pageInfo?.endCursor,
+  //         },
+  //         updateQuery,
+  //       })
+  //     }
+  //   }
 
-    window.addEventListener('scroll', handleScroll)
+  //   window.addEventListener('scroll', handleScroll)
 
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
-  }, [data, fetchMore])
+  //   return () => {
+  //     window.removeEventListener('scroll', handleScroll)
+  //   }
+  // }, [data, fetchMore])
 
   if (error) {
     return <pre>{JSON.stringify(error)}</pre>
@@ -104,24 +104,33 @@ export default function LLMenu({ mainLogo, secondaryLogo, databaseId, uri }) {
     <div className={cx('component')}>
       {/* Full menu */}
       <div className={cx('full-menu-content')}>
-        <div className={cx('image-wrapper')}>
-          {secondaryLogo && uri ? (
-            <Link href={uri}>
-              <FeaturedImage
-                image={secondaryLogo}
-                className={cx('image')}
-                priority
-              />
-            </Link>
-          ) : mainLogo && uri ? (
-            <Link href={uri}>
-              <FeaturedImage
-                image={mainLogo}
-                className={cx('image')}
-                priority
-              />
-            </Link>
-          ) : null}
+        <div className={cx('ll-menu-header')}>
+          {data?.luxeList?.uri && data?.luxeList?.title && (
+            <div className={cx('title-header-wrapper')}>
+              <Link href={data?.luxeList?.uri}>
+                <span>{data?.luxeList?.title}</span>
+              </Link>
+            </div>
+          )}
+          <div className={cx('image-wrapper')}>
+            {secondaryLogo && uri ? (
+              <Link href={uri}>
+                <FeaturedImage
+                  image={secondaryLogo}
+                  className={cx('image')}
+                  priority
+                />
+              </Link>
+            ) : mainLogo && uri ? (
+              <Link href={uri}>
+                <FeaturedImage
+                  image={mainLogo}
+                  className={cx('image')}
+                  priority
+                />
+              </Link>
+            ) : null}
+          </div>
         </div>
         <div className={cx('menu-wrapper')}>
           {uniqueCategories.map((categoryName, index) => (
@@ -148,7 +157,7 @@ export default function LLMenu({ mainLogo, secondaryLogo, databaseId, uri }) {
               })}
             </div>
           ))}
-          {uniqueCategories.length && (
+          {/* {uniqueCategories.length && (
             <div className="mx-auto my-0 flex max-w-[100vw] justify-center md:max-w-[700px]	">
               {data?.luxeList?.children?.pageInfo?.hasNextPage &&
                 data?.luxeList?.children?.pageInfo?.endCursor && (
@@ -206,7 +215,7 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
                   </Button>
                 )}
             </div>
-          )}
+          )} */}
         </div>
       </div>
     </div>

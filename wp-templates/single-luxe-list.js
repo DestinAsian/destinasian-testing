@@ -181,16 +181,26 @@ export default function singleLuxeList(props) {
           {/* {'hotel'} */}
           <SingleLLContainer>
             <div className="sm:fixed sm:left-[50vw] sm:flex sm:w-[50vw] sm:flex-col">
-              <div className="sm:relative sm:h-[100vh] sm:flex-row sm:flex-wrap sm:overflow-y-auto">
+              <div className="w-full sm:relative sm:flex sm:h-[100vh] sm:flex-row-reverse sm:flex-nowrap sm:overflow-y-auto">
                 {/* First wrapper */}
                 <SingleLLFeaturedImage
-                  mainLogo={parent?.node?.luxeListLogo?.mainLogo}
-                  secondaryLogo={parent?.node?.luxeListLogo?.secondaryLogo}
-                  databaseId={parent?.node?.databaseId}
-                  uri={parent?.node?.uri}
+                  mainLogo={
+                    parent != null
+                      ? parent?.node?.luxeListLogo?.mainLogo
+                      : luxeListLogo?.mainLogo
+                  }
+                  secondaryLogo={
+                    parent != null
+                      ? parent?.node?.luxeListLogo?.secondaryLogo
+                      : luxeListLogo?.secondaryLogo
+                  }
+                  databaseId={
+                    parent != null ? parent?.node?.databaseId : databaseId
+                  }
+                  uri={parent != null ? parent?.node?.uri : uri}
                 />
                 {/* Second wrapper */}
-                <div className="sm:relative sm:mx-auto">
+                <div className="w-full sm:relative sm:pt-8">
                   <SingleLLEntryHeader
                     title={title}
                     category={categories?.edges[0]?.node?.name}

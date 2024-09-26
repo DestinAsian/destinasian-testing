@@ -3,6 +3,8 @@ import { gql } from '@apollo/client'
 export const GetLuxeListMenu = gql`
   query GetLuxeListMenu($first: Int, $after: String, $id: ID = "") {
     luxeList(id: $id, idType: DATABASE_ID) {
+      title
+      uri
       children(
         first: $first
         after: $after
