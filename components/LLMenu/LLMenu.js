@@ -90,13 +90,15 @@ export default function LLMenu({ mainLogo, secondaryLogo, databaseId, uri }) {
     data?.luxeList?.children?.edges.map((post) => post.node) || []
 
   // Function to filter out duplicate categories
-  const uniqueCategories = allPosts.reduce((unique, post) => {
-    const categoryName = post?.categories?.edges[0]?.node?.name
-    if (!unique.includes(categoryName)) {
-      unique.push(categoryName)
-    }
-    return unique
-  }, [])
+  const uniqueCategories = allPosts
+    .reduce((unique, post) => {
+      const categoryName = post?.categories?.edges[0]?.node?.name
+      if (categoryName && !unique.includes(categoryName)) {
+        unique.push(categoryName)
+      }
+      return unique
+    }, [])
+    .sort() // Sort alphabetically
 
   return (
     <div className={cx('component')}>
@@ -123,7 +125,7 @@ export default function LLMenu({ mainLogo, secondaryLogo, databaseId, uri }) {
         </div>
         <div className={cx('menu-wrapper')}>
           {uniqueCategories.map((categoryName, index) => (
-            <React.Fragment key={index}>
+            <div className={cx('menu-list-wrapper')} key={index}>
               <div className={cx('category-wrapper')}>
                 <h2 className={cx('category')}>{categoryName}</h2>
               </div>
@@ -144,7 +146,7 @@ export default function LLMenu({ mainLogo, secondaryLogo, databaseId, uri }) {
                 }
                 return null
               })}
-            </React.Fragment>
+            </div>
           ))}
           {uniqueCategories.length && (
             <div className="mx-auto my-0 flex max-w-[100vw] justify-center md:max-w-[700px]	">
