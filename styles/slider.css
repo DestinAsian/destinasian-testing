@@ -443,6 +443,10 @@
     width: 100%;
     max-width: 350px;
   }
+
+  .post-ll-swiper > .swiper-wrapper > .swiper-slide {
+    height: calc(100vh - 4.5rem);
+  }
 }
 
 @media only screen and (min-width: 768px) {

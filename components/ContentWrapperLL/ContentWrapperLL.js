@@ -25,7 +25,9 @@ export default function ContentWrapperLL({ content, images, databaseId }) {
       const doc = parser.parseFromString(content, 'text/html')
 
       // Get only image elements with src containing "staging.destinasian.com"
-      const imageElements = doc.querySelectorAll('img[src*="staging.destinasian.com"]');
+      const imageElements = doc.querySelectorAll(
+        'img[src*="staging.destinasian.com"]',
+      )
 
       // Replace <img> elements with <Image> components
       imageElements.forEach((img) => {
@@ -67,76 +69,70 @@ export default function ContentWrapperLL({ content, images, databaseId }) {
     nextFetchPolicy: 'cache-and-network',
   })
 
+  if (loading) {
+    return null
+  }
+
   if (error) {
     return <pre>{JSON.stringify(error)}</pre>
   }
 
-  const luxeListAll = data?.luxeListBy?.parent?.node?.children?.edges.map(
-    (post) => post.node,
-  )
+  const parent = data?.luxeListBy?.parent
 
-  // Index number for each of Individual Page
-  const indexOfLuxeList = data?.luxeListBy?.menuOrder
+  // If parent exists, construct luxeListAll, else only map children
+  const luxeListAll = parent
+    ? [
+        parent?.node,
+        ...(data?.luxeListBy?.parent?.node?.children?.edges.map(
+          (post) => post.node,
+        ) || []),
+      ]
+    : [
+        data?.luxeListBy,
+        ...(data?.luxeListBy?.children?.edges.map((post) => post.node) || []),
+      ]
+
+  // Index number for each of Individual Page, default to 0 if null or undefined
+  const indexOfLuxeList = data?.luxeListBy?.menuOrder ?? 0
 
   // Total number of Luxe Lists in a year
   const numberOfLuxeLists = luxeListAll?.length
 
   // Navigation of luxe list individual page
-  const prevIndex = indexOfLuxeList - 1 - 1
-  const nextIndex = indexOfLuxeList - 1 + 1
+  const prevIndex = indexOfLuxeList - 1
+  const nextIndex = indexOfLuxeList + 1
 
-  const prevUri = prevIndex >= 0 ? luxeListAll[prevIndex].uri : null
+  const prevUri = prevIndex >= 0 ? luxeListAll[prevIndex]?.uri : null
   const nextUri =
-    nextIndex < numberOfLuxeLists ? luxeListAll[nextIndex].uri : null
+    nextIndex < numberOfLuxeLists ? luxeListAll[nextIndex]?.uri : null
 
   return (
     <article className={cx('component')}>
-      {images[0] != null && (
-        <div className={cx('with-slider-wrapper')}>
+      <div className={cx('with-slider-wrapper')}>
+        {images[0] != null && (
           <div className={cx('slider-wrapper')}>
             <SingleLLSlider images={images} />
           </div>
-          <div
-            className={cx('content-wrapper')}
-            dangerouslySetInnerHTML={{ __html: transformedContent }}
-          />
-          <div className={cx('navigation-wrapper')}>
-            <div className={cx('navigation-button')}>
-              {prevUri && <Link href={prevUri}>{'-'}</Link>}
-            </div>
-            <div className={cx('pagination-wrapper')}>
-              {indexOfLuxeList}
-              {' / '}
-              {numberOfLuxeLists}
-            </div>
-            <div className={cx('navigation-button')}>
-              {nextUri && <Link href={nextUri}>{'+'}</Link>}
-            </div>
+        )}
+        {images[0] == null && <div className={cx('slider-wrapper')}></div>}
+        <div
+          className={cx('content-wrapper')}
+          dangerouslySetInnerHTML={{ __html: transformedContent }}
+        />
+        <div className={cx('navigation-wrapper')}>
+          <div className={cx('navigation-button')}>
+            {prevUri && <Link href={prevUri}>{'-'}</Link>}
+          </div>
+          <div className={cx('pagination-wrapper')}>
+            {indexOfLuxeList}
+            {' / '}
+            {numberOfLuxeLists}
+          </div>
+          <div className={cx('navigation-button')}>
+            {nextUri && <Link href={nextUri}>{'+'}</Link>}
           </div>
         </div>
-      )}
-      {images[0] == null && (
-        <div className={cx('with-slider-wrapper')}>
-          <div className={cx('slider-wrapper')}></div>
-          <div
-            className={cx('content-wrapper')}
-            dangerouslySetInnerHTML={{ __html: transformedContent }}
-          />
-          <div className={cx('navigation-wrapper')}>
-            <div className={cx('navigation-button')}>
-              {prevUri && <Link href={prevUri}>{'-'}</Link>}
-            </div>
-            <div className={cx('pagination-wrapper')}>
-              {indexOfLuxeList}
-              {' / '}
-              {numberOfLuxeLists}
-            </div>
-            <div className={cx('navigation-button')}>
-              {nextUri && <Link href={nextUri}>{'+'}</Link>}
-            </div>
-          </div>
-        </div>
-      )}
+      </div>
     </article>
   )
 }

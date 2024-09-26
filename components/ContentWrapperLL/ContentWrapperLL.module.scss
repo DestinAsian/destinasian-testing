@@ -53,6 +53,10 @@
       margin: 0 0 5.25rem 0;
       border-left: none;
     }
+
+    p {
+      font-size: 1rem;
+    }
   }
 
   .navigation-wrapper {
@@ -77,7 +81,7 @@
   }
 
   .pagination-wrapper {
-    font-family: var(--font--rubik--mono--one);;
+    font-family: var(--font--rubik--mono--one);
     font-weight: 400;
     font-size: 1.5rem;
     text-align: center;
@@ -85,7 +89,7 @@
 
   .navigation-button {
     a {
-      font-family: var(--font--rubik--mono--one);;
+      font-family: var(--font--rubik--mono--one);
       font-weight: 400;
       font-size: 1.5rem;
       text-align: center;

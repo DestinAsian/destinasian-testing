@@ -13,6 +13,7 @@ import {
   ContentWrapperLL,
   SingleLLFrontPageFeaturedImage,
   SingleLLEntryHeader,
+  LLHeader,
 } from '../components'
 import { GetMenus } from '../queries/GetMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
@@ -126,8 +127,8 @@ export default function singleLuxeList(props) {
     <main className={`${eb_garamond.variable} ${rubik_mono_one.variable}`}>
       <SEO />
       {/* Year pages */}
-      {parent == null && (
-        <Header
+      {/* {parent == null && (
+        <LLHeader
           title={siteTitle}
           description={siteDescription}
           primaryMenuItems={primaryMenu}
@@ -145,8 +146,8 @@ export default function singleLuxeList(props) {
         <Main>
           <>
             <SingleLLFrontPageContainer>
-              {/* {'countries'} */}
-              {/* All posts sorted by mainPosts & date */}
+              // {'countries'} 
+              // All posts sorted by mainPosts & date 
               <SingleLLFrontPageFeaturedImage
                 mainLogo={luxeListLogo?.mainLogo}
                 secondaryLogo={luxeListLogo?.secondaryLogo}
@@ -161,56 +162,50 @@ export default function singleLuxeList(props) {
             </SingleLLFrontPageContainer>
           </>
         </Main>
-      )}
-
-      {/* Hotel pages */}
-      {parent != null && (
-        <Header
-          title={siteTitle}
-          description={siteDescription}
-          primaryMenuItems={primaryMenu}
-          secondaryMenuItems={secondaryMenu}
-          thirdMenuItems={thirdMenu}
-          fourthMenuItems={fourthMenu}
-          fifthMenuItems={fifthMenu}
-          featureMenuItems={featureMenu}
-          latestStories={latestAllPosts}
-          menusLoading={menusLoading}
-          latestLoading={latestLoading}
-        />
-      )}
-      {parent != null && (
-        <Main>
-          <>
-            {/* {'hotel'} */}
-            <SingleLLContainer>
-              <div className="sm:fixed sm:left-[50vw] sm:flex sm:w-[50vw] sm:flex-col">
-                <div className="sm:relative sm:h-[100vh] sm:flex-row sm:flex-wrap sm:overflow-y-auto">
-                  {/* First wrapper */}
-                  <SingleLLFeaturedImage
-                    mainLogo={parent?.node?.luxeListLogo?.mainLogo}
-                    secondaryLogo={parent?.node?.luxeListLogo?.secondaryLogo}
-                    databaseId={parent?.node?.databaseId}
-                    uri={parent?.node?.uri}
+      )} */}
+      <LLHeader
+        title={siteTitle}
+        description={siteDescription}
+        primaryMenuItems={primaryMenu}
+        secondaryMenuItems={secondaryMenu}
+        thirdMenuItems={thirdMenu}
+        fourthMenuItems={fourthMenu}
+        fifthMenuItems={fifthMenu}
+        featureMenuItems={featureMenu}
+        latestStories={latestAllPosts}
+        menusLoading={menusLoading}
+        latestLoading={latestLoading}
+      />
+      <Main>
+        <>
+          {/* {'hotel'} */}
+          <SingleLLContainer>
+            <div className="sm:fixed sm:left-[50vw] sm:flex sm:w-[50vw] sm:flex-col">
+              <div className="sm:relative sm:h-[100vh] sm:flex-row sm:flex-wrap sm:overflow-y-auto">
+                {/* First wrapper */}
+                <SingleLLFeaturedImage
+                  mainLogo={parent?.node?.luxeListLogo?.mainLogo}
+                  secondaryLogo={parent?.node?.luxeListLogo?.secondaryLogo}
+                  databaseId={parent?.node?.databaseId}
+                  uri={parent?.node?.uri}
+                />
+                {/* Second wrapper */}
+                <div className="sm:relative sm:mx-auto">
+                  <SingleLLEntryHeader
+                    title={title}
+                    category={categories?.edges[0]?.node?.name}
                   />
-                  {/* Second wrapper */}
-                  <div className="sm:relative sm:mx-auto">
-                    <SingleLLEntryHeader
-                      title={title}
-                      category={categories?.edges[0]?.node?.name}
-                    />
-                    <ContentWrapperLL
-                      content={content}
-                      images={images}
-                      databaseId={databaseId}
-                    />
-                  </div>
+                  <ContentWrapperLL
+                    content={content}
+                    images={images}
+                    databaseId={databaseId}
+                  />
                 </div>
               </div>
-            </SingleLLContainer>
-          </>
-        </Main>
-      )}
+            </div>
+          </SingleLLContainer>
+        </>
+      </Main>
       {/* <Footer /> */}
     </main>
   )
@@ -219,10 +214,7 @@ export default function singleLuxeList(props) {
 singleLuxeList.query = gql`
   ${BlogInfoFragment}
   ${FeaturedImage.fragments.entry}
-  query GetPost(
-    $databaseId: ID!
-    $asPreview: Boolean = false
-  ) {
+  query GetPost($databaseId: ID!, $asPreview: Boolean = false) {
     luxeList(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
       title
       content
