@@ -77,7 +77,7 @@
   // Sticky menu with background
   left: 50%;
   width: 100%;
-  transform: translate(-50%, 6.5rem);
+  transform: translate(-50%, 3.5rem);
 
   // Sticky menu without background
   // right: 0;
@@ -85,6 +85,7 @@
   // transform: translateY(3.5rem);
 
   @media (min-width: $breakpoint-extra-small) {
+    display: none;
     width: 50vw;
     transform: translate(0, 4.5rem);
     padding: 1rem 2rem;
