@@ -12,47 +12,49 @@ export default function SingleLLFeaturedImage({
   secondaryLogo,
   databaseId,
   uri,
+  isNavShown,
+  setIsNavShown,
 }) {
-  const [isNavShown, setIsNavShown] = useState(false)
-  const [isScrolled, setIsScrolled] = useState(false)
+  // const [isNavShown, setIsNavShown] = useState(false)
+  // const [isScrolled, setIsScrolled] = useState(false)
 
   // Stop scrolling pages when isNavShown
-  useEffect(() => {
-    if (isNavShown) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'visible'
-    }
-  }, [isNavShown])
+  // useEffect(() => {
+  //   if (isNavShown) {
+  //     document.body.style.overflow = 'hidden'
+  //   } else {
+  //     document.body.style.overflow = 'visible'
+  //   }
+  // }, [isNavShown])
 
-  useEffect(() => {
-    let prevScrollPos = window.scrollY > 0
+  // useEffect(() => {
+  //   let prevScrollPos = window.scrollY > 0
 
-    function handleScroll() {
-      const currentScrollPos = window.scrollY
-      const windowHeight = window.innerHeight
-      const documentHeight = document.documentElement.scrollHeight
+  //   function handleScroll() {
+  //     const currentScrollPos = window.scrollY
+  //     const windowHeight = window.innerHeight
+  //     const documentHeight = document.documentElement.scrollHeight
 
-      // Check if the user is not at the bottom of the page
-      if (
-        currentScrollPos < prevScrollPos &&
-        currentScrollPos > 0 &&
-        currentScrollPos + windowHeight < documentHeight
-      ) {
-        setIsScrolled(true)
-      } else {
-        setIsScrolled(false)
-      }
+  //     // Check if the user is not at the bottom of the page
+  //     if (
+  //       currentScrollPos < prevScrollPos &&
+  //       currentScrollPos > 0 &&
+  //       currentScrollPos + windowHeight < documentHeight
+  //     ) {
+  //       setIsScrolled(true)
+  //     } else {
+  //       setIsScrolled(false)
+  //     }
 
-      prevScrollPos = currentScrollPos
-    }
+  //     prevScrollPos = currentScrollPos
+  //   }
 
-    window.addEventListener('scroll', handleScroll)
+  //   window.addEventListener('scroll', handleScroll)
 
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
-  }, [])
+  //   return () => {
+  //     window.removeEventListener('scroll', handleScroll)
+  //   }
+  // }, [])
 
   return (
     <div
@@ -61,59 +63,59 @@ export default function SingleLLFeaturedImage({
       {/* Responsive header */}
       {!isNavShown ? (
         <>
-          {!isScrolled && (
-            <div className={cx('image-wrapper')}>
-              {/* Menu Button */}
-              {isNavShown == false ? (
-                <div className={cx('menu-button')}>
-                  {/* menu button */}
-                  <button
-                    type="button"
-                    className={cx('menu-icon')}
-                    onClick={() => {
-                      setIsNavShown(!isNavShown)
-                    }}
-                    aria-label="Toggle navigation"
-                    aria-controls={cx('full-menu-wrapper')}
-                    aria-expanded={!isNavShown}
+          {/* {!isScrolled && ( */}
+          <div className={cx('image-wrapper')}>
+            {/* Menu Button */}
+            {isNavShown == false ? (
+              <div className={cx('menu-button')}>
+                {/* menu button */}
+                <button
+                  type="button"
+                  className={cx('menu-icon')}
+                  onClick={() => {
+                    setIsNavShown(!isNavShown)
+                  }}
+                  aria-label="Toggle navigation"
+                  aria-controls={cx('full-menu-wrapper')}
+                  aria-expanded={!isNavShown}
+                >
+                  {mainLogo && (
+                    <FeaturedImage
+                      image={mainLogo}
+                      className={cx('image')}
+                      priority
+                    />
+                  )}
+                </button>
+              </div>
+            ) : (
+              <div className={cx('menu-button')}>
+                {/* close button */}
+                <button
+                  type="button"
+                  className={cx('close-icon')}
+                  onClick={() => {
+                    setIsNavShown(!isNavShown)
+                  }}
+                  aria-label="Toggle navigation"
+                  aria-controls={cx('full-menu-wrapper')}
+                  aria-expanded={!isNavShown}
+                >
+                  <svg
+                    version="1.0"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="512.000000pt"
+                    height="512.000000pt"
+                    viewBox="0 0 512.000000 512.000000"
+                    preserveAspectRatio="xMidYMid meet"
                   >
-                    {mainLogo && (
-                      <FeaturedImage
-                        image={mainLogo}
-                        className={cx('image')}
-                        priority
-                      />
-                    )}
-                  </button>
-                </div>
-              ) : (
-                <div className={cx('menu-button')}>
-                  {/* close button */}
-                  <button
-                    type="button"
-                    className={cx('close-icon')}
-                    onClick={() => {
-                      setIsNavShown(!isNavShown)
-                    }}
-                    aria-label="Toggle navigation"
-                    aria-controls={cx('full-menu-wrapper')}
-                    aria-expanded={!isNavShown}
-                  >
-                    <svg
-                      version="1.0"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="512.000000pt"
-                      height="512.000000pt"
-                      viewBox="0 0 512.000000 512.000000"
-                      preserveAspectRatio="xMidYMid meet"
+                    <g
+                      transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+                      fill="#ffffff"
+                      stroke="none"
                     >
-                      <g
-                        transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
-                        fill="#ffffff"
-                        stroke="none"
-                      >
-                        <path
-                          d="M2330 5109 c-305 -29 -646 -126 -910 -259 -273 -138 -559 -356 -755
+                      <path
+                        d="M2330 5109 c-305 -29 -646 -126 -910 -259 -273 -138 -559 -356 -755
 -576 -384 -432 -602 -931 -655 -1499 -41 -446 55 -949 260 -1355 138 -273 356
 -559 576 -755 432 -384 931 -602 1499 -655 446 -41 949 55 1355 260 273 138
 559 356 755 576 384 432 602 931 655 1499 41 446 -55 949 -260 1355 -138 273
@@ -122,21 +124,19 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
 425 -425 425 -425 -213 -212 -212 -213 -425 425 -425 425 -425 -425 -425 -425
 -212 213 -213 212 425 425 425 425 -425 425 -425 425 210 210 c115 115 212
 210 215 210 3 0 195 -190 427 -422z"
-                        />
-                      </g>
-                    </svg>
-                  </button>
-                </div>
-              )}
-            </div>
-          )}
+                      />
+                    </g>
+                  </svg>
+                </button>
+              </div>
+            )}
+          </div>
+          {/* )} */}
 
-          {isScrolled && (
+          {/* {isScrolled && (
             <div className={cx('sticky-image-wrapper')}>
-              {/* Menu Button */}
               {isNavShown == false ? (
                 <div className={cx('menu-button')}>
-                  {/* menu button */}
                   <button
                     type="button"
                     className={cx('menu-icon')}
@@ -158,7 +158,6 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
                 </div>
               ) : (
                 <div className={cx('menu-button')}>
-                  {/* close button */}
                   <button
                     type="button"
                     className={cx('close-icon')}
@@ -199,7 +198,7 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
                 </div>
               )}
             </div>
-          )}
+          )} */}
         </>
       ) : (
         <div className={cx('image-menu-wrapper')}>

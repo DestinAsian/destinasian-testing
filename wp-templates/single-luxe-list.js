@@ -1,18 +1,14 @@
 import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
 import { BlogInfoFragment } from '../fragments/GeneralSettings'
+import { useState } from 'react'
 import {
   Main,
   FeaturedImage,
   SEO,
-  Header,
   SingleLLContainer,
-  SingleLLFrontPageContainer,
-  ContentWrapperLLFrontPage,
   SingleLLFeaturedImage,
   ContentWrapperLL,
-  SingleLLFrontPageFeaturedImage,
-  SingleLLEntryHeader,
   LLHeader,
 } from '../components'
 import { GetMenus } from '../queries/GetMenus'
@@ -24,6 +20,8 @@ export default function singleLuxeList(props) {
   if (props.loading) {
     return <>Loading...</>
   }
+
+  const [isNavShown, setIsNavShown] = useState(false)
 
   const { title: siteTitle, description: siteDescription } =
     props?.data?.generalSettings
@@ -198,17 +196,24 @@ export default function singleLuxeList(props) {
                     parent != null ? parent?.node?.databaseId : databaseId
                   }
                   uri={parent != null ? parent?.node?.uri : uri}
+                  isNavShown={isNavShown}
+                  setIsNavShown={setIsNavShown}
                 />
                 {/* Second wrapper */}
                 <div className="w-full sm:relative sm:pt-8">
-                  <SingleLLEntryHeader
+                  <ContentWrapperLL
                     title={title}
                     category={categories?.edges[0]?.node?.name}
-                  />
-                  <ContentWrapperLL
                     content={content}
                     images={images}
+                    mainLogo={
+                      parent != null
+                        ? parent?.node?.luxeListLogo?.mainLogo
+                        : luxeListLogo?.mainLogo
+                    }
                     databaseId={databaseId}
+                    isNavShown={isNavShown}
+                    setIsNavShown={setIsNavShown}
                   />
                 </div>
               </div>
