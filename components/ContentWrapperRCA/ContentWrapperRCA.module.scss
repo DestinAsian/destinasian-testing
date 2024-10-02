@@ -510,6 +510,7 @@
   padding: 0;
   height: 20rem;
   z-index: 47;
+  box-shadow: 0 0.5rem 0.5rem var(--wpe--color--deep--black);
 
   @media (min-width: $breakpoint-extra-small) {
     position: fixed;
@@ -519,6 +520,7 @@
     padding: 0;
     height: 100vh;
     border-left: 2rem solid var(--wpe--color--deep--black);
+    box-shadow: none;
   }
 
   * {

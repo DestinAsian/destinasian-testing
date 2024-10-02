@@ -3,7 +3,7 @@
 .component {
   color: var(--wpe--color--white);
   background-color: var(--wpe--color--black);
-  position: relative;
+  position: fixed;
   width: 100%;
   z-index: 50;
 }
@@ -93,7 +93,7 @@
   align-items: center;
   cursor: pointer;
   user-select: none;
-  width: 1.3rem;
+  width: 0.5rem;
 
   @media (min-width: $breakpoint-extra-small) {
     width: 1.6rem;

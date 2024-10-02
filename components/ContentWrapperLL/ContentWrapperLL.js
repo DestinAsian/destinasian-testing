@@ -2,15 +2,12 @@ import className from 'classnames/bind'
 import styles from './ContentWrapperLL.module.scss'
 import {
   SingleLLSlider,
-  Button,
   SingleLLEntryHeader,
-  SingleLLFeaturedImage,
   FeaturedImage,
 } from '../../components'
 import { GetLuxeListPagination } from '../../queries/GetLuxeListPagination'
 import { useQuery } from '@apollo/client'
-import React from 'react'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -29,6 +26,44 @@ export default function ContentWrapperLL({
 }) {
   const batchSize = 30
   const [transformedContent, setTransformedContent] = useState('')
+
+  const [isAutoplayRunning, setIsAutoplayRunning] = useState(true) // Default to false until Swiper is initialized
+  const sliderLL = useRef(null) // Reference for Swiper instance
+
+  useEffect(() => {
+    const swiperInstance = sliderLL?.current?.swiper
+
+    // Only run after Swiper has been fully initialized
+    if (swiperInstance) {
+      // Initial check after Swiper has mounted
+      const initialAutoplayState = swiperInstance.autoplay?.running || false
+      setIsAutoplayRunning(initialAutoplayState)
+
+      // Add a listener for slide changes to keep track of autoplay state
+      swiperInstance.on('slideChange', () => {
+        const currentAutoplayState = swiperInstance.autoplay?.running || false
+        setIsAutoplayRunning(currentAutoplayState)
+      })
+
+      // Cleanup listener when component unmounts
+      return () => {
+        swiperInstance.off('slideChange')
+      }
+    }
+  }, [sliderLL?.current?.swiper]) // Dependency on Swiper initialization
+
+  // Function to toggle autoplay on/off
+  const toggleAutoplay = () => {
+    const swiperInstance = sliderLL?.current?.swiper
+    if (swiperInstance) {
+      if (isAutoplayRunning) {
+        swiperInstance.autoplay?.stop() // Stop autoplay
+      } else {
+        swiperInstance.autoplay?.start() // Start autoplay
+      }
+      setIsAutoplayRunning(!isAutoplayRunning) // Toggle state
+    }
+  }
 
   useEffect(() => {
     // Function to extract image data and replace <img> with <Image>
@@ -78,7 +113,7 @@ export default function ContentWrapperLL({
     extractImageData()
   }, [content])
 
-  const { data, loading, error, fetchMore } = useQuery(GetLuxeListPagination, {
+  const { data, loading, error } = useQuery(GetLuxeListPagination, {
     variables: { first: batchSize, after: null, id: databaseId },
     fetchPolicy: 'network-only',
     nextFetchPolicy: 'cache-and-network',
@@ -121,12 +156,18 @@ export default function ContentWrapperLL({
   const nextUri =
     nextIndex < numberOfLuxeLists ? luxeListAll[nextIndex]?.uri : null
 
+  console.log(isAutoplayRunning)
+
   return (
     <article className={cx('component')}>
       <div className={cx('with-slider-wrapper')}>
         {images[0] != null && (
           <div className={cx('slider-wrapper')}>
-            <SingleLLSlider images={images} nextUri={nextUri} />
+            <SingleLLSlider
+              images={images}
+              nextUri={nextUri}
+              sliderLL={sliderLL}
+            />
           </div>
         )}
         {images[0] == null && <div className={cx('slider-wrapper')}></div>}
@@ -155,6 +196,50 @@ export default function ContentWrapperLL({
               </Link>
             )}
           </div>
+          <div className={cx('autoplay-button-wrapper')}>
+            <div className={cx('image-wrapper')}>
+              <div className={cx('menu-button')}>
+                <button
+                  type="button"
+                  className={cx('autoplay-icon')}
+                  onClick={toggleAutoplay}
+                  // aria-label="Toggle autoplay"
+                  // // aria-controls={cx('full-menu-wrapper')}
+                  // aria-expanded={toggleAutoplay}
+                >
+                  {isAutoplayRunning ? (
+                    <svg
+                      width="34"
+                      height="44"
+                      viewBox="0 0 34 44"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      {/* Pause Button */}
+                      <path
+                        d="M2.11088 0.486993H8.29661C8.61163 0.486993 8.88369 0.601543 9.11279 0.830643C9.34189 1.05974 9.45644 1.3318 9.45644 1.64682V42.2407C9.45644 42.5557 9.34189 42.8278 9.11279 43.0569C8.88369 43.286 8.61163 43.4005 8.29661 43.4005H2.11088C1.79587 43.4005 1.52381 43.286 1.29471 43.0569C1.06561 42.8278 0.951057 42.5557 0.951057 42.2407V1.64682C0.951057 1.3318 1.06561 1.05974 1.29471 0.830643C1.52381 0.601543 1.79587 0.486993 2.11088 0.486993ZM25.7202 0.486993H31.9059C32.2209 0.486993 32.493 0.601543 32.7221 0.830643C32.9512 1.05974 33.0657 1.3318 33.0657 1.64682V42.2407C33.0657 42.5557 32.9512 42.8278 32.7221 43.0569C32.493 43.286 32.2209 43.4005 31.9059 43.4005H25.7202C25.4051 43.4005 25.1331 43.286 24.904 43.0569C24.6749 42.8278 24.5603 42.5557 24.5603 42.2407V1.64682C24.5603 1.3318 24.6749 1.05974 24.904 0.830643C25.1331 0.601543 25.4051 0.486993 25.7202 0.486993Z"
+                        fill="white"
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      width="50"
+                      height="69"
+                      viewBox="0 0 50 69"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      {/* Play Button */}
+                      <path
+                        d="M50 34.5L0.499997 68.708L0.5 0.291994L50 34.5Z"
+                        fill="#ffffff"
+                      />
+                    </svg>
+                  )}
+                </button>
+              </div>
+            </div>
+          </div>
           <div className={cx('menu-center-wrapper')}>
             {!isNavShown ? (
               <div className={cx('image-wrapper')}>
@@ -172,18 +257,13 @@ export default function ContentWrapperLL({
                       aria-controls={cx('full-menu-wrapper')}
                       aria-expanded={!isNavShown}
                     >
-                      <svg
-                        width="34"
-                        height="44"
-                        viewBox="0 0 34 44"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M2.11088 0.486993H8.29661C8.61163 0.486993 8.88369 0.601543 9.11279 0.830643C9.34189 1.05974 9.45644 1.3318 9.45644 1.64682V42.2407C9.45644 42.5557 9.34189 42.8278 9.11279 43.0569C8.88369 43.286 8.61163 43.4005 8.29661 43.4005H2.11088C1.79587 43.4005 1.52381 43.286 1.29471 43.0569C1.06561 42.8278 0.951057 42.5557 0.951057 42.2407V1.64682C0.951057 1.3318 1.06561 1.05974 1.29471 0.830643C1.52381 0.601543 1.79587 0.486993 2.11088 0.486993ZM25.7202 0.486993H31.9059C32.2209 0.486993 32.493 0.601543 32.7221 0.830643C32.9512 1.05974 33.0657 1.3318 33.0657 1.64682V42.2407C33.0657 42.5557 32.9512 42.8278 32.7221 43.0569C32.493 43.286 32.2209 43.4005 31.9059 43.4005H25.7202C25.4051 43.4005 25.1331 43.286 24.904 43.0569C24.6749 42.8278 24.5603 42.5557 24.5603 42.2407V1.64682C24.5603 1.3318 24.6749 1.05974 24.904 0.830643C25.1331 0.601543 25.4051 0.486993 25.7202 0.486993Z"
-                          fill="white"
+                      {mainLogo && (
+                        <FeaturedImage
+                          image={mainLogo}
+                          className={cx('image')}
+                          priority
                         />
-                      </svg>
+                      )}
                     </button>
                   </div>
                 ) : (
@@ -229,77 +309,7 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
                   </div>
                 )}
               </div>
-            ) : (
-              <div className={cx('image-menu-wrapper')}>
-                <div className={cx('close-button')}>
-                  {/* close button */}
-                  <button
-                    type="button"
-                    className={cx('close-icon')}
-                    onClick={() => {
-                      setIsNavShown(!isNavShown)
-                    }}
-                    aria-label="Toggle navigation"
-                    aria-controls={cx('primary-navigation')}
-                    aria-expanded={!isNavShown}
-                  >
-                    <svg
-                      version="1.0"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="512.000000pt"
-                      height="512.000000pt"
-                      viewBox="0 0 512.000000 512.000000"
-                      preserveAspectRatio="xMidYMid meet"
-                    >
-                      <g
-                        transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
-                        fill="#ffffff"
-                        stroke="none"
-                      >
-                        <path
-                          d="M2330 5109 c-305 -29 -646 -126 -910 -259 -273 -138 -559 -356 -755
--576 -384 -432 -602 -931 -655 -1499 -41 -446 55 -949 260 -1355 138 -273 356
--559 576 -755 432 -384 931 -602 1499 -655 446 -41 949 55 1355 260 273 138
-559 356 755 576 384 432 602 931 655 1499 41 446 -55 949 -260 1355 -138 273
--356 559 -576 755 -432 384 -931 602 -1499 655 -125 11 -320 11 -445 -1z
-m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
-425 -425 425 -425 -213 -212 -212 -213 -425 425 -425 425 -425 -425 -425 -425
--212 213 -213 212 425 425 425 425 -425 425 -425 425 210 210 c115 115 212
-210 215 210 3 0 195 -190 427 -422z"
-                        />
-                      </g>
-                    </svg>
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-          <div className={cx('menu-center-wrapper')}>
-            {/* {!isScrolled && ( */}
-            <div className={cx('image-wrapper')}>
-              {/* Menu Button */}
-              <div className={cx('menu-button')}>
-                {/* menu button */}
-                <button
-                  type="button"
-                  className={cx('menu-icon')}
-                  onClick={() => {
-                    setIsNavShown(!isNavShown)
-                  }}
-                  aria-label="Toggle navigation"
-                  aria-controls={cx('full-menu-wrapper')}
-                  aria-expanded={!isNavShown}
-                >
-                  {mainLogo && (
-                    <FeaturedImage
-                      image={mainLogo}
-                      className={cx('image')}
-                      priority
-                    />
-                  )}
-                </button>
-              </div>
-            </div>
+            ) : null}
           </div>
           <div className={cx('navigation-button')}>
             {nextUri && (

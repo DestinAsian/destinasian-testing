@@ -22,6 +22,15 @@
   }
 
   .slider-wrapper {
+    position: fixed;
+    top: 3.5rem;
+    left: 0;
+    width: 100vw;
+    padding: 0;
+    height: 20rem;
+    z-index: 47;
+    box-shadow: 0 0.25rem 0.5rem var(--wpe--color--black);
+
     @media (min-width: $breakpoint-extra-small) {
       position: fixed;
       top: 4.5rem;
@@ -30,8 +39,12 @@
       padding: 0;
       height: 100vh;
       border-left: 2rem solid var(--wpe--color--black);
+      box-shadow: none;
     }
 
+    * {
+      padding: 0;
+    }
     // @media ((min-width: $breakpoint-extra-small) and (max-width: $breakpoint-small)) {
     //   height: calc(-3.5rem + 100vh);
     // }
@@ -45,15 +58,18 @@
     display: flex;
     flex-direction: column;
     row-gap: 0.25rem;
-    padding: 0 1rem;
+    padding: 0 1rem 20rem;
     text-transform: none;
     margin: 0 0 0 0;
     overflow-x: hidden;
+    position: relative;
+    top: 20rem;
 
     @media (min-width: $breakpoint-extra-small) {
       padding: 0 2rem;
       margin: 0 0 5.25rem 0;
       border-left: none;
+      top: 2.5rem;
     }
 
     p {
@@ -73,16 +89,12 @@
     padding: 1rem;
     background-color: var(--wpe--color--black);
     align-items: center;
-    z-index: 49;
+    z-index: 48;
 
     @media (min-width: $breakpoint-extra-small) {
       height: 5.25rem;
       left: 50%;
       width: 50vw;
-      z-index: 48;
-      justify-content: center;
-      align-items: center;
-      // padding: 1rem 2rem;
     }
   }
 
@@ -176,6 +188,7 @@
     }
   }
 
+  .autoplay-button-wrapper,
   .menu-center-wrapper {
     display: block;
     position: relative;
@@ -183,9 +196,9 @@
     width: fit-content;
     padding: 0;
 
-    @media (min-width: $breakpoint-extra-small) {
-      display: none;
-    }
+    // @media (min-width: $breakpoint-extra-small) {
+    //   display: none;
+    // }
   }
 
   .image-wrapper {
@@ -231,6 +244,28 @@
         margin: 0;
         height: 2rem;
       }
+    }
+  }
+
+  .autoplay-icon {
+    display: flex;
+    margin-top: 0;
+    margin-bottom: 0;
+    background-color: transparent;
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    width: 1.3rem;
+
+    @media (min-width: $breakpoint-extra-small) {
+      width: 1.6rem;
+      height: 3.5rem;
+    }
+
+    @media (min-width: $breakpoint-medium) {
+      width: 1.8rem;
     }
   }
 

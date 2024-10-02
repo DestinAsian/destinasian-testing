@@ -12,43 +12,14 @@ import 'swiper/css/navigation'
 import { EffectFade, Autoplay, Pagination, Navigation } from 'swiper'
 import Image from 'next/image'
 
-export default function SingleLLSlider({ images, nextUri }) {
+export default function SingleLLSlider({
+  images,
+  nextUri,
+  sliderLL,
+}) {
   const menuIndex = images?.map((image, index) => {
     return index
   })
-
-  const sliderLL = useRef(null)
-
-  // Both functions below return an error:
-  // TypeError: undefined is not an object
-  // (evaluating 'sliderLL.current.autoplay.start')
-  const playHero = () => {
-    sliderLL.current.autoplay.start()
-  }
-  const pauseHero = () => {
-    sliderLL.current.autoplay.stop()
-  }
-
-  // Simulating getStaticPaths function
-  // const getStaticPaths = async () => {
-  //   return {
-  //     paths: ['/next-uri'], // Simulate the next URI path
-  //     fallback: 'blocking',
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   if (currentIndex === 4 && autoplayState === true) {
-  //     const timeout = setTimeout(async () => {
-  //       const paths = await getStaticPaths()
-  //       // Redirect to the next path
-  //       window.location.href = paths.paths[0] // Assuming paths is an array with URIs
-  //     }, 4000) // 4000ms = 4 seconds delay
-
-  //     // Clear timeout if conditions change
-  //     return () => clearTimeout(timeout)
-  //   }
-  // }, [currentIndex, autoplayState])
 
   return (
     <>
@@ -56,7 +27,7 @@ export default function SingleLLSlider({ images, nextUri }) {
         ref={sliderLL}
         spaceBetween={30}
         effect={'fade'}
-        loop={true}
+        loop={false}
         autoplay={{
           delay: 5000,
           disableOnInteraction: true,
@@ -148,14 +119,6 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
         </div>
       </Swiper>
       <div className="swiper-ll-custom-pagination"></div>
-      <div>
-        <button className='play-button' type="button" onPointerUp={playHero}>
-          Play
-        </button>
-        <button className='pause-button' type="button" onPointerUp={pauseHero}>
-          Pause
-        </button>
-      </div>
     </>
   )
 }
