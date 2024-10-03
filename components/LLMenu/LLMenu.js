@@ -112,7 +112,7 @@ export default function LLMenu({ mainLogo, secondaryLogo, databaseId, uri }) {
               </Link>
             </div>
           )}
-          <div className={cx('image-wrapper')}>
+          {/* <div className={cx('image-wrapper')}>
             {secondaryLogo && uri ? (
               <Link href={uri}>
                 <FeaturedImage
@@ -130,7 +130,7 @@ export default function LLMenu({ mainLogo, secondaryLogo, databaseId, uri }) {
                 />
               </Link>
             ) : null}
-          </div>
+          </div> */}
         </div>
         <div className={cx('menu-wrapper')}>
           {uniqueCategories.map((categoryName, index) => (

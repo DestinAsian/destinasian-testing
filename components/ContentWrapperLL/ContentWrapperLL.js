@@ -23,47 +23,14 @@ export default function ContentWrapperLL({
   databaseId,
   isNavShown,
   setIsNavShown,
+  router,
 }) {
   const batchSize = 30
   const [transformedContent, setTransformedContent] = useState('')
 
   const [isAutoplayRunning, setIsAutoplayRunning] = useState(true) // Default to false until Swiper is initialized
   const sliderLL = useRef(null) // Reference for Swiper instance
-
-  useEffect(() => {
-    const swiperInstance = sliderLL?.current?.swiper
-
-    // Only run after Swiper has been fully initialized
-    if (swiperInstance) {
-      // Initial check after Swiper has mounted
-      const initialAutoplayState = swiperInstance.autoplay?.running || false
-      setIsAutoplayRunning(initialAutoplayState)
-
-      // Add a listener for slide changes to keep track of autoplay state
-      swiperInstance.on('slideChange', () => {
-        const currentAutoplayState = swiperInstance.autoplay?.running || false
-        setIsAutoplayRunning(currentAutoplayState)
-      })
-
-      // Cleanup listener when component unmounts
-      return () => {
-        swiperInstance.off('slideChange')
-      }
-    }
-  }, [sliderLL?.current?.swiper]) // Dependency on Swiper initialization
-
-  // Function to toggle autoplay on/off
-  const toggleAutoplay = () => {
-    const swiperInstance = sliderLL?.current?.swiper
-    if (swiperInstance) {
-      if (isAutoplayRunning) {
-        swiperInstance.autoplay?.stop() // Stop autoplay
-      } else {
-        swiperInstance.autoplay?.start() // Start autoplay
-      }
-      setIsAutoplayRunning(!isAutoplayRunning) // Toggle state
-    }
-  }
+  const swiperInstance = sliderLL?.current?.swiper
 
   useEffect(() => {
     // Function to extract image data and replace <img> with <Image>
@@ -113,19 +80,43 @@ export default function ContentWrapperLL({
     extractImageData()
   }, [content])
 
+  useEffect(() => {
+    // Only run after Swiper has been fully initialized
+    if (swiperInstance) {
+      // Initial check after Swiper has mounted
+      const initialAutoplayState = swiperInstance.autoplay?.running || false
+      setIsAutoplayRunning(initialAutoplayState)
+
+      // Add a listener for slide changes to keep track of autoplay state
+      swiperInstance.on('slideChange', () => {
+        const currentAutoplayState = swiperInstance.autoplay?.running || false
+        setIsAutoplayRunning(currentAutoplayState)
+      })
+
+      // Cleanup listener when component unmounts
+      return () => {
+        swiperInstance.off('slideChange')
+      }
+    }
+  }, [isAutoplayRunning, swiperInstance]) // Dependency on Swiper initialization
+
+  // Function to toggle autoplay on/off
+  const toggleAutoplay = () => {
+    if (swiperInstance) {
+      if (isAutoplayRunning) {
+        swiperInstance.autoplay?.stop() // Stop autoplay
+      } else {
+        swiperInstance.autoplay?.start() // Start autoplay
+      }
+      setIsAutoplayRunning(!isAutoplayRunning) // Toggle state
+    }
+  }
+
   const { data, loading, error } = useQuery(GetLuxeListPagination, {
     variables: { first: batchSize, after: null, id: databaseId },
     fetchPolicy: 'network-only',
     nextFetchPolicy: 'cache-and-network',
   })
-
-  if (loading) {
-    return null
-  }
-
-  if (error) {
-    return <pre>{JSON.stringify(error)}</pre>
-  }
 
   const parent = data?.luxeListBy?.parent
 
@@ -156,7 +147,44 @@ export default function ContentWrapperLL({
   const nextUri =
     nextIndex < numberOfLuxeLists ? luxeListAll[nextIndex]?.uri : null
 
-  console.log(isAutoplayRunning)
+  useEffect(() => {
+    // Ensure Swiper instance is available and autoplay is running
+    if (swiperInstance && isAutoplayRunning) {
+      // Check if the current slide is the last one
+      const handleSlideChange = () => {
+        const isLastSlide =
+          swiperInstance?.realIndex === swiperInstance.slides.length - 1
+
+        // If it's the last slide, trigger the redirect
+        if (isLastSlide) {
+          const timer = setTimeout(() => {
+            if (nextUri) {
+              return router.replace(nextUri)
+            }
+          }, 3000) // Adjust timeout as needed
+
+          // Cleanup timer on component unmount or effect re-run
+          return () => clearTimeout(timer)
+        }
+      }
+
+      // Attach the slide change listener
+      swiperInstance.on('slideChange', handleSlideChange)
+
+      // Cleanup listener when the component unmounts
+      return () => {
+        swiperInstance.off('slideChange', handleSlideChange)
+      }
+    }
+  }, [isAutoplayRunning, swiperInstance, nextUri])
+
+  if (loading) {
+    return null
+  }
+
+  if (error) {
+    return <pre>{JSON.stringify(error)}</pre>
+  }
 
   return (
     <article className={cx('component')}>

@@ -395,7 +395,7 @@
     height: fit-content;
     position: fixed;
     transform-origin: left;
-    transform: translate(10%, -100%) rotate(90deg);
+    transform: translate(12%, -100%) rotate(90deg);
     padding: 0;
   }
 

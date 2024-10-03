@@ -202,6 +202,7 @@ export default function singleLuxeList(props) {
                 {/* Second wrapper */}
                 <div className="w-full sm:relative sm:pt-8">
                   <ContentWrapperLL
+                    router={props?.router}
                     title={title}
                     category={categories?.edges[0]?.node?.name}
                     content={content}
