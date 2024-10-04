@@ -4,11 +4,11 @@ export default function Page(props) {
   return <WordPressTemplate {...props} />
 }
 
-export function getServerSideProps(ctx) {
+export function getStaticProps(ctx) {
   return getWordPressProps({ ctx, revalidate: 1 })
 }
 
-export async function getServerSidePaths() {
+export async function getStaticPaths() {
   return {
     paths: [],
     fallback: 'blocking',
