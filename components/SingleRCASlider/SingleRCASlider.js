@@ -33,7 +33,7 @@ export default function SingleRCASlider({
         onSwiper={setSwiperRef}
         autoplay={{
           delay: 5000,
-          disableOnInteraction: true,
+          disableOnInteraction: false,
         }}
         effect={'fade'}
         // loop={true}

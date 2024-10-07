@@ -12,11 +12,7 @@ import 'swiper/css/navigation'
 import { EffectFade, Autoplay, Pagination, Navigation } from 'swiper'
 import Image from 'next/image'
 
-export default function SingleLLSlider({
-  images,
-  nextUri,
-  sliderLL,
-}) {
+export default function SingleLLSlider({ images, nextUri, sliderLL }) {
   const menuIndex = images?.map((image, index) => {
     return index
   })
@@ -24,13 +20,14 @@ export default function SingleLLSlider({
   return (
     <>
       <Swiper
+        key={nextUri}
         ref={sliderLL}
         spaceBetween={30}
         effect={'fade'}
         loop={false}
         autoplay={{
           delay: 5000,
-          disableOnInteraction: true,
+          disableOnInteraction: false,
         }}
         pagination={{
           clickable: true,

@@ -32,6 +32,75 @@ export default function ContentWrapperLL({
   const sliderLL = useRef(null) // Reference for Swiper instance
   const swiperInstance = sliderLL?.current?.swiper
 
+  const { data, loading, error } = useQuery(GetLuxeListPagination, {
+    variables: { first: batchSize, after: null, id: databaseId },
+    fetchPolicy: 'network-only',
+    nextFetchPolicy: 'cache-and-network',
+  })
+
+  const parent = data?.luxeListBy?.parent
+
+  // If parent exists, construct luxeListAll, else only map children
+  const luxeListAll = parent
+    ? [
+        parent?.node,
+        ...(data?.luxeListBy?.parent?.node?.children?.edges.map(
+          (post) => post.node,
+        ) || []),
+      ]
+    : [
+        data?.luxeListBy,
+        ...(data?.luxeListBy?.children?.edges.map((post) => post.node) || []),
+      ]
+
+  // Index number for each of Individual Page, default to 0 if null or undefined
+  const indexOfLuxeList = data?.luxeListBy?.menuOrder ?? 0
+
+  // Total number of Luxe Lists in a year
+  const numberOfLuxeLists = luxeListAll?.length
+
+  // Navigation of luxe list individual page
+  const prevIndex = indexOfLuxeList - 1
+  const nextIndex = indexOfLuxeList + 1
+
+  const prevUri = prevIndex >= 0 ? luxeListAll[prevIndex]?.uri : null
+  const nextUri =
+    nextIndex < numberOfLuxeLists ? luxeListAll[nextIndex]?.uri : null
+
+  // Force update the Swiper instance when images change
+  useEffect(() => {
+    if (sliderLL.current && sliderLL.current.swiper) {
+      sliderLL.current.swiper.update()
+    }
+  }, [images, nextUri])
+
+  useEffect(() => {
+    const swiperInstance = sliderLL?.current?.swiper // Access Swiper instance through ref
+
+    if (swiperInstance && isAutoplayRunning) {
+      const handleSlideChange = () => {
+        const isLastSlide =
+          swiperInstance.realIndex === swiperInstance.slides.length - 1
+
+        if (isLastSlide) {
+          const timer = setTimeout(() => {
+            if (nextUri) {
+              router.replace(nextUri)
+            }
+          }, 3000) // Adjust timeout as needed
+
+          return () => clearTimeout(timer) // Cleanup timer
+        }
+      }
+
+      swiperInstance.on('slideChange', handleSlideChange) // Listen for slide change
+
+      return () => {
+        swiperInstance.off('slideChange', handleSlideChange) // Cleanup event listener
+      }
+    }
+  }, [sliderLL.current, isAutoplayRunning, nextUri, router])
+
   useEffect(() => {
     // Function to extract image data and replace <img> with <Image>
     const extractImageData = () => {
@@ -111,72 +180,6 @@ export default function ContentWrapperLL({
       setIsAutoplayRunning(!isAutoplayRunning) // Toggle state
     }
   }
-
-  const { data, loading, error } = useQuery(GetLuxeListPagination, {
-    variables: { first: batchSize, after: null, id: databaseId },
-    fetchPolicy: 'network-only',
-    nextFetchPolicy: 'cache-and-network',
-  })
-
-  const parent = data?.luxeListBy?.parent
-
-  // If parent exists, construct luxeListAll, else only map children
-  const luxeListAll = parent
-    ? [
-        parent?.node,
-        ...(data?.luxeListBy?.parent?.node?.children?.edges.map(
-          (post) => post.node,
-        ) || []),
-      ]
-    : [
-        data?.luxeListBy,
-        ...(data?.luxeListBy?.children?.edges.map((post) => post.node) || []),
-      ]
-
-  // Index number for each of Individual Page, default to 0 if null or undefined
-  const indexOfLuxeList = data?.luxeListBy?.menuOrder ?? 0
-
-  // Total number of Luxe Lists in a year
-  const numberOfLuxeLists = luxeListAll?.length
-
-  // Navigation of luxe list individual page
-  const prevIndex = indexOfLuxeList - 1
-  const nextIndex = indexOfLuxeList + 1
-
-  const prevUri = prevIndex >= 0 ? luxeListAll[prevIndex]?.uri : null
-  const nextUri =
-    nextIndex < numberOfLuxeLists ? luxeListAll[nextIndex]?.uri : null
-
-  useEffect(() => {
-    // Ensure Swiper instance is available and autoplay is running
-    if (swiperInstance && isAutoplayRunning) {
-      // Check if the current slide is the last one
-      const handleSlideChange = () => {
-        const isLastSlide =
-          swiperInstance?.realIndex === swiperInstance.slides.length - 1
-
-        // If it's the last slide, trigger the redirect
-        if (isLastSlide) {
-          const timer = setTimeout(() => {
-            if (nextUri) {
-              return router.replace(nextUri)
-            }
-          }, 3000) // Adjust timeout as needed
-
-          // Cleanup timer on component unmount or effect re-run
-          return () => clearTimeout(timer)
-        }
-      }
-
-      // Attach the slide change listener
-      swiperInstance.on('slideChange', handleSlideChange)
-
-      // Cleanup listener when the component unmounts
-      return () => {
-        swiperInstance.off('slideChange', handleSlideChange)
-      }
-    }
-  }, [isAutoplayRunning, swiperInstance, nextUri])
 
   if (loading) {
     return null
