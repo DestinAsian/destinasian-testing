@@ -109,7 +109,7 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
         </>
       ) : (
         <div className={cx('image-menu-wrapper')}>
-          <div className={cx('close-button')}>
+          {/* <div className={cx('close-button')}>
             <button
               type="button"
               className={cx('close-icon')}
@@ -147,7 +147,7 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
                 </g>
               </svg>
             </button>
-          </div>
+          </div> */}
         </div>
       )}
 
