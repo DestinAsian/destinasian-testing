@@ -233,7 +233,12 @@ export default function ContentWrapperLL({
                 <button
                   type="button"
                   className={cx('autoplay-icon')}
-                  onClick={toggleAutoplay}
+                  onClick={() => {
+                    toggleAutoplay() // Calls the toggleAutoplay function
+                    if (isNavShown) {
+                      return setIsNavShown(!isNavShown) // Calls the toggleAutoplay function
+                    }
+                  }}
                   // aria-label="Toggle autoplay"
                   // // aria-controls={cx('full-menu-wrapper')}
                   // aria-expanded={toggleAutoplay}
