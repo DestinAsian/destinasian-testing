@@ -27,9 +27,10 @@ export default function LLHeader({
   latestStories,
   menusLoading,
   latestLoading,
+  isNavShown,
+  setIsNavShown,
 }) {
   const isDesktop = useMediaQuery({ minWidth: 768 })
-  const [isNavShown, setIsNavShown] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
 
   // Stop scrolling pages when isNavShown

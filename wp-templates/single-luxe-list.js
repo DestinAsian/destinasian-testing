@@ -20,8 +20,8 @@ export default function singleLuxeList(props) {
   if (props.loading) {
     return <>Loading...</>
   }
-
   const [isNavShown, setIsNavShown] = useState(false)
+  const [isLLNavShown, setIsLLNavShown] = useState(false)
 
   const { title: siteTitle, description: siteDescription } =
     props?.data?.generalSettings
@@ -173,6 +173,8 @@ export default function singleLuxeList(props) {
         latestStories={latestAllPosts}
         menusLoading={menusLoading}
         latestLoading={latestLoading}
+        isNavShown={isNavShown}
+        setIsNavShown={setIsNavShown}
       />
       <Main>
         <>
@@ -196,8 +198,8 @@ export default function singleLuxeList(props) {
                     parent != null ? parent?.node?.databaseId : databaseId
                   }
                   uri={parent != null ? parent?.node?.uri : uri}
-                  isNavShown={isNavShown}
-                  setIsNavShown={setIsNavShown}
+                  isLLNavShown={isLLNavShown}
+                  setIsLLNavShown={setIsLLNavShown}
                 />
                 {/* Second wrapper */}
                 <div className="w-full sm:relative sm:pt-8">
@@ -214,7 +216,8 @@ export default function singleLuxeList(props) {
                     }
                     databaseId={databaseId}
                     isNavShown={isNavShown}
-                    setIsNavShown={setIsNavShown}
+                    isLLNavShown={isLLNavShown}
+                    setIsLLNavShown={setIsLLNavShown}
                   />
                 </div>
               </div>

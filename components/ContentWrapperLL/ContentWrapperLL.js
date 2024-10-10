@@ -22,15 +22,15 @@ export default function ContentWrapperLL({
   mainLogo,
   databaseId,
   isNavShown,
-  setIsNavShown,
+  isLLNavShown,
+  setIsLLNavShown,
   router,
 }) {
   const batchSize = 30
   const [transformedContent, setTransformedContent] = useState('')
-
-  const [isAutoplayRunning, setIsAutoplayRunning] = useState(true) // Default to false until Swiper is initialized
-  const sliderLL = useRef(null) // Reference for Swiper instance
-  const swiperInstance = sliderLL?.current?.swiper
+  const [isAutoplayRunning, setIsAutoplayRunning] = useState(true)
+  const sliderLL = useRef(null)
+  const [isSliderMounted, setIsSliderMounted] = useState(false) // Track slider mount status
 
   const { data, loading, error } = useQuery(GetLuxeListPagination, {
     variables: { first: batchSize, after: null, id: databaseId },
@@ -40,7 +40,6 @@ export default function ContentWrapperLL({
 
   const parent = data?.luxeListBy?.parent
 
-  // If parent exists, construct luxeListAll, else only map children
   const luxeListAll = parent
     ? [
         parent?.node,
@@ -53,31 +52,22 @@ export default function ContentWrapperLL({
         ...(data?.luxeListBy?.children?.edges.map((post) => post.node) || []),
       ]
 
-  // Index number for each of Individual Page, default to 0 if null or undefined
   const indexOfLuxeList = data?.luxeListBy?.menuOrder ?? 0
-
-  // Total number of Luxe Lists in a year
   const numberOfLuxeLists = luxeListAll?.length
-
-  // Navigation of luxe list individual page
   const prevIndex = indexOfLuxeList - 1
   const nextIndex = indexOfLuxeList + 1
 
+  // Loop nextUri to the first index when reaching the last index
   const prevUri = prevIndex >= 0 ? luxeListAll[prevIndex]?.uri : null
   const nextUri =
-    nextIndex < numberOfLuxeLists ? luxeListAll[nextIndex]?.uri : null
-
-  // Force update the Swiper instance when images change
-  useEffect(() => {
-    if (sliderLL.current && sliderLL.current.swiper) {
-      sliderLL.current.swiper.update()
-    }
-  }, [images, nextUri])
+    nextIndex < numberOfLuxeLists
+      ? luxeListAll[nextIndex]?.uri
+      : luxeListAll[0]?.uri // Loop back to the first URI
 
   useEffect(() => {
-    const swiperInstance = sliderLL?.current?.swiper // Access Swiper instance through ref
+    if (isAutoplayRunning && isSliderMounted && sliderLL.current) {
+      const swiperInstance = sliderLL.current.swiper
 
-    if (swiperInstance && isAutoplayRunning) {
       const handleSlideChange = () => {
         const isLastSlide =
           swiperInstance.realIndex === swiperInstance.slides.length - 1
@@ -87,42 +77,34 @@ export default function ContentWrapperLL({
             if (nextUri) {
               router.replace(nextUri)
             }
-          }, 3000) // Adjust timeout as needed
+          }, 3000)
 
-          return () => clearTimeout(timer) // Cleanup timer
+          return () => clearTimeout(timer) // Clear the timeout on cleanup
         }
       }
 
-      swiperInstance.on('slideChange', handleSlideChange) // Listen for slide change
+      swiperInstance.on('slideChange', handleSlideChange)
 
       return () => {
-        swiperInstance.off('slideChange', handleSlideChange) // Cleanup event listener
+        swiperInstance.off('slideChange', handleSlideChange)
       }
     }
-  }, [sliderLL.current, isAutoplayRunning, nextUri, router])
+  }, [sliderLL.current, isAutoplayRunning, nextUri, router, isSliderMounted])
 
   useEffect(() => {
-    // Function to extract image data and replace <img> with <Image>
     const extractImageData = () => {
-      // Create a DOMParser
       const parser = new DOMParser()
-
-      // Parse the HTML content
       const doc = parser.parseFromString(content, 'text/html')
-
-      // Get only image elements with src containing "testing.destinasian.com"
       const imageElements = doc.querySelectorAll(
         'img[src*="testing.destinasian.com"]',
       )
 
-      // Replace <img> elements with <Image> components
       imageElements.forEach((img) => {
         const src = img.getAttribute('src')
         const alt = img.getAttribute('alt')
         const width = img.getAttribute('width')
         const height = img.getAttribute('height')
 
-        // Create Image component
         const imageComponent = (
           <Image
             src={src}
@@ -134,52 +116,50 @@ export default function ContentWrapperLL({
           />
         )
 
-        // Render the Image component to HTML string
         const imageHtmlString = renderToStaticMarkup(imageComponent)
-
-        // Replace the <img> element with the Image HTML string in the HTML content
         img.outerHTML = imageHtmlString
       })
 
-      // Set the transformed HTML content
       setTransformedContent(doc.body.innerHTML)
     }
 
-    // Call the function to extract image data and replace <img>
     extractImageData()
-  }, [content])
+  }, [content, isSliderMounted])
 
   useEffect(() => {
-    // Only run after Swiper has been fully initialized
-    if (swiperInstance) {
-      // Initial check after Swiper has mounted
+    if (isSliderMounted) {
+      const swiperInstance = sliderLL?.current?.swiper
       const initialAutoplayState = swiperInstance.autoplay?.running || false
       setIsAutoplayRunning(initialAutoplayState)
 
-      // Add a listener for slide changes to keep track of autoplay state
       swiperInstance.on('slideChange', () => {
         const currentAutoplayState = swiperInstance.autoplay?.running || false
         setIsAutoplayRunning(currentAutoplayState)
       })
 
-      // Cleanup listener when component unmounts
       return () => {
         swiperInstance.off('slideChange')
       }
     }
-  }, [isAutoplayRunning, swiperInstance]) // Dependency on Swiper initialization
+  }, [isAutoplayRunning, isSliderMounted])
 
-  // Function to toggle autoplay on/off
   const toggleAutoplay = () => {
+    const swiperInstance = sliderLL?.current?.swiper
     if (swiperInstance) {
       if (isAutoplayRunning) {
-        swiperInstance.autoplay?.stop() // Stop autoplay
+        swiperInstance.autoplay?.stop()
       } else {
-        swiperInstance.autoplay?.start() // Start autoplay
+        swiperInstance.autoplay?.start()
       }
-      setIsAutoplayRunning(!isAutoplayRunning) // Toggle state
+      setIsAutoplayRunning(!isAutoplayRunning)
     }
   }
+
+  useEffect(() => {
+    if (isAutoplayRunning && isNavShown) {
+      return toggleAutoplay() // Calls the toggleAutoplay function
+    }
+  })
 
   if (loading) {
     return null
@@ -198,6 +178,8 @@ export default function ContentWrapperLL({
               images={images}
               nextUri={nextUri}
               sliderLL={sliderLL}
+              isSliderMounted={isSliderMounted}
+              setIsSliderMounted={setIsSliderMounted}
             />
           </div>
         )}
@@ -235,8 +217,8 @@ export default function ContentWrapperLL({
                   className={cx('autoplay-icon')}
                   onClick={() => {
                     toggleAutoplay() // Calls the toggleAutoplay function
-                    if (isNavShown) {
-                      return setIsNavShown(!isNavShown) // Calls the toggleAutoplay function
+                    if (isLLNavShown) {
+                      return setIsLLNavShown(!isLLNavShown) // Calls the toggleAutoplay function
                     }
                   }}
                   // aria-label="Toggle autoplay"
@@ -277,25 +259,24 @@ export default function ContentWrapperLL({
             </div>
           </div>
           <div className={cx('menu-center-wrapper')}>
-            {!isNavShown ? (
+            {!isLLNavShown ? (
               <div className={cx('image-wrapper')}>
                 {/* Menu Button */}
-                {isNavShown == false ? (
+                {isLLNavShown == false ? (
                   <div className={cx('menu-button')}>
                     {/* menu button */}
-
                     <button
                       type="button"
                       className={cx('menu-icon')}
                       onClick={() => {
-                        setIsNavShown(!isNavShown) // Toggles navigation visibility
+                        setIsLLNavShown(!isLLNavShown) // Toggles navigation visibility
                         if (isAutoplayRunning) {
                           return toggleAutoplay() // Calls the toggleAutoplay function
                         }
                       }}
                       aria-label="Toggle navigation"
                       aria-controls={cx('full-menu-wrapper')}
-                      aria-expanded={!isNavShown}
+                      aria-expanded={!isLLNavShown}
                     >
                       {mainLogo && (
                         <FeaturedImage
@@ -313,11 +294,11 @@ export default function ContentWrapperLL({
                       type="button"
                       className={cx('close-icon')}
                       onClick={() => {
-                        setIsNavShown(!isNavShown)
+                        setIsLLNavShown(!isLLNavShown)
                       }}
                       aria-label="Toggle navigation"
                       aria-controls={cx('full-menu-wrapper')}
-                      aria-expanded={!isNavShown}
+                      aria-expanded={!isLLNavShown}
                     >
                       <svg
                         version="1.0"
@@ -357,11 +338,11 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
                     type="button"
                     className={cx('close-icon')}
                     onClick={() => {
-                      setIsNavShown(!isNavShown)
+                      setIsLLNavShown(!isLLNavShown)
                     }}
                     aria-label="Toggle navigation"
                     aria-controls={cx('full-menu-wrapper')}
-                    aria-expanded={!isNavShown}
+                    aria-expanded={!isLLNavShown}
                   >
                     <svg
                       version="1.0"
