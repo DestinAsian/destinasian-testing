@@ -41,10 +41,10 @@ export default function SingleLuxuryTravel(props) {
     uri,
     luxuryTravelPinPosts,
     luxuryTravelDirectory,
+    tabsEditor,
   } = props?.data?.luxuryTravel
 
   const [visibleComponent, setVisibleComponent] = useState(null)
-
   // Get menus
   const { data: menusData, loading: menusLoading } = useQuery(GetMenus, {
     variables: {
@@ -181,6 +181,19 @@ export default function SingleLuxuryTravel(props) {
     ],
   ]
 
+  //tabs editor
+  const [activeTab, setActiveTab] = useState('tab1');
+
+  const removeHtmlTags = (html) => {
+    return html.replace(/<\/?[^>]+(>|$)/g, ""); // Menghapus semua tag HTML
+  };
+
+  // Di dalam komponen Tabs
+  const tabContent = {
+    tab1: removeHtmlTags(tabsEditor?.tab1 || 'No content available for Tab 1.'),
+    tab2: removeHtmlTags(tabsEditor?.tab2 || 'No content available for Tab 2.'),
+  };
+
   return (
     <main
       className={`${eb_garamond.variable} ${rubik_mono_one.variable} ${rubik.variable}`}
@@ -227,9 +240,48 @@ export default function SingleLuxuryTravel(props) {
                 />
                 <ContentWrapperAdvertorial content={content} />
               </section>
+              {tabsEditor && (tabsEditor.tab1 || tabsEditor.tab2) && (
+                <section
+                  className="snap-section snap-start snap-always pt-[3.5rem] sm:pt-[4.5rem]"
+                  data-id="section3"
+                >
+                  <div className="tabs-container pt-20	mx-auto max-w-2xl">
+                    <div className="flex mb-4 border-2 border-black">
+                      <button
+                        onClick={() => setActiveTab('tab1')}
+                        className={`flex-1 px-4 py-2 border ${activeTab === 'tab1' ? 'bg-gray-800 text-white' : 'bg-gray-200'} rounded-l text-center ${eb_garamond.variable}`}                    >
+                        DAY ONE
+                      </button>
+                      <button
+                        onClick={() => setActiveTab('tab2')}
+                        className={`flex-1 px-4 py-2 border ${activeTab === 'tab2' ? 'bg-gray-800 text-white' : 'bg-gray-200'} rounded-r text-center ${eb_garamond.variable}`}
+                      >
+                        DAY TWO
+                      </button>
+                    </div>
+                    <div className="p-4 text-left">
+                      {activeTab === 'tab1' && <div>{tabContent.tab1}</div>}
+                      {activeTab === 'tab2' && <div>{tabContent.tab2}</div>}
+                    </div>
+                    <div className="flex mb-4 border-2 border-black">
+                      <button
+                        onClick={() => setActiveTab('tab1')}
+                        className={`flex-1 px-4 py-2 border ${activeTab === 'tab1' ? 'bg-gray-800 text-white' : 'bg-gray-200'} rounded-l text-center ${eb_garamond.variable}`}                    >
+                        DAY ONE
+                      </button>
+                      <button
+                        onClick={() => setActiveTab('tab2')}
+                        className={`flex-1 px-4 py-2 border ${activeTab === 'tab2' ? 'bg-gray-800 text-white' : 'bg-gray-200'} rounded-r text-center ${eb_garamond.variable}`}
+                      >
+                        DAY TWO
+                      </button>
+                    </div>
+                  </div>
+                </section>
+              )}
               <section
                 className="snap-section snap-start snap-always pt-[3.5rem] sm:pt-[4.5rem]"
-                data-id="section3"
+                data-id="section4"
               >
                 <LuxuryTravelStories
                   luxuryTravelId={databaseId}
@@ -238,7 +290,7 @@ export default function SingleLuxuryTravel(props) {
               </section>
               <section
                 className="snap-section snap-start snap-always pt-[3.5rem] sm:pt-[4.5rem]"
-                data-id="section4"
+                data-id="section5"
               >
                 <LuxuryTravelDirectory
                   content={luxuryTravelDirectory?.directory}
@@ -268,6 +320,10 @@ SingleLuxuryTravel.query = gql`
       databaseId
       content
       date
+      tabsEditor {
+          tab1
+          tab2
+    }
       parent {
         node {
           ... on LuxuryTravel {
