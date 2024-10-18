@@ -12,7 +12,26 @@ import 'swiper/css/navigation'
 import { EffectFade, Autoplay, Pagination, Navigation } from 'swiper'
 import Image from 'next/image'
 
-export default function SingleLLSlider({ images, nextUri, sliderLL }) {
+export default function SingleLLSlider({
+  images,
+  nextUri,
+  sliderLL,
+  isSliderMounted,
+  setIsSliderMounted,
+}) {
+  // Detect when slider is mounted
+  useEffect(() => {
+    if (sliderLL.current && sliderLL.current.swiper) {
+      setIsSliderMounted(true) // Mark as mounted when slider is ready
+    }
+  }, [sliderLL.current])
+
+  useEffect(() => {
+    if (isSliderMounted) {
+      sliderLL.current.swiper.update()
+    }
+  }, [images, nextUri, isSliderMounted])
+
   const menuIndex = images?.map((image, index) => {
     return index
   })
@@ -41,12 +60,6 @@ export default function SingleLLSlider({ images, nextUri, sliderLL }) {
           prevEl: '.swiper-custom-button-prev',
           nextEl: '.swiper-custom-button-next',
         }}
-        // onSlideChange={(swiper) => {
-        //   setCurrentIndex(swiper?.realIndex) // Set current index when slide changes
-        //   setAutoplayState(swiper?.autoplay?.running) // Set autoplay state when slide changes
-
-        //   console.log(swiper?.autoplay?.running)
-        // }}
         modules={[EffectFade, Autoplay, Pagination, Navigation]}
         className="post-ll-swiper"
         style={{ display: images[0] ? 'block' : 'none' }}
