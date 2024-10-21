@@ -286,6 +286,7 @@ export default function SingleLuxuryTravel(props) {
                 <LuxuryTravelStories
                   luxuryTravelId={databaseId}
                   parent={parent?.node?.title}
+                  luxuryTravelPinPosts={luxuryTravelPinPosts}
                 />
               </section>
               <section
