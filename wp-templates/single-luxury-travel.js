@@ -182,17 +182,17 @@ export default function SingleLuxuryTravel(props) {
   ]
 
   //tabs editor
-  const [activeTab, setActiveTab] = useState('tab1');
+  const [activeTab, setActiveTab] = useState('tab1')
 
   const removeHtmlTags = (html) => {
-    return html.replace(/<\/?[^>]+(>|$)/g, ""); // Menghapus semua tag HTML
-  };
+    return html.replace(/<\/?[^>]+(>|$)/g, '') // Menghapus semua tag HTML
+  }
 
   // Di dalam komponen Tabs
   const tabContent = {
     tab1: removeHtmlTags(tabsEditor?.tab1 || 'No content available for Tab 1.'),
     tab2: removeHtmlTags(tabsEditor?.tab2 || 'No content available for Tab 2.'),
-  };
+  }
 
   return (
     <main
@@ -245,16 +245,25 @@ export default function SingleLuxuryTravel(props) {
                   className="snap-section snap-start snap-always pt-[3.5rem] sm:pt-[4.5rem]"
                   data-id="section3"
                 >
-                  <div className="tabs-container pt-20	mx-auto max-w-2xl">
-                    <div className="flex mb-4 border-2 border-black">
+                  <div className="tabs-container mx-auto	max-w-2xl pt-20">
+                    <div className="mb-4 flex border-2 border-black">
                       <button
                         onClick={() => setActiveTab('tab1')}
-                        className={`flex-1 px-4 py-2 border ${activeTab === 'tab1' ? 'bg-gray-800 text-white' : 'bg-gray-200'} rounded-l text-center ${eb_garamond.variable}`}                    >
+                        className={`flex-1 border px-4 py-2 ${
+                          activeTab === 'tab1'
+                            ? 'bg-gray-800 text-white'
+                            : 'bg-gray-200'
+                        } rounded-l text-center ${eb_garamond.variable}`}
+                      >
                         DAY ONE
                       </button>
                       <button
                         onClick={() => setActiveTab('tab2')}
-                        className={`flex-1 px-4 py-2 border ${activeTab === 'tab2' ? 'bg-gray-800 text-white' : 'bg-gray-200'} rounded-r text-center ${eb_garamond.variable}`}
+                        className={`flex-1 border px-4 py-2 ${
+                          activeTab === 'tab2'
+                            ? 'bg-gray-800 text-white'
+                            : 'bg-gray-200'
+                        } rounded-r text-center ${eb_garamond.variable}`}
                       >
                         DAY TWO
                       </button>
@@ -263,15 +272,24 @@ export default function SingleLuxuryTravel(props) {
                       {activeTab === 'tab1' && <div>{tabContent.tab1}</div>}
                       {activeTab === 'tab2' && <div>{tabContent.tab2}</div>}
                     </div>
-                    <div className="flex mb-4 border-2 border-black">
+                    <div className="mb-4 flex border-2 border-black">
                       <button
                         onClick={() => setActiveTab('tab1')}
-                        className={`flex-1 px-4 py-2 border ${activeTab === 'tab1' ? 'bg-gray-800 text-white' : 'bg-gray-200'} rounded-l text-center ${eb_garamond.variable}`}                    >
+                        className={`flex-1 border px-4 py-2 ${
+                          activeTab === 'tab1'
+                            ? 'bg-gray-800 text-white'
+                            : 'bg-gray-200'
+                        } rounded-l text-center ${eb_garamond.variable}`}
+                      >
                         DAY ONE
                       </button>
                       <button
                         onClick={() => setActiveTab('tab2')}
-                        className={`flex-1 px-4 py-2 border ${activeTab === 'tab2' ? 'bg-gray-800 text-white' : 'bg-gray-200'} rounded-r text-center ${eb_garamond.variable}`}
+                        className={`flex-1 border px-4 py-2 ${
+                          activeTab === 'tab2'
+                            ? 'bg-gray-800 text-white'
+                            : 'bg-gray-200'
+                        } rounded-r text-center ${eb_garamond.variable}`}
                       >
                         DAY TWO
                       </button>
@@ -322,9 +340,9 @@ SingleLuxuryTravel.query = gql`
       content
       date
       tabsEditor {
-          tab1
-          tab2
-    }
+        tab1
+        tab2
+      }
       parent {
         node {
           ... on LuxuryTravel {

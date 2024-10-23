@@ -27,6 +27,3 @@ yarn-error.log*
 
 # vercel
 .vercel
-
-# workspace
-destinasian-testing.code-workspace
