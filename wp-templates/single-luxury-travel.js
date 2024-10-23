@@ -14,12 +14,14 @@ import {
   LuxuryTravelStories,
   SingleLuxuryTravelSlider,
   LuxuryTravelDirectory,
+  TabsEditor,
 } from '../components'
 import { GetMenus } from '../queries/GetMenus'
 import { GetFooterMenus } from '../queries/GetFooterMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
 import { eb_garamond, rubik, rubik_mono_one } from '../styles/fonts/fonts'
 import React, { useEffect, useState } from 'react'
+import { Tabs } from 'flowbite-react'
 
 export default function SingleLuxuryTravel(props) {
   // Loading state for previews
@@ -181,19 +183,6 @@ export default function SingleLuxuryTravel(props) {
     ],
   ]
 
-  //tabs editor
-  const [activeTab, setActiveTab] = useState('tab1')
-
-  const removeHtmlTags = (html) => {
-    return html.replace(/<\/?[^>]+(>|$)/g, '') // Menghapus semua tag HTML
-  }
-
-  // Di dalam komponen Tabs
-  const tabContent = {
-    tab1: removeHtmlTags(tabsEditor?.tab1 || 'No content available for Tab 1.'),
-    tab2: removeHtmlTags(tabsEditor?.tab2 || 'No content available for Tab 2.'),
-  }
-
   return (
     <main
       className={`${eb_garamond.variable} ${rubik_mono_one.variable} ${rubik.variable}`}
@@ -240,7 +229,7 @@ export default function SingleLuxuryTravel(props) {
                 />
                 <ContentWrapperAdvertorial content={content} />
               </section>
-              {tabsEditor && (tabsEditor.tab1 || tabsEditor.tab2) && (
+              {/* {tabsEditor && (tabsEditor.tab1 || tabsEditor.tab2) && (
                 <section
                   className="snap-section snap-start snap-always pt-[3.5rem] sm:pt-[4.5rem]"
                   data-id="section3"
@@ -296,7 +285,13 @@ export default function SingleLuxuryTravel(props) {
                     </div>
                   </div>
                 </section>
-              )}
+              )} */}
+              <section
+                className="snap-section snap-start snap-always pt-[3.5rem] sm:pt-[4.5rem]"
+                data-id="section3"
+              >
+                {tabsEditor && <TabsEditor tabsEditor={tabsEditor} />}
+              </section>
               <section
                 className="snap-section snap-start snap-always pt-[3.5rem] sm:pt-[4.5rem]"
                 data-id="section4"
@@ -342,6 +337,8 @@ SingleLuxuryTravel.query = gql`
       tabsEditor {
         tab1
         tab2
+        tabTittle1
+        tabTittle2
       }
       parent {
         node {
