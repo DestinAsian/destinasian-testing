@@ -40,8 +40,8 @@ export default function LuxuryTravelStories(luxuryTravelId) {
 
   let bannerVariable = {
     first: bannerPerPage,
-    // search: name,
-    search: null, // for testing
+    search: parent,
+    // search: null, // for testing
   }
 
   // // Main Category
