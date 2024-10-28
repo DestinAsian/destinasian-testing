@@ -57,13 +57,8 @@ export default function TabsEditor({ tabsEditor }) {
     }
   }, [tabsEditor])
 
-  const tabContent = {
-    tab1: tabsEditor?.tab1 || 'No content available for Tab 1.',
-    tab2: tabsEditor?.tab2 || 'No content available for Tab 2.',
-  }
-
   return (
-    <div className="tabs-container mx-auto max-w-2xl pt-20">
+    <div className="tabs-container mx-auto max-w-2xl">
       <div className="mb-4 flex border-2 border-black">
         <button
           onClick={() => setActiveTab('tab1')}
@@ -71,7 +66,7 @@ export default function TabsEditor({ tabsEditor }) {
             activeTab === 'tab1' ? 'bg-gray-800 text-white' : 'bg-gray-200'
           } rounded-l text-center`}
         >
-          {tabsEditor?.tabTittle1 || 'DAY ONE'}
+          {tabsEditor?.tabTitle1}
         </button>
         <button
           onClick={() => setActiveTab('tab2')}
@@ -79,7 +74,7 @@ export default function TabsEditor({ tabsEditor }) {
             activeTab === 'tab2' ? 'bg-gray-800 text-white' : 'bg-gray-200'
           } rounded-r text-center`}
         >
-          {tabsEditor?.tabTittle2 || 'DAY TWO'}
+          {tabsEditor?.tabTitle2}
         </button>
       </div>
       <div className="p-4 text-left">
@@ -103,7 +98,7 @@ export default function TabsEditor({ tabsEditor }) {
             activeTab === 'tab1' ? 'bg-gray-800 text-white' : 'bg-gray-200'
           } rounded-l text-center`}
         >
-          {tabsEditor?.tabTittle1 || 'DAY ONE'}
+          {tabsEditor?.tabTitle1}
         </button>
         <button
           onClick={() => setActiveTab('tab2')}
@@ -111,7 +106,7 @@ export default function TabsEditor({ tabsEditor }) {
             activeTab === 'tab2' ? 'bg-gray-800 text-white' : 'bg-gray-200'
           } rounded-r text-center`}
         >
-          {tabsEditor?.tabTittle2 || 'DAY TWO'}
+          {tabsEditor?.tabTitle2}
         </button>
       </div>
     </div>

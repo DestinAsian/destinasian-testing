@@ -286,12 +286,14 @@ export default function SingleLuxuryTravel(props) {
                   </div>
                 </section>
               )} */}
-              <section
-                className="snap-section snap-start snap-always pt-[3.5rem] sm:pt-[4.5rem]"
-                data-id="section3"
-              >
-                {tabsEditor && <TabsEditor tabsEditor={tabsEditor} />}
-              </section>
+              {(tabsEditor?.tabTitle1 && tabsEditor?.tab1) !== null && (
+                <section
+                  className="snap-section snap-start snap-always pt-[3.5rem] sm:pt-[4.5rem]"
+                  data-id="section3"
+                >
+                  {tabsEditor && <TabsEditor tabsEditor={tabsEditor} />}
+                </section>
+              )}
               <section
                 className="snap-section snap-start snap-always pt-[3.5rem] sm:pt-[4.5rem]"
                 data-id="section4"
@@ -337,8 +339,8 @@ SingleLuxuryTravel.query = gql`
       tabsEditor {
         tab1
         tab2
-        tabTittle1
-        tabTittle2
+        tabTitle1
+        tabTitle2
       }
       parent {
         node {
