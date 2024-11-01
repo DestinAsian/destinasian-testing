@@ -209,82 +209,71 @@ export default function SingleLuxuryTravel(props) {
         <>
           <SingleAdvertorialContainer>
             <div
-              className="scroll-snap-container relative w-screen snap-y snap-mandatory overflow-hidden sm:fixed sm:right-[50vw] sm:flex sm:h-screen sm:w-[50vw] sm:flex-col"
+              className="scroll-snap-container relative top-[3.5rem] h-screen w-screen snap-y snap-mandatory overflow-y-scroll sm:top-[4.5rem]"
               onScroll={handleScroll}
             >
               <section
-                className="snap-section snap-start snap-always"
+                className="snap-section relative snap-start snap-always overflow-y-scroll sm:left-[50vw] sm:h-[20vh] sm:w-[50vw]"
                 data-id="section1"
               >
-                <SingleLTSlider
-                  images={images?.map((image) => image[0])}
-                  captions={images?.map((caption) => caption[1])}
-                  // parent={parent?.node?.title}
-                  // nextUri={nextUri}
-                  sliderLL={sliderLL}
-                  isSliderMounted={isSliderMounted}
-                  setIsSliderMounted={setIsSliderMounted}
-                />
+                <div className="overflow-hidden sm:fixed sm:bottom-0 sm:right-[50vw] sm:top-[4.5rem] sm:h-screen sm:w-[50vw]">
+                  <SingleLTSlider
+                    images={images?.map((image) => image[0])}
+                    captions={images?.map((caption) => caption[1])}
+                    // parent={parent?.node?.title}
+                    // nextUri={nextUri}
+                    sliderLL={sliderLL}
+                    isSliderMounted={isSliderMounted}
+                    setIsSliderMounted={setIsSliderMounted}
+                  />
+                </div>
+                <div className="overflow-y-scroll sm:fixed sm:bottom-0 sm:left-[50vw] sm:top-[4.5rem] sm:w-[50vw]">
+                  <div className="sm:h-fit sm:px-8 sm:pb-[4.5rem]">
+                    <SingleAdvertorialEntryHeader
+                      title={title}
+                      label={acfAdvertorialLabel?.advertorialLabel}
+                      luxuryClass={'luxuryClass'}
+                    />
+                    <ContentWrapperAdvertorial content={content} />
+                    {(tabsEditor?.tabTitle1 && tabsEditor?.tab1) !== null && (
+                      <TabsEditor tabsEditor={tabsEditor} />
+                    )}
+                  </div>
+                </div>
               </section>
-            </div>
-            <div
-              className="scroll-snap-container relative w-screen snap-y snap-mandatory overflow-y-scroll sm:fixed sm:left-[50vw] sm:flex sm:h-screen sm:w-[50vw] sm:flex-col"
-              onScroll={handleScroll}
-            >
               <section
-                className="snap-section snap-start snap-always pt-[3.5rem] sm:pt-[4.5rem]"
+                className="snap-section relative snap-start snap-always sm:pt-[100vh]"
                 data-id="section2"
               >
-                <SingleAdvertorialEntryHeader
-                  title={title}
-                  label={acfAdvertorialLabel?.advertorialLabel}
-                  luxuryClass={'luxuryClass'}
-                />
-                <ContentWrapperAdvertorial content={content} />
+                <div className="overflow-y-scroll bg-[#f5f5f5]">
+                  <div className="bg-green">
+                    <LuxuryTravelStories
+                      luxuryTravelId={databaseId}
+                      parent={parent?.node?.title}
+                      luxuryTravelPinPosts={luxuryTravelPinPosts}
+                    />
+                  </div>
+                </div>
               </section>
-              {(tabsEditor?.tabTitle1 && tabsEditor?.tab1) !== null && (
-                <section
-                  className="snap-section snap-start snap-always pt-[3.5rem] sm:pb-20 sm:pt-[4.5rem]"
-                  data-id="section3"
-                >
-                  {tabsEditor && <TabsEditor tabsEditor={tabsEditor} />}
-                </section>
-              )}
-            </div>
-            <div
-              className="scroll-snap-container relative w-screen snap-y snap-mandatory overflow-y-scroll bg-white sm:absolute sm:top-[100vh] sm:mb-[100vh]"
-              onScroll={handleScroll}
-            >
-              <div
-                className="scroll-snap-container relative w-screen snap-y snap-mandatory overflow-y-scroll bg-green"
-                onScroll={handleScroll}
+              <section
+                className="snap-section relative snap-start snap-always"
+                data-id="section3"
               >
-                <section
-                  className="snap-section snap-start snap-always pt-[3.5rem] sm:pt-[4.5rem]"
-                  data-id="section4"
-                >
-                  <LuxuryTravelStories
-                    luxuryTravelId={databaseId}
-                    parent={parent?.node?.title}
-                    luxuryTravelPinPosts={luxuryTravelPinPosts}
-                  />
-                </section>
-                <section
-                  className="snap-section snap-start snap-always pt-[3.5rem] sm:pt-[4.5rem]"
-                  data-id="section5"
-                >
-                  <LuxuryTravelDirectory
-                    content={luxuryTravelDirectory?.directory}
-                    parent={parent?.node?.title}
-                  />
-                </section>
-                <section
-                  className="snap-section snap-start snap-always pt-[3.5rem] sm:pt-[4.5rem]"
-                  data-id="section5"
-                >
-                  <Footer footerMenu={footerMenu} />
-                </section>
-              </div>
+                <div className="overflow-y-scroll bg-[#f5f5f5]">
+                  <div className="bg-green">
+                    <LuxuryTravelDirectory
+                      content={luxuryTravelDirectory?.directory}
+                      parent={parent?.node?.title}
+                    />
+                  </div>
+                </div>
+              </section>
+              <section
+                className="snap-section relative snap-start snap-always pb-[3.5rem]"
+                data-id="section4"
+              >
+                <Footer footerMenu={footerMenu} />
+              </section>
             </div>
           </SingleAdvertorialContainer>
         </>

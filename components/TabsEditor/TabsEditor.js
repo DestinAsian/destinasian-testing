@@ -77,7 +77,7 @@ export default function TabsEditor({ tabsEditor }) {
           {tabsEditor?.tabTitle2}
         </button>
       </div>
-      <div className="p-4 text-left">
+      <div className="p-4 text-left sm:px-0">
         {activeTab === 'tab1' && (
           <div
             className={cx('')}

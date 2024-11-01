@@ -121,10 +121,8 @@ export default function SingleLuxuryTravelHeader({
     return dateB - dateA
   })
 
-  console.log(visibleComponent)
-
   return (
-    <header className={cx('components', { sticky: visibleComponent })}>
+    <header className={cx('component')}>
       {/* Responsive header */}
       {isDesktop || (!isDesktop && !isNavShown) ? (
         <Container>
