@@ -22,68 +22,101 @@
     position: relative;
 
     @media (min-width: $breakpoint-small) {
-      flex-direction: row;
-      justify-content: center;
-      column-gap: 2rem;
+      // flex-direction: row;
+      // justify-content: center;
+      // column-gap: 2rem;
       max-width: calc(1400px + 2rem);
     }
 
-    .post-wrapper,
-    .advertorial-wrapper,
-    .hc-wrapper {
+    .pin-posts-title {
+      padding: 1rem;
+      font-weight: 600;
+      padding: 1rem 4vw 1.5rem;
+      text-transform: uppercase;
+
+      @media (min-width: $breakpoint-small) {
+        padding: 1rem 2vw 1.5rem;
+      }
+
+      @media (min-width: calc(1400px + 2rem)) {
+        padding: 1rem 0 1.5rem;
+      }
+    }
+    .pin-posts-content {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      padding: 0;
+      margin-right: auto;
+      margin-left: auto;
       width: 100vw;
-      max-width: 700px;
+      position: relative;
 
       @media (min-width: $breakpoint-small) {
-        width: calc(50vw - 1rem);
-      }
-    }
-
-    .post-wrapper {
-      margin: 0;
-      border-bottom: none;
-
-      @media (min-width: $breakpoint-small) {
-        margin: 0 auto 2rem;
-        border-bottom: 0.6rem solid var(--wpe--color--white--smoke);
+        flex-direction: row;
+        justify-content: center;
+        column-gap: 2rem;
+        max-width: calc(1400px + 2rem);
       }
 
-      article {
-        margin: 0;
-        background-color: var(--wpe--color--white--smoke);
-        height: auto;
+      .post-wrapper,
+      .advertorial-wrapper,
+      .hc-wrapper {
+        width: 100vw;
+        max-width: 700px;
 
         @media (min-width: $breakpoint-small) {
-          min-height: 45rem;
-        }
-
-        @media (min-width: $breakpoint-medium) {
-          min-height: 50rem;
+          width: calc(50vw - 1rem);
         }
       }
-    }
 
-    .hc-wrapper {
-      margin: 0;
-      border-bottom: none;
-      font-family: 'Gotham A', 'Gotham B';
-
-      @media (min-width: $breakpoint-small) {
-        margin: 0 auto 2rem;
-        border-bottom: 0.6rem solid var(--wpe--hc--background-color);
-      }
-
-      article {
+      .post-wrapper {
         margin: 0;
-        background-color: var(--wpe--hc--background-color);
-        height: auto;
+        border-bottom: none;
 
         @media (min-width: $breakpoint-small) {
-          min-height: 45rem;
+          margin: 0 auto 2rem;
+          border-bottom: 0.6rem solid var(--wpe--color--white--smoke);
         }
 
-        @media (min-width: $breakpoint-medium) {
-          min-height: 50rem;
+        article {
+          margin: 0;
+          background-color: var(--wpe--color--white--smoke);
+          height: auto;
+
+          @media (min-width: $breakpoint-small) {
+            min-height: 45rem;
+          }
+
+          @media (min-width: $breakpoint-medium) {
+            min-height: 50rem;
+          }
+        }
+      }
+
+      .hc-wrapper {
+        margin: 0;
+        border-bottom: none;
+        font-family: 'Gotham A', 'Gotham B';
+
+        @media (min-width: $breakpoint-small) {
+          margin: 0 auto 2rem;
+          border-bottom: 0.6rem solid var(--wpe--hc--background-color);
+        }
+
+        article {
+          margin: 0;
+          background-color: var(--wpe--hc--background-color);
+          height: auto;
+
+          @media (min-width: $breakpoint-small) {
+            min-height: 45rem;
+          }
+
+          @media (min-width: $breakpoint-medium) {
+            min-height: 50rem;
+          }
         }
       }
     }

@@ -12,16 +12,16 @@ import {
   SEO,
   ContentWrapperAdvertorial,
   LuxuryTravelStories,
-  SingleLuxuryTravelSlider,
   LuxuryTravelDirectory,
   TabsEditor,
+  SingleLLSlider,
+  SingleLTSlider,
 } from '../components'
 import { GetMenus } from '../queries/GetMenus'
 import { GetFooterMenus } from '../queries/GetFooterMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
 import { eb_garamond, rubik, rubik_mono_one } from '../styles/fonts/fonts'
-import React, { useEffect, useState } from 'react'
-import { Tabs } from 'flowbite-react'
+import React, { useEffect, useRef, useState } from 'react'
 
 export default function SingleLuxuryTravel(props) {
   // Loading state for previews
@@ -47,6 +47,9 @@ export default function SingleLuxuryTravel(props) {
   } = props?.data?.luxuryTravel
 
   const [visibleComponent, setVisibleComponent] = useState(null)
+  const sliderLL = useRef(null)
+  const [isSliderMounted, setIsSliderMounted] = useState(false) // Track slider mount status
+
   // Get menus
   const { data: menusData, loading: menusLoading } = useQuery(GetMenus, {
     variables: {
@@ -206,18 +209,28 @@ export default function SingleLuxuryTravel(props) {
         <>
           <SingleAdvertorialContainer>
             <div
-              className="scroll-snap-container h-screen w-screen snap-y snap-mandatory overflow-y-scroll"
+              className="scroll-snap-container relative w-screen snap-y snap-mandatory overflow-hidden sm:fixed sm:right-[50vw] sm:flex sm:h-screen sm:w-[50vw] sm:flex-col"
               onScroll={handleScroll}
             >
               <section
                 className="snap-section snap-start snap-always"
                 data-id="section1"
               >
-                <SingleLuxuryTravelSlider
-                  images={images}
-                  parent={parent?.node?.title}
+                <SingleLTSlider
+                  images={images?.map((image) => image[0])}
+                  captions={images?.map((caption) => caption[1])}
+                  // parent={parent?.node?.title}
+                  // nextUri={nextUri}
+                  sliderLL={sliderLL}
+                  isSliderMounted={isSliderMounted}
+                  setIsSliderMounted={setIsSliderMounted}
                 />
               </section>
+            </div>
+            <div
+              className="scroll-snap-container relative w-screen snap-y snap-mandatory overflow-y-scroll sm:fixed sm:left-[50vw] sm:flex sm:h-screen sm:w-[50vw] sm:flex-col"
+              onScroll={handleScroll}
+            >
               <section
                 className="snap-section snap-start snap-always pt-[3.5rem] sm:pt-[4.5rem]"
                 data-id="section2"
@@ -229,96 +242,49 @@ export default function SingleLuxuryTravel(props) {
                 />
                 <ContentWrapperAdvertorial content={content} />
               </section>
-              {/* {tabsEditor && (tabsEditor.tab1 || tabsEditor.tab2) && (
-                <section
-                  className="snap-section snap-start snap-always pt-[3.5rem] sm:pt-[4.5rem]"
-                  data-id="section3"
-                >
-                  <div className="tabs-container mx-auto	max-w-2xl pt-20">
-                    <div className="mb-4 flex border-2 border-black">
-                      <button
-                        onClick={() => setActiveTab('tab1')}
-                        className={`flex-1 border px-4 py-2 ${
-                          activeTab === 'tab1'
-                            ? 'bg-gray-800 text-white'
-                            : 'bg-gray-200'
-                        } rounded-l text-center ${eb_garamond.variable}`}
-                      >
-                        DAY ONE
-                      </button>
-                      <button
-                        onClick={() => setActiveTab('tab2')}
-                        className={`flex-1 border px-4 py-2 ${
-                          activeTab === 'tab2'
-                            ? 'bg-gray-800 text-white'
-                            : 'bg-gray-200'
-                        } rounded-r text-center ${eb_garamond.variable}`}
-                      >
-                        DAY TWO
-                      </button>
-                    </div>
-                    <div className="p-4 text-left">
-                      {activeTab === 'tab1' && <div>{tabContent.tab1}</div>}
-                      {activeTab === 'tab2' && <div>{tabContent.tab2}</div>}
-                    </div>
-                    <div className="mb-4 flex border-2 border-black">
-                      <button
-                        onClick={() => setActiveTab('tab1')}
-                        className={`flex-1 border px-4 py-2 ${
-                          activeTab === 'tab1'
-                            ? 'bg-gray-800 text-white'
-                            : 'bg-gray-200'
-                        } rounded-l text-center ${eb_garamond.variable}`}
-                      >
-                        DAY ONE
-                      </button>
-                      <button
-                        onClick={() => setActiveTab('tab2')}
-                        className={`flex-1 border px-4 py-2 ${
-                          activeTab === 'tab2'
-                            ? 'bg-gray-800 text-white'
-                            : 'bg-gray-200'
-                        } rounded-r text-center ${eb_garamond.variable}`}
-                      >
-                        DAY TWO
-                      </button>
-                    </div>
-                  </div>
-                </section>
-              )} */}
               {(tabsEditor?.tabTitle1 && tabsEditor?.tab1) !== null && (
                 <section
-                  className="snap-section snap-start snap-always pt-[3.5rem] sm:pt-[4.5rem]"
+                  className="snap-section snap-start snap-always pt-[3.5rem] sm:pb-20 sm:pt-[4.5rem]"
                   data-id="section3"
                 >
                   {tabsEditor && <TabsEditor tabsEditor={tabsEditor} />}
                 </section>
               )}
-              <section
-                className="snap-section snap-start snap-always pt-[3.5rem] sm:pt-[4.5rem]"
-                data-id="section4"
+            </div>
+            <div
+              className="scroll-snap-container relative w-screen snap-y snap-mandatory overflow-y-scroll bg-white sm:absolute sm:top-[100vh] sm:mb-[100vh]"
+              onScroll={handleScroll}
+            >
+              <div
+                className="scroll-snap-container relative w-screen snap-y snap-mandatory overflow-y-scroll bg-green"
+                onScroll={handleScroll}
               >
-                <LuxuryTravelStories
-                  luxuryTravelId={databaseId}
-                  parent={parent?.node?.title}
-                  luxuryTravelPinPosts={luxuryTravelPinPosts}
-                />
-              </section>
-              <section
-                className="snap-section snap-start snap-always pt-[3.5rem] sm:pt-[4.5rem]"
-                data-id="section5"
-              >
-                <LuxuryTravelDirectory
-                  content={luxuryTravelDirectory?.directory}
-                  parent={parent?.node?.title}
-                />
-              </section>
-              <section
-                className="snap-section snap-start snap-always pt-[3.5rem] sm:pt-[4.5rem]"
-                data-id="section5"
-              >
-                <Footer footerMenu={footerMenu} />
-              </section>
+                <section
+                  className="snap-section snap-start snap-always pt-[3.5rem] sm:pt-[4.5rem]"
+                  data-id="section4"
+                >
+                  <LuxuryTravelStories
+                    luxuryTravelId={databaseId}
+                    parent={parent?.node?.title}
+                    luxuryTravelPinPosts={luxuryTravelPinPosts}
+                  />
+                </section>
+                <section
+                  className="snap-section snap-start snap-always pt-[3.5rem] sm:pt-[4.5rem]"
+                  data-id="section5"
+                >
+                  <LuxuryTravelDirectory
+                    content={luxuryTravelDirectory?.directory}
+                    parent={parent?.node?.title}
+                  />
+                </section>
+                <section
+                  className="snap-section snap-start snap-always pt-[3.5rem] sm:pt-[4.5rem]"
+                  data-id="section5"
+                >
+                  <Footer footerMenu={footerMenu} />
+                </section>
+              </div>
             </div>
           </SingleAdvertorialContainer>
         </>

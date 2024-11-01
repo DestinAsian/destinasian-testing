@@ -8,6 +8,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        'green': 'rgba(188, 228, 226, 0.6)',
+      },
       screens: {
         xm: '320px',
       },

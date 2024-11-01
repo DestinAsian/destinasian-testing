@@ -61,7 +61,7 @@ export default function SingleLLSlider({
           nextEl: '.swiper-custom-button-next',
         }}
         modules={[EffectFade, Autoplay, Pagination, Navigation]}
-        className="post-ll-swiper"
+        className="post-lt-swiper"
         style={{ display: images[0] ? 'block' : 'none' }}
       >
         {images?.map((image, index) => (

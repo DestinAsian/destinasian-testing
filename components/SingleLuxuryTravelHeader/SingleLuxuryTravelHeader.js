@@ -121,6 +121,8 @@ export default function SingleLuxuryTravelHeader({
     return dateB - dateA
   })
 
+  console.log(visibleComponent)
+
   return (
     <header className={cx('components', { sticky: visibleComponent })}>
       {/* Responsive header */}

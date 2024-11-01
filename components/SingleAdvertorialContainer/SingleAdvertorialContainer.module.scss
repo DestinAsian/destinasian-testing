@@ -6,6 +6,7 @@
   margin-right: 0;
   margin-left: 0;
   max-width: 100vw;
+  min-height: 100vh;
   background-color: var(--wpe--color--green);
   padding: 0;
 
@@ -19,5 +20,20 @@
       font-size: 1.25rem;
     }
   }
-}
 
+  // :global {
+  //   // Scope WordPress block styles within ContentWrapper.
+  //   @import 'styles/blocks';
+
+  //   .swiper {
+  //     @media (min-width: $breakpoint-extra-small) {
+  //       aspect-ratio: auto;
+  //       margin-left: 2rem;
+  //     }
+
+  //     // img {
+  //     //   height: 100%;
+  //     // }
+  //   }
+  // }
+}
