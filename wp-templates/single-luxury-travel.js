@@ -21,7 +21,7 @@ import { GetMenus } from '../queries/GetMenus'
 import { GetFooterMenus } from '../queries/GetFooterMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
 import { eb_garamond, rubik, rubik_mono_one } from '../styles/fonts/fonts'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 
 export default function SingleLuxuryTravel(props) {
   // Loading state for previews
@@ -49,6 +49,13 @@ export default function SingleLuxuryTravel(props) {
   const [visibleComponent, setVisibleComponent] = useState(null)
   const sliderLL = useRef(null)
   const [isSliderMounted, setIsSliderMounted] = useState(false) // Track slider mount status
+
+  const scrollToSection = useCallback(() => {
+    const section = document.querySelector('[data-id="section2"]')
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' })
+    }
+  }, [])
 
   // Get menus
   const { data: menusData, loading: menusLoading } = useQuery(GetMenus, {
@@ -209,14 +216,14 @@ export default function SingleLuxuryTravel(props) {
         <>
           <SingleAdvertorialContainer>
             <div
-              className="scroll-snap-container relative top-[3.5rem] h-screen w-screen snap-y snap-mandatory overflow-y-scroll sm:top-[4.5rem]"
+              className="scroll-snap-container relative h-screen w-screen snap-y snap-mandatory overflow-y-scroll bg-[#f5f5f5] sm:top-[4.5rem]"
               onScroll={handleScroll}
             >
               <section
-                className="snap-section relative snap-start snap-always overflow-y-scroll sm:left-[50vw] sm:h-[20vh] sm:w-[50vw]"
+                className="snap-section relative snap-start snap-always overflow-y-scroll sm:h-screen"
                 data-id="section1"
               >
-                <div className="overflow-hidden sm:fixed sm:bottom-0 sm:right-[50vw] sm:top-[4.5rem] sm:h-screen sm:w-[50vw]">
+                <div className="mt-[3.5rem] overflow-hidden sm:fixed sm:bottom-0 sm:right-[50vw] sm:top-[4.5rem] sm:mt-0 sm:h-screen sm:w-[50vw]">
                   <SingleLTSlider
                     images={images?.map((image) => image[0])}
                     captions={images?.map((caption) => caption[1])}
@@ -228,7 +235,7 @@ export default function SingleLuxuryTravel(props) {
                   />
                 </div>
                 <div className="overflow-y-scroll sm:fixed sm:bottom-0 sm:left-[50vw] sm:top-[4.5rem] sm:w-[50vw]">
-                  <div className="sm:h-fit sm:px-8 sm:pb-[4.5rem]">
+                  <div className="sm:h-fit sm:pb-[4.5rem]">
                     <SingleAdvertorialEntryHeader
                       title={title}
                       label={acfAdvertorialLabel?.advertorialLabel}
@@ -240,36 +247,56 @@ export default function SingleLuxuryTravel(props) {
                     )}
                   </div>
                 </div>
+                <div className="hidden sm:fixed sm:bottom-0 sm:flex sm:w-screen sm:items-center sm:justify-center ">
+                  <button
+                    onClick={scrollToSection}
+                    aria-label="Scroll to Section 2"
+                  >
+                    <div className="rounded-[10%] p-[0.5rem] opacity-80 sm:bg-[#000000]">
+                      <svg
+                        width="83"
+                        height="99"
+                        viewBox="0 0 83 99"
+                        className="h-[4rem] w-auto"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M67.8857 63.5143L45.36 93.7543L35.7943 93.7543L13.3714 63.5143L26.1257 54.2571L40.7314 74.52L55.5429 54.2571L67.8857 63.5143ZM67.8857 14.0946L45.36 44.3346L35.7943 44.3346L13.3714 14.0946L26.1257 4.8375L40.7314 25.1004L55.5429 4.8375L67.8857 14.0946Z"
+                          fill="#f5f5f5"
+                        />
+                      </svg>
+                    </div>
+                  </button>
+                </div>
               </section>
               <section
-                className="snap-section relative snap-start snap-always sm:pt-[100vh]"
+                className="snap-section relative snap-start snap-always sm:pt-[4.5rem]"
                 data-id="section2"
+                id="section2"
               >
-                <div className="overflow-y-scroll bg-[#f5f5f5]">
-                  <div className="bg-green">
-                    <LuxuryTravelStories
-                      luxuryTravelId={databaseId}
-                      parent={parent?.node?.title}
-                      luxuryTravelPinPosts={luxuryTravelPinPosts}
-                    />
-                  </div>
+                <div className="overflow-y-scroll bg-[#f5f5f5] pt-[3.5rem] sm:shadow-[0px_-0.1rem_0.1rem_0_#000000] sm:pt-0">
+                  <LuxuryTravelStories
+                    luxuryTravelId={databaseId}
+                    parent={parent?.node?.title}
+                    luxuryTravelPinPosts={luxuryTravelPinPosts}
+                    pinPostsTitle={luxuryTravelPinPosts?.pinPostsTitle}
+                  />
                 </div>
               </section>
               <section
                 className="snap-section relative snap-start snap-always"
                 data-id="section3"
               >
-                <div className="overflow-y-scroll bg-[#f5f5f5]">
-                  <div className="bg-green">
-                    <LuxuryTravelDirectory
-                      content={luxuryTravelDirectory?.directory}
-                      parent={parent?.node?.title}
-                    />
-                  </div>
+                <div className="overflow-y-scroll bg-[#f5f5f5] pt-[3.5rem] sm:pt-[4.5rem]">
+                  <LuxuryTravelDirectory
+                    content={luxuryTravelDirectory?.directory}
+                    parent={parent?.node?.title}
+                  />
                 </div>
               </section>
               <section
-                className="snap-section relative snap-start snap-always pb-[3.5rem]"
+                className="snap-section relative snap-start snap-always pb-0"
                 data-id="section4"
               >
                 <Footer footerMenu={footerMenu} />
@@ -345,6 +372,7 @@ SingleLuxuryTravel.query = gql`
         directory
       }
       luxuryTravelPinPosts {
+        pinPostsTitle
         pinPosts {
           ... on Post {
             id

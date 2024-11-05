@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { LayoutGroup } from 'framer-motion'
 // src/components/TabDays/TabDays.js
 import React, { useState, useEffect } from 'react'
+import { BACKEND_URL } from '../../constants/backendUrl'
 let cx = className.bind(styles)
 
 export default function TabsEditor({ tabsEditor }) {
@@ -19,9 +20,7 @@ export default function TabsEditor({ tabsEditor }) {
       const parser = new DOMParser()
       const doc = parser.parseFromString(htmlContent, 'text/html')
 
-      const imageElements = doc.querySelectorAll(
-        'img[src*="testing.destinasian.com"]',
-      )
+      const imageElements = doc.querySelectorAll(`img[src*="${BACKEND_URL}"]`)
 
       imageElements.forEach((img) => {
         const src = img.getAttribute('src')
@@ -58,7 +57,7 @@ export default function TabsEditor({ tabsEditor }) {
   }, [tabsEditor])
 
   return (
-    <div className="tabs-container mx-auto max-w-2xl">
+    <div className="tabs-container mx-auto max-w-[700px]">
       <div className="mb-4 flex border-2 border-black">
         <button
           onClick={() => setActiveTab('tab1')}

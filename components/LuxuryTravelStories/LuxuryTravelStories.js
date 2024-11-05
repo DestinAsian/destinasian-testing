@@ -33,6 +33,7 @@ export default function LuxuryTravelStories(luxuryTravelId) {
   const databaseId = luxuryTravelId?.luxuryTravelId
   const parent = luxuryTravelId?.parent
   const luxuryTravelPinPosts = luxuryTravelId?.luxuryTravelPinPosts
+  const pinPostsTitle = luxuryTravelId?.pinPostsTitle
 
   if (!parent) {
     return null
@@ -192,7 +193,11 @@ export default function LuxuryTravelStories(luxuryTravelId) {
           {mergedPosts[0].length !== 0 && (
             <>
               <div className={cx('pin-posts-wrapper')}>
-                <div className={cx('pin-posts-title')}>{'Stories'}</div>
+                <div className={cx('pin-posts-title')}>
+                  <div className={cx('title')}>
+                    {pinPostsTitle ? pinPostsTitle : 'Stories'}
+                  </div>
+                </div>
                 <div className={cx('pin-posts-content')}>
                   {mergedPosts[0].length !== 0 &&
                     mergedPosts[0].map((post, index) => (
@@ -319,7 +324,9 @@ export default function LuxuryTravelStories(luxuryTravelId) {
           )}
           {moreStories[0].length !== 0 && (
             <div className={cx('more-stories-wrapper')}>
-              <div className={cx('more-stories-title')}>{'More Stories'}</div>
+              <div className={cx('more-stories-title')}>
+                <div className={cx('title')}>{'More Stories'}</div>
+              </div>
               <div className={cx('more-stories-content')}>
                 {moreStories[0].length !== 0 &&
                   moreStories[0].map((post, index) => (
