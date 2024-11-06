@@ -3,6 +3,7 @@ import styles from './ContentWrapper.module.scss'
 import { useEffect, useState } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import Image from 'next/image'
+import { BACKEND_URL } from '../../constants/backendUrl'
 
 let cx = className.bind(styles)
 
@@ -18,8 +19,8 @@ export default function ContentWrapper({ content, children }) {
       // Parse the HTML content
       const doc = parser.parseFromString(content, 'text/html')
 
-      // Get only image elements with src containing "testing.destinasian.com"
-      const imageElements = doc.querySelectorAll('img[src*="testing.destinasian.com"]');
+      // Get only image elements with src containing BACKEND_URL
+      const imageElements = doc.querySelectorAll(`img[src*="${BACKEND_URL}"]`)
 
       // Replace <img> elements with <Image> components
       imageElements.forEach((img) => {

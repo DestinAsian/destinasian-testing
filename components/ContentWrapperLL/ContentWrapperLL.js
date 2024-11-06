@@ -11,6 +11,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import Image from 'next/image'
 import Link from 'next/link'
+import { BACKEND_URL } from '../../constants/backendUrl'
 
 let cx = className.bind(styles)
 
@@ -95,9 +96,7 @@ export default function ContentWrapperLL({
     const extractImageData = () => {
       const parser = new DOMParser()
       const doc = parser.parseFromString(content, 'text/html')
-      const imageElements = doc.querySelectorAll(
-        'img[src*="testing.destinasian.com"]',
-      )
+      const imageElements = doc.querySelectorAll(`img[src*="${BACKEND_URL}"]`)
 
       imageElements.forEach((img) => {
         const src = img.getAttribute('src')
