@@ -128,7 +128,13 @@ export default function Component(props) {
 
   return (
     <main className={`${eb_garamond.variable} ${rubik_mono_one.variable}`}>
-      <SEO />
+      <SEO
+        title={seo?.title}
+        description={seo?.metaDesc}
+        imageUrl={featuredImage?.node?.sourceUrl}
+        url={uri}
+        focuskw={seo?.focuskw}
+      />
       <Header
         title={siteTitle}
         description={siteDescription}
@@ -152,9 +158,7 @@ export default function Component(props) {
           </Container>
         </>
       </Main>
-      {headerFooterVisibility?.footerVisibility == true ? null : (
-        <Footer footerMenu={footerMenu} />
-      )}
+      {headerFooterVisibility?.footerVisibility == true ? null : <Footer footerMenu={footerMenu} />}
     </main>
   )
 }

@@ -164,7 +164,13 @@ export default function SingleContest(props) {
 
   return (
     <main className={`${eb_garamond.variable} ${rubik_mono_one.variable}`}>
-      <SEO />
+      <SEO
+        title={seo?.title}
+        description={seo?.metaDesc}
+        imageUrl={featuredImage?.node?.sourceUrl}
+        url={uri}
+        focuskw={seo?.focuskw}
+      />
       <SingleHeader
         title={siteTitle}
         description={siteDescription}

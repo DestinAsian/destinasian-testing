@@ -197,7 +197,13 @@ export default function SingleLuxuryTravel(props) {
     <main
       className={`${eb_garamond.variable} ${rubik_mono_one.variable} ${rubik.variable}`}
     >
-      <SEO />
+      <SEO
+        title={seo?.title}
+        description={seo?.metaDesc}
+        imageUrl={featuredImage?.node?.sourceUrl}
+        url={uri}
+        focuskw={seo?.focuskw}
+      />
       <SingleLuxuryTravelHeader
         title={siteTitle}
         description={siteDescription}
