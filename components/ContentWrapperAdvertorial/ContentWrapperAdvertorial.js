@@ -60,7 +60,7 @@ export default function ContentWrapperAdvertorial({ content, children }) {
     <article className={cx('component')}>
       <div
         className={cx('content-wrapper')}
-        dangerouslySetInnerHTML={{ __html: content ?? '' }}
+        dangerouslySetInnerHTML={{ __html: transformedContent ?? '' }}
       />
       {children}
     </article>

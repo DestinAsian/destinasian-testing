@@ -190,7 +190,7 @@ export default function ContentWrapperLL({
         />
         <div
           className={cx('content-wrapper')}
-          dangerouslySetInnerHTML={{ __html: transformedContent }}
+          dangerouslySetInnerHTML={{ __html: transformedContent ?? '' }}
         />
         <div className={cx('navigation-wrapper')}>
           <div className={cx('navigation-button')}>

@@ -64,7 +64,7 @@ export default function LuxuryTravelDirectory({ content, parent, children }) {
     <article className={cx('component')}>
       <div
         className={cx('content-wrapper')}
-        dangerouslySetInnerHTML={{ __html: content ?? '' }}
+        dangerouslySetInnerHTML={{ __html: transformedContent ?? '' }}
       />
       {children}
     </article>

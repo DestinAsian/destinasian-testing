@@ -61,7 +61,7 @@ export default function ContentWrapperUpdate({ content, children, images }) {
       <div className={cx('with-slider-wrapper')}>
         <div
           className={cx('content-wrapper')}
-          dangerouslySetInnerHTML={{ __html: transformedContent }}
+          dangerouslySetInnerHTML={{ __html: transformedContent ?? '' }}
         />
         {children}
       </div>

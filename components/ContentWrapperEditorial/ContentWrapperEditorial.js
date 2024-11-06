@@ -64,7 +64,7 @@ export default function ContentWrapperEditorial({ content, children, images }) {
           <SingleEditorialSlider images={images} />
           <div
             className={cx('content-wrapper')}
-            dangerouslySetInnerHTML={{ __html: transformedContent }}
+            dangerouslySetInnerHTML={{ __html: transformedContent ?? '' }}
           />
           {children}
         </div>
@@ -74,7 +74,7 @@ export default function ContentWrapperEditorial({ content, children, images }) {
         <div className={cx('with-slider-wrapper')}>
           <div
             className={cx('content-wrapper')}
-            dangerouslySetInnerHTML={{ __html: transformedContent }}
+            dangerouslySetInnerHTML={{ __html: transformedContent ?? '' }}
           />
           {children}
         </div>

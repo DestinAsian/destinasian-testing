@@ -153,7 +153,7 @@ export default function ContentWrapperLLFrontPage({
     <article className={cx('component')}>
       <div
         className={cx('content-wrapper')}
-        dangerouslySetInnerHTML={{ __html: transformedContent }}
+        dangerouslySetInnerHTML={{ __html: transformedContent ?? '' }}
       />
       <div className={cx('full-wrapper')}>
         {allPosts.length !== 0 &&

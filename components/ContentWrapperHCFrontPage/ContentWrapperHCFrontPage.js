@@ -60,7 +60,7 @@ export default function ContentWrapperHCFrontPage({ content }) {
     <article className={cx('component')}>
       <div
         className={cx('content-wrapper')}
-        dangerouslySetInnerHTML={{ __html: transformedContent }}
+        dangerouslySetInnerHTML={{ __html: transformedContent ?? '' }}
       />
     </article>
   )

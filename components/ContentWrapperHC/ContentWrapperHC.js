@@ -64,7 +64,7 @@ export default function ContentWrapperHC({ content, children, images }) {
           <SingleHCSlider images={images} />
           <div
             className={cx('content-wrapper')}
-            dangerouslySetInnerHTML={{ __html: transformedContent }}
+            dangerouslySetInnerHTML={{ __html: transformedContent ?? '' }}
           />
           {children}
         </div>
@@ -73,7 +73,7 @@ export default function ContentWrapperHC({ content, children, images }) {
         <div className={cx('with-slider-wrapper')}>
           <div
             className={cx('content-wrapper')}
-            dangerouslySetInnerHTML={{ __html: transformedContent }}
+            dangerouslySetInnerHTML={{ __html: transformedContent ?? '' }}
           />
           {children}
         </div>
