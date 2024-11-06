@@ -11,6 +11,7 @@ import {
   SEO,
   SingleAdvertorialSlider,
   ContentWrapperAdvertorial,
+  LuxuryTravelDirectory,
 } from '../components'
 import { GetMenus } from '../queries/GetMenus'
 import { GetFooterMenus } from '../queries/GetFooterMenus'
@@ -33,6 +34,7 @@ export default function SingleAdvertorial(props) {
     acfAdvertorialLabel,
     seo,
     uri,
+    luxuryTravelDirectory,
   } = props?.data?.advertorial
 
   // Get menus
@@ -159,6 +161,12 @@ export default function SingleAdvertorial(props) {
               label={acfAdvertorialLabel?.advertorialLabel}
             />
             <ContentWrapperAdvertorial content={content} />
+            {luxuryTravelDirectory?.directory && (
+              <LuxuryTravelDirectory
+                content={luxuryTravelDirectory?.directory}
+                isAdvertorial
+              />
+            )}
           </SingleAdvertorialContainer>
         </>
       </Main>
@@ -206,6 +214,9 @@ SingleAdvertorial.query = gql`
         slide5 {
           mediaItemUrl
         }
+      }
+      luxuryTravelDirectory {
+        directory
       }
       ...FeaturedImageFragment
     }

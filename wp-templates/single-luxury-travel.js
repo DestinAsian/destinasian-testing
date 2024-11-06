@@ -275,7 +275,7 @@ export default function SingleLuxuryTravel(props) {
                 data-id="section2"
                 id="section2"
               >
-                <div className="overflow-y-scroll bg-[#f5f5f5] pt-[3.5rem] sm:shadow-[0px_-0.1rem_0.1rem_0_#000000] sm:pt-0">
+                <div className="overflow-y-scroll bg-[#f5f5f5] pt-[3.5rem] sm:pt-0 sm:shadow-[0px_-0.1rem_0.1rem_0_#000000]">
                   <LuxuryTravelStories
                     luxuryTravelId={databaseId}
                     parent={parent?.node?.title}
@@ -292,6 +292,7 @@ export default function SingleLuxuryTravel(props) {
                   <LuxuryTravelDirectory
                     content={luxuryTravelDirectory?.directory}
                     parent={parent?.node?.title}
+                    isAdvertorial={false}
                   />
                 </div>
               </section>

@@ -7,10 +7,10 @@ import { BACKEND_URL } from '../../constants/backendUrl'
 
 let cx = className.bind(styles)
 
-export default function LuxuryTravelDirectory({ content, parent, children }) {
+export default function LuxuryTravelDirectory({ content, parent, children, isAdvertorial }) {
   const [transformedContent, setTransformedContent] = useState('')
 
-  if (!parent) {
+  if (!parent && !isAdvertorial) {
     return null
   }
 
