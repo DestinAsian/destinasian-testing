@@ -186,11 +186,13 @@ export default function LuxuryTravelStories(luxuryTravelId) {
 
   const numberOfBannerAds = sortedBannerAdsArray.length
 
+  console.log(mergedPosts)
+
   return (
     <div className={cx('component')}>
       {!!parent && (
         <>
-          {mergedPosts[0].length !== 0 && (
+          {mergedPosts[0]?.length !== 0 && (
             <>
               <div className={cx('pin-posts-wrapper')}>
                 <div className={cx('pin-posts-title')}>
@@ -199,8 +201,8 @@ export default function LuxuryTravelStories(luxuryTravelId) {
                   </div>
                 </div>
                 <div className={cx('pin-posts-content')}>
-                  {mergedPosts[0].length !== 0 &&
-                    mergedPosts[0].map((post, index) => (
+                  {mergedPosts[0]?.length !== 0 &&
+                    mergedPosts[0]?.map((post, index) => (
                       <React.Fragment key={post?.id}>
                         {post?.contentTypeName === 'post' && (
                           <div className={cx('post-wrapper')}>
@@ -240,44 +242,48 @@ export default function LuxuryTravelStories(luxuryTravelId) {
                             />
                           </div>
                         )}
-                        {post?.contentTypeName === 'editorial' && (
-                          <div className={cx('post-wrapper')}>
-                            {/* Editorials, Updates Stories */}
-                            <PostTwoColumns
-                              title={post?.title}
-                              excerpt={post?.excerpt}
-                              content={post?.content}
-                              date={post?.date}
-                              author={post?.author?.node?.name}
-                              uri={post?.uri}
-                              parentCategory={
-                                post?.categories?.edges[0]?.node?.parent?.node
-                                  ?.name
-                              }
-                              category={post?.categories?.edges[0]?.node?.name}
-                              categoryUri={
-                                post?.categories?.edges[0]?.node?.uri
-                              }
-                              featuredImage={post?.featuredImage?.node}
-                              chooseYourCategory={
-                                post?.acfCategoryIcon?.chooseYourCategory
-                              }
-                              chooseIcon={
-                                post?.acfCategoryIcon?.chooseIcon?.mediaItemUrl
-                              }
-                              categoryLabel={
-                                post?.acfCategoryIcon?.categoryLabel
-                              }
-                              locationValidation={
-                                post?.acfLocationIcon?.fieldGroupName
-                              }
-                              locationLabel={
-                                post?.acfLocationIcon?.locationLabel
-                              }
-                              locationUrl={post?.acfLocationIcon?.locationUrl}
-                            />
-                          </div>
-                        )}
+                        {post?.contentTypeName === 'editorial' ||
+                          (post?.contentTypeName === 'update' && (
+                            <div className={cx('post-wrapper')}>
+                              {/* Editorials, Updates Stories */}
+                              <PostTwoColumns
+                                title={post?.title}
+                                excerpt={post?.excerpt}
+                                content={post?.content}
+                                date={post?.date}
+                                author={post?.author?.node?.name}
+                                uri={post?.uri}
+                                parentCategory={
+                                  post?.categories?.edges[0]?.node?.parent?.node
+                                    ?.name
+                                }
+                                category={
+                                  post?.categories?.edges[0]?.node?.name
+                                }
+                                categoryUri={
+                                  post?.categories?.edges[0]?.node?.uri
+                                }
+                                featuredImage={post?.featuredImage?.node}
+                                chooseYourCategory={
+                                  post?.acfCategoryIcon?.chooseYourCategory
+                                }
+                                chooseIcon={
+                                  post?.acfCategoryIcon?.chooseIcon
+                                    ?.mediaItemUrl
+                                }
+                                categoryLabel={
+                                  post?.acfCategoryIcon?.categoryLabel
+                                }
+                                locationValidation={
+                                  post?.acfLocationIcon?.fieldGroupName
+                                }
+                                locationLabel={
+                                  post?.acfLocationIcon?.locationLabel
+                                }
+                                locationUrl={post?.acfLocationIcon?.locationUrl}
+                              />
+                            </div>
+                          ))}
                         {post?.contentTypeName === 'advertorial' && (
                           <div className={cx('advertorial-wrapper')}>
                             {/* Advertorial Stories */}
@@ -322,14 +328,14 @@ export default function LuxuryTravelStories(luxuryTravelId) {
               <div className={cx('border-bottom')}></div>
             </>
           )}
-          {moreStories[0].length !== 0 && (
+          {moreStories[0]?.length !== 0 && (
             <div className={cx('more-stories-wrapper')}>
               <div className={cx('more-stories-title')}>
                 <div className={cx('title')}>{'More Stories'}</div>
               </div>
               <div className={cx('more-stories-content')}>
-                {moreStories[0].length !== 0 &&
-                  moreStories[0].map((post, index) => (
+                {moreStories[0]?.length !== 0 &&
+                  moreStories[0]?.map((post, index) => (
                     <React.Fragment key={post?.id}>
                       {post?.contentTypeName === 'post' && (
                         <div className={cx('post-wrapper')}>
