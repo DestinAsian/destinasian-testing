@@ -1,22 +1,18 @@
 import { gql } from '@apollo/client'
 import { FeaturedImage } from '../components'
-import { PostFragment } from '../fragments/PostFragment'
 
 export const GetHomepagePinPosts = gql`
   ${FeaturedImage.fragments.entry}
-  ${PostFragment}
-  query GetHomepagePinPosts($databaseId: ID!, $asPreview: Boolean = fals) {
-    page(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
+  query GetHomepagePinPosts($id: ID!, $asPreview: Boolean = false) {
+    page(id: $id, idType: DATABASE_ID, asPreview: $asPreview) {
       homepagePinPosts {
         pinPost1 {
           ... on Post {
-            ...PostFragment
+            title
+            content
+            date
+            excerpt
             ...FeaturedImageFragment
-            author {
-              node {
-                name
-              }
-            }
             categories(where: { childless: true }) {
               edges {
                 node {
@@ -51,11 +47,6 @@ export const GetHomepagePinPosts = gql`
             uri
             excerpt
             ...FeaturedImageFragment
-            author {
-              node {
-                name
-              }
-            }
             categories {
               edges {
                 node {
@@ -73,13 +64,11 @@ export const GetHomepagePinPosts = gql`
         }
         pinPost2 {
           ... on Post {
-            ...PostFragment
+            title
+            content
+            date
+            excerpt
             ...FeaturedImageFragment
-            author {
-              node {
-                name
-              }
-            }
             categories(where: { childless: true }) {
               edges {
                 node {
@@ -114,11 +103,6 @@ export const GetHomepagePinPosts = gql`
             uri
             excerpt
             ...FeaturedImageFragment
-            author {
-              node {
-                name
-              }
-            }
             categories {
               edges {
                 node {
@@ -136,13 +120,11 @@ export const GetHomepagePinPosts = gql`
         }
         pinPost3 {
           ... on Post {
-            ...PostFragment
+            title
+            content
+            date
+            excerpt
             ...FeaturedImageFragment
-            author {
-              node {
-                name
-              }
-            }
             categories(where: { childless: true }) {
               edges {
                 node {
@@ -177,11 +159,6 @@ export const GetHomepagePinPosts = gql`
             uri
             excerpt
             ...FeaturedImageFragment
-            author {
-              node {
-                name
-              }
-            }
             categories {
               edges {
                 node {
@@ -199,13 +176,11 @@ export const GetHomepagePinPosts = gql`
         }
         pinPost4 {
           ... on Post {
-            ...PostFragment
+            title
+            content
+            date
+            excerpt
             ...FeaturedImageFragment
-            author {
-              node {
-                name
-              }
-            }
             categories(where: { childless: true }) {
               edges {
                 node {
@@ -240,11 +215,6 @@ export const GetHomepagePinPosts = gql`
             uri
             excerpt
             ...FeaturedImageFragment
-            author {
-              node {
-                name
-              }
-            }
             categories {
               edges {
                 node {
@@ -262,13 +232,11 @@ export const GetHomepagePinPosts = gql`
         }
         pinPost5 {
           ... on Post {
-            ...PostFragment
+            title
+            content
+            date
+            excerpt
             ...FeaturedImageFragment
-            author {
-              node {
-                name
-              }
-            }
             categories(where: { childless: true }) {
               edges {
                 node {
@@ -303,11 +271,6 @@ export const GetHomepagePinPosts = gql`
             uri
             excerpt
             ...FeaturedImageFragment
-            author {
-              node {
-                name
-              }
-            }
             categories {
               edges {
                 node {

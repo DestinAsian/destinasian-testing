@@ -2,7 +2,6 @@ import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
 import { BlogInfoFragment } from '../fragments/GeneralSettings'
 import {
-  SingleHeader,
   SingleLuxuryTravelHeader,
   Footer,
   Main,
@@ -14,7 +13,6 @@ import {
   LuxuryTravelStories,
   LuxuryTravelDirectory,
   TabsEditor,
-  SingleLLSlider,
   SingleLTSlider,
 } from '../components'
 import { GetMenus } from '../queries/GetMenus'
