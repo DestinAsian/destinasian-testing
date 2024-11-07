@@ -6,7 +6,7 @@ import {
   SingleLuxuryTravelHeader,
   Footer,
   Main,
-  SingleAdvertorialContainer,
+  SingleLTContainer,
   SingleAdvertorialEntryHeader,
   FeaturedImage,
   SEO,
@@ -220,7 +220,7 @@ export default function SingleLuxuryTravel(props) {
       />
       <Main>
         <>
-          <SingleAdvertorialContainer>
+          <SingleLTContainer>
             <div
               className="scroll-snap-container relative h-screen w-screen snap-y snap-mandatory overflow-y-scroll bg-[#f5f5f5] sm:top-[4.5rem]"
               onScroll={handleScroll}
@@ -309,7 +309,7 @@ export default function SingleLuxuryTravel(props) {
                 <Footer footerMenu={footerMenu} />
               </section>
             </div>
-          </SingleAdvertorialContainer>
+          </SingleLTContainer>
         </>
       </Main>
     </main>
