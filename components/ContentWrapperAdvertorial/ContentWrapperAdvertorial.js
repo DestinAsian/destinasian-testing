@@ -7,7 +7,11 @@ import { BACKEND_URL } from '../../constants/backendUrl'
 
 let cx = className.bind(styles)
 
-export default function ContentWrapperAdvertorial({ content, children }) {
+export default function ContentWrapperAdvertorial({
+  content,
+  children,
+  luxuryTravelClass,
+}) {
   const [transformedContent, setTransformedContent] = useState('')
 
   useEffect(() => {
@@ -59,7 +63,11 @@ export default function ContentWrapperAdvertorial({ content, children }) {
   return (
     <article className={cx('component')}>
       <div
-        className={cx('content-wrapper')}
+        className={cx(
+          luxuryTravelClass === 'luxuryTravelClass'
+            ? 'luxuryTravelClass'
+            : 'content-wrapper',
+        )}
         dangerouslySetInnerHTML={{ __html: transformedContent ?? '' }}
       />
       {children}

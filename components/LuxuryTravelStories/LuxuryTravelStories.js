@@ -185,8 +185,6 @@ export default function LuxuryTravelStories(luxuryTravelId) {
 
   const numberOfBannerAds = sortedBannerAdsArray.length
 
-  console.log(mergedPosts)
-
   return (
     <div className={cx('component')}>
       {!!parent && (

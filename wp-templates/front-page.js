@@ -109,8 +109,6 @@ export default function Component(props) {
   // State variable of homepage pin posts
   const homepagePinPosts = pinPostsStories?.page?.homepagePinPosts ?? []
 
-  console.log(homepagePinPosts)
-
   // Get latest travel stories
   const { data: latestStories, loading: latestLoading } = useQuery(
     GetLatestStories,

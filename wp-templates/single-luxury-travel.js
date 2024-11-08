@@ -227,7 +227,7 @@ export default function SingleLuxuryTravel(props) {
                 className="snap-section relative snap-start snap-always overflow-y-scroll sm:h-screen"
                 data-id="section1"
               >
-                <div className="mt-[3.5rem] overflow-hidden sm:fixed sm:bottom-0 sm:right-[50vw] sm:top-[4.5rem] sm:mt-0 sm:h-screen sm:w-[50vw]">
+                <div className="mt-0 overflow-hidden sm:fixed sm:bottom-0 sm:right-[50vw] sm:top-[4.5rem] sm:h-screen sm:w-[50vw]">
                   <SingleLTSlider
                     images={images?.map((image) => image[0])}
                     captions={images?.map((caption) => caption[1])}
@@ -245,7 +245,10 @@ export default function SingleLuxuryTravel(props) {
                       label={acfAdvertorialLabel?.advertorialLabel}
                       luxuryClass={'luxuryClass'}
                     />
-                    <ContentWrapperAdvertorial content={content} />
+                    <ContentWrapperAdvertorial
+                      content={content}
+                      luxuryTravelClass={'luxuryTravelClass'}
+                    />
                     {(tabsEditor?.tabTitle1 && tabsEditor?.tab1) !== null && (
                       <TabsEditor tabsEditor={tabsEditor} />
                     )}
