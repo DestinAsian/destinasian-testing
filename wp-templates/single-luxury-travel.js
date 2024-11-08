@@ -220,14 +220,14 @@ export default function SingleLuxuryTravel(props) {
         <>
           <SingleLTContainer>
             <div
-              className="scroll-snap-container relative h-screen w-screen snap-y snap-mandatory overflow-y-scroll bg-[#f5f5f5] sm:top-[4.5rem]"
+              className="scroll-snap-container relative h-screen w-screen snap-y snap-mandatory overflow-y-scroll bg-[#dbf2f1] sm:top-[4.5rem]"
               onScroll={handleScroll}
             >
               <section
                 className="snap-section relative snap-start snap-always overflow-y-scroll sm:h-screen"
                 data-id="section1"
               >
-                <div className="mt-0 overflow-hidden sm:fixed sm:bottom-0 sm:right-[50vw] sm:top-[4.5rem] sm:h-screen sm:w-[50vw]">
+                <div className="mt-[3.5rem] overflow-hidden sm:fixed sm:bottom-0 sm:right-[50vw] sm:top-[4.5rem] sm:mt-0 sm:h-screen sm:w-[50vw]">
                   <SingleLTSlider
                     images={images?.map((image) => image[0])}
                     captions={images?.map((caption) => caption[1])}
@@ -243,14 +243,17 @@ export default function SingleLuxuryTravel(props) {
                     <SingleAdvertorialEntryHeader
                       title={title}
                       label={acfAdvertorialLabel?.advertorialLabel}
-                      luxuryClass={'luxuryClass'}
+                      luxuryTravelClass={'luxuryTravelClass'}
                     />
                     <ContentWrapperAdvertorial
                       content={content}
                       luxuryTravelClass={'luxuryTravelClass'}
                     />
                     {(tabsEditor?.tabTitle1 && tabsEditor?.tab1) !== null && (
-                      <TabsEditor tabsEditor={tabsEditor} />
+                      <TabsEditor
+                        tabsEditor={tabsEditor}
+                        luxuryTravelClass={'luxuryTravelClass'}
+                      />
                     )}
                   </div>
                 </div>
@@ -270,7 +273,7 @@ export default function SingleLuxuryTravel(props) {
                       >
                         <path
                           d="M67.8857 63.5143L45.36 93.7543L35.7943 93.7543L13.3714 63.5143L26.1257 54.2571L40.7314 74.52L55.5429 54.2571L67.8857 63.5143ZM67.8857 14.0946L45.36 44.3346L35.7943 44.3346L13.3714 14.0946L26.1257 4.8375L40.7314 25.1004L55.5429 4.8375L67.8857 14.0946Z"
-                          fill="#f5f5f5"
+                          fill="#dbf2f1"
                         />
                       </svg>
                     </div>
@@ -282,7 +285,7 @@ export default function SingleLuxuryTravel(props) {
                 data-id="section2"
                 id="section2"
               >
-                <div className="overflow-y-scroll bg-[#f5f5f5] pt-[3.5rem] sm:pt-0 sm:shadow-[0px_-0.1rem_0.1rem_0_#000000]">
+                <div className="overflow-y-scroll bg-[#dbf2f1] pt-[3.5rem] sm:pt-0 sm:shadow-[0px_-0.1rem_0.1rem_0_#000000]">
                   <LuxuryTravelStories
                     luxuryTravelId={databaseId}
                     parent={parent?.node?.title}
@@ -295,7 +298,7 @@ export default function SingleLuxuryTravel(props) {
                 className="snap-section relative snap-start snap-always"
                 data-id="section3"
               >
-                <div className="overflow-y-scroll bg-[#f5f5f5] pt-[3.5rem] sm:pt-[4.5rem]">
+                <div className="overflow-y-scroll bg-[#dbf2f1] pt-[3.5rem] sm:pt-[4.5rem]">
                   <LuxuryTravelDirectory
                     content={luxuryTravelDirectory?.directory}
                     parent={parent?.node?.title}

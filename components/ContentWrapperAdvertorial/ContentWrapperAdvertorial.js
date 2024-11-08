@@ -61,11 +61,18 @@ export default function ContentWrapperAdvertorial({
   }, [content])
 
   return (
-    <article className={cx('component')}>
+    <article
+      className={cx(
+        className,
+        luxuryTravelClass === 'luxuryTravelClass'
+          ? 'luxuryTravelClass'
+          : 'component',
+      )}
+    >
       <div
         className={cx(
-          luxuryTravelClass === 'luxuryTravelClass'
-            ? 'luxuryTravelClass'
+          luxuryTravelClass === 'luxuryTravelClassContent'
+            ? 'luxuryTravelClassContent'
             : 'content-wrapper',
         )}
         dangerouslySetInnerHTML={{ __html: transformedContent ?? '' }}

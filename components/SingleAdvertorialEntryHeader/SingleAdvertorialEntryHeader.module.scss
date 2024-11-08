@@ -20,19 +20,33 @@
   }
 }
 
-.luxuryClass {
+.luxuryTravelClass {
   display: flex;
   background-color: transparent;
   align-items: flex-start;
-  padding: 0 1rem 1rem;
+  padding: 0 1rem 1rem 30px;
 
   @media (min-width: $breakpoint-small) {
-    padding: 0 3rem 1rem;
+    padding: 0 0 1rem 30px;
     min-height: auto;
+    margin: 0;
+  }
+
+  .header-wrapper {
+    @media (min-width: $breakpoint-small) {
+      margin: 0;
+      padding: 0;
+      align-items: flex-start;
+    }
   }
 
   h1 {
     color: var(--wpe--color--black);
+  }
+
+  .title {
+    font-family: 'Archer Heavyweight A', 'Archer Heavyweight B';
+    font-weight: 800;
   }
 }
 

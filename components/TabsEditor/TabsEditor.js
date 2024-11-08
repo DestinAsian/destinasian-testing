@@ -8,7 +8,7 @@ import React, { useState, useEffect } from 'react'
 import { BACKEND_URL } from '../../constants/backendUrl'
 let cx = className.bind(styles)
 
-export default function TabsEditor({ tabsEditor }) {
+export default function TabsEditor({ tabsEditor, luxuryTravelClass }) {
   const [activeTab, setActiveTab] = useState('tab1')
 
   const [transformedContent1, setTransformedContent1] = useState('')
@@ -57,7 +57,13 @@ export default function TabsEditor({ tabsEditor }) {
   }, [tabsEditor])
 
   return (
-    <div className="tabs-container mx-auto max-w-[700px]">
+    <div
+      className={
+        luxuryTravelClass === 'luxuryTravelClass'
+          ? 'tabs-container mx-auto max-w-[700px] sm:mx-0 sm:pl-[30px]'
+          : 'tabs-container mx-auto max-w-[700px]'
+      }
+    >
       <div className="mb-4 flex border-2 border-black">
         <button
           onClick={() => setActiveTab('tab1')}
