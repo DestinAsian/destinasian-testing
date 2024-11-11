@@ -27,6 +27,17 @@ export default function SingleLuxuryTravel(props) {
     return <>Loading...</>
   }
 
+  const [isNavShown, setIsNavShown] = useState(false)
+
+  // Stop scrolling pages when isNavShown
+  useEffect(() => {
+    if (isNavShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isNavShown])
+
   const { title: siteTitle, description: siteDescription } =
     props?.data?.generalSettings
   const {
@@ -251,6 +262,8 @@ export default function SingleLuxuryTravel(props) {
         latestStories={allPosts}
         menusLoading={menusLoading}
         latestLoading={latestLoading}
+        isNavShown={isNavShown}
+        setIsNavShown={setIsNavShown}
         visibleComponent={visibleComponent}
       />
       <Main>
@@ -261,7 +274,7 @@ export default function SingleLuxuryTravel(props) {
               onScroll={handleScroll}
             >
               <section
-                className="snap-section relative snap-start snap-always overflow-y-scroll sm:h-screen"
+                className="sm:snap-section relative overflow-y-scroll sm:h-screen sm:snap-start sm:snap-always"
                 data-id="section1"
               >
                 <div className="mt-[3.5rem] overflow-hidden sm:fixed sm:bottom-0 sm:right-[50vw] sm:top-[4.5rem] sm:mt-0 sm:h-screen sm:w-[50vw]">
@@ -320,7 +333,7 @@ export default function SingleLuxuryTravel(props) {
                 </div>
               </section>
               <section
-                className="snap-section relative snap-start snap-always sm:pt-[4.5rem]"
+                className="sm:snap-section relative sm:snap-start sm:snap-always sm:pt-[4.5rem]"
                 data-id="section2"
                 id="section2"
               >
@@ -334,7 +347,7 @@ export default function SingleLuxuryTravel(props) {
                 </div>
               </section>
               <section
-                className="snap-section relative snap-start snap-always"
+                className="sm:snap-section relative sm:snap-start sm:snap-always"
                 data-id="section3"
               >
                 <div className="overflow-y-scroll bg-[#dbf2f1] pt-[3.5rem] sm:pt-[4.5rem]">
@@ -346,7 +359,7 @@ export default function SingleLuxuryTravel(props) {
                 </div>
               </section>
               <section
-                className="snap-section relative snap-start snap-always pb-0"
+                className="sm:snap-section relative pb-0 sm:snap-start sm:snap-always"
                 data-id="section4"
               >
                 <Footer footerMenu={footerMenu} />

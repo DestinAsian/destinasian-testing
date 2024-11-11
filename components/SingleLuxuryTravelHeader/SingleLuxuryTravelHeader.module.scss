@@ -6,12 +6,17 @@
   // position: relative;
   // width: 100%;
   // z-index: 50;
-  background-color: var(--wpe--main--background-color);
+  background-color: var(--wpe--color--teal);
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 1000;
+}
+
+.navShown {
+  color: var(--wpe--color--black);
+  background-color: var(--wpe--color--white--smoke);
 }
 
 // .sticky {
@@ -32,7 +37,6 @@
   padding: 0;
   gap: 1rem;
   height: 3.5rem;
-  background-color: var(--wpe--color--teal);
 
   @media (min-width: $breakpoint-extra-small) {
     padding: 0.5rem 0;

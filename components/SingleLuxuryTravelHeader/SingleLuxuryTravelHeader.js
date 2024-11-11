@@ -26,12 +26,13 @@ export default function SingleLuxuryTravelHeader({
   latestStories,
   menusLoading,
   latestLoading,
+  isNavShown,
+  setIsNavShown,
   visibleComponent,
 }) {
   // Media queries
   const isDesktop = useMediaQuery({ minWidth: 768 })
   const isMobile = useMediaQuery({ maxWidth: 767 })
-  const [isNavShown, setIsNavShown] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
 
   // // Stop scrolling pages when isNavShown
@@ -122,7 +123,7 @@ export default function SingleLuxuryTravelHeader({
   })
 
   return (
-    <header className={cx('component')}>
+    <header className={cx('component', { navShown: isNavShown })}>
       {/* Responsive header */}
       {isDesktop || (!isDesktop && !isNavShown) ? (
         <Container>
