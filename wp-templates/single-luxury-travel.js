@@ -48,12 +48,49 @@ export default function SingleLuxuryTravel(props) {
   const sliderLL = useRef(null)
   const [isSliderMounted, setIsSliderMounted] = useState(false) // Track slider mount status
 
-  const scrollToSection = useCallback(() => {
+  // scroll to section button
+  const scrollToSection2 = useCallback(() => {
     const section = document.querySelector('[data-id="section2"]')
     if (section) {
       section.scrollIntoView({ behavior: 'smooth' })
     }
   }, [])
+
+  // scroll to section button
+  const scrollToSection3 = useCallback(() => {
+    const section = document.querySelector('[data-id="section3"]')
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' })
+    }
+  }, [])
+
+  const [directoryTitle, setDirectoryTitle] = useState('')
+  // Function to extract directory title from HTML string
+  useEffect(() => {
+    const extractDirectoryTitle = () => {
+      // Create a DOMParser
+      const parser = new DOMParser()
+      // Parse the HTML content
+      const doc = parser.parseFromString(
+        luxuryTravelDirectory?.directory,
+        'text/html',
+      )
+
+      // Use querySelector to find the element with the class "directory-title"
+      const directoryTitleElement = doc.querySelector('.directory-title')
+
+      // Extract the content inside the element
+      const directoryTitle = directoryTitleElement
+        ? directoryTitleElement?.textContent?.trim()
+        : null
+
+      // // Set the transformed HTML content
+      setDirectoryTitle(directoryTitle)
+    }
+
+    // Call the function to extract image data and replace <img>
+    extractDirectoryTitle()
+  }, [luxuryTravelDirectory?.directory])
 
   // Get menus
   const { data: menusData, loading: menusLoading } = useQuery(GetMenus, {
@@ -257,26 +294,28 @@ export default function SingleLuxuryTravel(props) {
                     )}
                   </div>
                 </div>
-                <div className="hidden sm:fixed sm:bottom-0 sm:flex sm:w-screen sm:items-center sm:justify-center ">
+                <div className="hidden sm:fixed sm:bottom-0 sm:left-[50vw] sm:flex sm:min-h-16 sm:w-[50vw] sm:items-center sm:justify-between sm:bg-[#000000]">
                   <button
-                    onClick={scrollToSection}
+                    onClick={scrollToSection2}
                     aria-label="Scroll to Section 2"
+                    className="h-full min-h-full w-1/2 p-[1rem] text-left"
                   >
-                    <div className="rounded-[10%] p-[0.5rem] opacity-80 sm:bg-[#000000]">
-                      <svg
-                        width="83"
-                        height="99"
-                        viewBox="0 0 83 99"
-                        className="h-[4rem] w-auto"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M67.8857 63.5143L45.36 93.7543L35.7943 93.7543L13.3714 63.5143L26.1257 54.2571L40.7314 74.52L55.5429 54.2571L67.8857 63.5143ZM67.8857 14.0946L45.36 44.3346L35.7943 44.3346L13.3714 14.0946L26.1257 4.8375L40.7314 25.1004L55.5429 4.8375L67.8857 14.0946Z"
-                          fill="#dbf2f1"
-                        />
-                      </svg>
-                    </div>
+                    {luxuryTravelPinPosts?.pinPostsTitle && (
+                      <span className="uppercase text-[#ffffff]">
+                        {luxuryTravelPinPosts?.pinPostsTitle}
+                      </span>
+                    )}
+                  </button>
+                  <button
+                    onClick={scrollToSection3}
+                    aria-label="Scroll to Section 3"
+                    className="h-full min-h-full w-1/2 p-[1rem] text-left"
+                  >
+                    {directoryTitle && (
+                      <span className="uppercase text-[#ffffff]">
+                        {directoryTitle}
+                      </span>
+                    )}
                   </button>
                 </div>
               </section>

@@ -361,9 +361,9 @@ export default function LuxuryTravelStories(luxuryTravelId) {
           )}
           {moreStories[0]?.length !== 0 && (
             <div className={cx('more-stories-wrapper')}>
-              <div className={cx('more-stories-title')}>
+              {/* <div className={cx('more-stories-title')}>
                 <div className={cx('title')}>{'More Stories'}</div>
-              </div>
+              </div> */}
               <div className={cx('more-stories-content')}>
                 {moreStories[0]?.length !== 0 &&
                   moreStories[0]?.map((post, index) => (
