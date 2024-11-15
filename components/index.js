@@ -1,5 +1,6 @@
 export { AdvertorialPost } from './AdvertorialPost'
 export { AdvertorialPostTwoColumns } from './AdvertorialPostTwoColumns'
+export { BackToTop } from './BackToTop'
 export { Button } from './Button'
 export { CategoryEntryHeader } from './CategoryEntryHeader'
 export { CategoryHeader } from './CategoryHeader'

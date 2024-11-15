@@ -13,13 +13,14 @@ import {
   LuxuryTravelStories,
   LuxuryTravelDirectory,
   TabsEditor,
-  SingleLTSlider,
+  SingleAdvertorialSlider,
+  BackToTop,
 } from '../components'
 import { GetMenus } from '../queries/GetMenus'
 import { GetFooterMenus } from '../queries/GetFooterMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
 import { eb_garamond, rubik, rubik_mono_one } from '../styles/fonts/fonts'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 export default function SingleLuxuryTravel(props) {
   // Loading state for previews
@@ -56,24 +57,24 @@ export default function SingleLuxuryTravel(props) {
   } = props?.data?.luxuryTravel
 
   const [visibleComponent, setVisibleComponent] = useState(null)
-  const sliderLL = useRef(null)
-  const [isSliderMounted, setIsSliderMounted] = useState(false) // Track slider mount status
+  // const sliderLL = useRef(null)
+  // const [isSliderMounted, setIsSliderMounted] = useState(false) // Track slider mount status
 
-  // scroll to section button
-  const scrollToSection2 = useCallback(() => {
-    const section = document.querySelector('[data-id="section2"]')
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth' })
-    }
-  }, [])
+  // // scroll to section button
+  // const scrollToSection2 = useCallback(() => {
+  //   const section = document.querySelector('[data-id="section2"]')
+  //   if (section) {
+  //     section.scrollIntoView({ behavior: 'smooth' })
+  //   }
+  // }, [])
 
-  // scroll to section button
-  const scrollToSection3 = useCallback(() => {
-    const section = document.querySelector('[data-id="section3"]')
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth' })
-    }
-  }, [])
+  // // scroll to section button
+  // const scrollToSection3 = useCallback(() => {
+  //   const section = document.querySelector('[data-id="section3"]')
+  //   if (section) {
+  //     section.scrollIntoView({ behavior: 'smooth' })
+  //   }
+  // }, [])
 
   const [directoryTitle, setDirectoryTitle] = useState('')
   // Function to extract directory title from HTML string
@@ -274,40 +275,25 @@ export default function SingleLuxuryTravel(props) {
               onScroll={handleScroll}
             >
               <section
-                className="sm:snap-section relative overflow-y-scroll sm:h-screen sm:snap-start sm:snap-always"
+                className="sm:snap-section relative pt-[3.5rem] sm:snap-start sm:snap-always sm:pt-0"
                 data-id="section1"
               >
-                <div className="mt-[3.5rem] overflow-hidden sm:fixed sm:bottom-0 sm:right-[50vw] sm:top-[4.5rem] sm:mt-0 sm:h-screen sm:w-[50vw]">
-                  <SingleLTSlider
+                <div className="overflow-y-scroll bg-[#dbf2f1]">
+                  <SingleAdvertorialSlider
                     images={images?.map((image) => image[0])}
-                    captions={images?.map((caption) => caption[1])}
-                    // parent={parent?.node?.title}
-                    // nextUri={nextUri}
-                    sliderLL={sliderLL}
-                    isSliderMounted={isSliderMounted}
-                    setIsSliderMounted={setIsSliderMounted}
+                    // captions={images?.map((caption) => caption[1])}
+                    // // parent={parent?.node?.title}
+                    // // nextUri={nextUri}
+                    // slidersLL={sliderLL}
+                    // isSliderMounted={isSliderMounted}
+                    // setIsSliderMounted={setIsSliderMounted}
                   />
-                </div>
-                <div className="overflow-y-scroll sm:fixed sm:bottom-0 sm:left-[50vw] sm:top-[4.5rem] sm:w-[50vw]">
-                  <div className="sm:h-fit sm:pb-[4.5rem]">
-                    <SingleAdvertorialEntryHeader
-                      title={title}
-                      label={acfAdvertorialLabel?.advertorialLabel}
-                      luxuryTravelClass={'luxuryTravelClass'}
-                    />
-                    <ContentWrapperAdvertorial
-                      content={content}
-                      luxuryTravelClass={'luxuryTravelClass'}
-                    />
-                    {(tabsEditor?.tabTitle1 && tabsEditor?.tab1) !== null && (
-                      <TabsEditor
-                        tabsEditor={tabsEditor}
-                        luxuryTravelClass={'luxuryTravelClass'}
-                      />
-                    )}
-                  </div>
-                </div>
-                <div className="hidden sm:fixed sm:bottom-0 sm:left-[50vw] sm:flex sm:min-h-16 sm:w-[50vw] sm:items-center sm:justify-between sm:bg-[#000000]">
+                  <SingleAdvertorialEntryHeader
+                    title={title}
+                    label={acfAdvertorialLabel?.advertorialLabel}
+                    // luxuryTravelClass={'luxuryTravelClass'}
+                  />
+                  {/* <div className="hidden sm:fixed sm:bottom-0 sm:left-[50vw] sm:flex sm:min-h-16 sm:w-[50vw] sm:items-center sm:justify-between sm:bg-[#000000]">
                   <button
                     onClick={scrollToSection2}
                     aria-label="Scroll to Section 2"
@@ -330,6 +316,7 @@ export default function SingleLuxuryTravel(props) {
                       </span>
                     )}
                   </button>
+                </div> */}
                 </div>
               </section>
               <section
@@ -337,7 +324,35 @@ export default function SingleLuxuryTravel(props) {
                 data-id="section2"
                 id="section2"
               >
-                <div className="overflow-y-scroll bg-[#dbf2f1] pt-[3.5rem] sm:pt-0 sm:shadow-[0px_-0.1rem_0.1rem_0_#000000]">
+                <div className="overflow-y-scroll">
+                  <div className="sm:h-fit">
+                    <ContentWrapperAdvertorial
+                      content={content}
+                      luxuryTravelClass={'luxuryTravelClass'}
+                    />
+                  </div>
+                </div>
+              </section>
+              <section
+                className="sm:snap-section relative sm:snap-start sm:snap-always sm:pt-[4.5rem]"
+                data-id="section3"
+              >
+                <div className="overflow-y-scroll bg-[#dbf2f1] pt-[3.5rem] sm:pt-0">
+                  <div className="sm:h-fit">
+                    {(tabsEditor?.tabTitle1 && tabsEditor?.tab1) !== null && (
+                      <TabsEditor
+                        tabsEditor={tabsEditor}
+                        // luxuryTravelClass={'luxuryTravelClass'}
+                      />
+                    )}
+                  </div>
+                </div>
+              </section>
+              <section
+                className="sm:snap-section relative sm:snap-start sm:snap-always sm:pt-[4.5rem]"
+                data-id="section4"
+              >
+                <div className="overflow-y-scroll bg-[#dbf2f1]">
                   <LuxuryTravelStories
                     luxuryTravelId={databaseId}
                     parent={parent?.node?.title}
@@ -347,10 +362,10 @@ export default function SingleLuxuryTravel(props) {
                 </div>
               </section>
               <section
-                className="sm:snap-section relative sm:snap-start sm:snap-always"
-                data-id="section3"
+                className="sm:snap-section relative sm:snap-start sm:snap-always sm:pt-[4.5rem]"
+                data-id="section5"
               >
-                <div className="overflow-y-scroll bg-[#dbf2f1] pt-[3.5rem] sm:pt-[4.5rem]">
+                <div className="overflow-y-scroll bg-[#dbf2f1]">
                   <LuxuryTravelDirectory
                     content={luxuryTravelDirectory?.directory}
                     parent={parent?.node?.title}
@@ -359,8 +374,16 @@ export default function SingleLuxuryTravel(props) {
                 </div>
               </section>
               <section
+                className="sm:snap-section relative pb-0 sm:snap-start sm:snap-always sm:pt-[4.5rem]"
+                data-id="section6"
+              >
+                <div className="overflow-y-scroll bg-[#ffffff]">
+                  <BackToTop />
+                </div>
+              </section>
+              <section
                 className="sm:snap-section relative pb-0 sm:snap-start sm:snap-always"
-                data-id="section4"
+                data-id="section7"
               >
                 <Footer footerMenu={footerMenu} />
               </section>
