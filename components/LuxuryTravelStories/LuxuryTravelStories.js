@@ -28,9 +28,10 @@ export default function LuxuryTravelStories(luxuryTravelId) {
   const [SpecificAdsArray, setSpecificAdsArray] = useState([])
   // Post per fetching
   const postsPerPage = 10
-  const bannerPerPage = 1
+  const bannerPerPage = 5
 
   const databaseId = luxuryTravelId?.luxuryTravelId
+  const name = luxuryTravelId?.name
   const parent = luxuryTravelId?.parent
   const luxuryTravelPinPosts = luxuryTravelId?.luxuryTravelPinPosts
   const pinPostsTitle = luxuryTravelId?.pinPostsTitle
@@ -44,16 +45,13 @@ export default function LuxuryTravelStories(luxuryTravelId) {
     search: parent,
   }
 
-  // // Main Category
-  // if (!parent) {
-  //   // Modify the variables based on the condition
-  //   bannerVariable = {
-  //     search: name,
-  //   }
-  //   queryVariables = {
-  //     search: name,
-  //   }
-  // }
+  // Focus Banner
+  if (parent === 'Focus') {
+    // Modify the variables based on the condition
+    bannerVariable = {
+      search: name,
+    }
+  }
 
   // // Sub Category
   // if (children?.edges?.length !== 0 && parent !== (null || undefined)) {
