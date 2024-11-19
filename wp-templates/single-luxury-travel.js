@@ -296,10 +296,12 @@ export default function SingleLuxuryTravel(props) {
               >
                 <div className="overflow-y-scroll">
                   <div className="sm:h-fit">
-                    <ContentWrapperAdvertorial
-                      content={content}
-                      luxuryTravelClass={'luxuryTravelClass'}
-                    />
+                    {content && (
+                      <ContentWrapperAdvertorial
+                        content={content}
+                        luxuryTravelClass={'luxuryTravelClass'}
+                      />
+                    )}
                   </div>
                 </div>
               </section>
@@ -337,11 +339,13 @@ export default function SingleLuxuryTravel(props) {
                 data-id="section5"
               >
                 <div className="overflow-y-scroll bg-[#dbf2f1]">
-                  <LuxuryTravelDirectory
-                    content={luxuryTravelDirectory?.directory}
-                    parent={parent?.node?.title}
-                    isAdvertorial={false}
-                  />
+                  {luxuryTravelDirectory?.directory && (
+                    <LuxuryTravelDirectory
+                      content={luxuryTravelDirectory?.directory}
+                      parent={parent?.node?.title}
+                      isAdvertorial={false}
+                    />
+                  )}
                 </div>
               </section>
               <section

@@ -64,11 +64,13 @@ export default function TabsEditor({ tabsEditor, luxuryTravelClass }) {
           : 'tabs-container mx-auto max-w-[700px]'
       }
     >
-      <div className="mb-4 flex border-2 border-black">
+      <div className="my-4 flex border-2 border-black">
         <button
           onClick={() => setActiveTab('tab1')}
           className={`flex-1 border px-4 py-2 ${
-            activeTab === 'tab1' ? 'bg-gray-800 text-white' : 'bg-gray-200'
+            activeTab === 'tab1'
+              ? 'bg-[#000000] text-[#ffffff]'
+              : 'bg-[#f5f5f5] text-[#000000]'
           } rounded-l text-center`}
         >
           {tabsEditor?.tabTitle1}
@@ -76,7 +78,9 @@ export default function TabsEditor({ tabsEditor, luxuryTravelClass }) {
         <button
           onClick={() => setActiveTab('tab2')}
           className={`flex-1 border px-4 py-2 ${
-            activeTab === 'tab2' ? 'bg-gray-800 text-white' : 'bg-gray-200'
+            activeTab === 'tab2'
+              ? 'bg-[#000000] text-[#ffffff]'
+              : 'bg-[#f5f5f5] text-[#000000]'
           } rounded-r text-center`}
         >
           {tabsEditor?.tabTitle2}
@@ -100,7 +104,9 @@ export default function TabsEditor({ tabsEditor, luxuryTravelClass }) {
         <button
           onClick={() => setActiveTab('tab1')}
           className={`flex-1 border px-4 py-2 ${
-            activeTab === 'tab1' ? 'bg-gray-800 text-white' : 'bg-gray-200'
+            activeTab === 'tab1'
+              ? 'bg-[#000000] text-[#ffffff]'
+              : 'bg-[#f5f5f5] text-[#000000]'
           } rounded-l text-center`}
         >
           {tabsEditor?.tabTitle1}
@@ -108,7 +114,9 @@ export default function TabsEditor({ tabsEditor, luxuryTravelClass }) {
         <button
           onClick={() => setActiveTab('tab2')}
           className={`flex-1 border px-4 py-2 ${
-            activeTab === 'tab2' ? 'bg-gray-800 text-white' : 'bg-gray-200'
+            activeTab === 'tab2'
+              ? 'bg-[#000000] text-[#ffffff]'
+              : 'bg-[#f5f5f5] text-[#000000]'
           } rounded-r text-center`}
         >
           {tabsEditor?.tabTitle2}
