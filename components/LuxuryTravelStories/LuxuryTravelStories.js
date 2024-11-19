@@ -2,12 +2,8 @@ import React, { useState, useEffect } from 'react'
 import classNames from 'classnames/bind'
 import styles from './LuxuryTravelStories.module.scss'
 import { useQuery } from '@apollo/client'
-import * as CONTENT_TYPES from '../../constants/contentTypes'
-import { GetCategoryStories } from '../../queries/GetCategoryStories'
 import { GetSpecificBannerAds } from '../../queries/GetSpecificBannerAds'
-import { GetAdvertorialStories } from '../../queries/GetAdvertorialStories'
 import {
-  Button,
   PostTwoColumns,
   AdvertorialPostTwoColumns,
   ModuleAd,
@@ -28,7 +24,8 @@ export default function LuxuryTravelStories(luxuryTravelId) {
   const [SpecificAdsArray, setSpecificAdsArray] = useState([])
   // Post per fetching
   const postsPerPage = 10
-  const bannerPerPage = 5
+  // Banner maximum per page
+  const bannerPerPage = 10
 
   const databaseId = luxuryTravelId?.luxuryTravelId
   const name = luxuryTravelId?.name
