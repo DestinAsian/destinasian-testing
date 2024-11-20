@@ -12,6 +12,7 @@ import {
   SingleAdvertorialSlider,
   ContentWrapperAdvertorial,
   LuxuryTravelDirectory,
+  TabsEditor,
 } from '../components'
 import { GetMenus } from '../queries/GetMenus'
 import { GetFooterMenus } from '../queries/GetFooterMenus'
@@ -35,6 +36,7 @@ export default function SingleAdvertorial(props) {
     seo,
     uri,
     luxuryTravelDirectory,
+    tabsEditor,
   } = props?.data?.advertorial
 
   // Get menus
@@ -166,7 +168,13 @@ export default function SingleAdvertorial(props) {
               title={title}
               label={acfAdvertorialLabel?.advertorialLabel}
             />
-            <ContentWrapperAdvertorial content={content} />
+            {content && <ContentWrapperAdvertorial content={content} />}
+            {(tabsEditor?.tabTitle1 && tabsEditor?.tab1) !== null && (
+              <TabsEditor
+                tabsEditor={tabsEditor}
+                // luxuryTravelClass={'luxuryTravelClass'}
+              />
+            )}
             {luxuryTravelDirectory?.directory && (
               <LuxuryTravelDirectory
                 content={luxuryTravelDirectory?.directory}
@@ -220,6 +228,12 @@ SingleAdvertorial.query = gql`
         slide5 {
           mediaItemUrl
         }
+      }
+      tabsEditor {
+        tab1
+        tab2
+        tabTitle1
+        tabTitle2
       }
       luxuryTravelDirectory {
         directory

@@ -271,52 +271,22 @@ export default function SingleLuxuryTravel(props) {
         <>
           <SingleLTContainer>
             <div
-              className="scroll-snap-container relative h-screen w-screen snap-y snap-mandatory overflow-y-scroll bg-[#dbf2f1] sm:top-[4.5rem]"
+              className="scroll-snap-container h-screen w-screen snap-y snap-mandatory overflow-y-scroll bg-[#dbf2f1] sm:top-[4.5rem]"
               onScroll={handleScroll}
             >
               <section
-                className="sm:snap-section relative pt-[3.5rem] sm:snap-start sm:snap-always sm:pt-0"
+                className="sm:snap-section relative sm:snap-start sm:snap-always sm:pt-[4.5rem]"
                 data-id="section1"
               >
                 <div className="overflow-y-scroll bg-[#dbf2f1]">
                   <SingleAdvertorialSlider
                     images={images?.map((image) => image[0])}
-                    // captions={images?.map((caption) => caption[1])}
-                    // // parent={parent?.node?.title}
-                    // // nextUri={nextUri}
-                    // slidersLL={sliderLL}
-                    // isSliderMounted={isSliderMounted}
-                    // setIsSliderMounted={setIsSliderMounted}
                   />
                   <SingleAdvertorialEntryHeader
                     title={title}
                     label={acfAdvertorialLabel?.advertorialLabel}
                     // luxuryTravelClass={'luxuryTravelClass'}
                   />
-                  {/* <div className="hidden sm:fixed sm:bottom-0 sm:left-[50vw] sm:flex sm:min-h-16 sm:w-[50vw] sm:items-center sm:justify-between sm:bg-[#000000]">
-                  <button
-                    onClick={scrollToSection2}
-                    aria-label="Scroll to Section 2"
-                    className="h-full min-h-full w-1/2 p-[1rem] text-left"
-                  >
-                    {luxuryTravelPinPosts?.pinPostsTitle && (
-                      <span className="uppercase text-[#ffffff]">
-                        {luxuryTravelPinPosts?.pinPostsTitle}
-                      </span>
-                    )}
-                  </button>
-                  <button
-                    onClick={scrollToSection3}
-                    aria-label="Scroll to Section 3"
-                    className="h-full min-h-full w-1/2 p-[1rem] text-left"
-                  >
-                    {directoryTitle && (
-                      <span className="uppercase text-[#ffffff]">
-                        {directoryTitle}
-                      </span>
-                    )}
-                  </button>
-                </div> */}
                 </div>
               </section>
               <section
@@ -326,10 +296,12 @@ export default function SingleLuxuryTravel(props) {
               >
                 <div className="overflow-y-scroll">
                   <div className="sm:h-fit">
-                    <ContentWrapperAdvertorial
-                      content={content}
-                      luxuryTravelClass={'luxuryTravelClass'}
-                    />
+                    {content && (
+                      <ContentWrapperAdvertorial
+                        content={content}
+                        luxuryTravelClass={'luxuryTravelClass'}
+                      />
+                    )}
                   </div>
                 </div>
               </section>
@@ -355,6 +327,7 @@ export default function SingleLuxuryTravel(props) {
                 <div className="overflow-y-scroll bg-[#dbf2f1]">
                   <LuxuryTravelStories
                     luxuryTravelId={databaseId}
+                    name={title}
                     parent={parent?.node?.title}
                     luxuryTravelPinPosts={luxuryTravelPinPosts}
                     pinPostsTitle={luxuryTravelPinPosts?.pinPostsTitle}
@@ -366,11 +339,13 @@ export default function SingleLuxuryTravel(props) {
                 data-id="section5"
               >
                 <div className="overflow-y-scroll bg-[#dbf2f1]">
-                  <LuxuryTravelDirectory
-                    content={luxuryTravelDirectory?.directory}
-                    parent={parent?.node?.title}
-                    isAdvertorial={false}
-                  />
+                  {luxuryTravelDirectory?.directory && (
+                    <LuxuryTravelDirectory
+                      content={luxuryTravelDirectory?.directory}
+                      parent={parent?.node?.title}
+                      isAdvertorial={false}
+                    />
+                  )}
                 </div>
               </section>
               <section
