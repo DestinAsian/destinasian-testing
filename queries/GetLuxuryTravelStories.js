@@ -4,6 +4,7 @@ export const GetLuxuryTravelStories = gql`
   query GetLuxuryTravelStories($id: ID!) {
     luxuryTravel(id: $id, idType: DATABASE_ID) {
       luxuryTravelPinPosts {
+        pinPostsTitle
         pinPosts {
           ... on Post {
             id

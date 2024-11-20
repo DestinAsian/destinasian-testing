@@ -2,12 +2,8 @@ import React, { useState, useEffect } from 'react'
 import classNames from 'classnames/bind'
 import styles from './LuxuryTravelStories.module.scss'
 import { useQuery } from '@apollo/client'
-import * as CONTENT_TYPES from '../../constants/contentTypes'
-import { GetCategoryStories } from '../../queries/GetCategoryStories'
 import { GetSpecificBannerAds } from '../../queries/GetSpecificBannerAds'
-import { GetAdvertorialStories } from '../../queries/GetAdvertorialStories'
 import {
-  Button,
   PostTwoColumns,
   AdvertorialPostTwoColumns,
   ModuleAd,
@@ -26,11 +22,10 @@ function shuffleArray(array) {
 export default function LuxuryTravelStories(luxuryTravelId) {
   // Declare state for banner ads
   const [SpecificAdsArray, setSpecificAdsArray] = useState([])
-  // Post per fetching
-  const postsPerPage = 10
-  const bannerPerPage = 1
+  // Banner maximum per page
+  const bannerPerPage = 10
 
-  const databaseId = luxuryTravelId?.luxuryTravelId
+  const name = luxuryTravelId?.name
   const parent = luxuryTravelId?.parent
   const luxuryTravelPinPosts = luxuryTravelId?.luxuryTravelPinPosts
   const pinPostsTitle = luxuryTravelId?.pinPostsTitle
@@ -44,16 +39,13 @@ export default function LuxuryTravelStories(luxuryTravelId) {
     search: parent,
   }
 
-  // // Main Category
-  // if (!parent) {
-  //   // Modify the variables based on the condition
-  //   bannerVariable = {
-  //     search: name,
-  //   }
-  //   queryVariables = {
-  //     search: name,
-  //   }
-  // }
+  // Focus Banner
+  if (parent === 'Focus') {
+    // Modify the variables based on the condition
+    bannerVariable = {
+      search: name,
+    }
+  }
 
   // // Sub Category
   // if (children?.edges?.length !== 0 && parent !== (null || undefined)) {
