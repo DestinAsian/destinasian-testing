@@ -36,16 +36,16 @@ export default function LuxuryTravelStories(luxuryTravelId) {
 
   let bannerVariable = {
     first: bannerPerPage,
-    search: parent,
+    search: name,
   }
 
-  // Focus Banner
-  if (parent === 'Focus') {
-    // Modify the variables based on the condition
-    bannerVariable = {
-      search: name,
-    }
-  }
+  // // Focus Banner
+  // if (parent === 'Focus') {
+  //   // Modify the variables based on the condition
+  //   bannerVariable = {
+  //     search: name,
+  //   }
+  // }
 
   // // Sub Category
   // if (children?.edges?.length !== 0 && parent !== (null || undefined)) {
