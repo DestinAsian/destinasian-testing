@@ -317,6 +317,15 @@ export default function SearchResults({ searchResults, isLoading }) {
                             {'Readers’ Choice Awards'}
                           </h2>
                         )}
+
+                        {/* Luxury Travel */}
+                        {node?.contentType?.node?.graphqlPluralName ==
+                          'LuxuryTravels' &&
+                          node?.uri && (
+                            <Link href={node?.uri}>
+                              <h2 className={cx('meta')}>{'Luxury Travel'}</h2>
+                            </Link>
+                          )}
                       </div>
                     )}
 
@@ -405,6 +414,17 @@ export default function SearchResults({ searchResults, isLoading }) {
                         node?.uri && (
                           <Link href={node?.uri}>
                             <h2 className={cx('title', 'title-rca')}>
+                              {node?.title}
+                            </h2>
+                          </Link>
+                        )}
+
+                      {/* Luxury Travel */}
+                      {node?.contentType?.node?.graphqlPluralName ==
+                        'LuxuryTravels' &&
+                        node?.uri && (
+                          <Link href={node?.uri}>
+                            <h2 className={cx('title', 'title-advertorial')}>
                               {node?.title}
                             </h2>
                           </Link>
