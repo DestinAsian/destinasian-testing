@@ -11,11 +11,14 @@ import {
   EntryHeader,
   FeaturedImage,
   SEO,
+  PasswordProtected,
 } from '../components'
 import { GetMenus } from '../queries/GetMenus'
 import { GetFooterMenus } from '../queries/GetFooterMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
-import { eb_garamond, rubik_mono_one } from '../styles/fonts/fonts'
+import { eb_garamond, rubik, rubik_mono_one } from '../styles/fonts/fonts'
+import React, { useEffect, useState } from 'react'
+import Cookies from 'js-cookie'
 
 export default function Component(props) {
   // Loading state for previews
@@ -23,10 +26,31 @@ export default function Component(props) {
     return <>Loading...</>
   }
 
+  const [enteredPassword, setEnteredPassword] = useState('')
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+
+  // Check for stored password in cookies on mount
+  useEffect(() => {
+    const storedPassword = Cookies.get('pagePassword')
+    if (
+      storedPassword &&
+      storedPassword === props?.data?.page?.passwordProtected?.password
+    ) {
+      setIsAuthenticated(true)
+    }
+  }, [props?.data?.page?.passwordProtected?.password])
+
   const { title: siteTitle, description: siteDescription } =
     props?.data?.generalSettings
-  const { title, content, featuredImage, headerFooterVisibility, seo, uri } =
-    props?.data?.page
+  const {
+    title,
+    content,
+    featuredImage,
+    headerFooterVisibility,
+    seo,
+    uri,
+    passwordProtected,
+  } = props?.data?.page
 
   // Get menus
   const { data: menusData, loading: menusLoading } = useQuery(GetMenus, {
@@ -119,6 +143,37 @@ export default function Component(props) {
   // sortByDate mainCat & childCat Posts
   const allPosts = mainCatPosts.sort(sortPostsByDate)
 
+  // Handle password submission
+  const handlePasswordSubmit = (e) => {
+    e.preventDefault()
+    if (enteredPassword === passwordProtected?.password) {
+      setIsAuthenticated(true)
+      Cookies.set('pagePassword', enteredPassword, { expires: 1 }) // Set cookie to expire in 1 day
+    } else {
+      alert('Incorrect password. Please try again.')
+    }
+  }
+
+  if (passwordProtected?.onOff && !isAuthenticated) {
+    return (
+      <main
+        className={`${eb_garamond.variable} ${rubik_mono_one.variable} ${rubik.variable}`}
+      >
+        <form onSubmit={handlePasswordSubmit}>
+          <PasswordProtected
+            enteredPassword={enteredPassword}
+            setEnteredPassword={setEnteredPassword}
+            title={seo?.title}
+            description={seo?.metaDesc}
+            imageUrl={featuredImage?.node?.sourceUrl}
+            url={uri}
+            focuskw={seo?.focuskw}
+          />
+        </form>
+      </main>
+    )
+  }
+
   return (
     <main className={`${eb_garamond.variable} ${rubik_mono_one.variable}`}>
       <SEO
@@ -166,6 +221,10 @@ Component.query = gql`
     page(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
       title
       content
+      passwordProtected {
+        onOff
+        password
+      }
       ...FeaturedImageFragment
       headerFooterVisibility {
         ...HeaderFooterVisibilityFragment

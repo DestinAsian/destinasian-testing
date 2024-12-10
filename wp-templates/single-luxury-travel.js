@@ -15,18 +15,34 @@ import {
   TabsEditor,
   SingleAdvertorialSlider,
   BackToTop,
+  PasswordProtected,
 } from '../components'
 import { GetMenus } from '../queries/GetMenus'
 import { GetFooterMenus } from '../queries/GetFooterMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
 import { eb_garamond, rubik, rubik_mono_one } from '../styles/fonts/fonts'
 import React, { useEffect, useState } from 'react'
+import Cookies from 'js-cookie'
 
 export default function SingleLuxuryTravel(props) {
   // Loading state for previews
   if (props.loading) {
     return <>Loading...</>
   }
+
+  const [enteredPassword, setEnteredPassword] = useState('')
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+
+  // Check for stored password in cookies on mount
+  useEffect(() => {
+    const storedPassword = Cookies.get('luxuryTravelPassword')
+    if (
+      storedPassword &&
+      storedPassword === props?.data?.luxuryTravel?.passwordProtected?.password
+    ) {
+      setIsAuthenticated(true)
+    }
+  }, [props?.data?.luxuryTravel?.passwordProtected?.password])
 
   const [isNavShown, setIsNavShown] = useState(false)
 
@@ -54,6 +70,7 @@ export default function SingleLuxuryTravel(props) {
     luxuryTravelPinPosts,
     luxuryTravelDirectory,
     tabsEditor,
+    passwordProtected,
   } = props?.data?.luxuryTravel
 
   const [visibleComponent, setVisibleComponent] = useState(null)
@@ -169,11 +186,11 @@ export default function SingleLuxuryTravel(props) {
   // Attach the scroll listener when component mounts
   useEffect(() => {
     const scrollContainer = document.querySelector('.scroll-snap-container')
-    scrollContainer.addEventListener('scroll', handleScroll)
+    scrollContainer?.addEventListener('scroll', handleScroll)
 
     // Clean up event listener on unmount
     return () => {
-      scrollContainer.removeEventListener('scroll', handleScroll)
+      scrollContainer?.removeEventListener('scroll', handleScroll)
     }
   }, [])
 
@@ -239,6 +256,37 @@ export default function SingleLuxuryTravel(props) {
       acfPostSlider.slideCaption5 != null ? acfPostSlider.slideCaption5 : null,
     ],
   ]
+
+  // Handle password submission
+  const handlePasswordSubmit = (e) => {
+    e.preventDefault()
+    if (enteredPassword === passwordProtected?.password) {
+      setIsAuthenticated(true)
+      Cookies.set('luxuryTravelPassword', enteredPassword, { expires: 1 }) // Set cookie to expire in 1 day
+    } else {
+      alert('Incorrect password. Please try again.')
+    }
+  }
+
+  if (passwordProtected?.onOff && !isAuthenticated) {
+    return (
+      <main
+        className={`${eb_garamond.variable} ${rubik_mono_one.variable} ${rubik.variable}`}
+      >
+        <form onSubmit={handlePasswordSubmit}>
+          <PasswordProtected
+            enteredPassword={enteredPassword}
+            setEnteredPassword={setEnteredPassword}
+            title={seo?.title}
+            description={seo?.metaDesc}
+            imageUrl={featuredImage?.node?.sourceUrl}
+            url={uri}
+            focuskw={seo?.focuskw}
+          />
+        </form>
+      </main>
+    )
+  }
 
   return (
     <main
@@ -332,6 +380,7 @@ export default function SingleLuxuryTravel(props) {
                     luxuryTravelPinPosts={luxuryTravelPinPosts}
                     pinPostsTitle={luxuryTravelPinPosts?.pinPostsTitle}
                   />
+                  {console.log(luxuryTravelPinPosts)}
                 </div>
               </section>
               <section
@@ -379,6 +428,10 @@ SingleLuxuryTravel.query = gql`
       databaseId
       content
       date
+      passwordProtected {
+        onOff
+        password
+      }
       tabsEditor {
         tab1
         tab2
@@ -440,8 +493,6 @@ SingleLuxuryTravel.query = gql`
             uri
             contentTypeName
             title
-            content
-            date
             excerpt
             featuredImage {
               node {
@@ -485,8 +536,6 @@ SingleLuxuryTravel.query = gql`
             uri
             contentTypeName
             title
-            content
-            date
             excerpt
             featuredImage {
               node {
@@ -518,8 +567,6 @@ SingleLuxuryTravel.query = gql`
             uri
             contentTypeName
             title
-            content
-            date
             excerpt
             featuredImage {
               node {
@@ -585,6 +632,30 @@ SingleLuxuryTravel.query = gql`
                   height
                 }
               }
+            }
+          }
+          ... on Video {
+            id
+            contentTypeName
+            title
+            content
+            featuredImage {
+              node {
+                id
+                sourceUrl
+                altText
+                mediaDetails {
+                  width
+                  height
+                }
+              }
+            }
+            videosAcf {
+              videoLink
+              guidesCategoryLink
+              guidesCategoryText
+              customLink
+              customText
             }
           }
         }
@@ -594,8 +665,6 @@ SingleLuxuryTravel.query = gql`
             uri
             contentTypeName
             title
-            content
-            date
             excerpt
             categories(where: { childless: true }) {
               edges {
@@ -628,8 +697,6 @@ SingleLuxuryTravel.query = gql`
             uri
             contentTypeName
             title
-            content
-            date
             excerpt
             categories {
               edges {
@@ -650,8 +717,6 @@ SingleLuxuryTravel.query = gql`
             uri
             contentTypeName
             title
-            content
-            date
             excerpt
             categories {
               edges {
@@ -684,6 +749,30 @@ SingleLuxuryTravel.query = gql`
               node {
                 label
               }
+            }
+          }
+          ... on Video {
+            id
+            contentTypeName
+            title
+            content
+            featuredImage {
+              node {
+                id
+                sourceUrl
+                altText
+                mediaDetails {
+                  width
+                  height
+                }
+              }
+            }
+            videosAcf {
+              videoLink
+              guidesCategoryLink
+              guidesCategoryText
+              customLink
+              customText
             }
           }
         }

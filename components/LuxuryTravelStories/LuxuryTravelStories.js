@@ -1,13 +1,17 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import classNames from 'classnames/bind'
 import styles from './LuxuryTravelStories.module.scss'
 import { useQuery } from '@apollo/client'
 import { GetSpecificBannerAds } from '../../queries/GetSpecificBannerAds'
+import LiteYouTubeEmbed from 'react-lite-youtube-embed'
+import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css'
 import {
   PostTwoColumns,
   AdvertorialPostTwoColumns,
   ModuleAd,
+  Heading,
 } from '../../components'
+import Link from 'next/link'
 
 let cx = classNames.bind(styles)
 
@@ -32,6 +36,40 @@ export default function LuxuryTravelStories(luxuryTravelId) {
 
   if (!parent) {
     return null
+  }
+
+  const [isPlaying, setIsPlaying] = useState(false)
+  const videoRef = useRef(null)
+
+  // Extract Youtube Video
+  const extractYouTubeVideoId = (embedUrl) => {
+    const match = embedUrl.match(/\/embed\/([^?"]+)/)
+    return match ? match[1] : null
+  }
+
+  // Extract Local Video
+  const extractVideoSrc = (content) => {
+    const match = content.match(/<video[^>]*>\s*<source[^>]*src="([^"]+)"/)
+    return match ? match[1] : null
+  }
+
+  const params = (content) => {
+    const videoId = extractYouTubeVideoId(content)
+    const url = `&playlist=${videoId}&loop=1&controls=0&disablekb=1');`
+    return url ? url : null
+  }
+
+  const handlePlayPause = () => {
+    if (isPlaying) {
+      videoRef.current.pause()
+    } else {
+      videoRef.current.play()
+    }
+    setIsPlaying(!isPlaying)
+  }
+
+  const containsYouTube = (content) => {
+    return content.includes('youtube')
   }
 
   let bannerVariable = {
@@ -176,6 +214,8 @@ export default function LuxuryTravelStories(luxuryTravelId) {
   }, [])
 
   const numberOfBannerAds = sortedBannerAdsArray.length
+
+  console.log(luxuryTravelId)
 
   return (
     <div className={cx('component')}>
@@ -331,6 +371,103 @@ export default function LuxuryTravelStories(luxuryTravelId) {
                             />
                           </div>
                         )}
+                        {post?.contentTypeName === 'video-posts' && (
+                          <div className={cx('other-video-wrapper')}>
+                            {post?.content && (
+                              <div className={cx('other-iframe-wrapper')}>
+                                {containsYouTube(post?.content) ? (
+                                  <LiteYouTubeEmbed
+                                    id={extractYouTubeVideoId(post?.content)}
+                                    title={post?.title}
+                                    muted={true}
+                                    params={params(post?.content)}
+                                    playerClass="play-icon"
+                                    poster="maxresdefault"
+                                    webp={true}
+                                  />
+                                ) : (
+                                  <div className={cx('local-video-wrapper')}>
+                                    <video
+                                      ref={videoRef}
+                                      src={extractVideoSrc(post?.content)}
+                                      className="video-content"
+                                      loop
+                                      muted
+                                      poster={
+                                        post?.featuredImage?.node?.sourceUrl
+                                      }
+                                    />
+                                    {!isPlaying && (
+                                      <button
+                                        className={cx('play-button')}
+                                        onClick={handlePlayPause}
+                                      ></button>
+                                    )}
+                                    {isPlaying && (
+                                      <button
+                                        className={cx('pause-button')}
+                                        onClick={handlePlayPause}
+                                      ></button>
+                                    )}
+                                  </div>
+                                )}
+                              </div>
+                            )}
+                            <div className={cx('other-video-text-wrapper')}>
+                              <div className={cx('other-guides-text-wrapper')}>
+                                {post?.videosAcf?.guidesCategoryLink &&
+                                  post?.videosAcf?.guidesCategoryText && (
+                                    <Link
+                                      href={post?.videosAcf?.guidesCategoryLink}
+                                    >
+                                      <Heading
+                                        className={cx('other-guides-text')}
+                                      >
+                                        {post?.videosAcf?.guidesCategoryText}
+                                      </Heading>
+                                    </Link>
+                                  )}
+                                {post?.videosAcf?.guidesCategoryLink === null &&
+                                  post?.videosAcf?.guidesCategoryText && (
+                                    <Heading
+                                      className={cx('other-guides-text')}
+                                    >
+                                      {post?.videosAcf?.guidesCategoryText}
+                                    </Heading>
+                                  )}
+                              </div>
+                              <div className={cx('other-title-wrapper')}>
+                                {post?.videosAcf?.videoLink && post?.title && (
+                                  <Link href={post?.videosAcf?.videoLink}>
+                                    <h2>{post?.title}</h2>
+                                  </Link>
+                                )}
+                                {post?.videosAcf?.videoLink === null &&
+                                  post?.title && <h2>{post?.title}</h2>}
+                              </div>
+                              <div className={cx('other-custom-text-wrapper')}>
+                                {post?.videosAcf?.customLink &&
+                                  post?.videosAcf?.customText && (
+                                    <Link href={post?.videosAcf?.customLink}>
+                                      <Heading
+                                        className={cx('other-custom-text')}
+                                      >
+                                        {post?.videosAcf?.customText}
+                                      </Heading>
+                                    </Link>
+                                  )}
+                                {post?.videosAcf?.customLink === null &&
+                                  post?.videosAcf?.customText && (
+                                    <Heading
+                                      className={cx('other-custom-text')}
+                                    >
+                                      {post?.videosAcf?.customText}
+                                    </Heading>
+                                  )}
+                              </div>
+                            </div>
+                          </div>
+                        )}
                         {/* Show 1st banner after 4 posts and then every 4 posts */}
                         {(index - 1) % 4 === 2 && (
                           <div className={cx('banner-ad-wrapper')}>
@@ -460,6 +597,7 @@ export default function LuxuryTravelStories(luxuryTravelId) {
                             title={post?.title}
                             excerpt={post?.excerpt}
                             uri={post?.uri}
+                            luxuryTravelClass={'luxuryTravelClass'}
                           />
                         </div>
                       )}
@@ -473,6 +611,59 @@ export default function LuxuryTravelStories(luxuryTravelId) {
                             category={post?.contentType?.node?.label}
                             categoryUri={post?.uri}
                           />
+                        </div>
+                      )}
+                      {post?.contentTypeName === 'video-posts' && (
+                        <div className={cx('other-more-video-wrapper')}>
+                          <div className={cx('other-video-text-wrapper')}>
+                            <div className={cx('other-guides-text-wrapper')}>
+                              {post?.videosAcf?.guidesCategoryLink &&
+                                post?.videosAcf?.guidesCategoryText && (
+                                  <Link
+                                    href={post?.videosAcf?.guidesCategoryLink}
+                                  >
+                                    <Heading
+                                      className={cx('other-guides-text')}
+                                    >
+                                      {post?.videosAcf?.guidesCategoryText}
+                                    </Heading>
+                                  </Link>
+                                )}
+                              {post?.videosAcf?.guidesCategoryLink === null &&
+                                post?.videosAcf?.guidesCategoryText && (
+                                  <Heading className={cx('other-guides-text')}>
+                                    {post?.videosAcf?.guidesCategoryText}
+                                  </Heading>
+                                )}
+                            </div>
+                            <div className={cx('other-title-wrapper')}>
+                              {post?.videosAcf?.videoLink && post?.title && (
+                                <Link href={post?.videosAcf?.videoLink}>
+                                  <h2>{post?.title}</h2>
+                                </Link>
+                              )}
+                              {post?.videosAcf?.videoLink === null &&
+                                post?.title && <h2>{post?.title}</h2>}
+                            </div>
+                            <div className={cx('other-custom-text-wrapper')}>
+                              {post?.videosAcf?.customLink &&
+                                post?.videosAcf?.customText && (
+                                  <Link href={post?.videosAcf?.customLink}>
+                                    <Heading
+                                      className={cx('other-custom-text')}
+                                    >
+                                      {post?.videosAcf?.customText}
+                                    </Heading>
+                                  </Link>
+                                )}
+                              {post?.videosAcf?.customLink === null &&
+                                post?.videosAcf?.customText && (
+                                  <Heading className={cx('other-custom-text')}>
+                                    {post?.videosAcf?.customText}
+                                  </Heading>
+                                )}
+                            </div>
+                          </div>
                         </div>
                       )}
                     </React.Fragment>

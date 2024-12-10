@@ -1,7 +1,6 @@
 import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
 import { BlogInfoFragment } from '../fragments/GeneralSettings'
-import { useState, useEffect } from 'react'
 import {
   SingleHeader,
   Footer,
@@ -14,11 +13,14 @@ import {
   ContentWrapperEditorial,
   RelatedStories,
   EntryRelatedStories,
+  PasswordProtected,
 } from '../components'
 import { GetMenus } from '../queries/GetMenus'
 import { GetFooterMenus } from '../queries/GetFooterMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
-import { eb_garamond, rubik_mono_one } from '../styles/fonts/fonts'
+import { eb_garamond, rubik, rubik_mono_one } from '../styles/fonts/fonts'
+import React, { useEffect, useState } from 'react'
+import Cookies from 'js-cookie'
 
 // Randomized Function
 function shuffleArray(array) {
@@ -35,6 +37,20 @@ export default function SingleEditorial(props) {
     return <>Loading...</>
   }
 
+  const [enteredPassword, setEnteredPassword] = useState('')
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+
+  // Check for stored password in cookies on mount
+  useEffect(() => {
+    const storedPassword = Cookies.get('editorialPassword')
+    if (
+      storedPassword &&
+      storedPassword === props?.data?.editorial?.passwordProtected?.password
+    ) {
+      setIsAuthenticated(true)
+    }
+  }, [props?.data?.editorial?.passwordProtected?.password])
+
   const { title: siteTitle, description: siteDescription } =
     props?.data?.generalSettings
   const {
@@ -46,6 +62,7 @@ export default function SingleEditorial(props) {
     acfSingleEditorialSlider,
     seo,
     uri,
+    passwordProtected,
   } = props?.data?.editorial
   const categories = props?.data?.editorial?.categories?.edges ?? []
   const relatedStories = categories[0]?.node?.editorials ?? []
@@ -175,6 +192,37 @@ export default function SingleEditorial(props) {
     }
   }, [relatedStories])
 
+  // Handle password submission
+  const handlePasswordSubmit = (e) => {
+    e.preventDefault()
+    if (enteredPassword === passwordProtected?.password) {
+      setIsAuthenticated(true)
+      Cookies.set('editorialPassword', enteredPassword, { expires: 1 }) // Set cookie to expire in 1 day
+    } else {
+      alert('Incorrect password. Please try again.')
+    }
+  }
+
+  if (passwordProtected?.onOff && !isAuthenticated) {
+    return (
+      <main
+        className={`${eb_garamond.variable} ${rubik_mono_one.variable} ${rubik.variable}`}
+      >
+        <form onSubmit={handlePasswordSubmit}>
+          <PasswordProtected
+            enteredPassword={enteredPassword}
+            setEnteredPassword={setEnteredPassword}
+            title={seo?.title}
+            description={seo?.metaDesc}
+            imageUrl={featuredImage?.node?.sourceUrl}
+            url={uri}
+            focuskw={seo?.focuskw}
+          />
+        </form>
+      </main>
+    )
+  }
+
   return (
     <main className={`${eb_garamond.variable} ${rubik_mono_one.variable}`}>
       <SEO
@@ -244,6 +292,10 @@ SingleEditorial.query = gql`
       title
       content
       date
+      passwordProtected {
+        onOff
+        password
+      }
       ...FeaturedImageFragment
       author {
         node {

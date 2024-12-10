@@ -13,14 +13,32 @@ import {
   ContentWrapperLL,
   SingleLLFrontPageFeaturedImage,
   SingleLLEntryHeader,
+  PasswordProtected,
 } from '../components'
-import { eb_garamond, rubik_mono_one } from '../styles/fonts/fonts'
+import { GetLatestStories } from '../queries/GetLatestStories'
+import { eb_garamond, rubik, rubik_mono_one } from '../styles/fonts/fonts'
+import React, { useEffect, useState } from 'react'
+import Cookies from 'js-cookie'
 
 export default function SingleLuxeList(props) {
   // Loading state for previews
   if (props.loading) {
     return <>Loading...</>
   }
+
+  const [enteredPassword, setEnteredPassword] = useState('')
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+
+  // Check for stored password in cookies on mount
+  useEffect(() => {
+    const storedPassword = Cookies.get('pagePassword')
+    if (
+      storedPassword &&
+      storedPassword === props?.data?.page?.passwordProtected?.password
+    ) {
+      setIsAuthenticated(true)
+    }
+  }, [props?.data?.page?.passwordProtected?.password])
 
   const { title: siteTitle, description: siteDescription } =
     props?.data?.generalSettings
@@ -35,6 +53,7 @@ export default function SingleLuxeList(props) {
     databaseId,
     luxeListLogo,
     categories,
+    passwordProtected,
   } = props?.data?.luxeList
   
   // Get menus
@@ -119,6 +138,37 @@ export default function SingleLuxeList(props) {
     acfPostSlider.slide4 != null ? acfPostSlider.slide4.mediaItemUrl : null,
     acfPostSlider.slide5 != null ? acfPostSlider.slide5.mediaItemUrl : null,
   ]
+
+    // Handle password submission
+    const handlePasswordSubmit = (e) => {
+      e.preventDefault()
+      if (enteredPassword === passwordProtected?.password) {
+        setIsAuthenticated(true)
+        Cookies.set('pagePassword', enteredPassword, { expires: 1 }) // Set cookie to expire in 1 day
+      } else {
+        alert('Incorrect password. Please try again.')
+      }
+    }
+  
+    if (passwordProtected?.onOff && !isAuthenticated) {
+      return (
+        <main
+          className={`${eb_garamond.variable} ${rubik_mono_one.variable} ${rubik.variable}`}
+        >
+          <form onSubmit={handlePasswordSubmit}>
+            <PasswordProtected
+              enteredPassword={enteredPassword}
+              setEnteredPassword={setEnteredPassword}
+              title={seo?.title}
+              description={seo?.metaDesc}
+              imageUrl={featuredImage?.node?.sourceUrl}
+              url={uri}
+              focuskw={seo?.focuskw}
+            />
+          </form>
+        </main>
+      )
+    }
 
   return (
     <main className={`${eb_garamond.variable} ${rubik_mono_one.variable}`}>
@@ -226,6 +276,10 @@ SingleLuxeList.query = gql`
       title
       content
       databaseId
+      passwordProtected {
+        onOff
+        password
+      }
       ...FeaturedImageFragment
       luxeListLogo {
         mainLogo {

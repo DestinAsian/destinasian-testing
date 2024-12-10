@@ -10,19 +10,37 @@ import {
   SingleRCAEntryHeader,
   RCAHeader,
   ContentWrapperRCAFrontPage,
+  PasswordProtected,
 } from '../components'
 import { GetMenus } from '../queries/GetMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
 import { GetRCASlider } from '../queries/GetRCASlider'
 import { GetRCAPagination } from '../queries/GetRCAPagination'
-import { useEffect, useState } from 'react'
-import { eb_garamond, rubik_mono_one } from '../styles/fonts/fonts'
+import React, { useEffect, useState } from 'react'
+import { eb_garamond, rubik, rubik_mono_one } from '../styles/fonts/fonts'
+import Cookies from 'js-cookie'
 
 export default function singleRca(props) {
   // Loading state for previews
   if (props.loading) {
     return <>Loading...</>
   }
+
+  const [enteredPassword, setEnteredPassword] = useState('')
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+
+  // Check for stored password in cookies on mount
+  useEffect(() => {
+    const storedPassword = Cookies.get('readersChoiceAwardPassword')
+    if (
+      storedPassword &&
+      storedPassword ===
+        props?.data?.readersChoiceAward?.passwordProtected?.password
+    ) {
+      setIsAuthenticated(true)
+    }
+  }, [props?.data?.readersChoiceAward?.passwordProtected?.password])
+
 
   const batchSize = 100
   const [isNavShown, setIsNavShown] = useState(false)
@@ -54,6 +72,7 @@ export default function singleRca(props) {
     uri,
     databaseId,
     categories,
+    passwordProtected,
   } = props?.data?.readersChoiceAward
 
   // Get menus
@@ -234,6 +253,37 @@ export default function singleRca(props) {
     id: rcaIds[index],
   }))
 
+  // Handle password submission
+  const handlePasswordSubmit = (e) => {
+    e.preventDefault()
+    if (enteredPassword === passwordProtected?.password) {
+      setIsAuthenticated(true)
+      Cookies.set('readersChoiceAwardPassword', enteredPassword, { expires: 1 }) // Set cookie to expire in 1 day
+    } else {
+      alert('Incorrect password. Please try again.')
+    }
+  }
+
+  if (passwordProtected?.onOff && !isAuthenticated) {
+    return (
+      <main
+        className={`${eb_garamond.variable} ${rubik_mono_one.variable} ${rubik.variable}`}
+      >
+        <form onSubmit={handlePasswordSubmit}>
+          <PasswordProtected
+            enteredPassword={enteredPassword}
+            setEnteredPassword={setEnteredPassword}
+            title={seo?.title}
+            description={seo?.metaDesc}
+            imageUrl={featuredImage?.node?.sourceUrl}
+            url={uri}
+            focuskw={seo?.focuskw}
+          />
+        </form>
+      </main>
+    )
+  }
+
   return (
     <main className={`${eb_garamond.variable} ${rubik_mono_one.variable}`}>
       <SEO
@@ -355,6 +405,10 @@ singleRca.query = gql`
       databaseId
       content
       uri
+      passwordProtected {
+        onOff
+        password
+      }
       ...FeaturedImageFragment
       categories {
         edges {
