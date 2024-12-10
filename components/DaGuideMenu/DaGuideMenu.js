@@ -35,42 +35,32 @@ export default function DaGuideMenu({
   const hasCategory = categories
 
   return (
-    <li className={cx(['component', className])}>
+    <div className={cx(['component', className])}>
       <div className={cx('container-wrapper')}>
         {/* Parent category navigation */}
-        {hasTitle && (
-          <div className={cx('text')}>
+        {!!hasTitle && (
+          <div key={'hasTitle'} className={cx('text')}>
             <Container>
-              {!!title && titleUri && (
-                <Link href={titleUri}>
-                  <Heading className={cx('title')}>{title}</Heading>
-                </Link>
-              )}
+              {!!title && <Heading className={cx('title')}>{title}</Heading>}
             </Container>
           </div>
         )}
 
         {/* Children category navigation */}
-        {hasParent && (
-          <div className={cx('text')}>
+        {!!hasParent && (
+          <div key={'hasParent'} className={cx('text')}>
             <Container>
-              {!!parent && parentUri && (
-                <Link href={parentUri}>
-                  <Heading className={cx('title')}>{parent}</Heading>
-                </Link>
-              )}
+              {!!parent && <Heading className={cx('title')}>{parent}</Heading>}
             </Container>
           </div>
         )}
 
         {/* Single post navigation */}
-        {hasCategory && (
-          <div className={cx('text')}>
+        {!!hasCategory && (
+          <div key={'hasCategory'} className={cx('text')}>
             <Container>
-              {!!categories && categoryUri && (
-                <Link href={categoryUri}>
-                  <Heading className={cx('title')}>{categories}</Heading>
-                </Link>
+              {!!categories && (
+                <Heading className={cx('title')}>{categories}</Heading>
               )}
               {/* <div
                 className={cx([
@@ -80,10 +70,10 @@ export default function DaGuideMenu({
               >
                 <div className={cx('index-menu-content')}>
                   <div className={cx('first-wrapper')}>
-                    {categoryUri && (
-                      <Link href={categoryUri}>
+               && (
+                      
                         <>
-                          {'The DA Guide to '}
+                      
                           {categoryName}
                         </>
                       </Link>
@@ -97,6 +87,6 @@ export default function DaGuideMenu({
           </div>
         )}
       </div>
-    </li>
+    </div>
   )
 }

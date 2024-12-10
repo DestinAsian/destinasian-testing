@@ -10,14 +10,11 @@
   padding: 0 0 0.5rem;
   position: relative;
   z-index: 49;
+  height: 3.5rem;
 
-  &.show {
-    height: 100%;
-
-    @media (min-width: $breakpoint-extra-small) {
-      min-height: 3.875rem;
-    }
-  }
+  // &.show {
+  //   height: 100%;
+  // }
 }
 
 .home-container-wrapper {
@@ -71,7 +68,7 @@
   @media (min-width: $breakpoint-extra-small) {
     top: 0;
     transform: translateY(8.125rem);
-    max-height: 4rem;
+    max-height: 3.5rem;
   }
 }
 

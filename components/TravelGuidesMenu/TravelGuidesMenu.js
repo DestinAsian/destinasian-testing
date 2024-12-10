@@ -304,17 +304,17 @@ export default function TravelGuidesMenu() {
                 {parentId === null && (
                   <div className={cx('accordion-title-wrapper')}>
                     <div className={cx('accordion-title')}>
-                      {path && (
-                        <Link href={path}>
-                          <span className={cx('title')}>
-                            {connectedNode?.node?.countryCode?.countryCode &&
-                              connectedNode?.node?.countryCode?.countryCode}
-                          </span>
-                        </Link>
-                      )}
+                      {/* {path && (
+                        <Link href={path}> */}
+                      <span className={cx('title')}>
+                        {connectedNode?.node?.countryCode?.countryCode &&
+                          connectedNode?.node?.countryCode?.countryCode}
+                      </span>
+                      {/* </Link>
+                      )} */}
                     </div>
                     <Accordion.Title>
-                      <div className={cx('main-guides-heading')}>
+                      {/* <div className={cx('main-guides-heading')}>
                         {connectedNode?.node?.name && (
                           <Heading className={cx('title')}>
                             {connectedNode?.node?.destinationGuides?.guidesTitle
@@ -323,6 +323,20 @@ export default function TravelGuidesMenu() {
                               : 'The DA Guide to ' + connectedNode?.node?.name}
                           </Heading>
                         )}
+                      </div> */}
+                      <div className={cx('navigation-wrapper')}>
+                        <div className={cx('navigation')}>
+                          {connectedNode?.node?.children?.edges?.map((post) => (
+                            <li
+                              key={post?.node?.uri}
+                              className={cx('nav-link')}
+                            >
+                              <h2 className={cx('nav-name')}>
+                                {post?.node?.name}
+                              </h2>
+                            </li>
+                          ))}
+                        </div>
                       </div>
                     </Accordion.Title>
                   </div>
