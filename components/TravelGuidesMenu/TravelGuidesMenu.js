@@ -9,7 +9,6 @@ import flatListToHierarchical from '../../utilities/flatListToHierarchical'
 import { GetPrimaryMenu } from '../../queries/GetPrimaryMenu'
 import { GetTravelGuides } from '../../queries/GetTravelGuides'
 import { GetTravelGuidesMenu } from '../../queries/GetTravelGuidesMenu'
-import { Heading } from '../../components'
 import Image from 'next/image'
 
 let cx = classNames.bind(styles)
@@ -25,11 +24,24 @@ function shuffleArray(array) {
 export default function TravelGuidesMenu() {
   const [results, setResults] = useState([])
   const [loading, setLoading] = useState(true)
+  const [panelIsOpen, setPanelIsOpen] = useState(false)
   const client = useApolloClient() // Use Apollo Client instance
   const [PartnerContentArray, setPartnerContent] = useState([])
   const [HonorsCircleArray, setHonorsCircle] = useState([])
 
   const CustomIcon = () => <span className={cx('custom-icon')}>{'+'}</span>
+  const AccordionTitleCustomTheme = {
+    base: 'flex w-full items-center justify-between text-black-500 dark:text-black-400',
+    flush: {
+      off: '',
+      on: 'text-white bg-transparent dark:bg-transparent',
+    },
+    heading: '',
+    open: {
+      off: 'visible ',
+      on: 'text-transparent	',
+    },
+  }
 
   // Get menus
   const { data: menusData, loading: menusLoading } = useQuery(GetPrimaryMenu, {
@@ -93,14 +105,15 @@ export default function TravelGuidesMenu() {
   }
 
   // Get Advertorial Stories
-  const { data: travelGuidesData, error: travelGuidesError } = useQuery(
-    GetTravelGuides,
-    {
-      variables: { search: null },
-      fetchPolicy: 'network-only',
-      nextFetchPolicy: 'cache-and-network',
-    },
-  )
+  const {
+    data: travelGuidesData,
+    loading: travelGuidesloading,
+    error: travelGuidesError,
+  } = useQuery(GetTravelGuides, {
+    variables: { search: null },
+    fetchPolicy: 'network-only',
+    nextFetchPolicy: 'cache-and-network',
+  })
 
   if (travelGuidesError) {
     return <pre>{JSON.stringify(error)}</pre>
@@ -256,7 +269,7 @@ export default function TravelGuidesMenu() {
   const hierarchicalMenuItems = flatListToHierarchical(footerMenu)
 
   // Loading state
-  if (loading || menusLoading || footerMenusLoading) {
+  if (loading || menusLoading || travelGuidesloading || footerMenusLoading) {
     return (
       <>
         <div className="mx-auto my-0 flex max-w-[100vw] justify-center md:max-w-[700px]">
@@ -287,19 +300,23 @@ export default function TravelGuidesMenu() {
   const getPartnerContent = [...PartnerContentArray]
 
   function renderMenu(items) {
+    // console.log('Rendering menu with items:', items)
     return (
       <Accordion collapseAll arrowIcon={CustomIcon}>
         {items.map((item, index) => {
-          const { path, label, parentId, children, connectedNode } = item
+          const { id, path, label, parentId, children, connectedNode } = item
 
           // @TODO - Remove guard clause after ghost menu items are no longer appended to array.
           if (!item.hasOwnProperty('__typename')) {
+            console.warn(`Skipping invalid item at index ${index}`)
             return null
           }
 
+          // console.log(`Rendering item at index: ${index}`)
+
           return (
             <Accordion.Panel>
-              <div className={cx('accordion-wrapper')}>
+              <div key={id} className={cx('accordion-wrapper')}>
                 {/* Main Guides */}
                 {parentId === null && (
                   <div className={cx('accordion-title-wrapper')}>
@@ -313,7 +330,7 @@ export default function TravelGuidesMenu() {
                       {/* </Link>
                       )} */}
                     </div>
-                    <Accordion.Title>
+                    <Accordion.Title theme={AccordionTitleCustomTheme}>
                       {/* <div className={cx('main-guides-heading')}>
                         {connectedNode?.node?.name && (
                           <Heading className={cx('title')}>
@@ -342,7 +359,7 @@ export default function TravelGuidesMenu() {
                   </div>
                 )}
                 {/* Sub Guides */}
-                {children.length > 0 ? (
+                {children?.length ? (
                   <div className={cx('accordion-content-wrapper')}>
                     <Accordion.Content>
                       <div className={cx('accordion-content')}>

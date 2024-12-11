@@ -111,18 +111,32 @@
   display: flex;
 
   .not-active {
-    border-bottom: 5px solid transparent;
+    border-bottom: 3px solid transparent;
+
+    @media (min-width: $breakpoint-extra-small) {
+      border-bottom: 5px solid transparent;
+    }
 
     &:hover,
     &:focus {
-      font-weight: 700;
-      border-bottom: 5px solid var(--wpe--color--black);
+      border-bottom: 3px solid var(--wpe--color--black);
+
+      @media (min-width: $breakpoint-extra-small) {
+        border-bottom: 5px solid var(--wpe--color--black);
+      }
     }
   }
 
   .active {
-    border-bottom: 5px solid var(--wpe--color--black);
-    font-weight: 700;
+    border-bottom: 3px solid var(--wpe--color--black);
+
+    @media (min-width: $breakpoint-extra-small) {
+      border-bottom: 5px solid var(--wpe--color--black);
+    }
+
+    h2 {
+      font-weight: 700;
+    }
   }
 }
 
