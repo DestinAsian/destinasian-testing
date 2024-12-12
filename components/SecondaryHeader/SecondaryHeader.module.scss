@@ -10,7 +10,11 @@
   padding: 0 0 0.5rem;
   position: relative;
   z-index: 49;
-  height: 3.5rem;
+  height: 3rem;
+
+  @media (min-width: $breakpoint-extra-small) {
+    height: 3.5rem;
+  }
 
   // &.show {
   //   height: 100%;

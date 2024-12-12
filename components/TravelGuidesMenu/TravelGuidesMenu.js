@@ -29,17 +29,30 @@ export default function TravelGuidesMenu() {
   const [PartnerContentArray, setPartnerContent] = useState([])
   const [HonorsCircleArray, setHonorsCircle] = useState([])
 
-  const CustomIcon = () => <span className={cx('custom-icon')}>{'+'}</span>
+  const AccordionCustomIcon = () => (
+    <span className={cx('custom-icon')}>{'+'}</span>
+  )
+
+  // Theme for Accordion
+  const AccordionCustomTheme = {
+    base: 'text-white dark:text-white divide-y divide-transparent border-transparent dark:divide-transparent dark:border-transparent rounded-lg border',
+    flush: {
+      off: '',
+      on: 'text-white bg-transparent dark:bg-transparent',
+    },
+  }
+
+  // Theme for Accordion Title/Button
   const AccordionTitleCustomTheme = {
-    base: 'flex w-full items-center justify-between text-black-500 dark:text-black-400',
+    base: 'flex w-full items-center justify-between pr-4',
     flush: {
       off: '',
       on: 'text-white bg-transparent dark:bg-transparent',
     },
     heading: '',
     open: {
-      off: 'visible ',
-      on: 'text-transparent	',
+      off: 'visible text-black dark:text-black',
+      on: 'text-transparent',
     },
   }
 
@@ -276,7 +289,7 @@ export default function TravelGuidesMenu() {
           <div role="status">
             <svg
               aria-hidden="true"
-              className="mr-2 h-[80vh] w-8 animate-spin fill-black text-gray-200 dark:text-gray-600"
+              className="text-black-200 dark:text-black-600 mr-2 h-[80vh] w-8 animate-spin fill-black"
               viewBox="0 0 100 101"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -302,7 +315,7 @@ export default function TravelGuidesMenu() {
   function renderMenu(items) {
     // console.log('Rendering menu with items:', items)
     return (
-      <Accordion collapseAll arrowIcon={CustomIcon}>
+      <Accordion arrowIcon={AccordionCustomIcon} theme={AccordionCustomTheme}>
         {items.map((item, index) => {
           const { id, path, label, parentId, children, connectedNode } = item
 
@@ -319,7 +332,14 @@ export default function TravelGuidesMenu() {
               <div key={id} className={cx('accordion-wrapper')}>
                 {/* Main Guides */}
                 {parentId === null && (
-                  <div className={cx('accordion-title-wrapper')}>
+                  <div
+                    className={cx(
+                      'accordion-title-wrapper',
+                      // open
+                      //   ? AccordionTitleCustomTheme?.open?.on
+                      //   : AccordionTitleCustomTheme?.open?.off,
+                    )}
+                  >
                     <div className={cx('accordion-title')}>
                       {/* {path && (
                         <Link href={path}> */}

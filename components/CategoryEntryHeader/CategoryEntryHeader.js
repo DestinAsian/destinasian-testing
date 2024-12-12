@@ -240,18 +240,6 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
             <div className={cx('container-wrapper')}>
               <div className={cx('text', { 'has-image': image })}>
                 <Container>
-                  {title && (
-                    <Heading className={cx('title')}>
-                      {children.length !== 0 &&
-                        (guidesTitle
-                          ? guidesTitle
-                          : 'The DA Guide to ' + title)}
-                      {children.length === 0 &&
-                        (guidesTitle
-                          ? guidesTitle
-                          : (parent ? parent : '') + ' ' + title)}
-                    </Heading>
-                  )}
                   {categorySlider ? (
                     <figure className={cx('image-slider')}>
                       <div>{swiperComponent}</div>
@@ -279,18 +267,6 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
                       )}
                     </figure>
                   )}
-                  {description && (
-                    <p className={cx('description')}>{description}</p>
-                  )}
-                </Container>
-              </div>
-            </div>
-          )}
-          {/* Guides with Image */}
-          {isImage && (
-            <div className={cx('container-wrapper')}>
-              <div className={cx('text', { 'has-image': image })}>
-                <Container>
                   {title && (
                     <Heading className={cx('title')}>
                       {children.length !== 0 &&
@@ -303,6 +279,18 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
                           : (parent ? parent : '') + ' ' + title)}
                     </Heading>
                   )}
+                  {description && (
+                    <p className={cx('description')}>{description}</p>
+                  )}
+                </Container>
+              </div>
+            </div>
+          )}
+          {/* Guides with Image */}
+          {isImage && (
+            <div className={cx('container-wrapper')}>
+              <div className={cx('text', { 'has-image': image })}>
+                <Container>
                   {image && (
                     <figure className={cx('image')}>
                       <Image
@@ -322,6 +310,18 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
                         </div>
                       )}
                     </figure>
+                  )}
+                  {title && (
+                    <Heading className={cx('title')}>
+                      {children.length !== 0 &&
+                        (guidesTitle
+                          ? guidesTitle
+                          : 'The DA Guide to ' + title)}
+                      {children.length === 0 &&
+                        (guidesTitle
+                          ? guidesTitle
+                          : (parent ? parent : '') + ' ' + title)}
+                    </Heading>
                   )}
                   {description && (
                     <p className={cx('description')}>{description}</p>
