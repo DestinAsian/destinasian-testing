@@ -200,7 +200,11 @@ export default function Component(props) {
         menusLoading={menusLoading}
         latestLoading={latestLoading}
       />
-      <SecondaryHeader databaseId={databaseId} />
+      <SecondaryHeader
+        databaseId={databaseId}
+        name={name}
+        parent={parent?.node?.name}
+      />
       {/* EntryHeader category name */}
       <CategoryEntryHeader
         parent={parent?.node?.name}

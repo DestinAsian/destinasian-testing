@@ -11,7 +11,13 @@ import { GetSecondaryHeader } from '../../queries/GetSecondaryHeader'
 
 let cx = classNames.bind(styles)
 
-export default function SecondaryHeader({ databaseId, home, categoryUri }) {
+export default function SecondaryHeader({
+  databaseId,
+  home,
+  categoryUri,
+  name,
+  parent,
+}) {
   const [currentUrl, setCurrentUrl] = useState('')
   const [categoryUrl, setCategoryUrl] = useState('')
   const [isNavShown, setIsNavShown] = useState(false)
@@ -107,6 +113,7 @@ export default function SecondaryHeader({ databaseId, home, categoryUri }) {
                   isNavShown={isNavShown}
                   setIsNavShown={setIsNavShown}
                   isScrolled={isScrolled}
+                  parent={parent}
                 />
               )}
             {/* Single post navigation */}

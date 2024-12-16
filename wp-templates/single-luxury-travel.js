@@ -380,7 +380,6 @@ export default function SingleLuxuryTravel(props) {
                     luxuryTravelPinPosts={luxuryTravelPinPosts}
                     pinPostsTitle={luxuryTravelPinPosts?.pinPostsTitle}
                   />
-                  {console.log(luxuryTravelPinPosts)}
                 </div>
               </section>
               <section

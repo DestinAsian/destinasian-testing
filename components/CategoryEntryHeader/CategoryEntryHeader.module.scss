@@ -26,13 +26,13 @@
 
 .text {
   width: 100%;
-  padding: 0.25rem 0;
+  padding: 0;
   position: relative;
   z-index: 1; // Pull text to the foreground to sit above <FeaturedImage />.
 
-  @media (min-width: $breakpoint-small) {
-    padding: 0.5rem 0;
-  }
+  // @media (min-width: $breakpoint-small) {
+  //   padding: 0;
+  // }
 }
 
 .title,
@@ -65,7 +65,6 @@
 // Slider caption
 .image,
 .image-slider {
-  padding-top: 1rem;
   margin: 0;
   width: 100%;
   position: relative;

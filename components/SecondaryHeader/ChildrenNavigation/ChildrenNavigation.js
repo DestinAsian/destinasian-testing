@@ -1,6 +1,10 @@
 import classNames from 'classnames/bind'
 import styles from './ChildrenNavigation.module.scss'
-import { DaGuideMenu, TravelGuidesMenu } from '../../../components'
+import {
+  DaGuideMenu,
+  MainCategoryMenu,
+  TravelGuidesMenu,
+} from '../../../components'
 import { useQuery } from '@apollo/client'
 import { GetChildrenNavigation } from '../../../queries/GetChildrenNavigation'
 import Link from 'next/link'
@@ -13,6 +17,7 @@ export default function ChildrenNavigation({
   setIsNavShown,
   isScrolled,
   isActive,
+  parent,
 }) {
   const catPerPage = 4
 
@@ -519,8 +524,13 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
         <div
           className={cx(['full-menu-wrapper', isNavShown ? 'show' : undefined])}
         >
-          <TravelGuidesMenu />
+          <MainCategoryMenu parent={parent}/>
         </div>
+        {/* <div
+          className={cx(['full-menu-wrapper', isNavShown ? 'show' : undefined])}
+        >
+          <TravelGuidesMenu />
+        </div> */}
       </div>
     </div>
   )

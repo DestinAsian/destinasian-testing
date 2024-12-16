@@ -1,14 +1,14 @@
 import { useQuery, useApolloClient } from '@apollo/client'
-import { FOOTER_LOCATION, PRIMARY_LOCATION } from '../../constants/menus'
+import { FOOTER_LOCATION, PRIMARY_LOCATION } from '../../../constants/menus'
 import React, { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 import { Accordion } from 'flowbite-react'
 import classNames from 'classnames/bind'
-import styles from './TravelGuidesMenu.module.scss'
-import flatListToHierarchical from '../../utilities/flatListToHierarchical'
-import { GetPrimaryMenu } from '../../queries/GetPrimaryMenu'
-import { GetTravelGuides } from '../../queries/GetTravelGuides'
-import { GetTravelGuidesMenu } from '../../queries/GetTravelGuidesMenu'
+import styles from './MainCategoryMenu.module.scss'
+import flatListToHierarchical from '../../../utilities/flatListToHierarchical'
+import { GetPrimaryMenu } from '../../../queries/GetPrimaryMenu'
+import { GetTravelGuides } from '../../../queries/GetTravelGuides'
+import { GetTravelGuidesMenu } from '../../../queries/GetTravelGuidesMenu'
 import Image from 'next/image'
 
 let cx = classNames.bind(styles)
@@ -21,12 +21,15 @@ function shuffleArray(array) {
   return array
 }
 
-export default function TravelGuidesMenu() {
+export default function MainCategoryMenu(parent) {
   const [results, setResults] = useState([])
   const [loading, setLoading] = useState(true)
   const client = useApolloClient() // Use Apollo Client instance
   const [PartnerContentArray, setPartnerContent] = useState([])
   const [HonorsCircleArray, setHonorsCircle] = useState([])
+
+  // main category name
+  const mainCategory = parent?.parent
 
   const AccordionCustomIcon = () => (
     <span className={cx('custom-icon')}>{'+'}</span>
@@ -69,9 +72,9 @@ export default function TravelGuidesMenu() {
   const primaryMenu = menusData?.headerMenuItems?.edges ?? []
   // Main category labels array (memoized)
   const mainCategoryLabels = useMemo(() => {
-    return primaryMenu
-      .map((post) => post?.node?.connectedNode?.node?.name)
-      .filter(Boolean)
+    return primaryMenu.filter(
+      (post) => post?.node?.connectedNode?.node?.name === mainCategory,
+    )
   }, [primaryMenu])
 
   // ProcessResults on Advertorials & HonorsCircles
@@ -142,16 +145,15 @@ export default function TravelGuidesMenu() {
       setLoading(true)
       try {
         const allResults = []
-        for (let i = 0; i < mainCategoryLabels.length; i++) {
-          const category = mainCategoryLabels[i]
-          const response = await client.query({
-            query: GetTravelGuides,
-            variables: { search: category },
-            fetchPolicy: 'network-only',
-          })
-          const processedData = processResults(response.data.tags.edges)
-          allResults.push({ category, data: processedData })
-        }
+        const category = mainCategoryLabels[0]
+        const response = await client.query({
+          query: GetTravelGuides,
+          variables: { search: category },
+          fetchPolicy: 'network-only',
+        })
+        const processedData = processResults(response.data.tags.edges)
+        allResults.push({ category, data: processedData })
+
         setResults(allResults)
       } catch (error) {
         return <pre>{JSON.stringify(error)}</pre>
@@ -285,8 +287,16 @@ export default function TravelGuidesMenu() {
   // Footer Menu
   const footerMenu = footerMenusData?.footerHeaderMenuItems?.nodes ?? []
 
+  // Main category labels array (memoized)
+  const mainMenu = useMemo(() => {
+    return footerMenu.filter((post) => {
+      const path = post?.path || ''
+      return path.toLowerCase().includes(mainCategory.toLowerCase())
+    })
+  }, [footerMenu])
+
   // Based on https://www.wpgraphql.com/docs/menus/#hierarchical-data
-  const hierarchicalMenuItems = flatListToHierarchical(footerMenu)
+  const hierarchicalMenuItems = flatListToHierarchical(mainMenu)
 
   // Loading state
   if (loading || menusLoading || travelGuidesloading || footerMenusLoading) {
@@ -321,13 +331,9 @@ export default function TravelGuidesMenu() {
 
   function renderMenu(items) {
     return (
-      <Accordion
-        collapseAll
-        arrowIcon={AccordionCustomIcon}
-        theme={AccordionCustomTheme}
-      >
+      <Accordion arrowIcon={AccordionCustomIcon} theme={AccordionCustomTheme}>
         {items.map((item, index) => {
-          const { id, path, label, parentId, children, connectedNode } = item
+          const { id, path, label, children, connectedNode } = item
 
           // @TODO - Remove guard clause after ghost menu items are no longer appended to array.
           if (!item.hasOwnProperty('__typename')) {
@@ -337,54 +343,6 @@ export default function TravelGuidesMenu() {
           return (
             <Accordion.Panel>
               <div key={id} className={cx('accordion-wrapper')}>
-                {/* Main Guides */}
-                {parentId === null && (
-                  <div
-                    className={cx(
-                      'accordion-title-wrapper',
-                      // open
-                      //   ? AccordionTitleCustomTheme?.open?.on
-                      //   : AccordionTitleCustomTheme?.open?.off,
-                    )}
-                  >
-                    <div className={cx('accordion-title')}>
-                      {/* {path && (
-                        <Link href={path}> */}
-                      <span className={cx('title')}>
-                        {connectedNode?.node?.countryCode?.countryCode &&
-                          connectedNode?.node?.countryCode?.countryCode}
-                      </span>
-                      {/* </Link>
-                      )} */}
-                    </div>
-                    <Accordion.Title theme={AccordionTitleCustomTheme}>
-                      {/* <div className={cx('main-guides-heading')}>
-                        {connectedNode?.node?.name && (
-                          <Heading className={cx('title')}>
-                            {connectedNode?.node?.destinationGuides?.guidesTitle
-                              ? connectedNode?.node?.destinationGuides
-                                  ?.guidesTitle
-                              : 'The DA Guide to ' + connectedNode?.node?.name}
-                          </Heading>
-                        )}
-                      </div> */}
-                      <div className={cx('navigation-wrapper')}>
-                        <div className={cx('navigation')}>
-                          {connectedNode?.node?.children?.edges?.map((post) => (
-                            <li
-                              key={post?.node?.uri}
-                              className={cx('nav-link')}
-                            >
-                              <h2 className={cx('nav-name')}>
-                                {post?.node?.name}
-                              </h2>
-                            </li>
-                          ))}
-                        </div>
-                      </div>
-                    </Accordion.Title>
-                  </div>
-                )}
                 {/* Sub Guides */}
                 {children?.length ? (
                   <div className={cx('accordion-content-wrapper')}>

@@ -215,8 +215,6 @@ export default function LuxuryTravelStories(luxuryTravelId) {
 
   const numberOfBannerAds = sortedBannerAdsArray.length
 
-  console.log(luxuryTravelId)
-
   return (
     <div className={cx('component')}>
       {!!parent && (
