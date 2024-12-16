@@ -117,13 +117,17 @@ export default function TravelGuidesMenu() {
     return { advertorials, honorsCircles }
   }
 
+  let travelGuidesVariable = {
+    search: 'bali',
+  }
+
   // Get Advertorial Stories
   const {
     data: travelGuidesData,
     loading: travelGuidesloading,
     error: travelGuidesError,
   } = useQuery(GetTravelGuides, {
-    variables: { search: null },
+    variables: travelGuidesVariable,
     fetchPolicy: 'network-only',
     nextFetchPolicy: 'cache-and-network',
   })
@@ -262,18 +266,22 @@ export default function TravelGuidesMenu() {
     shuffleHonorsCirclePost()
   }, [travelGuidesData])
 
+  let menuVariable = {
+    first: 50,
+    footerHeaderLocation: FOOTER_LOCATION,
+  }
+
   // Get Footer menus
   const { data: footerMenusData, loading: footerMenusLoading } = useQuery(
     GetTravelGuidesMenu,
     {
-      variables: {
-        first: 50,
-        footerHeaderLocation: FOOTER_LOCATION,
-      },
+      variables: menuVariable,
       fetchPolicy: 'network-only',
       nextFetchPolicy: 'cache-and-network',
     },
   )
+
+  console.log(footerMenusData)
 
   // Footer Menu
   const footerMenu = footerMenusData?.footerHeaderMenuItems?.nodes ?? []
@@ -313,9 +321,8 @@ export default function TravelGuidesMenu() {
   const getPartnerContent = [...PartnerContentArray]
 
   function renderMenu(items) {
-    // console.log('Rendering menu with items:', items)
     return (
-      <Accordion arrowIcon={AccordionCustomIcon} theme={AccordionCustomTheme}>
+      <Accordion collapseAll arrowIcon={AccordionCustomIcon} theme={AccordionCustomTheme}>
         {items.map((item, index) => {
           const { id, path, label, parentId, children, connectedNode } = item
 
@@ -324,8 +331,6 @@ export default function TravelGuidesMenu() {
             console.warn(`Skipping invalid item at index ${index}`)
             return null
           }
-
-          // console.log(`Rendering item at index: ${index}`)
 
           return (
             <Accordion.Panel>
