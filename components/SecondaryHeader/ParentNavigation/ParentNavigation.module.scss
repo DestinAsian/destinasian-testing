@@ -165,6 +165,10 @@
     padding-right: 0;
   }
 
+  &.hide {
+    display: none;
+  }
+
   .menu-button {
     width: fit-content;
 
@@ -212,6 +216,7 @@
 
   .close-button {
     width: fit-content;
+    height: fit-content;
 
     .close-icon {
       display: flex;
