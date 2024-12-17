@@ -250,6 +250,7 @@ export default function Component(props) {
       <SecondaryHeader
         databaseId={databaseId}
         categoryUri={categories[0]?.node?.uri}
+        parentCategory={categories[0]?.node?.parent?.node?.name}
       />
       <Main>
         <>

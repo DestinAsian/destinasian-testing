@@ -13,11 +13,13 @@ let cx = classNames.bind(styles)
 
 export default function ChildrenNavigation({
   databaseId,
+  isMainNavShown,
+  setIsMainNavShown,
   isNavShown,
   setIsNavShown,
   isScrolled,
   isActive,
-  parent,
+  categoryName,
 }) {
   const catPerPage = 4
 
@@ -34,8 +36,18 @@ export default function ChildrenNavigation({
   })
 
   return (
-    <div className={cx('component', isNavShown ? 'show' : undefined)}>
-      <div className={cx('navbar-wrapper', isNavShown ? 'show' : undefined)}>
+    <div
+      className={cx(
+        'component',
+        isMainNavShown || isNavShown ? 'show' : undefined,
+      )}
+    >
+      <div
+        className={cx(
+          'navbar-wrapper',
+          isMainNavShown || isNavShown ? 'show' : undefined,
+        )}
+      >
         {/* {'children'} */}
         {!isScrolled && (
           <div className={cx('text-menu-wrapper')}>
@@ -46,11 +58,12 @@ export default function ChildrenNavigation({
                 type="button"
                 className={cx('menu-icon')}
                 onClick={() => {
-                  setIsNavShown(!isNavShown)
+                  setIsMainNavShown(!isMainNavShown)
+                  isNavShown ? setIsNavShown(!isNavShown) : undefined
                 }}
                 aria-label="Toggle navigation"
                 aria-controls={cx('full-menu-wrapper')}
-                aria-expanded={!isNavShown}
+                aria-expanded={!isMainNavShown}
               >
                 <div key={'text-menu'} className={cx('da-guide-wrapper')}>
                   {data?.category?.parent?.node?.destinationGuides
@@ -77,11 +90,12 @@ export default function ChildrenNavigation({
                 type="button"
                 className={cx('menu-icon')}
                 onClick={() => {
-                  setIsNavShown(!isNavShown)
+                  setIsMainNavShown(!isMainNavShown)
+                  isNavShown ? setIsNavShown(!isNavShown) : undefined
                 }}
                 aria-label="Toggle navigation"
                 aria-controls={cx('full-menu-wrapper')}
-                aria-expanded={!isNavShown}
+                aria-expanded={!isMainNavShown}
               >
                 <div
                   key={'sticky-text-menu'}
@@ -123,6 +137,411 @@ export default function ChildrenNavigation({
           </div>
         </div>
 
+        {/* isMainNavShown button */}
+        {!isMainNavShown ? (
+          <>
+            {!isScrolled && (
+              <div className={cx('image-menu-wrapper')}>
+                {/* Menu Button */}
+                {isMainNavShown == false ? (
+                  <div className={cx('menu-button')}>
+                    {/* menu button */}
+                    <button
+                      type="button"
+                      className={cx('menu-icon')}
+                      onClick={() => {
+                        setIsMainNavShown(!isMainNavShown)
+                        isNavShown ? setIsNavShown(!isNavShown) : undefined
+                      }}
+                      aria-label="Toggle navigation"
+                      aria-controls={cx('full-menu-wrapper')}
+                      aria-expanded={!isMainNavShown}
+                    >
+                      <svg
+                        width="22"
+                        height="96"
+                        viewBox="0 0 22 96"
+                        fill="#000000"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <circle
+                          cx="10.7009"
+                          cy="10.7009"
+                          r="10.7009"
+                          transform="matrix(-1 0 0 1 21.4019 0)"
+                          fill="#000000"
+                        />
+                        <circle
+                          cx="10.7009"
+                          cy="10.7009"
+                          r="10.7009"
+                          transform="matrix(-1 0 0 1 21.4019 0)"
+                          fill="#000000"
+                        />
+                        <circle
+                          cx="10.7009"
+                          cy="10.7009"
+                          r="10.7009"
+                          transform="matrix(-1 0 0 1 21.4019 0)"
+                          fill="#000000"
+                        />
+                        <circle
+                          cx="10.7009"
+                          cy="10.7009"
+                          r="10.7009"
+                          transform="matrix(-1 0 0 1 21.4019 0)"
+                          fill="#000000"
+                        />
+                        <circle
+                          cx="10.7009"
+                          cy="10.7009"
+                          r="10.7009"
+                          transform="matrix(-1 0 0 1 21.4019 0)"
+                          fill="#000000"
+                        />
+                        <circle
+                          cx="10.7009"
+                          cy="10.7009"
+                          r="10.7009"
+                          transform="matrix(-1 0 0 1 21.4019 74.4785)"
+                          fill="#000000"
+                        />
+                        <circle
+                          cx="10.7009"
+                          cy="10.7009"
+                          r="10.7009"
+                          transform="matrix(-1 0 0 1 21.4019 74.4785)"
+                          fill="#000000"
+                        />
+                        <circle
+                          cx="10.7009"
+                          cy="10.7009"
+                          r="10.7009"
+                          transform="matrix(-1 0 0 1 21.4019 74.4785)"
+                          fill="#000000"
+                        />
+                        <circle
+                          cx="10.7009"
+                          cy="10.7009"
+                          r="10.7009"
+                          transform="matrix(-1 0 0 1 21.4019 74.4785)"
+                          fill="#000000"
+                        />
+                        <circle
+                          cx="10.7009"
+                          cy="10.7009"
+                          r="10.7009"
+                          transform="matrix(-1 0 0 1 21.4019 74.4785)"
+                          fill="#000000"
+                        />
+                        <circle
+                          cx="10.7009"
+                          cy="10.7009"
+                          r="10.7009"
+                          transform="matrix(-1 0 0 1 21.4019 36.8105)"
+                          fill="#000000"
+                        />
+                        <circle
+                          cx="10.7009"
+                          cy="10.7009"
+                          r="10.7009"
+                          transform="matrix(-1 0 0 1 21.4019 36.8105)"
+                          fill="#000000"
+                        />
+                        <circle
+                          cx="10.7009"
+                          cy="10.7009"
+                          r="10.7009"
+                          transform="matrix(-1 0 0 1 21.4019 36.8105)"
+                          fill="#000000"
+                        />
+                        <circle
+                          cx="10.7009"
+                          cy="10.7009"
+                          r="10.7009"
+                          transform="matrix(-1 0 0 1 21.4019 36.8105)"
+                          fill="#000000"
+                        />
+                        <circle
+                          cx="10.7009"
+                          cy="10.7009"
+                          r="10.7009"
+                          transform="matrix(-1 0 0 1 21.4019 36.8105)"
+                          fill="#000000"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                ) : (
+                  <div className={cx('menu-button')}>
+                    {/* close button */}
+                    <button
+                      type="button"
+                      className={cx('close-icon')}
+                      onClick={() => {
+                        setIsMainNavShown(!isMainNavShown)
+                        isNavShown ? setIsNavShown(!isNavShown) : undefined
+                      }}
+                      aria-label="Toggle navigation"
+                      aria-controls={cx('full-menu-wrapper')}
+                      aria-expanded={!isMainNavShown}
+                    >
+                      <svg
+                        version="1.0"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="512.000000pt"
+                        height="512.000000pt"
+                        viewBox="0 0 512.000000 512.000000"
+                        preserveAspectRatio="xMidYMid meet"
+                      >
+                        <g
+                          transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+                          fill="#000000"
+                          stroke="none"
+                        >
+                          <path
+                            d="M2330 5109 c-305 -29 -646 -126 -910 -259 -273 -138 -559 -356 -755
+-576 -384 -432 -602 -931 -655 -1499 -41 -446 55 -949 260 -1355 138 -273 356
+-559 576 -755 432 -384 931 -602 1499 -655 446 -41 949 55 1355 260 273 138
+559 356 755 576 384 432 602 931 655 1499 41 446 -55 949 -260 1355 -138 273
+-356 559 -576 755 -432 384 -931 602 -1499 655 -125 11 -320 11 -445 -1z
+m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
+425 -425 425 -425 -213 -212 -212 -213 -425 425 -425 425 -425 -425 -425 -425
+-212 213 -213 212 425 425 425 425 -425 425 -425 425 210 210 c115 115 212
+210 215 210 3 0 195 -190 427 -422z"
+                          />
+                        </g>
+                      </svg>
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
+            {isScrolled && (
+              <div className={cx('sticky-image-menu-wrapper')}>
+                {/* Menu Button */}
+                {isMainNavShown == false ? (
+                  <div className={cx('menu-button')}>
+                    {/* menu button */}
+                    <button
+                      type="button"
+                      className={cx('menu-icon')}
+                      onClick={() => {
+                        setIsMainNavShown(!isMainNavShown)
+                        isNavShown ? setIsNavShown(!isNavShown) : undefined
+                      }}
+                      aria-label="Toggle navigation"
+                      aria-controls={cx('full-menu-wrapper')}
+                      aria-expanded={!isMainNavShown}
+                    >
+                      <svg
+                        width="22"
+                        height="96"
+                        viewBox="0 0 22 96"
+                        fill="#000000"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <circle
+                          cx="10.7009"
+                          cy="10.7009"
+                          r="10.7009"
+                          transform="matrix(-1 0 0 1 21.4019 0)"
+                          fill="#000000"
+                        />
+                        <circle
+                          cx="10.7009"
+                          cy="10.7009"
+                          r="10.7009"
+                          transform="matrix(-1 0 0 1 21.4019 0)"
+                          fill="#000000"
+                        />
+                        <circle
+                          cx="10.7009"
+                          cy="10.7009"
+                          r="10.7009"
+                          transform="matrix(-1 0 0 1 21.4019 0)"
+                          fill="#000000"
+                        />
+                        <circle
+                          cx="10.7009"
+                          cy="10.7009"
+                          r="10.7009"
+                          transform="matrix(-1 0 0 1 21.4019 0)"
+                          fill="#000000"
+                        />
+                        <circle
+                          cx="10.7009"
+                          cy="10.7009"
+                          r="10.7009"
+                          transform="matrix(-1 0 0 1 21.4019 0)"
+                          fill="#000000"
+                        />
+                        <circle
+                          cx="10.7009"
+                          cy="10.7009"
+                          r="10.7009"
+                          transform="matrix(-1 0 0 1 21.4019 74.4785)"
+                          fill="#000000"
+                        />
+                        <circle
+                          cx="10.7009"
+                          cy="10.7009"
+                          r="10.7009"
+                          transform="matrix(-1 0 0 1 21.4019 74.4785)"
+                          fill="#000000"
+                        />
+                        <circle
+                          cx="10.7009"
+                          cy="10.7009"
+                          r="10.7009"
+                          transform="matrix(-1 0 0 1 21.4019 74.4785)"
+                          fill="#000000"
+                        />
+                        <circle
+                          cx="10.7009"
+                          cy="10.7009"
+                          r="10.7009"
+                          transform="matrix(-1 0 0 1 21.4019 74.4785)"
+                          fill="#000000"
+                        />
+                        <circle
+                          cx="10.7009"
+                          cy="10.7009"
+                          r="10.7009"
+                          transform="matrix(-1 0 0 1 21.4019 74.4785)"
+                          fill="#000000"
+                        />
+                        <circle
+                          cx="10.7009"
+                          cy="10.7009"
+                          r="10.7009"
+                          transform="matrix(-1 0 0 1 21.4019 36.8105)"
+                          fill="#000000"
+                        />
+                        <circle
+                          cx="10.7009"
+                          cy="10.7009"
+                          r="10.7009"
+                          transform="matrix(-1 0 0 1 21.4019 36.8105)"
+                          fill="#000000"
+                        />
+                        <circle
+                          cx="10.7009"
+                          cy="10.7009"
+                          r="10.7009"
+                          transform="matrix(-1 0 0 1 21.4019 36.8105)"
+                          fill="#000000"
+                        />
+                        <circle
+                          cx="10.7009"
+                          cy="10.7009"
+                          r="10.7009"
+                          transform="matrix(-1 0 0 1 21.4019 36.8105)"
+                          fill="#000000"
+                        />
+                        <circle
+                          cx="10.7009"
+                          cy="10.7009"
+                          r="10.7009"
+                          transform="matrix(-1 0 0 1 21.4019 36.8105)"
+                          fill="#000000"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                ) : (
+                  <div className={cx('menu-button')}>
+                    {/* close button */}
+                    <button
+                      type="button"
+                      className={cx('close-icon')}
+                      onClick={() => {
+                        setIsMainNavShown(!isMainNavShown)
+                        isNavShown ? setIsNavShown(!isNavShown) : undefined
+                      }}
+                      aria-label="Toggle navigation"
+                      aria-controls={cx('full-menu-wrapper')}
+                      aria-expanded={!isNavShown}
+                    >
+                      <svg
+                        version="1.0"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="512.000000pt"
+                        height="512.000000pt"
+                        viewBox="0 0 512.000000 512.000000"
+                        preserveAspectRatio="xMidYMid meet"
+                      >
+                        <g
+                          transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+                          fill="#000000"
+                          stroke="none"
+                        >
+                          <path
+                            d="M2330 5109 c-305 -29 -646 -126 -910 -259 -273 -138 -559 -356 -755
+-576 -384 -432 -602 -931 -655 -1499 -41 -446 55 -949 260 -1355 138 -273 356
+-559 576 -755 432 -384 931 -602 1499 -655 446 -41 949 55 1355 260 273 138
+559 356 755 576 384 432 602 931 655 1499 41 446 -55 949 -260 1355 -138 273
+-356 559 -576 755 -432 384 -931 602 -1499 655 -125 11 -320 11 -445 -1z
+m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
+425 -425 425 -425 -213 -212 -212 -213 -425 425 -425 425 -425 -425 -425 -425
+-212 213 -213 212 425 425 425 425 -425 425 -425 425 210 210 c115 115 212
+210 215 210 3 0 195 -190 427 -422z"
+                          />
+                        </g>
+                      </svg>
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
+          </>
+        ) : (
+          <div className={cx('image-menu-wrapper')}>
+            <div className={cx('close-button')}>
+              {/* close button */}
+              <button
+                type="button"
+                className={cx('close-icon')}
+                onClick={() => {
+                  setIsMainNavShown(!isMainNavShown)
+                  isNavShown ? setIsNavShown(!isNavShown) : undefined
+                }}
+                aria-label="Toggle navigation"
+                aria-controls={cx('primary-navigation')}
+                aria-expanded={!isMainNavShown}
+              >
+                <svg
+                  version="1.0"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="512.000000pt"
+                  height="512.000000pt"
+                  viewBox="0 0 512.000000 512.000000"
+                  preserveAspectRatio="xMidYMid meet"
+                >
+                  <g
+                    transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+                    fill="#000000"
+                    stroke="none"
+                  >
+                    <path
+                      d="M2330 5109 c-305 -29 -646 -126 -910 -259 -273 -138 -559 -356 -755
+-576 -384 -432 -602 -931 -655 -1499 -41 -446 55 -949 260 -1355 138 -273 356
+-559 576 -755 432 -384 931 -602 1499 -655 446 -41 949 55 1355 260 273 138
+559 356 755 576 384 432 602 931 655 1499 41 446 -55 949 -260 1355 -138 273
+-356 559 -576 755 -432 384 -931 602 -1499 655 -125 11 -320 11 -445 -1z
+m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
+425 -425 425 -425 -213 -212 -212 -213 -425 425 -425 425 -425 -425 -425 -425
+-212 213 -213 212 425 425 425 425 -425 425 -425 425 210 210 c115 115 212
+210 215 210 3 0 195 -190 427 -422z"
+                    />
+                  </g>
+                </svg>
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* isNavShown button */}
         {!isNavShown ? (
           <>
             {!isScrolled && (
@@ -136,6 +555,9 @@ export default function ChildrenNavigation({
                       className={cx('menu-icon')}
                       onClick={() => {
                         setIsNavShown(!isNavShown)
+                        isMainNavShown
+                          ? setIsMainNavShown(!isMainNavShown)
+                          : undefined
                       }}
                       aria-label="Toggle navigation"
                       aria-controls={cx('full-menu-wrapper')}
@@ -264,6 +686,9 @@ export default function ChildrenNavigation({
                       className={cx('close-icon')}
                       onClick={() => {
                         setIsNavShown(!isNavShown)
+                        isMainNavShown
+                          ? setIsMainNavShown(!isMainNavShown)
+                          : undefined
                       }}
                       aria-label="Toggle navigation"
                       aria-controls={cx('full-menu-wrapper')}
@@ -311,6 +736,9 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
                       className={cx('menu-icon')}
                       onClick={() => {
                         setIsNavShown(!isNavShown)
+                        isMainNavShown
+                          ? setIsMainNavShown(!isMainNavShown)
+                          : undefined
                       }}
                       aria-label="Toggle navigation"
                       aria-controls={cx('full-menu-wrapper')}
@@ -439,6 +867,9 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
                       className={cx('close-icon')}
                       onClick={() => {
                         setIsNavShown(!isNavShown)
+                        isMainNavShown
+                          ? setIsMainNavShown(!isMainNavShown)
+                          : undefined
                       }}
                       aria-label="Toggle navigation"
                       aria-controls={cx('full-menu-wrapper')}
@@ -485,6 +916,9 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
                 className={cx('close-icon')}
                 onClick={() => {
                   setIsNavShown(!isNavShown)
+                  isMainNavShown
+                    ? setIsMainNavShown(!isMainNavShown)
+                    : undefined
                 }}
                 aria-label="Toggle navigation"
                 aria-controls={cx('primary-navigation')}
@@ -522,15 +956,18 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
         )}
 
         <div
-          className={cx(['full-menu-wrapper', isNavShown ? 'show' : undefined])}
+          className={cx([
+            'full-menu-wrapper',
+            isMainNavShown ? 'show' : undefined,
+          ])}
         >
-          <MainCategoryMenu parent={parent}/>
+          <MainCategoryMenu categoryName={categoryName} />
         </div>
-        {/* <div
+        <div
           className={cx(['full-menu-wrapper', isNavShown ? 'show' : undefined])}
         >
           <TravelGuidesMenu />
-        </div> */}
+        </div>
       </div>
     </div>
   )

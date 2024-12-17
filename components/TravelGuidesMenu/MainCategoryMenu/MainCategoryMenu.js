@@ -21,7 +21,7 @@ function shuffleArray(array) {
   return array
 }
 
-export default function MainCategoryMenu(parent) {
+export default function MainCategoryMenu(categoryName) {
   const [results, setResults] = useState([])
   const [loading, setLoading] = useState(true)
   const client = useApolloClient() // Use Apollo Client instance
@@ -29,7 +29,7 @@ export default function MainCategoryMenu(parent) {
   const [HonorsCircleArray, setHonorsCircle] = useState([])
 
   // main category name
-  const mainCategory = parent?.parent
+  const mainCategory = categoryName?.categoryName
 
   const AccordionCustomIcon = () => (
     <span className={cx('custom-icon')}>{'+'}</span>
