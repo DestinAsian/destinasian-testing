@@ -50,7 +50,9 @@ export default function ChildrenNavigation({
       >
         {/* {'children'} */}
         {!isScrolled && (
-          <div className={cx('text-menu-wrapper')}>
+          <div
+            className={cx('text-menu-wrapper', isNavShown ? 'show' : undefined)}
+          >
             {/* Menu Button */}
             <div className={cx('menu-button')}>
               {/* menu button */}
@@ -83,7 +85,12 @@ export default function ChildrenNavigation({
           </div>
         )}
         {!!isScrolled && (
-          <div className={cx('sticky-text-menu-wrapper')}>
+          <div
+            className={cx(
+              'sticky-text-menu-wrapper',
+              isNavShown ? 'show' : undefined,
+            )}
+          >
             <div className={cx('menu-button')}>
               {/* menu button */}
               <button
@@ -118,7 +125,12 @@ export default function ChildrenNavigation({
           </div>
         )}
 
-        <div className={cx('navigation-wrapper')}>
+        <div
+          className={cx(
+            'navigation-wrapper',
+            isMainNavShown || isNavShown ? 'show' : undefined,
+          )}
+        >
           <div className={cx('navigation')}>
             {data?.category?.parent?.node?.children?.edges?.map((post) => (
               <li key={post?.node?.uri} className={cx('nav-link')}>

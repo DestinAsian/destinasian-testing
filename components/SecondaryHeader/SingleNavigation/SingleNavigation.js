@@ -50,7 +50,9 @@ export default function SingleNavigation({
       >
         {/* {'categories'} */}
         {!isScrolled && (
-          <div className={cx('text-menu-wrapper')}>
+          <div
+            className={cx('text-menu-wrapper', isNavShown ? 'show' : undefined)}
+          >
             {/* Menu Button */}
             <div className={cx('menu-button')}>
               {/* menu button */}
@@ -87,7 +89,12 @@ export default function SingleNavigation({
           </div>
         )}
         {!!isScrolled && (
-          <div className={cx('sticky-text-menu-wrapper')}>
+          <div
+            className={cx(
+              'sticky-text-menu-wrapper',
+              isNavShown ? 'show' : undefined,
+            )}
+          >
             <div className={cx('menu-button')}>
               {/* menu button */}
               <button
@@ -126,7 +133,12 @@ export default function SingleNavigation({
           </div>
         )}
 
-        <div className={cx('navigation-wrapper')}>
+        <div
+          className={cx(
+            'navigation-wrapper',
+            isMainNavShown || isNavShown ? 'show' : undefined,
+          )}
+        >
           <div className={cx('navigation')}>
             {data?.post?.categories?.edges[0]?.node?.parent?.node?.children?.edges?.map(
               (post) => (

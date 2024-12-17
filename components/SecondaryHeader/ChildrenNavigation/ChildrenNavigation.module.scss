@@ -64,6 +64,10 @@
       font-size: 1rem;
     }
   }
+
+  &.show {
+    visibility: collapse;
+  }
 }
 
 .da-guide-wrapper {
@@ -88,6 +92,10 @@
   display: flex;
   justify-content: center;
   width: 100%;
+
+  &.show {
+    visibility: collapse;
+  }
 }
 
 .navigation {
