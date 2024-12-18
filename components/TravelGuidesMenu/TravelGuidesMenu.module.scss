@@ -37,7 +37,7 @@
     padding: 0 0 7rem;
   }
 
-  > div {
+  > div > div {
     border: none;
   }
 }
@@ -51,6 +51,10 @@
   @media (min-width: $breakpoint-extra-small) {
     font-size: 1.125rem;
   }
+}
+
+.menu-wrapper {
+  padding: 0;
 }
 
 .accordion-wrapper {
@@ -207,7 +211,7 @@
     padding: 1rem;
   }
 
-  .first-wrapper > div {
+  .first-wrapper > div > div {
     display: flex;
     flex-direction: column;
     gap: 0;
