@@ -145,7 +145,7 @@ export default function MainCategoryMenu(categoryName) {
       setLoading(true)
       try {
         const allResults = []
-        const category = mainCategoryLabels[0]
+        const category = mainCategory.toLowerCase()
         const response = await client.query({
           query: GetTravelGuides,
           variables: { search: category },
