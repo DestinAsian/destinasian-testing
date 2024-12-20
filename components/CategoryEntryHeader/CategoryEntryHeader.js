@@ -149,16 +149,6 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
             <div className={cx('container-wrapper')}>
               <div className={cx('text', { 'has-image': image })}>
                 <Container>
-                  {title && (
-                    <Heading className={cx('title')}>
-                      {children.length !== 0 &&
-                        (guidesTitle ? guidesTitle : title)}
-                      {children.length === 0 &&
-                        (guidesTitle
-                          ? guidesTitle
-                          : (parent ? parent : '') + ' ' + title)}
-                    </Heading>
-                  )}
                   {categorySlider ? (
                     <figure className={cx('image-slider')}>
                       <div>{swiperComponent}</div>
@@ -182,6 +172,16 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
                       )}
                     </figure>
                   )}
+                  {title && (
+                    <Heading className={cx('title')}>
+                      {children.length !== 0 &&
+                        (guidesTitle ? guidesTitle : title)}
+                      {children.length === 0 &&
+                        (guidesTitle
+                          ? guidesTitle
+                          : (parent ? parent : '') + ' ' + title)}
+                    </Heading>
+                  )}
                   {description && (
                     <p className={cx('description')}>{description}</p>
                   )}
@@ -194,16 +194,6 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
             <div className={cx('container-wrapper')}>
               <div className={cx('text', { 'has-image': image })}>
                 <Container>
-                  {title && (
-                    <Heading className={cx('title')}>
-                      {children.length !== 0 &&
-                        (guidesTitle ? guidesTitle : title)}
-                      {children.length === 0 &&
-                        (guidesTitle
-                          ? guidesTitle
-                          : (parent ? parent : '') + ' ' + title)}
-                    </Heading>
-                  )}
                   {image && (
                     <figure className={cx('image')}>
                       <Image
@@ -223,6 +213,16 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
                         </div>
                       )}
                     </figure>
+                  )}
+                  {title && (
+                    <Heading className={cx('title')}>
+                      {children.length !== 0 &&
+                        (guidesTitle ? guidesTitle : title)}
+                      {children.length === 0 &&
+                        (guidesTitle
+                          ? guidesTitle
+                          : (parent ? parent : '') + ' ' + title)}
+                    </Heading>
                   )}
                   {description && (
                     <p className={cx('description')}>{description}</p>

@@ -207,7 +207,10 @@ export default function LuxuryTravelStories(luxuryTravelId) {
 
   // Concatenate the arrays to place ads specificAds first
   const sortedBannerAdsArray = [...SpecificAdsArray].reduce((uniqueAds, ad) => {
-    if (!uniqueAds.some((uniqueAd) => uniqueAd?.node?.id === ad?.node?.id)) {
+    if (
+      !uniqueAds.some((uniqueAd) => uniqueAd?.node?.id === ad?.node?.id) &&
+      /(focus on|spotlight on)/i.test(ad?.node?.title || '')
+    ) {
       uniqueAds.push(ad)
     }
     return uniqueAds
