@@ -4,7 +4,12 @@ import styles from './HomepageStories.module.scss'
 import { useQuery } from '@apollo/client'
 import { GetHomepageStories } from '../../queries/GetHomepageStories'
 import { GetHomepageBannerAds } from '../../queries/GetHomepageBannerAds'
-import { Button, PostTwoColumns, ModuleAd, AdvertorialPostTwoColumns } from '../../components'
+import {
+  Button,
+  PostTwoColumns,
+  ModuleAd,
+  AdvertorialPostTwoColumns,
+} from '../../components'
 import { GetAdvertorialStories } from '../../queries/GetAdvertorialStories'
 
 let cx = classNames.bind(styles)
@@ -257,33 +262,99 @@ export default function HomepageStories(pinPosts) {
 
   const numberOfBannerAds = sortedBannerAdsArray.length
 
+  console.log(mergedPosts[0])
+
   return (
     <div className={cx('component')}>
       {mergedPosts.length !== 0 &&
         mergedPosts.map((post, index) => (
           <React.Fragment key={post?.id}>
-            <div className={cx('post-wrapper')}>
-              <PostTwoColumns
-                title={post?.title}
-                excerpt={post?.excerpt}
-                content={post?.content}
-                date={post?.date}
-                author={post?.author?.node?.name}
-                uri={post?.uri}
-                parentCategory={
-                  post?.categories?.edges[0]?.node?.parent?.node?.name
-                }
-                category={post?.categories?.edges[0]?.node?.name}
-                categoryUri={post?.categories?.edges[0]?.node?.uri}
-                featuredImage={post?.featuredImage?.node}
-                chooseYourCategory={post?.acfCategoryIcon?.chooseYourCategory}
-                chooseIcon={post?.acfCategoryIcon?.chooseIcon?.mediaItemUrl}
-                categoryLabel={post?.acfCategoryIcon?.categoryLabel}
-                locationValidation={post?.acfLocationIcon?.fieldGroupName}
-                locationLabel={post?.acfLocationIcon?.locationLabel}
-                locationUrl={post?.acfLocationIcon?.locationUrl}
-              />
-            </div>
+            {post?.contentTypeName === 'post' && (
+              <div className={cx('post-wrapper')}>
+                {/* Post / Guides Stories */}
+                <PostTwoColumns
+                  title={post?.title}
+                  excerpt={post?.excerpt}
+                  uri={post?.uri}
+                  parentCategory={
+                    post?.categories?.edges[0]?.node?.parent?.node?.name
+                  }
+                  category={post?.categories?.edges[0]?.node?.name}
+                  categoryUri={post?.categories?.edges[0]?.node?.uri}
+                  featuredImage={post?.featuredImage?.node}
+                  chooseYourCategory={post?.acfCategoryIcon?.chooseYourCategory}
+                  chooseIcon={post?.acfCategoryIcon?.chooseIcon?.mediaItemUrl}
+                  categoryLabel={post?.acfCategoryIcon?.categoryLabel}
+                  locationValidation={post?.acfLocationIcon?.fieldGroupName}
+                  locationLabel={post?.acfLocationIcon?.locationLabel}
+                  locationUrl={post?.acfLocationIcon?.locationUrl}
+                />
+              </div>
+            )}
+            {post?.contentTypeName === 'editorial' && (
+              <div className={cx('post-wrapper')}>
+                {/* Editorials Stories */}
+                <PostTwoColumns
+                  title={post?.title}
+                  excerpt={post?.excerpt}
+                  uri={post?.uri}
+                  parentCategory={
+                    post?.categories?.edges[0]?.node?.parent?.node?.name
+                  }
+                  category={post?.categories?.edges[0]?.node?.name}
+                  categoryUri={post?.categories?.edges[0]?.node?.uri}
+                  featuredImage={post?.featuredImage?.node}
+                  chooseYourCategory={post?.acfCategoryIcon?.chooseYourCategory}
+                  chooseIcon={post?.acfCategoryIcon?.chooseIcon?.mediaItemUrl}
+                  categoryLabel={post?.acfCategoryIcon?.categoryLabel}
+                  locationValidation={post?.acfLocationIcon?.fieldGroupName}
+                  locationLabel={post?.acfLocationIcon?.locationLabel}
+                  locationUrl={post?.acfLocationIcon?.locationUrl}
+                />
+              </div>
+            )}
+            {post?.contentTypeName === 'update' && (
+              <div className={cx('post-wrapper')}>
+                {/* Updates Stories */}
+                <PostTwoColumns
+                  title={post?.title}
+                  excerpt={post?.excerpt}
+                  uri={post?.uri}
+                  parentCategory={
+                    post?.categories?.edges[0]?.node?.parent?.node?.name
+                  }
+                  category={post?.categories?.edges[0]?.node?.name}
+                  categoryUri={post?.categories?.edges[0]?.node?.uri}
+                  featuredImage={post?.featuredImage?.node}
+                />
+              </div>
+            )}
+            {post?.contentTypeName === 'honors-circle' && (
+              <div className={cx('hc-wrapper')}>
+                {/* Honors Circle Stories */}
+                <PostTwoColumns
+                  title={post?.title}
+                  excerpt={post?.excerpt}
+                  uri={post?.uri}
+                  category={post?.contentType?.node?.label.slice(0, -1)}
+                  categoryUri={post?.uri}
+                  featuredImage={post?.featuredImage?.node}
+                />
+              </div>
+            )}
+            {post?.contentTypeName === 'luxury-travel' && (
+              <div className={cx('post-wrapper')}>
+                {/* Luxury Travel Stories */}
+                <PostTwoColumns
+                  title={post?.title}
+                  excerpt={post?.excerpt}
+                  uri={post?.uri}
+                  category={post?.contentType?.node?.label.slice(0, -1)}
+                  categoryUri={post?.uri}
+                  featuredImage={post?.featuredImage?.node}
+                />
+              </div>
+            )}
             {/* Show 1st banner after 2 posts and then every 4 posts */}
             {(index - 1) % 4 === 0 && (
               <div className={cx('banner-ad-wrapper')}>

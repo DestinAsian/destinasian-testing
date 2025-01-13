@@ -1,7 +1,13 @@
 import classNames from 'classnames/bind'
-import { FeaturedImage, CategoryIcon, LocationIcon, Container } from '../../components'
+import {
+  FeaturedImage,
+  CategoryIcon,
+  LocationIcon,
+  Container,
+} from '../../components'
 import styles from './PostTwoColumns.module.scss'
 import Link from 'next/link'
+import Image from 'next/image'
 
 let cx = classNames.bind(styles)
 
@@ -34,11 +40,14 @@ export default function PostTwoColumns({
       <div className={cx('container-wrapper')}>
         {featuredImage && (
           <div className={cx('content-wrapper-image')}>
-            {uri && (
+            {title && uri && (
               <Link href={uri}>
-                <FeaturedImage
-                  image={featuredImage}
-                  className={styles.featuredImage}
+                <Image
+                  src={featuredImage?.sourceUrl}
+                  alt={title + ' Featured Image'}
+                  fill
+                  sizes="100%"
+                  priority
                 />
               </Link>
             )}

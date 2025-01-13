@@ -28,6 +28,31 @@
     }
   }
 
+  .hc-wrapper {
+    margin: 0;
+    border-bottom: none;
+    font-family: 'Gotham A', 'Gotham B';
+
+    @media (min-width: $breakpoint-small) {
+      margin: 0 auto 2rem;
+      border-bottom: 0.6rem solid var(--wpe--hc--background-color);
+    }
+
+    article {
+      margin: 0;
+      background-color: var(--wpe--hc--background-color);
+      height: auto;
+
+      @media (min-width: $breakpoint-small) {
+        min-height: 45rem;
+      }
+
+      @media (min-width: $breakpoint-medium) {
+        min-height: 50rem;
+      }
+    }
+  }
+
   .banner-ad-wrapper {
     width: 100vw;
   }

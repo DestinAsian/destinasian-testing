@@ -23,6 +23,7 @@ export const GetHomepageStories = gql`
           uri
           ... on Post {
             title
+            contentTypeName
             content
             date
             excerpt
@@ -55,6 +56,7 @@ export const GetHomepageStories = gql`
           }
           ... on Editorial {
             title
+            contentTypeName
             content
             date
             excerpt
@@ -75,6 +77,7 @@ export const GetHomepageStories = gql`
           }
           ... on Update {
             title
+            contentTypeName
             content
             date
             excerpt

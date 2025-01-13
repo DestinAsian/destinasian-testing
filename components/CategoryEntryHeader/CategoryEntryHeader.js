@@ -1,7 +1,10 @@
 import className from 'classnames/bind'
 import { Heading, Container } from '../../components'
 import styles from './CategoryEntryHeader.module.scss'
-import React from 'react'
+import { useEffect, useState } from 'react'
+import { renderToStaticMarkup } from 'react-dom/server'
+import Image from 'next/image'
+import { BACKEND_URL } from '../../constants/backendUrl'
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react'
 
@@ -13,7 +16,6 @@ import 'swiper/css/navigation'
 
 // import required modules
 import { EffectFade, Autoplay, Pagination, Navigation } from 'swiper'
-import Image from 'next/image'
 
 let cx = className.bind(styles)
 
@@ -37,6 +39,54 @@ export default function CategoryEntryHeader({
   // Validator for Slider or Image
   const isSlider = changeToSlider == 'yes'
   const isImage = changeToSlider == null
+
+  const [transformedDescription, setTransformedDescription] = useState('')
+
+  useEffect(() => {
+    // Function to extract image data and replace <img> with <Image>
+    const extractImageData = () => {
+      // Create a DOMParser
+      const parser = new DOMParser()
+
+      // Parse the HTML description
+      const doc = parser.parseFromString(description, 'text/html')
+
+      // Get only image elements with src containing BACKEND_URL
+      const imageElements = doc.querySelectorAll(`img[src*="${BACKEND_URL}"]`)
+
+      // Replace <img> elements with <Image> components
+      imageElements.forEach((img) => {
+        const src = img.getAttribute('src')
+        const alt = img.getAttribute('alt')
+        const width = img.getAttribute('width')
+        const height = img.getAttribute('height')
+
+        // Create Image component
+        const imageComponent = (
+          <Image
+            src={src}
+            alt={alt}
+            width={width ? width : '500'}
+            height={height ? height : '500'}
+            style={{ objectFit: 'contain' }}
+            priority
+          />
+        )
+
+        // Render the Image component to HTML string
+        const imageHtmlString = renderToStaticMarkup(imageComponent)
+
+        // Replace the <img> element with the Image HTML string in the HTML description
+        img.outerHTML = imageHtmlString
+      })
+
+      // Set the transformed HTML description
+      setTransformedDescription(doc.body.innerHTML)
+    }
+
+    // Call the function to extract image data and replace <img>
+    extractImageData()
+  }, [description])
 
   // Swiper pagination
   const menuIndex = categorySlider?.map((image, index) => {
@@ -183,7 +233,12 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
                     </Heading>
                   )}
                   {description && (
-                    <p className={cx('description')}>{description}</p>
+                    <p
+                      className={cx('description')}
+                      dangerouslySetInnerHTML={{
+                        __html: transformedDescription ?? '',
+                      }}
+                    />
                   )}
                 </Container>
               </div>
@@ -225,7 +280,12 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
                     </Heading>
                   )}
                   {description && (
-                    <p className={cx('description')}>{description}</p>
+                    <p
+                      className={cx('description')}
+                      dangerouslySetInnerHTML={{
+                        __html: transformedDescription ?? '',
+                      }}
+                    />
                   )}
                 </Container>
               </div>
@@ -280,7 +340,12 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
                     </Heading>
                   )}
                   {description && (
-                    <p className={cx('description')}>{description}</p>
+                    <p
+                      className={cx('description')}
+                      dangerouslySetInnerHTML={{
+                        __html: transformedDescription ?? '',
+                      }}
+                    />
                   )}
                 </Container>
               </div>
@@ -324,7 +389,12 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
                     </Heading>
                   )}
                   {description && (
-                    <p className={cx('description')}>{description}</p>
+                    <p
+                      className={cx('description')}
+                      dangerouslySetInnerHTML={{
+                        __html: transformedDescription ?? '',
+                      }}
+                    />
                   )}
                 </Container>
               </div>

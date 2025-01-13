@@ -200,6 +200,7 @@ export default function Component(props) {
             </div>
             <div id="snapStart" className="snap-start pt-16">
               {/* All posts sorted by pinPosts then mainPosts & date */}
+              {console.log(homepagePinPosts)}
               <HomepageStories pinPosts={homepagePinPosts} />
             </div>
           </div>

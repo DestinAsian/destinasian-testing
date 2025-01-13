@@ -239,9 +239,6 @@ export default function LuxuryTravelStories(luxuryTravelId) {
                             <PostTwoColumns
                               title={post?.title}
                               excerpt={post?.excerpt}
-                              content={post?.content}
-                              date={post?.date}
-                              author={post?.author?.node?.name}
                               uri={post?.uri}
                               parentCategory={
                                 post?.categories?.edges[0]?.node?.parent?.node
@@ -277,9 +274,6 @@ export default function LuxuryTravelStories(luxuryTravelId) {
                             <PostTwoColumns
                               title={post?.title}
                               excerpt={post?.excerpt}
-                              content={post?.content}
-                              date={post?.date}
-                              author={post?.author?.node?.name}
                               uri={post?.uri}
                               parentCategory={
                                 post?.categories?.edges[0]?.node?.parent?.node
@@ -315,9 +309,6 @@ export default function LuxuryTravelStories(luxuryTravelId) {
                             <PostTwoColumns
                               title={post?.title}
                               excerpt={post?.excerpt}
-                              content={post?.content}
-                              date={post?.date}
-                              author={post?.author?.node?.name}
                               uri={post?.uri}
                               parentCategory={
                                 post?.categories?.edges[0]?.node?.parent?.node
@@ -503,9 +494,6 @@ export default function LuxuryTravelStories(luxuryTravelId) {
                           <PostTwoColumns
                             title={post?.title}
                             excerpt={post?.excerpt}
-                            content={post?.content}
-                            date={post?.date}
-                            author={post?.author?.node?.name}
                             uri={post?.uri}
                             parentCategory={
                               post?.categories?.edges[0]?.node?.parent?.node
@@ -534,9 +522,6 @@ export default function LuxuryTravelStories(luxuryTravelId) {
                           <PostTwoColumns
                             title={post?.title}
                             excerpt={post?.excerpt}
-                            content={post?.content}
-                            date={post?.date}
-                            author={post?.author?.node?.name}
                             uri={post?.uri}
                             parentCategory={
                               post?.categories?.edges[0]?.node?.parent?.node
@@ -565,9 +550,6 @@ export default function LuxuryTravelStories(luxuryTravelId) {
                           <PostTwoColumns
                             title={post?.title}
                             excerpt={post?.excerpt}
-                            content={post?.content}
-                            date={post?.date}
-                            author={post?.author?.node?.name}
                             uri={post?.uri}
                             parentCategory={
                               post?.categories?.edges[0]?.node?.parent?.node
