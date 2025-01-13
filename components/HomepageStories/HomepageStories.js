@@ -262,8 +262,6 @@ export default function HomepageStories(pinPosts) {
 
   const numberOfBannerAds = sortedBannerAdsArray.length
 
-  console.log(mergedPosts[0])
-
   return (
     <div className={cx('component')}>
       {mergedPosts.length !== 0 &&
