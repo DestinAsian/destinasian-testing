@@ -57,70 +57,72 @@ export default function TabsEditor({ tabsEditor, luxuryTravelClass }) {
   }, [tabsEditor])
 
   return (
-    <div
-      className={
-        luxuryTravelClass === 'luxuryTravelClass'
-          ? 'tabs-container mx-auto max-w-[700px] sm:mx-0 sm:pl-[30px]'
-          : 'tabs-container mx-auto max-w-[700px]'
-      }
-    >
-      <div className="my-4 flex border-2 border-black">
-        <button
-          onClick={() => setActiveTab('tab1')}
-          className={`flex-1 border px-4 py-2 ${
-            activeTab === 'tab1'
-              ? 'bg-[#000000] text-[#ffffff]'
-              : 'bg-[#f5f5f5] text-[#000000]'
-          } rounded-l text-center`}
-        >
-          {tabsEditor?.tabTitle1}
-        </button>
-        <button
-          onClick={() => setActiveTab('tab2')}
-          className={`flex-1 border px-4 py-2 ${
-            activeTab === 'tab2'
-              ? 'bg-[#000000] text-[#ffffff]'
-              : 'bg-[#f5f5f5] text-[#000000]'
-          } rounded-r text-center`}
-        >
-          {tabsEditor?.tabTitle2}
-        </button>
-      </div>
-      <div className="p-4 text-left sm:px-0">
-        {activeTab === 'tab1' && (
-          <div
-            className={cx('')}
-            dangerouslySetInnerHTML={{ __html: transformedContent1 ?? '' }}
-          />
-        )}
-        {activeTab === 'tab2' && (
-          <div
-            className={cx('')}
-            dangerouslySetInnerHTML={{ __html: transformedContent2 ?? '' }}
-          />
-        )}
-      </div>
-      <div className="mb-4 flex border-2 border-black">
-        <button
-          onClick={() => setActiveTab('tab1')}
-          className={`flex-1 border px-4 py-2 ${
-            activeTab === 'tab1'
-              ? 'bg-[#000000] text-[#ffffff]'
-              : 'bg-[#f5f5f5] text-[#000000]'
-          } rounded-l text-center`}
-        >
-          {tabsEditor?.tabTitle1}
-        </button>
-        <button
-          onClick={() => setActiveTab('tab2')}
-          className={`flex-1 border px-4 py-2 ${
-            activeTab === 'tab2'
-              ? 'bg-[#000000] text-[#ffffff]'
-              : 'bg-[#f5f5f5] text-[#000000]'
-          } rounded-r text-center`}
-        >
-          {tabsEditor?.tabTitle2}
-        </button>
+    <div className={cx('component')}>
+      <div
+        className={
+          luxuryTravelClass === 'luxuryTravelClass'
+            ? 'tabs-container mx-auto max-w-[700px] sm:mx-0 sm:pl-[30px]'
+            : 'tabs-container mx-auto max-w-[700px]'
+        }
+      >
+        <div className="my-4 flex border-2 border-black">
+          <button
+            onClick={() => setActiveTab('tab1')}
+            className={`flex-1 border px-4 py-2 ${
+              activeTab === 'tab1'
+                ? 'bg-[#000000] text-[#ffffff]'
+                : 'bg-[#f5f5f5] text-[#000000]'
+            } rounded-l text-center`}
+          >
+            {tabsEditor?.tabTitle1}
+          </button>
+          <button
+            onClick={() => setActiveTab('tab2')}
+            className={`flex-1 border px-4 py-2 ${
+              activeTab === 'tab2'
+                ? 'bg-[#000000] text-[#ffffff]'
+                : 'bg-[#f5f5f5] text-[#000000]'
+            } rounded-r text-center`}
+          >
+            {tabsEditor?.tabTitle2}
+          </button>
+        </div>
+        <div className="p-4 text-left sm:px-0">
+          {activeTab === 'tab1' && (
+            <div
+              className={cx('')}
+              dangerouslySetInnerHTML={{ __html: transformedContent1 ?? '' }}
+            />
+          )}
+          {activeTab === 'tab2' && (
+            <div
+              className={cx('')}
+              dangerouslySetInnerHTML={{ __html: transformedContent2 ?? '' }}
+            />
+          )}
+        </div>
+        <div className="mb-4 flex border-2 border-black">
+          <button
+            onClick={() => setActiveTab('tab1')}
+            className={`flex-1 border px-4 py-2 ${
+              activeTab === 'tab1'
+                ? 'bg-[#000000] text-[#ffffff]'
+                : 'bg-[#f5f5f5] text-[#000000]'
+            } rounded-l text-center`}
+          >
+            {tabsEditor?.tabTitle1}
+          </button>
+          <button
+            onClick={() => setActiveTab('tab2')}
+            className={`flex-1 border px-4 py-2 ${
+              activeTab === 'tab2'
+                ? 'bg-[#000000] text-[#ffffff]'
+                : 'bg-[#f5f5f5] text-[#000000]'
+            } rounded-r text-center`}
+          >
+            {tabsEditor?.tabTitle2}
+          </button>
+        </div>
       </div>
     </div>
   )
