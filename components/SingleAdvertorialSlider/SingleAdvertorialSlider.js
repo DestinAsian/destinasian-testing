@@ -13,10 +13,6 @@ import { EffectFade, Autoplay, Pagination, Navigation } from 'swiper'
 import Image from 'next/image'
 
 export default function SingleAdvertorialSlider({ images }) {
-  const pagination = {
-    clickable: true,
-  }
-
   return (
     <>
       <Swiper
@@ -27,7 +23,11 @@ export default function SingleAdvertorialSlider({ images }) {
           delay: 25000,
           disableOnInteraction: true,
         }}
-        pagination={pagination}
+        pagination={{
+          el: '.swiper-advertorial-custom-pagination',
+          clickable: 'true',
+          type: 'bullets',
+        }}
         navigation={{
           prevEl: '.swiper-custom-button-prev',
           nextEl: '.swiper-custom-button-next',
@@ -100,6 +100,7 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
           </svg>
         </div>
       </Swiper>
+      <div class="swiper-advertorial-custom-pagination"></div>
     </>
   )
 }
