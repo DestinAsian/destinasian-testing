@@ -215,6 +215,23 @@
         }
       }
     }
+
+    .advertorial-wrapper,
+    .hc-wrapper {
+      article > div:first-of-type {
+        margin: 0;
+        background-color: transparent;
+        height: auto;
+
+        @media (min-width: $breakpoint-small) {
+          min-height: 15rem;
+        }
+
+        @media (min-width: $breakpoint-medium) {
+          min-height: 20rem;
+        }
+      }
+    }
   }
 
   .other-wrapper {
