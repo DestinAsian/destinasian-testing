@@ -172,28 +172,6 @@ export default function SingleLuxuryTravel(props) {
     },
   )
 
-  // Function to check if a section is in view
-  const handleScroll = () => {
-    const sections = document.querySelectorAll('.snap-section')
-    sections.forEach((section) => {
-      const rect = section.getBoundingClientRect()
-      if (rect.top >= 0 && rect.top < window.innerHeight / 2) {
-        setVisibleComponent(section.dataset.id)
-      }
-    })
-  }
-
-  // Attach the scroll listener when component mounts
-  useEffect(() => {
-    const scrollContainer = document.querySelector('.scroll-snap-container')
-    scrollContainer?.addEventListener('scroll', handleScroll)
-
-    // Clean up event listener on unmount
-    return () => {
-      scrollContainer?.removeEventListener('scroll', handleScroll)
-    }
-  }, [])
-
   const posts = latestStories?.posts ?? []
   const editorials = latestStories?.editorials ?? []
   const updates = latestStories?.updates ?? []
@@ -318,12 +296,9 @@ export default function SingleLuxuryTravel(props) {
       <Main>
         <>
           <SingleLTContainer>
-            <div
-              className="scroll-snap-container h-screen w-screen snap-y snap-mandatory overflow-y-scroll bg-[#dbf2f1] sm:top-[4.5rem]"
-              onScroll={handleScroll}
-            >
+            <div className="h-screen w-screen overflow-y-scroll bg-[#dbf2f1] sm:top-[4.5rem]">
               <section
-                className="sm:snap-section relative sm:snap-start sm:snap-always sm:pt-[4.5rem]"
+                className="relative sm:pt-[4.5rem]"
                 data-id="section1"
               >
                 <div className="overflow-y-scroll bg-[#dbf2f1]">
@@ -338,7 +313,7 @@ export default function SingleLuxuryTravel(props) {
                 </div>
               </section>
               <section
-                className="sm:snap-section relative sm:snap-start sm:snap-always sm:pt-[4.5rem]"
+                className="relative sm:pt-[4.5rem]"
                 data-id="section2"
                 id="section2"
               >
@@ -354,7 +329,7 @@ export default function SingleLuxuryTravel(props) {
                 </div>
               </section>
               <section
-                className="sm:snap-section relative sm:snap-start sm:snap-always sm:pt-[4.5rem]"
+                className="relative sm:pt-[4.5rem]"
                 data-id="section3"
               >
                 <div className="overflow-y-scroll bg-[#dbf2f1] pt-[3.5rem] sm:pt-0">
@@ -369,7 +344,7 @@ export default function SingleLuxuryTravel(props) {
                 </div>
               </section>
               <section
-                className="sm:snap-section relative sm:snap-start sm:snap-always sm:pt-[4.5rem]"
+                className="relative sm:pt-[4.5rem]"
                 data-id="section4"
               >
                 <div className="overflow-y-scroll bg-[#dbf2f1]">
@@ -383,7 +358,7 @@ export default function SingleLuxuryTravel(props) {
                 </div>
               </section>
               <section
-                className="sm:snap-section relative sm:snap-start sm:snap-always sm:pt-[4.5rem]"
+                className="relative sm:pt-[4.5rem]"
                 data-id="section5"
               >
                 <div className="overflow-y-scroll bg-[#dbf2f1]">
@@ -397,7 +372,7 @@ export default function SingleLuxuryTravel(props) {
                 </div>
               </section>
               <section
-                className="sm:snap-section relative pb-0 sm:snap-start sm:snap-always sm:pt-[4.5rem]"
+                className="relative pb-0 sm:pt-[4.5rem]"
                 data-id="section6"
               >
                 <div className="overflow-y-scroll bg-[#ffffff]">
@@ -405,7 +380,7 @@ export default function SingleLuxuryTravel(props) {
                 </div>
               </section>
               <section
-                className="sm:snap-section relative pb-0 sm:snap-start sm:snap-always"
+                className="relative pb-0"
                 data-id="section7"
               >
                 <Footer footerMenu={footerMenu} />
