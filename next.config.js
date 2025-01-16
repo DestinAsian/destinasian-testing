@@ -25,8 +25,13 @@ module.exports = withFaust({
   async redirects() {
     return [
       {
-        source: '/advertorial/:slug*',
+        source: '/advertorial/:slug*', // All advertorial slug redirect to partner-content
         destination: '/partner-content/:slug*',
+        permanent: true, // This indicates a 301 permanent redirect
+      },
+      {
+        source: '/category/:slug*', // All category slug redirect
+        destination: '/:slug*',
         permanent: true, // This indicates a 301 permanent redirect
       },
     ]

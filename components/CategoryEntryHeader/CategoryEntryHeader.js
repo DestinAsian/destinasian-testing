@@ -224,9 +224,9 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
                   )}
                   {title && (
                     <Heading className={cx('title')}>
-                      {children.length !== 0 &&
+                      {children?.length !== 0 &&
                         (guidesTitle ? guidesTitle : title)}
-                      {children.length === 0 &&
+                      {children?.length === 0 &&
                         (guidesTitle
                           ? guidesTitle
                           : (parent ? parent : '') + ' ' + title)}
@@ -271,9 +271,11 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
                   )}
                   {title && (
                     <Heading className={cx('title')}>
-                      {children.length !== 0 &&
+                      {children?.length !== 0 &&
+                        children?.length !== undefined &&
                         (guidesTitle ? guidesTitle : title)}
-                      {children.length === 0 &&
+                      {(children?.length === 0 ||
+                        children?.length === undefined) &&
                         (guidesTitle
                           ? guidesTitle
                           : (parent ? parent : '') + ' ' + title)}
@@ -329,11 +331,11 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
                   )}
                   {title && (
                     <Heading className={cx('title')}>
-                      {children.length !== 0 &&
+                      {children?.length !== 0 &&
                         (guidesTitle
                           ? guidesTitle
                           : 'The DA Guide to ' + title)}
-                      {children.length === 0 &&
+                      {children?.length === 0 &&
                         (guidesTitle
                           ? guidesTitle
                           : (parent ? parent : '') + ' ' + title)}
@@ -378,11 +380,11 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
                   )}
                   {title && (
                     <Heading className={cx('title')}>
-                      {children.length !== 0 &&
+                      {children?.length !== 0 &&
                         (guidesTitle
                           ? guidesTitle
                           : 'The DA Guide to ' + title)}
-                      {children.length === 0 &&
+                      {children?.length === 0 &&
                         (guidesTitle
                           ? guidesTitle
                           : (parent ? parent : '') + ' ' + title)}

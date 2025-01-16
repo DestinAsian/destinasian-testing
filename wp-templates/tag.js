@@ -12,6 +12,7 @@ import {
   Post,
   SEO,
   TagStories,
+  CategoryEntryHeader,
 } from '../components'
 import { GetMenus } from '../queries/GetMenus'
 import { GetFooterMenus } from '../queries/GetFooterMenus'
@@ -123,7 +124,6 @@ export default function Component(props) {
         url={uri}
         focuskw={seo?.focuskw}
       />
-
       <Header
         title={siteTitle}
         description={siteDescription}
@@ -137,6 +137,7 @@ export default function Component(props) {
         menusLoading={menusLoading}
         latestLoading={latestLoading}
       />
+      <CategoryEntryHeader parent={'Tag: '} children={0} title={name} />
       <Main>
         <>
           <TagStories tagUri={databaseId} name={name} />

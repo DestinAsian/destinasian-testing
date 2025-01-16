@@ -7,7 +7,12 @@ import { GetTagStories } from '../../queries/GetTagStories'
 import { GetROSBannerAds } from '../../queries/GetROSBannerAds'
 import { GetSpecificBannerAds } from '../../queries/GetSpecificBannerAds'
 import { GetAdvertorialStories } from '../../queries/GetAdvertorialStories'
-import { Post, ModuleAd, Button, AdvertorialPost } from '../../components'
+import {
+  PostTwoColumns,
+  ModuleAd,
+  Button,
+  AdvertorialPostTwoColumns,
+} from '../../components'
 
 let cx = classNames.bind(styles)
 
@@ -138,7 +143,6 @@ export default function TagStories(tagUri) {
       const bannerROSAdsWithImg = bannerAdsArrayObj.filter(
         (bannerAd) => !bannerAd?.node?.content.includes('<!--'),
       )
-
 
       // Shuffle only the otherBannerAds array
       const ROSBannerAds = shuffleArray(bannerROSAdsWithImg)
@@ -310,62 +314,83 @@ export default function TagStories(tagUri) {
   )
 
   // Declare 1 Advertorial Post
-  const getAdvertorialPost = AdvertorialArray[0]
+  const getAdvertorialPost = [...AdvertorialArray]
   const numberOfAdvertorial = AdvertorialArray.length
 
   const numberOfBannerAds = sortedBannerAdsArray.length
 
   return (
     <div className={cx('component')}>
-      {mergedPosts.length !== 0 &&
-        mergedPosts.map((post, index) => (
+      {mergedPosts?.length !== 0 &&
+        mergedPosts?.map((post, index) => (
           <React.Fragment key={post?.id}>
-            <Post
-              title={post?.title}
-              excerpt={post?.excerpt}
-              content={post?.content}
-              date={post?.date}
-              author={post?.author?.node?.name}
-              uri={post?.uri}
-              parentCategory={
-                post?.categories?.edges[0]?.node?.parent?.node?.name
-              }
-              category={post?.categories?.edges[0]?.node?.name}
-              categoryUri={post?.categories?.edges[0]?.node?.uri}
-              featuredImage={post?.featuredImage?.node}
-              chooseYourCategory={post?.acfCategoryIcon?.chooseYourCategory}
-              chooseIcon={post?.acfCategoryIcon?.chooseIcon?.mediaItemUrl}
-              categoryLabel={post?.acfCategoryIcon?.categoryLabel}
-              locationValidation={post?.acfLocationIcon?.fieldGroupName}
-              locationLabel={post?.acfLocationIcon?.locationLabel}
-              locationUrl={post?.acfLocationIcon?.locationUrl}
-            />
+            <div className={cx('post-wrapper')}>
+              <PostTwoColumns
+                title={post?.title}
+                excerpt={post?.excerpt}
+                content={post?.content}
+                date={post?.date}
+                author={post?.author?.node?.name}
+                uri={post?.uri}
+                parentCategory={
+                  post?.categories?.edges[0]?.node?.parent?.node?.name
+                }
+                category={post?.categories?.edges[0]?.node?.name}
+                categoryUri={post?.categories?.edges[0]?.node?.uri}
+                featuredImage={post?.featuredImage?.node}
+                chooseYourCategory={post?.acfCategoryIcon?.chooseYourCategory}
+                chooseIcon={post?.acfCategoryIcon?.chooseIcon?.mediaItemUrl}
+                categoryLabel={post?.acfCategoryIcon?.categoryLabel}
+                locationValidation={post?.acfLocationIcon?.fieldGroupName}
+                locationLabel={post?.acfLocationIcon?.locationLabel}
+                locationUrl={post?.acfLocationIcon?.locationUrl}
+              />
+            </div>
             {/* Show 1st banner after 2 posts and then every 4 posts */}
             {(index - 1) % 4 === 0 && (
-              <ModuleAd
-                bannerAd={
-                  sortedBannerAdsArray[((index - 1) / 4) % numberOfBannerAds]
-                    ?.node?.content
-                }
-              />
+              <div className={cx('banner-ad-wrapper')}>
+                <ModuleAd
+                  bannerAd={
+                    sortedBannerAdsArray[((index - 1) / 4) % numberOfBannerAds]
+                      ?.node?.content
+                  }
+                />
+              </div>
             )}
             {index - 1 === 2 && (
-              <>
+              <div className={cx('advertorial-wrapper')}>
                 {/* Advertorial Stories */}
                 {numberOfAdvertorial !== 0 && (
-                  <AdvertorialPost
-                    title={getAdvertorialPost?.title}
-                    excerpt={getAdvertorialPost?.excerpt}
-                    uri={getAdvertorialPost?.uri}
-                    featuredImage={getAdvertorialPost?.featuredImage?.node}
+                  <AdvertorialPostTwoColumns
+                    title={getAdvertorialPost[0]?.title}
+                    excerpt={getAdvertorialPost[0]?.excerpt}
+                    uri={getAdvertorialPost[0]?.uri}
+                    featuredImage={getAdvertorialPost[0]?.featuredImage?.node}
                   />
                 )}
-              </>
+              </div>
+            )}
+            {index - 1 === 2 && (
+              <div className={cx('advertorial-wrapper')}>
+                {/* Advertorial Stories */}
+                {numberOfAdvertorial !== 0 && numberOfAdvertorial > 1 && (
+                  <AdvertorialPostTwoColumns
+                    title={getAdvertorialPost[1]?.title}
+                    excerpt={getAdvertorialPost[1]?.excerpt}
+                    uri={getAdvertorialPost[1]?.uri}
+                    featuredImage={getAdvertorialPost[1]?.featuredImage?.node}
+                  />
+                )}
+              </div>
             )}
           </React.Fragment>
         ))}
-      {/* {mergedPosts.length && ( */}
-      {mergedPosts.length && (
+      {mergedPosts?.length === 0 && (
+        <div className="mx-auto my-0 flex min-h-60 max-w-[100vw] items-center justify-center md:max-w-[700px]">
+          {'There is no results in this tag...'}
+        </div>
+      )}
+      {mergedPosts?.length !== 0 && mergedPosts?.length && (
         <div className="mx-auto my-0 flex max-w-[100vw] justify-center md:max-w-[700px]	">
           {data?.tag?.contentNodes?.pageInfo?.hasNextPage &&
             data?.tag?.contentNodes?.pageInfo?.endCursor && (
