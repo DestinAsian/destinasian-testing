@@ -130,7 +130,11 @@ export default function FullMenu({
             )}
             <nav className={cx('feature-video')}>
               <ul className={cx('menu-name')}>
-                {'Videos Produced By DestinAsian'}
+                {featureMenuItems[0]?.menu?.node?.videosThumbnailMenu
+                  ?.videoLabel
+                  ? featureMenuItems[0]?.menu?.node?.videosThumbnailMenu
+                      ?.videoLabel
+                  : 'Videos Produced By DestinAsian'}
               </ul>
               {featureMenuItems[0]?.menu?.node?.videosThumbnailMenu?.videosPage
                 ?.url && (

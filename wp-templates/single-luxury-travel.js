@@ -296,12 +296,12 @@ export default function SingleLuxuryTravel(props) {
       <Main>
         <>
           <SingleLTContainer>
-            <div className="h-screen w-screen overflow-y-scroll bg-[#dbf2f1] sm:top-[4.5rem]">
+            <div className=" bg-[#dbf2f1] sm:top-[4.5rem]">
               <section
                 className="relative pt-[3.5rem] sm:pt-[4.5rem]"
                 data-id="section1"
               >
-                <div className="overflow-y-scroll bg-[#dbf2f1]">
+                <div className=" bg-[#dbf2f1]">
                   <SingleAdvertorialSlider
                     images={images?.map((image) => image[0])}
                   />
@@ -318,7 +318,7 @@ export default function SingleLuxuryTravel(props) {
                   data-id="section2"
                   id="section2"
                 >
-                  <div className="overflow-y-scroll">
+                  <div className="">
                     <div className="sm:h-fit">
                       <ContentWrapperAdvertorial
                         content={content}
@@ -330,7 +330,7 @@ export default function SingleLuxuryTravel(props) {
               )}
               {(tabsEditor?.tabTitle1 && tabsEditor?.tab1) !== null && (
                 <section className="relative pt-4 sm:pt-6" data-id="section3">
-                  <div className="overflow-y-scroll bg-[#dbf2f1] pt-[3.5rem] sm:pt-0">
+                  <div className=" bg-[#dbf2f1] pt-[3.5rem] sm:pt-0">
                     <div className="sm:h-fit">
                       <TabsEditor
                         tabsEditor={tabsEditor}
@@ -343,7 +343,7 @@ export default function SingleLuxuryTravel(props) {
               {(luxuryTravelPinPosts?.pinPosts?.length &&
                 luxuryTravelPinPosts?.moreStories?.length) !== 0 && (
                 <section className="relative pt-4 sm:pt-6" data-id="section4">
-                  <div className="overflow-y-scroll bg-[#dbf2f1]">
+                  <div className=" bg-[#dbf2f1]">
                     <LuxuryTravelStories
                       luxuryTravelId={databaseId}
                       name={title}
@@ -356,7 +356,7 @@ export default function SingleLuxuryTravel(props) {
               )}
               {luxuryTravelDirectory?.directory && (
                 <section className="relative pt-4 sm:pt-6" data-id="section5">
-                  <div className="overflow-y-scroll bg-[#dbf2f1]">
+                  <div className=" bg-[#dbf2f1]">
                     <LuxuryTravelDirectory
                       content={luxuryTravelDirectory?.directory}
                       parent={parent?.node?.title}
@@ -369,7 +369,7 @@ export default function SingleLuxuryTravel(props) {
                 className="pb-e relative pt-4 sm:pt-6"
                 data-id="section6"
               >
-                <div className="overflow-y-scroll bg-[#ffffff]">
+                <div className=" bg-[#ffffff]">
                   <BackToTop />
                 </div>
               </section>

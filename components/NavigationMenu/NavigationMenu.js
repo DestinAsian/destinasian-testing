@@ -70,6 +70,7 @@ NavigationMenu.fragments = {
             videosPage {
               url
             }
+            videoLabel
             videosThumbnail {
               sourceUrl
               altText
