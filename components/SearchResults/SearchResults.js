@@ -11,6 +11,7 @@ import className from 'classnames/bind'
 import styles from './SearchResults.module.scss'
 import Link from 'next/link'
 import Image from 'next/image'
+import { useEffect, useState } from 'react'
 
 let cx = className.bind(styles)
 
@@ -23,13 +24,26 @@ let cx = className.bind(styles)
  * @returns {React.ReactElement} The SearchResults component.
  */
 export default function SearchResults({ searchResults, isLoading }) {
+  const [filteredResults, setFilteredResults] = useState([])
+
+  useEffect(() => {
+    if (searchResults && searchResults.length) {
+      const categoryNodes = searchResults.filter(
+        (node) =>
+          node?.__typename !== 'Category' &&
+          node?.contentNodes?.edges?.length !== 0,
+      )
+      setFilteredResults(categoryNodes)
+    }
+  }, [searchResults])
+
   // If there are no results, or are loading, return null.
   if (!isLoading && searchResults === undefined) {
     return null
   }
 
   // If there are no results, return a message.
-  if (!isLoading && !searchResults?.length) {
+  if (!isLoading && !filteredResults?.length) {
     return (
       <div className={styles['no-results']}>
         <FaSearch className={styles['no-results-icon']} />
@@ -82,7 +96,7 @@ export default function SearchResults({ searchResults, isLoading }) {
   return (
     <>
       <div className={cx('component')}>
-        {searchResults?.map((node) => (
+        {filteredResults?.map((node) => (
           <Container>
             {node?.__typename === 'Category' ? (
               // Search Result for Categories

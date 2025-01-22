@@ -398,8 +398,8 @@ export default function CategoryStories(categoryUri) {
 
   return (
     <div className={cx('component')}>
-      {mergedPosts.length !== 0 &&
-        mergedPosts.map((post, index) => (
+      {mergedPosts?.length !== 0 &&
+        mergedPosts?.map((post, index) => (
           <React.Fragment key={post?.id}>
             <div className={cx('post-wrapper')}>
               <PostTwoColumns
@@ -462,8 +462,12 @@ export default function CategoryStories(categoryUri) {
             )}
           </React.Fragment>
         ))}
-      {/* {mergedPosts.length && ( */}
-      {mergedPosts.length && (
+      {mergedPosts?.length === 0 && (
+        <div className="mx-auto my-0 flex min-h-60 max-w-[100vw] items-center justify-center md:max-w-[700px]">
+          {'There is no results in this category...'}
+        </div>
+      )}
+      {mergedPosts?.length !== 0 && mergedPosts?.length && (
         <div className="mx-auto my-0 flex w-[100vw] justify-center	">
           {data?.category?.contentNodes?.pageInfo?.hasNextPage &&
             data?.category?.contentNodes?.pageInfo?.endCursor && (
