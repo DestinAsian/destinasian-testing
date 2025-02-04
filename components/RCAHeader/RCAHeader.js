@@ -33,7 +33,7 @@ export default function RCAHeader({
   const isDesktop = useMediaQuery({ minWidth: 768 })
   const [isScrolled, setIsScrolled] = useState(false)
 
-  const isParent = parent == null
+  // const isParent = parent == null
   const navShown = isNavShown && !isRCANavShown
   const rcaNavShown = isRCANavShown && !isNavShown
   const twoNavShown = isNavShown && isRCANavShown
@@ -114,13 +114,13 @@ export default function RCAHeader({
 
     // Compare the dates
     return dateB - dateA
-  })
+  });
 
   return (
     <header
       className={cx('component', {
         sticky: isScrolled,
-        parentColor: isParent,
+        // parentColor: isParent,
         navShown: navShown,
         rcaNavShown: rcaNavShown,
         twoNavShown: twoNavShown,
@@ -132,7 +132,7 @@ export default function RCAHeader({
           <div className={cx('navbar')}>
             {/* DA logo */}
             <Link href="/" className={cx('title')}>
-              {isParent || isNavShown ? (
+              {isNavShown ? (
                 <div className={cx('brand')}>
                   <Image
                     src={destinasianLogo.src}
@@ -170,7 +170,7 @@ export default function RCAHeader({
                   aria-controls={cx('full-menu-wrapper')}
                   aria-expanded={!isNavShown}
                 >
-                  {isParent ? (
+                  {/* {isParent ? (
                     <svg
                       width="22"
                       height="96"
@@ -284,7 +284,7 @@ export default function RCAHeader({
                         fill="#000000"
                       />
                     </svg>
-                  ) : (
+                  ) : ( */}
                     <svg
                       width="22"
                       height="96"
@@ -398,7 +398,7 @@ export default function RCAHeader({
                         fill="#ffffff"
                       />
                     </svg>
-                  )}
+                  {/* )} */}
                 </button>
               </div>
             ) : (
@@ -415,7 +415,7 @@ export default function RCAHeader({
                   aria-controls={cx('full-menu-wrapper')}
                   aria-expanded={!isNavShown}
                 >
-                  {isParent ? (
+                  {/* {isParent ? (
                     <svg
                       version="1.0"
                       xmlns="http://www.w3.org/2000/svg"
@@ -442,7 +442,7 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
                         />
                       </g>
                     </svg>
-                  ) : (
+                  ) : ( */}
                     <svg
                       version="1.0"
                       xmlns="http://www.w3.org/2000/svg"
@@ -469,7 +469,7 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
                         />
                       </g>
                     </svg>
-                  )}
+                  {/* )} */}
                 </button>
               </div>
             )}
@@ -490,7 +490,7 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
               aria-controls={cx('primary-navigation')}
               aria-expanded={!isNavShown}
             >
-              {isParent ? (
+              {/* {isParent ? (
                 <svg
                   version="1.0"
                   xmlns="http://www.w3.org/2000/svg"
@@ -517,7 +517,7 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
                     />
                   </g>
                 </svg>
-              ) : (
+              ) : ( */}
                 <svg
                   version="1.0"
                   xmlns="http://www.w3.org/2000/svg"
@@ -544,7 +544,7 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
                     />
                   </g>
                 </svg>
-              )}
+              {/* )} */}
             </button>
           </div>
         </Container>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react'
 
@@ -17,9 +17,26 @@ export default function SingleRCASlider({
   setSwiperRef,
   handleSlideChange,
   setActiveIndex,
+  nextUri,
+  isSliderMounted,
+  setIsSliderMounted,
 }) {
   // Real Index updating
   const [realIndex, setRealIndex] = useState(0)
+
+  // Detect when slider is mounted
+  useEffect(() => {
+    if (swiperRef?.current && swiperRef?.current.swiper) {
+      setIsSliderMounted(true) // Mark as mounted when slider is ready
+    }
+  }, [swiperRef?.current])
+
+  useEffect(() => {
+    if (isSliderMounted) {
+      swiperRef?.current.swiper.update()
+    }
+  }, [images, nextUri, isSliderMounted])
+
   // Pagination according to images length
   const menuIndex = images?.map((image, index) => {
     return index

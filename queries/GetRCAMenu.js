@@ -1,15 +1,36 @@
 import { gql } from '@apollo/client'
-import { NavigationMenu } from '../components'
 
 export const GetRCAMenu = gql`
-  ${NavigationMenu.fragments.entry}
-  query GetRCAMenu($first: Int, $rcaMenuLocation: MenuLocationEnum) {
-    rcaMenuItems: menuItems(
-      where: { location: $rcaMenuLocation }
-      first: $first
-    ) {
-      nodes {
-        ...NavigationMenuItemFragment
+  query GetRCAMenu($first: Int, $after: String, $id: ID = "") {
+    readersChoiceAward(id: $id, idType: DATABASE_ID) {
+      title
+      uri
+      children(
+        first: $first
+        after: $after
+        where: { orderby: { field: MENU_ORDER, order: ASC } }
+      ) {
+        pageInfo {
+          endCursor
+          hasNextPage
+        }
+        edges {
+          node {
+            ... on ReadersChoiceAward {
+              id
+              title
+              uri
+              categories {
+                edges {
+                  node {
+                    id
+                    name
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   }

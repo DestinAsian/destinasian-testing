@@ -3,6 +3,9 @@ import { gql } from '@apollo/client'
 export const GetRCAPagination = gql`
   query GetRCAPagination($first: Int, $after: String, $id: Int) {
     readersChoiceAwardBy(readersChoiceAwardId: $id) {
+      id
+      title
+      uri
       menuOrder
       parent {
         node {
@@ -32,12 +35,14 @@ export const GetRCAPagination = gql`
         }
       }
       children(
+        first: $first
         where: { orderby: { field: MENU_ORDER, order: ASC } }
-        first: 1
       ) {
         edges {
           node {
             ... on ReadersChoiceAward {
+              id
+              title
               uri
             }
           }

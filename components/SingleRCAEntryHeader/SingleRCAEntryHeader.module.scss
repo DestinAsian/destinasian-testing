@@ -17,7 +17,7 @@
 
   @media (min-width: $breakpoint-extra-small) {
     max-width: 700px;
-    padding: 5rem 5rem 2rem;
+    padding: 5rem 2rem 2rem 5rem;
     margin: 0 auto;
     top: 0;
   }
@@ -58,15 +58,17 @@
 }
 
 .title {
-  font-size: 1.2rem;
+  font-size: 2rem;
   line-height: 1.2;
   text-transform: uppercase;
   color: var(--wpe--color--white--smoke);
   text-align: left;
   text-align-last: left;
-  letter-spacing: 0.08rem;
+  letter-spacing: normal;
+  font-family: 'Ringside Regular A', 'Ringside Regular B';
+  font-weight: 700;
 
   @media (min-width: $breakpoint-extra-small) {
-    font-size: 1.5rem;
+    font-size: 2.75rem;
   }
 }

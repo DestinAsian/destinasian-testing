@@ -12,12 +12,12 @@
 .container-wrapper {
   width: 100vw;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0;
 
   @media (min-width: $breakpoint-small) {
     margin: 0 auto 1rem;
-    max-width: 700px;
-    padding: 0;
+    // max-width: 700px;
+    // padding: 0;
   }
 }
 

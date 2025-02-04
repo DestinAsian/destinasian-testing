@@ -7,7 +7,7 @@
   padding: 0;
   position: relative;
   top: 20rem;
-  height: calc(7rem + 100vh);
+  height: calc(-7rem + 100vh);
 
   @media (min-width: $breakpoint-extra-small) {
     margin: 0 auto;
@@ -20,10 +20,13 @@
   }
 
   .content-wrapper {
-    display: flex;
-    flex-direction: column;
-    row-gap: 0.25rem;
-    padding: 1rem 0;
+    max-width: 700px;
+    padding: 2rem 1rem;
+    margin: 0 auto;
+
+    @media (min-width: $breakpoint-extra-small) {
+      padding: 2rem 2rem 2rem 5rem;
+    }
   }
 
   .with-slider-wrapper {
@@ -35,7 +38,7 @@
     }
   }
 
-  .content-wrapper {
+  .content-list-wrapper {
     display: flex;
     flex-direction: column;
     row-gap: 0.25rem;
@@ -113,12 +116,14 @@
   }
 
   .content-property-name {
-    font-family: 'Unit Slab Pro Black';
-    line-height: 1;
+    font-family: 'Ringside Regular A', 'Ringside Regular B';
+    font-weight: 700;
+    text-transform: uppercase;
+    // line-height: 1;
 
-    @media (min-width: $breakpoint-extra-small) {
-      line-height: 1.2;
-    }
+    // @media (min-width: $breakpoint-extra-small) {
+    //   line-height: 1.2;
+    // }
   }
 
   .content-url {
@@ -136,8 +141,8 @@
       * {
         padding: 0;
         text-decoration: none;
-        font-family: 'Unit Slab Pro Black';
-        font-weight: 400;
+        font-family: 'Ringside Regular A', 'Ringside Regular B';
+        font-weight: 700;
 
         &:hover {
           color: var(--wpe--color--white--smoke);
@@ -175,7 +180,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 30%;
+    width: 20%;
     box-sizing: border-box;
     min-height: 3rem;
     height: 100%;
@@ -253,6 +258,19 @@
     }
   }
 
+  .autoplay-button-wrapper {
+    display: flex;
+    position: relative;
+    height: auto;
+    width: 30%;
+    padding: 0;
+    justify-content: center;
+
+    @media (min-width: $breakpoint-small) {
+      width: 25%;
+    }
+  }
+
   .menu-wrapper {
     text-align: center;
     column-gap: 0.25rem;
@@ -262,22 +280,58 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40%;
+    width: 30%;
     box-sizing: border-box;
     min-height: 3rem;
     height: 100%;
 
     @media (min-width: $breakpoint-small) {
-      width: 50%;
+      width: 25%;
     }
   }
 
   .menu-button {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
     padding: 0;
+    margin: 0;
+
+    button {
+      padding: 0;
+      margin: 0;
+      // width: auto;
+      display: flex;
+      justify-content: center;
+
+      svg {
+        padding: 0;
+        margin: 0;
+        height: 2rem;
+      }
+    }
+  }
+
+  .autoplay-icon {
+    display: flex;
+    margin-top: 0;
+    margin-bottom: 0;
+    background-color: transparent;
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    width: 1.3rem;
+
+    @media (min-width: $breakpoint-extra-small) {
+      width: 1.6rem;
+      height: 3.5rem;
+    }
+
+    @media (min-width: $breakpoint-medium) {
+      width: 1.8rem;
+    }
   }
 
   .menu-title {

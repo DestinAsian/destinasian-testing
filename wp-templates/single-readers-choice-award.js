@@ -41,7 +41,6 @@ export default function singleRca(props) {
     }
   }, [props?.data?.readersChoiceAward?.passwordProtected?.password])
 
-
   const batchSize = 100
   const [isNavShown, setIsNavShown] = useState(false)
   const [isRCANavShown, setIsRCANavShown] = useState(false)
@@ -67,6 +66,7 @@ export default function singleRca(props) {
   const {
     title,
     featuredImage,
+    content,
     parent,
     seo,
     uri,
@@ -293,100 +293,53 @@ export default function singleRca(props) {
         url={uri}
         focuskw={seo?.focuskw}
       />
-      {/* Year pages */}
-      {parent == null && (
+      <RCAHeader
+        primaryMenuItems={primaryMenu}
+        secondaryMenuItems={secondaryMenu}
+        thirdMenuItems={thirdMenu}
+        fourthMenuItems={fourthMenu}
+        fifthMenuItems={fifthMenu}
+        featureMenuItems={featureMenu}
+        latestStories={latestAllPosts}
+        menusLoading={menusLoading}
+        latestLoading={latestLoading}
+        parent={parent}
+        isNavShown={isNavShown}
+        setIsNavShown={setIsNavShown}
+        isRCANavShown={isRCANavShown}
+        setIsRCANavShown={setIsRCANavShown}
+      />
+      <Main>
         <>
-          <RCAHeader
-            primaryMenuItems={primaryMenu}
-            secondaryMenuItems={secondaryMenu}
-            thirdMenuItems={thirdMenu}
-            fourthMenuItems={fourthMenu}
-            fifthMenuItems={fifthMenu}
-            featureMenuItems={featureMenu}
-            latestStories={latestAllPosts}
-            menusLoading={menusLoading}
-            latestLoading={latestLoading}
-            parent={parent}
-            isNavShown={isNavShown}
-            setIsNavShown={setIsNavShown}
-          />
-          <Main>
-            <>
-              <SingleRCAContainer
-                parent={parent}
-                image={featuredImage?.node?.sourceUrl}
-                databaseId={databaseId}
-                uri={uri}
-                isNavShown={isRCANavShown}
-                setIsNavShown={setIsRCANavShown}
-              >
-                {/* <div className="sm:fixed sm:left-[70vw] sm:flex sm:w-[30vw] sm:flex-col">
-                  <div className="sm:relative sm:h-[100vh] sm:flex-row sm:flex-wrap sm:overflow-y-auto">
-                    <div className="sm:relative sm:mx-auto">
-                      <ContentWrapperRCAFrontPage
-                        content={content}
-                        firstIndex={
-                          paginationData?.readersChoiceAwardBy?.children
-                            ?.edges[0]?.node?.uri
-                        }
-                      />
-                    </div>
-                  </div>
-                </div> */}
-              </SingleRCAContainer>
-            </>
-          </Main>
-        </>
-      )}
-
-      {/* Hotel pages */}
-      {parent != null && (
-        <>
-          <RCAHeader
-            primaryMenuItems={primaryMenu}
-            secondaryMenuItems={secondaryMenu}
-            thirdMenuItems={thirdMenu}
-            fourthMenuItems={fourthMenu}
-            fifthMenuItems={fifthMenu}
-            featureMenuItems={featureMenu}
-            latestStories={latestAllPosts}
-            menusLoading={menusLoading}
-            latestLoading={latestLoading}
-            parent={parent}
-            isNavShown={isNavShown}
-            setIsNavShown={setIsNavShown}
-            isRCANavShown={isRCANavShown}
-            setIsRCANavShown={setIsRCANavShown}
-          />
-          <Main>
-            <>
-              {/* {'hotel'} */}
-              <SingleRCAContainer parent={parent}>
-                <div className="sm:fixed sm:left-[60vw] sm:flex sm:w-[40vw] sm:flex-col">
-                  <div className="sm:relative sm:h-[100vh] sm:flex-row sm:flex-wrap sm:overflow-y-auto">
-                    {/* First wrapper */}
-                    <div className="sm:relative sm:mx-auto">
-                      <ContentWrapperRCA
-                        title={title}
-                        category={categories?.edges[0]?.node?.name}
-                        images={rcaImages}
-                        parentDatabaseId={parent?.node?.databaseId}
-                        uri={parent?.node?.uri}
-                        rcaIndexData={rcaIndexData}
-                        sliderLoading={sliderLoading}
-                        isNavShown={isRCANavShown}
-                        setIsNavShown={setIsRCANavShown}
-                        paginationData={paginationData}
-                        paginationLoading={paginationLoading}
-                      />
-                    </div>
-                  </div>
+          {/* {'hotel'} */}
+          <SingleRCAContainer parent={parent}>
+            <div className="sm:fixed sm:left-[60vw] sm:flex sm:w-[40vw] sm:flex-col">
+              <div className="sm:relative sm:h-[100vh] sm:flex-row sm:flex-wrap sm:overflow-y-auto">
+                {/* First wrapper */}
+                <div className="sm:relative sm:mx-auto">
+                  <ContentWrapperRCA
+                    router={props?.router}
+                    title={title}
+                    category={categories?.edges[0]?.node?.name}
+                    images={rcaImages}
+                    content={content}
+                    databaseId={
+                      parent != null ? parent?.node?.databaseId : databaseId
+                    }
+                    uri={parent != null ? parent?.node?.uri : uri}
+                    rcaIndexData={rcaIndexData}
+                    sliderLoading={sliderLoading}
+                    isNavShown={isRCANavShown}
+                    setIsNavShown={setIsRCANavShown}
+                    paginationData={paginationData}
+                    paginationLoading={paginationLoading}
+                  />
                 </div>
-              </SingleRCAContainer>
-            </>
-          </Main>
+              </div>
+            </div>
+          </SingleRCAContainer>
         </>
-      )}
+      </Main>
       {/* <Footer /> */}
     </main>
   )
