@@ -15,6 +15,7 @@ let cx = className.bind(styles)
 
 export default function ContentWrapperRCA({
   title,
+  parentTitle,
   category,
   images,
   content,
@@ -28,6 +29,7 @@ export default function ContentWrapperRCA({
   paginationLoading,
   router,
 }) {
+
   const [transformedContent, setTransformedContent] = useState('')
   const [isAutoplayRunning, setIsAutoplayRunning] = useState(true)
   const [isSliderMounted, setIsSliderMounted] = useState(false) // Track slider mount status
@@ -230,7 +232,18 @@ export default function ContentWrapperRCA({
         </div>
       )}
       {images[0] == null && <div className={cx('slider-wrapper')}></div>}
-      <SingleRCAEntryHeader title={title} category={category} />
+      {/* Under the Slider */}
+      <SingleRCAEntryHeader
+        parentTitle={parentTitle}
+        className={'parentClass'}
+        // category={category}
+      />
+      {/* Before Content Wrapper */}
+      <SingleRCAEntryHeader
+        title={title}
+        className={'defaultClass'}
+        // category={category}
+      />
       <article className={cx('component')}>
         <div className={cx('with-slider-wrapper')}>
           {rcaIndexData[0]?.id !== null && (

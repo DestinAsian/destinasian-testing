@@ -4,10 +4,10 @@
   width: 100vw;
   margin: 0 auto;
   line-height: 1.2;
-  padding: 0;
   position: relative;
   top: 20rem;
-  height: calc(-7rem + 100vh);
+  height: auto;
+  padding: 0 0 15rem;
 
   @media (min-width: $breakpoint-extra-small) {
     margin: 0 auto;
@@ -15,8 +15,8 @@
     width: 100%;
     position: relative;
     max-width: 700px;
-    top: 0;
-    height: calc(-15.5rem + 100vh);
+    top: 4.5rem;
+    // height: calc(-15.5rem + 100vh);
   }
 
   .content-wrapper {
@@ -25,7 +25,11 @@
     margin: 0 auto;
 
     @media (min-width: $breakpoint-extra-small) {
-      padding: 2rem 2rem 2rem 5rem;
+      padding: 1rem 2rem 2rem 5rem;
+    }
+
+    * {
+      padding: 0 0 1rem;
     }
   }
 
@@ -49,7 +53,7 @@
 
     @media (min-width: $breakpoint-extra-small) {
       padding: 0;
-      margin: 0 0 5.25rem 0;
+      margin: 1rem 0 5.25rem 0;
       border-left: none;
     }
   }
@@ -565,6 +569,7 @@
   height: 20rem;
   z-index: 47;
   box-shadow: 0 0.5rem 0.5rem var(--wpe--color--deep--black);
+  background-color: var(--wpe--color--deep--black);
 
   @media (min-width: $breakpoint-extra-small) {
     position: fixed;
@@ -589,7 +594,7 @@
   position: fixed;
   z-index: 48;
   top: -150vh;
-  background-color: var(--wpe--color--jet--grey);
+  background-color: rgba(0, 0, 0, 0.5); /* Black with 20% opacity */
   color: var(--wpe--color--black);
 
   &.show {
@@ -597,12 +602,13 @@
     gap: 1rem;
     top: 3.5rem;
     height: calc(-4.5rem + 100vh);
-    transition: top 0.4s ease-in-out;
+    transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
 
     @media (min-width: $breakpoint-small) {
       top: 4.5rem;
       left: 0;
       height: calc(-4.5rem + 100vh);
+      width: 100vw;
     }
 
     * {
