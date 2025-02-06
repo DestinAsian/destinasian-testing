@@ -48,11 +48,10 @@ export default function SingleRCASlider({
         spaceBetween={30}
         ref={swiperRef}
         onSwiper={setSwiperRef}
-        // autoplay={{
-        //   delay: 5000,
-        //   disableOnInteraction: false,
-        // }}
-        autoplay={false}
+        autoplay={{
+          delay: 5000,
+          disableOnInteraction: false,
+        }}
         effect={'fade'}
         // loop={true}
         direction={'horizontal'}

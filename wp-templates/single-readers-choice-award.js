@@ -152,16 +152,6 @@ export default function singleRca(props) {
   // sortByDate latestCat & childCat Posts
   const latestAllPosts = latestMainCatPosts.sort(sortPostsByDate)
 
-  // Get RCA Pagination
-  const { data: paginationData, loading: paginationLoading } = useQuery(
-    GetRCAPagination,
-    {
-      variables: { first: batchSize, after: null, id: databaseId },
-      fetchPolicy: 'network-only',
-      nextFetchPolicy: 'cache-and-network',
-    },
-  )
-
   // Get menus
   const { data: sliderData, loading: sliderLoading } = useQuery(GetRCASlider, {
     variables: {
@@ -321,13 +311,11 @@ export default function singleRca(props) {
                 <div className="sm:relative sm:mx-auto">
                   <ContentWrapperRCA
                     router={props?.router}
-                    // title={parent != null ? title : null}
                     title={
                       parent?.node?.title !== ancestors?.edges[0]?.node?.title
                         ? title
                         : null
                     }
-                    // parentTitle={parent != null ? parent?.node?.title : title}
                     parentTitle={
                       parent?.node?.title !== ancestors?.edges[0]?.node?.title
                         ? parent?.node?.title
@@ -336,10 +324,8 @@ export default function singleRca(props) {
                     category={categories?.edges[0]?.node?.name}
                     images={rcaImages}
                     content={content}
-                    // databaseId={
-                    //   parent != null ? parent?.node?.databaseId : databaseId
-                    // }
-                    databaseId={
+                    databaseId={databaseId}
+                    rcaDatabaseId={
                       parent != null
                         ? children?.edges?.length == 0
                           ? ancestors?.edges[0]?.node?.databaseId
@@ -351,8 +337,6 @@ export default function singleRca(props) {
                     sliderLoading={sliderLoading}
                     isNavShown={isRCANavShown}
                     setIsNavShown={setIsRCANavShown}
-                    paginationData={paginationData}
-                    paginationLoading={paginationLoading}
                   />
                 </div>
               </div>

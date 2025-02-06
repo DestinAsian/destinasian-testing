@@ -12,7 +12,7 @@ let cx = classNames.bind(styles)
 export default function RCAFullMenu({
   mainLogo,
   secondaryLogo,
-  databaseId,
+  rcaDatabaseId,
   uri,
   isNavShown,
   setIsNavShown,
@@ -25,7 +25,7 @@ export default function RCAFullMenu({
     variables: {
       first: postsPerPage,
       after: null,
-      id: databaseId,
+      id: rcaDatabaseId,
     },
     fetchPolicy: 'network-only',
     nextFetchPolicy: 'cache-and-network',

@@ -10,6 +10,8 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import Image from 'next/image'
 import Link from 'next/link'
 import { BACKEND_URL } from '../../constants/backendUrl'
+import { useQuery } from '@apollo/client'
+import { GetRCAPagination } from '../../queries/GetRCAPagination'
 
 let cx = className.bind(styles)
 
@@ -20,6 +22,7 @@ export default function ContentWrapperRCA({
   images,
   content,
   databaseId,
+  rcaDatabaseId,
   uri,
   rcaIndexData,
   sliderLoading,
@@ -29,7 +32,7 @@ export default function ContentWrapperRCA({
   paginationLoading,
   router,
 }) {
-
+  const batchSize = 100
   const [transformedContent, setTransformedContent] = useState('')
   const [isAutoplayRunning, setIsAutoplayRunning] = useState(true)
   const [isSliderMounted, setIsSliderMounted] = useState(false) // Track slider mount status
@@ -41,9 +44,11 @@ export default function ContentWrapperRCA({
     // Update activeIndex based on the hash in the URL
     const hashFromURL = window.location.hash.substring(1)
     setHash(hashFromURL)
+
     if (hashFromURL) {
       const index = rcaIndexData.findIndex(
-        (rcaIndex) => rcaIndex.id === hashFromURL,
+        (rcaIndex) =>
+          rcaIndex.name.toLowerCase().replace(/\s+/g, '-') === hashFromURL,
       )
       setActiveIndex(index)
     }
@@ -69,29 +74,48 @@ export default function ContentWrapperRCA({
     setActiveIndex(index)
   }
 
-  // const { data, loading, error, fetchMore } = useQuery(GetRCAPagination, {
-  //   variables: { first: batchSize, after: null, id: databaseId },
-  //   fetchPolicy: 'network-only',
-  //   nextFetchPolicy: 'cache-and-network',
-  // })
+  const { data, loading, error } = useQuery(GetRCAPagination, {
+    variables: { first: batchSize, after: null, id: databaseId },
+    fetchPolicy: 'network-only',
+    nextFetchPolicy: 'cache-and-network',
+  })
 
-  const rcaAll =
-    paginationData?.readersChoiceAwardBy?.parent?.node?.children?.edges.map(
-      (post) => post.node,
-    )
+  const ancestors = data?.readersChoiceAwardBy?.ancestors
 
-  // Index number for each of Individual Page
-  const indexOfRCA = paginationData?.readersChoiceAwardBy?.menuOrder
+  // Declare Children Posts including nested child
+  const extractPosts = (nodes) => {
+    if (!nodes) return []
+    return nodes.flatMap((post) => [
+      post?.node,
+      ...extractPosts(post?.node?.children?.edges || []),
+    ])
+  }
 
-  // Total number of RCAs in a year
+  const rcaAll = ancestors
+    ? [
+        ancestors?.edges[0]?.node,
+        ...extractPosts(
+          data?.readersChoiceAwardBy?.ancestors?.edges[0]?.node?.children?.edges.map(
+            (post) => post,
+          ) || [],
+        ),
+      ]
+    : [
+        data?.readersChoiceAwardBy,
+        ...extractPosts(
+          data?.readersChoiceAwardBy?.children?.edges.map((post) => post) || [],
+        ),
+      ]
+
+  const indexOfRCA = data?.readersChoiceAwardBy?.menuOrder ?? 0
   const numberOfRCA = rcaAll?.length
+  const prevIndex = indexOfRCA - 1
+  const nextIndex = indexOfRCA + 1
 
-  // Navigation of RCA individual page
-  const prevIndex = indexOfRCA - 1 - 1
-  const nextIndex = indexOfRCA - 1 + 1
-
+  // Loop nextUri to the first index when reaching the last index
   const prevUri = prevIndex >= 0 ? rcaAll[prevIndex]?.uri : null
-  const nextUri = nextIndex < numberOfRCA ? rcaAll[nextIndex]?.uri : null
+  const nextUri =
+    nextIndex < numberOfRCA ? rcaAll[nextIndex]?.uri : rcaAll[0]?.uri // Loop back to the first URI
 
   useEffect(() => {
     if (isAutoplayRunning && isSliderMounted && swiperRef?.current) {
@@ -188,7 +212,11 @@ export default function ContentWrapperRCA({
     }
   })
 
-  if (paginationLoading || sliderLoading) {
+  if (error) {
+    return <pre>{JSON.stringify(error)}</pre>
+  }
+
+  if (loading || paginationLoading || sliderLoading) {
     return (
       <>
         <div className="mx-auto my-0 flex max-w-[100vw] justify-center md:max-w-[700px]	">
@@ -246,7 +274,7 @@ export default function ContentWrapperRCA({
       />
       <article className={cx('component')}>
         <div className={cx('with-slider-wrapper')}>
-          {rcaIndexData[0]?.id !== null && (
+          {rcaIndexData[0]?.name !== null && (
             <div className={cx('content-list-wrapper')}>
               {rcaIndexData?.map((rcaIndex, index) => (
                 <>
@@ -255,7 +283,7 @@ export default function ContentWrapperRCA({
                       'button-pagination',
                       activeIndex == index ? 'active' : undefined,
                     ])}
-                    id={rcaIndex?.id ? rcaIndex.id : null}
+                    id={rcaIndex?.name ? rcaIndex.name : null}
                     key={index}
                   >
                     <button
@@ -412,7 +440,7 @@ export default function ContentWrapperRCA({
         className={cx(['rca-menu-wrapper', isNavShown ? 'show' : undefined])}
       >
         <RCAFullMenu
-          databaseId={databaseId}
+          rcaDatabaseId={rcaDatabaseId}
           uri={uri}
           isNavShown={isNavShown}
           setIsNavShown={setIsNavShown}
