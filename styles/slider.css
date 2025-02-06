@@ -338,8 +338,8 @@
 }
 
 .swiper-rca-custom-pagination > .swiper-pagination-bullet-active {
-  color: #ebb232;
-  background: #ebb232;
+  color: #e69383;
+  background: #e69383;
 }
 
 .swiper-rca-custom-pagination.swiper-pagination-bullets.swiper-pagination-horizontal {
@@ -447,6 +447,10 @@
 
   .post-hc-swiper {
     padding: 0;
+  }
+
+  .post-rca-swiper > .swiper-wrapper > .swiper-slide {
+    height: 90%;
   }
 
   .post-ll-swiper {

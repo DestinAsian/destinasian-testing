@@ -67,7 +67,9 @@ export default function singleRca(props) {
     title,
     featuredImage,
     content,
+    ancestors,
     parent,
+    children,
     seo,
     uri,
     databaseId,
@@ -319,12 +321,30 @@ export default function singleRca(props) {
                 <div className="sm:relative sm:mx-auto">
                   <ContentWrapperRCA
                     router={props?.router}
-                    title={title}
+                    // title={parent != null ? title : null}
+                    title={
+                      parent?.node?.title !== ancestors?.edges[0]?.node?.title
+                        ? title
+                        : null
+                    }
+                    // parentTitle={parent != null ? parent?.node?.title : title}
+                    parentTitle={
+                      parent?.node?.title !== ancestors?.edges[0]?.node?.title
+                        ? parent?.node?.title
+                        : title
+                    }
                     category={categories?.edges[0]?.node?.name}
                     images={rcaImages}
                     content={content}
+                    // databaseId={
+                    //   parent != null ? parent?.node?.databaseId : databaseId
+                    // }
                     databaseId={
-                      parent != null ? parent?.node?.databaseId : databaseId
+                      parent != null
+                        ? children?.edges?.length == 0
+                          ? ancestors?.edges[0]?.node?.databaseId
+                          : parent?.node?.databaseId
+                        : databaseId
                     }
                     uri={parent != null ? parent?.node?.uri : uri}
                     rcaIndexData={rcaIndexData}
@@ -380,11 +400,44 @@ singleRca.query = gql`
         metaDesc
         focuskw
       }
+      ancestors(
+        first: 1
+        where: {
+          status: PUBLISH
+          contentTypes: READERS_CHOICE_AWARD
+          search: "Readers"
+        }
+      ) {
+        edges {
+          node {
+            ... on ReadersChoiceAward {
+              title
+              uri
+              databaseId
+            }
+          }
+        }
+      }
       parent {
         node {
           ... on ReadersChoiceAward {
+            title
             uri
             databaseId
+          }
+        }
+      }
+      children(
+        first: 1
+        where: { status: PUBLISH, contentTypes: READERS_CHOICE_AWARD }
+      ) {
+        edges {
+          node {
+            ... on ReadersChoiceAward {
+              title
+              uri
+              databaseId
+            }
           }
         }
       }

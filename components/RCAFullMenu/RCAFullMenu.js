@@ -31,25 +31,20 @@ export default function RCAFullMenu({
     nextFetchPolicy: 'cache-and-network',
   })
 
-  const rcaMenu = data?.rcaMenuItems?.nodes ?? []
-
-  if (error) {
-    return <pre>{JSON.stringify(error)}</pre>
-  }
-
-  if (loading) {
-    return (
-      <>
-        <div className="mx-auto my-0 flex max-w-[100vw] justify-center md:max-w-[700px]	">
-          <Button className="gap-x-4 ">{'Loading...'}</Button>
-        </div>
-      </>
-    )
-  }
-
   // Declare all posts
   const allPosts =
     data?.readersChoiceAward?.children?.edges.map((post) => post.node) || []
+
+  // Declare All Posts including nested child
+  // const extractPosts = (nodes) => {
+  //   if (!nodes) return []
+  //   return nodes.flatMap((post) => [
+  //     post?.node,
+  //     ...extractPosts(post?.node?.children?.edges || []),
+  //   ])
+  // }
+
+  // const allPosts = extractPosts(data?.readersChoiceAward?.children?.edges || [])
 
   // Function to filter out duplicate categories
   const uniqueCategories = allPosts.reduce((unique, post) => {
@@ -87,6 +82,20 @@ export default function RCAFullMenu({
     ? getOrdinalSuffix(anniversary)
     : 'Unknown'
 
+  if (error) {
+    return <pre>{JSON.stringify(error)}</pre>
+  }
+
+  if (loading) {
+    return (
+      <>
+        <div className="mx-auto my-0 flex max-w-[100vw] justify-center md:max-w-[700px]	">
+          <Button className="gap-x-4 ">{'Loading...'}</Button>
+        </div>
+      </>
+    )
+  }
+
   return (
     <div className={cx('component')}>
       {/* Full menu */}
@@ -97,9 +106,15 @@ export default function RCAFullMenu({
             menuItems={allPosts}
           /> */}
           <div className={cx(['rca-navigation-menu'])}>
-            <div
-              className={cx('menu-name')}
-            >{`${formattedAnniversary} Annual Readers’ Choice Awards - ${yearOfRCA}`}</div>
+            <div className={cx('menu-name')}>
+              {uri && (
+                <Link href={uri}>
+                  <span>
+                    {`${formattedAnniversary} Annual Readers’ Choice Awards - ${yearOfRCA}`}
+                  </span>
+                </Link>
+              )}
+            </div>
             <div className={cx('menu')}>
               {uniqueCategories.map((categoryName, index) => (
                 <div className={cx('menu-list-wrapper')} key={index}>
@@ -132,8 +147,8 @@ export default function RCAFullMenu({
               ))}
             </div>
           </div>
+          {/* close button */}
           <div className={cx('close-button')}>
-            {/* close button */}
             <button
               type="button"
               className={cx('close-icon')}

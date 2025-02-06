@@ -150,6 +150,7 @@ export default function RCAHeader({
                     fill
                     sizes="100%"
                     priority
+                    className={cx('gold-logo')}
                   />
                 </div>
               )}

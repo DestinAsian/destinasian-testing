@@ -8,7 +8,11 @@ export const GetRCAMenu = gql`
       children(
         first: $first
         after: $after
-        where: { orderby: { field: MENU_ORDER, order: ASC } }
+        where: {
+          contentTypes: READERS_CHOICE_AWARD
+          status: PUBLISH
+          orderby: { field: MENU_ORDER, order: ASC }
+        }
       ) {
         pageInfo {
           endCursor
@@ -25,6 +29,36 @@ export const GetRCAMenu = gql`
                   node {
                     id
                     name
+                  }
+                }
+              }
+              children(
+                first: 10
+                where: {
+                  contentTypes: READERS_CHOICE_AWARD
+                  status: PUBLISH
+                  orderby: { field: MENU_ORDER, order: ASC }
+                }
+              ) {
+                pageInfo {
+                  endCursor
+                  hasNextPage
+                }
+                edges {
+                  node {
+                    ... on ReadersChoiceAward {
+                      id
+                      title
+                      uri
+                      categories {
+                        edges {
+                          node {
+                            id
+                            name
+                          }
+                        }
+                      }
+                    }
                   }
                 }
               }
