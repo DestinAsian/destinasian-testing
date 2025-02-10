@@ -37,6 +37,7 @@ export default function ContentWrapperRCA({
   const [isAutoplayRunning, setIsAutoplayRunning] = useState(true)
   const [isSliderMounted, setIsSliderMounted] = useState(false) // Track slider mount status
   const [swiperRef, setSwiperRef] = useState(null)
+  const sliderRCA = useRef(null)
   const [activeIndex, setActiveIndex] = useState(0)
   const [hash, setHash] = useState('')
 
@@ -118,8 +119,8 @@ export default function ContentWrapperRCA({
     nextIndex < numberOfRCA ? rcaAll[nextIndex]?.uri : rcaAll[0]?.uri // Loop back to the first URI
 
   useEffect(() => {
-    if (isAutoplayRunning && isSliderMounted && swiperRef?.current) {
-      const swiperInstance = swiperRef?.current.swiper
+    if (isAutoplayRunning && isSliderMounted && sliderRCA?.current) {
+      const swiperInstance = sliderRCA?.current.swiper
 
       const handleSlideChange = () => {
         const isLastSlide =
@@ -142,7 +143,7 @@ export default function ContentWrapperRCA({
         swiperInstance.off('slideChange', handleSlideChange)
       }
     }
-  }, [swiperRef?.current, isAutoplayRunning, nextUri, router, isSliderMounted])
+  }, [sliderRCA?.current, isAutoplayRunning, nextUri, router, isSliderMounted])
 
   useEffect(() => {
     const extractImageData = () => {
@@ -179,7 +180,7 @@ export default function ContentWrapperRCA({
 
   useEffect(() => {
     if (isSliderMounted) {
-      const swiperInstance = swiperRef?.current?.swiper
+      const swiperInstance = sliderRCA?.current?.swiper
       const initialAutoplayState = swiperInstance.autoplay?.running || false
       setIsAutoplayRunning(initialAutoplayState)
 
@@ -195,7 +196,7 @@ export default function ContentWrapperRCA({
   }, [isAutoplayRunning, isSliderMounted])
 
   const toggleAutoplay = () => {
-    const swiperInstance = swiperRef?.current?.swiper
+    const swiperInstance = sliderRCA?.current?.swiper
     if (swiperInstance) {
       if (isAutoplayRunning) {
         swiperInstance.autoplay?.stop()
@@ -249,11 +250,10 @@ export default function ContentWrapperRCA({
         <div className={cx('slider-wrapper')}>
           <SingleRCASlider
             images={rcaIndexData.map((item) => item.imageUrl)}
-            swiperRef={swiperRef}
             setSwiperRef={setSwiperRef}
             handleSlideChange={handleSlideChange}
-            setActiveIndex={setActiveIndex}
             nextUri={nextUri}
+            sliderRCA={sliderRCA}
             isSliderMounted={isSliderMounted}
             setIsSliderMounted={setIsSliderMounted}
           />
@@ -261,18 +261,27 @@ export default function ContentWrapperRCA({
       )}
       {images[0] == null && <div className={cx('slider-wrapper')}></div>}
       {/* Under the Slider */}
-      <SingleRCAEntryHeader
-        parentTitle={parentTitle}
-        className={'parentClass'}
-        // category={category}
-      />
+      {parentTitle && (
+        <SingleRCAEntryHeader
+          parentTitle={parentTitle}
+          className={'parentClass'}
+          // category={category}
+        />
+      )}
       {/* Before Content Wrapper */}
-      <SingleRCAEntryHeader
-        title={title}
-        className={'defaultClass'}
-        // category={category}
-      />
-      <article className={cx('component')}>
+      {title && (
+        <SingleRCAEntryHeader
+          title={title}
+          className={parentTitle ? 'bothClass' :'defaultClass'}
+          // category={category}
+        />
+      )}
+      <article
+        className={cx(
+          'component',
+          transformedContent !== 'null' && title !== null ? 'sm:top-0' : '',
+        )}
+      >
         <div className={cx('with-slider-wrapper')}>
           {rcaIndexData[0]?.name !== null && (
             <div className={cx('content-list-wrapper')}>

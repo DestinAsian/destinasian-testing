@@ -13,11 +13,10 @@ import Image from 'next/image'
 
 export default function SingleRCASlider({
   images,
-  swiperRef,
   setSwiperRef,
   handleSlideChange,
-  setActiveIndex,
   nextUri,
+  sliderRCA,
   isSliderMounted,
   setIsSliderMounted,
 }) {
@@ -26,14 +25,14 @@ export default function SingleRCASlider({
 
   // Detect when slider is mounted
   useEffect(() => {
-    if (swiperRef?.current && swiperRef?.current.swiper) {
+    if (sliderRCA?.current && sliderRCA?.current.swiper) {
       setIsSliderMounted(true) // Mark as mounted when slider is ready
     }
-  }, [swiperRef?.current])
+  }, [sliderRCA?.current])
 
   useEffect(() => {
     if (isSliderMounted) {
-      swiperRef?.current.swiper.update()
+      sliderRCA?.current.swiper.update()
     }
   }, [images, nextUri, isSliderMounted])
 
@@ -46,7 +45,7 @@ export default function SingleRCASlider({
     <>
       <Swiper
         spaceBetween={30}
-        ref={swiperRef}
+        ref={sliderRCA}
         onSwiper={setSwiperRef}
         autoplay={{
           delay: 5000,
@@ -88,8 +87,6 @@ export default function SingleRCASlider({
         ))}
       </Swiper>
       <div className="swiper-rca-custom-pagination"></div>
-      {/* Access realIndex anywhere in your component */}
-      {/* <div>{`Current Real Index: ${realIndex}`}</div> */}
     </>
   )
 }

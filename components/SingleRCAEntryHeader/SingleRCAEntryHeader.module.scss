@@ -11,7 +11,7 @@
   font-family: 'ChunkFive-Regular';
   font-weight: 400;
   letter-spacing: 0.08rem;
-  padding: 3.5rem 0 0;
+  padding: 4.5rem 0 0;
   top: 20rem;
   height: fit-content;
 
@@ -28,6 +28,17 @@
   height: fit-content;
 
   @media (min-width: $breakpoint-extra-small) {
+    padding: 5rem 5rem 0 3.5rem;
+  }
+}
+
+.bothClass {
+  padding: 1rem 0 0;
+  height: fit-content;
+  border-top: 1px solid var(--wpe--color--white--smoke);
+
+  @media (min-width: $breakpoint-extra-small) {
+    border-top: none;
     padding: 5rem 5rem 0 3.5rem;
   }
 }
@@ -52,7 +63,7 @@
 .header-wrapper {
   display: flex;
   margin: 0 auto;
-  padding: 1rem;
+  padding: 0 1rem 1rem;
   flex-direction: row;
   row-gap: 0.5rem;
   align-items: center;
