@@ -11,7 +11,7 @@
   background-color: var(--wpe--color--deep--black);
   position: relative;
 
-  @media (min-width: $breakpoint-extra-small) {
+  @media (min-width: $breakpoint-large) {
     left: 60%;
     max-width: 700px;
     transform: translate(-100%, 0);

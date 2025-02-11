@@ -35,7 +35,7 @@
 }
 
 .rcaNavShown {
-  background-color: var(--wpe--color--jet--grey);
+  background-color: var(--wpe--color--deep--black);
 }
 
 .navbar {
@@ -195,27 +195,44 @@
 
 // Search Bar
 .search-bar-wrapper {
-  display: none;
+  display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   height: auto;
   width: 100%;
-  padding: 0 1rem 0.75rem;
+  padding: 0 1rem 0.5rem;
+  background-color: var(--wpe--color--deep--black);
+
+  @media (min-width: $breakpoint-extra-small) {
+    padding: 0;
+  }
+
+  @media (min-width: $breakpoint-large) {
+    position: fixed;
+    left: 60%;
+    max-width: 700px;
+    transform: translate(-100%, 0);
+  }
 
   * {
     text-transform: none;
-  }
+    color: var(--wpe--color--white--smoke);
+    fill: var(--wpe--color--white--smoke);
+    stroke: var(--wpe--color--white--smoke);
 
-  @media (min-width: $breakpoint-extra-small) {
-    padding: 0 0 0.75rem;
-    max-width: 700px;
-    margin: 0 auto;
+    input {
+      border-color: var(--wpe--color--white--smoke);
+    }
   }
 
   .search-input-wrapper {
     position: relative;
     width: 100%;
+
+    @media (min-width: $breakpoint-extra-small) {
+      max-width: 700px;
+    }
 
     button {
       display: block;
@@ -244,8 +261,8 @@
     justify-content: center;
 
     @media (min-width: $breakpoint-extra-small) {
-      top: 8.125rem;
-      padding: 0;
+      top: 4rem;
+      /* padding: 1rem; */
       max-width: 700px;
       left: 50%;
       transform: translate(-50%, 0);

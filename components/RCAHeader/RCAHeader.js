@@ -5,6 +5,8 @@ import destinasianLogo from '../../assets/logo/destinasian-logo.png'
 import {
   Container,
   FullMenu,
+  SearchInput,
+  SearchResults,
 } from '../../components'
 import styles from './RCAHeader.module.scss'
 import { useState, useEffect } from 'react'
@@ -114,7 +116,7 @@ export default function RCAHeader({
 
     // Compare the dates
     return dateB - dateA
-  });
+  })
 
   return (
     <header
@@ -286,119 +288,119 @@ export default function RCAHeader({
                       />
                     </svg>
                   ) : ( */}
-                    <svg
-                      width="22"
-                      height="96"
-                      viewBox="0 0 22 96"
+                  <svg
+                    width="22"
+                    height="96"
+                    viewBox="0 0 22 96"
+                    fill="#ffffff"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle
+                      cx="10.7009"
+                      cy="10.7009"
+                      r="10.7009"
+                      transform="matrix(-1 0 0 1 21.4019 0)"
                       fill="#ffffff"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <circle
-                        cx="10.7009"
-                        cy="10.7009"
-                        r="10.7009"
-                        transform="matrix(-1 0 0 1 21.4019 0)"
-                        fill="#ffffff"
-                      />
-                      <circle
-                        cx="10.7009"
-                        cy="10.7009"
-                        r="10.7009"
-                        transform="matrix(-1 0 0 1 21.4019 0)"
-                        fill="#ffffff"
-                      />
-                      <circle
-                        cx="10.7009"
-                        cy="10.7009"
-                        r="10.7009"
-                        transform="matrix(-1 0 0 1 21.4019 0)"
-                        fill="#ffffff"
-                      />
-                      <circle
-                        cx="10.7009"
-                        cy="10.7009"
-                        r="10.7009"
-                        transform="matrix(-1 0 0 1 21.4019 0)"
-                        fill="#ffffff"
-                      />
-                      <circle
-                        cx="10.7009"
-                        cy="10.7009"
-                        r="10.7009"
-                        transform="matrix(-1 0 0 1 21.4019 0)"
-                        fill="#ffffff"
-                      />
-                      <circle
-                        cx="10.7009"
-                        cy="10.7009"
-                        r="10.7009"
-                        transform="matrix(-1 0 0 1 21.4019 74.4785)"
-                        fill="#ffffff"
-                      />
-                      <circle
-                        cx="10.7009"
-                        cy="10.7009"
-                        r="10.7009"
-                        transform="matrix(-1 0 0 1 21.4019 74.4785)"
-                        fill="#ffffff"
-                      />
-                      <circle
-                        cx="10.7009"
-                        cy="10.7009"
-                        r="10.7009"
-                        transform="matrix(-1 0 0 1 21.4019 74.4785)"
-                        fill="#ffffff"
-                      />
-                      <circle
-                        cx="10.7009"
-                        cy="10.7009"
-                        r="10.7009"
-                        transform="matrix(-1 0 0 1 21.4019 74.4785)"
-                        fill="#ffffff"
-                      />
-                      <circle
-                        cx="10.7009"
-                        cy="10.7009"
-                        r="10.7009"
-                        transform="matrix(-1 0 0 1 21.4019 74.4785)"
-                        fill="#ffffff"
-                      />
-                      <circle
-                        cx="10.7009"
-                        cy="10.7009"
-                        r="10.7009"
-                        transform="matrix(-1 0 0 1 21.4019 36.8105)"
-                        fill="#ffffff"
-                      />
-                      <circle
-                        cx="10.7009"
-                        cy="10.7009"
-                        r="10.7009"
-                        transform="matrix(-1 0 0 1 21.4019 36.8105)"
-                        fill="#ffffff"
-                      />
-                      <circle
-                        cx="10.7009"
-                        cy="10.7009"
-                        r="10.7009"
-                        transform="matrix(-1 0 0 1 21.4019 36.8105)"
-                        fill="#ffffff"
-                      />
-                      <circle
-                        cx="10.7009"
-                        cy="10.7009"
-                        r="10.7009"
-                        transform="matrix(-1 0 0 1 21.4019 36.8105)"
-                        fill="#ffffff"
-                      />
-                      <circle
-                        cx="10.7009"
-                        cy="10.7009"
-                        r="10.7009"
-                        transform="matrix(-1 0 0 1 21.4019 36.8105)"
-                        fill="#ffffff"
-                      />
-                    </svg>
+                    />
+                    <circle
+                      cx="10.7009"
+                      cy="10.7009"
+                      r="10.7009"
+                      transform="matrix(-1 0 0 1 21.4019 0)"
+                      fill="#ffffff"
+                    />
+                    <circle
+                      cx="10.7009"
+                      cy="10.7009"
+                      r="10.7009"
+                      transform="matrix(-1 0 0 1 21.4019 0)"
+                      fill="#ffffff"
+                    />
+                    <circle
+                      cx="10.7009"
+                      cy="10.7009"
+                      r="10.7009"
+                      transform="matrix(-1 0 0 1 21.4019 0)"
+                      fill="#ffffff"
+                    />
+                    <circle
+                      cx="10.7009"
+                      cy="10.7009"
+                      r="10.7009"
+                      transform="matrix(-1 0 0 1 21.4019 0)"
+                      fill="#ffffff"
+                    />
+                    <circle
+                      cx="10.7009"
+                      cy="10.7009"
+                      r="10.7009"
+                      transform="matrix(-1 0 0 1 21.4019 74.4785)"
+                      fill="#ffffff"
+                    />
+                    <circle
+                      cx="10.7009"
+                      cy="10.7009"
+                      r="10.7009"
+                      transform="matrix(-1 0 0 1 21.4019 74.4785)"
+                      fill="#ffffff"
+                    />
+                    <circle
+                      cx="10.7009"
+                      cy="10.7009"
+                      r="10.7009"
+                      transform="matrix(-1 0 0 1 21.4019 74.4785)"
+                      fill="#ffffff"
+                    />
+                    <circle
+                      cx="10.7009"
+                      cy="10.7009"
+                      r="10.7009"
+                      transform="matrix(-1 0 0 1 21.4019 74.4785)"
+                      fill="#ffffff"
+                    />
+                    <circle
+                      cx="10.7009"
+                      cy="10.7009"
+                      r="10.7009"
+                      transform="matrix(-1 0 0 1 21.4019 74.4785)"
+                      fill="#ffffff"
+                    />
+                    <circle
+                      cx="10.7009"
+                      cy="10.7009"
+                      r="10.7009"
+                      transform="matrix(-1 0 0 1 21.4019 36.8105)"
+                      fill="#ffffff"
+                    />
+                    <circle
+                      cx="10.7009"
+                      cy="10.7009"
+                      r="10.7009"
+                      transform="matrix(-1 0 0 1 21.4019 36.8105)"
+                      fill="#ffffff"
+                    />
+                    <circle
+                      cx="10.7009"
+                      cy="10.7009"
+                      r="10.7009"
+                      transform="matrix(-1 0 0 1 21.4019 36.8105)"
+                      fill="#ffffff"
+                    />
+                    <circle
+                      cx="10.7009"
+                      cy="10.7009"
+                      r="10.7009"
+                      transform="matrix(-1 0 0 1 21.4019 36.8105)"
+                      fill="#ffffff"
+                    />
+                    <circle
+                      cx="10.7009"
+                      cy="10.7009"
+                      r="10.7009"
+                      transform="matrix(-1 0 0 1 21.4019 36.8105)"
+                      fill="#ffffff"
+                    />
+                  </svg>
                   {/* )} */}
                 </button>
               </div>
@@ -444,21 +446,21 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
                       </g>
                     </svg>
                   ) : ( */}
-                    <svg
-                      version="1.0"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="512.000000pt"
-                      height="512.000000pt"
-                      viewBox="0 0 512.000000 512.000000"
-                      preserveAspectRatio="xMidYMid meet"
+                  <svg
+                    version="1.0"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="512.000000pt"
+                    height="512.000000pt"
+                    viewBox="0 0 512.000000 512.000000"
+                    preserveAspectRatio="xMidYMid meet"
+                  >
+                    <g
+                      transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+                      fill="#000000"
+                      stroke="none"
                     >
-                      <g
-                        transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
-                        fill="#000000"
-                        stroke="none"
-                      >
-                        <path
-                          d="M2330 5109 c-305 -29 -646 -126 -910 -259 -273 -138 -559 -356 -755
+                      <path
+                        d="M2330 5109 c-305 -29 -646 -126 -910 -259 -273 -138 -559 -356 -755
 -576 -384 -432 -602 -931 -655 -1499 -41 -446 55 -949 260 -1355 138 -273 356
 -559 576 -755 432 -384 931 -602 1499 -655 446 -41 949 55 1355 260 273 138
 559 356 755 576 384 432 602 931 655 1499 41 446 -55 949 -260 1355 -138 273
@@ -467,9 +469,9 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
 425 -425 425 -425 -213 -212 -212 -213 -425 425 -425 425 -425 -425 -425 -425
 -212 213 -213 212 425 425 425 425 -425 425 -425 425 210 210 c115 115 212
 210 215 210 3 0 195 -190 427 -422z"
-                        />
-                      </g>
-                    </svg>
+                      />
+                    </g>
+                  </svg>
                   {/* )} */}
                 </button>
               </div>
@@ -519,21 +521,21 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
                   </g>
                 </svg>
               ) : ( */}
-                <svg
-                  version="1.0"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="512.000000pt"
-                  height="512.000000pt"
-                  viewBox="0 0 512.000000 512.000000"
-                  preserveAspectRatio="xMidYMid meet"
+              <svg
+                version="1.0"
+                xmlns="http://www.w3.org/2000/svg"
+                width="512.000000pt"
+                height="512.000000pt"
+                viewBox="0 0 512.000000 512.000000"
+                preserveAspectRatio="xMidYMid meet"
+              >
+                <g
+                  transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+                  fill="#000000"
+                  stroke="none"
                 >
-                  <g
-                    transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
-                    fill="#000000"
-                    stroke="none"
-                  >
-                    <path
-                      d="M2330 5109 c-305 -29 -646 -126 -910 -259 -273 -138 -559 -356 -755
+                  <path
+                    d="M2330 5109 c-305 -29 -646 -126 -910 -259 -273 -138 -559 -356 -755
 -576 -384 -432 -602 -931 -655 -1499 -41 -446 55 -949 260 -1355 138 -273 356
 -559 576 -755 432 -384 931 -602 1499 -655 446 -41 949 55 1355 260 273 138
 559 356 755 576 384 432 602 931 655 1499 41 446 -55 949 -260 1355 -138 273
@@ -542,9 +544,9 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
 425 -425 425 -425 -213 -212 -212 -213 -425 425 -425 425 -425 -425 -425 -425
 -212 213 -213 212 425 425 425 425 -425 425 -425 425 210 210 c115 115 212
 210 215 210 3 0 195 -190 427 -422z"
-                    />
-                  </g>
-                </svg>
+                  />
+                </g>
+              </svg>
               {/* )} */}
             </button>
           </div>
@@ -552,7 +554,7 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
       )}
 
       {/* Search Bar */}
-      {/* <div className={cx('search-bar-wrapper', { stickySearch: isScrolled })}>
+      <div className={cx('search-bar-wrapper')}>
         <div className={cx('search-input-wrapper')}>
           <SearchInput
             value={searchQuery}
@@ -560,7 +562,13 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
             clearSearch={clearSearch}
           />
         </div>
-        <div className={cx('search-result-wrapper')}>
+        <div
+          className={cx(
+            'search-result-wrapper',
+            isSearchResultsVisible ? '' : 'hidden p-0',
+          )}
+        >
+          {console.log(isSearchResultsVisible)}
           {searchResultsError && (
             <div className={cx('alert-error')}>
               {'An error has occurred. Please refresh and try again.'}
@@ -573,9 +581,8 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
               isLoading={searchResultsLoading}
             />
           )}
-          
         </div>
-      </div> */}
+      </div>
 
       {/* Full menu */}
       <div

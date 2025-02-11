@@ -11,6 +11,7 @@ import {
   RCAHeader,
   ContentWrapperRCAFrontPage,
   PasswordProtected,
+  RCASecondaryHeader,
 } from '../components'
 import { GetMenus } from '../queries/GetMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
@@ -300,6 +301,20 @@ export default function singleRca(props) {
         setIsNavShown={setIsNavShown}
         isRCANavShown={isRCANavShown}
         setIsRCANavShown={setIsRCANavShown}
+      />
+      <RCASecondaryHeader
+        isMainNavShown={isNavShown}
+        setIsMainNavShown={setIsNavShown}
+        isNavShown={isRCANavShown}
+        setIsNavShown={setIsRCANavShown}
+        rcaDatabaseId={
+          parent != null
+            ? children?.edges?.length == 0
+              ? ancestors?.edges[0]?.node?.databaseId
+              : parent?.node?.databaseId
+            : databaseId
+        }
+        uri={parent != null ? parent?.node?.uri : uri}
       />
       <Main>
         <>
