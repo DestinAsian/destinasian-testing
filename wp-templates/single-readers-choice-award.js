@@ -7,16 +7,13 @@ import {
   SEO,
   SingleRCAContainer,
   ContentWrapperRCA,
-  SingleRCAEntryHeader,
   RCAHeader,
-  ContentWrapperRCAFrontPage,
   PasswordProtected,
   RCASecondaryHeader,
 } from '../components'
 import { GetMenus } from '../queries/GetMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
 import { GetRCASlider } from '../queries/GetRCASlider'
-import { GetRCAPagination } from '../queries/GetRCAPagination'
 import React, { useEffect, useState } from 'react'
 import { eb_garamond, rubik, rubik_mono_one } from '../styles/fonts/fonts'
 import Cookies from 'js-cookie'
@@ -356,7 +353,7 @@ export default function singleRca(props) {
                         ? parent?.node?.title
                         : title
                     }
-                    category={categories?.edges[0]?.node?.name}
+                    // category={categories?.edges[0]?.node?.name}
                     images={rcaImages}
                     content={content}
                     databaseId={databaseId}
@@ -379,7 +376,6 @@ export default function singleRca(props) {
           </SingleRCAContainer>
         </>
       </Main>
-      {/* <Footer /> */}
     </main>
   )
 }

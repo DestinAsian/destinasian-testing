@@ -16,6 +16,7 @@ import { GetRCAPagination } from '../../queries/GetRCAPagination'
 let cx = className.bind(styles)
 
 export default function ContentWrapperRCA({
+  router,
   title,
   parentTitle,
   category,
@@ -28,15 +29,11 @@ export default function ContentWrapperRCA({
   sliderLoading,
   isNavShown,
   setIsNavShown,
-  paginationData,
-  paginationLoading,
-  router,
 }) {
   const batchSize = 100
   const [transformedContent, setTransformedContent] = useState('')
   const [isAutoplayRunning, setIsAutoplayRunning] = useState(true)
   const [isSliderMounted, setIsSliderMounted] = useState(false) // Track slider mount status
-  const [swiperRef, setSwiperRef] = useState(null)
   const sliderRCA = useRef(null)
   const [activeIndex, setActiveIndex] = useState(0)
   const [hash, setHash] = useState('')
@@ -66,8 +63,9 @@ export default function ContentWrapperRCA({
   }, [hash])
 
   const slideTo = (index) => {
-    swiperRef?.slideTo(index)
-
+    if (sliderRCA?.current?.swiper) {
+      sliderRCA.current.swiper.slideTo(index)
+    }
     setActiveIndex(index)
   }
 
@@ -181,16 +179,22 @@ export default function ContentWrapperRCA({
   useEffect(() => {
     if (isSliderMounted) {
       const swiperInstance = sliderRCA?.current?.swiper
+
+      const updateIndex = () => {
+        setActiveIndex(swiperInstance.realIndex)
+      }
+
       const initialAutoplayState = swiperInstance.autoplay?.running || false
       setIsAutoplayRunning(initialAutoplayState)
 
       swiperInstance.on('slideChange', () => {
         const currentAutoplayState = swiperInstance.autoplay?.running || false
         setIsAutoplayRunning(currentAutoplayState)
+        updateIndex
       })
 
       return () => {
-        swiperInstance.off('slideChange')
+        swiperInstance.off('slideChange', updateIndex)
       }
     }
   }, [isAutoplayRunning, isSliderMounted])
@@ -202,6 +206,7 @@ export default function ContentWrapperRCA({
         swiperInstance.autoplay?.stop()
       } else {
         swiperInstance.autoplay?.start()
+        setActiveIndex(swiperInstance.realIndex)
       }
       setIsAutoplayRunning(!isAutoplayRunning)
     }
@@ -217,7 +222,7 @@ export default function ContentWrapperRCA({
     return <pre>{JSON.stringify(error)}</pre>
   }
 
-  if (loading || paginationLoading || sliderLoading) {
+  if (loading || sliderLoading) {
     return (
       <>
         <div className="mx-auto my-0 flex max-w-[100vw] justify-center md:max-w-[700px]	">
@@ -250,7 +255,6 @@ export default function ContentWrapperRCA({
         <div className={cx('slider-wrapper')}>
           <SingleRCASlider
             images={rcaIndexData.map((item) => item.imageUrl)}
-            setSwiperRef={setSwiperRef}
             handleSlideChange={handleSlideChange}
             nextUri={nextUri}
             sliderRCA={sliderRCA}
@@ -272,7 +276,7 @@ export default function ContentWrapperRCA({
       {title && (
         <SingleRCAEntryHeader
           title={title}
-          className={parentTitle ? 'bothClass' :'defaultClass'}
+          className={parentTitle ? 'bothClass' : 'defaultClass'}
           // category={category}
         />
       )}
