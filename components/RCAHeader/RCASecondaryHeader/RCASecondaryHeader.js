@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import classNames from 'classnames/bind'
 import styles from './RCASecondaryHeader.module.scss'
 import { useQuery } from '@apollo/client'
-import { RCAFullMenu } from '../../../components'
+import { RCAFullMenu, TravelGuidesMenu } from '../../../components'
 
 let cx = classNames.bind(styles)
 
@@ -11,41 +11,17 @@ export default function RCASecondaryHeader({
   setIsMainNavShown,
   isNavShown,
   setIsNavShown,
+  isGuidesNavShown,
+  setIsGuidesNavShown,
+  searchQuery,
+  setSearchQuery,
   rcaDatabaseId,
   uri,
 }) {
-  const [currentUrl, setCurrentUrl] = useState('')
-  const [categoryUrl, setCategoryUrl] = useState('')
+  // const [currentUrl, setCurrentUrl] = useState('')
+  // const [categoryUrl, setCategoryUrl] = useState('')
   const [isScrolled, setIsScrolled] = useState(false)
   const [prevScrollY, setPrevScrollY] = useState(0)
-
-  // let catVariable = {
-  //   first: 1,
-  //   id: databaseId,
-  // }
-
-  // // Get Category
-  // const { data } = useQuery(GetRCASecondaryHeader, {
-  //   variables: catVariable,
-  //   fetchPolicy: 'network-only',
-  //   nextFetchPolicy: 'cache-and-network',
-  // })
-
-  // // Add currentUrl function
-  // useEffect(() => {
-  //   setCurrentUrl(window.location.pathname)
-  // }, [])
-  // function isActive(uri) {
-  //   return currentUrl + '/' === uri
-  // }
-
-  // // Add currentCategoryUrl function
-  // useEffect(() => {
-  //   setCategoryUrl(categoryUri)
-  // }, [])
-  // function isActiveCategory(uri) {
-  //   return categoryUrl === uri
-  // }
 
   // Stop scrolling pages when isNavShown
   useEffect(() => {
@@ -91,7 +67,9 @@ export default function RCASecondaryHeader({
             type="button"
             className={cx('menu-button')}
             onClick={() => {
-              setIsNavShown(!isNavShown)
+              setSearchQuery('travel')
+              isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
+              isNavShown ? setIsNavShown(!isNavShown) : null
             }}
             aria-label="Toggle navigation"
             aria-controls={cx('rca-menu-wrapper')}
@@ -101,9 +79,10 @@ export default function RCASecondaryHeader({
           </button>
           <button
             type="button"
-            className={cx('menu-button')}
+            className={cx('menu-button', isGuidesNavShown ? 'active' : '')}
             onClick={() => {
-              setIsNavShown(!isNavShown)
+              setIsGuidesNavShown(!isGuidesNavShown)
+              isNavShown ? setIsNavShown(!isNavShown) : null
             }}
             aria-label="Toggle navigation"
             aria-controls={cx('rca-menu-wrapper')}
@@ -113,9 +92,10 @@ export default function RCASecondaryHeader({
           </button>
           <button
             type="button"
-            className={cx('menu-button')}
+            className={cx('menu-button', isNavShown ? 'active' : '')}
             onClick={() => {
               setIsNavShown(!isNavShown)
+              isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
             }}
             aria-label="Toggle navigation"
             aria-controls={cx('rca-menu-wrapper')}
@@ -123,6 +103,17 @@ export default function RCASecondaryHeader({
           >
             <div className={cx('menu-title')}>{`Readers' Choice Awards`}</div>
           </button>
+        </div>
+      </div>
+
+      <div
+        className={cx(
+          'full-menu-content',
+          isGuidesNavShown ? 'show' : undefined,
+        )}
+      >
+        <div className={cx('full-menu-wrapper')}>
+          <TravelGuidesMenu />
         </div>
       </div>
     </>

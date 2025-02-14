@@ -56,11 +56,11 @@ export default function SearchResults({ searchResults, isLoading }) {
   if (isLoading) {
     return (
       <>
-        <div className="mx-auto my-0 flex max-w-[100vw] justify-center md:max-w-[700px]	">
+        <div className="mx-auto my-0 flex h-[88vh] max-w-[100vw] justify-center sm:h-[95vh]	md:max-w-[700px]">
           <div role="status">
             <svg
               aria-hidden="true"
-              className="mr-2 h-[88vh] w-8 animate-spin fill-black text-gray-200 sm:h-[86vh] dark:text-gray-600"
+              className="mr-2 h-full w-8 animate-spin fill-black text-gray-200 sm:h-[86vh] dark:text-gray-600"
               viewBox="0 0 100 101"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"

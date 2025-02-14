@@ -29,6 +29,8 @@ export default function singleRca(props) {
 
   const [enteredPassword, setEnteredPassword] = useState('')
   const [isAuthenticated, setIsAuthenticated] = useState(false)
+  // Search function content
+  const [searchQuery, setSearchQuery] = useState('')
 
   // Check for stored password in cookies on mount
   useEffect(() => {
@@ -45,6 +47,7 @@ export default function singleRca(props) {
   const batchSize = 100
   const [isNavShown, setIsNavShown] = useState(false)
   const [isRCANavShown, setIsRCANavShown] = useState(false)
+  const [isGuidesNavShown, setIsGuidesNavShown] = useState(false)
 
   // Stop scrolling pages when isNavShown
   useEffect(() => {
@@ -55,7 +58,7 @@ export default function singleRca(props) {
     }
   }, [isNavShown])
 
-  // Stop scrolling pages when isNavShown
+  // Stop scrolling pages when isRCANavShown
   useEffect(() => {
     if (isRCANavShown) {
       document.body.style.overflow = 'hidden'
@@ -63,6 +66,15 @@ export default function singleRca(props) {
       document.body.style.overflow = 'visible'
     }
   }, [isRCANavShown])
+
+  // Stop scrolling pages when isGuidesNavShown
+  useEffect(() => {
+    if (isGuidesNavShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isGuidesNavShown])
 
   const {
     title,
@@ -301,12 +313,20 @@ export default function singleRca(props) {
         setIsNavShown={setIsNavShown}
         isRCANavShown={isRCANavShown}
         setIsRCANavShown={setIsRCANavShown}
+        isGuidesNavShown={isGuidesNavShown}
+        setIsGuidesNavShown={setIsGuidesNavShown}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
       />
       <RCASecondaryHeader
         isMainNavShown={isNavShown}
         setIsMainNavShown={setIsNavShown}
         isNavShown={isRCANavShown}
         setIsNavShown={setIsRCANavShown}
+        isGuidesNavShown={isGuidesNavShown}
+        setIsGuidesNavShown={setIsGuidesNavShown}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
         rcaDatabaseId={
           parent != null
             ? children?.edges?.length == 0
