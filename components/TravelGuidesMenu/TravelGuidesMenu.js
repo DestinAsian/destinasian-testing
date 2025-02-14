@@ -332,64 +332,61 @@ export default function TravelGuidesMenu() {
         })}
         className={cx('menu-wrapper')}
       >
-        <Accordion
+        {/* <Accordion
           collapseAll
           arrowIcon={AccordionCustomIcon}
           theme={AccordionCustomTheme}
-        >
-          {items.map((item, index) => {
-            const { id, path, label, parentId, children, connectedNode } = item
+        > */}
+        {items.map((item, index) => {
+          const { id, path, label, parentId, children, connectedNode } = item
 
-            // @TODO - Remove guard clause after ghost menu items are no longer appended to array.
-            if (!item.hasOwnProperty('__typename')) {
-              return null
-            }
+          // @TODO - Remove guard clause after ghost menu items are no longer appended to array.
+          if (!item.hasOwnProperty('__typename')) {
+            return null
+          }
 
-            return (
-              <Accordion.Panel>
-                <div key={id} id={id} className={cx('accordion-wrapper')}>
-                  {/* Main Guides */}
-                  {parentId === null && (
-                    <div
-                      className={cx(
-                        'accordion-title-wrapper',
-                        // open
-                        //   ? AccordionTitleCustomTheme?.open?.on
-                        //   : AccordionTitleCustomTheme?.open?.off,
-                      )}
-                    >
-                      <Accordion.Title theme={AccordionTitleCustomTheme}>
-                        <div className={cx('accordion-title')}>
-                          {/* {path && (
-                        <Link href={path}> */}
-                          <span className={cx('title')}>
-                            {connectedNode?.node?.countryCode?.countryCode &&
-                              connectedNode?.node?.countryCode?.countryCode}
-                          </span>
-                          {/* </Link>
-                      )} */}
-                        </div>
-                        <div className={cx('navigation-wrapper')}>
-                          <div className={cx('navigation')}>
-                            {connectedNode?.node?.children?.edges?.map(
-                              (post) => (
-                                <li
-                                  key={post?.node?.uri}
-                                  className={cx('nav-link')}
-                                >
-                                  <h2 className={cx('nav-name')}>
-                                    {post?.node?.name}
-                                  </h2>
-                                </li>
-                              ),
-                            )}
-                          </div>
-                        </div>
-                      </Accordion.Title>
-                    </div>
+          return (
+            // <Accordion.Panel>
+            <div key={id} id={id} className={cx('accordion-wrapper')}>
+              {/* Main Guides */}
+              {parentId === null && (
+                <div
+                  className={cx(
+                    'accordion-title-wrapper',
+                    // open
+                    //   ? AccordionTitleCustomTheme?.open?.on
+                    //   : AccordionTitleCustomTheme?.open?.off,
                   )}
-                  {/* Sub Guides */}
-                  {children?.length ? (
+                >
+                  {/* <Accordion.Title theme={AccordionTitleCustomTheme}> */}
+                  <div className={cx('accordion-title')}>
+                    {path && (
+                      <Link href={path}>
+                        <span className={cx('title')}>
+                          {connectedNode?.node?.countryCode?.countryCode &&
+                            connectedNode?.node?.countryCode?.countryCode}
+                        </span>
+                      </Link>
+                    )}
+                  </div>
+                  <div className={cx('navigation-wrapper')}>
+                    <div className={cx('navigation')}>
+                      {connectedNode?.node?.children?.edges?.map((post) => (
+                        <li key={post?.node?.uri} className={cx('nav-link')}>
+                          <Link href={post?.node?.uri}>
+                            <h2 className={cx('nav-name')}>
+                              {post?.node?.name}
+                            </h2>
+                          </Link>
+                        </li>
+                      ))}
+                    </div>
+                  </div>
+                  {/* </Accordion.Title> */}
+                </div>
+              )}
+              {/* Sub Guides */}
+              {/* {children?.length ? (
                     <div className={cx('accordion-content-wrapper')}>
                       <Accordion.Content>
                         <div className={cx('accordion-content')}>
@@ -767,12 +764,12 @@ export default function TravelGuidesMenu() {
                         </div>
                       </div>
                     </>
-                  )}
-                </div>
-              </Accordion.Panel>
-            )
-          })}
-        </Accordion>
+                  )} */}
+            </div>
+            // </Accordion.Panel>
+          )
+        })}
+        {/* </Accordion> */}
       </div>
     )
   }
