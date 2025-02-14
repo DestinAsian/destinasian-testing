@@ -67,7 +67,8 @@
     justify-content: center;
 
     @media (min-width: $breakpoint-extra-small) {
-      width: 33.33%;
+      min-width: 20%;
+      max-width: 40%;
     }
 
     .menu-title {
