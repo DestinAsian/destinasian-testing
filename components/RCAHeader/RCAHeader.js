@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind'
 import Link from 'next/link'
-import destinasianLogoGold from '../../assets/logo/destinasian-logo-gold.png'
+import destinasianLogoWht from '../../assets/logo/destinasianLogoWht.png'
 import destinasianLogo from '../../assets/logo/destinasian-logo.png'
 import {
   Container,
@@ -150,12 +150,12 @@ export default function RCAHeader({
               ) : (
                 <div className={cx('brand')}>
                   <Image
-                    src={destinasianLogoGold.src}
+                    src={destinasianLogoWht.src}
                     alt="Destinasian Logo"
                     fill
                     sizes="100%"
                     priority
-                    className={cx('gold-logo')}
+                    className={cx('white-logo')}
                   />
                 </div>
               )}

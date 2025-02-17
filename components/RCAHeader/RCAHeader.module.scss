@@ -206,9 +206,8 @@
   }
 
   // change the image source when the asset is ready
-  .gold-logo {
-    filter: brightness(0) saturate(100%) invert(74%) sepia(34%) saturate(344%)
-      hue-rotate(320deg) brightness(92%) contrast(85%);
+  .white-logo {
+    filter: brightness(95%);
   }
 }
 

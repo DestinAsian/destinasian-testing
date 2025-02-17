@@ -338,8 +338,8 @@
 }
 
 .swiper-rca-custom-pagination > .swiper-pagination-bullet-active {
-  color: #e69383;
-  background: #e69383;
+  color: #f5f5f5;
+  background: #f5f5f5;
 }
 
 .swiper-rca-custom-pagination.swiper-pagination-bullets.swiper-pagination-horizontal {
