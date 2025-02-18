@@ -387,13 +387,13 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
 
       {/* Search Bar */}
       <div className={cx('search-bar-wrapper')}>
-        <div className={cx('search-input-wrapper')}>
+        {/* <div className={cx('search-input-wrapper')}>
           <SearchInput
             value={searchQuery}
             onChange={(newValue) => setSearchQuery(newValue)}
             clearSearch={clearSearch}
           />
-        </div>
+        </div> */}
         <div
           className={cx(
             'search-result-wrapper',

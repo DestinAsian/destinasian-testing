@@ -15,12 +15,12 @@
   width: 100vw;
   background-color: var(--wpe--color--deep--black);
   z-index: 49;
-  top: 6rem;
+  top: 4rem;
   padding: 0;
   min-height: 3rem;
 
   @media (min-width: $breakpoint-extra-small) {
-    top: 7.5rem;
+    top: 4.5rem;
     min-height: 3rem;
   }
 
@@ -113,25 +113,25 @@
   &.show {
     padding: 0;
     gap: 1rem;
-    top: 9rem;
-    height: calc(-9rem + 100vh);
+    top: 7rem;
+    height: calc(-7rem + 100vh);
     transition: backdrop-filter 0.8s ease-in-out, visibility 0.8s ease-in-out;
 
     @media (min-width: $breakpoint-extra-small) {
-      top: 10.5rem;
+      top: 7.5rem;
       left: 0;
-      height: calc(-10.5rem + 100vh);
+      height: calc(-7.5rem + 100vh);
       width: 100vw;
     }
 
-    * {
-      color: var(--wpe--color--white--smoke);
-    }
+    // * {
+    //   color: var(--wpe--color--white--smoke);
+    // }
   }
 }
 
 .full-menu-wrapper {
-  background-color: var(--wpe--color--deep--black);
+  background-color: var(--wpe--color--white--smoke);
   position: relative;
   max-width: 700px;
 
@@ -146,6 +146,6 @@
   }
 
   * {
-    color: var(--wpe--color--white--smoke);
+    color: var(--wpe--color--black);
   }
 }

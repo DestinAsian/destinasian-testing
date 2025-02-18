@@ -65,7 +65,7 @@ export default function RCASecondaryHeader({
         <div className={cx('menu-wrapper')}>
           <button
             type="button"
-            className={cx('menu-button')}
+            className={cx('menu-button', searchQuery ? 'active' : '')}
             onClick={() => {
               setSearchQuery('travel')
               isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
@@ -83,6 +83,7 @@ export default function RCASecondaryHeader({
             onClick={() => {
               setIsGuidesNavShown(!isGuidesNavShown)
               isNavShown ? setIsNavShown(!isNavShown) : null
+              setSearchQuery('')
             }}
             aria-label="Toggle navigation"
             aria-controls={cx('rca-menu-wrapper')}
@@ -96,6 +97,7 @@ export default function RCASecondaryHeader({
             onClick={() => {
               setIsNavShown(!isNavShown)
               isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
+              setSearchQuery('')
             }}
             aria-label="Toggle navigation"
             aria-controls={cx('rca-menu-wrapper')}
