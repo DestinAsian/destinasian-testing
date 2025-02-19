@@ -23,7 +23,7 @@
 
 .full-menu-content {
   display: flex;
-  height: calc(-5.5rem + 100vh);
+  height: calc(-5rem + 100vh);
   width: 100%;
   overflow-x: hidden;
   padding: 0 1rem 7rem;
@@ -32,7 +32,7 @@
   flex-direction: column;
 
   @media (min-width: $breakpoint-extra-small) {
-    height: calc(-8.5rem + 100vh);
+    height: calc(-6.25rem + 100vh);
     width: 100%;
     padding: 0 0 7rem;
   }

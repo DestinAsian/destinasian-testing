@@ -15,13 +15,13 @@
   width: 100vw;
   background-color: var(--wpe--color--deep--black);
   z-index: 49;
-  top: 4rem;
+  top: 2.5rem;
   padding: 0;
-  min-height: 3rem;
+  min-height: 2.5rem;
 
   @media (min-width: $breakpoint-extra-small) {
-    top: 4.5rem;
-    min-height: 3rem;
+    top: 3.5rem;
+    // min-height: 3rem;
   }
 
   .menu-wrapper {
@@ -72,6 +72,7 @@
     }
 
     .menu-title {
+      text-transform: uppercase;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -113,14 +114,14 @@
   &.show {
     padding: 0;
     gap: 1rem;
-    top: 7rem;
-    height: calc(-7rem + 100vh);
+    top: 5rem;
+    height: calc(-5rem + 100vh);
     transition: backdrop-filter 0.8s ease-in-out, visibility 0.8s ease-in-out;
 
     @media (min-width: $breakpoint-extra-small) {
-      top: 7.5rem;
+      top: 6.25rem;
       left: 0;
-      height: calc(-7.5rem + 100vh);
+      height: calc(-6.25rem + 100vh);
       width: 100vw;
     }
 

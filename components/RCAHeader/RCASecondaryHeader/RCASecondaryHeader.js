@@ -67,7 +67,7 @@ export default function RCASecondaryHeader({
             type="button"
             className={cx('menu-button', searchQuery ? 'active' : '')}
             onClick={() => {
-              setSearchQuery('travel')
+              searchQuery ? setSearchQuery('') : setSearchQuery('travel')
               isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
               isNavShown ? setIsNavShown(!isNavShown) : null
             }}

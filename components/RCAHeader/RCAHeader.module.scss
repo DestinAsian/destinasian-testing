@@ -28,6 +28,10 @@
   color: var(--wpe--color--black);
   background-color: var(--wpe--color--white--smoke);
 
+  .navbar {
+    padding: 1.5rem 0 1.5rem;
+  }
+
   .search-bar-wrapper {
     display: none;
     justify-content: center;
@@ -96,6 +100,10 @@
 .navShown {
   color: var(--wpe--color--black);
   background-color: var(--wpe--color--white--smoke);
+
+  .navbar {
+    padding: 1.5rem 0 1.5rem;
+  }
 
   .search-bar-wrapper {
     display: none;
@@ -169,22 +177,21 @@
 .navbar {
   display: flex;
   justify-content: space-between;
-  flex-wrap: wrap;
-  padding: 0;
+  flex-wrap: nowrap;
+  padding: 1rem 0 0.25rem;
   gap: 1rem;
-  height: 3.5rem;
+  height: fit-content;
   // background-color: var(--wpe--color--white--smoke);
 
   @media (min-width: $breakpoint-extra-small) {
-    padding: 0.5rem 0;
-    height: 4.5rem;
+    padding: 1.5rem 0 0.25rem;
   }
 }
 
 .brand {
   margin-left: 1rem;
   width: 10rem;
-  height: 3.5rem;
+  // height: 3.5rem;
   position: relative;
 
   @media (min-width: $breakpoint-extra-small) {
@@ -193,15 +200,18 @@
   }
 
   img {
-    height: 1.3rem;
+    width: 9.5rem !important;
+    height: 1.3rem !important;
     object-fit: contain;
 
     @media (min-width: $breakpoint-extra-small) {
-      height: 1.6rem;
+      width: 11.5rem !important;
+      height: 1.6rem !important;
     }
 
     @media (min-width: $breakpoint-medium) {
-      height: 1.8rem;
+      width: 13rem !important;
+      height: 1.8rem !important;
     }
   }
 
@@ -215,6 +225,31 @@
   text-decoration: none;
 }
 
+.menu-button-wrapper {
+  display: flex;
+}
+
+.search-button {
+  display: flex;
+  margin-right: 1rem;
+  justify-content: flex-end;
+  align-items: center;
+
+  @media (min-width: $breakpoint-extra-small) {
+    margin-right: 1rem;
+  }
+
+  button svg {
+    width: 1.2rem;
+    height: 1.3rem;
+
+    @media (min-width: $breakpoint-extra-small) {
+      width: 1.8rem;
+      height: 2rem;
+    }
+  }
+}
+
 .menu-button {
   display: flex;
   margin-right: 1rem;
@@ -226,12 +261,16 @@
   }
 
   button svg {
-    height: 1.5rem;
+    height: 1.3rem;
 
     @media (min-width: $breakpoint-extra-small) {
-      height: 2rem;
+      height: 1.8rem;
     }
   }
+}
+
+.search-icon {
+  fill: var(--wpe--color--white--smoke);
 }
 
 .menu-icon {
@@ -269,7 +308,6 @@
 
   @media (min-width: $breakpoint-extra-small) {
     width: 1.6rem;
-    height: 3.5rem;
   }
 
   @media (min-width: $breakpoint-medium) {
@@ -328,7 +366,7 @@
   flex-direction: column;
   height: auto;
   width: 100vw;
-  padding: 0 1rem 0.5rem;
+  padding: 0 1rem;
   background-color: var(--wpe--color--deep--black);
   position: relative;
 
@@ -385,28 +423,39 @@
     position: absolute;
     display: grid;
     background-color: var(--wpe--color--deep--black);
-    top: 3.5rem;
+    top: 2.65rem;
     left: 0;
     width: 100%;
     text-align: left;
     padding: 0;
     justify-content: center;
+    height: calc(-8.25rem + 100vh);
 
     @media (min-width: $breakpoint-extra-small) {
-      top: 3rem;
+      height: calc(-2.85rem + 100vh);
+    }
+
+    @media (min-width: $breakpoint-extra-small) {
+      top: 2.6rem;
       width: 100vw;
       background-color: rgba(0, 0, 0, 0.3); /* Slightly transparent */
       backdrop-filter: blur(10px); /* Apply blur */
     }
 
     &.show {
-      height: calc(-3rem + 100vh);
+      height: calc(-10.25rem + 100vh);
+
+      @media (min-width: $breakpoint-extra-small) {
+        height: calc(-2.85rem + 100vh);
+      }
     }
 
     > div {
       width: 100vw;
       background-color: var(--wpe--color--deep--black);
       padding: 1rem 1rem 7rem;
+      z-index: 48;
+      height: calc(-8.25rem + 100vh);
 
       @media (min-width: $breakpoint-extra-small) {
         background-color: var(--wpe--color--deep--black);
