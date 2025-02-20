@@ -231,7 +231,7 @@ export default function HomepageStories(pinPosts) {
     .map((post) => post.node)
     .filter(
       (post) =>
-        !['Airline News', 'Trade Talk'].includes(
+        !['Travel News', 'Airline News', 'Trade Talk'].includes(
           post.categories?.edges[0]?.node?.name,
         ),
     )
@@ -311,9 +311,9 @@ export default function HomepageStories(pinPosts) {
                 />
               </div>
             )}
-            {post?.contentTypeName === 'update' && (
+            {/* Updates Stories */}
+            {/* {post?.contentTypeName === 'update' && (
               <div className={cx('post-wrapper')}>
-                {/* Updates Stories */}
                 <PostTwoColumns
                   title={post?.title}
                   excerpt={post?.excerpt}
@@ -326,7 +326,7 @@ export default function HomepageStories(pinPosts) {
                   featuredImage={post?.featuredImage?.node}
                 />
               </div>
-            )}
+            )} */}
             {post?.contentTypeName === 'honors-circle' && (
               <div className={cx('hc-wrapper')}>
                 {/* Honors Circle Stories */}
