@@ -128,6 +128,11 @@
         font-size: 1.25rem;
       }
     }
+
+    .title-dark {
+      color: var(--wpe--color--black);
+      background-color: var(--wpe--color--white);
+    }
   }
 
   // .main-guides-heading {
@@ -219,6 +224,17 @@
 
       @media (min-width: $breakpoint-extra-small) {
         border-bottom: 5px solid var(--wpe--color--black);
+      }
+    }
+  }
+
+  .nav-name-dark {
+    &:hover,
+    &:focus {
+      border-bottom: 3px solid var(--wpe--color--white);
+
+      @media (min-width: $breakpoint-extra-small) {
+        border-bottom: 5px solid var(--wpe--color--white);
       }
     }
   }

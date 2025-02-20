@@ -21,7 +21,7 @@ function shuffleArray(array) {
   return array
 }
 
-export default function TravelGuidesMenu() {
+export default function TravelGuidesMenu(className) {
   const [results, setResults] = useState([])
   const [loading, setLoading] = useState(true)
   const client = useApolloClient() // Use Apollo Client instance
@@ -362,7 +362,14 @@ export default function TravelGuidesMenu() {
                   <div className={cx('accordion-title')}>
                     {path && (
                       <Link href={path}>
-                        <span className={cx('title')}>
+                        <span
+                          className={cx(
+                            'title',
+                            className?.className === 'dark-color'
+                              ? 'title-dark'
+                              : '',
+                          )}
+                        >
                           {connectedNode?.node?.countryCode?.countryCode &&
                             connectedNode?.node?.countryCode?.countryCode}
                         </span>
@@ -374,7 +381,14 @@ export default function TravelGuidesMenu() {
                       {connectedNode?.node?.children?.edges?.map((post) => (
                         <li key={post?.node?.uri} className={cx('nav-link')}>
                           <Link href={post?.node?.uri}>
-                            <h2 className={cx('nav-name')}>
+                            <h2
+                              className={cx(
+                                'nav-name',
+                                className?.className === 'dark-color'
+                                  ? 'nav-name-dark'
+                                  : '',
+                              )}
+                            >
                               {post?.node?.name}
                             </h2>
                           </Link>
@@ -385,386 +399,6 @@ export default function TravelGuidesMenu() {
                   {/* </Accordion.Title> */}
                 </div>
               )}
-              {/* Sub Guides */}
-              {/* {children?.length ? (
-                    <div className={cx('accordion-content-wrapper')}>
-                      <Accordion.Content>
-                        <div className={cx('accordion-content')}>
-                          <div className={cx('first-wrapper')}>
-                            {renderMenu(children)}
-                          </div>
-                          <div className={cx('second-wrapper')}>
-                            <div className={cx('partner-content-wrapper')}>
-                              <div className={cx('left-wrapper')}>
-                                {results[index]?.data?.advertorials?.map(
-                                  (advertorial, index) => (
-                                    <>
-                                      {index === 0 && (
-                                        <>
-                                          {advertorial?.uri &&
-                                            advertorial?.title &&
-                                            advertorial?.featuredImage?.node
-                                              ?.sourceUrl && (
-                                              <Link href={advertorial?.uri}>
-                                                <div
-                                                  className={cx(
-                                                    'image-wrapper',
-                                                  )}
-                                                >
-                                                  <div className={cx('image')}>
-                                                    <Image
-                                                      src={
-                                                        advertorial
-                                                          ?.featuredImage?.node
-                                                          ?.sourceUrl
-                                                      }
-                                                      alt={advertorial?.title}
-                                                      fill
-                                                      sizes="100%"
-                                                      priority
-                                                    />
-                                                  </div>
-                                                </div>
-                                              </Link>
-                                            )}
-                                        </>
-                                      )}
-                                    </>
-                                  ),
-                                )}
-                                {results[index]?.data?.advertorials?.length ===
-                                  0 && (
-                                  <>
-                                    {getPartnerContent[0]?.uri &&
-                                      getPartnerContent[0]?.title &&
-                                      getPartnerContent[0]?.featuredImage?.node
-                                        ?.sourceUrl && (
-                                        <Link href={getPartnerContent[0]?.uri}>
-                                          <div className={cx('image-wrapper')}>
-                                            <div className={cx('image')}>
-                                              <Image
-                                                src={
-                                                  getPartnerContent[0]
-                                                    ?.featuredImage?.node
-                                                    ?.sourceUrl
-                                                }
-                                                alt={
-                                                  getPartnerContent[0]?.title
-                                                }
-                                                fill
-                                                sizes="100%"
-                                                priority
-                                              />
-                                            </div>
-                                          </div>
-                                        </Link>
-                                      )}
-                                  </>
-                                )}
-                              </div>
-                              <div className={cx('right-wrapper')}>
-                                <div className={cx('partner-content-title')}>
-                                  <span className={cx('content-title')}>
-                                    {'Partner Content'}
-                                  </span>
-                                </div>
-                                <div className={cx('posts-wrapper')}>
-                                  {results[index]?.data?.advertorials?.map(
-                                    (advertorial, index, array) => (
-                                      <div
-                                        className={cx('posts-content-wrapper')}
-                                        key={advertorial?.databaseId}
-                                      >
-                                        {advertorial?.title &&
-                                          advertorial?.uri && (
-                                            <Link href={advertorial?.uri}>
-                                              <div
-                                                className={cx('name-wrapper')}
-                                              >
-                                                <div
-                                                  className={cx(
-                                                    'content-name-wrapper',
-                                                  )}
-                                                >
-                                                  <span className={cx('name')}>
-                                                    {advertorial?.title}
-                                                    {index !==
-                                                      array.length - 1 && ' |'}
-                                                  </span>
-                                                </div>
-                                              </div>
-                                            </Link>
-                                          )}
-                                      </div>
-                                    ),
-                                  )}
-                                  {results[index]?.data?.advertorials
-                                    ?.length === 0 && (
-                                    <>
-                                      {getPartnerContent?.map(
-                                        (advertorial, index, array) => (
-                                          <div
-                                            className={cx(
-                                              'posts-content-wrapper',
-                                            )}
-                                            key={advertorial?.databaseId}
-                                          >
-                                            {advertorial?.title &&
-                                              advertorial?.uri && (
-                                                <Link href={advertorial?.uri}>
-                                                  <div
-                                                    className={cx(
-                                                      'name-wrapper',
-                                                    )}
-                                                  >
-                                                    <div
-                                                      className={cx(
-                                                        'content-name-wrapper',
-                                                      )}
-                                                    >
-                                                      <span
-                                                        className={cx('name')}
-                                                      >
-                                                        {advertorial?.title}
-                                                        {index !==
-                                                          array.length - 1 &&
-                                                          ' |'}
-                                                      </span>
-                                                    </div>
-                                                  </div>
-                                                </Link>
-                                              )}
-                                          </div>
-                                        ),
-                                      )}
-                                    </>
-                                  )}
-                                </div>
-                              </div>
-                            </div>
-                            <div className={cx('honors-circle-wrapper')}>
-                              <div className={cx('left-wrapper')}>
-                                {results[index]?.data?.honorsCircles?.map(
-                                  (honorsCircle, index) => (
-                                    <>
-                                      {index === 0 && (
-                                        <>
-                                          {honorsCircle?.uri &&
-                                            honorsCircle?.title &&
-                                            honorsCircle?.featuredImage?.node
-                                              ?.sourceUrl && (
-                                              <Link href={honorsCircle?.uri}>
-                                                <div
-                                                  className={cx(
-                                                    'image-wrapper',
-                                                  )}
-                                                >
-                                                  <div className={cx('image')}>
-                                                    <Image
-                                                      src={
-                                                        honorsCircle
-                                                          ?.featuredImage?.node
-                                                          ?.sourceUrl
-                                                      }
-                                                      alt={honorsCircle?.title}
-                                                      fill
-                                                      sizes="100%"
-                                                      priority
-                                                    />
-                                                  </div>
-                                                </div>
-                                              </Link>
-                                            )}
-                                        </>
-                                      )}
-                                    </>
-                                  ),
-                                )}
-                                {results[index]?.data?.honorsCircles?.length ===
-                                  0 && (
-                                  <>
-                                    {getHonorsCircle[0]?.uri &&
-                                      getHonorsCircle[0]?.title &&
-                                      getHonorsCircle[0]?.featuredImage?.node
-                                        ?.sourceUrl && (
-                                        <Link href={getHonorsCircle[0]?.uri}>
-                                          <div className={cx('image-wrapper')}>
-                                            <div className={cx('image')}>
-                                              <Image
-                                                src={
-                                                  getHonorsCircle[0]
-                                                    ?.featuredImage?.node
-                                                    ?.sourceUrl
-                                                }
-                                                alt={getHonorsCircle[0]?.title}
-                                                fill
-                                                sizes="100%"
-                                                priority
-                                              />
-                                            </div>
-                                          </div>
-                                        </Link>
-                                      )}
-                                  </>
-                                )}
-                              </div>
-                              <div className={cx('right-wrapper')}>
-                                <div className={cx('honors-circle-title')}>
-                                  <span className={cx('content-title')}>
-                                    {'Honors Circle'}
-                                  </span>
-                                </div>
-                                <div className={cx('posts-wrapper')}>
-                                  {results[index]?.data?.honorsCircles?.map(
-                                    (honorsCircle, index, array) => (
-                                      <div
-                                        className={cx('posts-content-wrapper')}
-                                        key={honorsCircle?.databaseId}
-                                      >
-                                        {honorsCircle?.title &&
-                                          honorsCircle?.uri && (
-                                            <Link href={honorsCircle?.uri}>
-                                              <div
-                                                className={cx('name-wrapper')}
-                                              >
-                                                <div
-                                                  className={cx(
-                                                    'content-name-wrapper',
-                                                  )}
-                                                >
-                                                  <span className={cx('name')}>
-                                                    {honorsCircle?.title}
-                                                    {index !==
-                                                      array.length - 1 && ' |'}
-                                                  </span>
-                                                </div>
-                                              </div>
-                                            </Link>
-                                          )}
-                                      </div>
-                                    ),
-                                  )}
-                                  {results[index]?.data?.honorsCircles
-                                    ?.length === 0 && (
-                                    <>
-                                      {getHonorsCircle?.map(
-                                        (honorsCircle, index, array) => (
-                                          <div
-                                            className={cx(
-                                              'posts-content-wrapper',
-                                            )}
-                                            key={honorsCircle?.databaseId}
-                                          >
-                                            {honorsCircle?.title &&
-                                              honorsCircle?.uri && (
-                                                <Link href={honorsCircle?.uri}>
-                                                  <div
-                                                    className={cx(
-                                                      'name-wrapper',
-                                                    )}
-                                                  >
-                                                    <div
-                                                      className={cx(
-                                                        'content-name-wrapper',
-                                                      )}
-                                                    >
-                                                      <span
-                                                        className={cx('name')}
-                                                      >
-                                                        {honorsCircle?.title}
-                                                        {index !==
-                                                          array.length - 1 &&
-                                                          ' |'}
-                                                      </span>
-                                                    </div>
-                                                  </div>
-                                                </Link>
-                                              )}
-                                          </div>
-                                        ),
-                                      )}
-                                    </>
-                                  )}
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </Accordion.Content>
-                    </div>
-                  ) : (
-                    <>
-                      <div className={cx('left-wrapper')}>
-                        {connectedNode?.node?.uri &&
-                          connectedNode?.node?.name &&
-                          connectedNode?.node?.categoryImages
-                            ?.categoryImages && (
-                            <Link href={connectedNode?.node?.uri}>
-                              <div className={cx('image-wrapper')}>
-                                <div className={cx('image')}>
-                                  <Image
-                                    src={
-                                      connectedNode?.node?.categoryImages
-                                        ?.categoryImages?.sourceUrl
-                                    }
-                                    alt={connectedNode?.node?.name}
-                                    fill
-                                    sizes="100%"
-                                    priority
-                                  />
-                                </div>
-                              </div>
-                            </Link>
-                          )}
-                      </div>
-                      <div className={cx('right-wrapper')}>
-                        <div className={cx('sub-guides-wrapper')}>
-                          <div className={cx('sub-guides-content')}>
-                            <div className={cx('sub-guides-title')}>
-                              {path && (
-                                <Link href={path}>
-                                  <span className={cx('title')}>
-                                    {connectedNode?.node?.parent &&
-                                      connectedNode?.node?.parent?.node
-                                        ?.name}{' '}
-                                    {label ?? ''}
-                                  </span>
-                                </Link>
-                              )}
-                            </div>
-                            <div key={index} className={cx('posts-wrapper')}>
-                              {connectedNode.node?.posts?.edges?.map(
-                                (post, index, array) => (
-                                  <div
-                                    key={index}
-                                    className={cx('posts-content-wrapper')}
-                                  >
-                                    {post?.node?.title && post?.node?.uri && (
-                                      <Link href={post?.node?.uri}>
-                                        <div className={cx('name-wrapper')}>
-                                          <div
-                                            className={cx(
-                                              'content-name-wrapper',
-                                            )}
-                                          >
-                                            <span className={cx('name')}>
-                                              {post?.node?.title}
-                                              {index !== array.length - 1 &&
-                                                ' |'}
-                                            </span>
-                                          </div>
-                                        </div>
-                                      </Link>
-                                    )}
-                                  </div>
-                                ),
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </>
-                  )} */}
             </div>
             // </Accordion.Panel>
           )

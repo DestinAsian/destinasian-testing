@@ -11,10 +11,9 @@
   background-color: var(--wpe--color--deep--black);
   position: relative;
 
-  @media (min-width: $breakpoint-large) {
-    left: 60%;
+  @media (min-width: $breakpoint-extra-small) {
+    margin: 0 auto;
     max-width: 700px;
-    transform: translate(-100%, 0);
   }
 }
 

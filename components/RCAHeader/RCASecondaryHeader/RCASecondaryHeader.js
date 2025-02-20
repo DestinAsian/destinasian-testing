@@ -115,7 +115,7 @@ export default function RCASecondaryHeader({
         )}
       >
         <div className={cx('full-menu-wrapper')}>
-          <TravelGuidesMenu />
+          <TravelGuidesMenu className={'dark-color'} />
         </div>
       </div>
     </>

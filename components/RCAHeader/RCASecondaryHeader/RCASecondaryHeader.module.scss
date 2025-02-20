@@ -45,12 +45,10 @@
     }
 
     @media (min-width: $breakpoint-large) {
-      margin: 0;
+      margin: 0 auto;
       padding: 0;
       position: relative;
-      left: 60%;
       max-width: 700px;
-      transform: translate(-100%, 0);
       z-index: 48;
     }
   }
@@ -132,7 +130,7 @@
 }
 
 .full-menu-wrapper {
-  background-color: var(--wpe--color--white--smoke);
+  background-color: var(--wpe--color--deep--black);
   position: relative;
   max-width: 700px;
 
@@ -140,13 +138,7 @@
     margin: 0 auto;
   }
 
-  @media (min-width: $breakpoint-large) {
-    left: 60%;
-    margin: 0;
-    transform: translate(-100%, 0);
-  }
-
   * {
-    color: var(--wpe--color--black);
+    color: var(--wpe--color--white--smoke);
   }
 }
