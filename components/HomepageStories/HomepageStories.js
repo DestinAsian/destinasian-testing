@@ -229,12 +229,7 @@ export default function HomepageStories(pinPosts) {
   // Declare all posts
   const allPosts = (data?.contentNodes?.edges || [])
     .map((post) => post.node)
-    .filter(
-      (post) =>
-        !['Travel News', 'Airline News', 'Trade Talk'].includes(
-          post.categories?.edges[0]?.node?.name,
-        ),
-    )
+    .filter((post) => post.contentTypeName !== 'update')
 
   // Declare all pin posts
   const allPinPosts = [
@@ -312,7 +307,7 @@ export default function HomepageStories(pinPosts) {
               </div>
             )}
             {/* Updates Stories */}
-            {/* {post?.contentTypeName === 'update' && (
+            {post?.contentTypeName === 'update' && (
               <div className={cx('post-wrapper')}>
                 <PostTwoColumns
                   title={post?.title}
@@ -326,7 +321,7 @@ export default function HomepageStories(pinPosts) {
                   featuredImage={post?.featuredImage?.node}
                 />
               </div>
-            )} */}
+            )}
             {post?.contentTypeName === 'honors-circle' && (
               <div className={cx('hc-wrapper')}>
                 {/* Honors Circle Stories */}
