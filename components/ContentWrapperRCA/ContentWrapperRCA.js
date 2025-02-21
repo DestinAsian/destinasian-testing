@@ -19,7 +19,6 @@ export default function ContentWrapperRCA({
   router,
   title,
   parentTitle,
-  category,
   images,
   content,
   databaseId,
@@ -29,13 +28,17 @@ export default function ContentWrapperRCA({
   sliderLoading,
   isNavShown,
   setIsNavShown,
+  isAutoplayRunning,
+  setIsAutoplayRunning,
+  sliderRCA,
+  toggleAutoplay,
+  activeIndex,
+  setActiveIndex,
 }) {
   const batchSize = 100
   const [transformedContent, setTransformedContent] = useState('')
-  const [isAutoplayRunning, setIsAutoplayRunning] = useState(true)
   const [isSliderMounted, setIsSliderMounted] = useState(false) // Track slider mount status
-  const sliderRCA = useRef(null)
-  const [activeIndex, setActiveIndex] = useState(0)
+  // const [activeIndex, setActiveIndex] = useState(0)
   const [hash, setHash] = useState('')
 
   useEffect(() => {
@@ -199,18 +202,18 @@ export default function ContentWrapperRCA({
     }
   }, [isAutoplayRunning, isSliderMounted])
 
-  const toggleAutoplay = () => {
-    const swiperInstance = sliderRCA?.current?.swiper
-    if (swiperInstance) {
-      if (isAutoplayRunning) {
-        swiperInstance.autoplay?.stop()
-      } else {
-        swiperInstance.autoplay?.start()
-        setActiveIndex(swiperInstance.realIndex)
-      }
-      setIsAutoplayRunning(!isAutoplayRunning)
-    }
-  }
+  // const toggleAutoplay = () => {
+  //   const swiperInstance = sliderRCA?.current?.swiper
+  //   if (swiperInstance) {
+  //     if (isAutoplayRunning) {
+  //       swiperInstance.autoplay?.stop()
+  //     } else {
+  //       swiperInstance.autoplay?.start()
+  //       setActiveIndex(swiperInstance.realIndex)
+  //     }
+  //     setIsAutoplayRunning(!isAutoplayRunning)
+  //   }
+  // }
 
   useEffect(() => {
     if (isAutoplayRunning && isNavShown) {

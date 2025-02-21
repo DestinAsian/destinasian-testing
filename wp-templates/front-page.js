@@ -10,11 +10,13 @@ import {
   SEO,
   FeatureWell,
   HomepageStories,
+  HomepageSecondaryHeader,
 } from '../components'
 import { GetMenus } from '../queries/GetMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
 import { eb_garamond, rubik_mono_one } from '../styles/fonts/fonts'
 import { GetHomepagePinPosts } from '../queries/GetHomepagePinPosts'
+import { GetLatestRCA } from '../queries/GetLatestRCA'
 
 export default function Component(props) {
   // Loading state for previews
@@ -28,6 +30,61 @@ export default function Component(props) {
   const { databaseId, asPreview } = props?.__TEMPLATE_VARIABLES__ ?? []
 
   const [currentFeatureWell, setCurrentFeatureWell] = useState(null)
+  // Search function content
+  const [searchQuery, setSearchQuery] = useState('')
+  const [isNavShown, setIsNavShown] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [isGuidesNavShown, setIsGuidesNavShown] = useState(false)
+  const [isRCANavShown, setIsRCANavShown] = useState(false)
+
+  // Stop scrolling pages when searchQuery
+  useEffect(() => {
+    if (searchQuery !== '') {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [searchQuery])
+
+  // Stop scrolling pages when isNavShown
+  useEffect(() => {
+    if (isNavShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isNavShown])
+
+  // Add sticky header on scroll
+  useEffect(() => {
+    function handleScroll() {
+      setIsScrolled(window.scrollY > 0)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
+  // Stop scrolling pages when isRCANavShown
+  useEffect(() => {
+    if (isRCANavShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isRCANavShown])
+
+  // Stop scrolling pages when isGuidesNavShown
+  useEffect(() => {
+    if (isGuidesNavShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isGuidesNavShown])
 
   const featureWell = [
     {
@@ -73,6 +130,18 @@ export default function Component(props) {
       setCurrentFeatureWell(filteredFeatureWell[randomIndex])
     }
   }, [])
+
+  // Get Latest RCA
+  const { data: rcaData } = useQuery(GetLatestRCA, {
+    fetchPolicy: 'network-only',
+    nextFetchPolicy: 'cache-and-network',
+  })
+
+  const {
+    // title: rcaTitle,
+    databaseId: rcaDatabaseId,
+    uri: rcaUri,
+  } = rcaData?.readersChoiceAwards?.edges[0]?.node ?? []
 
   // Get menus
   const { data: menusData, loading: menusLoading } = useQuery(GetMenus, {
@@ -180,13 +249,27 @@ export default function Component(props) {
         fifthMenuItems={fifthMenu}
         featureMenuItems={featureMenu}
         latestStories={allPosts}
-        home={uri}
+        // home={uri}
         menusLoading={menusLoading}
         latestLoading={latestLoading}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        isNavShown={isNavShown}
+        setIsNavShown={setIsNavShown}
+        isScrolled={isScrolled}
       />
-      {/* <SecondaryHeader
-        home={uri}
-      /> */}
+      <HomepageSecondaryHeader
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        rcaDatabaseId={rcaDatabaseId}
+        rcaUri={rcaUri}
+        isGuidesNavShown={isGuidesNavShown}
+        setIsGuidesNavShown={setIsGuidesNavShown}
+        isRCANavShown={isRCANavShown}
+        setIsRCANavShown={setIsRCANavShown}
+        isScrolled={isScrolled}
+        isNavShown={isNavShown}
+      />
       <Main>
         <>
           {/* <NavigationHeader menuItems={navigationMenu}/> */}

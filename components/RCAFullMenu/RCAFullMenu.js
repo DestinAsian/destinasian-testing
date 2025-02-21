@@ -16,6 +16,7 @@ export default function RCAFullMenu({
   uri,
   isNavShown,
   setIsNavShown,
+  className,
 }) {
   const postsPerPage = 100
   const firstYearOfRCA = 2007
@@ -99,7 +100,12 @@ export default function RCAFullMenu({
   return (
     <div className={cx('component')}>
       {/* Full menu */}
-      <div className={cx('full-menu-content')}>
+      <div
+        className={cx(
+          'full-menu-content',
+          className === 'light-color' ? 'full-menu-content-light' : '',
+        )}
+      >
         <div className={cx('menu-wrapper')}>
           {/* <NavigationMenu
             className={cx(['rca-navigation-menu'])}

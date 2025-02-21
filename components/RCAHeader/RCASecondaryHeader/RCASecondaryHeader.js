@@ -1,64 +1,19 @@
-import React, { useState, useEffect } from 'react'
 import classNames from 'classnames/bind'
 import styles from './RCASecondaryHeader.module.scss'
-import { useQuery } from '@apollo/client'
-import { RCAFullMenu, TravelGuidesMenu } from '../../../components'
+import { TravelGuidesMenu } from '../../../components'
 
 let cx = classNames.bind(styles)
 
 export default function RCASecondaryHeader({
-  isMainNavShown,
-  setIsMainNavShown,
   isNavShown,
   setIsNavShown,
   isGuidesNavShown,
   setIsGuidesNavShown,
   searchQuery,
   setSearchQuery,
-  rcaDatabaseId,
-  uri,
+  isAutoplayRunning,
+  toggleAutoplay,
 }) {
-  // const [currentUrl, setCurrentUrl] = useState('')
-  // const [categoryUrl, setCategoryUrl] = useState('')
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [prevScrollY, setPrevScrollY] = useState(0)
-
-  // Stop scrolling pages when isNavShown
-  useEffect(() => {
-    if (isMainNavShown) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'visible'
-    }
-  }, [isMainNavShown])
-
-  // Stop scrolling pages when isNavShown
-  useEffect(() => {
-    if (isNavShown) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'visible'
-    }
-  }, [isNavShown])
-
-  // Show sticky header when scroll down, Hide it when scroll up
-  useEffect(() => {
-    function handleScroll() {
-      const currentScrollY = window.scrollY
-      setIsScrolled(
-        currentScrollY > 0,
-        // && currentScrollY < prevScrollY
-      )
-      setPrevScrollY(currentScrollY)
-    }
-
-    window.addEventListener('scroll', handleScroll)
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
-  }, [prevScrollY])
-
   return (
     <>
       <div className={cx('navigation-wrapper')}>
@@ -70,6 +25,9 @@ export default function RCASecondaryHeader({
               searchQuery ? setSearchQuery('') : setSearchQuery('travel')
               isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
               isNavShown ? setIsNavShown(!isNavShown) : null
+              if (isAutoplayRunning) {
+                return toggleAutoplay()
+              }
             }}
             aria-label="Toggle navigation"
             aria-controls={cx('rca-menu-wrapper')}
@@ -84,6 +42,9 @@ export default function RCASecondaryHeader({
               setIsGuidesNavShown(!isGuidesNavShown)
               isNavShown ? setIsNavShown(!isNavShown) : null
               setSearchQuery('')
+              if (isAutoplayRunning) {
+                return toggleAutoplay()
+              }
             }}
             aria-label="Toggle navigation"
             aria-controls={cx('rca-menu-wrapper')}
@@ -98,6 +59,9 @@ export default function RCASecondaryHeader({
               setIsNavShown(!isNavShown)
               isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
               setSearchQuery('')
+              if (isAutoplayRunning) {
+                return toggleAutoplay()
+              }
             }}
             aria-label="Toggle navigation"
             aria-controls={cx('rca-menu-wrapper')}

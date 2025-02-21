@@ -5,7 +5,6 @@ import destinasianLogo from '../../assets/logo/destinasian-logo.png'
 import {
   Container,
   FullMenu,
-  SearchInput,
   SearchResults,
 } from '../../components'
 import styles from './RCAHeader.module.scss'
@@ -28,12 +27,9 @@ export default function RCAHeader({
   latestStories,
   menusLoading,
   latestLoading,
-  parent,
   isNavShown,
   setIsNavShown,
   isRCANavShown,
-  isGuidesNavShown,
-  setIsGuidesNavShown,
   searchQuery,
   setSearchQuery,
 }) {

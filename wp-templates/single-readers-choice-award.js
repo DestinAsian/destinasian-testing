@@ -14,7 +14,7 @@ import {
 import { GetMenus } from '../queries/GetMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
 import { GetRCASlider } from '../queries/GetRCASlider'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { eb_garamond, rubik, rubik_mono_one } from '../styles/fonts/fonts'
 import Cookies from 'js-cookie'
 
@@ -41,7 +41,24 @@ export default function singleRca(props) {
     }
   }, [props?.data?.readersChoiceAward?.passwordProtected?.password])
 
-  const batchSize = 100
+  // Slider Autoplay state
+  const sliderRCA = useRef(null)
+  const [activeIndex, setActiveIndex] = useState(0)
+  const [isAutoplayRunning, setIsAutoplayRunning] = useState(true)
+
+  const toggleAutoplay = () => {
+    const swiperInstance = sliderRCA?.current?.swiper
+    if (swiperInstance) {
+      if (isAutoplayRunning) {
+        swiperInstance.autoplay?.stop()
+      } else {
+        swiperInstance.autoplay?.start()
+        setActiveIndex(swiperInstance.realIndex)
+      }
+      setIsAutoplayRunning(!isAutoplayRunning)
+    }
+  }
+
   const [isNavShown, setIsNavShown] = useState(false)
   const [isRCANavShown, setIsRCANavShown] = useState(false)
   const [isGuidesNavShown, setIsGuidesNavShown] = useState(false)
@@ -305,33 +322,37 @@ export default function singleRca(props) {
         latestStories={latestAllPosts}
         menusLoading={menusLoading}
         latestLoading={latestLoading}
-        parent={parent}
+        // parent={parent}
+        sliderRCA={sliderRCA}
+        toggleAutoplay={toggleAutoplay}
         isNavShown={isNavShown}
         setIsNavShown={setIsNavShown}
         isRCANavShown={isRCANavShown}
         setIsRCANavShown={setIsRCANavShown}
-        isGuidesNavShown={isGuidesNavShown}
-        setIsGuidesNavShown={setIsGuidesNavShown}
+        // isGuidesNavShown={isGuidesNavShown}
+        // setIsGuidesNavShown={setIsGuidesNavShown}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
       />
       <RCASecondaryHeader
-        isMainNavShown={isNavShown}
-        setIsMainNavShown={setIsNavShown}
+        // isMainNavShown={isNavShown}
+        // setIsMainNavShown={setIsNavShown}
         isNavShown={isRCANavShown}
         setIsNavShown={setIsRCANavShown}
         isGuidesNavShown={isGuidesNavShown}
         setIsGuidesNavShown={setIsGuidesNavShown}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
-        rcaDatabaseId={
-          parent != null
-            ? children?.edges?.length == 0
-              ? ancestors?.edges[0]?.node?.databaseId
-              : parent?.node?.databaseId
-            : databaseId
-        }
-        uri={parent != null ? parent?.node?.uri : uri}
+        // rcaDatabaseId={
+        //   parent != null
+        //     ? children?.edges?.length == 0
+        //       ? ancestors?.edges[0]?.node?.databaseId
+        //       : parent?.node?.databaseId
+        //     : databaseId
+        // }
+        // uri={parent != null ? parent?.node?.uri : uri}
+        isAutoplayRunning={isAutoplayRunning}
+        toggleAutoplay={toggleAutoplay}
       />
       <Main>
         <>
@@ -369,6 +390,12 @@ export default function singleRca(props) {
                     sliderLoading={sliderLoading}
                     isNavShown={isRCANavShown}
                     setIsNavShown={setIsRCANavShown}
+                    isAutoplayRunning={isAutoplayRunning}
+                    setIsAutoplayRunning={setIsAutoplayRunning}
+                    sliderRCA={sliderRCA}
+                    toggleAutoplay={toggleAutoplay}
+                    activeIndex={activeIndex}
+                    setActiveIndex={setActiveIndex}
                   />
                 </div>
               </div>

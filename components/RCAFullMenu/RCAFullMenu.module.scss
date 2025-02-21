@@ -19,7 +19,7 @@
 
 .full-menu-content {
   display: block;
-  height: calc(-9.5rem + 100vh);
+  height: calc(-4.5rem + 100vh);
   width: 100%;
   overflow-x: hidden;
   padding: 0 0 7rem;
@@ -260,4 +260,8 @@
       height: 2rem;
     }
   }
+}
+
+.full-menu-content-light {
+  background-color: var(--wpe--main--background-color);
 }
