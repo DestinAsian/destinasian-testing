@@ -4,7 +4,7 @@ import * as MENUS from '../constants/menus'
 import { BlogInfoFragment } from '../fragments/GeneralSettings'
 import {
   CategoryHeader,
-  SecondaryHeader,
+  CategorySecondaryHeader,
   Main,
   CategoryEntryHeader,
   FeaturedImage,
@@ -200,7 +200,7 @@ export default function Component(props) {
         menusLoading={menusLoading}
         latestLoading={latestLoading}
       />
-      <SecondaryHeader
+      <CategorySecondaryHeader
         databaseId={databaseId}
         name={name}
         parent={parent?.node?.name}

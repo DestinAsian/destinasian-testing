@@ -12,7 +12,7 @@ import {
   FeaturedImage,
   SEO,
   SingleSlider,
-  SecondaryHeader,
+  CategorySecondaryHeader,
   EntryMoreReviews,
   MoreReviews,
   PartnerContent,
@@ -247,7 +247,7 @@ export default function Component(props) {
         menusLoading={menusLoading}
         latestLoading={latestLoading}
       />
-      <SecondaryHeader
+      <CategorySecondaryHeader
         databaseId={databaseId}
         categoryUri={categories[0]?.node?.uri}
         parentCategory={categories[0]?.node?.parent?.node?.name}

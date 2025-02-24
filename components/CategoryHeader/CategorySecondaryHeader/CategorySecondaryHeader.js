@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import classNames from 'classnames/bind'
-import styles from './SecondaryHeader.module.scss'
+import styles from './CategorySecondaryHeader.module.scss'
 import {
   ChildrenNavigation,
   ParentNavigation,
   SingleNavigation,
-} from '../../components'
+} from '../../../components'
 import { useQuery } from '@apollo/client'
-import { GetSecondaryHeader } from '../../queries/GetSecondaryHeader'
+import { GetSecondaryHeader } from '../../../queries/GetSecondaryHeader'
 
 let cx = classNames.bind(styles)
 
-export default function SecondaryHeader({
+export default function CategorySecondaryHeader({
   databaseId,
   home,
   categoryUri,

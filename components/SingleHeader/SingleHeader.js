@@ -1,14 +1,8 @@
 import classNames from 'classnames/bind'
 import Link from 'next/link'
 import destinasianLogo from '../../assets/logo/destinasian-logo.png'
-import {
-  Container,
-  FullMenu,
-  SearchInput,
-  SearchResults,
-} from '../../components'
+import { Container, FullMenu, SearchResults } from '../../components'
 import styles from './SingleHeader.module.scss'
-import { useState, useEffect } from 'react'
 import { useMediaQuery } from 'react-responsive'
 import Image from 'next/image'
 import { useQuery } from '@apollo/client'
@@ -26,34 +20,13 @@ export default function SingleHeader({
   latestStories,
   menusLoading,
   latestLoading,
+  searchQuery,
+  setSearchQuery,
+  isNavShown,
+  setIsNavShown,
+  isScrolled,
 }) {
   const isDesktop = useMediaQuery({ minWidth: 768 })
-  const [isNavShown, setIsNavShown] = useState(false)
-  const [isScrolled, setIsScrolled] = useState(false)
-
-  // Stop scrolling pages when isNavShown
-  useEffect(() => {
-    if (isNavShown) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'visible'
-    }
-  }, [isNavShown])
-
-  // Add sticky header on scroll
-  useEffect(() => {
-    function handleScroll() {
-      setIsScrolled(window.scrollY > 0)
-    }
-
-    window.addEventListener('scroll', handleScroll)
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
-  }, [])
-  // Search function content
-  const [searchQuery, setSearchQuery] = useState('')
   const postsPerPage = 1000
 
   // Clear search input
@@ -116,14 +89,14 @@ export default function SingleHeader({
 
     // Compare the dates
     return dateB - dateA
-  });
+  })
 
   return (
-    <header className={cx('components', { sticky: isScrolled })}>
+    <header className={cx('component', { sticky: isScrolled })}>
       {/* Responsive header */}
       {isDesktop || (!isDesktop && !isNavShown) ? (
         <Container>
-          <div className={cx('navbar')}>
+          <div className={cx('navbar', { sticky: isScrolled })}>
             {/* DA logo */}
             <Link href="/" className={cx('title')}>
               <div className={cx('brand')}>
@@ -228,7 +201,7 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
         </Container>
       ) : (
         <Container>
-          <div className={cx('close-button')}>
+          <div className={cx('close-button', { sticky: isScrolled })}>
             {/* close button */}
             <button
               type="button"
@@ -273,21 +246,13 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
       )}
 
       {/* Search Bar */}
-      <div className={cx('search-bar-wrapper', { stickySearch: isScrolled })}>
-        <div className={cx('search-input-wrapper')}>
-          <SearchInput
-            value={searchQuery}
-            onChange={(newValue) => setSearchQuery(newValue)}
-            clearSearch={clearSearch}
-          />
-        </div>
+      <div className={cx('search-bar-wrapper')}>
         <div className={cx('search-result-wrapper')}>
           {searchResultsError && (
             <div className={cx('alert-error')}>
               {'An error has occurred. Please refresh and try again.'}
             </div>
           )}
-
           {/* Conditionally render the SearchResults component */}
           {isSearchResultsVisible && (
             <SearchResults
@@ -295,7 +260,6 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
               isLoading={searchResultsLoading}
             />
           )}
-          
         </div>
       </div>
 

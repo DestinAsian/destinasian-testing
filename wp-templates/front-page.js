@@ -32,8 +32,10 @@ export default function Component(props) {
   const [currentFeatureWell, setCurrentFeatureWell] = useState(null)
   // Search function content
   const [searchQuery, setSearchQuery] = useState('')
-  const [isNavShown, setIsNavShown] = useState(false)
+  // Scrolled Function
   const [isScrolled, setIsScrolled] = useState(false)
+  // NavShown Function
+  const [isNavShown, setIsNavShown] = useState(false)
   const [isGuidesNavShown, setIsGuidesNavShown] = useState(false)
   const [isRCANavShown, setIsRCANavShown] = useState(false)
 
@@ -45,15 +47,6 @@ export default function Component(props) {
       document.body.style.overflow = 'visible'
     }
   }, [searchQuery])
-
-  // Stop scrolling pages when isNavShown
-  useEffect(() => {
-    if (isNavShown) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'visible'
-    }
-  }, [isNavShown])
 
   // Add sticky header on scroll
   useEffect(() => {
@@ -67,6 +60,15 @@ export default function Component(props) {
       window.removeEventListener('scroll', handleScroll)
     }
   }, [])
+
+  // Stop scrolling pages when isNavShown
+  useEffect(() => {
+    if (isNavShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isNavShown])
 
   // Stop scrolling pages when isRCANavShown
   useEffect(() => {
@@ -85,6 +87,18 @@ export default function Component(props) {
       document.body.style.overflow = 'visible'
     }
   }, [isGuidesNavShown])
+
+  // Get Latest RCA
+  const { data: rcaData } = useQuery(GetLatestRCA, {
+    fetchPolicy: 'network-only',
+    nextFetchPolicy: 'cache-and-network',
+  })
+
+  const {
+    // title: rcaTitle,
+    databaseId: rcaDatabaseId,
+    uri: rcaUri,
+  } = rcaData?.readersChoiceAwards?.edges[0]?.node ?? []
 
   const featureWell = [
     {
@@ -130,18 +144,6 @@ export default function Component(props) {
       setCurrentFeatureWell(filteredFeatureWell[randomIndex])
     }
   }, [])
-
-  // Get Latest RCA
-  const { data: rcaData } = useQuery(GetLatestRCA, {
-    fetchPolicy: 'network-only',
-    nextFetchPolicy: 'cache-and-network',
-  })
-
-  const {
-    // title: rcaTitle,
-    databaseId: rcaDatabaseId,
-    uri: rcaUri,
-  } = rcaData?.readersChoiceAwards?.edges[0]?.node ?? []
 
   // Get menus
   const { data: menusData, loading: menusLoading } = useQuery(GetMenus, {

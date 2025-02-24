@@ -4,11 +4,9 @@ import destinasianLogo from '../../assets/logo/destinasian-logo.png'
 import {
   Container,
   FullMenu,
-  SearchInput,
   SearchResults,
 } from '../../components'
 import styles from './Header.module.scss'
-import { useState, useEffect } from 'react'
 import { useMediaQuery } from 'react-responsive'
 import Image from 'next/image'
 import { useQuery } from '@apollo/client'
@@ -26,34 +24,13 @@ export default function Header({
   latestStories,
   menusLoading,
   latestLoading,
+  searchQuery,
+  setSearchQuery,
+  isNavShown,
+  setIsNavShown,
+  isScrolled,
 }) {
   const isDesktop = useMediaQuery({ minWidth: 768 })
-  const [isNavShown, setIsNavShown] = useState(false)
-  const [isScrolled, setIsScrolled] = useState(false)
-
-  // Stop scrolling pages when isNavShown
-  useEffect(() => {
-    if (isNavShown) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'visible'
-    }
-  }, [isNavShown])
-
-  // Add sticky header on scroll
-  useEffect(() => {
-    function handleScroll() {
-      setIsScrolled(window.scrollY > 0)
-    }
-
-    window.addEventListener('scroll', handleScroll)
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
-  }, [])
-  // Search function content
-  const [searchQuery, setSearchQuery] = useState('')
   const postsPerPage = 1000
 
   // Clear search input
@@ -273,14 +250,7 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
       )}
 
       {/* Search Bar */}
-      <div className={cx('search-bar-wrapper', { stickySearch: isScrolled })}>
-        <div className={cx('search-input-wrapper')}>
-          <SearchInput
-            value={searchQuery}
-            onChange={(newValue) => setSearchQuery(newValue)}
-            clearSearch={clearSearch}
-          />
-        </div>
+      <div className={cx('search-bar-wrapper')}>
         <div className={cx('search-result-wrapper')}>
           {searchResultsError && (
             <div className={cx('alert-error')}>
@@ -295,7 +265,6 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
               isLoading={searchResultsLoading}
             />
           )}
-          
         </div>
       </div>
 

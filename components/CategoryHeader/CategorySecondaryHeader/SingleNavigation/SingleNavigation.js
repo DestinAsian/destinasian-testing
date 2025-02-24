@@ -4,9 +4,9 @@ import {
   DaGuideMenu,
   MainCategoryMenu,
   TravelGuidesMenu,
-} from '../../../components'
+} from '../../../../components'
 import { useQuery } from '@apollo/client'
-import { GetSingleNavigation } from '../../../queries/GetSingleNavigation'
+import { GetSingleNavigation } from '../../../../queries/GetSingleNavigation'
 import Link from 'next/link'
 
 let cx = classNames.bind(styles)

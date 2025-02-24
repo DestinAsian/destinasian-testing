@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
 import { BlogInfoFragment } from '../fragments/GeneralSettings'
@@ -14,13 +15,14 @@ import {
   RelatedStories,
   EntryRelatedStories,
   PasswordProtected,
+  SecondaryHeader,
 } from '../components'
 import { GetMenus } from '../queries/GetMenus'
 import { GetFooterMenus } from '../queries/GetFooterMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
 import { eb_garamond, rubik, rubik_mono_one } from '../styles/fonts/fonts'
-import React, { useEffect, useState } from 'react'
 import Cookies from 'js-cookie'
+import { GetLatestRCA } from '../queries/GetLatestRCA'
 
 // Randomized Function
 function shuffleArray(array) {
@@ -66,6 +68,73 @@ export default function SingleEditorial(props) {
   } = props?.data?.editorial
   const categories = props?.data?.editorial?.categories?.edges ?? []
   const relatedStories = categories[0]?.node?.editorials ?? []
+
+  // Search function content
+  const [searchQuery, setSearchQuery] = useState('')
+  // Scrolled Function
+  const [isScrolled, setIsScrolled] = useState(false)
+  // NavShown Function
+  const [isNavShown, setIsNavShown] = useState(false)
+  const [isGuidesNavShown, setIsGuidesNavShown] = useState(false)
+  const [isRCANavShown, setIsRCANavShown] = useState(false)
+
+  // Stop scrolling pages when searchQuery
+  useEffect(() => {
+    if (searchQuery !== '') {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [searchQuery])
+
+  // Add sticky header on scroll
+  useEffect(() => {
+    function handleScroll() {
+      setIsScrolled(window.scrollY > 0)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
+  // Stop scrolling pages when isNavShown
+  useEffect(() => {
+    if (isNavShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isNavShown])
+
+  // Stop scrolling pages when isRCANavShown
+  useEffect(() => {
+    if (isRCANavShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isRCANavShown])
+
+  // Stop scrolling pages when isGuidesNavShown
+  useEffect(() => {
+    if (isGuidesNavShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isGuidesNavShown])
+
+  // Get Latest RCA
+  const { data: rcaData } = useQuery(GetLatestRCA, {
+    fetchPolicy: 'network-only',
+    nextFetchPolicy: 'cache-and-network',
+  })
+
+  const { databaseId: rcaDatabaseId, uri: rcaUri } =
+    rcaData?.readersChoiceAwards?.edges[0]?.node ?? []
 
   // Get menus
   const { data: menusData, loading: menusLoading } = useQuery(GetMenus, {
@@ -244,39 +313,54 @@ export default function SingleEditorial(props) {
         latestStories={allPosts}
         menusLoading={menusLoading}
         latestLoading={latestLoading}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        isNavShown={isNavShown}
+        setIsNavShown={setIsNavShown}
+        isScrolled={isScrolled}
       />
-      <Main>
+      <SecondaryHeader
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        rcaDatabaseId={rcaDatabaseId}
+        rcaUri={rcaUri}
+        isGuidesNavShown={isGuidesNavShown}
+        setIsGuidesNavShown={setIsGuidesNavShown}
+        isRCANavShown={isRCANavShown}
+        setIsRCANavShown={setIsRCANavShown}
+        isScrolled={isScrolled}
+        isNavShown={isNavShown}
+      />
+      <Main className={'relative top-[-0.75rem] sm:top-[-1rem]'}>
         <>
-          <Container>
-            <SingleEditorialFeaturedImage image={featuredImage?.node} />
-            <SingleEditorialEntryHeader
-              image={featuredImage?.node}
-              title={title}
-              categoryUri={categories[0]?.node?.uri}
-              parentCategory={categories[0]?.node?.parent?.node?.name}
-              categoryName={categories[0]?.node?.name}
-              author={author.node.name}
-              date={date}
-            />
-            <ContentWrapperEditorial content={content} images={images} />
-            <EntryRelatedStories />
-            {shuffledRelatedStories.map((post) => (
-              <Container>
-                {post.node.title !== title && (
-                  // Render the merged posts here
-                  <RelatedStories
-                    key={post.node.id}
-                    title={post.node.title}
-                    excerpt={post.node.excerpt}
-                    uri={post.node.uri}
-                    category={post.node.categories.edges[0]?.node?.name}
-                    categoryUri={post.node.categories.edges[0]?.node?.uri}
-                    featuredImage={post.node.featuredImage?.node}
-                  />
-                )}
-              </Container>
-            ))}
-          </Container>
+          <SingleEditorialFeaturedImage image={featuredImage?.node} />
+          <SingleEditorialEntryHeader
+            image={featuredImage?.node}
+            title={title}
+            categoryUri={categories[0]?.node?.uri}
+            parentCategory={categories[0]?.node?.parent?.node?.name}
+            categoryName={categories[0]?.node?.name}
+            author={author.node.name}
+            date={date}
+          />
+          <ContentWrapperEditorial content={content} images={images} />
+          <EntryRelatedStories />
+          {shuffledRelatedStories.map((post) => (
+            <Container>
+              {post.node.title !== title && (
+                // Render the merged posts here
+                <RelatedStories
+                  key={post.node.id}
+                  title={post.node.title}
+                  excerpt={post.node.excerpt}
+                  uri={post.node.uri}
+                  category={post.node.categories.edges[0]?.node?.name}
+                  categoryUri={post.node.categories.edges[0]?.node?.uri}
+                  featuredImage={post.node.featuredImage?.node}
+                />
+              )}
+            </Container>
+          ))}
         </>
       </Main>
       <Footer footerMenu={footerMenu} />

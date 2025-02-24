@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
 import { BlogInfoFragment } from '../fragments/GeneralSettings'
@@ -13,11 +14,82 @@ import { GetMenus } from '../queries/GetMenus'
 import { GetFooterMenus } from '../queries/GetFooterMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
 import { eb_garamond, rubik_mono_one } from '../styles/fonts/fonts'
+import { GetLatestRCA } from '../queries/GetLatestRCA'
 
 export default function Component(props) {
   const { title: siteTitle, description: siteDescription } =
     props?.data?.generalSettings
   const { name, databaseId, seo, uri } = props?.data?.tag ?? []
+
+  // Search function content
+  const [searchQuery, setSearchQuery] = useState('')
+  // Scrolled Function
+  const [isScrolled, setIsScrolled] = useState(false)
+  // NavShown Function
+  const [isNavShown, setIsNavShown] = useState(false)
+  const [isGuidesNavShown, setIsGuidesNavShown] = useState(false)
+  const [isRCANavShown, setIsRCANavShown] = useState(false)
+
+  // Stop scrolling pages when searchQuery
+  useEffect(() => {
+    if (searchQuery !== '') {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [searchQuery])
+
+  // Add sticky header on scroll
+  useEffect(() => {
+    function handleScroll() {
+      setIsScrolled(window.scrollY > 0)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
+  // Stop scrolling pages when isNavShown
+  useEffect(() => {
+    if (isNavShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isNavShown])
+
+  // Stop scrolling pages when isRCANavShown
+  useEffect(() => {
+    if (isRCANavShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isRCANavShown])
+
+  // Stop scrolling pages when isGuidesNavShown
+  useEffect(() => {
+    if (isGuidesNavShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isGuidesNavShown])
+
+  // Get Latest RCA
+  const { data: rcaData } = useQuery(GetLatestRCA, {
+    fetchPolicy: 'network-only',
+    nextFetchPolicy: 'cache-and-network',
+  })
+
+  const {
+    // title: rcaTitle,
+    databaseId: rcaDatabaseId,
+    uri: rcaUri,
+  } = rcaData?.readersChoiceAwards?.edges[0]?.node ?? []
 
   // Get menus
   const { data: menusData, loading: menusLoading } = useQuery(GetMenus, {
@@ -131,6 +203,23 @@ export default function Component(props) {
         latestStories={latestAllPosts}
         menusLoading={menusLoading}
         latestLoading={latestLoading}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        isNavShown={isNavShown}
+        setIsNavShown={setIsNavShown}
+        isScrolled={isScrolled}
+      />
+      <SecondaryHeader
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        rcaDatabaseId={rcaDatabaseId}
+        rcaUri={rcaUri}
+        isGuidesNavShown={isGuidesNavShown}
+        setIsGuidesNavShown={setIsGuidesNavShown}
+        isRCANavShown={isRCANavShown}
+        setIsRCANavShown={setIsRCANavShown}
+        isScrolled={isScrolled}
+        isNavShown={isNavShown}
       />
       <CategoryEntryHeader parent={'Tag: '} children={0} title={name} />
       <Main>

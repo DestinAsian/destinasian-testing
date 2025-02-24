@@ -2,14 +2,8 @@ import classNames from 'classnames/bind'
 import Link from 'next/link'
 import destinasianLogoBlk from '../../assets/logo/destinasian-logo.png'
 import destinasianLogoWht from '../../assets/logo/destinasianLogoWht.png'
-import {
-  Container,
-  FullMenu,
-  SearchInput,
-  SearchResults,
-} from '../../components'
+import { Container, FullMenu, SearchResults } from '../../components'
 import styles from './HomepageHeader.module.scss'
-import { useState, useEffect } from 'react'
 import { useMediaQuery } from 'react-responsive'
 import Image from 'next/image'
 import { useQuery } from '@apollo/client'
@@ -34,9 +28,6 @@ export default function HomepageHeader({
   isScrolled,
 }) {
   const isDesktop = useMediaQuery({ minWidth: 768 })
-
-  // Search function content
-  // const [searchQuery, setSearchQuery] = useState('')
   const postsPerPage = 1000
 
   // Clear search input
@@ -310,88 +301,14 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
         </Container>
       )}
 
-      {/* SecondaryHeader Homepage*/}
-      {/* <div className={cx('home-container-wrapper', { homeSticky: isScrolled })}>
-        <div className={cx('home-navbar')}>
-          <div className={cx('home-navbar-wrapper')}>
-            <div className={cx('navigation-wrapper')}>
-              <li className={cx('nav-link')}>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setIsNavShown(!isNavShown)
-                    setSearchQuery('')
-                  }}
-                  aria-label="Toggle navigation"
-                  aria-controls={cx('full-menu-wrapper')}
-                  aria-expanded={!isNavShown}
-                >
-                  <h2 className={cx('nav-name')}>{'Destinations'}</h2>
-                </button>
-              </li>
-              <li className={cx('nav-link')}>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setIsNavShown(!isNavShown)
-                    setSearchQuery('')
-                  }}
-                  aria-label="Toggle navigation"
-                  aria-controls={cx('full-menu-wrapper')}
-                  aria-expanded={!isNavShown}
-                >
-                  <h2 className={cx('nav-name')}>{'Destination Guides'}</h2>
-                </button>
-              </li>
-              <li className={cx('nav-link')}>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setIsNavShown(!isNavShown)
-                    setSearchQuery('')
-                  }}
-                  aria-label="Toggle navigation"
-                  aria-controls={cx('full-menu-wrapper')}
-                  aria-expanded={!isNavShown}
-                >
-                  <h2 className={cx('nav-name')}>{'Feature Stories'}</h2>
-                </button>
-              </li>
-              <li className={cx('nav-link')}>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setIsNavShown(!isNavShown)
-                    setSearchQuery('')
-                  }}
-                  aria-label="Toggle navigation"
-                  aria-controls={cx('full-menu-wrapper')}
-                  aria-expanded={!isNavShown}
-                >
-                  <h2 className={cx('nav-name')}>{'Latest Travel Stories'}</h2>
-                </button>
-              </li>
-            </div>
-          </div>
-        </div>
-      </div> */}
-
       {/* Search Bar */}
       <div className={cx('search-bar-wrapper')}>
-        {/* <div className={cx('search-input-wrapper')}>
-          <SearchInput
-            value={searchQuery}
-            onChange={(newValue) => setSearchQuery(newValue)}
-            clearSearch={clearSearch}
-          />
-        </div> */}
         <div className={cx('search-result-wrapper')}>
           {searchResultsError && (
             <div className={cx('alert-error')}>
               {'An error has occurred. Please refresh and try again.'}
             </div>
           )}
-
           {/* Conditionally render the SearchResults component */}
           {isSearchResultsVisible && (
             <SearchResults
