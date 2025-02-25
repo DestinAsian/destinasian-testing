@@ -6,14 +6,13 @@
 
 .container-wrapper {
   width: 100%;
-  margin: 0 auto;
+  margin: -0.75rem auto 0;
   padding: 0;
   position: relative;
-  z-index: 49;
-  height: 2.5rem;
+  z-index: 51;
 
   @media (min-width: $breakpoint-extra-small) {
-    height: 3rem;
+    margin: -1rem auto 0;
   }
 
   // &.show {
@@ -21,58 +20,20 @@
   // }
 }
 
-.home-container-wrapper {
-  width: 100%;
-  margin: 0 auto;
-  padding: 0;
-  position: relative;
-  z-index: 49;
-  content-visibility: hidden;
-
-  .home-navbar {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-
-    .home-navbar-wrapper {
-      display: none;
-      justify-content: center;
-      align-items: center;
-      width: 100vw;
-      margin: 0 auto;
-      padding: 0;
-
-      @media (min-width: $breakpoint-extra-small) {
-        display: flex;
-        width: 90vw;
-      }
-    }
-  }
-}
-
-.homeSticky {
-  padding: 0;
-
-  @media (min-width: $breakpoint-extra-small) {
-    padding: 0 0 0.5rem;
-    content-visibility: visible;
-  }
-}
-
-.sticky,
-.homeSticky {
+.sticky {
   background-color: var(--wpe--main--background-color);
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  transform: translateY(6.5rem);
+  transform: translateY(3.5rem);
   // transition: transform 0.5s ease-in-out;
-  box-shadow: 0 2px 1px 0px rgba(245,245,245,0.75);
+  box-shadow: 0 2px 1px 0px rgba(245, 245, 245, 0.75);
+  z-index: 1000;
 
   @media (min-width: $breakpoint-extra-small) {
     top: 0;
-    transform: translateY(8.125rem);
+    transform: translateY(4.5rem);
     max-height: 3.5rem;
   }
 }

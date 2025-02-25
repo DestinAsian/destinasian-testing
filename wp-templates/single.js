@@ -60,6 +60,44 @@ export default function Component(props) {
   } = props?.data?.post
   const categories = props?.data?.post.categories?.edges ?? []
 
+  // Search function content
+  const [searchQuery, setSearchQuery] = useState('')
+  // Scrolled Function
+  const [isScrolled, setIsScrolled] = useState(false)
+  // NavShown Function
+  const [isNavShown, setIsNavShown] = useState(false)
+
+  // Stop scrolling pages when searchQuery
+  useEffect(() => {
+    if (searchQuery !== '') {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [searchQuery])
+
+  // Add sticky header on scroll
+  useEffect(() => {
+    function handleScroll() {
+      setIsScrolled(window.scrollY > 0)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
+  // Stop scrolling pages when isNavShown
+  useEffect(() => {
+    if (isNavShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isNavShown])
+
   // Get menus
   const { data: menusData, loading: menusLoading } = useQuery(GetMenus, {
     variables: {
@@ -246,6 +284,11 @@ export default function Component(props) {
         latestStories={allPosts}
         menusLoading={menusLoading}
         latestLoading={latestLoading}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        isNavShown={isNavShown}
+        setIsNavShown={setIsNavShown}
+        isScrolled={isScrolled}
       />
       <CategorySecondaryHeader
         databaseId={databaseId}

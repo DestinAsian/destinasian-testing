@@ -162,7 +162,7 @@
     padding: 0;
     background-color: var(--wpe--color--deep--black);
     align-items: center;
-    z-index: 49;
+    z-index: 52;
 
     @media (min-width: $breakpoint-extra-small) {
       height: 5.25rem;
@@ -339,18 +339,22 @@
     font-family: 'Ringside Regular A', 'Ringside Regular B';
     font-weight: 700;
     text-transform: uppercase;
-    font-size: 1rem;
     padding: 0;
     text-align: center;
+    font-size: 0.875rem;
+
+    // @media (min-width: $breakpoint-extra-small){
+    //   font-size: 0.875rem;
+    // }
+
+    @media (min-width: $breakpoint-large){
+      font-size: 1rem;
+    }
 
     &:hover,
     &:focus {
       color: var(--wpe--color--white--smoke);
       text-decoration: underline;
-    }
-
-    @media (min-width: $breakpoint-small) {
-      font-size: 1.25rem;
     }
   }
 
@@ -560,7 +564,7 @@
 
 .slider-wrapper {
   position: fixed;
-  top: 5rem;
+  top: 4.65rem;
   left: 0;
   width: 100vw;
   padding: 0;
@@ -599,15 +603,20 @@
   &.show {
     padding: 0;
     gap: 1rem;
-    top: 5rem;
-    height: calc(-5rem + 100vh);
+    top: 4.5rem;
+    height: calc(-4.5rem + 100vh);
     transition: backdrop-filter 0.8s ease-in-out, visibility 0.8s ease-in-out;
 
     @media (min-width: $breakpoint-extra-small) {
-      top: 6.25rem;
+      top: 5.75rem;
       left: 0;
-      height: calc(-6.25rem + 100vh);
+      height: calc(-5.75rem + 100vh);
       width: 100vw;
+    }
+
+    @media (min-width: $breakpoint-large) {
+      top: 6.25rem;
+      height: calc(-6.25rem + 100vh);
     }
 
     * {

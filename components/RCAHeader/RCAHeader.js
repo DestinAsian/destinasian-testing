@@ -2,11 +2,7 @@ import classNames from 'classnames/bind'
 import Link from 'next/link'
 import destinasianLogoWht from '../../assets/logo/destinasianLogoWht.png'
 import destinasianLogo from '../../assets/logo/destinasian-logo.png'
-import {
-  Container,
-  FullMenu,
-  SearchResults,
-} from '../../components'
+import { FullMenu, SearchResults } from '../../components'
 import styles from './RCAHeader.module.scss'
 import { useState, useEffect } from 'react'
 import { useMediaQuery } from 'react-responsive'
@@ -130,7 +126,7 @@ export default function RCAHeader({
     >
       {/* Responsive header */}
       {isDesktop || (!isDesktop && !isNavShown) ? (
-        <Container>
+        <>
           <div className={cx('navbar')}>
             {/* DA logo */}
             <Link href="/" className={cx('title')}>
@@ -352,9 +348,9 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
               </div>
             )}
           </div>
-        </Container>
+        </>
       ) : (
-        <Container>
+        <>
           <div className={cx('close-button')}>
             {/* close button */}
             <button
@@ -397,7 +393,7 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
               {/* )} */}
             </button>
           </div>
-        </Container>
+        </>
       )}
 
       {/* Search Bar */}

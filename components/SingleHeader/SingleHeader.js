@@ -92,7 +92,9 @@ export default function SingleHeader({
   })
 
   return (
-    <header className={cx('component', { sticky: isScrolled })}>
+    <header
+      className={cx('component', { sticky: isScrolled, navShown: isNavShown })}
+    >
       {/* Responsive header */}
       {isDesktop || (!isDesktop && !isNavShown) ? (
         <Container>

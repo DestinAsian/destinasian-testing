@@ -14,6 +14,7 @@ import {
   ModuleAd,
   ContentWrapperUpdate,
   PasswordProtected,
+  SecondaryHeader,
 } from '../components'
 import { GetMenus } from '../queries/GetMenus'
 import { GetFooterMenus } from '../queries/GetFooterMenus'

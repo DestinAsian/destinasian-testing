@@ -255,14 +255,14 @@
     top: 2.5rem;
     transform: translateY(0vh);
 
-    @media ((min-width: $breakpoint-extra-small) and (max-width: $breakpoint-small)) {
+    @media (min-width: $breakpoint-extra-small) {
       top: 3.5rem;
       height: calc(-3.5rem + 100vh);
     }
 
-    @media (min-width: $breakpoint-small) {
-      top: 4.5rem;
-      height: calc(-4.5rem + 100vh);
-    }
+    // @media (min-width: $breakpoint-small) {
+    //   top: 4.5rem;
+    //   height: calc(-4.5rem + 100vh);
+    // }
   }
 }
