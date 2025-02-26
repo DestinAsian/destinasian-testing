@@ -6,14 +6,12 @@ import {
   ParentNavigation,
   SingleNavigation,
 } from '../../../components'
-import { useQuery } from '@apollo/client'
-import { GetSecondaryHeader } from '../../../queries/GetSecondaryHeader'
 
 let cx = classNames.bind(styles)
 
 export default function CategorySecondaryHeader({
+  data,
   databaseId,
-  home,
   categoryUri,
   name,
   parent,
@@ -26,17 +24,7 @@ export default function CategorySecondaryHeader({
   const [isScrolled, setIsScrolled] = useState(false)
   const [prevScrollY, setPrevScrollY] = useState(0)
 
-  let catVariable = {
-    first: 1,
-    id: databaseId,
-  }
-
-  // Get Category
-  const { data } = useQuery(GetSecondaryHeader, {
-    variables: catVariable,
-    fetchPolicy: 'network-only',
-    nextFetchPolicy: 'cache-and-network',
-  })
+  console.log(data)
 
   // Add currentUrl function
   useEffect(() => {
@@ -92,62 +80,60 @@ export default function CategorySecondaryHeader({
 
   return (
     <nav className={cx('component')}>
-      {home == undefined && (
-        <div
-          className={cx(
-            'container-wrapper',
-            { sticky: isScrolled },
-            isMainNavShown || isNavShown ? 'show' : undefined,
-          )}
-        >
-          <div className={cx('navbar')}>
-            {/* Parent category navigation */}
-            {data?.category?.children?.edges?.length != 0 &&
-              data?.category?.children != null &&
-              data?.category?.children != undefined && (
-                <ParentNavigation
-                  databaseId={databaseId}
-                  isActive={isActive}
-                  isMainNavShown={isMainNavShown}
-                  setIsMainNavShown={setIsMainNavShown}
-                  isNavShown={isNavShown}
-                  setIsNavShown={setIsNavShown}
-                  isScrolled={isScrolled}
-                  categoryName={name}
-                />
-              )}
-            {/* Children category navigation */}
-            {!data?.category?.children?.edges?.length &&
-              data?.category?.parent?.node?.children?.edges?.length != 0 &&
-              data?.category?.parent != null &&
-              data?.category?.parent != undefined && (
-                <ChildrenNavigation
-                  databaseId={databaseId}
-                  isActive={isActive}
-                  isMainNavShown={isMainNavShown}
-                  setIsMainNavShown={setIsMainNavShown}
-                  isNavShown={isNavShown}
-                  setIsNavShown={setIsNavShown}
-                  isScrolled={isScrolled}
-                  categoryName={parent}
-                />
-              )}
-            {/* Single post navigation */}
-            {data?.post?.categories?.edges[0]?.node?.parent && (
-              <SingleNavigation
+      <div
+        className={cx(
+          'container-wrapper',
+          { sticky: isScrolled },
+          isMainNavShown || isNavShown ? 'show' : undefined,
+        )}
+      >
+        <div className={cx('navbar')}>
+          {/* Parent category navigation */}
+          {data?.category?.children?.edges?.length != 0 &&
+            data?.category?.children != null &&
+            data?.category?.children != undefined && (
+              <ParentNavigation
                 databaseId={databaseId}
-                isActiveCategory={isActiveCategory}
+                isActive={isActive}
                 isMainNavShown={isMainNavShown}
                 setIsMainNavShown={setIsMainNavShown}
                 isNavShown={isNavShown}
                 setIsNavShown={setIsNavShown}
                 isScrolled={isScrolled}
-                categoryName={parentCategory}
+                categoryName={name}
               />
             )}
-          </div>
+          {/* Children category navigation */}
+          {!data?.category?.children?.edges?.length &&
+            data?.category?.parent?.node?.children?.edges?.length != 0 &&
+            data?.category?.parent != null &&
+            data?.category?.parent != undefined && (
+              <ChildrenNavigation
+                databaseId={databaseId}
+                isActive={isActive}
+                isMainNavShown={isMainNavShown}
+                setIsMainNavShown={setIsMainNavShown}
+                isNavShown={isNavShown}
+                setIsNavShown={setIsNavShown}
+                isScrolled={isScrolled}
+                categoryName={parent}
+              />
+            )}
+          {/* Single post navigation */}
+          {data?.post?.categories?.edges[0]?.node?.parent && (
+            <SingleNavigation
+              databaseId={databaseId}
+              isActiveCategory={isActiveCategory}
+              isMainNavShown={isMainNavShown}
+              setIsMainNavShown={setIsMainNavShown}
+              isNavShown={isNavShown}
+              setIsNavShown={setIsNavShown}
+              isScrolled={isScrolled}
+              categoryName={parentCategory}
+            />
+          )}
         </div>
-      )}
+      </div>
     </nav>
   )
 }

@@ -263,7 +263,6 @@ export default function Component(props) {
         isRCANavShown={isRCANavShown}
         setIsRCANavShown={setIsRCANavShown}
         isScrolled={isScrolled}
-        isNavShown={isNavShown}
       />
       <Main>
         <>

@@ -26,34 +26,13 @@ export default function CategoryHeader({
   latestStories,
   menusLoading,
   latestLoading,
+  searchQuery,
+  setSearchQuery,
+  isNavShown,
+  setIsNavShown,
+  isScrolled,
 }) {
   const isDesktop = useMediaQuery({ minWidth: 768 })
-  const [isNavShown, setIsNavShown] = useState(false)
-  const [isScrolled, setIsScrolled] = useState(false)
-
-  // Stop scrolling pages when isNavShown
-  useEffect(() => {
-    if (isNavShown) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'visible'
-    }
-  }, [isNavShown])
-
-  // Add sticky header on scroll
-  useEffect(() => {
-    function handleScroll() {
-      setIsScrolled(window.scrollY > 0)
-    }
-
-    window.addEventListener('scroll', handleScroll)
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
-  }, [])
-  // Search function content
-  const [searchQuery, setSearchQuery] = useState('')
   const postsPerPage = 1000
 
   // Clear search input
@@ -116,14 +95,16 @@ export default function CategoryHeader({
 
     // Compare the dates
     return dateB - dateA
-  });
+  })
 
   return (
-    <header className={cx('components', { sticky: isScrolled })}>
+    <header
+      className={cx('component', { sticky: isScrolled, navShown: isNavShown })}
+    >
       {/* Responsive header */}
       {isDesktop || (!isDesktop && !isNavShown) ? (
-        <Container>
-          <div className={cx('navbar')}>
+        <>
+          <div className={cx('navbar', { sticky: isScrolled })}>
             {/* DA logo */}
             <div className={cx('brand')}>
               <Link href="/">
@@ -225,10 +206,10 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
               </div>
             )}
           </div>
-        </Container>
+        </>
       ) : (
-        <Container>
-          <div className={cx('close-button')}>
+        <>
+          <div className={cx('close-button', { sticky: isScrolled })}>
             {/* close button */}
             <button
               type="button"
@@ -269,11 +250,11 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
               </svg>
             </button>
           </div>
-        </Container>
+        </>
       )}
 
       {/* Search Bar */}
-      <div className={cx('search-bar-wrapper', { stickySearch: isScrolled })}>
+      <div className={cx('search-bar-wrapper')}>
         {/* <div className={cx('search-input-wrapper')}>
           <SearchInput
             value={searchQuery}
@@ -288,14 +269,12 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
             </div>
           )}
 
-          {/* Conditionally render the SearchResults component */}
           {isSearchResultsVisible && (
             <SearchResults
               searchResults={contentNodesPosts}
               isLoading={searchResultsLoading}
             />
           )}
-          
         </div>
       </div>
 

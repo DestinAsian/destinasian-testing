@@ -329,7 +329,6 @@ export default function SingleEditorial(props) {
         isRCANavShown={isRCANavShown}
         setIsRCANavShown={setIsRCANavShown}
         isScrolled={isScrolled}
-        isNavShown={isNavShown}
       />
       <Main className={'relative top-[-0.75rem] sm:top-[-1rem]'}>
         <>

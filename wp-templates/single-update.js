@@ -287,7 +287,6 @@ export default function SingleUpdate(props) {
         isRCANavShown={isRCANavShown}
         setIsRCANavShown={setIsRCANavShown}
         isScrolled={isScrolled}
-        isNavShown={isNavShown}
       />
       <Main>
         <>

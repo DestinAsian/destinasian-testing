@@ -282,7 +282,6 @@ export default function SingleLuxeList(props) {
             isRCANavShown={isRCANavShown}
             setIsRCANavShown={setIsRCANavShown}
             isScrolled={isScrolled}
-            isNavShown={isNavShown}
           />
         </>
       )}
@@ -337,7 +336,6 @@ export default function SingleLuxeList(props) {
             isRCANavShown={isRCANavShown}
             setIsRCANavShown={setIsRCANavShown}
             isScrolled={isScrolled}
-            isNavShown={isNavShown}
           />
         </>
       )}

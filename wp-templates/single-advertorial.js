@@ -293,7 +293,6 @@ export default function SingleAdvertorial(props) {
         isRCANavShown={isRCANavShown}
         setIsRCANavShown={setIsRCANavShown}
         isScrolled={isScrolled}
-        isNavShown={isNavShown}
       />
       <Main>
         <>

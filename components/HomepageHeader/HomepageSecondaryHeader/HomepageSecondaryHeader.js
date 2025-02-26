@@ -14,7 +14,6 @@ export default function HomepageSecondaryHeader({
   isRCANavShown,
   setIsRCANavShown,
   isScrolled,
-  isNavShown,
 }) {
   return (
     <>
@@ -22,7 +21,6 @@ export default function HomepageSecondaryHeader({
         className={cx(
           'navigation-wrapper',
           { sticky: isScrolled },
-          isNavShown ? 'hide' : '',
         )}
       >
         <div className={cx('menu-wrapper')}>

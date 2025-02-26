@@ -1,10 +1,10 @@
 import classNames from 'classnames/bind'
-import styles from './SecondaryHeader.module.scss'
+import styles from './LLSecondaryHeader.module.scss'
 import { RCAFullMenu, TravelGuidesMenu } from '../../../components'
 
 let cx = classNames.bind(styles)
 
-export default function SecondaryHeader({
+export default function LLSecondaryHeader({
   searchQuery,
   setSearchQuery,
   rcaDatabaseId,
@@ -17,19 +17,11 @@ export default function SecondaryHeader({
 }) {
   return (
     <>
-      <div
-        className={cx(
-          'navigation-wrapper',
-          { sticky: isScrolled },
-        )}
-      >
+      <div className={cx('navigation-wrapper')}>
         <div className={cx('menu-wrapper')}>
           <button
             type="button"
-            className={cx(
-              'menu-button',
-              searchQuery ? 'active' : '',
-            )}
+            className={cx('menu-button', searchQuery ? 'active' : '')}
             onClick={() => {
               searchQuery ? setSearchQuery('') : setSearchQuery('travel')
               isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
@@ -43,10 +35,7 @@ export default function SecondaryHeader({
           </button>
           <button
             type="button"
-            className={cx(
-              'menu-button',
-              isGuidesNavShown ? 'active' : '',
-            )}
+            className={cx('menu-button', isGuidesNavShown ? 'active' : '')}
             onClick={() => {
               setIsGuidesNavShown(!isGuidesNavShown)
               isRCANavShown ? setIsRCANavShown(!isRCANavShown) : null
@@ -60,10 +49,7 @@ export default function SecondaryHeader({
           </button>
           <button
             type="button"
-            className={cx(
-              'menu-button',
-              isRCANavShown ? 'active' : '',
-            )}
+            className={cx('menu-button', isRCANavShown ? 'active' : '')}
             onClick={() => {
               setIsRCANavShown(!isRCANavShown)
               isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
@@ -85,7 +71,7 @@ export default function SecondaryHeader({
         )}
       >
         <div className={cx('full-menu-wrapper')}>
-          <TravelGuidesMenu />
+          <TravelGuidesMenu className={'dark-color'} />
         </div>
       </div>
       <div

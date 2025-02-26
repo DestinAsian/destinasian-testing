@@ -23,6 +23,7 @@ import { GetFooterMenus } from '../queries/GetFooterMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
 import { eb_garamond, rubik, rubik_mono_one } from '../styles/fonts/fonts'
 import Cookies from 'js-cookie'
+import { GetSecondaryHeader } from '../queries/GetSecondaryHeader'
 
 export default function Component(props) {
   // Loading state for previews
@@ -97,6 +98,18 @@ export default function Component(props) {
       document.body.style.overflow = 'visible'
     }
   }, [isNavShown])
+
+  let catVariable = {
+    first: 1,
+    id: databaseId,
+  }
+
+  // Get Category
+  const { data, loading } = useQuery(GetSecondaryHeader, {
+    variables: catVariable,
+    fetchPolicy: 'network-only',
+    nextFetchPolicy: 'cache-and-network',
+  })
 
   // Get menus
   const { data: menusData, loading: menusLoading } = useQuery(GetMenus, {
@@ -291,6 +304,7 @@ export default function Component(props) {
         isScrolled={isScrolled}
       />
       <CategorySecondaryHeader
+        data={data}
         databaseId={databaseId}
         categoryUri={categories[0]?.node?.uri}
         parentCategory={categories[0]?.node?.parent?.node?.name}

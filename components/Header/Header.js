@@ -1,11 +1,7 @@
 import classNames from 'classnames/bind'
 import Link from 'next/link'
 import destinasianLogo from '../../assets/logo/destinasian-logo.png'
-import {
-  Container,
-  FullMenu,
-  SearchResults,
-} from '../../components'
+import { Container, FullMenu, SearchResults } from '../../components'
 import styles from './Header.module.scss'
 import { useMediaQuery } from 'react-responsive'
 import Image from 'next/image'
@@ -96,7 +92,9 @@ export default function Header({
   })
 
   return (
-    <header className={cx('component', { sticky: isScrolled })}>
+    <header
+      className={cx('component', { sticky: isScrolled, navShown: isNavShown })}
+    >
       {/* Responsive header */}
       {isDesktop || (!isDesktop && !isNavShown) ? (
         <Container>
