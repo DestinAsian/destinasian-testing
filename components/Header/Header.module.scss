@@ -68,6 +68,31 @@
   text-decoration: none;
 }
 
+.menu-button-wrapper {
+  display: flex;
+}
+
+.search-button {
+  display: flex;
+  margin-right: 1rem;
+  justify-content: flex-end;
+  align-items: center;
+
+  @media (min-width: $breakpoint-extra-small) {
+    margin-right: 1rem;
+  }
+
+  button svg {
+    width: 1.2rem;
+    height: 1.3rem;
+
+    @media (min-width: $breakpoint-extra-small) {
+      width: 1.8rem;
+      height: 2rem;
+    }
+  }
+}
+
 .menu-button {
   display: flex;
   margin-right: 1rem;

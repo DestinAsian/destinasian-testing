@@ -14,6 +14,7 @@ import { useMediaQuery } from 'react-responsive'
 import Image from 'next/image'
 import { useQuery } from '@apollo/client'
 import { GetSearchResults } from '../../queries/GetSearchResults'
+import { FaSearch } from 'react-icons/fa'
 
 let cx = classNames.bind(styles)
 
@@ -137,133 +138,151 @@ export default function LLHeader({
 
             {/* Menu Button */}
             {isNavShown == false ? (
-              <div className={cx('menu-button')}>
-                {/* menu button */}
-                <button
-                  type="button"
-                  className={cx('menu-icon')}
-                  onClick={() => {
-                    setIsNavShown(!isNavShown)
-                    setSearchQuery('')
-                  }}
-                  aria-label="Toggle navigation"
-                  aria-controls={cx('full-menu-wrapper')}
-                  aria-expanded={!isNavShown}
-                >
-                  <svg
-                    width="22"
-                    height="96"
-                    viewBox="0 0 22 96"
-                    fill="#ffffff"
-                    xmlns="http://www.w3.org/2000/svg"
+              <div className={cx('menu-button-wrapper')}>
+                <div className={cx('search-button')}>
+                  {/* search button */}
+                  <button
+                    type="button"
+                    className={cx('search-icon')}
+                    onClick={() => {
+                      setIsNavShown(!isNavShown)
+                      setSearchQuery('')
+                    }}
+                    aria-label="Toggle navigation"
+                    aria-controls={cx('full-menu-wrapper')}
+                    aria-expanded={!isNavShown}
                   >
-                    <circle
-                      cx="10.7009"
-                      cy="10.7009"
-                      r="10.7009"
-                      transform="matrix(-1 0 0 1 21.4019 0)"
+                    <FaSearch className={cx('search-icon')} />
+                  </button>
+                </div>
+                <div className={cx('menu-button')}>
+                  {/* menu button */}
+                  <button
+                    type="button"
+                    className={cx('menu-icon')}
+                    onClick={() => {
+                      setIsNavShown(!isNavShown)
+                      setSearchQuery('')
+                    }}
+                    aria-label="Toggle navigation"
+                    aria-controls={cx('full-menu-wrapper')}
+                    aria-expanded={!isNavShown}
+                  >
+                    <svg
+                      width="22"
+                      height="96"
+                      viewBox="0 0 22 96"
                       fill="#ffffff"
-                    />
-                    <circle
-                      cx="10.7009"
-                      cy="10.7009"
-                      r="10.7009"
-                      transform="matrix(-1 0 0 1 21.4019 0)"
-                      fill="#ffffff"
-                    />
-                    <circle
-                      cx="10.7009"
-                      cy="10.7009"
-                      r="10.7009"
-                      transform="matrix(-1 0 0 1 21.4019 0)"
-                      fill="#ffffff"
-                    />
-                    <circle
-                      cx="10.7009"
-                      cy="10.7009"
-                      r="10.7009"
-                      transform="matrix(-1 0 0 1 21.4019 0)"
-                      fill="#ffffff"
-                    />
-                    <circle
-                      cx="10.7009"
-                      cy="10.7009"
-                      r="10.7009"
-                      transform="matrix(-1 0 0 1 21.4019 0)"
-                      fill="#ffffff"
-                    />
-                    <circle
-                      cx="10.7009"
-                      cy="10.7009"
-                      r="10.7009"
-                      transform="matrix(-1 0 0 1 21.4019 74.4785)"
-                      fill="#ffffff"
-                    />
-                    <circle
-                      cx="10.7009"
-                      cy="10.7009"
-                      r="10.7009"
-                      transform="matrix(-1 0 0 1 21.4019 74.4785)"
-                      fill="#ffffff"
-                    />
-                    <circle
-                      cx="10.7009"
-                      cy="10.7009"
-                      r="10.7009"
-                      transform="matrix(-1 0 0 1 21.4019 74.4785)"
-                      fill="#ffffff"
-                    />
-                    <circle
-                      cx="10.7009"
-                      cy="10.7009"
-                      r="10.7009"
-                      transform="matrix(-1 0 0 1 21.4019 74.4785)"
-                      fill="#ffffff"
-                    />
-                    <circle
-                      cx="10.7009"
-                      cy="10.7009"
-                      r="10.7009"
-                      transform="matrix(-1 0 0 1 21.4019 74.4785)"
-                      fill="#ffffff"
-                    />
-                    <circle
-                      cx="10.7009"
-                      cy="10.7009"
-                      r="10.7009"
-                      transform="matrix(-1 0 0 1 21.4019 36.8105)"
-                      fill="#ffffff"
-                    />
-                    <circle
-                      cx="10.7009"
-                      cy="10.7009"
-                      r="10.7009"
-                      transform="matrix(-1 0 0 1 21.4019 36.8105)"
-                      fill="#ffffff"
-                    />
-                    <circle
-                      cx="10.7009"
-                      cy="10.7009"
-                      r="10.7009"
-                      transform="matrix(-1 0 0 1 21.4019 36.8105)"
-                      fill="#ffffff"
-                    />
-                    <circle
-                      cx="10.7009"
-                      cy="10.7009"
-                      r="10.7009"
-                      transform="matrix(-1 0 0 1 21.4019 36.8105)"
-                      fill="#ffffff"
-                    />
-                    <circle
-                      cx="10.7009"
-                      cy="10.7009"
-                      r="10.7009"
-                      transform="matrix(-1 0 0 1 21.4019 36.8105)"
-                      fill="#ffffff"
-                    />
-                  </svg>
-                </button>
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <circle
+                        cx="10.7009"
+                        cy="10.7009"
+                        r="10.7009"
+                        transform="matrix(-1 0 0 1 21.4019 0)"
+                        fill="#ffffff"
+                      />
+                      <circle
+                        cx="10.7009"
+                        cy="10.7009"
+                        r="10.7009"
+                        transform="matrix(-1 0 0 1 21.4019 0)"
+                        fill="#ffffff"
+                      />
+                      <circle
+                        cx="10.7009"
+                        cy="10.7009"
+                        r="10.7009"
+                        transform="matrix(-1 0 0 1 21.4019 0)"
+                        fill="#ffffff"
+                      />
+                      <circle
+                        cx="10.7009"
+                        cy="10.7009"
+                        r="10.7009"
+                        transform="matrix(-1 0 0 1 21.4019 0)"
+                        fill="#ffffff"
+                      />
+                      <circle
+                        cx="10.7009"
+                        cy="10.7009"
+                        r="10.7009"
+                        transform="matrix(-1 0 0 1 21.4019 0)"
+                        fill="#ffffff"
+                      />
+                      <circle
+                        cx="10.7009"
+                        cy="10.7009"
+                        r="10.7009"
+                        transform="matrix(-1 0 0 1 21.4019 74.4785)"
+                        fill="#ffffff"
+                      />
+                      <circle
+                        cx="10.7009"
+                        cy="10.7009"
+                        r="10.7009"
+                        transform="matrix(-1 0 0 1 21.4019 74.4785)"
+                        fill="#ffffff"
+                      />
+                      <circle
+                        cx="10.7009"
+                        cy="10.7009"
+                        r="10.7009"
+                        transform="matrix(-1 0 0 1 21.4019 74.4785)"
+                        fill="#ffffff"
+                      />
+                      <circle
+                        cx="10.7009"
+                        cy="10.7009"
+                        r="10.7009"
+                        transform="matrix(-1 0 0 1 21.4019 74.4785)"
+                        fill="#ffffff"
+                      />
+                      <circle
+                        cx="10.7009"
+                        cy="10.7009"
+                        r="10.7009"
+                        transform="matrix(-1 0 0 1 21.4019 74.4785)"
+                        fill="#ffffff"
+                      />
+                      <circle
+                        cx="10.7009"
+                        cy="10.7009"
+                        r="10.7009"
+                        transform="matrix(-1 0 0 1 21.4019 36.8105)"
+                        fill="#ffffff"
+                      />
+                      <circle
+                        cx="10.7009"
+                        cy="10.7009"
+                        r="10.7009"
+                        transform="matrix(-1 0 0 1 21.4019 36.8105)"
+                        fill="#ffffff"
+                      />
+                      <circle
+                        cx="10.7009"
+                        cy="10.7009"
+                        r="10.7009"
+                        transform="matrix(-1 0 0 1 21.4019 36.8105)"
+                        fill="#ffffff"
+                      />
+                      <circle
+                        cx="10.7009"
+                        cy="10.7009"
+                        r="10.7009"
+                        transform="matrix(-1 0 0 1 21.4019 36.8105)"
+                        fill="#ffffff"
+                      />
+                      <circle
+                        cx="10.7009"
+                        cy="10.7009"
+                        r="10.7009"
+                        transform="matrix(-1 0 0 1 21.4019 36.8105)"
+                        fill="#ffffff"
+                      />
+                    </svg>
+                  </button>
+                </div>
               </div>
             ) : (
               <div className={cx('menu-button')}>

@@ -17,6 +17,10 @@
   z-index: 1000;
   transform: translateY(60px);
   // transition: transform 0.3s ease-in-out;
+
+  .search-button {
+    color: var(--wpe--color--black);
+  }
 }
 
 .white {
@@ -177,6 +181,32 @@
 
   @media (min-width: $breakpoint-medium) {
     font-size: 1.25rem;
+  }
+}
+
+.menu-button-wrapper {
+  display: flex;
+}
+
+.search-button {
+  display: flex;
+  margin-right: 1rem;
+  justify-content: flex-end;
+  align-items: center;
+  color: var(--wpe--color--white);
+
+  @media (min-width: $breakpoint-extra-small) {
+    margin-right: 1rem;
+  }
+
+  button svg {
+    width: 1.2rem;
+    height: 1.3rem;
+
+    @media (min-width: $breakpoint-extra-small) {
+      width: 1.8rem;
+      height: 2rem;
+    }
   }
 }
 
