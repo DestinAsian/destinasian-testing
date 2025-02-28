@@ -7,7 +7,7 @@ import {
   SearchInput,
   SearchResults,
 } from '../../components'
-import styles from './SingleLuxuryTravelHeader.module.scss'
+import styles from './LTHeader.module.scss'
 import { useState, useEffect } from 'react'
 import { useMediaQuery } from 'react-responsive'
 import Image from 'next/image'
@@ -17,7 +17,7 @@ import { FaSearch } from 'react-icons/fa'
 
 let cx = classNames.bind(styles)
 
-export default function SingleLuxuryTravelHeader({
+export default function LTHeader({
   primaryMenuItems,
   secondaryMenuItems,
   thirdMenuItems,
@@ -27,29 +27,14 @@ export default function SingleLuxuryTravelHeader({
   latestStories,
   menusLoading,
   latestLoading,
+  searchQuery,
+  setSearchQuery,
   isNavShown,
   setIsNavShown,
-  visibleComponent,
+  isScrolled,
 }) {
   // Media queries
   const isDesktop = useMediaQuery({ minWidth: 768 })
-  const isMobile = useMediaQuery({ maxWidth: 767 })
-  const [isScrolled, setIsScrolled] = useState(false)
-
-  // Add sticky header on scroll
-  useEffect(() => {
-    function handleScroll() {
-      setIsScrolled(window.scrollY > 0)
-    }
-
-    window.addEventListener('scroll', handleScroll)
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
-  }, [])
-  // Search function content
-  const [searchQuery, setSearchQuery] = useState('')
   const postsPerPage = 1000
 
   // Clear search input
@@ -290,13 +275,13 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
 
       {/* Search Bar */}
       <div className={cx('search-bar-wrapper', { stickySearch: isScrolled })}>
-        <div className={cx('search-input-wrapper')}>
+        {/* <div className={cx('search-input-wrapper')}>
           <SearchInput
             value={searchQuery}
             onChange={(newValue) => setSearchQuery(newValue)}
             clearSearch={clearSearch}
           />
-        </div>
+        </div> */}
         <div className={cx('search-result-wrapper')}>
           {searchResultsError && (
             <div className={cx('alert-error')}>

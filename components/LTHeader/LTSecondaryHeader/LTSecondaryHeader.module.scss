@@ -6,6 +6,7 @@
   position: fixed;
   height: auto;
   width: 100vw;
+  background-color: var(--wpe--color--teal);
   z-index: 51;
   top: 2.75rem;
   padding: 0;
@@ -25,7 +26,7 @@
     width: 100%;
     max-width: 700px;
     padding: 0 1rem 0;
-    background-color: transparent;
+    background-color: var(--wpe--color--teal);
 
     @media (min-width: $breakpoint-extra-small) {
       padding: 0 2rem;
@@ -51,7 +52,7 @@
     min-width: 4rem;
     width: fit-content;
     height: 100%;
-    color: var(--wpe--color--white--smoke);
+    color: var(--wpe--color--black);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -105,7 +106,7 @@
 }
 
 .sticky {
-  background-color: var(--wpe--main--background-color);
+  background-color: var(--wpe--color--teal);
   position: fixed;
   top: -4.25rem;
   left: 0;
@@ -152,13 +153,13 @@
     }
 
     // * {
-    //   color: var(--wpe--color--white--smoke);
+    //   color: var(--wpe--color--black);
     // }
   }
 }
 
 .full-menu-wrapper {
-  background-color: var(--wpe--main--background-color);
+  background-color: var(--wpe--color--teal);
   position: relative;
   max-width: 700px;
 
@@ -203,6 +204,10 @@
 
     * {
       color: var(--wpe--color--black);
+    }
+
+    > div > div {
+      background-color: var(--wpe--color--teal);
     }
   }
 }
