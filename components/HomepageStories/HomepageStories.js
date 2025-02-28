@@ -227,9 +227,7 @@ export default function HomepageStories(pinPosts) {
   }
 
   // Declare all posts
-  const allPosts = (data?.contentNodes?.edges || [])
-    .map((post) => post.node)
-    .filter((post) => post.contentTypeName !== 'update')
+  const allPosts = (data?.contentNodes?.edges || []).map((post) => post.node)
 
   // Declare all pin posts
   const allPinPosts = [
@@ -262,9 +260,9 @@ export default function HomepageStories(pinPosts) {
       {mergedPosts.length !== 0 &&
         mergedPosts.map((post, index) => (
           <React.Fragment key={post?.id}>
+            {/* Post / Guides Stories */}
             {post?.contentTypeName === 'post' && (
               <div className={cx('post-wrapper')}>
-                {/* Post / Guides Stories */}
                 <PostTwoColumns
                   title={post?.title}
                   excerpt={post?.excerpt}

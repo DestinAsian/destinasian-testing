@@ -24,8 +24,6 @@ export default function CategorySecondaryHeader({
   const [isScrolled, setIsScrolled] = useState(false)
   const [prevScrollY, setPrevScrollY] = useState(0)
 
-  console.log(data)
-
   // Add currentUrl function
   useEffect(() => {
     setCurrentUrl(window.location.pathname)
