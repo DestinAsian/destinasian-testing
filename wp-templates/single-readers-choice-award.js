@@ -323,8 +323,8 @@ export default function singleRca(props) {
         menusLoading={menusLoading}
         latestLoading={latestLoading}
         // parent={parent}
-        sliderRCA={sliderRCA}
-        toggleAutoplay={toggleAutoplay}
+        // sliderRCA={sliderRCA}
+        // toggleAutoplay={toggleAutoplay}
         isNavShown={isNavShown}
         setIsNavShown={setIsNavShown}
         isRCANavShown={isRCANavShown}

@@ -13,7 +13,8 @@ export default function LLSecondaryHeader({
   setIsGuidesNavShown,
   isRCANavShown,
   setIsRCANavShown,
-  isScrolled,
+  isAutoplayRunning,
+  toggleAutoplay,
 }) {
   return (
     <>
@@ -26,6 +27,12 @@ export default function LLSecondaryHeader({
               searchQuery ? setSearchQuery('') : setSearchQuery('travel')
               isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
               isRCANavShown ? setIsRCANavShown(!isRCANavShown) : null
+              if (searchQuery === '' && isAutoplayRunning) {
+                return toggleAutoplay()
+              }
+              if (searchQuery === 'travel' && !isAutoplayRunning) {
+                return toggleAutoplay()
+              }
             }}
             aria-label="Toggle navigation"
             aria-controls={cx('rca-menu-wrapper')}
@@ -40,6 +47,12 @@ export default function LLSecondaryHeader({
               setIsGuidesNavShown(!isGuidesNavShown)
               isRCANavShown ? setIsRCANavShown(!isRCANavShown) : null
               setSearchQuery('')
+              if (!isGuidesNavShown && isAutoplayRunning) {
+                return toggleAutoplay()
+              }
+              if (isGuidesNavShown && !isAutoplayRunning) {
+                return toggleAutoplay()
+              }
             }}
             aria-label="Toggle navigation"
             aria-controls={cx('rca-menu-wrapper')}
@@ -54,6 +67,12 @@ export default function LLSecondaryHeader({
               setIsRCANavShown(!isRCANavShown)
               isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
               setSearchQuery('')
+              if (!isRCANavShown && isAutoplayRunning) {
+                return toggleAutoplay()
+              }
+              if (isRCANavShown && !isAutoplayRunning) {
+                return toggleAutoplay()
+              }
             }}
             aria-label="Toggle navigation"
             aria-controls={cx('rca-menu-wrapper')}

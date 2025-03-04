@@ -26,11 +26,13 @@ export default function ContentWrapperLL({
   isLLNavShown,
   setIsLLNavShown,
   router,
+  isAutoplayRunning,
+  setIsAutoplayRunning,
+  sliderLL,
+  toggleAutoplay,
 }) {
   const batchSize = 30
   const [transformedContent, setTransformedContent] = useState('')
-  const [isAutoplayRunning, setIsAutoplayRunning] = useState(true)
-  const sliderLL = useRef(null)
   const [isSliderMounted, setIsSliderMounted] = useState(false) // Track slider mount status
 
   const { data, loading, error } = useQuery(GetLuxeListPagination, {
@@ -141,18 +143,6 @@ export default function ContentWrapperLL({
       }
     }
   }, [isAutoplayRunning, isSliderMounted])
-
-  const toggleAutoplay = () => {
-    const swiperInstance = sliderLL?.current?.swiper
-    if (swiperInstance) {
-      if (isAutoplayRunning) {
-        swiperInstance.autoplay?.stop()
-      } else {
-        swiperInstance.autoplay?.start()
-      }
-      setIsAutoplayRunning(!isAutoplayRunning)
-    }
-  }
 
   useEffect(() => {
     if (isAutoplayRunning && isNavShown) {

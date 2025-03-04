@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
 import { BlogInfoFragment } from '../fragments/GeneralSettings'
@@ -66,6 +66,22 @@ export default function singleLuxeList(props) {
   const [isLLNavShown, setIsLLNavShown] = useState(false)
   const [isGuidesNavShown, setIsGuidesNavShown] = useState(false)
   const [isRCANavShown, setIsRCANavShown] = useState(false)
+
+  // Slider Autoplay state
+  const sliderLL = useRef(null)
+  const [isAutoplayRunning, setIsAutoplayRunning] = useState(true)
+
+  const toggleAutoplay = () => {
+    const swiperInstance = sliderLL?.current?.swiper
+    if (swiperInstance) {
+      if (isAutoplayRunning) {
+        swiperInstance.autoplay?.stop()
+      } else {
+        swiperInstance.autoplay?.start()
+      }
+      setIsAutoplayRunning(!isAutoplayRunning)
+    }
+  }
 
   // Stop scrolling pages when searchQuery
   useEffect(() => {
@@ -315,7 +331,9 @@ export default function singleLuxeList(props) {
         setIsGuidesNavShown={setIsGuidesNavShown}
         isRCANavShown={isRCANavShown}
         setIsRCANavShown={setIsRCANavShown}
-        isScrolled={isScrolled}
+        // isScrolled={isScrolled}
+        isAutoplayRunning={isAutoplayRunning}
+        toggleAutoplay={toggleAutoplay}
       />
       <Main>
         <>
@@ -359,6 +377,10 @@ export default function singleLuxeList(props) {
                     isNavShown={isNavShown}
                     isLLNavShown={isLLNavShown}
                     setIsLLNavShown={setIsLLNavShown}
+                    isAutoplayRunning={isAutoplayRunning}
+                    setIsAutoplayRunning={setIsAutoplayRunning}
+                    sliderLL={sliderLL}
+                    toggleAutoplay={toggleAutoplay}
                   />
                 </div>
               </div>
