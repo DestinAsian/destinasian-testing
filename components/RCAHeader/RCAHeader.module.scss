@@ -21,7 +21,6 @@
   width: 100%;
   // z-index: 50;
   transform: translateY(60px);
-  // transition: transform 0.3s ease-in-out;
 }
 
 .twoNavShown {
@@ -344,7 +343,6 @@
     padding: 0;
     gap: 1rem;
     top: 2.5rem;
-    transition: top 0.4s ease-in-out;
 
     @media ((min-width: $breakpoint-extra-small) and (max-width: $breakpoint-small)) {
       top: 3.5rem;
@@ -518,7 +516,6 @@
     padding: 0;
     gap: 1rem;
     top: 2.5rem;
-    transition: top 0.4s ease-in-out;
 
     @media ((min-width: $breakpoint-extra-small) and (max-width: $breakpoint-small)) {
       top: 3.5rem;

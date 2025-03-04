@@ -28,6 +28,9 @@ export default function RCASecondaryHeader({
               if (isAutoplayRunning) {
                 return toggleAutoplay()
               }
+              if (searchQuery === '' && !isAutoplayRunning) {
+                return toggleAutoplay()
+              }
             }}
             aria-label="Toggle navigation"
             aria-controls={cx('rca-menu-wrapper')}
@@ -45,6 +48,9 @@ export default function RCASecondaryHeader({
               if (isAutoplayRunning) {
                 return toggleAutoplay()
               }
+              if (!isGuidesNavShown && !isAutoplayRunning) {
+                return toggleAutoplay()
+              }
             }}
             aria-label="Toggle navigation"
             aria-controls={cx('rca-menu-wrapper')}
@@ -52,6 +58,7 @@ export default function RCASecondaryHeader({
           >
             <div className={cx('menu-title')}>{`Guides`}</div>
           </button>
+          {console.log(!isNavShown && !isAutoplayRunning)}
           <button
             type="button"
             className={cx('menu-button', isNavShown ? 'active' : '')}
@@ -60,6 +67,9 @@ export default function RCASecondaryHeader({
               isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
               setSearchQuery('')
               if (isAutoplayRunning) {
+                return toggleAutoplay()
+              }
+              if (!isNavShown && !isAutoplayRunning) {
                 return toggleAutoplay()
               }
             }}
