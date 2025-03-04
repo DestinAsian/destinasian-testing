@@ -25,10 +25,10 @@ export default function RCASecondaryHeader({
               searchQuery ? setSearchQuery('') : setSearchQuery('travel')
               isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
               isNavShown ? setIsNavShown(!isNavShown) : null
-              if (isAutoplayRunning) {
+              if (searchQuery === '' && isAutoplayRunning) {
                 return toggleAutoplay()
               }
-              if (searchQuery === '' && !isAutoplayRunning) {
+              if (searchQuery === 'travel' && !isAutoplayRunning) {
                 return toggleAutoplay()
               }
             }}
@@ -45,10 +45,10 @@ export default function RCASecondaryHeader({
               setIsGuidesNavShown(!isGuidesNavShown)
               isNavShown ? setIsNavShown(!isNavShown) : null
               setSearchQuery('')
-              if (isAutoplayRunning) {
+              if (!isGuidesNavShown && isAutoplayRunning) {
                 return toggleAutoplay()
               }
-              if (!isGuidesNavShown && !isAutoplayRunning) {
+              if (isGuidesNavShown && !isAutoplayRunning) {
                 return toggleAutoplay()
               }
             }}
@@ -58,7 +58,6 @@ export default function RCASecondaryHeader({
           >
             <div className={cx('menu-title')}>{`Guides`}</div>
           </button>
-          {console.log(!isNavShown && !isAutoplayRunning)}
           <button
             type="button"
             className={cx('menu-button', isNavShown ? 'active' : '')}
@@ -66,10 +65,10 @@ export default function RCASecondaryHeader({
               setIsNavShown(!isNavShown)
               isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
               setSearchQuery('')
-              if (isAutoplayRunning) {
+              if (!isNavShown && isAutoplayRunning) {
                 return toggleAutoplay()
               }
-              if (!isNavShown && !isAutoplayRunning) {
+              if (isNavShown && !isAutoplayRunning) {
                 return toggleAutoplay()
               }
             }}
