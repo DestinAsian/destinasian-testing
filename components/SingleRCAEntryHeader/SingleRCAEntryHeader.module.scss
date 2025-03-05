@@ -56,7 +56,7 @@
     left: 0;
     position: fixed;
     z-index: 47;
-    transform: translate(0, 95vh);
+    transform: translate(0, 94vh);
   }
 }
 
@@ -81,7 +81,7 @@
   color: var(--wpe--color--black);
   background-color: var(--wpe--color--white--smoke);
   font-size: 0.5rem;
-  line-height: 1.2;
+  // line-height: 1.2;
   // text-transform: uppercase;
   text-align: center;
   padding: 0.4rem;
@@ -97,7 +97,7 @@
 
 .title {
   font-size: 2rem;
-  line-height: 1.2;
+  // line-height: 1.2;
   // text-transform: uppercase;
   color: var(--wpe--color--white--smoke);
   text-align: left;
