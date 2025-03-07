@@ -100,14 +100,28 @@ export default function Component(props) {
     }
   }, [isGuidesNavShown])
 
-  // Get Latest RCA
   const { data: rcaData } = useQuery(GetLatestRCA, {
     fetchPolicy: 'network-only',
     nextFetchPolicy: 'cache-and-network',
   })
 
-  const { databaseId: rcaDatabaseId, uri: rcaUri } =
-    rcaData?.readersChoiceAwards?.edges[0]?.node ?? []
+  const [latestRCA, setLatestRCA] = useState(null)
+
+  useEffect(() => {
+    if (rcaData?.readersChoiceAwards?.edges) {
+      // Find the first RCA where parent is null
+      const filteredRCA = rcaData.readersChoiceAwards.edges.find(
+        (edge) => !edge.node.parent,
+      )?.node
+      setLatestRCA(filteredRCA || null)
+    }
+  }, [rcaData]) // Runs whenever rcaData changes
+
+  const {
+    // title: rcaTitle,
+    databaseId: rcaDatabaseId,
+    uri: rcaUri,
+  } = latestRCA ?? []
 
   let catVariable = {
     first: 1,
