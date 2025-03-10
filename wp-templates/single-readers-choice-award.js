@@ -94,6 +94,7 @@ export default function singleRca(props) {
     title,
     featuredImage,
     content,
+    rcaPageAttributes,
     ancestors,
     parent,
     children,
@@ -367,11 +368,15 @@ export default function singleRca(props) {
                     title={
                       parent?.node?.title !== ancestors?.edges[0]?.node?.title
                         ? title
+                        : rcaPageAttributes?.parentCustomLabel !== null
+                        ? title
                         : null
                     }
                     parentTitle={
                       parent?.node?.title !== ancestors?.edges[0]?.node?.title
                         ? parent?.node?.title
+                        : rcaPageAttributes?.parentCustomLabel !== null
+                        ? rcaPageAttributes?.parentCustomLabel
                         : title
                     }
                     // category={categories?.edges[0]?.node?.name}
@@ -420,6 +425,9 @@ singleRca.query = gql`
       databaseId
       content
       uri
+      rcaPageAttributes {
+        parentCustomLabel
+      }
       passwordProtected {
         onOff
         password

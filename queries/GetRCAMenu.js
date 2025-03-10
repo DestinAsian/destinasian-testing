@@ -24,6 +24,9 @@ export const GetRCAMenu = gql`
               id
               title
               uri
+              rcaPageAttributes {
+                parentCustomLabel
+              }
               categories {
                 edges {
                   node {

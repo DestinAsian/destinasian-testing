@@ -32,23 +32,17 @@ export default function RCAFullMenu({
     nextFetchPolicy: 'cache-and-network',
   })
 
-  // Declare all posts
+  // Get all posts (including nested child posts if needed)
   const allPosts =
     data?.readersChoiceAward?.children?.edges.map((post) => post.node) || []
 
-  // Declare All Posts including nested child
-  // const extractPosts = (nodes) => {
-  //   if (!nodes) return []
-  //   return nodes.flatMap((post) => [
-  //     post?.node,
-  //     ...extractPosts(post?.node?.children?.edges || []),
-  //   ])
-  // }
-
-  // const allPosts = extractPosts(data?.readersChoiceAward?.children?.edges || [])
+  // Filter posts where `parentCustomLabel` is null
+  const filteredAllPosts = allPosts.filter(
+    (post) => post?.rcaPageAttributes?.parentCustomLabel === null,
+  )
 
   // Function to filter out duplicate categories
-  const uniqueCategories = allPosts.reduce((unique, post) => {
+  const uniqueCategories = filteredAllPosts.reduce((unique, post) => {
     const categoryName = post?.categories?.edges[0]?.node?.name
     if (!unique.includes(categoryName)) {
       unique.push(categoryName)
@@ -109,7 +103,7 @@ export default function RCAFullMenu({
         <div className={cx('menu-wrapper')}>
           {/* <NavigationMenu
             className={cx(['rca-navigation-menu'])}
-            menuItems={allPosts}
+            menuItems={filteredAllPosts}
           /> */}
           <div className={cx(['rca-navigation-menu'])}>
             <div className={cx('menu-name')}>
@@ -128,7 +122,7 @@ export default function RCAFullMenu({
                     <h2 className={cx('category')}>{categoryName}</h2>
                   </div>
                   <div className={cx('content-wrapper')}>
-                    {allPosts.map((post) => {
+                    {filteredAllPosts.map((post) => {
                       const postCategory =
                         post?.categories?.edges[0]?.node?.name
                       if (postCategory === categoryName) {

@@ -9,6 +9,7 @@ import {
   SEO,
   TagStories,
   CategoryEntryHeader,
+  SecondaryHeader,
 } from '../components'
 import { GetMenus } from '../queries/GetMenus'
 import { GetFooterMenus } from '../queries/GetFooterMenus'
