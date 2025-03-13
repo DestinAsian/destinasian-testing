@@ -17,6 +17,7 @@ import {
   PasswordProtected,
   SecondaryHeader,
 } from '../components'
+import { GetMenus } from '../queries/GetMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
 import { eb_garamond, rubik, rubik_mono_one } from '../styles/fonts/fonts'
 import Cookies from 'js-cookie'
