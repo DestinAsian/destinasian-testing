@@ -10,7 +10,7 @@ import {
   ModuleAd,
   AdvertorialPostTwoColumns,
 } from '../../components'
-import { GetAdvertorialStories } from '../../queries/GetAdvertorialStories'
+import { GetAdvertorialHomepageStories } from '../../queries/GetAdvertorialHomepageStories'
 
 let cx = classNames.bind(styles)
 
@@ -57,12 +57,8 @@ export default function HomepageStories(pinPosts) {
 
   // Get Advertorial Stories
   const { data: advertorialsData, error: advertorialsError } = useQuery(
-    GetAdvertorialStories,
+    GetAdvertorialHomepageStories,
     {
-      variables: {
-        first: advertPerPage,
-        search: null,
-      },
       fetchPolicy: 'network-only',
       nextFetchPolicy: 'cache-and-network',
     },
@@ -132,22 +128,15 @@ export default function HomepageStories(pinPosts) {
       const contentAdvertorials = []
 
       // Loop through all the contentNodes posts
-      advertorialsData?.tags?.edges?.forEach((contentNodes) => {
-        {
-          contentNodes?.node?.contentNodes?.edges?.length !== 0 &&
-            contentNodes.node?.contentNodes?.edges.forEach((post) => {
-              const { databaseId } = post.node
+      advertorialsData?.contentNodes?.edges?.forEach((post) => {
+        const { databaseId } = post.node
 
-              // Check if the databaseId is unique (not in the Set)
-              if (!uniqueDatabaseIds.has(databaseId)) {
-                uniqueDatabaseIds.add(databaseId) // Add the databaseId to the Set
-                contentAdvertorials.push(post.node) // Push the unique post to the array
-              }
-            })
+        // Check if the databaseId is unique (not in the Set)
+        if (!uniqueDatabaseIds.has(databaseId)) {
+          uniqueDatabaseIds.add(databaseId) // Add the databaseId to the Set
+          contentAdvertorials.push(post.node) // Push the unique post to the array
         }
       })
-
-      // const advertorialArray = Object.values(contentAdvertorials || [])
 
       // Shuffle only the otherBannerAds array
       const shuffleAdvertorialPost = shuffleArray(contentAdvertorials)
