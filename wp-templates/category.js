@@ -297,8 +297,8 @@ export default function Component(props) {
         title={seo?.title}
         description={seo?.metaDesc}
         imageUrl={
-          categorySlider[0]
-            ? categorySlider[0]
+          categorySlider?.length !== 0
+            ? categorySlider[0][0]
             : categoryImages?.categoryImages?.mediaItemUrl
         }
         url={uri}
