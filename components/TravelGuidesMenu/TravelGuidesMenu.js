@@ -268,7 +268,7 @@ export default function TravelGuidesMenu(className) {
   }, [travelGuidesData])
 
   let menuVariable = {
-    first: 50,
+    first: 1000,
     footerHeaderLocation: FOOTER_LOCATION,
   }
 
