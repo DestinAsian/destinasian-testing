@@ -197,12 +197,6 @@ export default function Component(props) {
 
   return (
     <main className={`${eb_garamond.variable} ${rubik_mono_one.variable}`}>
-      <SEO
-        title={seo?.title}
-        description={seo?.metaDesc}
-        url={uri}
-        focuskw={seo?.focuskw}
-      />
       <Header
         title={siteTitle}
         description={siteDescription}
@@ -254,6 +248,33 @@ Component.query = gql`
         title
         metaDesc
         focuskw
+      }
+      categoryImages {
+        changeToSlider
+        categorySlide1 {
+          mediaItemUrl
+        }
+        categorySlide2 {
+          mediaItemUrl
+        }
+        categorySlide3 {
+          mediaItemUrl
+        }
+        categorySlide4 {
+          mediaItemUrl
+        }
+        categorySlide5 {
+          mediaItemUrl
+        }
+        categoryImages {
+          mediaItemUrl
+        }
+        categorySlideCaption1
+        categorySlideCaption2
+        categorySlideCaption3
+        categorySlideCaption4
+        categorySlideCaption5
+        categoryImagesCaption
       }
     }
     generalSettings {

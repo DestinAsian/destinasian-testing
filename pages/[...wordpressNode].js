@@ -2,8 +2,12 @@ import { getWordPressProps, WordPressTemplate } from '@faustwp/core'
 import { SEO } from '../components'
 
 export default function Page(props) {
-  const { categoryImages, seo, uri } =
-    props?.__TEMPLATE_QUERY_DATA__?.category ?? []
+  const category = props?.__TEMPLATE_QUERY_DATA__?.category
+  const tag = props?.__TEMPLATE_QUERY_DATA__?.tag
+
+  const source = category || tag || {} // fallback to empty object to prevent errors
+
+  const { categoryImages, seo, uri } = source ?? []
 
   return (
     <>
