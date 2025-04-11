@@ -173,7 +173,7 @@ export default function Component(props) {
     GetFooterMenus,
     {
       variables: {
-        first: 50,
+        first: 100,
         footerHeaderLocation: MENUS.FOOTER_LOCATION,
       },
       fetchPolicy: 'network-only',
@@ -423,7 +423,7 @@ Component.query = gql`
                 name
               }
             }
-            categories(where: { childless: true }) {
+            categories(first: 1000, where: { childless: true }) {
               edges {
                 node {
                   name
@@ -495,7 +495,7 @@ Component.query = gql`
         node {
           name
           uri
-          children(where: { childless: true }) {
+          children(first: 1000, where: { childless: true }) {
             edges {
               node {
                 name
