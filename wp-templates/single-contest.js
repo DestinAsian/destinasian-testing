@@ -163,7 +163,7 @@ export default function SingleContest(props) {
     GetFooterMenus,
     {
       variables: {
-        first: 50,
+        first: 100,
         footerHeaderLocation: MENUS.FOOTER_LOCATION,
       },
       fetchPolicy: 'network-only',
