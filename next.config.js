@@ -31,7 +31,7 @@ module.exports = withFaust({
       },
       {
         source: '/category/:slug*', // All category slug redirect
-        destination: '/:slug*',
+        destination: '/travel-guide/:slug*',
         permanent: true, // This indicates a 301 permanent redirect
       },
     ]
