@@ -4,7 +4,7 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import Image from 'next/image'
 import { LayoutGroup } from 'framer-motion'
 // src/components/TabDays/TabDays.js
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { BACKEND_URL } from '../../constants/backendUrl'
 let cx = className.bind(styles)
 
@@ -14,6 +14,21 @@ export default function TabsEditor({ tabsEditor, luxuryTravelClass }) {
   const [transformedContent1, setTransformedContent1] = useState('')
 
   const [transformedContent2, setTransformedContent2] = useState('')
+  const topButtonRef = useRef(null)
+
+  const handleClick = (tab) => {
+    setActiveTab(tab)
+    setTimeout(() => {
+      if (topButtonRef.current) {
+        const offset = -100
+        const top =
+          topButtonRef.current.getBoundingClientRect().top +
+          window.scrollY +
+          offset
+        window.scrollTo({ top, behavior: 'smooth' })
+      }
+    }, 100)
+  }
 
   useEffect(() => {
     const extractImageData = (htmlContent) => {
@@ -65,7 +80,7 @@ export default function TabsEditor({ tabsEditor, luxuryTravelClass }) {
             : 'tabs-container mx-auto max-w-[700px]'
         }
       >
-        <div className="my-4 flex border-2 border-black">
+        <div className="my-4 flex border-2 border-black" ref={topButtonRef}>
           <button
             onClick={() => setActiveTab('tab1')}
             className={`flex-1 border px-4 py-2 ${
@@ -103,7 +118,8 @@ export default function TabsEditor({ tabsEditor, luxuryTravelClass }) {
         </div>
         <div className="mb-4 flex border-2 border-black">
           <button
-            onClick={() => setActiveTab('tab1')}
+            // onClick={() => setActiveTab('tab1')}
+            onClick={() => handleClick('tab1')}
             className={`flex-1 border px-4 py-2 ${
               activeTab === 'tab1'
                 ? 'bg-[#000000] text-[#ffffff]'
@@ -113,7 +129,8 @@ export default function TabsEditor({ tabsEditor, luxuryTravelClass }) {
             {tabsEditor?.tabTitle1}
           </button>
           <button
-            onClick={() => setActiveTab('tab2')}
+            // onClick={() => setActiveTab('tab2')}
+            onClick={() => handleClick('tab2')}
             className={`flex-1 border px-4 py-2 ${
               activeTab === 'tab2'
                 ? 'bg-[#000000] text-[#ffffff]'

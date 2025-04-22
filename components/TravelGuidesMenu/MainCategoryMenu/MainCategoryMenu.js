@@ -76,7 +76,6 @@ export default function MainCategoryMenu(categoryName) {
       (post) => post?.node?.connectedNode?.node?.name === mainCategory,
     )
   }, [primaryMenu])
-
   // ProcessResults on Advertorials & HonorsCircles
   const processResults = (posts) => {
     const advertorials = []

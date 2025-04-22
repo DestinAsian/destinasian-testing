@@ -15,7 +15,58 @@
     display: flex;
     flex-direction: column;
     row-gap: 0.25rem;
-    padding: 1rem 0;
+    padding: 0;
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+
+  /* Swiper styles */
+  .swiper-container {
+    width: 100%;
+    height: auto;
+
+    .swiper-slide {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: auto;
+      img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+      }  
+
+    }
+    .swiper-pagination {
+      position: absolute;
+      bottom: 10px;
+      text-align: center;
+      width: 100%;
+    }
+
+    .swiper-button-next,
+    .swiper-button-prev {
+      color: #000;
+    }
+
+    .swiper-button-next:after,
+    .swiper-button-prev:after {
+      font-size: 30px;
+    }
+
+    .swiper-pagination-bullet {
+      background-color: rgba(255, 255, 255, 0.5);
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .swiper-pagination-bullet-active {
+      background-color: #fff;
+    }
   }
 
   :global {
@@ -24,10 +75,10 @@
 
     * {
       max-width: 100%;
-      padding: 0 1rem 0.5rem;
+      padding: 0 5px 0 5px;
 
       @media (min-width: $breakpoint-extra-small) {
-        padding: 0 2rem 1rem;
+        padding: 0;
       }
     }
 
@@ -207,6 +258,44 @@
       padding: 0;
       width: 100%;
       min-height: 80vh;
+    }
+    
+    .breakout-box-wrapper {
+      display: flex;
+      flex-direction: column;
+      padding: 0 0 1rem;
+      margin-bottom: 1rem;
+      background-color: var(--wpe--color--cyan);
+      border-bottom: solid 1rem var(--wpe--color--black);
+
+      p {
+        padding: 0;
+      }
+
+      span.breakout-box-title {
+        display: flex;
+        padding: 2rem 1rem;
+        font-family: var(--font--eb--garamond);
+        font-weight: 700;
+        line-height: 1.2;
+        font-size: 2.25rem;
+        color: var(--wpe--color--title);
+        text-transform: none;
+        width: 100%;
+
+        @media (min-width: $breakpoint-extra-small) {
+          padding: 2rem;
+          font-size: 2.75rem;
+        }
+      }
+
+      p.breakout-box-text {
+        padding: 0 1rem 1rem;
+
+        @media (min-width: $breakpoint-extra-small) {
+          padding: 0 2rem 1rem;
+        }
+      }
     }
   }
 }
