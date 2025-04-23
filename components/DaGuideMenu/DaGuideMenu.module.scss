@@ -51,6 +51,24 @@
   }
 }
 
+.menu-button {
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%; 
+
+  svg {
+    width: 20px;
+    height: 20px;
+    display: block;
+  }
+}
+
 .byline {
   font-weight: var(--wpe--font-weight--medium);
   font-size: 1.2rem;

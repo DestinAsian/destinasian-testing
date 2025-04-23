@@ -25,7 +25,6 @@
     "framer-motion": "^11.1.9",
     "graphql": "^16.6.0",
     "js-cookie": "^3.0.5",
-    "js-cookies": "^1.0.4",
     "keen-slider": "^6.8.5",
     "lite-youtube-embed": "^0.3.2",
     "next": "^14.2.1",
