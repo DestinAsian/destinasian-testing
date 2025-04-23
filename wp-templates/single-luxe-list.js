@@ -1,7 +1,7 @@
+import React, { useEffect, useState, useRef } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
 import { BlogInfoFragment } from '../fragments/GeneralSettings'
-import { useState } from 'react'
 import {
   Main,
   FeaturedImage,
@@ -10,18 +10,36 @@ import {
   SingleLLFeaturedImage,
   ContentWrapperLL,
   LLHeader,
+  PasswordProtected,
+  RCASecondaryHeader,
+  SecondaryHeader,
+  LLSecondaryHeader,
 } from '../components'
 import { GetMenus } from '../queries/GetMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
-import { eb_garamond, rubik_mono_one } from '../styles/fonts/fonts'
+import { eb_garamond, rubik, rubik_mono_one } from '../styles/fonts/fonts'
+import Cookies from 'js-cookie'
+import { GetLatestRCA } from '../queries/GetLatestRCA'
 
 export default function singleLuxeList(props) {
   // Loading state for previews
   if (props.loading) {
     return <>Loading...</>
   }
-  const [isNavShown, setIsNavShown] = useState(false)
-  const [isLLNavShown, setIsLLNavShown] = useState(false)
+
+  const [enteredPassword, setEnteredPassword] = useState('')
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+
+  // Check for stored password in cookies on mount
+  useEffect(() => {
+    const storedPassword = Cookies.get('luxeListPassword')
+    if (
+      storedPassword &&
+      storedPassword === props?.data?.luxeList?.passwordProtected?.password
+    ) {
+      setIsAuthenticated(true)
+    }
+  }, [props?.data?.luxeList?.passwordProtected?.password])
 
   const { title: siteTitle, description: siteDescription } =
     props?.data?.generalSettings
@@ -36,7 +54,106 @@ export default function singleLuxeList(props) {
     databaseId,
     luxeListLogo,
     categories,
+    passwordProtected,
   } = props?.data?.luxeList
+
+  // Search function content
+  const [searchQuery, setSearchQuery] = useState('')
+  // Scrolled Function
+  const [isScrolled, setIsScrolled] = useState(false)
+  // NavShown Function
+  const [isNavShown, setIsNavShown] = useState(false)
+  const [isLLNavShown, setIsLLNavShown] = useState(false)
+  const [isGuidesNavShown, setIsGuidesNavShown] = useState(false)
+  const [isRCANavShown, setIsRCANavShown] = useState(false)
+
+  // Slider Autoplay state
+  const sliderLL = useRef(null)
+  const [isAutoplayRunning, setIsAutoplayRunning] = useState(true)
+
+  const toggleAutoplay = () => {
+    const swiperInstance = sliderLL?.current?.swiper
+    if (swiperInstance) {
+      if (isAutoplayRunning) {
+        swiperInstance.autoplay?.stop()
+      } else {
+        swiperInstance.autoplay?.start()
+      }
+      setIsAutoplayRunning(!isAutoplayRunning)
+    }
+  }
+
+  // Stop scrolling pages when searchQuery
+  useEffect(() => {
+    if (searchQuery !== '') {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [searchQuery])
+
+  // Add sticky header on scroll
+  useEffect(() => {
+    function handleScroll() {
+      setIsScrolled(window.scrollY > 0)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
+  // Stop scrolling pages when isNavShown
+  useEffect(() => {
+    if (isNavShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isNavShown])
+
+  // Stop scrolling pages when isRCANavShown
+  useEffect(() => {
+    if (isRCANavShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isRCANavShown])
+
+  // Stop scrolling pages when isGuidesNavShown
+  useEffect(() => {
+    if (isGuidesNavShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isGuidesNavShown])
+
+  const { data: rcaData } = useQuery(GetLatestRCA, {
+    fetchPolicy: 'network-only',
+    nextFetchPolicy: 'cache-and-network',
+  })
+
+  const [latestRCA, setLatestRCA] = useState(null)
+
+  useEffect(() => {
+    if (rcaData?.readersChoiceAwards?.edges) {
+      // Find the first RCA where parent is null
+      const filteredRCA = rcaData.readersChoiceAwards.edges.find(
+        (edge) => !edge.node.parent,
+      )?.node
+      setLatestRCA(filteredRCA || null)
+    }
+  }, [rcaData]) // Runs whenever rcaData changes
+
+  const {
+    // title: rcaTitle,
+    databaseId: rcaDatabaseId,
+    uri: rcaUri,
+  } = latestRCA ?? []
 
   // Get menus
   const { data: menusData, loading: menusLoading } = useQuery(GetMenus, {
@@ -121,6 +238,37 @@ export default function singleLuxeList(props) {
     acfPostSlider.slide5 != null ? acfPostSlider.slide5.mediaItemUrl : null,
   ]
 
+  // Handle password submission
+  const handlePasswordSubmit = (e) => {
+    e.preventDefault()
+    if (enteredPassword === passwordProtected?.password) {
+      setIsAuthenticated(true)
+      Cookies.set('luxeListPassword', enteredPassword, { expires: 1 }) // Set cookie to expire in 1 day
+    } else {
+      alert('Incorrect password. Please try again.')
+    }
+  }
+
+  if (passwordProtected?.onOff && !isAuthenticated) {
+    return (
+      <main
+        className={`${eb_garamond.variable} ${rubik_mono_one.variable} ${rubik.variable}`}
+      >
+        <form onSubmit={handlePasswordSubmit}>
+          <PasswordProtected
+            enteredPassword={enteredPassword}
+            setEnteredPassword={setEnteredPassword}
+            title={seo?.title}
+            description={seo?.metaDesc}
+            imageUrl={featuredImage?.node?.sourceUrl}
+            url={uri}
+            focuskw={seo?.focuskw}
+          />
+        </form>
+      </main>
+    )
+  }
+
   return (
     <main className={`${eb_garamond.variable} ${rubik_mono_one.variable}`}>
       <SEO
@@ -181,6 +329,22 @@ export default function singleLuxeList(props) {
         latestLoading={latestLoading}
         isNavShown={isNavShown}
         setIsNavShown={setIsNavShown}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        isScrolled={isScrolled}
+      />
+      <LLSecondaryHeader
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        rcaDatabaseId={rcaDatabaseId}
+        rcaUri={rcaUri}
+        isGuidesNavShown={isGuidesNavShown}
+        setIsGuidesNavShown={setIsGuidesNavShown}
+        isRCANavShown={isRCANavShown}
+        setIsRCANavShown={setIsRCANavShown}
+        // isScrolled={isScrolled}
+        isAutoplayRunning={isAutoplayRunning}
+        toggleAutoplay={toggleAutoplay}
       />
       <Main>
         <>
@@ -208,7 +372,7 @@ export default function singleLuxeList(props) {
                   setIsLLNavShown={setIsLLNavShown}
                 />
                 {/* Second wrapper */}
-                <div className="w-full sm:relative sm:pt-8">
+                <div className="w-full sm:relative sm:pt-20">
                   <ContentWrapperLL
                     router={props?.router}
                     title={title}
@@ -224,6 +388,10 @@ export default function singleLuxeList(props) {
                     isNavShown={isNavShown}
                     isLLNavShown={isLLNavShown}
                     setIsLLNavShown={setIsLLNavShown}
+                    isAutoplayRunning={isAutoplayRunning}
+                    setIsAutoplayRunning={setIsAutoplayRunning}
+                    sliderLL={sliderLL}
+                    toggleAutoplay={toggleAutoplay}
                   />
                 </div>
               </div>
@@ -244,6 +412,10 @@ singleLuxeList.query = gql`
       title
       content
       databaseId
+      passwordProtected {
+        onOff
+        password
+      }
       ...FeaturedImageFragment
       luxeListLogo {
         mainLogo {

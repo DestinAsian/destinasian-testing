@@ -79,6 +79,7 @@ export const GetSearchResults = gql`
                 CONTEST
                 LUXE_LIST
                 READERS_CHOICE_AWARD
+                LUXURY_TRAVEL
               ]
             }
             first: $first
@@ -254,6 +255,21 @@ export const GetSearchResults = gql`
                   }
                 }
                 ... on ReadersChoiceAward {
+                  title
+                  excerpt
+                  date
+                  featuredImage {
+                    node {
+                      sourceUrl
+                      altText
+                      mediaDetails {
+                        width
+                        height
+                      }
+                    }
+                  }
+                }
+                ... on LuxuryTravel {
                   title
                   excerpt
                   date

@@ -1,7 +1,7 @@
+import React, { useState, useEffect } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
 import { BlogInfoFragment } from '../fragments/GeneralSettings'
-import { useState, useEffect } from 'react'
 import {
   SingleHeader,
   Footer,
@@ -14,11 +14,15 @@ import {
   ContentWrapperEditorial,
   RelatedStories,
   EntryRelatedStories,
+  PasswordProtected,
+  SecondaryHeader,
 } from '../components'
 import { GetMenus } from '../queries/GetMenus'
 import { GetFooterMenus } from '../queries/GetFooterMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
-import { eb_garamond, rubik_mono_one } from '../styles/fonts/fonts'
+import { eb_garamond, rubik, rubik_mono_one } from '../styles/fonts/fonts'
+import Cookies from 'js-cookie'
+import { GetLatestRCA } from '../queries/GetLatestRCA'
 
 // Randomized Function
 function shuffleArray(array) {
@@ -35,6 +39,20 @@ export default function SingleEditorial(props) {
     return <>Loading...</>
   }
 
+  const [enteredPassword, setEnteredPassword] = useState('')
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+
+  // Check for stored password in cookies on mount
+  useEffect(() => {
+    const storedPassword = Cookies.get('editorialPassword')
+    if (
+      storedPassword &&
+      storedPassword === props?.data?.editorial?.passwordProtected?.password
+    ) {
+      setIsAuthenticated(true)
+    }
+  }, [props?.data?.editorial?.passwordProtected?.password])
+
   const { title: siteTitle, description: siteDescription } =
     props?.data?.generalSettings
   const {
@@ -46,9 +64,91 @@ export default function SingleEditorial(props) {
     acfSingleEditorialSlider,
     seo,
     uri,
+    passwordProtected,
   } = props?.data?.editorial
   const categories = props?.data?.editorial?.categories?.edges ?? []
   const relatedStories = categories[0]?.node?.editorials ?? []
+
+  // Search function content
+  const [searchQuery, setSearchQuery] = useState('')
+  // Scrolled Function
+  const [isScrolled, setIsScrolled] = useState(false)
+  // NavShown Function
+  const [isNavShown, setIsNavShown] = useState(false)
+  const [isGuidesNavShown, setIsGuidesNavShown] = useState(false)
+  const [isRCANavShown, setIsRCANavShown] = useState(false)
+
+  // Stop scrolling pages when searchQuery
+  useEffect(() => {
+    if (searchQuery !== '') {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [searchQuery])
+
+  // Add sticky header on scroll
+  useEffect(() => {
+    function handleScroll() {
+      setIsScrolled(window.scrollY > 0)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
+  // Stop scrolling pages when isNavShown
+  useEffect(() => {
+    if (isNavShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isNavShown])
+
+  // Stop scrolling pages when isRCANavShown
+  useEffect(() => {
+    if (isRCANavShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isRCANavShown])
+
+  // Stop scrolling pages when isGuidesNavShown
+  useEffect(() => {
+    if (isGuidesNavShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isGuidesNavShown])
+
+  const { data: rcaData } = useQuery(GetLatestRCA, {
+    fetchPolicy: 'network-only',
+    nextFetchPolicy: 'cache-and-network',
+  })
+
+  const [latestRCA, setLatestRCA] = useState(null)
+
+  useEffect(() => {
+    if (rcaData?.readersChoiceAwards?.edges) {
+      // Find the first RCA where parent is null
+      const filteredRCA = rcaData.readersChoiceAwards.edges.find(
+        (edge) => !edge.node.parent,
+      )?.node
+      setLatestRCA(filteredRCA || null)
+    }
+  }, [rcaData]) // Runs whenever rcaData changes
+
+  const {
+    // title: rcaTitle,
+    databaseId: rcaDatabaseId,
+    uri: rcaUri,
+  } = latestRCA ?? []
 
   // Get menus
   const { data: menusData, loading: menusLoading } = useQuery(GetMenus, {
@@ -78,7 +178,7 @@ export default function SingleEditorial(props) {
     GetFooterMenus,
     {
       variables: {
-        first: 50,
+        first: 100,
         footerHeaderLocation: MENUS.FOOTER_LOCATION,
       },
       fetchPolicy: 'network-only',
@@ -175,6 +275,37 @@ export default function SingleEditorial(props) {
     }
   }, [relatedStories])
 
+  // Handle password submission
+  const handlePasswordSubmit = (e) => {
+    e.preventDefault()
+    if (enteredPassword === passwordProtected?.password) {
+      setIsAuthenticated(true)
+      Cookies.set('editorialPassword', enteredPassword, { expires: 1 }) // Set cookie to expire in 1 day
+    } else {
+      alert('Incorrect password. Please try again.')
+    }
+  }
+
+  if (passwordProtected?.onOff && !isAuthenticated) {
+    return (
+      <main
+        className={`${eb_garamond.variable} ${rubik_mono_one.variable} ${rubik.variable}`}
+      >
+        <form onSubmit={handlePasswordSubmit}>
+          <PasswordProtected
+            enteredPassword={enteredPassword}
+            setEnteredPassword={setEnteredPassword}
+            title={seo?.title}
+            description={seo?.metaDesc}
+            imageUrl={featuredImage?.node?.sourceUrl}
+            url={uri}
+            focuskw={seo?.focuskw}
+          />
+        </form>
+      </main>
+    )
+  }
+
   return (
     <main className={`${eb_garamond.variable} ${rubik_mono_one.variable}`}>
       <SEO
@@ -196,39 +327,53 @@ export default function SingleEditorial(props) {
         latestStories={allPosts}
         menusLoading={menusLoading}
         latestLoading={latestLoading}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        isNavShown={isNavShown}
+        setIsNavShown={setIsNavShown}
+        isScrolled={isScrolled}
       />
-      <Main>
+      <SecondaryHeader
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        rcaDatabaseId={rcaDatabaseId}
+        rcaUri={rcaUri}
+        isGuidesNavShown={isGuidesNavShown}
+        setIsGuidesNavShown={setIsGuidesNavShown}
+        isRCANavShown={isRCANavShown}
+        setIsRCANavShown={setIsRCANavShown}
+        isScrolled={isScrolled}
+      />
+      <Main className={'relative top-[-0.75rem] sm:top-[-1rem]'}>
         <>
-          <Container>
-            <SingleEditorialFeaturedImage image={featuredImage?.node} />
-            <SingleEditorialEntryHeader
-              image={featuredImage?.node}
-              title={title}
-              categoryUri={categories[0]?.node?.uri}
-              parentCategory={categories[0]?.node?.parent?.node?.name}
-              categoryName={categories[0]?.node?.name}
-              author={author.node.name}
-              date={date}
-            />
-            <ContentWrapperEditorial content={content} images={images} />
-            <EntryRelatedStories />
-            {shuffledRelatedStories.map((post) => (
-              <Container>
-                {post.node.title !== title && (
-                  // Render the merged posts here
-                  <RelatedStories
-                    key={post.node.id}
-                    title={post.node.title}
-                    excerpt={post.node.excerpt}
-                    uri={post.node.uri}
-                    category={post.node.categories.edges[0]?.node?.name}
-                    categoryUri={post.node.categories.edges[0]?.node?.uri}
-                    featuredImage={post.node.featuredImage?.node}
-                  />
-                )}
-              </Container>
-            ))}
-          </Container>
+          <SingleEditorialFeaturedImage image={featuredImage?.node} />
+          <SingleEditorialEntryHeader
+            image={featuredImage?.node}
+            title={title}
+            categoryUri={categories[0]?.node?.uri}
+            parentCategory={categories[0]?.node?.parent?.node?.name}
+            categoryName={categories[0]?.node?.name}
+            author={author.node.name}
+            date={date}
+          />
+          <ContentWrapperEditorial content={content} images={images} />
+          <EntryRelatedStories />
+          {shuffledRelatedStories.map((post) => (
+            <Container>
+              {post.node.title !== title && (
+                // Render the merged posts here
+                <RelatedStories
+                  key={post.node.id}
+                  title={post.node.title}
+                  excerpt={post.node.excerpt}
+                  uri={post.node.uri}
+                  category={post.node.categories.edges[0]?.node?.name}
+                  categoryUri={post.node.categories.edges[0]?.node?.uri}
+                  featuredImage={post.node.featuredImage?.node}
+                />
+              )}
+            </Container>
+          ))}
         </>
       </Main>
       <Footer footerMenu={footerMenu} />
@@ -244,6 +389,10 @@ SingleEditorial.query = gql`
       title
       content
       date
+      passwordProtected {
+        onOff
+        password
+      }
       ...FeaturedImageFragment
       author {
         node {

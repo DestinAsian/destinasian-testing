@@ -52,6 +52,40 @@ export const GetTravelGuidesMenu = gql`
                   }
                 }
               }
+              children(first: 4, where: { order: ASC, orderby: NAME }) {
+                edges {
+                  node {
+                    id
+                    name
+                    uri
+                    categoryImages {
+                      categoryImages {
+                        sourceUrl
+                      }
+                    }
+                    parent {
+                      node {
+                        name
+                      }
+                    }
+                    posts(
+                      first: 10
+                      where: {
+                        orderby: { field: DATE, order: ASC }
+                        status: PUBLISH
+                      }
+                    ) {
+                      edges {
+                        node {
+                          id
+                          title
+                          uri
+                        }
+                      }
+                    }
+                  }
+                }
+              }
             }
           }
         }

@@ -7,16 +7,16 @@ import {
   SEO,
   SingleRCAContainer,
   ContentWrapperRCA,
-  SingleRCAEntryHeader,
   RCAHeader,
-  ContentWrapperRCAFrontPage,
+  PasswordProtected,
+  RCASecondaryHeader,
 } from '../components'
 import { GetMenus } from '../queries/GetMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
 import { GetRCASlider } from '../queries/GetRCASlider'
-import { GetRCAPagination } from '../queries/GetRCAPagination'
-import { useEffect, useState } from 'react'
-import { eb_garamond, rubik_mono_one } from '../styles/fonts/fonts'
+import React, { useEffect, useState, useRef } from 'react'
+import { eb_garamond, rubik, rubik_mono_one } from '../styles/fonts/fonts'
+import Cookies from 'js-cookie'
 
 export default function singleRca(props) {
   // Loading state for previews
@@ -24,9 +24,44 @@ export default function singleRca(props) {
     return <>Loading...</>
   }
 
-  const batchSize = 100
+  const [enteredPassword, setEnteredPassword] = useState('')
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  // Search function content
+  const [searchQuery, setSearchQuery] = useState('')
+
+  // Check for stored password in cookies on mount
+  useEffect(() => {
+    const storedPassword = Cookies.get('readersChoiceAwardPassword')
+    if (
+      storedPassword &&
+      storedPassword ===
+        props?.data?.readersChoiceAward?.passwordProtected?.password
+    ) {
+      setIsAuthenticated(true)
+    }
+  }, [props?.data?.readersChoiceAward?.passwordProtected?.password])
+
+  // Slider Autoplay state
+  const sliderRCA = useRef(null)
+  const [activeIndex, setActiveIndex] = useState(0)
+  const [isAutoplayRunning, setIsAutoplayRunning] = useState(true)
+
+  const toggleAutoplay = () => {
+    const swiperInstance = sliderRCA?.current?.swiper
+    if (swiperInstance) {
+      if (isAutoplayRunning) {
+        swiperInstance.autoplay?.stop()
+      } else {
+        swiperInstance.autoplay?.start()
+        setActiveIndex(swiperInstance.realIndex)
+      }
+      setIsAutoplayRunning(!isAutoplayRunning)
+    }
+  }
+
   const [isNavShown, setIsNavShown] = useState(false)
   const [isRCANavShown, setIsRCANavShown] = useState(false)
+  const [isGuidesNavShown, setIsGuidesNavShown] = useState(false)
 
   // Stop scrolling pages when isNavShown
   useEffect(() => {
@@ -37,7 +72,7 @@ export default function singleRca(props) {
     }
   }, [isNavShown])
 
-  // Stop scrolling pages when isNavShown
+  // Stop scrolling pages when isRCANavShown
   useEffect(() => {
     if (isRCANavShown) {
       document.body.style.overflow = 'hidden'
@@ -46,14 +81,28 @@ export default function singleRca(props) {
     }
   }, [isRCANavShown])
 
+  // Stop scrolling pages when isGuidesNavShown
+  useEffect(() => {
+    if (isGuidesNavShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isGuidesNavShown])
+
   const {
     title,
     featuredImage,
+    content,
+    rcaPageAttributes,
+    ancestors,
     parent,
+    children,
     seo,
     uri,
     databaseId,
     categories,
+    passwordProtected,
   } = props?.data?.readersChoiceAward
 
   // Get menus
@@ -130,16 +179,6 @@ export default function singleRca(props) {
 
   // sortByDate latestCat & childCat Posts
   const latestAllPosts = latestMainCatPosts.sort(sortPostsByDate)
-
-  // Get RCA Pagination
-  const { data: paginationData, loading: paginationLoading } = useQuery(
-    GetRCAPagination,
-    {
-      variables: { first: batchSize, after: null, id: databaseId },
-      fetchPolicy: 'network-only',
-      nextFetchPolicy: 'cache-and-network',
-    },
-  )
 
   // Get menus
   const { data: sliderData, loading: sliderLoading } = useQuery(GetRCASlider, {
@@ -234,6 +273,37 @@ export default function singleRca(props) {
     id: rcaIds[index],
   }))
 
+  // Handle password submission
+  const handlePasswordSubmit = (e) => {
+    e.preventDefault()
+    if (enteredPassword === passwordProtected?.password) {
+      setIsAuthenticated(true)
+      Cookies.set('readersChoiceAwardPassword', enteredPassword, { expires: 1 }) // Set cookie to expire in 1 day
+    } else {
+      alert('Incorrect password. Please try again.')
+    }
+  }
+
+  if (passwordProtected?.onOff && !isAuthenticated) {
+    return (
+      <main
+        className={`${eb_garamond.variable} ${rubik_mono_one.variable} ${rubik.variable}`}
+      >
+        <form onSubmit={handlePasswordSubmit}>
+          <PasswordProtected
+            enteredPassword={enteredPassword}
+            setEnteredPassword={setEnteredPassword}
+            title={seo?.title}
+            description={seo?.metaDesc}
+            imageUrl={featuredImage?.node?.sourceUrl}
+            url={uri}
+            focuskw={seo?.focuskw}
+          />
+        </form>
+      </main>
+    )
+  }
+
   return (
     <main className={`${eb_garamond.variable} ${rubik_mono_one.variable}`}>
       <SEO
@@ -243,101 +313,101 @@ export default function singleRca(props) {
         url={uri}
         focuskw={seo?.focuskw}
       />
-      {/* Year pages */}
-      {parent == null && (
+      <RCAHeader
+        primaryMenuItems={primaryMenu}
+        secondaryMenuItems={secondaryMenu}
+        thirdMenuItems={thirdMenu}
+        fourthMenuItems={fourthMenu}
+        fifthMenuItems={fifthMenu}
+        featureMenuItems={featureMenu}
+        latestStories={latestAllPosts}
+        menusLoading={menusLoading}
+        latestLoading={latestLoading}
+        // parent={parent}
+        // sliderRCA={sliderRCA}
+        // toggleAutoplay={toggleAutoplay}
+        isNavShown={isNavShown}
+        setIsNavShown={setIsNavShown}
+        isRCANavShown={isRCANavShown}
+        setIsRCANavShown={setIsRCANavShown}
+        // isGuidesNavShown={isGuidesNavShown}
+        // setIsGuidesNavShown={setIsGuidesNavShown}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+      />
+      <RCASecondaryHeader
+        // isMainNavShown={isNavShown}
+        // setIsMainNavShown={setIsNavShown}
+        isNavShown={isRCANavShown}
+        setIsNavShown={setIsRCANavShown}
+        isGuidesNavShown={isGuidesNavShown}
+        setIsGuidesNavShown={setIsGuidesNavShown}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        // rcaDatabaseId={
+        //   parent != null
+        //     ? children?.edges?.length == 0
+        //       ? ancestors?.edges[0]?.node?.databaseId
+        //       : parent?.node?.databaseId
+        //     : databaseId
+        // }
+        // uri={parent != null ? parent?.node?.uri : uri}
+        isAutoplayRunning={isAutoplayRunning}
+        toggleAutoplay={toggleAutoplay}
+      />
+      <Main>
         <>
-          <RCAHeader
-            primaryMenuItems={primaryMenu}
-            secondaryMenuItems={secondaryMenu}
-            thirdMenuItems={thirdMenu}
-            fourthMenuItems={fourthMenu}
-            fifthMenuItems={fifthMenu}
-            featureMenuItems={featureMenu}
-            latestStories={latestAllPosts}
-            menusLoading={menusLoading}
-            latestLoading={latestLoading}
-            parent={parent}
-            isNavShown={isNavShown}
-            setIsNavShown={setIsNavShown}
-          />
-          <Main>
-            <>
-              <SingleRCAContainer
-                parent={parent}
-                image={featuredImage?.node?.sourceUrl}
-                databaseId={databaseId}
-                uri={uri}
-                isNavShown={isRCANavShown}
-                setIsNavShown={setIsRCANavShown}
-              >
-                {/* <div className="sm:fixed sm:left-[70vw] sm:flex sm:w-[30vw] sm:flex-col">
-                  <div className="sm:relative sm:h-[100vh] sm:flex-row sm:flex-wrap sm:overflow-y-auto">
-                    <div className="sm:relative sm:mx-auto">
-                      <ContentWrapperRCAFrontPage
-                        content={content}
-                        firstIndex={
-                          paginationData?.readersChoiceAwardBy?.children
-                            ?.edges[0]?.node?.uri
-                        }
-                      />
-                    </div>
-                  </div>
-                </div> */}
-              </SingleRCAContainer>
-            </>
-          </Main>
-        </>
-      )}
-
-      {/* Hotel pages */}
-      {parent != null && (
-        <>
-          <RCAHeader
-            primaryMenuItems={primaryMenu}
-            secondaryMenuItems={secondaryMenu}
-            thirdMenuItems={thirdMenu}
-            fourthMenuItems={fourthMenu}
-            fifthMenuItems={fifthMenu}
-            featureMenuItems={featureMenu}
-            latestStories={latestAllPosts}
-            menusLoading={menusLoading}
-            latestLoading={latestLoading}
-            parent={parent}
-            isNavShown={isNavShown}
-            setIsNavShown={setIsNavShown}
-            isRCANavShown={isRCANavShown}
-            setIsRCANavShown={setIsRCANavShown}
-          />
-          <Main>
-            <>
-              {/* {'hotel'} */}
-              <SingleRCAContainer parent={parent}>
-                <div className="sm:fixed sm:left-[60vw] sm:flex sm:w-[40vw] sm:flex-col">
-                  <div className="sm:relative sm:h-[100vh] sm:flex-row sm:flex-wrap sm:overflow-y-auto">
-                    {/* First wrapper */}
-                    <div className="sm:relative sm:mx-auto">
-                      <ContentWrapperRCA
-                        title={title}
-                        category={categories?.edges[0]?.node?.name}
-                        images={rcaImages}
-                        parentDatabaseId={parent?.node?.databaseId}
-                        uri={parent?.node?.uri}
-                        rcaIndexData={rcaIndexData}
-                        sliderLoading={sliderLoading}
-                        isNavShown={isRCANavShown}
-                        setIsNavShown={setIsRCANavShown}
-                        paginationData={paginationData}
-                        paginationLoading={paginationLoading}
-                      />
-                    </div>
-                  </div>
+          {/* {'hotel'} */}
+          <SingleRCAContainer parent={parent}>
+            <div className="sm:fixed sm:left-[60vw] sm:flex sm:w-[40vw] sm:flex-col">
+              <div className="sm:relative sm:h-[100vh] sm:flex-row sm:flex-wrap sm:overflow-y-auto">
+                {/* First wrapper */}
+                <div className="sm:relative sm:mx-auto">
+                  <ContentWrapperRCA
+                    router={props?.router}
+                    title={
+                      parent?.node?.title !== ancestors?.edges[0]?.node?.title
+                        ? title
+                        : rcaPageAttributes?.parentCustomLabel !== null
+                        ? title
+                        : null
+                    }
+                    parentTitle={
+                      parent?.node?.title !== ancestors?.edges[0]?.node?.title
+                        ? parent?.node?.title
+                        : rcaPageAttributes?.parentCustomLabel !== null
+                        ? rcaPageAttributes?.parentCustomLabel
+                        : title
+                    }
+                    // category={categories?.edges[0]?.node?.name}
+                    images={rcaImages}
+                    content={content}
+                    databaseId={databaseId}
+                    rcaDatabaseId={
+                      parent != null
+                        ? children?.edges?.length == 0
+                          ? ancestors?.edges[0]?.node?.databaseId
+                          : parent?.node?.databaseId
+                        : databaseId
+                    }
+                    uri={parent != null ? parent?.node?.uri : uri}
+                    rcaIndexData={rcaIndexData}
+                    sliderLoading={sliderLoading}
+                    isNavShown={isRCANavShown}
+                    setIsNavShown={setIsRCANavShown}
+                    isAutoplayRunning={isAutoplayRunning}
+                    setIsAutoplayRunning={setIsAutoplayRunning}
+                    sliderRCA={sliderRCA}
+                    toggleAutoplay={toggleAutoplay}
+                    activeIndex={activeIndex}
+                    setActiveIndex={setActiveIndex}
+                  />
                 </div>
-              </SingleRCAContainer>
-            </>
-          </Main>
+              </div>
+            </div>
+          </SingleRCAContainer>
         </>
-      )}
-      {/* <Footer /> */}
+      </Main>
     </main>
   )
 }
@@ -355,6 +425,13 @@ singleRca.query = gql`
       databaseId
       content
       uri
+      rcaPageAttributes {
+        parentCustomLabel
+      }
+      passwordProtected {
+        onOff
+        password
+      }
       ...FeaturedImageFragment
       categories {
         edges {
@@ -373,11 +450,44 @@ singleRca.query = gql`
         metaDesc
         focuskw
       }
+      ancestors(
+        first: 1
+        where: {
+          status: PUBLISH
+          contentTypes: READERS_CHOICE_AWARD
+          search: "Readers"
+        }
+      ) {
+        edges {
+          node {
+            ... on ReadersChoiceAward {
+              title
+              uri
+              databaseId
+            }
+          }
+        }
+      }
       parent {
         node {
           ... on ReadersChoiceAward {
+            title
             uri
             databaseId
+          }
+        }
+      }
+      children(
+        first: 1
+        where: { status: PUBLISH, contentTypes: READERS_CHOICE_AWARD }
+      ) {
+        edges {
+          node {
+            ... on ReadersChoiceAward {
+              title
+              uri
+              databaseId
+            }
           }
         }
       }

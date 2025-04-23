@@ -5,7 +5,7 @@
   background-color: var(--wpe--color--deep--black);
   position: fixed;
   width: 100%;
-  z-index: 50;
+  z-index: 49;
 }
 
 .parentColor {
@@ -19,23 +19,160 @@
   top: -60px;
   left: 0;
   width: 100%;
-  z-index: 1000;
+  // z-index: 50;
   transform: translateY(60px);
-  // transition: transform 0.3s ease-in-out;
 }
 
 .twoNavShown {
   color: var(--wpe--color--black);
   background-color: var(--wpe--color--white--smoke);
+  z-index: 1000;
+
+  // .navbar {
+  //   padding: 1.5rem 0 1.5rem;
+  // }
+
+  .search-bar-wrapper {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: auto;
+    width: 100%;
+    padding: 0 1rem 0.75rem;
+
+    * {
+      text-transform: none;
+    }
+
+    @media (min-width: $breakpoint-extra-small) {
+      padding: 0 0 0.75rem;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .search-input-wrapper {
+      position: relative;
+      width: 100%;
+
+      button {
+        display: block;
+        position: absolute;
+        top: 50%;
+        right: 1rem;
+        transform: translateY(-50%);
+        color: var(--wpe--color--black);
+
+        svg {
+          width: 1rem;
+          height: 1rem;
+        }
+      }
+    }
+
+    .search-result-wrapper {
+      position: absolute;
+      display: grid;
+      background-color: var(--wpe--main--background-color);
+      top: 6.5rem;
+      left: 0;
+      width: 100%;
+      text-align: left;
+      padding: 0;
+      justify-content: center;
+
+      @media (min-width: $breakpoint-extra-small) {
+        top: 8.125rem;
+        padding: 0;
+        max-width: 700px;
+        left: 50%;
+        transform: translate(-50%, 0);
+      }
+
+      .alert-error {
+        color: var(--wpe--color--red);
+        text-align: center;
+      }
+    }
+  }
 }
 
 .navShown {
   color: var(--wpe--color--black);
   background-color: var(--wpe--color--white--smoke);
+  z-index: 1000;
+
+  // .navbar {
+  //   padding: 1.5rem 0 1.5rem;
+  // }
+
+  .search-bar-wrapper {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: auto;
+    width: 100%;
+    padding: 0 1rem 0.75rem;
+
+    * {
+      text-transform: none;
+    }
+
+    @media (min-width: $breakpoint-extra-small) {
+      padding: 0 0 0.75rem;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .search-input-wrapper {
+      position: relative;
+      width: 100%;
+
+      button {
+        display: block;
+        position: absolute;
+        top: 50%;
+        right: 1rem;
+        transform: translateY(-50%);
+        color: var(--wpe--color--black);
+
+        svg {
+          width: 1rem;
+          height: 1rem;
+        }
+      }
+    }
+
+    .search-result-wrapper {
+      position: absolute;
+      display: grid;
+      background-color: var(--wpe--main--background-color);
+      top: 6.5rem;
+      left: 0;
+      width: 100%;
+      text-align: left;
+      padding: 0;
+      justify-content: center;
+
+      @media (min-width: $breakpoint-extra-small) {
+        top: 8.125rem;
+        padding: 0;
+        max-width: 700px;
+        left: 50%;
+        transform: translate(-50%, 0);
+      }
+
+      .alert-error {
+        color: var(--wpe--color--red);
+        text-align: center;
+      }
+    }
+  }
 }
 
 .rcaNavShown {
-  background-color: var(--wpe--color--jet--grey);
+  background-color: var(--wpe--color--deep--black);
 }
 
 .navbar {
@@ -45,7 +182,7 @@
   padding: 0;
   gap: 1rem;
   height: 3.5rem;
-  // background-color: var(--wpe--color--white--smoke);
+  // background-color: var(--wpe--color--transparent--white);
 
   @media (min-width: $breakpoint-extra-small) {
     padding: 0.5rem 0;
@@ -76,10 +213,40 @@
       height: 1.8rem;
     }
   }
+
+  // change the image source when the asset is ready
+  .white-logo {
+    filter: brightness(95%);
+  }
 }
 
 .title {
   text-decoration: none;
+}
+
+.menu-button-wrapper {
+  display: flex;
+}
+
+.search-button {
+  display: flex;
+  margin-right: 1rem;
+  justify-content: flex-end;
+  align-items: center;
+
+  @media (min-width: $breakpoint-extra-small) {
+    margin-right: 1rem;
+  }
+
+  button svg {
+    width: 1.2rem;
+    height: 1.3rem;
+
+    @media (min-width: $breakpoint-extra-small) {
+      width: 1.8rem;
+      height: 2rem;
+    }
+  }
 }
 
 .menu-button {
@@ -93,12 +260,16 @@
   }
 
   button svg {
-    height: 1.5rem;
+    height: 1.3rem;
 
     @media (min-width: $breakpoint-extra-small) {
-      height: 2rem;
+      height: 1.8rem;
     }
   }
+}
+
+.search-icon {
+  fill: var(--wpe--color--white--smoke);
 }
 
 .menu-icon {
@@ -136,7 +307,6 @@
 
   @media (min-width: $breakpoint-extra-small) {
     width: 1.6rem;
-    height: 3.5rem;
   }
 
   @media (min-width: $breakpoint-medium) {
@@ -173,7 +343,6 @@
     padding: 0;
     gap: 1rem;
     top: 2.5rem;
-    transition: top 0.4s ease-in-out;
 
     @media ((min-width: $breakpoint-extra-small) and (max-width: $breakpoint-small)) {
       top: 3.5rem;
@@ -189,27 +358,49 @@
 
 // Search Bar
 .search-bar-wrapper {
-  display: none;
+  display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   flex-direction: column;
   height: auto;
-  width: 100%;
-  padding: 0 1rem 0.75rem;
+  width: 100vw;
+  padding: 0 1rem;
+  background-color: var(--wpe--color--deep--black);
+  position: relative;
+
+  @media (min-width: $breakpoint-extra-small) {
+    padding: 0 2rem;
+  }
+
+  @media (min-width: $breakpoint-small) {
+    padding: 0;
+  }
 
   * {
     text-transform: none;
-  }
+    color: var(--wpe--color--white--smoke);
+    fill: var(--wpe--color--white--smoke);
+    stroke: var(--wpe--color--white--smoke);
 
-  @media (min-width: $breakpoint-extra-small) {
-    padding: 0 0 0.75rem;
-    max-width: 700px;
-    margin: 0 auto;
+    input {
+      border-color: var(--wpe--color--white--smoke);
+    }
   }
 
   .search-input-wrapper {
     position: relative;
     width: 100%;
+    max-width: 700px;
+
+    @media (min-width: $breakpoint-extra-small) {
+      margin: 0 auto;
+    }
+
+    @media (min-width: $breakpoint-large) {
+      margin: 0;
+      left: 60%;
+      transform: translate(-100%, 0);
+    }
 
     button {
       display: block;
@@ -230,28 +421,61 @@
     position: absolute;
     display: grid;
     background-color: var(--wpe--color--deep--black);
-    top: 6.5rem;
+    top: 1.2rem;
     left: 0;
     width: 100%;
     text-align: left;
     padding: 0;
     justify-content: center;
+    // height: calc(-7.75rem + 100vh);
+    // z-index: 48;
+
+    // @media (min-width: $breakpoint-extra-small) {
+    //   height: calc(-1.2rem + 100vh);
+    // }
 
     @media (min-width: $breakpoint-extra-small) {
-      top: 8.125rem;
-      padding: 0;
+      top: 1.25rem;
+      width: 100vw;
+      background-color: rgba(0, 0, 0, 0.3); /* Slightly transparent */
+      backdrop-filter: blur(10px); /* Apply blur */
+    }
+
+    @media (min-width: $breakpoint-large) {
+      top: 1.85rem;
+    }
+
+    &.show {
+      height: calc(-1.2rem + 100vh);
+
+      @media (min-width: $breakpoint-extra-small) {
+        height: calc(-1.25rem + 100vh);
+      }
+
+      @media (min-width: $breakpoint-large) {
+        height: calc(-1.85rem + 100vh);
+      }
+    }
+
+    > div {
+      width: 100vw;
+      background-color: var(--wpe--color--deep--black);
+      padding: 1rem 1rem 7rem;
+      z-index: 48;
+      height: calc(-4rem + 100vh);
+      max-height: calc(10rem + 100vh);
       max-width: 700px;
-      left: 50%;
-      transform: translate(-50%, 0);
+
+      @media (min-width: $breakpoint-extra-small) {
+        background-color: var(--wpe--color--deep--black);
+        padding: 1rem 2rem 5rem;
+        margin: 0;
+      }
     }
 
     .alert-error {
       color: var(--wpe--color--red);
       text-align: center;
-    }
-
-    div {
-      background-color: transparent;
     }
 
     // Turn Category Icon to white
@@ -292,7 +516,6 @@
     padding: 0;
     gap: 1rem;
     top: 2.5rem;
-    transition: top 0.4s ease-in-out;
 
     @media ((min-width: $breakpoint-extra-small) and (max-width: $breakpoint-small)) {
       top: 3.5rem;

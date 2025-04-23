@@ -1,12 +1,12 @@
+import React, { useEffect, useState } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
 import { BlogInfoFragment } from '../fragments/GeneralSettings'
 import {
-  SingleHeader,
-  SingleLuxuryTravelHeader,
+  LTHeader,
   Footer,
   Main,
-  SingleAdvertorialContainer,
+  SingleLTContainer,
   SingleAdvertorialEntryHeader,
   FeaturedImage,
   SEO,
@@ -14,20 +14,37 @@ import {
   LuxuryTravelStories,
   LuxuryTravelDirectory,
   TabsEditor,
-  SingleLLSlider,
-  SingleLTSlider,
+  SingleAdvertorialSlider,
+  BackToTop,
+  PasswordProtected,
+  LTSecondaryHeader,
 } from '../components'
 import { GetMenus } from '../queries/GetMenus'
 import { GetFooterMenus } from '../queries/GetFooterMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
 import { eb_garamond, rubik, rubik_mono_one } from '../styles/fonts/fonts'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import Cookies from 'js-cookie'
+import { GetLatestRCA } from '../queries/GetLatestRCA'
 
 export default function SingleLuxuryTravel(props) {
   // Loading state for previews
   if (props.loading) {
     return <>Loading...</>
   }
+
+  const [enteredPassword, setEnteredPassword] = useState('')
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+
+  // Check for stored password in cookies on mount
+  useEffect(() => {
+    const storedPassword = Cookies.get('luxuryTravelPassword')
+    if (
+      storedPassword &&
+      storedPassword === props?.data?.luxuryTravel?.passwordProtected?.password
+    ) {
+      setIsAuthenticated(true)
+    }
+  }, [props?.data?.luxuryTravel?.passwordProtected?.password])
 
   const { title: siteTitle, description: siteDescription } =
     props?.data?.generalSettings
@@ -44,18 +61,137 @@ export default function SingleLuxuryTravel(props) {
     luxuryTravelPinPosts,
     luxuryTravelDirectory,
     tabsEditor,
+    passwordProtected,
   } = props?.data?.luxuryTravel
 
-  const [visibleComponent, setVisibleComponent] = useState(null)
-  const sliderLL = useRef(null)
-  const [isSliderMounted, setIsSliderMounted] = useState(false) // Track slider mount status
+  // Search function content
+  const [searchQuery, setSearchQuery] = useState('')
+  // Scrolled Function
+  const [isScrolled, setIsScrolled] = useState(false)
+  // NavShown Function
+  const [isNavShown, setIsNavShown] = useState(false)
+  const [isGuidesNavShown, setIsGuidesNavShown] = useState(false)
+  const [isRCANavShown, setIsRCANavShown] = useState(false)
 
-  const scrollToSection = useCallback(() => {
-    const section = document.querySelector('[data-id="section2"]')
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth' })
+  // Stop scrolling pages when searchQuery
+  useEffect(() => {
+    if (searchQuery !== '') {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [searchQuery])
+
+  // Add sticky header on scroll
+  useEffect(() => {
+    function handleScroll() {
+      setIsScrolled(window.scrollY > 0)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
     }
   }, [])
+
+  // Stop scrolling pages when isNavShown
+  useEffect(() => {
+    if (isNavShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isNavShown])
+
+  // Stop scrolling pages when isRCANavShown
+  useEffect(() => {
+    if (isRCANavShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isRCANavShown])
+
+  // Stop scrolling pages when isGuidesNavShown
+  useEffect(() => {
+    if (isGuidesNavShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isGuidesNavShown])
+
+  const { data: rcaData } = useQuery(GetLatestRCA, {
+    fetchPolicy: 'network-only',
+    nextFetchPolicy: 'cache-and-network',
+  })
+
+  const [latestRCA, setLatestRCA] = useState(null)
+
+  useEffect(() => {
+    if (rcaData?.readersChoiceAwards?.edges) {
+      // Find the first RCA where parent is null
+      const filteredRCA = rcaData.readersChoiceAwards.edges.find(
+        (edge) => !edge.node.parent,
+      )?.node
+      setLatestRCA(filteredRCA || null)
+    }
+  }, [rcaData]) // Runs whenever rcaData changes
+
+  const {
+    // title: rcaTitle,
+    databaseId: rcaDatabaseId,
+    uri: rcaUri,
+  } = latestRCA ?? []
+
+  const [visibleComponent, setVisibleComponent] = useState(null)
+  // const sliderLL = useRef(null)
+  // const [isSliderMounted, setIsSliderMounted] = useState(false) // Track slider mount status
+
+  // // scroll to section button
+  // const scrollToSection2 = useCallback(() => {
+  //   const section = document.querySelector('[data-id="section2"]')
+  //   if (section) {
+  //     section.scrollIntoView({ behavior: 'smooth' })
+  //   }
+  // }, [])
+
+  // // scroll to section button
+  // const scrollToSection3 = useCallback(() => {
+  //   const section = document.querySelector('[data-id="section3"]')
+  //   if (section) {
+  //     section.scrollIntoView({ behavior: 'smooth' })
+  //   }
+  // }, [])
+
+  const [directoryTitle, setDirectoryTitle] = useState('')
+  // Function to extract directory title from HTML string
+  useEffect(() => {
+    const extractDirectoryTitle = () => {
+      // Create a DOMParser
+      const parser = new DOMParser()
+      // Parse the HTML content
+      const doc = parser.parseFromString(
+        luxuryTravelDirectory?.directory,
+        'text/html',
+      )
+
+      // Use querySelector to find the element with the class "directory-title"
+      const directoryTitleElement = doc.querySelector('.directory-title')
+
+      // Extract the content inside the element
+      const directoryTitle = directoryTitleElement
+        ? directoryTitleElement?.textContent?.trim()
+        : null
+
+      // // Set the transformed HTML content
+      setDirectoryTitle(directoryTitle)
+    }
+
+    // Call the function to extract image data and replace <img>
+    extractDirectoryTitle()
+  }, [luxuryTravelDirectory?.directory])
 
   // Get menus
   const { data: menusData, loading: menusLoading } = useQuery(GetMenus, {
@@ -85,7 +221,7 @@ export default function SingleLuxuryTravel(props) {
     GetFooterMenus,
     {
       variables: {
-        first: 50,
+        first: 100,
         footerHeaderLocation: MENUS.FOOTER_LOCATION,
       },
       fetchPolicy: 'network-only',
@@ -107,28 +243,6 @@ export default function SingleLuxuryTravel(props) {
       nextFetchPolicy: 'cache-and-network',
     },
   )
-
-  // Function to check if a section is in view
-  const handleScroll = () => {
-    const sections = document.querySelectorAll('.snap-section')
-    sections.forEach((section) => {
-      const rect = section.getBoundingClientRect()
-      if (rect.top >= 0 && rect.top < window.innerHeight / 2) {
-        setVisibleComponent(section.dataset.id)
-      }
-    })
-  }
-
-  // Attach the scroll listener when component mounts
-  useEffect(() => {
-    const scrollContainer = document.querySelector('.scroll-snap-container')
-    scrollContainer.addEventListener('scroll', handleScroll)
-
-    // Clean up event listener on unmount
-    return () => {
-      scrollContainer.removeEventListener('scroll', handleScroll)
-    }
-  }, [])
 
   const posts = latestStories?.posts ?? []
   const editorials = latestStories?.editorials ?? []
@@ -193,6 +307,37 @@ export default function SingleLuxuryTravel(props) {
     ],
   ]
 
+  // Handle password submission
+  const handlePasswordSubmit = (e) => {
+    e.preventDefault()
+    if (enteredPassword === passwordProtected?.password) {
+      setIsAuthenticated(true)
+      Cookies.set('luxuryTravelPassword', enteredPassword, { expires: 1 }) // Set cookie to expire in 1 day
+    } else {
+      alert('Incorrect password. Please try again.')
+    }
+  }
+
+  if (passwordProtected?.onOff && !isAuthenticated) {
+    return (
+      <main
+        className={`${eb_garamond.variable} ${rubik_mono_one.variable} ${rubik.variable}`}
+      >
+        <form onSubmit={handlePasswordSubmit}>
+          <PasswordProtected
+            enteredPassword={enteredPassword}
+            setEnteredPassword={setEnteredPassword}
+            title={seo?.title}
+            description={seo?.metaDesc}
+            imageUrl={featuredImage?.node?.sourceUrl}
+            url={uri}
+            focuskw={seo?.focuskw}
+          />
+        </form>
+      </main>
+    )
+  }
+
   return (
     <main
       className={`${eb_garamond.variable} ${rubik_mono_one.variable} ${rubik.variable}`}
@@ -204,7 +349,7 @@ export default function SingleLuxuryTravel(props) {
         url={uri}
         focuskw={seo?.focuskw}
       />
-      <SingleLuxuryTravelHeader
+      <LTHeader
         title={siteTitle}
         description={siteDescription}
         primaryMenuItems={primaryMenu}
@@ -216,100 +361,109 @@ export default function SingleLuxuryTravel(props) {
         latestStories={allPosts}
         menusLoading={menusLoading}
         latestLoading={latestLoading}
-        visibleComponent={visibleComponent}
+        // visibleComponent={visibleComponent}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        isNavShown={isNavShown}
+        setIsNavShown={setIsNavShown}
+        isScrolled={isScrolled}
+      />
+      <LTSecondaryHeader
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        rcaDatabaseId={rcaDatabaseId}
+        rcaUri={rcaUri}
+        isGuidesNavShown={isGuidesNavShown}
+        setIsGuidesNavShown={setIsGuidesNavShown}
+        isRCANavShown={isRCANavShown}
+        setIsRCANavShown={setIsRCANavShown}
+        isScrolled={isScrolled}
       />
       <Main>
         <>
-          <SingleAdvertorialContainer>
-            <div
-              className="scroll-snap-container relative h-screen w-screen snap-y snap-mandatory overflow-y-scroll bg-[#f5f5f5] sm:top-[4.5rem]"
-              onScroll={handleScroll}
-            >
+          <SingleLTContainer>
+            <div className=" bg-[#dbf2f1] sm:top-[4.5rem]">
               <section
-                className="snap-section relative snap-start snap-always overflow-y-scroll sm:h-screen"
+                className="relative pt-[3.5rem] sm:pt-[4.5rem]"
                 data-id="section1"
               >
-                <div className="mt-[3.5rem] overflow-hidden sm:fixed sm:bottom-0 sm:right-[50vw] sm:top-[4.5rem] sm:mt-0 sm:h-screen sm:w-[50vw]">
-                  <SingleLTSlider
+                <div className=" bg-[#dbf2f1]">
+                  <SingleAdvertorialSlider
                     images={images?.map((image) => image[0])}
-                    captions={images?.map((caption) => caption[1])}
-                    // parent={parent?.node?.title}
-                    // nextUri={nextUri}
-                    sliderLL={sliderLL}
-                    isSliderMounted={isSliderMounted}
-                    setIsSliderMounted={setIsSliderMounted}
+                  />
+                  <SingleAdvertorialEntryHeader
+                    title={title}
+                    label={acfAdvertorialLabel?.advertorialLabel}
+                    // luxuryTravelClass={'luxuryTravelClass'}
                   />
                 </div>
-                <div className="overflow-y-scroll sm:fixed sm:bottom-0 sm:left-[50vw] sm:top-[4.5rem] sm:w-[50vw]">
-                  <div className="sm:h-fit sm:pb-[4.5rem]">
-                    <SingleAdvertorialEntryHeader
-                      title={title}
-                      label={acfAdvertorialLabel?.advertorialLabel}
-                      luxuryClass={'luxuryClass'}
-                    />
-                    <ContentWrapperAdvertorial content={content} />
-                    {(tabsEditor?.tabTitle1 && tabsEditor?.tab1) !== null && (
-                      <TabsEditor tabsEditor={tabsEditor} />
-                    )}
-                  </div>
-                </div>
-                <div className="hidden sm:fixed sm:bottom-0 sm:flex sm:w-screen sm:items-center sm:justify-center ">
-                  <button
-                    onClick={scrollToSection}
-                    aria-label="Scroll to Section 2"
-                  >
-                    <div className="rounded-[10%] p-[0.5rem] opacity-80 sm:bg-[#000000]">
-                      <svg
-                        width="83"
-                        height="99"
-                        viewBox="0 0 83 99"
-                        className="h-[4rem] w-auto"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M67.8857 63.5143L45.36 93.7543L35.7943 93.7543L13.3714 63.5143L26.1257 54.2571L40.7314 74.52L55.5429 54.2571L67.8857 63.5143ZM67.8857 14.0946L45.36 44.3346L35.7943 44.3346L13.3714 14.0946L26.1257 4.8375L40.7314 25.1004L55.5429 4.8375L67.8857 14.0946Z"
-                          fill="#f5f5f5"
-                        />
-                      </svg>
+              </section>
+              {content && (
+                <section
+                  className="relative pt-4 sm:pt-6"
+                  data-id="section2"
+                  id="section2"
+                >
+                  <div className="">
+                    <div className="sm:h-fit">
+                      <ContentWrapperAdvertorial
+                        content={content}
+                        luxuryTravelClass={'luxuryTravelClass'}
+                      />
                     </div>
-                  </button>
+                  </div>
+                </section>
+              )}
+              {(tabsEditor?.tabTitle1 && tabsEditor?.tab1) !== null && (
+                <section className="relative pt-4 sm:pt-6" data-id="section3">
+                  <div className=" bg-[#dbf2f1] pt-[3.5rem] sm:pt-0">
+                    <div className="sm:h-fit">
+                      <TabsEditor
+                        tabsEditor={tabsEditor}
+                        // luxuryTravelClass={'luxuryTravelClass'}
+                      />
+                    </div>
+                  </div>
+                </section>
+              )}
+              {(luxuryTravelPinPosts?.pinPosts?.length &&
+                luxuryTravelPinPosts?.moreStories?.length) !== 0 && (
+                <section className="relative pt-4 sm:pt-6" data-id="section4">
+                  <div className=" bg-[#dbf2f1]">
+                    <LuxuryTravelStories
+                      luxuryTravelId={databaseId}
+                      name={title}
+                      parent={parent?.node?.title}
+                      luxuryTravelPinPosts={luxuryTravelPinPosts}
+                      pinPostsTitle={luxuryTravelPinPosts?.pinPostsTitle}
+                    />
+                  </div>
+                </section>
+              )}
+              {luxuryTravelDirectory?.directory && (
+                <section className="relative pt-4 sm:pt-6" data-id="section5">
+                  <div className=" bg-[#dbf2f1]">
+                    <LuxuryTravelDirectory
+                      content={luxuryTravelDirectory?.directory}
+                      parent={parent?.node?.title}
+                      isAdvertorial={false}
+                    />
+                  </div>
+                </section>
+              )}
+              <section
+                className="pb-e relative pt-4 sm:pt-6"
+                data-id="section6"
+              >
+                <div className=" bg-[#ffffff]">
+                  <BackToTop />
                 </div>
               </section>
-              <section
-                className="snap-section relative snap-start snap-always sm:pt-[4.5rem]"
-                data-id="section2"
-                id="section2"
-              >
-                <div className="overflow-y-scroll bg-[#f5f5f5] pt-[3.5rem] sm:pt-0 sm:shadow-[0px_-0.1rem_0.1rem_0_#000000]">
-                  <LuxuryTravelStories
-                    luxuryTravelId={databaseId}
-                    parent={parent?.node?.title}
-                    luxuryTravelPinPosts={luxuryTravelPinPosts}
-                    pinPostsTitle={luxuryTravelPinPosts?.pinPostsTitle}
-                  />
-                </div>
-              </section>
-              <section
-                className="snap-section relative snap-start snap-always"
-                data-id="section3"
-              >
-                <div className="overflow-y-scroll bg-[#f5f5f5] pt-[3.5rem] sm:pt-[4.5rem]">
-                  <LuxuryTravelDirectory
-                    content={luxuryTravelDirectory?.directory}
-                    parent={parent?.node?.title}
-                    isAdvertorial={false}
-                  />
-                </div>
-              </section>
-              <section
-                className="snap-section relative snap-start snap-always pb-0"
-                data-id="section4"
-              >
+              <section className="relative pb-0" data-id="section7">
                 <Footer footerMenu={footerMenu} />
               </section>
             </div>
-          </SingleAdvertorialContainer>
+          </SingleLTContainer>
         </>
       </Main>
     </main>
@@ -325,6 +479,10 @@ SingleLuxuryTravel.query = gql`
       databaseId
       content
       date
+      passwordProtected {
+        onOff
+        password
+      }
       tabsEditor {
         tab1
         tab2
@@ -386,8 +544,6 @@ SingleLuxuryTravel.query = gql`
             uri
             contentTypeName
             title
-            content
-            date
             excerpt
             featuredImage {
               node {
@@ -431,8 +587,6 @@ SingleLuxuryTravel.query = gql`
             uri
             contentTypeName
             title
-            content
-            date
             excerpt
             featuredImage {
               node {
@@ -464,8 +618,6 @@ SingleLuxuryTravel.query = gql`
             uri
             contentTypeName
             title
-            content
-            date
             excerpt
             featuredImage {
               node {
@@ -531,6 +683,30 @@ SingleLuxuryTravel.query = gql`
                   height
                 }
               }
+            }
+          }
+          ... on Video {
+            id
+            contentTypeName
+            title
+            content
+            featuredImage {
+              node {
+                id
+                sourceUrl
+                altText
+                mediaDetails {
+                  width
+                  height
+                }
+              }
+            }
+            videosAcf {
+              videoLink
+              guidesCategoryLink
+              guidesCategoryText
+              customLink
+              customText
             }
           }
         }
@@ -540,8 +716,6 @@ SingleLuxuryTravel.query = gql`
             uri
             contentTypeName
             title
-            content
-            date
             excerpt
             categories(where: { childless: true }) {
               edges {
@@ -574,8 +748,6 @@ SingleLuxuryTravel.query = gql`
             uri
             contentTypeName
             title
-            content
-            date
             excerpt
             categories {
               edges {
@@ -596,8 +768,6 @@ SingleLuxuryTravel.query = gql`
             uri
             contentTypeName
             title
-            content
-            date
             excerpt
             categories {
               edges {
@@ -630,6 +800,30 @@ SingleLuxuryTravel.query = gql`
               node {
                 label
               }
+            }
+          }
+          ... on Video {
+            id
+            contentTypeName
+            title
+            content
+            featuredImage {
+              node {
+                id
+                sourceUrl
+                altText
+                mediaDetails {
+                  width
+                  height
+                }
+              }
+            }
+            videosAcf {
+              videoLink
+              guidesCategoryLink
+              guidesCategoryText
+              customLink
+              customText
             }
           }
         }

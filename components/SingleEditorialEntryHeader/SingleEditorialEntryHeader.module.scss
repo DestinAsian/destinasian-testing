@@ -23,7 +23,7 @@
     transition: margin 1.5s ease-in-out;
   }
 
-  @media (min-width: $breakpoint-small) {
+  @media (min-width: $breakpoint-medium) {
     margin: -52.5vh auto 0;
   }
 }

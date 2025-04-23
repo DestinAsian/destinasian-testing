@@ -4,8 +4,13 @@ import styles from './HomepageStories.module.scss'
 import { useQuery } from '@apollo/client'
 import { GetHomepageStories } from '../../queries/GetHomepageStories'
 import { GetHomepageBannerAds } from '../../queries/GetHomepageBannerAds'
-import { Button, PostTwoColumns, ModuleAd, AdvertorialPostTwoColumns } from '../../components'
-import { GetAdvertorialStories } from '../../queries/GetAdvertorialStories'
+import {
+  Button,
+  PostTwoColumns,
+  ModuleAd,
+  AdvertorialPostTwoColumns,
+} from '../../components'
+import { GetAdvertorialHomepageStories } from '../../queries/GetAdvertorialHomepageStories'
 
 let cx = classNames.bind(styles)
 
@@ -52,12 +57,8 @@ export default function HomepageStories(pinPosts) {
 
   // Get Advertorial Stories
   const { data: advertorialsData, error: advertorialsError } = useQuery(
-    GetAdvertorialStories,
+    GetAdvertorialHomepageStories,
     {
-      variables: {
-        first: advertPerPage,
-        search: null,
-      },
       fetchPolicy: 'network-only',
       nextFetchPolicy: 'cache-and-network',
     },
@@ -127,22 +128,15 @@ export default function HomepageStories(pinPosts) {
       const contentAdvertorials = []
 
       // Loop through all the contentNodes posts
-      advertorialsData?.tags?.edges?.forEach((contentNodes) => {
-        {
-          contentNodes?.node?.contentNodes?.edges?.length !== 0 &&
-            contentNodes.node?.contentNodes?.edges.forEach((post) => {
-              const { databaseId } = post.node
+      advertorialsData?.contentNodes?.edges?.forEach((post) => {
+        const { databaseId } = post.node
 
-              // Check if the databaseId is unique (not in the Set)
-              if (!uniqueDatabaseIds.has(databaseId)) {
-                uniqueDatabaseIds.add(databaseId) // Add the databaseId to the Set
-                contentAdvertorials.push(post.node) // Push the unique post to the array
-              }
-            })
+        // Check if the databaseId is unique (not in the Set)
+        if (!uniqueDatabaseIds.has(databaseId)) {
+          uniqueDatabaseIds.add(databaseId) // Add the databaseId to the Set
+          contentAdvertorials.push(post.node) // Push the unique post to the array
         }
       })
-
-      // const advertorialArray = Object.values(contentAdvertorials || [])
 
       // Shuffle only the otherBannerAds array
       const shuffleAdvertorialPost = shuffleArray(contentAdvertorials)
@@ -222,14 +216,7 @@ export default function HomepageStories(pinPosts) {
   }
 
   // Declare all posts
-  const allPosts = (data?.contentNodes?.edges || [])
-    .map((post) => post.node)
-    .filter(
-      (post) =>
-        !['Airline News', 'Trade Talk'].includes(
-          post.categories?.edges[0]?.node?.name,
-        ),
-    )
+  const allPosts = (data?.contentNodes?.edges || []).map((post) => post.node)
 
   // Declare all pin posts
   const allPinPosts = [
@@ -262,28 +249,92 @@ export default function HomepageStories(pinPosts) {
       {mergedPosts.length !== 0 &&
         mergedPosts.map((post, index) => (
           <React.Fragment key={post?.id}>
-            <div className={cx('post-wrapper')}>
-              <PostTwoColumns
-                title={post?.title}
-                excerpt={post?.excerpt}
-                content={post?.content}
-                date={post?.date}
-                author={post?.author?.node?.name}
-                uri={post?.uri}
-                parentCategory={
-                  post?.categories?.edges[0]?.node?.parent?.node?.name
-                }
-                category={post?.categories?.edges[0]?.node?.name}
-                categoryUri={post?.categories?.edges[0]?.node?.uri}
-                featuredImage={post?.featuredImage?.node}
-                chooseYourCategory={post?.acfCategoryIcon?.chooseYourCategory}
-                chooseIcon={post?.acfCategoryIcon?.chooseIcon?.mediaItemUrl}
-                categoryLabel={post?.acfCategoryIcon?.categoryLabel}
-                locationValidation={post?.acfLocationIcon?.fieldGroupName}
-                locationLabel={post?.acfLocationIcon?.locationLabel}
-                locationUrl={post?.acfLocationIcon?.locationUrl}
-              />
-            </div>
+            {/* Post / Guides Stories */}
+            {post?.contentTypeName === 'post' && (
+              <div className={cx('post-wrapper')}>
+                <PostTwoColumns
+                  title={post?.title}
+                  excerpt={post?.excerpt}
+                  uri={post?.uri}
+                  parentCategory={
+                    post?.categories?.edges[0]?.node?.parent?.node?.name
+                  }
+                  category={post?.categories?.edges[0]?.node?.name}
+                  categoryUri={post?.categories?.edges[0]?.node?.uri}
+                  featuredImage={post?.featuredImage?.node}
+                  chooseYourCategory={post?.acfCategoryIcon?.chooseYourCategory}
+                  chooseIcon={post?.acfCategoryIcon?.chooseIcon?.mediaItemUrl}
+                  categoryLabel={post?.acfCategoryIcon?.categoryLabel}
+                  locationValidation={post?.acfLocationIcon?.fieldGroupName}
+                  locationLabel={post?.acfLocationIcon?.locationLabel}
+                  locationUrl={post?.acfLocationIcon?.locationUrl}
+                />
+              </div>
+            )}
+            {post?.contentTypeName === 'editorial' && (
+              <div className={cx('post-wrapper')}>
+                {/* Editorials Stories */}
+                <PostTwoColumns
+                  title={post?.title}
+                  excerpt={post?.excerpt}
+                  uri={post?.uri}
+                  parentCategory={
+                    post?.categories?.edges[0]?.node?.parent?.node?.name
+                  }
+                  category={post?.categories?.edges[0]?.node?.name}
+                  categoryUri={post?.categories?.edges[0]?.node?.uri}
+                  featuredImage={post?.featuredImage?.node}
+                  chooseYourCategory={post?.acfCategoryIcon?.chooseYourCategory}
+                  chooseIcon={post?.acfCategoryIcon?.chooseIcon?.mediaItemUrl}
+                  categoryLabel={post?.acfCategoryIcon?.categoryLabel}
+                  locationValidation={post?.acfLocationIcon?.fieldGroupName}
+                  locationLabel={post?.acfLocationIcon?.locationLabel}
+                  locationUrl={post?.acfLocationIcon?.locationUrl}
+                />
+              </div>
+            )}
+            {/* Updates Stories */}
+            {post?.contentTypeName === 'update' && (
+              <div className={cx('post-wrapper')}>
+                <PostTwoColumns
+                  title={post?.title}
+                  excerpt={post?.excerpt}
+                  uri={post?.uri}
+                  parentCategory={
+                    post?.categories?.edges[0]?.node?.parent?.node?.name
+                  }
+                  category={post?.categories?.edges[0]?.node?.name}
+                  categoryUri={post?.categories?.edges[0]?.node?.uri}
+                  featuredImage={post?.featuredImage?.node}
+                />
+              </div>
+            )}
+            {post?.contentTypeName === 'honors-circle' && (
+              <div className={cx('hc-wrapper')}>
+                {/* Honors Circle Stories */}
+                <PostTwoColumns
+                  title={post?.title}
+                  excerpt={post?.excerpt}
+                  uri={post?.uri}
+                  category={post?.contentType?.node?.label.slice(0, -1)}
+                  categoryUri={post?.uri}
+                  featuredImage={post?.featuredImage?.node}
+                />
+              </div>
+            )}
+            {post?.contentTypeName === 'luxury-travel' && (
+              <div className={cx('post-wrapper')}>
+                {/* Luxury Travel Stories */}
+                <PostTwoColumns
+                  title={post?.title}
+                  excerpt={post?.excerpt}
+                  uri={post?.uri}
+                  category={post?.contentType?.node?.label.slice(0, -1)}
+                  categoryUri={post?.uri}
+                  featuredImage={post?.featuredImage?.node}
+                />
+              </div>
+            )}
             {/* Show 1st banner after 2 posts and then every 4 posts */}
             {(index - 1) % 4 === 0 && (
               <div className={cx('banner-ad-wrapper')}>

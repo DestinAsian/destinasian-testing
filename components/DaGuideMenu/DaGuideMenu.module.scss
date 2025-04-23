@@ -34,9 +34,12 @@
   text-transform: uppercase;
   justify-content: center;
   align-items: center;
+  line-height: normal;
+  height: 2.5rem;
 
   @media (min-width: $breakpoint-extra-small) {
     font-size: 0.875rem;
+    height: 3rem;
   }
 
   @media (min-width: $breakpoint-small) {

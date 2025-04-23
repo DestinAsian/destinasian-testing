@@ -46,7 +46,7 @@ export default function SearchInput({
         // autoFocus
         // onFocus={(e) => e.target.select()}
         type="text"
-        // placeholder="YOUR JOURNEY BEGINS HERE"
+        autoComplete='off'
         {...props}
       />
       <button onClick={clearSearch} className={styles.closeIcon}>

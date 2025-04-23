@@ -265,15 +265,27 @@
       }
 
       .directory-title {
-        width: fit-content;
-        background-color: var(--wpe--color--black);
+        font-size: 0.65rem;
+        font-weight: 700;
         color: var(--wpe--color--white);
-        padding: 0.5rem 4vw;
-        font-size: 0.9rem;
+        background-color: var(--wpe--color--black);
+        padding: 0.75rem;
+        display: flex;
+        text-transform: uppercase;
+        justify-content: center;
+        align-items: center;
+        width: fit-content;
+
+        @media (min-width: $breakpoint-extra-small) {
+          font-size: 0.875rem;
+        }
 
         @media (min-width: $breakpoint-small) {
-          padding: 0.5rem 2vw;
-          font-size: 1.1rem;
+          margin: 0;
+        }
+
+        @media (min-width: $breakpoint-medium) {
+          font-size: 1.25rem;
         }
       }
 

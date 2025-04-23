@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
 import { BlogInfoFragment } from '../fragments/GeneralSettings'
-import { PostFragment } from '../fragments/PostFragment'
 import {
   HomepageHeader,
   Main,
@@ -11,10 +10,13 @@ import {
   SEO,
   FeatureWell,
   HomepageStories,
+  HomepageSecondaryHeader,
 } from '../components'
 import { GetMenus } from '../queries/GetMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
 import { eb_garamond, rubik_mono_one } from '../styles/fonts/fonts'
+import { GetHomepagePinPosts } from '../queries/GetHomepagePinPosts'
+import { GetLatestRCA } from '../queries/GetLatestRCA'
 
 export default function Component(props) {
   // Loading state for previews
@@ -24,10 +26,90 @@ export default function Component(props) {
 
   const { title: siteTitle, description: siteDescription } =
     props?.data?.generalSettings
-  const { featuredImage, acfHomepageSlider, homepagePinPosts, uri, seo } =
-    props?.data?.page ?? []
+  const { featuredImage, acfHomepageSlider, uri, seo } = props?.data?.page ?? []
+  const { databaseId, asPreview } = props?.__TEMPLATE_VARIABLES__ ?? []
 
   const [currentFeatureWell, setCurrentFeatureWell] = useState(null)
+  // Search function content
+  const [searchQuery, setSearchQuery] = useState('')
+  // Scrolled Function
+  const [isScrolled, setIsScrolled] = useState(false)
+  // NavShown Function
+  const [isNavShown, setIsNavShown] = useState(false)
+  const [isGuidesNavShown, setIsGuidesNavShown] = useState(false)
+  const [isRCANavShown, setIsRCANavShown] = useState(false)
+
+  // Stop scrolling pages when searchQuery
+  useEffect(() => {
+    if (searchQuery !== '') {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [searchQuery])
+
+  // Add sticky header on scroll
+  useEffect(() => {
+    function handleScroll() {
+      setIsScrolled(window.scrollY > 0)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
+  // Stop scrolling pages when isNavShown
+  useEffect(() => {
+    if (isNavShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isNavShown])
+
+  // Stop scrolling pages when isRCANavShown
+  useEffect(() => {
+    if (isRCANavShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isRCANavShown])
+
+  // Stop scrolling pages when isGuidesNavShown
+  useEffect(() => {
+    if (isGuidesNavShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isGuidesNavShown])
+
+  const { data: rcaData } = useQuery(GetLatestRCA, {
+    fetchPolicy: 'network-only',
+    nextFetchPolicy: 'cache-and-network',
+  })
+
+  const [latestRCA, setLatestRCA] = useState(null)
+
+  useEffect(() => {
+    if (rcaData?.readersChoiceAwards?.edges) {
+      // Find the first RCA where parent is null
+      const filteredRCA = rcaData.readersChoiceAwards.edges.find(
+        (edge) => !edge.node.parent,
+      )?.node
+      setLatestRCA(filteredRCA || null)
+    }
+  }, [rcaData]) // Runs whenever rcaData changes
+
+  const {
+    // title: rcaTitle,
+    databaseId: rcaDatabaseId,
+    uri: rcaUri,
+  } = latestRCA ?? []
 
   const featureWell = [
     {
@@ -95,6 +177,19 @@ export default function Component(props) {
   const fourthMenu = menusData?.fourthHeaderMenuItems?.nodes ?? []
   const fifthMenu = menusData?.fifthHeaderMenuItems?.nodes ?? []
   const featureMenu = menusData?.featureHeaderMenuItems?.nodes ?? []
+
+  // Get pin posts stories
+  const { data: pinPostsStories } = useQuery(GetHomepagePinPosts, {
+    variables: {
+      id: databaseId,
+      asPreview: asPreview,
+    },
+    fetchPolicy: 'network-only',
+    nextFetchPolicy: 'cache-and-network',
+  })
+
+  // State variable of homepage pin posts
+  const homepagePinPosts = pinPostsStories?.page?.homepagePinPosts ?? []
 
   // Get latest travel stories
   const { data: latestStories, loading: latestLoading } = useQuery(
@@ -167,13 +262,26 @@ export default function Component(props) {
         fifthMenuItems={fifthMenu}
         featureMenuItems={featureMenu}
         latestStories={allPosts}
-        home={uri}
+        // home={uri}
         menusLoading={menusLoading}
         latestLoading={latestLoading}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        isNavShown={isNavShown}
+        setIsNavShown={setIsNavShown}
+        isScrolled={isScrolled}
       />
-      {/* <SecondaryHeader
-        home={uri}
-      /> */}
+      <HomepageSecondaryHeader
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        rcaDatabaseId={rcaDatabaseId}
+        rcaUri={rcaUri}
+        isGuidesNavShown={isGuidesNavShown}
+        setIsGuidesNavShown={setIsGuidesNavShown}
+        isRCANavShown={isRCANavShown}
+        setIsRCANavShown={setIsRCANavShown}
+        isScrolled={isScrolled}
+      />
       <Main>
         <>
           {/* <NavigationHeader menuItems={navigationMenu}/> */}
@@ -199,7 +307,6 @@ export default function Component(props) {
 
 Component.query = gql`
   ${BlogInfoFragment}
-  ${PostFragment}
   ${FeaturedImage.fragments.entry}
   query GetPageData($databaseId: ID!, $asPreview: Boolean = false) {
     page(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
@@ -257,323 +364,6 @@ Component.query = gql`
         typeSlide1
         typeSlide2
         typeSlide3
-      }
-      homepagePinPosts {
-        pinPost1 {
-          ... on Post {
-            ...PostFragment
-            ...FeaturedImageFragment
-            author {
-              node {
-                name
-              }
-            }
-            categories(where: { childless: true }) {
-              edges {
-                node {
-                  name
-                  uri
-                  parent {
-                    node {
-                      name
-                    }
-                  }
-                }
-              }
-            }
-            acfCategoryIcon {
-              categoryLabel
-              chooseYourCategory
-              chooseIcon {
-                mediaItemUrl
-              }
-            }
-            acfLocationIcon {
-              fieldGroupName
-              locationLabel
-              locationUrl
-            }
-          }
-          ... on Editorial {
-            id
-            title
-            content
-            date
-            uri
-            excerpt
-            ...FeaturedImageFragment
-            author {
-              node {
-                name
-              }
-            }
-            categories {
-              edges {
-                node {
-                  name
-                  uri
-                  parent {
-                    node {
-                      name
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-        pinPost2 {
-          ... on Post {
-            ...PostFragment
-            ...FeaturedImageFragment
-            author {
-              node {
-                name
-              }
-            }
-            categories(where: { childless: true }) {
-              edges {
-                node {
-                  name
-                  uri
-                  parent {
-                    node {
-                      name
-                    }
-                  }
-                }
-              }
-            }
-            acfCategoryIcon {
-              categoryLabel
-              chooseYourCategory
-              chooseIcon {
-                mediaItemUrl
-              }
-            }
-            acfLocationIcon {
-              fieldGroupName
-              locationLabel
-              locationUrl
-            }
-          }
-          ... on Editorial {
-            id
-            title
-            content
-            date
-            uri
-            excerpt
-            ...FeaturedImageFragment
-            author {
-              node {
-                name
-              }
-            }
-            categories {
-              edges {
-                node {
-                  name
-                  uri
-                  parent {
-                    node {
-                      name
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-        pinPost3 {
-          ... on Post {
-            ...PostFragment
-            ...FeaturedImageFragment
-            author {
-              node {
-                name
-              }
-            }
-            categories(where: { childless: true }) {
-              edges {
-                node {
-                  name
-                  uri
-                  parent {
-                    node {
-                      name
-                    }
-                  }
-                }
-              }
-            }
-            acfCategoryIcon {
-              categoryLabel
-              chooseYourCategory
-              chooseIcon {
-                mediaItemUrl
-              }
-            }
-            acfLocationIcon {
-              fieldGroupName
-              locationLabel
-              locationUrl
-            }
-          }
-          ... on Editorial {
-            id
-            title
-            content
-            date
-            uri
-            excerpt
-            ...FeaturedImageFragment
-            author {
-              node {
-                name
-              }
-            }
-            categories {
-              edges {
-                node {
-                  name
-                  uri
-                  parent {
-                    node {
-                      name
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-        pinPost4 {
-          ... on Post {
-            ...PostFragment
-            ...FeaturedImageFragment
-            author {
-              node {
-                name
-              }
-            }
-            categories(where: { childless: true }) {
-              edges {
-                node {
-                  name
-                  uri
-                  parent {
-                    node {
-                      name
-                    }
-                  }
-                }
-              }
-            }
-            acfCategoryIcon {
-              categoryLabel
-              chooseYourCategory
-              chooseIcon {
-                mediaItemUrl
-              }
-            }
-            acfLocationIcon {
-              fieldGroupName
-              locationLabel
-              locationUrl
-            }
-          }
-          ... on Editorial {
-            id
-            title
-            content
-            date
-            uri
-            excerpt
-            ...FeaturedImageFragment
-            author {
-              node {
-                name
-              }
-            }
-            categories {
-              edges {
-                node {
-                  name
-                  uri
-                  parent {
-                    node {
-                      name
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-        pinPost5 {
-          ... on Post {
-            ...PostFragment
-            ...FeaturedImageFragment
-            author {
-              node {
-                name
-              }
-            }
-            categories(where: { childless: true }) {
-              edges {
-                node {
-                  name
-                  uri
-                  parent {
-                    node {
-                      name
-                    }
-                  }
-                }
-              }
-            }
-            acfCategoryIcon {
-              categoryLabel
-              chooseYourCategory
-              chooseIcon {
-                mediaItemUrl
-              }
-            }
-            acfLocationIcon {
-              fieldGroupName
-              locationLabel
-              locationUrl
-            }
-          }
-          ... on Editorial {
-            id
-            title
-            content
-            date
-            uri
-            excerpt
-            ...FeaturedImageFragment
-            author {
-              node {
-                name
-              }
-            }
-            categories {
-              edges {
-                node {
-                  name
-                  uri
-                  parent {
-                    node {
-                      name
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
       }
     }
     generalSettings {

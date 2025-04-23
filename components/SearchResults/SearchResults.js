@@ -11,6 +11,7 @@ import className from 'classnames/bind'
 import styles from './SearchResults.module.scss'
 import Link from 'next/link'
 import Image from 'next/image'
+import { useEffect, useState } from 'react'
 
 let cx = className.bind(styles)
 
@@ -23,13 +24,26 @@ let cx = className.bind(styles)
  * @returns {React.ReactElement} The SearchResults component.
  */
 export default function SearchResults({ searchResults, isLoading }) {
+  const [filteredResults, setFilteredResults] = useState([])
+
+  useEffect(() => {
+    if (searchResults && searchResults.length) {
+      const categoryNodes = searchResults.filter(
+        (node) =>
+          node?.__typename !== 'Category' &&
+          node?.contentNodes?.edges?.length !== 0,
+      )
+      setFilteredResults(categoryNodes)
+    }
+  }, [searchResults])
+
   // If there are no results, or are loading, return null.
   if (!isLoading && searchResults === undefined) {
     return null
   }
 
   // If there are no results, return a message.
-  if (!isLoading && !searchResults?.length) {
+  if (!isLoading && !filteredResults?.length) {
     return (
       <div className={styles['no-results']}>
         <FaSearch className={styles['no-results-icon']} />
@@ -42,11 +56,11 @@ export default function SearchResults({ searchResults, isLoading }) {
   if (isLoading) {
     return (
       <>
-        <div className="mx-auto my-0 flex max-w-[100vw] justify-center md:max-w-[700px]	">
+        <div className="mx-auto my-0 flex h-[88vh] max-w-[100vw] justify-center sm:h-[95vh]	md:max-w-[700px]">
           <div role="status">
             <svg
               aria-hidden="true"
-              className="mr-2 h-[88vh] w-8 animate-spin fill-black text-gray-200 sm:h-[86vh] dark:text-gray-600"
+              className="mr-2 h-full w-8 animate-spin fill-black text-gray-200 sm:h-[86vh] dark:text-gray-600"
               viewBox="0 0 100 101"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -82,7 +96,7 @@ export default function SearchResults({ searchResults, isLoading }) {
   return (
     <>
       <div className={cx('component')}>
-        {searchResults?.map((node) => (
+        {filteredResults?.map((node) => (
           <Container>
             {node?.__typename === 'Category' ? (
               // Search Result for Categories
@@ -317,6 +331,15 @@ export default function SearchResults({ searchResults, isLoading }) {
                             {'Readers’ Choice Awards'}
                           </h2>
                         )}
+
+                        {/* Luxury Travel */}
+                        {node?.contentType?.node?.graphqlPluralName ==
+                          'LuxuryTravels' &&
+                          node?.uri && (
+                            <Link href={node?.uri}>
+                              <h2 className={cx('meta')}>{'Luxury Travel'}</h2>
+                            </Link>
+                          )}
                       </div>
                     )}
 
@@ -405,6 +428,17 @@ export default function SearchResults({ searchResults, isLoading }) {
                         node?.uri && (
                           <Link href={node?.uri}>
                             <h2 className={cx('title', 'title-rca')}>
+                              {node?.title}
+                            </h2>
+                          </Link>
+                        )}
+
+                      {/* Luxury Travel */}
+                      {node?.contentType?.node?.graphqlPluralName ==
+                        'LuxuryTravels' &&
+                        node?.uri && (
+                          <Link href={node?.uri}>
+                            <h2 className={cx('title', 'title-advertorial')}>
                               {node?.title}
                             </h2>
                           </Link>

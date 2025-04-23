@@ -10,7 +10,7 @@ export const GetHomepageStories = gql`
       where: {
         status: PUBLISH
         orderby: { field: DATE, order: DESC }
-        contentTypes: [POST, EDITORIAL, UPDATE]
+        contentTypes: [EDITORIAL]
       }
     ) {
       pageInfo {
@@ -21,60 +21,9 @@ export const GetHomepageStories = gql`
         node {
           id
           uri
-          ... on Post {
-            title
-            content
-            date
-            excerpt
-            ...FeaturedImageFragment
-            categories(where: { childless: true }) {
-              edges {
-                node {
-                  name
-                  uri
-                  parent {
-                    node {
-                      name
-                    }
-                  }
-                }
-              }
-            }
-            acfCategoryIcon {
-              categoryLabel
-              chooseYourCategory
-              chooseIcon {
-                mediaItemUrl
-              }
-            }
-            acfLocationIcon {
-              fieldGroupName
-              locationLabel
-              locationUrl
-            }
-          }
           ... on Editorial {
             title
-            content
-            date
-            excerpt
-            ...FeaturedImageFragment
-            categories {
-              edges {
-                node {
-                  name
-                  uri
-                  parent {
-                    node {
-                      name
-                    }
-                  }
-                }
-              }
-            }
-          }
-          ... on Update {
-            title
+            contentTypeName
             content
             date
             excerpt

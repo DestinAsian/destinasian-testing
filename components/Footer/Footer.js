@@ -1,9 +1,8 @@
 import classNames from 'classnames/bind'
-import { NavigationMenu, Container } from '../../components'
+import { NavigationMenu, Container, NewsletterEmbed } from '../../components'
 import styles from './Footer.module.scss'
 import Image from 'next/image'
 import Link from 'next/link'
-
 // DAMG Logo
 import daiLogo from '../../assets/logo/DAI_logo.png'
 import damanLogo from '../../assets/logo/DAMAN_logo.png'
@@ -33,6 +32,10 @@ export default function Footer(footerMenu) {
     <footer className={cx('component')}>
       <div className={cx('container-wrapper')}>
         <div className={cx('first-wrapper')}>
+          {/* newsletter */}
+          <div className={`${styles.newsletterWrapper} mb-12`}>
+            <NewsletterEmbed />
+          </div>
           {/* Footer Menu {DestinAsian Guides Menu} */}
           <NavigationMenu
             className={cx('footer-navigation')}

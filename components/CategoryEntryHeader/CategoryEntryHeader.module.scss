@@ -12,10 +12,12 @@
 .container-wrapper {
   width: 100vw;
   margin: 0 auto;
+  padding: 0;
 
   @media (min-width: $breakpoint-small) {
     margin: 0 auto 1rem;
-    // width: 50vw;
+    // max-width: 700px;
+    // padding: 0;
   }
 }
 
@@ -26,23 +28,24 @@
 
 .text {
   width: 100%;
-  padding: 0.25rem 0;
+  padding: 0;
   position: relative;
   z-index: 1; // Pull text to the foreground to sit above <FeaturedImage />.
 
-  @media (min-width: $breakpoint-small) {
-    padding: 0.5rem 0;
-  }
+  // @media (min-width: $breakpoint-small) {
+  //   padding: 0;
+  // }
 }
 
 .title,
 .parent {
   font-family: 'Unit Slab Pro Black';
-  line-height: 1.6;
+  line-height: 1.2;
   font-size: 1.7rem;
   font-weight: 500;
   color: var(--wpe--color--title);
   text-transform: uppercase;
+  padding: 0.5rem 0;
 
   @media (min-width: $breakpoint-extra-small) {
     font-size: 1.75rem;
@@ -65,7 +68,6 @@
 // Slider caption
 .image,
 .image-slider {
-  padding-top: 1rem;
   margin: 0;
   width: 100%;
   position: relative;
@@ -175,5 +177,18 @@
     margin: 0 auto;
     max-width: 700px;
     padding: 1rem 0;
+  }
+
+  a {
+    font-family: 'Chronicle Display A', 'Chronicle Display B';
+    font-weight: 600;
+    color: var(--wpe--link--color);
+    text-decoration: underline;
+
+    &:hover,
+    &:focus {
+      color: var(--wpe--link--color);
+      text-decoration: none;
+    }
   }
 }

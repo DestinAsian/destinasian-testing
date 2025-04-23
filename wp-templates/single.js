@@ -1,7 +1,7 @@
 import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
 import { BlogInfoFragment } from '../fragments/GeneralSettings'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   SingleHeader,
   Footer,
@@ -12,21 +12,38 @@ import {
   FeaturedImage,
   SEO,
   SingleSlider,
-  SecondaryHeader,
+  CategorySecondaryHeader,
   EntryMoreReviews,
   MoreReviews,
   PartnerContent,
+  PasswordProtected,
 } from '../components'
 import { GetMenus } from '../queries/GetMenus'
 import { GetFooterMenus } from '../queries/GetFooterMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
-import { eb_garamond, rubik_mono_one } from '../styles/fonts/fonts'
+import { eb_garamond, rubik, rubik_mono_one } from '../styles/fonts/fonts'
+import Cookies from 'js-cookie'
+import { GetSecondaryHeader } from '../queries/GetSecondaryHeader'
 
 export default function Component(props) {
   // Loading state for previews
   if (props.loading) {
     return <>Loading...</>
   }
+
+  const [enteredPassword, setEnteredPassword] = useState('')
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+
+  // Check for stored password in cookies on mount
+  useEffect(() => {
+    const storedPassword = Cookies.get('postPassword')
+    if (
+      storedPassword &&
+      storedPassword === props?.data?.post?.passwordProtected?.password
+    ) {
+      setIsAuthenticated(true)
+    }
+  }, [props?.data?.post?.passwordProtected?.password])
 
   const { title: siteTitle, description: siteDescription } =
     props?.data?.generalSettings
@@ -40,8 +57,59 @@ export default function Component(props) {
     acfLocationIcon,
     seo,
     uri,
+    passwordProtected,
   } = props?.data?.post
   const categories = props?.data?.post.categories?.edges ?? []
+
+  // Search function content
+  const [searchQuery, setSearchQuery] = useState('')
+  // Scrolled Function
+  const [isScrolled, setIsScrolled] = useState(false)
+  // NavShown Function
+  const [isNavShown, setIsNavShown] = useState(false)
+
+  // Stop scrolling pages when searchQuery
+  useEffect(() => {
+    if (searchQuery !== '') {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [searchQuery])
+
+  // Add sticky header on scroll
+  useEffect(() => {
+    function handleScroll() {
+      setIsScrolled(window.scrollY > 0)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
+  // Stop scrolling pages when isNavShown
+  useEffect(() => {
+    if (isNavShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isNavShown])
+
+  let catVariable = {
+    first: 1,
+    id: databaseId,
+  }
+
+  // Get Category
+  const { data, loading } = useQuery(GetSecondaryHeader, {
+    variables: catVariable,
+    fetchPolicy: 'network-only',
+    nextFetchPolicy: 'cache-and-network',
+  })
 
   // Get menus
   const { data: menusData, loading: menusLoading } = useQuery(GetMenus, {
@@ -71,7 +139,7 @@ export default function Component(props) {
     GetFooterMenus,
     {
       variables: {
-        first: 50,
+        first: 100,
         footerHeaderLocation: MENUS.FOOTER_LOCATION,
       },
       fetchPolicy: 'network-only',
@@ -177,6 +245,37 @@ export default function Component(props) {
     ],
   ]
 
+  // Handle password submission
+  const handlePasswordSubmit = (e) => {
+    e.preventDefault()
+    if (enteredPassword === passwordProtected?.password) {
+      setIsAuthenticated(true)
+      Cookies.set('postPassword', enteredPassword, { expires: 1 }) // Set cookie to expire in 1 day
+    } else {
+      alert('Incorrect password. Please try again.')
+    }
+  }
+
+  if (passwordProtected?.onOff && !isAuthenticated) {
+    return (
+      <main
+        className={`${eb_garamond.variable} ${rubik_mono_one.variable} ${rubik.variable}`}
+      >
+        <form onSubmit={handlePasswordSubmit}>
+          <PasswordProtected
+            enteredPassword={enteredPassword}
+            setEnteredPassword={setEnteredPassword}
+            title={seo?.title}
+            description={seo?.metaDesc}
+            imageUrl={featuredImage?.node?.sourceUrl}
+            url={uri}
+            focuskw={seo?.focuskw}
+          />
+        </form>
+      </main>
+    )
+  }
+
   return (
     <main className={`${eb_garamond.variable} ${rubik_mono_one.variable}`}>
       <SEO
@@ -198,10 +297,17 @@ export default function Component(props) {
         latestStories={allPosts}
         menusLoading={menusLoading}
         latestLoading={latestLoading}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        isNavShown={isNavShown}
+        setIsNavShown={setIsNavShown}
+        isScrolled={isScrolled}
       />
-      <SecondaryHeader
+      <CategorySecondaryHeader
+        data={data}
         databaseId={databaseId}
         categoryUri={categories[0]?.node?.uri}
+        parentCategory={categories[0]?.node?.parent?.node?.name}
       />
       <Main>
         <>
@@ -246,6 +352,10 @@ Component.query = gql`
       databaseId
       content
       date
+      passwordProtected {
+        onOff
+        password
+      }
       author {
         node {
           name

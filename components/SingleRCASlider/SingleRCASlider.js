@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react'
 
@@ -13,13 +13,25 @@ import Image from 'next/image'
 
 export default function SingleRCASlider({
   images,
-  swiperRef,
-  setSwiperRef,
   handleSlideChange,
-  setActiveIndex,
+  nextUri,
+  sliderRCA,
+  isSliderMounted,
+  setIsSliderMounted,
 }) {
-  // Real Index updating
-  const [realIndex, setRealIndex] = useState(0)
+  // Detect when slider is mounted
+  useEffect(() => {
+    if (sliderRCA?.current && sliderRCA?.current.swiper) {
+      setIsSliderMounted(true) // Mark as mounted when slider is ready
+    }
+  }, [sliderRCA?.current])
+
+  useEffect(() => {
+    if (isSliderMounted) {
+      sliderRCA?.current.swiper.update()
+    }
+  }, [images, nextUri, isSliderMounted])
+
   // Pagination according to images length
   const menuIndex = images?.map((image, index) => {
     return index
@@ -29,8 +41,7 @@ export default function SingleRCASlider({
     <>
       <Swiper
         spaceBetween={30}
-        ref={swiperRef}
-        onSwiper={setSwiperRef}
+        ref={sliderRCA}
         autoplay={{
           delay: 5000,
           disableOnInteraction: false,
@@ -48,7 +59,6 @@ export default function SingleRCASlider({
         }}
         onSlideChange={(swiper) => {
           handleSlideChange && handleSlideChange(swiper.realIndex)
-          setRealIndex(swiper.realIndex)
         }}
         modules={[EffectFade, Autoplay, Pagination]}
         className="post-rca-swiper"
@@ -71,8 +81,6 @@ export default function SingleRCASlider({
         ))}
       </Swiper>
       <div className="swiper-rca-custom-pagination"></div>
-      {/* Access realIndex anywhere in your component */}
-      {/* <div>{`Current Real Index: ${realIndex}`}</div> */}
     </>
   )
 }

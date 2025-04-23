@@ -50,7 +50,7 @@ export default function SingleLLSlider({
         }}
         pagination={{
           clickable: true,
-          el: '.swiper-ll-custom-pagination',
+          el: '.swiper-lt-custom-pagination',
           clickable: true,
           renderBullet: function (index, className) {
             return `<span key="${menuIndex[index]}" class="${className}"></span>`
@@ -128,7 +128,7 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
           </svg>
         </div> */}
       </Swiper>
-      <div className="swiper-ll-custom-pagination"></div>
+      <div className="swiper-lt-custom-pagination"></div>
     </>
   )
 }

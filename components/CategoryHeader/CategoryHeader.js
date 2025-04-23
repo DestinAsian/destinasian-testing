@@ -13,6 +13,7 @@ import { useMediaQuery } from 'react-responsive'
 import Image from 'next/image'
 import { useQuery } from '@apollo/client'
 import { GetSearchResults } from '../../queries/GetSearchResults'
+import { FaSearch } from 'react-icons/fa'
 
 let cx = classNames.bind(styles)
 
@@ -26,34 +27,13 @@ export default function CategoryHeader({
   latestStories,
   menusLoading,
   latestLoading,
+  searchQuery,
+  setSearchQuery,
+  isNavShown,
+  setIsNavShown,
+  isScrolled,
 }) {
   const isDesktop = useMediaQuery({ minWidth: 768 })
-  const [isNavShown, setIsNavShown] = useState(false)
-  const [isScrolled, setIsScrolled] = useState(false)
-
-  // Stop scrolling pages when isNavShown
-  useEffect(() => {
-    if (isNavShown) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'visible'
-    }
-  }, [isNavShown])
-
-  // Add sticky header on scroll
-  useEffect(() => {
-    function handleScroll() {
-      setIsScrolled(window.scrollY > 0)
-    }
-
-    window.addEventListener('scroll', handleScroll)
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
-  }, [])
-  // Search function content
-  const [searchQuery, setSearchQuery] = useState('')
   const postsPerPage = 1000
 
   // Clear search input
@@ -116,14 +96,16 @@ export default function CategoryHeader({
 
     // Compare the dates
     return dateB - dateA
-  });
+  })
 
   return (
-    <header className={cx('components', { sticky: isScrolled })}>
+    <header
+      className={cx('component', { sticky: isScrolled, navShown: isNavShown })}
+    >
       {/* Responsive header */}
       {isDesktop || (!isDesktop && !isNavShown) ? (
-        <Container>
-          <div className={cx('navbar')}>
+        <>
+          <div className={cx('navbar', { sticky: isScrolled })}>
             {/* DA logo */}
             <div className={cx('brand')}>
               <Link href="/">
@@ -139,47 +121,65 @@ export default function CategoryHeader({
 
             {/* Menu Button */}
             {isNavShown == false ? (
-              <div className={cx('menu-button')}>
-                {/* menu button */}
-                <button
-                  type="button"
-                  className={cx('menu-icon')}
-                  onClick={() => {
-                    setIsNavShown(!isNavShown)
-                    setSearchQuery('')
-                  }}
-                  aria-label="Toggle navigation"
-                  aria-controls={cx('full-menu-wrapper')}
-                  aria-expanded={!isNavShown}
-                >
-                  <svg
-                    version="1.0"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="40.000000pt"
-                    height="40.000000pt"
-                    viewBox="0 0 40.000000 40.000000"
-                    preserveAspectRatio="xMidYMid meet"
+              <div className={cx('menu-button-wrapper')}>
+                <div className={cx('search-button')}>
+                  {/* search button */}
+                  <button
+                    type="button"
+                    className={cx('search-icon')}
+                    onClick={() => {
+                      setIsNavShown(!isNavShown)
+                      setSearchQuery('')
+                    }}
+                    aria-label="Toggle navigation"
+                    aria-controls={cx('full-menu-wrapper')}
+                    aria-expanded={!isNavShown}
                   >
-                    <g
-                      transform="translate(0.000000,40.000000) scale(0.100000,-0.100000)"
-                      fill="#000000"
-                      stroke="none"
+                    <FaSearch className={cx('search-icon')} />
+                  </button>
+                </div>
+                <div className={cx('menu-button')}>
+                  {/* menu button */}
+                  <button
+                    type="button"
+                    className={cx('menu-icon')}
+                    onClick={() => {
+                      setIsNavShown(!isNavShown)
+                      setSearchQuery('')
+                    }}
+                    aria-label="Toggle navigation"
+                    aria-controls={cx('full-menu-wrapper')}
+                    aria-expanded={!isNavShown}
+                  >
+                    <svg
+                      version="1.0"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="40.000000pt"
+                      height="40.000000pt"
+                      viewBox="0 0 40.000000 40.000000"
+                      preserveAspectRatio="xMidYMid meet"
                     >
-                      <path
-                        d="M12 368 c-18 -18 -14 -46 7 -58 26 -13 336 -13 362 0 21 12 25 40 7
+                      <g
+                        transform="translate(0.000000,40.000000) scale(0.100000,-0.100000)"
+                        fill="#000000"
+                        stroke="none"
+                      >
+                        <path
+                          d="M12 368 c-18 -18 -14 -46 7 -58 26 -13 336 -13 362 0 21 12 25 40 7
 58 -17 17 -359 17 -376 0z"
-                      />
-                      <path
-                        d="M12 228 c-7 -7 -12 -20 -12 -29 0 -35 23 -40 205 -37 157 3 179 5
+                        />
+                        <path
+                          d="M12 228 c-7 -7 -12 -20 -12 -29 0 -35 23 -40 205 -37 157 3 179 5
 189 21 8 12 8 22 0 35 -10 15 -32 17 -190 20 -131 2 -183 -1 -192 -10z"
-                      />
-                      <path
-                        d="M17 89 c-20 -12 -22 -40 -5 -57 17 -17 359 -17 376 0 18 18 14 46 -7
+                        />
+                        <path
+                          d="M17 89 c-20 -12 -22 -40 -5 -57 17 -17 359 -17 376 0 18 18 14 46 -7
 58 -26 13 -340 13 -364 -1z"
-                      />
-                    </g>
-                  </svg>
-                </button>
+                        />
+                      </g>
+                    </svg>
+                  </button>
+                </div>
               </div>
             ) : (
               <div className={cx('menu-button')}>
@@ -225,10 +225,10 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
               </div>
             )}
           </div>
-        </Container>
+        </>
       ) : (
-        <Container>
-          <div className={cx('close-button')}>
+        <>
+          <div className={cx('close-button', { sticky: isScrolled })}>
             {/* close button */}
             <button
               type="button"
@@ -269,18 +269,18 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
               </svg>
             </button>
           </div>
-        </Container>
+        </>
       )}
 
       {/* Search Bar */}
-      <div className={cx('search-bar-wrapper', { stickySearch: isScrolled })}>
-        <div className={cx('search-input-wrapper')}>
+      <div className={cx('search-bar-wrapper')}>
+        {/* <div className={cx('search-input-wrapper')}>
           <SearchInput
             value={searchQuery}
             onChange={(newValue) => setSearchQuery(newValue)}
             clearSearch={clearSearch}
           />
-        </div>
+        </div> */}
         <div className={cx('search-result-wrapper')}>
           {searchResultsError && (
             <div className={cx('alert-error')}>
@@ -288,14 +288,12 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
             </div>
           )}
 
-          {/* Conditionally render the SearchResults component */}
           {isSearchResultsVisible && (
             <SearchResults
               searchResults={contentNodesPosts}
               isLoading={searchResultsLoading}
             />
           )}
-          
         </div>
       </div>
 

@@ -1,8 +1,9 @@
+import React, { useEffect, useState } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
 import { BlogInfoFragment } from '../fragments/GeneralSettings'
 import {
-  HCHeader,
+  Header,
   Main,
   Container,
   EntryHeader,
@@ -13,16 +14,34 @@ import {
   SingleHCContainer,
   ContentWrapperHCFrontPage,
   ContentWrapperHC,
+  PasswordProtected,
+  SecondaryHeader,
 } from '../components'
 import { GetMenus } from '../queries/GetMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
-import { eb_garamond, rubik_mono_one } from '../styles/fonts/fonts'
+import { eb_garamond, rubik, rubik_mono_one } from '../styles/fonts/fonts'
+import Cookies from 'js-cookie'
+import { GetLatestRCA } from '../queries/GetLatestRCA'
 
 export default function SingleHonorsCircle(props) {
   // Loading state for previews
   if (props.loading) {
     return <>Loading...</>
   }
+
+  const [enteredPassword, setEnteredPassword] = useState('')
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+
+  // Check for stored password in cookies on mount
+  useEffect(() => {
+    const storedPassword = Cookies.get('honorsCirclePassword')
+    if (
+      storedPassword &&
+      storedPassword === props?.data?.honorsCircle?.passwordProtected?.password
+    ) {
+      setIsAuthenticated(true)
+    }
+  }, [props?.data?.honorsCircle?.passwordProtected?.password])
 
   const { title: siteTitle, description: siteDescription } =
     props?.data?.generalSettings
@@ -36,7 +55,89 @@ export default function SingleHonorsCircle(props) {
     hcCaption,
     seo,
     uri,
+    passwordProtected,
   } = props?.data?.honorsCircle
+
+  // Search function content
+  const [searchQuery, setSearchQuery] = useState('')
+  // Scrolled Function
+  const [isScrolled, setIsScrolled] = useState(false)
+  // NavShown Function
+  const [isNavShown, setIsNavShown] = useState(false)
+  const [isGuidesNavShown, setIsGuidesNavShown] = useState(false)
+  const [isRCANavShown, setIsRCANavShown] = useState(false)
+
+  // Stop scrolling pages when searchQuery
+  useEffect(() => {
+    if (searchQuery !== '') {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [searchQuery])
+
+  // Add sticky header on scroll
+  useEffect(() => {
+    function handleScroll() {
+      setIsScrolled(window.scrollY > 0)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
+  // Stop scrolling pages when isNavShown
+  useEffect(() => {
+    if (isNavShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isNavShown])
+
+  // Stop scrolling pages when isRCANavShown
+  useEffect(() => {
+    if (isRCANavShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isRCANavShown])
+
+  // Stop scrolling pages when isGuidesNavShown
+  useEffect(() => {
+    if (isGuidesNavShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isGuidesNavShown])
+
+  const { data: rcaData } = useQuery(GetLatestRCA, {
+    fetchPolicy: 'network-only',
+    nextFetchPolicy: 'cache-and-network',
+  })
+
+  const [latestRCA, setLatestRCA] = useState(null)
+
+  useEffect(() => {
+    if (rcaData?.readersChoiceAwards?.edges) {
+      // Find the first RCA where parent is null
+      const filteredRCA = rcaData.readersChoiceAwards.edges.find(
+        (edge) => !edge.node.parent,
+      )?.node
+      setLatestRCA(filteredRCA || null)
+    }
+  }, [rcaData]) // Runs whenever rcaData changes
+
+  const {
+    // title: rcaTitle,
+    databaseId: rcaDatabaseId,
+    uri: rcaUri,
+  } = latestRCA ?? []
 
   // Get menus
   const { data: menusData, loading: menusLoading } = useQuery(GetMenus, {
@@ -121,6 +222,37 @@ export default function SingleHonorsCircle(props) {
     acfHCSlider.slide5 != null ? acfHCSlider.slide5.mediaItemUrl : null,
   ]
 
+  // Handle password submission
+  const handlePasswordSubmit = (e) => {
+    e.preventDefault()
+    if (enteredPassword === passwordProtected?.password) {
+      setIsAuthenticated(true)
+      Cookies.set('honorsCirclePassword', enteredPassword, { expires: 1 }) // Set cookie to expire in 1 day
+    } else {
+      alert('Incorrect password. Please try again.')
+    }
+  }
+
+  if (passwordProtected?.onOff && !isAuthenticated) {
+    return (
+      <main
+        className={`${eb_garamond.variable} ${rubik_mono_one.variable} ${rubik.variable}`}
+      >
+        <form onSubmit={handlePasswordSubmit}>
+          <PasswordProtected
+            enteredPassword={enteredPassword}
+            setEnteredPassword={setEnteredPassword}
+            title={seo?.title}
+            description={seo?.metaDesc}
+            imageUrl={featuredImage?.node?.sourceUrl}
+            url={uri}
+            focuskw={seo?.focuskw}
+          />
+        </form>
+      </main>
+    )
+  }
+
   return (
     <main className={`${eb_garamond.variable} ${rubik_mono_one.variable}`}>
       <SEO
@@ -130,20 +262,35 @@ export default function SingleHonorsCircle(props) {
         url={uri}
         focuskw={seo?.focuskw}
       />
-      {/* Countries pages */}
-      {parent == null && (
-        <HCHeader
-          title={siteTitle}
-          description={siteDescription}
-          primaryMenuItems={primaryMenu}
-          secondaryMenuItems={secondaryMenu}
-          thirdMenuItems={thirdMenu}
-          fourthMenuItems={fourthMenu}
-          fifthMenuItems={fifthMenu}
-          featureMenuItems={featureMenu}
-          latestStories={latestAllPosts}
-        />
-      )}
+      <Header
+        title={siteTitle}
+        description={siteDescription}
+        primaryMenuItems={primaryMenu}
+        secondaryMenuItems={secondaryMenu}
+        thirdMenuItems={thirdMenu}
+        fourthMenuItems={fourthMenu}
+        fifthMenuItems={fifthMenu}
+        featureMenuItems={featureMenu}
+        latestStories={latestAllPosts}
+        menusLoading={menusLoading}
+        latestLoading={latestLoading}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        isNavShown={isNavShown}
+        setIsNavShown={setIsNavShown}
+        isScrolled={isScrolled}
+      />
+      <SecondaryHeader
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        rcaDatabaseId={rcaDatabaseId}
+        rcaUri={rcaUri}
+        isGuidesNavShown={isGuidesNavShown}
+        setIsGuidesNavShown={setIsGuidesNavShown}
+        isRCANavShown={isRCANavShown}
+        setIsRCANavShown={setIsRCANavShown}
+        isScrolled={isScrolled}
+      />
       {parent == null && (
         <Main>
           <>
@@ -158,21 +305,6 @@ export default function SingleHonorsCircle(props) {
             </Container>
           </>
         </Main>
-      )}
-
-      {/* Hotel pages */}
-      {parent != null && (
-        <HCHeader
-          title={siteTitle}
-          description={siteDescription}
-          primaryMenuItems={primaryMenu}
-          secondaryMenuItems={secondaryMenu}
-          thirdMenuItems={thirdMenu}
-          fourthMenuItems={fourthMenu}
-          fifthMenuItems={fifthMenu}
-          featureMenuItems={featureMenu}
-          latestStories={latestAllPosts}
-        />
       )}
       {parent != null && (
         <Main>
@@ -202,6 +334,10 @@ SingleHonorsCircle.query = gql`
     honorsCircle(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
       title
       content
+      passwordProtected {
+        onOff
+        password
+      }
       ...FeaturedImageFragment
       author {
         node {

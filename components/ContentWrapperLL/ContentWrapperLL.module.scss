@@ -33,11 +33,11 @@
 
     @media (min-width: $breakpoint-extra-small) {
       position: fixed;
-      top: 4.5rem;
+      top: 6.5rem;
       right: 50vw;
       width: 50vw;
       padding: 0;
-      height: 100vh;
+      height: calc(-6.5rem + 100vh);
       border-left: 2rem solid var(--wpe--color--black);
       box-shadow: none;
     }
