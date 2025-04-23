@@ -15,7 +15,11 @@
     display: flex;
     flex-direction: column;
     row-gap: 0.25rem;
-    padding: 0;
+    padding: 1rem 0;
+
+    @media (min-width: $breakpoint-extra-small) {
+      padding: 2rem 0;
+    }
 
     img {
       max-width: 100%;
@@ -37,8 +41,7 @@
         width: 100%;
         height: auto;
         object-fit: contain;
-      }  
-
+      }
     }
     .swiper-pagination {
       position: absolute;
@@ -74,41 +77,38 @@
     @import 'styles/blocks';
 
     * {
-      max-width: 100%;
-      padding: 0 5px 0 5px;
+      padding: 0 1rem 0.25rem;
 
-      @media (min-width: $breakpoint-extra-small) {
-        padding: 0;
+      @media (min-width: $breakpoint-small) {
+        padding: 0 2rem 0.5rem;
       }
     }
 
     i,
     u,
     strong,
-    b {
+    b,
+    p,
+    span {
       padding: 0;
     }
 
-    span {
-      padding-left: 0;
-    }
-
     figure {
-      min-width: 100%;
+      max-width: 100%;
       padding: 0;
 
       figcaption {
         display: flex;
-        padding: 0;
-        padding-right: 1rem;
+        padding: 0 1rem;
         justify-content: flex-end;
         color: var(--wpe--color--grey);
         font-size: 0.8rem;
         text-transform: uppercase;
-        line-height: 1;
+        line-height: 1.2;
+        text-align: end;
 
         @media (min-width: $breakpoint-extra-small) {
-          padding-right: 0;
+          padding: 0;
           font-size: 1rem;
         }
       }
@@ -124,11 +124,16 @@
       text-transform: uppercase;
       font-weight: 700;
       letter-spacing: 1.15px;
-      padding-bottom: 0;
+      padding: 0;
     }
 
+    div:has(img),
     p:has(img),
     img,
+    div:has(iframe),
+    p:has(iframe),
+    iframe,
+    p > em:first-of-type,
     a,
     em {
       padding: 0.5rem 0 0.5rem;
@@ -138,8 +143,15 @@
       }
     }
 
-    p:empty {
+    p:empty,
+    p:has(br:only-child) {
       display: none;
+    }
+
+    p {
+      &:empty {
+        display: none;
+      }
     }
 
     strong {
@@ -257,9 +269,9 @@
       left: 0;
       padding: 0;
       width: 100%;
-      min-height: 80vh;
+      // min-height: 80vh;
     }
-    
+
     .breakout-box-wrapper {
       display: flex;
       flex-direction: column;

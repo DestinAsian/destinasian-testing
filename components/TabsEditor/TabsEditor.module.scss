@@ -1,9 +1,27 @@
 @import 'styles/breakpoints';
 
 .component {
+  .tabs-content-wrapper {
+    max-width: 700px;
+    padding: 0;
+    // padding: 1rem 0;
+
+    // @media (min-width: $breakpoint-extra-small) {
+    //   padding: 2rem 0;
+    // }
+  }
+
   :global {
     // Scope WordPress block styles within ContentWrapper.
     @import 'styles/blocks';
+
+    * {
+      padding: 0 1rem 0.5rem;
+
+      @media (min-width: $breakpoint-small) {
+        padding: 0 2rem 1rem;
+      }
+    }
 
     .dropcap {
       font-family: var(--font--rubik);
@@ -17,8 +35,20 @@
     i,
     u,
     strong,
-    b {
+    b,
+    span,
+    video {
       padding: 0;
+    }
+
+    // p,
+    .wp-video {
+      max-width: 100%;
+      padding: 0 0 0.5rem;
+
+      @media (min-width: $breakpoint-small) {
+        padding: 0 0 1rem;
+      }
     }
 
     hr {
@@ -36,23 +66,6 @@
       }
     }
 
-    .wp-video {
-      max-width: 100%;
-    }
-
-    p {
-      max-width: 100%;
-      padding: 0 0 0.5rem;
-
-      @media (min-width: $breakpoint-small) {
-        padding: 0 0 1rem;
-      }
-    }
-
-    span {
-      padding-left: 0;
-    }
-
     h1,
     h2,
     h3,
@@ -66,8 +79,10 @@
     }
 
     p:has(img),
-    p > em:first-of-type,
     img,
+    p:has(iframe),
+    iframe,
+    p > em:first-of-type,
     a,
     em {
       padding: 0.5rem 0 0.5rem;
@@ -77,8 +92,15 @@
       }
     }
 
-    p:empty {
+    p:empty,
+    p:has(br:only-child) {
       display: none;
+    }
+
+    p {
+      &:empty {
+        display: none;
+      }
     }
 
     strong {

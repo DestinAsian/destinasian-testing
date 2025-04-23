@@ -40,30 +40,31 @@ export default function ContentWrapperRCA({
   const [isSliderMounted, setIsSliderMounted] = useState(false) // Track slider mount status
   // const [activeIndex, setActiveIndex] = useState(0)
   const [hash, setHash] = useState('')
+  const urlPath = router?.asPath
 
-  useEffect(() => {
-    // Update activeIndex based on the hash in the URL
-    const hashFromURL = window.location.hash.substring(1)
-    setHash(hashFromURL)
+  // useEffect(() => {
+  //   // Update activeIndex based on the hash in the URL
+  //   const hashFromURL = window.location.hash.substring(1)
+  //   setHash(hashFromURL)
 
-    if (hashFromURL) {
-      const index = rcaIndexData.findIndex(
-        (rcaIndex) =>
-          rcaIndex.name.toLowerCase().replace(/\s+/g, '-') === hashFromURL,
-      )
-      setActiveIndex(index)
-    }
-  }, [rcaIndexData])
+  //   if (hashFromURL) {
+  //     const index = rcaIndexData.findIndex(
+  //       (rcaIndex) =>
+  //         rcaIndex.name.toLowerCase().replace(/\s+/g, '-') === hashFromURL,
+  //     )
+  //     setActiveIndex(index)
+  //   }
+  // }, [rcaIndexData])
 
-  useEffect(() => {
-    // Scroll to the element with the matching ID when hash changes
-    const element = document.getElementById(hash)
-    if (element) {
-      element.scrollIntoView({
-        behavior: 'smooth',
-      })
-    }
-  }, [hash])
+  // useEffect(() => {
+  //   // Scroll to the element with the matching ID when hash changes
+  //   const element = document.getElementById(hash)
+  //   if (element) {
+  //     element.scrollIntoView({
+  //       behavior: 'smooth',
+  //     })
+  //   }
+  // }, [hash])
 
   const slideTo = (index) => {
     if (sliderRCA?.current?.swiper) {
@@ -202,18 +203,20 @@ export default function ContentWrapperRCA({
     }
   }, [isAutoplayRunning, isSliderMounted])
 
-  // const toggleAutoplay = () => {
-  //   const swiperInstance = sliderRCA?.current?.swiper
-  //   if (swiperInstance) {
-  //     if (isAutoplayRunning) {
-  //       swiperInstance.autoplay?.stop()
-  //     } else {
-  //       swiperInstance.autoplay?.start()
-  //       setActiveIndex(swiperInstance.realIndex)
-  //     }
-  //     setIsAutoplayRunning(!isAutoplayRunning)
-  //   }
-  // }
+  // Pause Autoplay when there's #pause in URL
+  const hasRunOnce = useRef(false)
+
+  useEffect(() => {
+    if (!hasRunOnce.current && isSliderMounted) {
+      if (urlPath.includes('#pause')) {
+        setIsAutoplayRunning(false)
+      }
+      hasRunOnce.current = true
+    }
+  }, [isAutoplayRunning, isSliderMounted, urlPath])
+
+  console.log('Autoplay: ', isAutoplayRunning)
+  console.log('Has Run Once: ', hasRunOnce)
 
   useEffect(() => {
     if (isAutoplayRunning && isNavShown) {
