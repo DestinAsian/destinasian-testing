@@ -41,7 +41,7 @@ export default function Component(props) {
   // Get menus
   const { data: menusData, loading: menusLoading } = useQuery(GetMenus, {
     variables: {
-      first: 20,
+      first: 100,
       headerLocation: MENUS.PRIMARY_LOCATION,
       secondHeaderLocation: MENUS.SECONDARY_LOCATION,
       thirdHeaderLocation: MENUS.THIRD_LOCATION,
@@ -82,7 +82,7 @@ export default function Component(props) {
     GetLatestStories,
     {
       variables: {
-        first: 5,
+        first: 50,
       },
       fetchPolicy: 'network-only',
       nextFetchPolicy: 'cache-and-network',
