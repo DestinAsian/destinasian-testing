@@ -91,6 +91,7 @@
 .gallery-swiper-wrapper .swiper-custom-pagination > .swiper-pagination-bullet-active {
   color: #000000;
   background: #000000;
+  border: 1px solid #000000;
 }
 
 /* button circle */

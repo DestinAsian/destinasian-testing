@@ -40,6 +40,7 @@ export default function ContentWrapperRCA({
   const [isSliderMounted, setIsSliderMounted] = useState(false) // Track slider mount status
   // const [activeIndex, setActiveIndex] = useState(0)
   const [hash, setHash] = useState('')
+  const hasRunOnce = useRef(false)
   const urlPath = router?.asPath
 
   // useEffect(() => {
@@ -204,7 +205,6 @@ export default function ContentWrapperRCA({
   }, [isAutoplayRunning, isSliderMounted])
 
   // Pause Autoplay when there's #pause in URL
-  const hasRunOnce = useRef(false)
 
   useEffect(() => {
     if (!hasRunOnce.current && isSliderMounted) {
@@ -213,10 +213,7 @@ export default function ContentWrapperRCA({
       }
       hasRunOnce.current = true
     }
-  }, [isAutoplayRunning, isSliderMounted, urlPath])
-
-  console.log('Autoplay: ', isAutoplayRunning)
-  console.log('Has Run Once: ', hasRunOnce)
+  }, [isSliderMounted])
 
   useEffect(() => {
     if (isAutoplayRunning && isNavShown) {

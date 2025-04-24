@@ -17,11 +17,11 @@ import { EffectFade, Autoplay, Pagination, Navigation } from 'swiper'
 
 let cx = className.bind(styles)
 
-export default function GallerySlider({ gallerySlider, backIssue }) {
+export default function GallerySlider({ gallerySlider }) {
   const [images, setImages] = useState([])
 
   useEffect(() => {
-    if (!gallerySlider || !Array.isArray(gallerySlider)) return
+    if (!gallerySlider) return
 
     const processGalleryImages = (galleryNode) => {
       let imagesArray = []
@@ -55,38 +55,16 @@ export default function GallerySlider({ gallerySlider, backIssue }) {
       return imagesArray
     }
 
-    // setImages(processGalleryImages(gallerySlider))
-    setImages(gallerySlider)
+    setImages(processGalleryImages(gallerySlider))
   }, [gallerySlider])
 
-  const calculateTrimmedExcerpt = (excerpt) => {
-    const MAX_EXCERPT_LENGTH = 150
-
-    // Pastikan excerpt adalah string, jika tidak, gunakan string kosong sebagai default
-    const safeExcerpt = typeof excerpt === 'string' ? excerpt : ''
-
-    let trimmedExcerpt = safeExcerpt.substring(0, MAX_EXCERPT_LENGTH)
-    const lastSpaceIndex = trimmedExcerpt.lastIndexOf(' ')
-
-    if (lastSpaceIndex !== -1) {
-      trimmedExcerpt = trimmedExcerpt.substring(0, lastSpaceIndex)
-    }
-
-    return `${trimmedExcerpt}`
-  }
-  
   return (
-    <div
-      className={cx(
-        'component',
-        backIssue === 'backissue' ? 'backissue-component' : '',
-      )}
-    >
+    <div className={cx('component')}>
       <div className={cx('swiper-slider', 'swiper-wrapper')}>
         <Swiper
           effect={'fade'}
-          // autoplay={{ delay: 5000, disableOnInteraction: true }}
-          autoplay={'false'}
+          autoplay={{ delay: 5000, disableOnInteraction: true }}
+          // autoplay={'false'}
           loop={true}
           // autoHeight={true}
           pagination={{
@@ -104,13 +82,7 @@ export default function GallerySlider({ gallerySlider, backIssue }) {
           {images.map((image, index) => (
             <SwiperSlide key={index}>
               <div className={cx('slide-wrapper')}>
-                <div
-                  className={cx(
-                    backIssue !== 'backissue'
-                      ? 'image-wrapper'
-                      : 'backissue-image-wrapper',
-                  )}
-                >
+                <div className={cx('image-wrapper')}>
                   <Image
                     src={image.src}
                     alt={image.alt}
@@ -125,7 +97,7 @@ export default function GallerySlider({ gallerySlider, backIssue }) {
                       <div className={cx('caption')}>
                         <div
                           dangerouslySetInnerHTML={{
-                            __html: calculateTrimmedExcerpt(image.caption),
+                            __html: image.caption,
                           }}
                         />
                       </div>

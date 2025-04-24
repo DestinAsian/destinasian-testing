@@ -16,10 +16,10 @@
     @import 'styles/blocks';
 
     * {
-      padding: 0 1rem 0.5rem;
+      padding: 0.5rem 1rem 0.5rem;
 
       @media (min-width: $breakpoint-small) {
-        padding: 0 2rem 1rem;
+        padding: 0.5rem 2rem 1rem;
       }
     }
 
@@ -62,7 +62,18 @@
       // padding: 0;
 
       figcaption {
+        display: flex;
+        padding: 0 1rem;
+        justify-content: flex-end;
         color: var(--wpe--color--grey);
+        font-size: 0.8rem;
+        line-height: 1.2;
+        text-align: end;
+
+        @media (min-width: $breakpoint-extra-small) {
+          padding: 0;
+          font-size: 1rem;
+        }
       }
     }
 
@@ -85,10 +96,10 @@
     p > em:first-of-type,
     a,
     em {
-      padding: 0.5rem 0 0.5rem;
+      padding: 1rem 0 0.5rem;
 
       @media (min-width: $breakpoint-extra-small) {
-        padding: 0.75rem 0 0.75rem;
+        padding: 1.25rem 0 0.75rem;
       }
     }
 
@@ -133,6 +144,13 @@
 
     p:has(img) {
       color: var(--wpe--color--grey);
+      font-size: 0.8rem;
+      line-height: 1.2;
+      text-align: end;
+
+      @media (min-width: $breakpoint-extra-small) {
+        font-size: 1rem;
+      }
     }
 
     code,
