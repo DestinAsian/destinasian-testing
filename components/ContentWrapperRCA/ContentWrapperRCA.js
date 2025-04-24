@@ -205,15 +205,18 @@ export default function ContentWrapperRCA({
   }, [isAutoplayRunning, isSliderMounted])
 
   // Pause Autoplay when there's #pause in URL
-
   useEffect(() => {
     if (!hasRunOnce.current && isSliderMounted) {
-      if (urlPath.includes('#pause')) {
-        setIsAutoplayRunning(false)
+      const swiperInstance = sliderRCA?.current?.swiper
+
+      if (urlPath.includes('#pause') && swiperInstance?.autoplay) {
+        swiperInstance.autoplay.stop() // 🔒 Force stop autoplay
+        setIsAutoplayRunning(false) // 🧠 Update your own state
       }
+
       hasRunOnce.current = true
     }
-  }, [isSliderMounted])
+  }, [isSliderMounted, urlPath])
 
   useEffect(() => {
     if (isAutoplayRunning && isNavShown) {
