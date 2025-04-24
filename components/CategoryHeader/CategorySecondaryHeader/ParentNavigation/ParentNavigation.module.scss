@@ -268,12 +268,12 @@
   align-items: center;
 
   button svg {
-    height: 2rem;
-    padding-right: 1rem;
+    width: 20px;
+    height: 20px;
 
-    @media (min-width: $breakpoint-extra-small) {
-      padding-top: 0;
-      padding-right: 0;
+    @media (min-width: $breakpoint-small) {
+      width: 35px;
+      height: 35px;
     }
   }
 }
