@@ -155,7 +155,7 @@ export default function RCAFullMenu({
               onClick={() => {
                 setIsNavShown(!isNavShown)
               }}
-              aria-label="Toggle navigation"
+              
               aria-controls={cx('full-menu-wrapper')}
               aria-expanded={!isNavShown}
             >

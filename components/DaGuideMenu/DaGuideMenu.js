@@ -48,7 +48,7 @@ export default function DaGuideMenu({
                     type="button"
                     className={cx('menu-button')}
                     onClick={() => setIsNavShown(!isNavShown)}
-                    aria-label="Toggle navigation"
+                    
                     aria-controls={cx('full-menu-wrapper')}
                     aria-expanded={!isNavShown}
                   >

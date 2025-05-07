@@ -35,7 +35,7 @@ export default function SingleLLFeaturedImage({
                   onClick={() => {
                     setIsLLNavShown(!isLLNavShown)
                   }}
-                  aria-label="Toggle navigation"
+                  
                   aria-controls={cx('full-menu-wrapper')}
                   aria-expanded={!isLLNavShown}
                 >

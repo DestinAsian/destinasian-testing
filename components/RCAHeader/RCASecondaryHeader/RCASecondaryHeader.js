@@ -32,7 +32,7 @@ export default function RCASecondaryHeader({
                 return toggleAutoplay()
               }
             }}
-            aria-label="Toggle navigation"
+            
             aria-controls={cx('rca-menu-wrapper')}
             aria-expanded={!isNavShown}
           >
@@ -52,7 +52,7 @@ export default function RCASecondaryHeader({
                 return toggleAutoplay()
               }
             }}
-            aria-label="Toggle navigation"
+            
             aria-controls={cx('rca-menu-wrapper')}
             aria-expanded={!isNavShown}
           >
@@ -72,7 +72,7 @@ export default function RCASecondaryHeader({
                 return toggleAutoplay()
               }
             }}
-            aria-label="Toggle navigation"
+            
             aria-controls={cx('rca-menu-wrapper')}
             aria-expanded={!isNavShown}
           >

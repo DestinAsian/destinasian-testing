@@ -376,7 +376,7 @@ export default function ContentWrapperRCA({
                     return toggleAutoplay() // Calls the toggleAutoplay function
                   }
                 }}
-                aria-label="Toggle navigation"
+                
                 aria-controls={cx('rca-menu-wrapper')}
                 aria-expanded={!isNavShown}
               >
@@ -395,7 +395,6 @@ export default function ContentWrapperRCA({
                         return setIsNavShown(!isNavShown) // Calls the toggleAutoplay function
                       }
                     }}
-                    // aria-label="Toggle autoplay"
                     // // aria-controls={cx('full-menu-wrapper')}
                     // aria-expanded={toggleAutoplay}
                   >

@@ -210,7 +210,6 @@ export default function ContentWrapperLL({
                       return setIsLLNavShown(!isLLNavShown) // Calls the toggleAutoplay function
                     }
                   }}
-                  // aria-label="Toggle autoplay"
                   // // aria-controls={cx('full-menu-wrapper')}
                   // aria-expanded={toggleAutoplay}
                 >
@@ -263,7 +262,7 @@ export default function ContentWrapperLL({
                           return toggleAutoplay() // Calls the toggleAutoplay function
                         }
                       }}
-                      aria-label="Toggle navigation"
+                      
                       aria-controls={cx('full-menu-wrapper')}
                       aria-expanded={!isLLNavShown}
                     >
@@ -285,7 +284,7 @@ export default function ContentWrapperLL({
                       onClick={() => {
                         setIsLLNavShown(!isLLNavShown)
                       }}
-                      aria-label="Toggle navigation"
+                      
                       aria-controls={cx('full-menu-wrapper')}
                       aria-expanded={!isLLNavShown}
                     >
@@ -329,7 +328,7 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
                     onClick={() => {
                       setIsLLNavShown(!isLLNavShown)
                     }}
-                    aria-label="Toggle navigation"
+                    
                     aria-controls={cx('full-menu-wrapper')}
                     aria-expanded={!isLLNavShown}
                   >

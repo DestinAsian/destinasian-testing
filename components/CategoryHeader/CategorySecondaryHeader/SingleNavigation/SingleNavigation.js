@@ -63,7 +63,7 @@ export default function SingleNavigation({
                   setIsMainNavShown(!isMainNavShown)
                   isNavShown ? setIsNavShown(!isNavShown) : undefined
                 }}
-                aria-label="Toggle navigation"
+                
                 aria-controls={cx('full-menu-wrapper')}
                 aria-expanded={!isMainNavShown}
               >
@@ -104,7 +104,7 @@ export default function SingleNavigation({
                   setIsMainNavShown(!isMainNavShown)
                   isNavShown ? setIsNavShown(!isNavShown) : undefined
                 }}
-                aria-label="Toggle navigation"
+                
                 aria-controls={cx('full-menu-wrapper')}
                 aria-expanded={!isMainNavShown}
               >
@@ -173,7 +173,7 @@ export default function SingleNavigation({
                   setIsMainNavShown(!isMainNavShown)
                   isNavShown ? setIsNavShown(!isNavShown) : undefined
                 }}
-                aria-label="Toggle navigation"
+                
                 aria-controls={cx('primary-navigation')}
                 aria-expanded={!isMainNavShown}
               >
@@ -231,7 +231,7 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
                           ? setIsMainNavShown(!isMainNavShown)
                           : undefined
                       }}
-                      aria-label="Toggle navigation"
+                      
                       aria-controls={cx('full-menu-wrapper')}
                       aria-expanded={!isNavShown}
                     >
@@ -362,7 +362,7 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
                           ? setIsMainNavShown(!isMainNavShown)
                           : undefined
                       }}
-                      aria-label="Toggle navigation"
+                      
                       aria-controls={cx('full-menu-wrapper')}
                       aria-expanded={!isNavShown}
                     >
@@ -417,7 +417,7 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
                           ? setIsMainNavShown(!isMainNavShown)
                           : undefined
                       }}
-                      aria-label="Toggle navigation"
+                      
                       aria-controls={cx('full-menu-wrapper')}
                       aria-expanded={!isNavShown}
                     >
@@ -548,7 +548,7 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
                           ? setIsMainNavShown(!isMainNavShown)
                           : undefined
                       }}
-                      aria-label="Toggle navigation"
+                      
                       aria-controls={cx('full-menu-wrapper')}
                       aria-expanded={!isNavShown}
                     >
@@ -597,7 +597,7 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
                     ? setIsMainNavShown(!isMainNavShown)
                     : undefined
                 }}
-                aria-label="Toggle navigation"
+                
                 aria-controls={cx('primary-navigation')}
                 aria-expanded={!isNavShown}
               >

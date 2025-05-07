@@ -34,7 +34,7 @@ export default function LLSecondaryHeader({
                 return toggleAutoplay()
               }
             }}
-            aria-label="Toggle navigation"
+            
             aria-controls={cx('rca-menu-wrapper')}
             aria-expanded={!isRCANavShown}
           >
@@ -54,7 +54,7 @@ export default function LLSecondaryHeader({
                 return toggleAutoplay()
               }
             }}
-            aria-label="Toggle navigation"
+            
             aria-controls={cx('rca-menu-wrapper')}
             aria-expanded={!isRCANavShown}
           >
@@ -74,7 +74,7 @@ export default function LLSecondaryHeader({
                 return toggleAutoplay()
               }
             }}
-            aria-label="Toggle navigation"
+            
             aria-controls={cx('rca-menu-wrapper')}
             aria-expanded={!isRCANavShown}
           >

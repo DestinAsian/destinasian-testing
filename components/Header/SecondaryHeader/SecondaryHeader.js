@@ -35,7 +35,7 @@ export default function SecondaryHeader({
               isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
               isRCANavShown ? setIsRCANavShown(!isRCANavShown) : null
             }}
-            aria-label="Toggle navigation"
+            
             aria-controls={cx('rca-menu-wrapper')}
             aria-expanded={!isRCANavShown}
           >
@@ -52,7 +52,7 @@ export default function SecondaryHeader({
               isRCANavShown ? setIsRCANavShown(!isRCANavShown) : null
               setSearchQuery('')
             }}
-            aria-label="Toggle navigation"
+            
             aria-controls={cx('rca-menu-wrapper')}
             aria-expanded={!isRCANavShown}
           >
@@ -69,7 +69,7 @@ export default function SecondaryHeader({
               isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
               setSearchQuery('')
             }}
-            aria-label="Toggle navigation"
+            
             aria-controls={cx('rca-menu-wrapper')}
             aria-expanded={!isRCANavShown}
           >
