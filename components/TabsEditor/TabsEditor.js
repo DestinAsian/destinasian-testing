@@ -53,8 +53,10 @@ export default function TabsEditor({ tabsEditor, luxuryTravelClass }) {
           <Image
             src={src}
             alt={alt}
-            width={width}
-            height={height}
+            width={parseInt(width, 10)}
+            height={parseInt(height, 10)}
+            // width={width}
+            // height={height}
             style={{ objectFit: 'contain' }}
             priority
           />

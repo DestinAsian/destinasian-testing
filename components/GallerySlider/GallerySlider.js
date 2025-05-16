@@ -41,8 +41,8 @@ export default function GallerySlider({ gallerySlider }) {
           imagesArray.push({
             src: node.getAttribute('src'),
             alt: node.getAttribute('alt') || 'Image',
-            width: node.getAttribute('width') || 500,
-            height: node.getAttribute('height') || 500,
+            width: node.getAttribute('width') || 800,
+            height: node.getAttribute('height') || 600,
             caption, // Store the figcaption text
           })
         } else {
@@ -59,7 +59,8 @@ export default function GallerySlider({ gallerySlider }) {
   }, [gallerySlider])
 
   return (
-    <div className={cx('component')}>
+    // <div className={cx('component')}>
+    <div className={cx('component', 'gallery-slider-wrapper')}>
       <div className={cx('swiper-slider', 'swiper-wrapper')}>
         <Swiper
           effect={'fade'}
@@ -80,33 +81,32 @@ export default function GallerySlider({ gallerySlider }) {
           className="gallery-swiper-wrapper"
         >
           {images.map((image, index) => (
-            <SwiperSlide key={index}>
+          <SwiperSlide key={index}>
               <div className={cx('slide-wrapper')}>
                 <div className={cx('image-wrapper')}>
                   <Image
                     src={image.src}
                     alt={image.alt}
-                    // width={100}
-                    // height={100}
                     fill
-                    sizes="100%"
+                    // sizes="100%"
                     priority
                   />
-                  {image?.caption && (
-                    <div className={cx('caption-wrapper')}>
-                      <div className={cx('caption')}>
-                        <div
-                          dangerouslySetInnerHTML={{
-                            __html: image.caption,
-                          }}
-                        />
-                      </div>
-                    </div>
-                  )}
                 </div>
+                
+                <div className={cx('caption-wrapper')}>
+                {image?.caption && (
+                    <div className={cx('caption')}>
+                      <div
+                        dangerouslySetInnerHTML={{
+                          __html: image.caption,
+                        }}
+                      />
+                    </div>
+                )}
+                  </div>
               </div>
-            </SwiperSlide>
-          ))}
+              </SwiperSlide>
+              ))}
           <div className="swiper-custom-pagination"></div>
           <div className="swiper-custom-button-prev">
             <svg

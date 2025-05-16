@@ -54,8 +54,8 @@ export default function ContentWrapper({ content, children }) {
       if (node.nodeType === 1 && node.tagName === 'IMG') {
         const src = node.getAttribute('src')
         const alt = node.getAttribute('alt') || 'Image'
-        const width = node.getAttribute('width') || 500
-        const height = node.getAttribute('height') || 500
+        const width = node.getAttribute('width') || 800
+        const height = node.getAttribute('height') || 600
 
         finalElements.push(
           <Image
