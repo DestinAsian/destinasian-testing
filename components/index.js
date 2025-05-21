@@ -1,4 +1,3 @@
-export { AdvertorialPost } from './AdvertorialPost'
 export { AdvertorialPostTwoColumns } from './AdvertorialPostTwoColumns'
 export { BackToTop } from './BackToTop'
 export { Button } from './Button'
@@ -37,6 +36,7 @@ export { FeatureWell } from './FeatureWell'
 export { Footer } from './Footer'
 export { FormatDate } from './FormatDate'
 export { FullMenu } from './FullMenu'
+export { GallerySlider } from "./GallerySlider";
 export { HCHeader } from './HCHeader'
 export { Header } from './Header'
 export { SecondaryHeader } from './Header/SecondaryHeader'

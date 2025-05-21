@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
 import { BlogInfoFragment } from '../fragments/GeneralSettings'
@@ -11,7 +11,6 @@ import {
   FeaturedImage,
   SEO,
   SingleAdvertorialSlider,
-  ContentWrapperAdvertorial,
   LuxuryTravelDirectory,
   TabsEditor,
   PasswordProtected,
@@ -23,6 +22,7 @@ import { GetLatestStories } from '../queries/GetLatestStories'
 import { eb_garamond, rubik, rubik_mono_one } from '../styles/fonts/fonts'
 import Cookies from 'js-cookie'
 import { GetLatestRCA } from '../queries/GetLatestRCA'
+import ContentWrapper from '../components/ContentWrapper/ContentWrapper'
 
 export default function SingleAdvertorial(props) {
   // Loading state for previews
@@ -57,6 +57,7 @@ export default function SingleAdvertorial(props) {
     luxuryTravelDirectory,
     tabsEditor,
     passwordProtected,
+    categories,
   } = props?.data?.advertorial
 
   // Search function content
@@ -316,7 +317,16 @@ export default function SingleAdvertorial(props) {
               title={title}
               label={acfAdvertorialLabel?.advertorialLabel}
             />
-            {content && <ContentWrapperAdvertorial content={content} />}
+
+            <ContentWrapper
+              content={content}
+              backIssue={
+                categories?.nodes.some((cat) => cat.slug === 'backissue')
+                  ? 'backissue'
+                  : ''
+              }
+            />
+
             {(tabsEditor?.tabTitle1 && tabsEditor?.tab1) !== null && (
               <TabsEditor
                 tabsEditor={tabsEditor}

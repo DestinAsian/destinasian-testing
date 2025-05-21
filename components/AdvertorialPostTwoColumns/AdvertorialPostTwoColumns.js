@@ -1,5 +1,7 @@
 import classNames from 'classnames/bind'
-import { FeaturedImage, CategoryIcon, LocationIcon, Container } from '../../components'
+import {
+  FeaturedImage,
+} from '../../components'
 import styles from './AdvertorialPostTwoColumns.module.scss'
 import Link from 'next/link'
 
@@ -12,6 +14,7 @@ export default function AdvertorialPostTwoColumns({
   excerpt,
   uri,
   featuredImage,
+  luxuryTravelClass,
 }) {
   let trimmedExcerpt = excerpt?.substring(0, MAX_EXCERPT_LENGTH)
   const lastSpaceIndex = trimmedExcerpt?.lastIndexOf(' ')
@@ -22,7 +25,13 @@ export default function AdvertorialPostTwoColumns({
 
   return (
     <article className={cx('component')}>
-      <div className={cx('container-wrapper')}>
+      <div
+        className={cx(
+          luxuryTravelClass === 'luxuryTravelClass'
+            ? 'luxuryTravelClass'
+            : 'container-wrapper',
+        )}
+      >
         {featuredImage && (
           <div className={cx('content-wrapper-image')}>
             {uri && (

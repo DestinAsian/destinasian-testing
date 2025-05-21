@@ -25,6 +25,10 @@
   }
 }
 
+.luxuryTravelClass {
+  height: auto;
+}
+
 .content-wrapper-image {
   figure {
     aspect-ratio: 3 / 2;
@@ -74,14 +78,6 @@
   }
 }
 
-.parent {
-  margin-bottom: 0.5rem;
-}
-
-.postInfo {
-  margin-bottom: 1.5rem;
-}
-
 .featuredImage {
   min-width: 100%;
   margin: 0;
@@ -99,45 +95,6 @@
   p {
     font-family: 'Ringside Regular A', 'Ringside Regular B';
     font-weight: 500;
-  }
-
-  a {
-    display: none;
-  }
-}
-
-.icon-wrapper {
-  display: flex;
-  align-items: flex-end;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  font-family: 'Ringside Regular A', 'Ringside Regular B';
-  font-weight: 500;
-  padding-bottom: 0.75rem;
-
-  .category-label {
-    font-size: 1rem;
-    line-height: 1.2;
-
-    @media (min-width: $breakpoint-extra-small) {
-      font-size: 1.25rem;
-    }
-  }
-
-  .location-label {
-    font-size: 1rem;
-    line-height: 1.2;
-
-    @media (min-width: $breakpoint-extra-small) {
-      font-size: 1.25rem;
-    }
-  }
-
-  .icon {
-    svg {
-      width: 1.8rem;
-      height: 1.8rem;
-    }
   }
 }
 
