@@ -3,21 +3,26 @@ import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
 import { BlogInfoFragment } from '../fragments/GeneralSettings'
 import { HeaderFooterVisibilityFragment } from '../fragments/HeaderFooterVisibility'
-import {
-  Header,
-  Footer,
-  Main,
-  Container,
-  EntryHeader,
-  FeaturedImage,
-  SEO,
-  SecondaryHeader,
-} from '../components'
 import { GetMenus } from '../queries/GetMenus'
 import { GetFooterMenus } from '../queries/GetFooterMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
 import { eb_garamond, rubik_mono_one } from '../styles/fonts/fonts'
 import { GetLatestRCA } from '../queries/GetLatestRCA'
+import dynamic from 'next/dynamic'
+// Import Components
+const Header = dynamic(() => import('@/components/Header/Header'))
+const SecondaryHeader = dynamic(() =>
+  import('@/components/Header/SecondaryHeader/SecondaryHeader'),
+)
+const EntryHeader = dynamic(() =>
+  import('@/components/EntryHeader/EntryHeader'),
+)
+const Main = dynamic(() => import('@/components/Main/Main'))
+const Container = dynamic(() => import('@/components/Container/Container'))
+const SEO = dynamic(() => import('@/components/SEO/SEO'))
+const Footer = dynamic(() => import('@/components/Footer/Footer'))
+// Import Components for query
+import FeaturedImage from "@/components/FeaturedImage/FeaturedImage";
 
 export default function Component(props) {
   // Loading state for previews

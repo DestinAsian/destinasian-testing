@@ -1,6 +1,10 @@
 import className from 'classnames/bind'
 import styles from './ContentWrapperTravelGuides.module.scss'
-import { TravelGuidesMenu } from '../../components'
+import dynamic from 'next/dynamic'
+// Import Components
+const TravelGuidesMenu = dynamic(() =>
+  import('@/components/TravelGuidesMenu/TravelGuidesMenu'),
+)
 
 let cx = className.bind(styles)
 

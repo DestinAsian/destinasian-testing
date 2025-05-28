@@ -2,25 +2,40 @@ import React, { useState, useEffect } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
 import { BlogInfoFragment } from '../fragments/GeneralSettings'
-import {
-  SingleHeader,
-  Footer,
-  Main,
-  SingleContestEntryHeader,
-  FeaturedImage,
-  SEO,
-  SingleSlider,
-  SingleContestContainer,
-  ContentWrapperContest,
-  PasswordProtected,
-  SecondaryHeader,
-} from '../components'
 import { GetMenus } from '../queries/GetMenus'
 import { GetFooterMenus } from '../queries/GetFooterMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
 import { eb_garamond, rubik, rubik_mono_one } from '../styles/fonts/fonts'
 import Cookies from 'js-cookie'
 import { GetLatestRCA } from '../queries/GetLatestRCA'
+import dynamic from 'next/dynamic'
+// Import Components
+const SingleHeader = dynamic(() =>
+  import('@/components/SingleHeader/SingleHeader'),
+)
+const SecondaryHeader = dynamic(() =>
+  import('@/components/Header/SecondaryHeader/SecondaryHeader'),
+)
+const SingleContestEntryHeader = dynamic(() =>
+  import('@/components/SingleContestEntryHeader/SingleContestEntryHeader'),
+)
+const SingleContestContainer = dynamic(() =>
+  import('@/components/SingleContestContainer/SingleContestContainer'),
+)
+const SingleSlider = dynamic(() =>
+  import('@/components/SingleSlider/SingleSlider'),
+)
+const Main = dynamic(() => import('@/components/Main/Main'))
+const SEO = dynamic(() => import('@/components/SEO/SEO'))
+const ContentWrapperContest = dynamic(() =>
+  import('@/components/ContentWrapperContest/ContentWrapperContest'),
+)
+const PasswordProtected = dynamic(() =>
+  import('@/components/PasswordProtected/PasswordProtected'),
+)
+const Footer = dynamic(() => import('@/components/Footer/Footer'))
+// Import Components for query
+import FeaturedImage from '@/components/FeaturedImage/FeaturedImage'
 
 export default function SingleContest(props) {
   // Loading state for previews

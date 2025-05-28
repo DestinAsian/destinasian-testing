@@ -1,7 +1,17 @@
 import classNames from 'classnames/bind'
-import { FeaturedImage, CategoryIcon, LocationIcon, Container } from '../../components'
 import styles from './Post.module.scss'
 import Link from 'next/link'
+import dynamic from 'next/dynamic'
+// Import Components
+const FeaturedImage = dynamic(() =>
+  import('@/components/FeaturedImage/FeaturedImage'),
+)
+const CategoryIcon = dynamic(() =>
+  import('@/components/CategoryIcon/CategoryIcon'),
+)
+const LocationIcon = dynamic(() =>
+  import('@/components/LocationIcon/LocationIcon'),
+)
 
 let cx = classNames.bind(styles)
 

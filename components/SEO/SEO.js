@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import { GetFavicon } from '../../queries/GetFavicon'
 import { useQuery } from '@apollo/client'
-import Script from 'next/script'
 
 /**
  * Provide SEO related meta tags to a page.

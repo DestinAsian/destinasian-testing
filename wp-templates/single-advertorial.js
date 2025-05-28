@@ -2,27 +2,46 @@ import React, { useState, useEffect, useRef } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
 import { BlogInfoFragment } from '../fragments/GeneralSettings'
-import {
-  SingleHeader,
-  Footer,
-  Main,
-  SingleAdvertorialContainer,
-  SingleAdvertorialEntryHeader,
-  FeaturedImage,
-  SEO,
-  SingleAdvertorialSlider,
-  LuxuryTravelDirectory,
-  TabsEditor,
-  PasswordProtected,
-  SecondaryHeader,
-} from '../components'
 import { GetMenus } from '../queries/GetMenus'
 import { GetFooterMenus } from '../queries/GetFooterMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
 import { eb_garamond, rubik, rubik_mono_one } from '../styles/fonts/fonts'
 import Cookies from 'js-cookie'
 import { GetLatestRCA } from '../queries/GetLatestRCA'
-import ContentWrapper from '../components/ContentWrapper/ContentWrapper'
+import dynamic from 'next/dynamic'
+// Import Components
+const SingleHeader = dynamic(() =>
+  import('@/components/SingleHeader/SingleHeader'),
+)
+const SecondaryHeader = dynamic(() =>
+  import('@/components/Header/SecondaryHeader/SecondaryHeader'),
+)
+const SingleAdvertorialEntryHeader = dynamic(() =>
+  import(
+    '@/components/SingleAdvertorialEntryHeader/SingleAdvertorialEntryHeader'
+  ),
+)
+const SingleAdvertorialContainer = dynamic(() =>
+  import('@/components/SingleAdvertorialContainer/SingleAdvertorialContainer'),
+)
+const Main = dynamic(() => import('@/components/Main/Main'))
+const SEO = dynamic(() => import('@/components/SEO/SEO'))
+const ContentWrapper = dynamic(() =>
+  import('@/components/ContentWrapper/ContentWrapper'),
+)
+const SingleAdvertorialSlider = dynamic(() =>
+  import('@/components/SingleAdvertorialSlider/SingleAdvertorialSlider'),
+)
+const LuxuryTravelDirectory = dynamic(() =>
+  import('@/components/LuxuryTravelDirectory/LuxuryTravelDirectory'),
+)
+const TabsEditor = dynamic(() => import('@/components/TabsEditor/TabsEditor'))
+const PasswordProtected = dynamic(() =>
+  import('@/components/PasswordProtected/PasswordProtected'),
+)
+const Footer = dynamic(() => import('@/components/Footer/Footer'))
+// Import Components for query
+import FeaturedImage from '@/components/FeaturedImage/FeaturedImage'
 
 export default function SingleAdvertorial(props) {
   // Loading state for previews

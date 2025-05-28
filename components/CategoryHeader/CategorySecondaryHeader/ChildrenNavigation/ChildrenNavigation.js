@@ -1,13 +1,19 @@
 import classNames from 'classnames/bind'
 import styles from './ChildrenNavigation.module.scss'
-import {
-  DaGuideMenu,
-  MainCategoryMenu,
-  TravelGuidesMenu,
-} from '../../../../components'
 import { useQuery } from '@apollo/client'
 import { GetChildrenNavigation } from '../../../../queries/GetChildrenNavigation'
 import Link from 'next/link'
+import dynamic from 'next/dynamic'
+// Import Components
+const DaGuideMenu = dynamic(() =>
+  import('@/components/DaGuideMenu/DaGuideMenu'),
+)
+const TravelGuidesMenu = dynamic(() =>
+  import('@/components/TravelGuidesMenu/TravelGuidesMenu'),
+)
+const MainCategoryMenu = dynamic(() =>
+  import('@/components/TravelGuidesMenu/MainCategoryMenu/MainCategoryMenu'),
+)
 
 let cx = classNames.bind(styles)
 
@@ -63,7 +69,6 @@ export default function ChildrenNavigation({
                   setIsMainNavShown(!isMainNavShown)
                   isNavShown ? setIsNavShown(!isNavShown) : undefined
                 }}
-                
                 aria-controls={cx('full-menu-wrapper')}
                 aria-expanded={!isMainNavShown}
               >
@@ -100,7 +105,6 @@ export default function ChildrenNavigation({
                   setIsMainNavShown(!isMainNavShown)
                   isNavShown ? setIsNavShown(!isNavShown) : undefined
                 }}
-                
                 aria-controls={cx('full-menu-wrapper')}
                 aria-expanded={!isMainNavShown}
               >
@@ -161,7 +165,6 @@ export default function ChildrenNavigation({
                   setIsMainNavShown(!isMainNavShown)
                   isNavShown ? setIsNavShown(!isNavShown) : undefined
                 }}
-                
                 aria-controls={cx('primary-navigation')}
                 aria-expanded={!isMainNavShown}
               >
@@ -219,7 +222,6 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
                           ? setIsMainNavShown(!isMainNavShown)
                           : undefined
                       }}
-                      
                       aria-controls={cx('full-menu-wrapper')}
                       aria-expanded={!isNavShown}
                     >
@@ -350,7 +352,6 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
                           ? setIsMainNavShown(!isMainNavShown)
                           : undefined
                       }}
-                      
                       aria-controls={cx('full-menu-wrapper')}
                       aria-expanded={!isNavShown}
                     >
@@ -405,7 +406,6 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
                           ? setIsMainNavShown(!isMainNavShown)
                           : undefined
                       }}
-                      
                       aria-controls={cx('full-menu-wrapper')}
                       aria-expanded={!isNavShown}
                     >
@@ -536,7 +536,6 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
                           ? setIsMainNavShown(!isMainNavShown)
                           : undefined
                       }}
-                      
                       aria-controls={cx('full-menu-wrapper')}
                       aria-expanded={!isNavShown}
                     >
@@ -585,7 +584,6 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
                     ? setIsMainNavShown(!isMainNavShown)
                     : undefined
                 }}
-                
                 aria-controls={cx('primary-navigation')}
                 aria-expanded={!isNavShown}
               >

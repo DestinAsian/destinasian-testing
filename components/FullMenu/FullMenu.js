@@ -1,9 +1,18 @@
 import classNames from 'classnames/bind'
-import { NavigationMenu, SearchInput, SearchResults } from '../../components'
 import styles from './FullMenu.module.scss'
 import { useState } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
+import dynamic from 'next/dynamic'
+// Import Components
+const NavigationMenu = dynamic(() =>
+  import('@/components/NavigationMenu/NavigationMenu'),
+)
+const SearchInput = dynamic(() =>
+  import('@/components/SearchInput/SearchInput'),
+)
+const SearchResults = dynamic(() =>
+  import('@/components/SearchResults/SearchResults'),
+)
 
 let cx = classNames.bind(styles)
 

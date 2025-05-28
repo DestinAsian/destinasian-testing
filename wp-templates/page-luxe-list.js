@@ -2,26 +2,47 @@ import React, { useEffect, useState } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
 import { BlogInfoFragment } from '../fragments/GeneralSettings'
-import {
-  Main,
-  FeaturedImage,
-  SEO,
-  Header,
-  SingleLLContainer,
-  SingleLLFrontPageContainer,
-  ContentWrapperLLFrontPage,
-  SingleLLFeaturedImage,
-  ContentWrapperLL,
-  SingleLLFrontPageFeaturedImage,
-  SingleLLEntryHeader,
-  PasswordProtected,
-  SecondaryHeader,
-} from '../components'
 import { GetMenus } from '../queries/GetMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
 import { eb_garamond, rubik, rubik_mono_one } from '../styles/fonts/fonts'
 import Cookies from 'js-cookie'
 import { GetLatestRCA } from '../queries/GetLatestRCA'
+import dynamic from 'next/dynamic'
+// Import Components
+const Header = dynamic(() => import('@/components/Header/Header'))
+const SecondaryHeader = dynamic(() =>
+  import('@/components/Header/SecondaryHeader/SecondaryHeader'),
+)
+const SingleLLContainer = dynamic(() =>
+  import('@/components/SingleLLContainer/SingleLLContainer'),
+)
+const SingleLLFrontPageContainer = dynamic(() =>
+  import('@/components/SingleLLFrontPageContainer/SingleLLFrontPageContainer'),
+)
+const SingleLLEntryHeader = dynamic(() =>
+  import('@/components/SingleLLEntryHeader/SingleLLEntryHeader'),
+)
+const SingleLLFrontPageFeaturedImage = dynamic(() =>
+  import(
+    '@/components/SingleLLFrontPageFeaturedImage/SingleLLFrontPageFeaturedImage'
+  ),
+)
+const SingleLLFeaturedImage = dynamic(() =>
+  import('@/components/SingleLLFeaturedImage/SingleLLFeaturedImage'),
+)
+const ContentWrapperLL = dynamic(() =>
+  import('@/components/ContentWrapperLL/ContentWrapperLL'),
+)
+const ContentWrapperLLFrontPage = dynamic(() =>
+  import('@/components/ContentWrapperLLFrontPage/ContentWrapperLLFrontPage'),
+)
+const Main = dynamic(() => import('@/components/Main/Main'))
+const SEO = dynamic(() => import('@/components/SEO/SEO'))
+const PasswordProtected = dynamic(() =>
+  import('@/components/PasswordProtected/PasswordProtected'),
+)
+// Import Components for query
+import FeaturedImage from "@/components/FeaturedImage/FeaturedImage";
 
 export default function SingleLuxeList(props) {
   // Loading state for previews

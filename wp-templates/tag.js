@@ -2,20 +2,23 @@ import React, { useEffect, useState } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
 import { BlogInfoFragment } from '../fragments/GeneralSettings'
-import {
-  Header,
-  Footer,
-  Main,
-  SEO,
-  TagStories,
-  CategoryEntryHeader,
-  SecondaryHeader,
-} from '../components'
 import { GetMenus } from '../queries/GetMenus'
 import { GetFooterMenus } from '../queries/GetFooterMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
 import { eb_garamond, rubik_mono_one } from '../styles/fonts/fonts'
 import { GetLatestRCA } from '../queries/GetLatestRCA'
+import dynamic from 'next/dynamic'
+// Import Components
+const Header = dynamic(() => import('@/components/Header/Header'))
+const SecondaryHeader = dynamic(() =>
+  import('@/components/Header/SecondaryHeader/SecondaryHeader'),
+)
+const CategoryEntryHeader = dynamic(() =>
+  import('@/components/CategoryEntryHeader/CategoryEntryHeader'),
+)
+const TagStories = dynamic(() => import('@/components/TagStories/TagStories'))
+const Main = dynamic(() => import('@/components/Main/Main'))
+const Footer = dynamic(() => import('@/components/Footer/Footer'))
 
 export default function Component(props) {
   const { title: siteTitle, description: siteDescription } =

@@ -1,10 +1,12 @@
 import { useQuery } from '@apollo/client'
 import classNames from 'classnames/bind'
-import { Button, LLPost, FeaturedImage } from '../../components'
 import styles from './LLMenu.module.scss'
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { GetLuxeListMenu } from '../../queries/GetLuxeListMenu'
 import Link from 'next/link'
+import dynamic from 'next/dynamic'
+// Import Components
+const Button = dynamic(() => import('@/components/Button/Button'))
 
 let cx = classNames.bind(styles)
 

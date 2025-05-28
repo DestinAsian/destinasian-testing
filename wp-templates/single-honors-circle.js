@@ -2,26 +2,43 @@ import React, { useEffect, useState } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
 import { BlogInfoFragment } from '../fragments/GeneralSettings'
-import {
-  Header,
-  Main,
-  Container,
-  EntryHeader,
-  FeaturedImage,
-  SEO,
-  SingleHCFeaturedImage,
-  SingleHCEntryHeader,
-  SingleHCContainer,
-  ContentWrapperHCFrontPage,
-  ContentWrapperHC,
-  PasswordProtected,
-  SecondaryHeader,
-} from '../components'
 import { GetMenus } from '../queries/GetMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
 import { eb_garamond, rubik, rubik_mono_one } from '../styles/fonts/fonts'
 import Cookies from 'js-cookie'
 import { GetLatestRCA } from '../queries/GetLatestRCA'
+import dynamic from 'next/dynamic'
+// Import Components
+const Header = dynamic(() => import('@/components/Header/Header'))
+const SecondaryHeader = dynamic(() =>
+  import('@/components/Header/SecondaryHeader/SecondaryHeader'),
+)
+const SingleHCContainer = dynamic(() =>
+  import('@/components/SingleHCContainer/SingleHCContainer'),
+)
+const SingleHCFeaturedImage = dynamic(() =>
+  import('@/components/SingleHCFeaturedImage/SingleHCFeaturedImage'),
+)
+const SingleHCEntryHeader = dynamic(() =>
+  import('@/components/SingleHCEntryHeader/SingleHCEntryHeader'),
+)
+const Container = dynamic(() => import('@/components/Container/Container'))
+const EntryHeader = dynamic(() =>
+  import('@/components/EntryHeader/EntryHeader'),
+)
+const Main = dynamic(() => import('@/components/Main/Main'))
+const SEO = dynamic(() => import('@/components/SEO/SEO'))
+const ContentWrapperHC = dynamic(() =>
+  import('@/components/ContentWrapperHC/ContentWrapperHC'),
+)
+const ContentWrapperHCFrontPage = dynamic(() =>
+  import('@/components/ContentWrapperHCFrontPage/ContentWrapperHCFrontPage'),
+)
+const PasswordProtected = dynamic(() =>
+  import('@/components/PasswordProtected/PasswordProtected'),
+)
+// Import Components for query
+import FeaturedImage from '@/components/FeaturedImage/FeaturedImage'
 
 export default function SingleHonorsCircle(props) {
   // Loading state for previews

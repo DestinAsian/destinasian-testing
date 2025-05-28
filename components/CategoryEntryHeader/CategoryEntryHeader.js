@@ -1,5 +1,4 @@
 import className from 'classnames/bind'
-import { Heading, Container } from '../../components'
 import styles from './CategoryEntryHeader.module.scss'
 import { useEffect, useState } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
@@ -7,6 +6,10 @@ import Image from 'next/image'
 import { BACKEND_URL } from '../../constants/backendUrl'
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react'
+import dynamic from 'next/dynamic'
+// Import Components
+const Heading = dynamic(() => import('@/components/Heading/Heading'))
+const Container = dynamic(() => import('@/components/Container/Container'))
 
 // Import Swiper styles
 import 'swiper/css'

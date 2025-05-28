@@ -1,5 +1,7 @@
 import { getWordPressProps, WordPressTemplate } from '@faustwp/core'
-import { SEO } from '../components'
+import dynamic from 'next/dynamic'
+// Import Components
+const SEO = dynamic(() => import('@/components/SEO/SEO'))
 
 export default function Page(props) {
   const category = props?.__TEMPLATE_QUERY_DATA__?.category

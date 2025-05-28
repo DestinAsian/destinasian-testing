@@ -4,13 +4,17 @@ import styles from './HomepageStories.module.scss'
 import { useQuery } from '@apollo/client'
 import { GetHomepageStories } from '../../queries/GetHomepageStories'
 import { GetHomepageBannerAds } from '../../queries/GetHomepageBannerAds'
-import {
-  Button,
-  PostTwoColumns,
-  ModuleAd,
-  AdvertorialPostTwoColumns,
-} from '../../components'
 import { GetAdvertorialHomepageStories } from '../../queries/GetAdvertorialHomepageStories'
+import dynamic from 'next/dynamic'
+// Import Components
+const Button = dynamic(() => import('@/components/Button/Button'))
+const PostTwoColumns = dynamic(() =>
+  import('@/components/PostTwoColumns/PostTwoColumns'),
+)
+const ModuleAd = dynamic(() => import('@/components/ModuleAd/ModuleAd'))
+const AdvertorialPostTwoColumns = dynamic(() =>
+  import('@/components/AdvertorialPostTwoColumns/AdvertorialPostTwoColumns'),
+)
 
 let cx = classNames.bind(styles)
 

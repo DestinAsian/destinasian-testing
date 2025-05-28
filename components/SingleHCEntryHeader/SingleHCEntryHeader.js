@@ -1,11 +1,11 @@
 import className from 'classnames/bind'
-import { Heading } from '../../components'
 import styles from './SingleHCEntryHeader.module.scss'
 import { useState, useEffect } from 'react'
 import locationIcon from '../../assets/icons/icon-location.png'
-import captionIcon from '../../assets/icons/icon-hc-caption.png'
-import hcLogo from '../../assets/logo/honors-circle-logo.png'
 import Image from 'next/image'
+import dynamic from 'next/dynamic'
+// Import Components
+const Heading = dynamic(() => import('@/components/Heading/Heading'))
 
 let cx = className.bind(styles)
 

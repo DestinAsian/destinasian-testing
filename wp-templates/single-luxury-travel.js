@@ -2,29 +2,48 @@ import React, { useEffect, useState } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
 import { BlogInfoFragment } from '../fragments/GeneralSettings'
-import {
-  LTHeader,
-  Footer,
-  Main,
-  SingleLTContainer,
-  SingleAdvertorialEntryHeader,
-  FeaturedImage,
-  SEO,
-  ContentWrapperAdvertorial,
-  LuxuryTravelStories,
-  LuxuryTravelDirectory,
-  TabsEditor,
-  SingleAdvertorialSlider,
-  BackToTop,
-  PasswordProtected,
-  LTSecondaryHeader,
-} from '../components'
 import { GetMenus } from '../queries/GetMenus'
 import { GetFooterMenus } from '../queries/GetFooterMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
 import { eb_garamond, rubik, rubik_mono_one } from '../styles/fonts/fonts'
 import Cookies from 'js-cookie'
 import { GetLatestRCA } from '../queries/GetLatestRCA'
+import dynamic from 'next/dynamic'
+// Import Components
+const LTHeader = dynamic(() => import('@/components/LTHeader/LTHeader'))
+const LTSecondaryHeader = dynamic(() =>
+  import('@/components/LTHeader/LTSecondaryHeader/LTSecondaryHeader'),
+)
+const SingleLTContainer = dynamic(() =>
+  import('@/components/SingleLTContainer/SingleLTContainer'),
+)
+const SingleAdvertorialEntryHeader = dynamic(() =>
+  import(
+    '@/components/SingleAdvertorialEntryHeader/SingleAdvertorialEntryHeader'
+  ),
+)
+const Main = dynamic(() => import('@/components/Main/Main'))
+const SEO = dynamic(() => import('@/components/SEO/SEO'))
+const ContentWrapperAdvertorial = dynamic(() =>
+  import('@/components/ContentWrapperAdvertorial/ContentWrapperAdvertorial'),
+)
+const LuxuryTravelStories = dynamic(() =>
+  import('@/components/LuxuryTravelStories/LuxuryTravelStories'),
+)
+const LuxuryTravelDirectory = dynamic(() =>
+  import('@/components/LuxuryTravelDirectory/LuxuryTravelDirectory'),
+)
+const TabsEditor = dynamic(() => import('@/components/TabsEditor/TabsEditor'))
+const SingleAdvertorialSlider = dynamic(() =>
+  import('@/components/SingleAdvertorialSlider/SingleAdvertorialSlider'),
+)
+const BackToTop = dynamic(() => import('@/components/BackToTop/BackToTop'))
+const PasswordProtected = dynamic(() =>
+  import('@/components/PasswordProtected/PasswordProtected'),
+)
+const Footer = dynamic(() => import('@/components/Footer/Footer'))
+// Import Components for query
+import FeaturedImage from '@/components/FeaturedImage/FeaturedImage'
 
 export default function SingleLuxuryTravel(props) {
   // Loading state for previews

@@ -1,6 +1,9 @@
 import className from 'classnames/bind'
-import { Heading, Container } from '../../components'
 import styles from './SingleContestEntryHeader.module.scss'
+import dynamic from 'next/dynamic'
+// Import Components
+const Heading = dynamic(() => import('@/components/Heading/Heading'))
+const Container = dynamic(() => import('@/components/Container/Container'))
 
 let cx = className.bind(styles)
 

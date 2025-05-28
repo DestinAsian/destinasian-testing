@@ -1,10 +1,5 @@
 import className from 'classnames/bind'
 import styles from './ContentWrapperRCA.module.scss'
-import {
-  RCAFullMenu,
-  SingleRCAEntryHeader,
-  SingleRCASlider,
-} from '../../components'
 import React, { useEffect, useState, useRef } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import Image from 'next/image'
@@ -12,6 +7,17 @@ import Link from 'next/link'
 import { BACKEND_URL } from '../../constants/backendUrl'
 import { useQuery } from '@apollo/client'
 import { GetRCAPagination } from '../../queries/GetRCAPagination'
+import dynamic from 'next/dynamic'
+// Import Components
+const SingleRCASlider = dynamic(() =>
+  import('@/components/SingleRCASlider/SingleRCASlider'),
+)
+const SingleRCAEntryHeader = dynamic(() =>
+  import('@/components/SingleRCAEntryHeader/SingleRCAEntryHeader'),
+)
+const RCAFullMenu = dynamic(() =>
+  import('@/components/RCAFullMenu/RCAFullMenu'),
+)
 
 let cx = className.bind(styles)
 
@@ -376,7 +382,6 @@ export default function ContentWrapperRCA({
                     return toggleAutoplay() // Calls the toggleAutoplay function
                   }
                 }}
-                
                 aria-controls={cx('rca-menu-wrapper')}
                 aria-expanded={!isNavShown}
               >

@@ -1,6 +1,13 @@
 import classNames from 'classnames/bind'
 import styles from './LLSecondaryHeader.module.scss'
-import { RCAFullMenu, TravelGuidesMenu } from '../../../components'
+import dynamic from 'next/dynamic'
+// Import Components
+const RCAFullMenu = dynamic(() =>
+  import('@/components/RCAFullMenu/RCAFullMenu'),
+)
+const TravelGuidesMenu = dynamic(() =>
+  import('@/components/TravelGuidesMenu/TravelGuidesMenu'),
+)
 
 let cx = classNames.bind(styles)
 
@@ -34,7 +41,6 @@ export default function LLSecondaryHeader({
                 return toggleAutoplay()
               }
             }}
-            
             aria-controls={cx('rca-menu-wrapper')}
             aria-expanded={!isRCANavShown}
           >
@@ -54,7 +60,6 @@ export default function LLSecondaryHeader({
                 return toggleAutoplay()
               }
             }}
-            
             aria-controls={cx('rca-menu-wrapper')}
             aria-expanded={!isRCANavShown}
           >
@@ -74,7 +79,6 @@ export default function LLSecondaryHeader({
                 return toggleAutoplay()
               }
             }}
-            
             aria-controls={cx('rca-menu-wrapper')}
             aria-expanded={!isRCANavShown}
           >

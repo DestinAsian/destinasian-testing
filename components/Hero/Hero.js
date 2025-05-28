@@ -1,9 +1,11 @@
-import React from 'react';
-import className from 'classnames/bind';
-import { Heading } from '../../components';
-import styles from './Hero.module.scss';
+import React from 'react'
+import className from 'classnames/bind'
+import styles from './Hero.module.scss'
+import dynamic from 'next/dynamic'
+// Import Components
+const Heading = dynamic(() => import('@/components/Heading/Heading'))
 
-let cx = className.bind(styles);
+let cx = className.bind(styles)
 
 export default function Hero({ title, level = 'h2', children, className }) {
   return (
@@ -13,5 +15,5 @@ export default function Hero({ title, level = 'h2', children, className }) {
       </Heading>
       {children}
     </div>
-  );
+  )
 }

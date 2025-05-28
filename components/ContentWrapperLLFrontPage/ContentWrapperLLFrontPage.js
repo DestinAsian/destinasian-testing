@@ -3,10 +3,13 @@ import React, { useState, useEffect } from 'react'
 import className from 'classnames/bind'
 import styles from './ContentWrapperLLFrontPage.module.scss'
 import { GetLuxeListStories } from '../../queries/GetLuxeListStories'
-import { LLPost, Button } from '../../components'
 import { renderToStaticMarkup } from 'react-dom/server'
 import Image from 'next/image'
 import { BACKEND_URL } from '../../constants/backendUrl'
+import dynamic from 'next/dynamic'
+// Import Components
+const LLPost = dynamic(() => import('@/components/LLPost/LLPost'))
+const Button = dynamic(() => import('@/components/Button/Button'))
 
 let cx = className.bind(styles)
 

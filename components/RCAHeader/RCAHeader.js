@@ -2,7 +2,6 @@ import classNames from 'classnames/bind'
 import Link from 'next/link'
 import destinasianLogoWht from '../../assets/logo/destinasianLogoWht.png'
 import destinasianLogo from '../../assets/logo/destinasian-logo.png'
-import { FullMenu, SearchResults } from '../../components'
 import styles from './RCAHeader.module.scss'
 import { useState, useEffect } from 'react'
 import { useMediaQuery } from 'react-responsive'
@@ -10,6 +9,12 @@ import Image from 'next/image'
 import { useQuery } from '@apollo/client'
 import { GetSearchResults } from '../../queries/GetSearchResults'
 import { FaSearch } from 'react-icons/fa'
+import dynamic from 'next/dynamic'
+// Import Components
+const FullMenu = dynamic(() => import('@/components/FullMenu/FullMenu'))
+const SearchResults = dynamic(() =>
+  import('@/components/SearchResults/SearchResults'),
+)
 
 let cx = classNames.bind(styles)
 
@@ -166,7 +171,6 @@ export default function RCAHeader({
                       setIsNavShown(!isNavShown)
                       setSearchQuery('')
                     }}
-                    
                     aria-controls={cx('full-menu-wrapper')}
                     aria-expanded={!isNavShown}
                   >
@@ -182,7 +186,6 @@ export default function RCAHeader({
                       setIsNavShown(!isNavShown)
                       setSearchQuery('')
                     }}
-                    
                     aria-controls={cx('full-menu-wrapper')}
                     aria-expanded={!isNavShown}
                   >
@@ -313,7 +316,6 @@ export default function RCAHeader({
                     setIsNavShown(!isNavShown)
                     setSearchQuery('')
                   }}
-                  
                   aria-controls={cx('full-menu-wrapper')}
                   aria-expanded={!isNavShown}
                 >
@@ -360,7 +362,6 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
                 setIsNavShown(!isNavShown)
                 setSearchQuery('')
               }}
-              
               aria-controls={cx('primary-navigation')}
               aria-expanded={!isNavShown}
             >

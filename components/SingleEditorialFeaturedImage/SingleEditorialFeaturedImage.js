@@ -1,21 +1,19 @@
 import className from 'classnames/bind'
-import { FeaturedImage } from '../../components'
 import styles from './SingleEditorialFeaturedImage.module.scss'
+import dynamic from 'next/dynamic'
+// Import Components
+const FeaturedImage = dynamic(() =>
+  import('@/components/FeaturedImage/FeaturedImage'),
+)
 
 let cx = className.bind(styles)
 
-export default function SingleEditorialFeaturedImage({
-  image,
-}) {
+export default function SingleEditorialFeaturedImage({ image }) {
   return (
     <div className={cx(['component', className])}>
       <div className={cx('image-wrapper')}>
         {image && (
-          <FeaturedImage
-            image={image}
-            className={cx('image')}
-            priority
-          />
+          <FeaturedImage image={image} className={cx('image')} priority />
         )}
       </div>
     </div>

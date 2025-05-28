@@ -3,8 +3,16 @@ import React, { useState, useEffect } from 'react'
 import classNames from 'classnames/bind'
 import styles from './MoreReviews.module.scss'
 import { GetMoreReviews } from '../../queries/GetMoreReviews'
-import { Button, CategoryIcon, LocationIcon } from '../../components'
 import Link from 'next/link'
+import dynamic from 'next/dynamic'
+// Import Components
+const Button = dynamic(() => import('@/components/Button/Button'))
+const CategoryIcon = dynamic(() =>
+  import('@/components/CategoryIcon/CategoryIcon'),
+)
+const LocationIcon = dynamic(() =>
+  import('@/components/LocationIcon/LocationIcon'),
+)
 
 let cx = classNames.bind(styles)
 

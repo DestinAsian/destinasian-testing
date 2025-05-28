@@ -1,6 +1,13 @@
 import classNames from 'classnames/bind'
 import styles from './HomepageSecondaryHeader.module.scss'
-import { RCAFullMenu, TravelGuidesMenu } from '../../../components'
+import dynamic from 'next/dynamic'
+// Import Components
+const RCAFullMenu = dynamic(() =>
+  import('@/components/RCAFullMenu/RCAFullMenu'),
+)
+const TravelGuidesMenu = dynamic(() =>
+  import('@/components/TravelGuidesMenu/TravelGuidesMenu'),
+)
 
 let cx = classNames.bind(styles)
 
@@ -17,12 +24,7 @@ export default function HomepageSecondaryHeader({
 }) {
   return (
     <>
-      <div
-        className={cx(
-          'navigation-wrapper',
-          { sticky: isScrolled },
-        )}
-      >
+      <div className={cx('navigation-wrapper', { sticky: isScrolled })}>
         <div className={cx('menu-wrapper')}>
           <button
             type="button"
@@ -36,7 +38,6 @@ export default function HomepageSecondaryHeader({
               isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
               isRCANavShown ? setIsRCANavShown(!isRCANavShown) : null
             }}
-            
             aria-controls={cx('rca-menu-wrapper')}
             aria-expanded={!isRCANavShown}
           >
@@ -54,7 +55,6 @@ export default function HomepageSecondaryHeader({
               isRCANavShown ? setIsRCANavShown(!isRCANavShown) : null
               setSearchQuery('')
             }}
-            
             aria-controls={cx('rca-menu-wrapper')}
             aria-expanded={!isRCANavShown}
           >
@@ -72,7 +72,6 @@ export default function HomepageSecondaryHeader({
               isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
               setSearchQuery('')
             }}
-            
             aria-controls={cx('rca-menu-wrapper')}
             aria-expanded={!isRCANavShown}
           >

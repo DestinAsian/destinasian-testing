@@ -2,10 +2,9 @@ import className from 'classnames/bind'
 import styles from './TabsEditor.module.scss'
 import { renderToStaticMarkup } from 'react-dom/server'
 import Image from 'next/image'
-import { LayoutGroup } from 'framer-motion'
-// src/components/TabDays/TabDays.js
 import React, { useState, useEffect, useRef } from 'react'
 import { BACKEND_URL } from '../../constants/backendUrl'
+
 let cx = className.bind(styles)
 
 export default function TabsEditor({ tabsEditor, luxuryTravelClass }) {

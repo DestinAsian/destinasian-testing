@@ -2,26 +2,35 @@ import React, { useState, useEffect } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
 import { BlogInfoFragment } from '../fragments/GeneralSettings'
-import { GetSpecificBannerAds } from '../queries/GetSpecificBannerAds'
-import {
-  SingleHeader,
-  Footer,
-  Main,
-  Container,
-  SingleUpdateEntryHeader,
-  FeaturedImage,
-  SEO,
-  ModuleAd,
-  ContentWrapperUpdate,
-  PasswordProtected,
-  SecondaryHeader,
-} from '../components'
 import { GetMenus } from '../queries/GetMenus'
 import { GetFooterMenus } from '../queries/GetFooterMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
 import { eb_garamond, rubik, rubik_mono_one } from '../styles/fonts/fonts'
 import Cookies from 'js-cookie'
 import { GetLatestRCA } from '../queries/GetLatestRCA'
+import dynamic from 'next/dynamic'
+// Import Components
+const SingleHeader = dynamic(() =>
+  import('@/components/SingleHeader/SingleHeader'),
+)
+const SecondaryHeader = dynamic(() =>
+  import('@/components/Header/SecondaryHeader/SecondaryHeader'),
+)
+const SingleUpdateEntryHeader = dynamic(() =>
+  import('@/components/SingleUpdateEntryHeader/SingleUpdateEntryHeader'),
+)
+const Main = dynamic(() => import('@/components/Main/Main'))
+const Container = dynamic(() => import('@/components/Container/Container'))
+const SEO = dynamic(() => import('@/components/SEO/SEO'))
+const ContentWrapperUpdate = dynamic(() =>
+  import('@/components/ContentWrapperUpdate/ContentWrapperUpdate'),
+)
+const PasswordProtected = dynamic(() =>
+  import('@/components/PasswordProtected/PasswordProtected'),
+)
+const Footer = dynamic(() => import('@/components/Footer/Footer'))
+// Import Components for query
+import FeaturedImage from '@/components/FeaturedImage/FeaturedImage'
 
 export default function SingleUpdate(props) {
   // Loading state for previews

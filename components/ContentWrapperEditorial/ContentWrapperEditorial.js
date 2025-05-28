@@ -1,10 +1,14 @@
 import className from 'classnames/bind'
 import styles from './ContentWrapperEditorial.module.scss'
-import { SingleEditorialSlider } from '../SingleEditorialSlider'
 import { useEffect, useState } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import Image from 'next/image'
 import { BACKEND_URL } from '../../constants/backendUrl'
+import dynamic from 'next/dynamic'
+// Import Components
+const SingleEditorialSlider = dynamic(() =>
+  import('@/components/SingleEditorialSlider/SingleEditorialSlider'),
+)
 
 let cx = className.bind(styles)
 

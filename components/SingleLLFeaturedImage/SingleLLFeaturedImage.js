@@ -1,9 +1,8 @@
 import className from 'classnames/bind'
-import { FeaturedImage } from '../../components'
-import { useState, useEffect } from 'react'
 import styles from './SingleLLFeaturedImage.module.scss'
-import { Container, FullMenu } from '../../components'
-import { LLMenu } from '../LLMenu'
+import dynamic from 'next/dynamic'
+// Import Components
+const LLMenu = dynamic(() => import('@/components/LLMenu/LLMenu'))
 
 let cx = className.bind(styles)
 
@@ -35,7 +34,6 @@ export default function SingleLLFeaturedImage({
                   onClick={() => {
                     setIsLLNavShown(!isLLNavShown)
                   }}
-                  
                   aria-controls={cx('full-menu-wrapper')}
                   aria-expanded={!isLLNavShown}
                 >

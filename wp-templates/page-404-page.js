@@ -2,19 +2,22 @@ import React, { useState, useEffect } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
 import { BlogInfoFragment } from '../fragments/GeneralSettings'
-import {
-  Header,
-  Main,
-  Container,
-  FeaturedImage,
-  SEO,
-  ErrorPage,
-  SecondaryHeader,
-} from '../components'
 import { GetMenus } from '../queries/GetMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
 import { eb_garamond, rubik_mono_one } from '../styles/fonts/fonts'
 import { GetLatestRCA } from '../queries/GetLatestRCA'
+import dynamic from 'next/dynamic'
+// Import Components
+const Header = dynamic(() => import('@/components/Header/Header'))
+const SecondaryHeader = dynamic(() =>
+  import('@/components/Header/SecondaryHeader/SecondaryHeader'),
+)
+const Main = dynamic(() => import('@/components/Main/Main'))
+const Container = dynamic(() => import('@/components/Container/Container'))
+const SEO = dynamic(() => import('@/components/SEO/SEO'))
+const ErrorPage = dynamic(() => import('@/components/ErrorPage/ErrorPage'))
+// Import Components for query
+import FeaturedImage from "@/components/FeaturedImage/FeaturedImage";
 
 export default function Component(props) {
   // Loading state for previews

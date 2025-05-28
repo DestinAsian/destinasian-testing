@@ -1,7 +1,12 @@
 import className from 'classnames/bind'
 import React, { useState, useEffect } from 'react'
-import { Heading, LLMenu, TravelGuidesMenu } from '../../components'
 import styles from './TravelGuidesEntryHeader.module.scss'
+import dynamic from 'next/dynamic'
+// Import Components
+const Heading = dynamic(() => import('@/components/Heading/Heading'))
+const TravelGuidesMenu = dynamic(() =>
+  import('@/components/TravelGuidesMenu/TravelGuidesMenu'),
+)
 
 let cx = className.bind(styles)
 
@@ -71,7 +76,6 @@ export default function TravelGuidesEntryHeader({ title }) {
                       onClick={() => {
                         setIsNavShown(!isNavShown)
                       }}
-                      
                       aria-controls={cx('full-menu-wrapper')}
                       aria-expanded={!isNavShown}
                     >
@@ -87,7 +91,6 @@ export default function TravelGuidesEntryHeader({ title }) {
                       onClick={() => {
                         setIsNavShown(!isNavShown)
                       }}
-                      
                       aria-controls={cx('full-menu-wrapper')}
                       aria-expanded={!isNavShown}
                     >
@@ -134,7 +137,6 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
                       onClick={() => {
                         setIsNavShown(!isNavShown)
                       }}
-                      
                       aria-controls={cx('full-menu-wrapper')}
                       aria-expanded={!isNavShown}
                     >
@@ -150,7 +152,6 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
                       onClick={() => {
                         setIsNavShown(!isNavShown)
                       }}
-                      
                       aria-controls={cx('full-menu-wrapper')}
                       aria-expanded={!isNavShown}
                     >
@@ -196,7 +197,6 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
                 onClick={() => {
                   setIsNavShown(!isNavShown)
                 }}
-                
                 aria-controls={cx('primary-navigation')}
                 aria-expanded={!isNavShown}
               >

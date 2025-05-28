@@ -1,11 +1,11 @@
 import { useQuery } from '@apollo/client'
 import classNames from 'classnames/bind'
-import { Button, FeaturedImage, NavigationMenu } from '../../components'
 import styles from './RCAFullMenu.module.scss'
-import React, { useState, useEffect } from 'react'
-import * as MENUS from '../../constants/menus'
 import { GetRCAMenu } from '../../queries/GetRCAMenu'
 import Link from 'next/link'
+import dynamic from 'next/dynamic'
+// Import Components
+const Button = dynamic(() => import('@/components/Button/Button'))
 
 let cx = classNames.bind(styles)
 
@@ -155,7 +155,6 @@ export default function RCAFullMenu({
               onClick={() => {
                 setIsNavShown(!isNavShown)
               }}
-              
               aria-controls={cx('full-menu-wrapper')}
               aria-expanded={!isNavShown}
             >

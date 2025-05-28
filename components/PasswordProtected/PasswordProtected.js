@@ -5,14 +5,13 @@ import destinasianLogoBlk from '../../assets/logo/destinasian-logo-password-prot
 import Link from 'next/link'
 import Image from 'next/image'
 import Div100vh from 'react-div-100vh'
-import { SEO } from '../../components'
+import dynamic from 'next/dynamic'
+// Import Components
+const SEO = dynamic(() => import('@/components/SEO/SEO'))
 
 let cx = classNames.bind(styles)
 
-export default function PasswordProtected(
-  enteredPassword,
-  ...props
-) {
+export default function PasswordProtected(enteredPassword, ...props) {
   return (
     <>
       <SEO

@@ -1,5 +1,4 @@
 import classNames from 'classnames/bind'
-import { NavigationMenu, Container, NewsletterEmbed } from '../../components'
 import styles from './Footer.module.scss'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -8,6 +7,15 @@ import daiLogo from '../../assets/logo/DAI_logo.png'
 import damanLogo from '../../assets/logo/DAMAN_logo.png'
 import prsLogo from '../../assets/logo/Prestige_logo.png'
 import scop3Logo from '../../assets/logo/Scop3_logo.png'
+import dynamic from 'next/dynamic'
+// Import Components
+const NavigationMenu = dynamic(() =>
+  import('@/components/NavigationMenu/NavigationMenu'),
+)
+const Container = dynamic(() => import('@/components/Container/Container'))
+const NewsletterEmbed = dynamic(() =>
+  import('@/components/NewsletterEmbed/NewsletterEmbed'),
+)
 
 let cx = classNames.bind(styles)
 

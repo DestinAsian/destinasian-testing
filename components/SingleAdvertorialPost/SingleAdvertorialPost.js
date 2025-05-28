@@ -1,7 +1,12 @@
 import Link from 'next/link'
 import classNames from 'classnames/bind'
-import { FeaturedImage, Heading } from '../../components'
 import styles from './SingleAdvertorialPost.module.scss'
+import dynamic from 'next/dynamic'
+// Import Components
+const Heading = dynamic(() => import('@/components/Heading/Heading'))
+const FeaturedImage = dynamic(() =>
+  import('@/components/FeaturedImage/FeaturedImage'),
+)
 
 let cx = classNames.bind(styles)
 

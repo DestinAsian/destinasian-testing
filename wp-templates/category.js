@@ -1,25 +1,36 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
 import { BlogInfoFragment } from '../fragments/GeneralSettings'
-import {
-  CategoryHeader,
-  CategorySecondaryHeader,
-  Main,
-  CategoryEntryHeader,
-  FeaturedImage,
-  SEO,
-  Footer,
-  CategoryStories,
-  SecondaryHeader,
-  Button,
-} from '../components'
 import { GetMenus } from '../queries/GetMenus'
 import { GetFooterMenus } from '../queries/GetFooterMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
 import { eb_garamond, rubik_mono_one } from '../styles/fonts/fonts'
 import { GetLatestRCA } from '../queries/GetLatestRCA'
 import { GetSecondaryHeader } from '../queries/GetSecondaryHeader'
+import dynamic from 'next/dynamic'
+// Import Components
+const CategoryHeader = dynamic(() =>
+  import('@/components/CategoryHeader/CategoryHeader'),
+)
+const CategorySecondaryHeader = dynamic(() =>
+  import(
+    '@/components/CategoryHeader/CategorySecondaryHeader/CategorySecondaryHeader'
+  ),
+)
+const Main = dynamic(() => import('@/components/Main/Main'))
+const CategoryEntryHeader = dynamic(() =>
+  import('@/components/CategoryEntryHeader/CategoryEntryHeader'),
+)
+const Footer = dynamic(() => import('@/components/Footer/Footer'))
+const CategoryStories = dynamic(() =>
+  import('@/components/CategoryStories/CategoryStories'),
+)
+const SecondaryHeader = dynamic(() =>
+  import('@/components/Header/SecondaryHeader/SecondaryHeader'),
+)
+// Import Components for query
+import FeaturedImage from '@/components/FeaturedImage/FeaturedImage'
 
 export default function Component(props) {
   // Loading state for previews
@@ -148,7 +159,7 @@ export default function Component(props) {
   // Get menus
   const { data: menusData, loading: menusLoading } = useQuery(GetMenus, {
     variables: {
-      first: 100,
+      first: 20,
       headerLocation: MENUS.PRIMARY_LOCATION,
       secondHeaderLocation: MENUS.SECONDARY_LOCATION,
       thirdHeaderLocation: MENUS.THIRD_LOCATION,
@@ -189,7 +200,7 @@ export default function Component(props) {
     GetLatestStories,
     {
       variables: {
-        first: 50,
+        first: 5,
       },
       fetchPolicy: 'network-only',
       nextFetchPolicy: 'cache-and-network',

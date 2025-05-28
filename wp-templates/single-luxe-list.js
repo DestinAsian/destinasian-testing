@@ -2,24 +2,33 @@ import React, { useEffect, useState, useRef } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
 import { BlogInfoFragment } from '../fragments/GeneralSettings'
-import {
-  Main,
-  FeaturedImage,
-  SEO,
-  SingleLLContainer,
-  SingleLLFeaturedImage,
-  ContentWrapperLL,
-  LLHeader,
-  PasswordProtected,
-  RCASecondaryHeader,
-  SecondaryHeader,
-  LLSecondaryHeader,
-} from '../components'
 import { GetMenus } from '../queries/GetMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
 import { eb_garamond, rubik, rubik_mono_one } from '../styles/fonts/fonts'
 import Cookies from 'js-cookie'
 import { GetLatestRCA } from '../queries/GetLatestRCA'
+import dynamic from 'next/dynamic'
+// Import Components
+const LLHeader = dynamic(() => import('@/components/LLHeader/LLHeader'))
+const LLSecondaryHeader = dynamic(() =>
+  import('@/components/LLHeader/LLSecondaryHeader/LLSecondaryHeader'),
+)
+const SingleLLContainer = dynamic(() =>
+  import('@/components/SingleLLContainer/SingleLLContainer'),
+)
+const SingleLLFeaturedImage = dynamic(() =>
+  import('@/components/SingleLLFeaturedImage/SingleLLFeaturedImage'),
+)
+const Main = dynamic(() => import('@/components/Main/Main'))
+const SEO = dynamic(() => import('@/components/SEO/SEO'))
+const ContentWrapperLL = dynamic(() =>
+  import('@/components/ContentWrapperLL/ContentWrapperLL'),
+)
+const PasswordProtected = dynamic(() =>
+  import('@/components/PasswordProtected/PasswordProtected'),
+)
+// Import Components for query
+import FeaturedImage from '@/components/FeaturedImage/FeaturedImage'
 
 export default function singleLuxeList(props) {
   // Loading state for previews

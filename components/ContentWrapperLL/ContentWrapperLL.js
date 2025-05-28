@@ -1,17 +1,23 @@
 import className from 'classnames/bind'
 import styles from './ContentWrapperLL.module.scss'
-import {
-  SingleLLSlider,
-  SingleLLEntryHeader,
-  FeaturedImage,
-} from '../../components'
 import { GetLuxeListPagination } from '../../queries/GetLuxeListPagination'
 import { useQuery } from '@apollo/client'
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import Image from 'next/image'
 import Link from 'next/link'
 import { BACKEND_URL } from '../../constants/backendUrl'
+import dynamic from 'next/dynamic'
+// Import Components
+const SingleLLSlider = dynamic(() =>
+  import('@/components/SingleLLSlider/SingleLLSlider'),
+)
+const SingleLLEntryHeader = dynamic(() =>
+  import('@/components/SingleLLEntryHeader/SingleLLEntryHeader'),
+)
+const FeaturedImage = dynamic(() =>
+  import('@/components/FeaturedImage/FeaturedImage'),
+)
 
 let cx = className.bind(styles)
 
@@ -262,7 +268,6 @@ export default function ContentWrapperLL({
                           return toggleAutoplay() // Calls the toggleAutoplay function
                         }
                       }}
-                      
                       aria-controls={cx('full-menu-wrapper')}
                       aria-expanded={!isLLNavShown}
                     >
@@ -284,7 +289,6 @@ export default function ContentWrapperLL({
                       onClick={() => {
                         setIsLLNavShown(!isLLNavShown)
                       }}
-                      
                       aria-controls={cx('full-menu-wrapper')}
                       aria-expanded={!isLLNavShown}
                     >
@@ -328,7 +332,6 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
                     onClick={() => {
                       setIsLLNavShown(!isLLNavShown)
                     }}
-                    
                     aria-controls={cx('full-menu-wrapper')}
                     aria-expanded={!isLLNavShown}
                   >

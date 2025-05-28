@@ -1,11 +1,23 @@
 import React, { useState, useEffect } from 'react'
 import classNames from 'classnames/bind'
 import styles from './CategorySecondaryHeader.module.scss'
-import {
-  ChildrenNavigation,
-  ParentNavigation,
-  SingleNavigation,
-} from '../../../components'
+import dynamic from 'next/dynamic'
+// Import Components
+const ChildrenNavigation = dynamic(() =>
+  import(
+    '@/components/CategoryHeader/CategorySecondaryHeader/ChildrenNavigation/ChildrenNavigation'
+  ),
+)
+const ParentNavigation = dynamic(() =>
+  import(
+    '@/components/CategoryHeader/CategorySecondaryHeader/ParentNavigation/ParentNavigation'
+  ),
+)
+const SingleNavigation = dynamic(() =>
+  import(
+    '@/components/CategoryHeader/CategorySecondaryHeader/SingleNavigation/SingleNavigation'
+  ),
+)
 
 let cx = classNames.bind(styles)
 

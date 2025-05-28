@@ -1,22 +1,31 @@
 import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
 import { BlogInfoFragment } from '../fragments/GeneralSettings'
-import {
-  Main,
-  FeaturedImage,
-  SEO,
-  SingleRCAContainer,
-  ContentWrapperRCA,
-  RCAHeader,
-  PasswordProtected,
-  RCASecondaryHeader,
-} from '../components'
 import { GetMenus } from '../queries/GetMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
 import { GetRCASlider } from '../queries/GetRCASlider'
 import React, { useEffect, useState, useRef } from 'react'
 import { eb_garamond, rubik, rubik_mono_one } from '../styles/fonts/fonts'
 import Cookies from 'js-cookie'
+import dynamic from 'next/dynamic'
+// Import Components
+const RCAHeader = dynamic(() => import('@/components/RCAHeader/RCAHeader'))
+const RCASecondaryHeader = dynamic(() =>
+  import('@/components/RCAHeader/RCASecondaryHeader/RCASecondaryHeader'),
+)
+const SingleRCAContainer = dynamic(() =>
+  import('@/components/SingleRCAContainer/SingleRCAContainer'),
+)
+const Main = dynamic(() => import('@/components/Main/Main'))
+const SEO = dynamic(() => import('@/components/SEO/SEO'))
+const ContentWrapperRCA = dynamic(() =>
+  import('@/components/ContentWrapperRCA/ContentWrapperRCA'),
+)
+const PasswordProtected = dynamic(() =>
+  import('@/components/PasswordProtected/PasswordProtected'),
+)
+// Import Components for query
+import FeaturedImage from '@/components/FeaturedImage/FeaturedImage'
 
 export default function singleRca(props) {
   // Loading state for previews
