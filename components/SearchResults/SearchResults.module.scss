@@ -95,7 +95,7 @@ $color-grey: #777;
   }
 
   * {
-    font-family: 'Ringside Regular A', 'Ringside Regular B';
+    font-family: var(--font--poppins);
     font-weight: 500;
     font-size: 0.6rem;
 
@@ -110,7 +110,7 @@ $color-grey: #777;
   align-items: flex-end;
   flex-wrap: wrap;
   column-gap: 0.5rem;
-  font-family: 'Ringside Regular A', 'Ringside Regular B';
+  font-family: var(--font--poppins);
   font-weight: 500;
   row-gap: 0.3rem;
 
@@ -155,7 +155,7 @@ $color-grey: #777;
 }
 
 .meta-hc {
-  font-family: 'Gotham A', 'Gotham B';
+  font-family: var(--font--poppins);
 }
 
 .title-wrapper {
@@ -173,7 +173,7 @@ $color-grey: #777;
 }
 
 .title-hc {
-  font-family: 'Hoefler Text A', 'Hoefler Text B';
+  font-family: var(--font--eb--garamond);
   font-weight: 700;
 }
 
@@ -187,7 +187,7 @@ $color-grey: #777;
 }
 
 .title-contest {
-  font-family: 'Gotham A', 'Gotham B';
+  font-family: var(--font--poppins);
   font-weight: 700;
 }
 
@@ -252,7 +252,7 @@ $color-grey: #777;
   }
 
   p {
-    font-family: 'Chronicle Display A', 'Chronicle Display B';
+    font-family: var(--font--bodoni--moda);
     font-weight: 500;
     font-size: 0.65rem;
 
@@ -262,7 +262,7 @@ $color-grey: #777;
   }
 
   .more-link {
-    font-family: 'Chronicle Display A', 'Chronicle Display B';
+    font-family: var(--font--bodoni--moda);
     font-weight: 700;
     font-size: 0.65rem;
 

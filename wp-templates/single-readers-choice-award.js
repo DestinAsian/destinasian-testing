@@ -5,7 +5,13 @@ import { GetMenus } from '../queries/GetMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
 import { GetRCASlider } from '../queries/GetRCASlider'
 import React, { useEffect, useState, useRef } from 'react'
-import { eb_garamond, rubik, rubik_mono_one } from '../styles/fonts/fonts'
+import {
+  bodoni_moda,
+  eb_garamond,
+  poppins,
+  rubik,
+  rubik_mono_one,
+} from '../styles/fonts/fonts'
 import Cookies from 'js-cookie'
 import dynamic from 'next/dynamic'
 // Import Components
@@ -296,7 +302,7 @@ export default function singleRca(props) {
   if (passwordProtected?.onOff && !isAuthenticated) {
     return (
       <main
-        className={`${eb_garamond.variable} ${rubik_mono_one.variable} ${rubik.variable}`}
+        className={`${bodoni_moda.variable} ${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable} ${rubik.variable}`}
       >
         <form onSubmit={handlePasswordSubmit}>
           <PasswordProtected
@@ -314,7 +320,9 @@ export default function singleRca(props) {
   }
 
   return (
-    <main className={`${eb_garamond.variable} ${rubik_mono_one.variable}`}>
+    <main
+      className={`${bodoni_moda.variable} ${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable}`}
+    >
       <SEO
         title={seo?.title}
         description={seo?.metaDesc}

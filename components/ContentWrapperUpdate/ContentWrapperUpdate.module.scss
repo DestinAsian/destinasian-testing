@@ -102,7 +102,7 @@
     }
 
     a {
-      font-family: 'Chronicle Display A', 'Chronicle Display B';
+      font-family: var(--font--bodoni--moda);
       font-weight: 600;
       color: var(--wpe--link--color);
       text-decoration: underline;

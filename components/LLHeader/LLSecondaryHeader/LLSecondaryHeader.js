@@ -27,7 +27,7 @@ export default function LLSecondaryHeader({
     <>
       <div className={cx('navigation-wrapper')}>
         <div className={cx('menu-wrapper')}>
-          <button
+          {/* <button
             type="button"
             className={cx('menu-button', searchQuery ? 'active' : '')}
             onClick={() => {
@@ -45,7 +45,7 @@ export default function LLSecondaryHeader({
             aria-expanded={!isRCANavShown}
           >
             <div className={cx('menu-title')}>{`Travel Stories`}</div>
-          </button>
+          </button> */}
           <button
             type="button"
             className={cx('menu-button', isGuidesNavShown ? 'active' : '')}

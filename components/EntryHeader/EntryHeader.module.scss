@@ -76,7 +76,7 @@
 }
 
 .hc-caption {
-  font-family: 'Ringside Regular A', 'Ringside Regular B';
+  font-family: var(--font--poppins);
   font-weight: 500;
   line-height: 1.6;
   font-size: 1rem;
@@ -95,7 +95,7 @@
 }
 
 .contest-title {
-  font-family: 'Gotham A', 'Gotham B';
+  font-family: var(--font--poppins);
   font-weight: 800;
   line-height: 1.6;
   font-size: 1.7rem;

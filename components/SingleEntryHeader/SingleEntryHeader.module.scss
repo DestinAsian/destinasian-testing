@@ -61,7 +61,7 @@
   align-items: flex-end;
   flex-wrap: wrap;
   column-gap: 0.5rem;
-  font-family: 'Ringside Regular A', 'Ringside Regular B';
+  font-family: var(--font--poppins);
   font-weight: 500;
 
   .category-label {

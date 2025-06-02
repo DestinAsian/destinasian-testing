@@ -5,7 +5,13 @@ import { BlogInfoFragment } from '../fragments/GeneralSettings'
 import { GetMenus } from '../queries/GetMenus'
 import { GetFooterMenus } from '../queries/GetFooterMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
-import { eb_garamond, rubik, rubik_mono_one } from '../styles/fonts/fonts'
+import {
+  bodoni_moda,
+  eb_garamond,
+  poppins,
+  rubik,
+  rubik_mono_one,
+} from '../styles/fonts/fonts'
 import Cookies from 'js-cookie'
 import { GetLatestRCA } from '../queries/GetLatestRCA'
 import dynamic from 'next/dynamic'
@@ -273,7 +279,7 @@ export default function SingleAdvertorial(props) {
   if (passwordProtected?.onOff && !isAuthenticated) {
     return (
       <main
-        className={`${eb_garamond.variable} ${rubik_mono_one.variable} ${rubik.variable}`}
+        className={`${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable} ${rubik.variable}`}
       >
         <form onSubmit={handlePasswordSubmit}>
           <PasswordProtected
@@ -291,7 +297,9 @@ export default function SingleAdvertorial(props) {
   }
 
   return (
-    <main className={`${eb_garamond.variable} ${rubik_mono_one.variable}`}>
+    <main
+      className={`${bodoni_moda.variable} ${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable}`}
+    >
       <SEO
         title={seo?.title}
         description={seo?.metaDesc}

@@ -6,7 +6,7 @@ import { HeaderFooterVisibilityFragment } from '../fragments/HeaderFooterVisibil
 import { GetMenus } from '../queries/GetMenus'
 import { GetFooterMenus } from '../queries/GetFooterMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
-import { eb_garamond, rubik_mono_one } from '../styles/fonts/fonts'
+import { bodoni_moda, eb_garamond, poppins, rubik_mono_one } from '../styles/fonts/fonts'
 import { GetLatestRCA } from '../queries/GetLatestRCA'
 import dynamic from 'next/dynamic'
 // Import Components
@@ -25,7 +25,7 @@ const ContentWrapperTravelGuides = dynamic(() =>
 )
 const Footer = dynamic(() => import('@/components/Footer/Footer'))
 // Import Components for query
-import FeaturedImage from "@/components/FeaturedImage/FeaturedImage";
+import FeaturedImage from '@/components/FeaturedImage/FeaturedImage'
 
 export default function Component(props) {
   // Loading state for previews
@@ -211,7 +211,9 @@ export default function Component(props) {
   const allPosts = mainCatPosts.sort(sortPostsByDate)
 
   return (
-    <main className={`${eb_garamond.variable} ${rubik_mono_one.variable}`}>
+    <main
+      className={`${bodoni_moda.variable} ${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable}`}
+    >
       <SEO
         title={seo?.title}
         description={seo?.metaDesc}

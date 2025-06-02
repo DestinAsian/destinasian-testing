@@ -48,7 +48,7 @@
 .sponsored {
   color: var(--wpe--color--white);
   font-size: 0.8rem;
-  font-family: 'Ringside Regular A', 'Ringside Regular B';
+  font-family: var(--font--poppins);
   font-weight: 600;
   line-height: 1.6;
   text-transform: uppercase;
@@ -100,7 +100,7 @@
 }
 
 .excerpt {
-  font-family: 'Chronicle Display A', 'Chronicle Display B';
+  font-family: var(--font--bodoni--moda);
   font-weight: 500;
   font-size: 0.9rem;
   padding: 0 0 1rem;

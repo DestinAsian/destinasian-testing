@@ -122,7 +122,7 @@
   .first-custom-text-wrapper,
   .other-guides-text-wrapper,
   .other-custom-text-wrapper {
-    font-family: 'Ringside Regular A', 'Ringside Regular B';
+    font-family: var(--font--poppins);
     font-weight: 700;
     text-align: left;
     line-height: 1.6;

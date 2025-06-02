@@ -85,7 +85,7 @@
     }
 
     a {
-      font-family: 'Gotham A', 'Gotham B';
+      font-family: var(--font--poppins);
       font-weight: 500;
       color: var(--wpe--link--color);
       text-decoration: underline;

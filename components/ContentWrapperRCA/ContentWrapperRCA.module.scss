@@ -98,7 +98,7 @@
   }
 
   .content-index {
-    font-family: 'Ringside Regular A', 'Ringside Regular B';
+    font-family: var(--font--poppins);
     font-weight: 400;
     color: var(--wpe--color--white--smoke);
 
@@ -121,7 +121,7 @@
   }
 
   .content-property-name {
-    font-family: 'Ringside Regular A', 'Ringside Regular B';
+    font-family: var(--font--poppins);
     font-weight: 400;
   }
 
@@ -140,7 +140,7 @@
       * {
         padding: 0;
         text-decoration: none;
-        font-family: 'Ringside Regular A', 'Ringside Regular B';
+        font-family: var(--font--poppins);
         font-weight: 700;
 
         &:hover {
@@ -337,7 +337,7 @@
   }
 
   .menu-title {
-    font-family: 'Ringside Regular A', 'Ringside Regular B';
+    font-family: var(--font--poppins);
     font-weight: 700;
     text-transform: uppercase;
     padding: 0;
@@ -398,7 +398,7 @@
     }
 
     p {
-      font-family: 'Ringside Regular A', 'Ringside Regular B';
+      font-family: var(--font--poppins);
       font-weight: 400;
       font-size: 1.125rem;
 
@@ -451,7 +451,7 @@
     }
 
     a {
-      font-family: 'Ringside Regular A', 'Ringside Regular B';
+      font-family: var(--font--poppins);
       font-weight: 400;
       color: var(--wpe--color--white--smoke);
       text-decoration: underline;

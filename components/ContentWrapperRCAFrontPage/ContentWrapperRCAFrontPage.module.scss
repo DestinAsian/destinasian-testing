@@ -61,7 +61,7 @@
     @import 'styles/blocks';
 
     * {
-      font-family: 'Ringside Regular A', 'Ringside Regular B';
+      font-family: var(--font--poppins);
       font-weight: 400;
       max-width: 100%;
       padding: 0 0 0.5rem;
@@ -85,7 +85,7 @@
     }
 
     p {
-      font-family: 'Ringside Regular A', 'Ringside Regular B';
+      font-family: var(--font--poppins);
       font-weight: 400;
       font-size: 1.125rem;
       line-height: 1.2;
@@ -139,7 +139,7 @@
     }
 
     a {
-      font-family: 'Ringside Regular A', 'Ringside Regular B';
+      font-family: var(--font--poppins);
       font-weight: 400;
       text-decoration: underline;
 

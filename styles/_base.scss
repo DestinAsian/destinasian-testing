@@ -13,7 +13,7 @@ html {
 
 body {
   margin: 0;
-  font-family: 'Ringside Regular A', 'Ringside Regular B';
+  font-family: var(--font--poppins);
   font-weight: 400;
   font-size: 1.125rem;
 
@@ -44,7 +44,7 @@ h6 {
 }
 
 p {
-  font-family: 'Chronicle Display A', 'Chronicle Display B';
+  font-family: var(--font--bodoni--moda);
   font-weight: 400;
   margin: 0 0 1rem;
   letter-spacing: 1.15px;
@@ -97,7 +97,7 @@ iframe {
 }
 
 a.more-link {
-  font-family: 'Chronicle Display A', 'Chronicle Display B';
+  font-family: var(--font--bodoni--moda);
   font-weight: 700;
   font-size: 0.65rem;
 
@@ -136,7 +136,7 @@ li.rca-full-menu {
 }
 
 li.hc-full-menu {
-  font-family: 'Hoefler Text A', 'Hoefler Text B';
+  font-family: var(--font--eb--garamond);
   font-weight: 700;
   font-size: 1.1rem;
 }

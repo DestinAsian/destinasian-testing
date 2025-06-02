@@ -5,7 +5,7 @@ import { BlogInfoFragment } from '../fragments/GeneralSettings'
 import { GetMenus } from '../queries/GetMenus'
 import { GetFooterMenus } from '../queries/GetFooterMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
-import { eb_garamond, rubik_mono_one } from '../styles/fonts/fonts'
+import { bodoni_moda, eb_garamond, poppins, rubik_mono_one } from '../styles/fonts/fonts'
 import { GetLatestRCA } from '../queries/GetLatestRCA'
 import { GetSecondaryHeader } from '../queries/GetSecondaryHeader'
 import dynamic from 'next/dynamic'
@@ -303,7 +303,9 @@ export default function Component(props) {
   }
 
   return (
-    <main className={`${eb_garamond.variable} ${rubik_mono_one.variable}`}>
+    <main
+      className={`${bodoni_moda.variable} ${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable}`}
+    >
       <CategoryHeader
         title={siteTitle}
         description={siteDescription}

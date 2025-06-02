@@ -123,7 +123,7 @@
       .hc-wrapper {
         margin: 0;
         border-bottom: none;
-        font-family: 'Gotham A', 'Gotham B';
+        font-family: var(--font--poppins);
 
         @media (min-width: $breakpoint-small) {
           margin: 0 auto 2rem;
@@ -315,7 +315,7 @@
 
   .other-guides-text-wrapper,
   .other-custom-text-wrapper {
-    font-family: 'Ringside Regular A', 'Ringside Regular B';
+    font-family: var(--font--poppins);
     font-weight: 700;
     text-align: left;
     line-height: 1.6;

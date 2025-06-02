@@ -86,7 +86,7 @@
   text-align: center;
   padding: 0.4rem;
   width: fit-content;
-  font-family: 'Ringside Regular A', 'Ringside Regular B';
+  font-family: var(--font--poppins);
   font-weight: 700;
   letter-spacing: normal;
 
@@ -103,6 +103,6 @@
   text-align: left;
   text-align-last: left;
   letter-spacing: normal;
-  font-family: 'Ringside Regular A', 'Ringside Regular B';
+  font-family: var(--font--poppins);
   font-weight: 700;
 }

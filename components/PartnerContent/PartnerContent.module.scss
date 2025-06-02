@@ -98,7 +98,7 @@ figure.image {
 }
 
 .sub-title-adv {
-  font-family: 'Ringside Regular A', 'Ringside Regular B';
+  font-family: var(--font--poppins);
   font-weight: 500;
   line-height: 1.6;
   text-transform: uppercase;
@@ -111,7 +111,7 @@ figure.image {
 }
 
 .honors-circle {
-  font-family: 'Gotham A', 'Gotham B';
+  font-family: var(--font--poppins);
   text-transform: uppercase;
   font-weight: 500;
   font-size: 0.6rem;
@@ -134,7 +134,7 @@ figure.image {
 }
 
 .hc-title {
-  font-family: 'Hoefler Text A', 'Hoefler Text B';
+  font-family: var(--font--eb--garamond);
   font-weight: 700;
   font-size: 1rem;
   line-height: 1.2;
@@ -153,7 +153,7 @@ figure.image {
   padding: 0 0 0.25rem;
 
   p {
-    font-family: 'Ringside Regular A', 'Ringside Regular B';
+    font-family: var(--font--poppins);
     font-weight: 500;
     line-height: 1.6;
     font-size: 0.65rem;
@@ -172,7 +172,7 @@ figure.image {
   padding: 0 0 0.25rem;
 
   p {
-    font-family: 'Gotham A', 'Gotham B';
+    font-family: var(--font--poppins);
     font-weight: 500;
     line-height: 1.6;
     font-size: 0.65rem;

@@ -17,7 +17,7 @@
   display: flex;
   align-items: flex-end;
   gap: 0.2rem;
-  font-family: 'Ringside Regular A', 'Ringside Regular B';
+  font-family: var(--font--poppins);
   font-weight: 500;
 
   .location-label {

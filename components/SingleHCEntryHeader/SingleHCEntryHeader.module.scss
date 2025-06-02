@@ -40,7 +40,7 @@
 
 .hc-wrapper {
   display: flex;
-  font-family: 'Gotham A', 'Gotham B';
+  font-family: var(--font--poppins);
   font-weight: 400;
   font-size: 0.8rem;
   max-width: 100vw;
@@ -103,7 +103,7 @@
 
 .meta-wrapper {
   display: flex;
-  font-family: 'Gotham A', 'Gotham B';
+  font-family: var(--font--poppins);
   font-weight: 400;
   font-size: 0.8rem;
   max-width: 100vw;
@@ -170,7 +170,7 @@
 
 .title,
 .parent {
-  font-family: 'Hoefler Text A', 'Hoefler Text B';
+  font-family: var(--font--eb--garamond);
   font-weight: 700;
   line-height: 1.2;
   font-size: 1.75rem;
@@ -195,7 +195,7 @@
   align-items: flex-end;
   flex-wrap: wrap;
   column-gap: 0.5rem;
-  font-family: 'Ringside Regular A', 'Ringside Regular B';
+  font-family: var(--font--poppins);
   font-weight: 500;
 
   .category-label {

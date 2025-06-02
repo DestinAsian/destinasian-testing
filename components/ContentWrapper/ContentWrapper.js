@@ -59,16 +59,6 @@ export default function ContentWrapper({ content, children }) {
           // Traverse child nodes
           node.childNodes?.forEach(extractImagesRecursively)
         }
-
-        if (
-          typeof node === 'object' &&
-          node.nodeType === 1 &&
-          node.tagName === 'IMG' &&
-          typeof node.getAttribute === 'function' &&
-          node.getAttribute('src')?.includes(BACKEND_URL)
-        ) {
-          console.log(node)
-        }
       }
 
       // Process the content's root element to find all <img> nodes and replace them

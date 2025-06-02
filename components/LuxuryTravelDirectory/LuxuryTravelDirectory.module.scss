@@ -99,7 +99,7 @@
     }
 
     a {
-      // font-family: 'Chronicle Display A', 'Chronicle Display B';
+      // font-family: var(--font--bodoni--moda);
       font-weight: 600;
       // color: var(--wpe--link--color);
       // text-decoration: underline;
@@ -241,7 +241,7 @@
     }
 
     .directory-container {
-      font-family: 'Ringside Regular A', 'Ringside Regular B';
+      font-family: var(--font--poppins);
       padding: 0;
 
       h1 {

@@ -24,7 +24,7 @@
     }
 
     * {
-      font-family: 'Ringside Regular A', 'Ringside Regular B';
+      font-family: var(--font--poppins);
       font-weight: 400;
       text-align: left;
     }

@@ -55,7 +55,7 @@
 }
 
 .category {
-  font-family: 'Ringside Regular A', 'Ringside Regular B';
+  font-family: var(--font--poppins);
   color: var(--wpe--color--black);
   font-weight: 600;
   font-size: 0.8rem;
@@ -93,7 +93,7 @@
   padding: 0 0 0.25rem;
 
   p {
-    font-family: 'Ringside Regular A', 'Ringside Regular B';
+    font-family: var(--font--poppins);
     font-weight: 500;
   }
 }

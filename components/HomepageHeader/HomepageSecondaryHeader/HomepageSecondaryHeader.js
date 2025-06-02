@@ -26,7 +26,7 @@ export default function HomepageSecondaryHeader({
     <>
       <div className={cx('navigation-wrapper', { sticky: isScrolled })}>
         <div className={cx('menu-wrapper')}>
-          <button
+          {/* <button
             type="button"
             className={cx(
               'menu-button',
@@ -42,7 +42,7 @@ export default function HomepageSecondaryHeader({
             aria-expanded={!isRCANavShown}
           >
             <div className={cx('menu-title')}>{`Travel Stories`}</div>
-          </button>
+          </button> */}
           <button
             type="button"
             className={cx(

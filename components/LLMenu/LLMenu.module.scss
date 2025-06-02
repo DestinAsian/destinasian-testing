@@ -2,7 +2,7 @@
 
 .component {
   background-color: transparent;
-  font-family: 'Ringside Regular A', 'Ringside Regular B';
+  font-family: var(--font--poppins);
   font-weight: 700;
   display: flex;
   width: 100%;
@@ -138,7 +138,7 @@
         text-align: center;
         padding: 0.4rem;
         width: fit-content;
-        font-family: 'Ringside Regular A', 'Ringside Regular B';
+        font-family: var(--font--poppins);
         font-weight: 700;
 
         @media (min-width: $breakpoint-extra-small) {

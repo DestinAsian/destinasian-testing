@@ -4,7 +4,13 @@ import * as MENUS from '../constants/menus'
 import { BlogInfoFragment } from '../fragments/GeneralSettings'
 import { GetMenus } from '../queries/GetMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
-import { eb_garamond, rubik, rubik_mono_one } from '../styles/fonts/fonts'
+import {
+  bodoni_moda,
+  eb_garamond,
+  poppins,
+  rubik,
+  rubik_mono_one,
+} from '../styles/fonts/fonts'
 import Cookies from 'js-cookie'
 import { GetLatestRCA } from '../queries/GetLatestRCA'
 import dynamic from 'next/dynamic'
@@ -26,7 +32,7 @@ const PasswordProtected = dynamic(() =>
   import('@/components/PasswordProtected/PasswordProtected'),
 )
 // Import Components for query
-import FeaturedImage from "@/components/FeaturedImage/FeaturedImage";
+import FeaturedImage from '@/components/FeaturedImage/FeaturedImage'
 
 export default function Component(props) {
   // Loading state for previews
@@ -229,7 +235,7 @@ export default function Component(props) {
   if (passwordProtected?.onOff && !isAuthenticated) {
     return (
       <main
-        className={`${eb_garamond.variable} ${rubik_mono_one.variable} ${rubik.variable}`}
+        className={`${bodoni_moda.variable} ${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable} ${rubik.variable}`}
       >
         <form onSubmit={handlePasswordSubmit}>
           <PasswordProtected
@@ -247,7 +253,9 @@ export default function Component(props) {
   }
 
   return (
-    <main className={`${eb_garamond.variable} ${rubik_mono_one.variable}`}>
+    <main
+      className={`${bodoni_moda.variable} ${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable}`}
+    >
       <SEO
         title={seo?.title}
         description={seo?.metaDesc}

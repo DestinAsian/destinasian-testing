@@ -11,7 +11,7 @@
   display: flex;
   justify-content: center;
   text-align: center;
-  font-family: 'Ringside Regular A', 'Ringside Regular B';
+  font-family: var(--font--poppins);
   font-weight: 500;
   width: 100vw;
   height: calc(-3.5rem + 100vh);
@@ -74,7 +74,7 @@
   }
 
   p {
-    font-family: 'Ringside Regular A', 'Ringside Regular B';
+    font-family: var(--font--poppins);
     font-weight: 500;
     font-size: 1.125rem;
 
@@ -144,7 +144,7 @@
     }
 
     p {
-      font-family: 'Chronicle Display A', 'Chronicle Display B';
+      font-family: var(--font--bodoni--moda);
       font-weight: 500;
       font-size: 1.125rem;
 

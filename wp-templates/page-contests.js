@@ -4,7 +4,7 @@ import * as MENUS from '../constants/menus'
 import { BlogInfoFragment } from '../fragments/GeneralSettings'
 import { GetMenus } from '../queries/GetMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
-import { eb_garamond, rubik_mono_one } from '../styles/fonts/fonts'
+import { bodoni_moda, eb_garamond, poppins, rubik_mono_one } from '../styles/fonts/fonts'
 import { GetLatestRCA } from '../queries/GetLatestRCA'
 import dynamic from 'next/dynamic'
 // Import Components
@@ -192,7 +192,9 @@ export default function Component(props) {
   const allPosts = mainCatPosts.sort(sortPostsByDate)
 
   return (
-    <main className={`${eb_garamond.variable} ${rubik_mono_one.variable}`}>
+    <main
+      className={`${bodoni_moda.variable} ${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable}`}
+    >
       <SEO
         title={seo?.title}
         description={seo?.metaDesc}
