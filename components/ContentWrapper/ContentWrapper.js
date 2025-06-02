@@ -30,8 +30,12 @@ export default function ContentWrapper({ content, children }) {
           node.getAttribute('src')?.includes(BACKEND_URL)
         ) {
           // Skip images inside .gallery-slider
-          const insideGallerySlider = node.closest('.gallery-slider')
+          const insideGallerySlider = node.closest('.gallery')
           if (insideGallerySlider) return
+
+          // Skip if img has inline styles
+          const hasInlineStyle = node.hasAttribute('style')
+          if (hasInlineStyle) return
 
           const src = node.getAttribute('src')
           const alt = node.getAttribute('alt') || 'Image'
@@ -54,6 +58,16 @@ export default function ContentWrapper({ content, children }) {
         } else {
           // Traverse child nodes
           node.childNodes?.forEach(extractImagesRecursively)
+        }
+
+        if (
+          typeof node === 'object' &&
+          node.nodeType === 1 &&
+          node.tagName === 'IMG' &&
+          typeof node.getAttribute === 'function' &&
+          node.getAttribute('src')?.includes(BACKEND_URL)
+        ) {
+          console.log(node)
         }
       }
 
@@ -79,8 +93,6 @@ export default function ContentWrapper({ content, children }) {
             </div>
           )
         }
-
-        console.log(node?.nodeType === 1 && node?.matches('div.gallery'))
 
         // Gallery Slider
         if (node?.nodeType === 1 && node?.matches('div.gallery')) {

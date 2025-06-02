@@ -133,13 +133,14 @@ export default function HomepageStories(pinPosts) {
 
       // Loop through all the contentNodes posts
       advertorialsData?.contentNodes?.edges?.forEach((post) => {
-        const { databaseId } = post.node
+        const { databaseId, passwordProtected } = post.node
 
-        // Check if the databaseId is unique (not in the Set)
-        if (!uniqueDatabaseIds.has(databaseId)) {
-          uniqueDatabaseIds.add(databaseId) // Add the databaseId to the Set
-          contentAdvertorials.push(post.node) // Push the unique post to the array
-        }
+        // Skip if passwordProtected is true or already added
+        if (passwordProtected?.onOff || uniqueDatabaseIds.has(databaseId))
+          return
+
+        uniqueDatabaseIds.add(databaseId)
+        contentAdvertorials.push(post.node)
       })
 
       // Shuffle only the otherBannerAds array

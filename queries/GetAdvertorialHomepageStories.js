@@ -19,6 +19,9 @@ export const GetAdvertorialHomepageStories = gql`
           id
           databaseId
           ... on Advertorial {
+            passwordProtected {
+              onOff
+            }
             title
             excerpt
             uri

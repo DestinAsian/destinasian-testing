@@ -71,14 +71,15 @@ iframe {
   margin: 0 auto;
 }
 
-/* Editorial Dropcap */
+/* Dropcap */
 .dropcap {
   color: var(--wpe--color--black);
   font-family: 'DreamOrphans-Regular';
   font-weight: 700;
   margin: 0;
   padding: 0;
-  padding-right: 0.5rem;
+  padding-right: 0.5rem !important;
+  padding-bottom: 0 !important;
   font-size: 7rem;
   float: left;
   line-height: 1;

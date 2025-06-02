@@ -126,8 +126,8 @@ export default function Component(props) {
     {
       type: acfHomepageSlider?.typeSlide1,
       videoSrc: acfHomepageSlider?.video1?.mediaItemUrl,
-      desktopSrc: acfHomepageSlider?.desktopSlide2?.mediaItemUrl,
-      mobileSrc: acfHomepageSlider?.mobileSlide2?.mediaItemUrl,
+      desktopSrc: acfHomepageSlider?.desktopSlide1?.mediaItemUrl,
+      mobileSrc: acfHomepageSlider?.mobileSlide1?.mediaItemUrl,
       url: acfHomepageSlider?.slideLink1,
       category: acfHomepageSlider?.slideCategory1,
       categoryLink: acfHomepageSlider?.slideCategoryLink1,
