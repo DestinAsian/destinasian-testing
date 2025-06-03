@@ -197,53 +197,6 @@ export default function FullMenu({
                 </ul>
               </nav>
             )}
-            {/* <nav className={cx('feature-video')}>
-              <ul className={cx('menu-name')}>
-                {featureMenuItems[0]?.menu?.node?.videosThumbnailMenu
-                  ?.videoLabel
-                  ? featureMenuItems[0]?.menu?.node?.videosThumbnailMenu
-                      ?.videoLabel
-                  : 'Videos Produced By DestinAsian'}
-              </ul>
-              {featureMenuItems[0]?.menu?.node?.videosThumbnailMenu?.videosPage
-                ?.url && (
-                <Link
-                  href={
-                    featureMenuItems[0]?.menu?.node?.videosThumbnailMenu
-                      ?.videosPage?.url
-                  }
-                >
-                  <div className={cx('thumbnail-wrapper')}>
-                    <Image
-                      src={
-                        featureMenuItems[0]?.menu?.node?.videosThumbnailMenu
-                          ?.videosThumbnail?.sourceUrl
-                      }
-                      alt={
-                        featureMenuItems[0]?.menu?.node?.videosThumbnailMenu
-                          ?.videosThumbnail?.altText
-                      }
-                      width={
-                        featureMenuItems[0]?.menu?.node?.videosThumbnailMenu
-                          ?.videosThumbnail?.mediaDetails?.width
-                          ? featureMenuItems[0]?.menu?.node?.videosThumbnailMenu
-                              ?.videosThumbnail?.mediaDetails?.width
-                          : '1280'
-                      }
-                      height={
-                        featureMenuItems[0]?.menu?.node?.videosThumbnailMenu
-                          ?.videosThumbnail?.mediaDetails?.height
-                          ? featureMenuItems[0]?.menu?.node?.videosThumbnailMenu
-                              ?.videosThumbnail?.mediaDetails?.height
-                          : '720'
-                      }
-                      sizes="100%"
-                      priority
-                    />
-                  </div>
-                </Link>
-              )}
-            </nav> */}
           </div>
           <div className={cx('fourth-wrapper')}>
             <div className={cx('left-wrapper')}>

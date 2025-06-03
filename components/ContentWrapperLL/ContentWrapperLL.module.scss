@@ -5,7 +5,7 @@
   margin: 0 auto;
   line-height: 1.2;
   padding: 0;
-  font-family: var(--font--poppins);
+  font-family: 'Ringside Regular A', 'Ringside Regular B';
   font-weight: 400;
 
   @media (min-width: $breakpoint-extra-small) {
@@ -314,9 +314,6 @@
   }
 
   :global {
-    // Scope WordPress block styles within ContentWrapper.
-    @import 'styles/blocks';
-
     * {
       max-width: 100%;
       padding: 0 0 0.5rem;
@@ -339,7 +336,7 @@
     }
 
     p {
-      font-family: var(--font--poppins);
+      font-family: 'Ringside Regular A', 'Ringside Regular B';
       font-weight: 400;
       font-size: 1.125rem;
 
@@ -392,7 +389,7 @@
     }
 
     a {
-      font-family: var(--font--poppins);
+      font-family: 'Ringside Regular A', 'Ringside Regular B';
       font-weight: 400;
       color: var(--wpe--link--color);
       text-decoration: underline;

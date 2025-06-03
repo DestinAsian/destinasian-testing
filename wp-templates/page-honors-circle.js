@@ -5,7 +5,6 @@ import { BlogInfoFragment } from '../fragments/GeneralSettings'
 import { GetMenus } from '../queries/GetMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
 import {
-  bodoni_moda,
   eb_garamond,
   poppins,
   rubik,
@@ -31,8 +30,6 @@ const ContentWrapperHCFrontPage = dynamic(() =>
 const PasswordProtected = dynamic(() =>
   import('@/components/PasswordProtected/PasswordProtected'),
 )
-// Import Components for query
-import FeaturedImage from '@/components/FeaturedImage/FeaturedImage'
 
 export default function Component(props) {
   // Loading state for previews
@@ -235,7 +232,7 @@ export default function Component(props) {
   if (passwordProtected?.onOff && !isAuthenticated) {
     return (
       <main
-        className={`${bodoni_moda.variable} ${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable} ${rubik.variable}`}
+        className={`${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable} ${rubik.variable}`}
       >
         <form onSubmit={handlePasswordSubmit}>
           <PasswordProtected
@@ -254,7 +251,7 @@ export default function Component(props) {
 
   return (
     <main
-      className={`${bodoni_moda.variable} ${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable}`}
+      className={`${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable}`}
     >
       <SEO
         title={seo?.title}
@@ -306,7 +303,6 @@ export default function Component(props) {
 
 Component.query = gql`
   ${BlogInfoFragment}
-  ${FeaturedImage.fragments.entry}
   query GetPageData($databaseId: ID = "131573", $asPreview: Boolean = false) {
     page(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
       title
@@ -315,7 +311,17 @@ Component.query = gql`
         onOff
         password
       }
-      ...FeaturedImageFragment
+      featuredImage {
+        node {
+          id
+          sourceUrl
+          altText
+          mediaDetails {
+            width
+            height
+          }
+        }
+      }
       hcCaption {
         hcCaption
       }

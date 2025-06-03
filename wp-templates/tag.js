@@ -6,7 +6,6 @@ import { GetMenus } from '../queries/GetMenus'
 import { GetFooterMenus } from '../queries/GetFooterMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
 import {
-  bodoni_moda,
   eb_garamond,
   poppins,
   rubik_mono_one,
@@ -205,7 +204,7 @@ export default function Component(props) {
 
   return (
     <main
-      className={`${bodoni_moda.variable} ${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable}`}
+      className={`${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable}`}
     >
       <Header
         title={siteTitle}

@@ -6,7 +6,7 @@
 .button {
 	a {
 		@media (min-width: $breakpoint-small) {
-			background-color: var(--wpe--color--accent);
+			background-color: var(--wpe--color--blue);
 			border-radius: 100px;
 			border: var(--wpe--border--light);
 			color: var(--wpe--color--white);
@@ -17,7 +17,7 @@
 
 			&:hover,
 			&:focus {
-				background-color: var(--wpe--color--accent--dark);
+				background-color: var(--wpe--color--slate);
 				color: var(--wpe--color--white);
 			}
 		}

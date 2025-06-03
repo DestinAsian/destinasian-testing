@@ -49,11 +49,11 @@ export default function SEO() {
           })}
 
         {/* Testing Typography Cloud */}
-        {/* <link
+        <link
           rel="stylesheet"
           type="text/css"
           href="https://cloud.typography.com/7429004/6477832/css/fonts.css"
-        /> */}
+        />
       </Head>
     </>
   )

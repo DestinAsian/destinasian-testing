@@ -61,7 +61,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%; 
+  height: 100%;
 
   svg {
     display: block;
@@ -69,7 +69,7 @@
 }
 
 .byline {
-  font-weight: var(--wpe--font-weight--medium);
+  font-weight: 400;
   font-size: 1.2rem;
 }
 
@@ -109,7 +109,7 @@
   // transform: translateY(-150vh);
   background-color: var(--wpe--color--black);
   color: var(--wpe--color--white);
-  font-family: var(--font--poppins);
+  font-family: 'Ringside Regular A', 'Ringside Regular B';
   font-weight: 700;
   font-size: 0.65rem;
 

@@ -26,32 +26,6 @@ export default function TravelGuidesMenu(className) {
   const [PartnerContentArray, setPartnerContent] = useState([])
   const [HonorsCircleArray, setHonorsCircle] = useState([])
 
-  const AccordionCustomIcon = () => (
-    <span className={cx('custom-icon')}>{'+'}</span>
-  )
-
-  // Theme for Accordion
-  const AccordionCustomTheme = {
-    base: 'text-white dark:text-white divide-y divide-transparent border-transparent dark:divide-transparent dark:border-transparent rounded-lg border',
-    flush: {
-      off: '',
-      on: 'text-white bg-transparent dark:bg-transparent',
-    },
-  }
-
-  // Theme for Accordion Title/Button
-  const AccordionTitleCustomTheme = {
-    base: 'flex w-full items-center justify-between pr-4',
-    flush: {
-      off: '',
-      on: 'text-white bg-transparent dark:bg-transparent',
-    },
-    heading: '',
-    open: {
-      off: 'visible text-black dark:text-black',
-      on: 'text-transparent',
-    },
-  }
 
   // Get menus
   const { data: menusData, loading: menusLoading } = useQuery(GetPrimaryMenu, {
@@ -319,9 +293,6 @@ export default function TravelGuidesMenu(className) {
     )
   }
 
-  const getHonorsCircle = [...HonorsCircleArray]
-  const getPartnerContent = [...PartnerContentArray]
-
   function renderMenu(items) {
     return (
       <div
@@ -330,13 +301,8 @@ export default function TravelGuidesMenu(className) {
         })}
         className={cx('menu-wrapper')}
       >
-        {/* <Accordion
-          collapseAll
-          arrowIcon={AccordionCustomIcon}
-          theme={AccordionCustomTheme}
-        > */}
-        {items.map((item, index) => {
-          const { id, path, label, parentId, children, connectedNode } = item
+        {items.map((item) => {
+          const { id, path, parentId, connectedNode } = item
 
           // @TODO - Remove guard clause after ghost menu items are no longer appended to array.
           if (!item.hasOwnProperty('__typename')) {
@@ -344,19 +310,10 @@ export default function TravelGuidesMenu(className) {
           }
 
           return (
-            // <Accordion.Panel>
             <div key={id} id={id} className={cx('accordion-wrapper')}>
               {/* Main Guides */}
               {parentId === null && (
-                <div
-                  className={cx(
-                    'accordion-title-wrapper',
-                    // open
-                    //   ? AccordionTitleCustomTheme?.open?.on
-                    //   : AccordionTitleCustomTheme?.open?.off,
-                  )}
-                >
-                  {/* <Accordion.Title theme={AccordionTitleCustomTheme}> */}
+                <div className={cx('accordion-title-wrapper')}>
                   <div className={cx('accordion-title')}>
                     {path && (
                       <Link href={path}>
@@ -394,14 +351,11 @@ export default function TravelGuidesMenu(className) {
                       ))}
                     </div>
                   </div>
-                  {/* </Accordion.Title> */}
                 </div>
               )}
             </div>
-            // </Accordion.Panel>
           )
         })}
-        {/* </Accordion> */}
       </div>
     )
   }

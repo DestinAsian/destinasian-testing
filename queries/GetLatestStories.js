@@ -1,11 +1,7 @@
 import { gql } from '@apollo/client'
-import FeaturedImage from "@/components/FeaturedImage/FeaturedImage";
 
 export const GetLatestStories = gql`
-  ${FeaturedImage.fragments.entry}
-  query GetLatestStories(
-    $first: Int
-  ) {
+  query GetLatestStories($first: Int) {
     posts(first: $first, where: { status: PUBLISH }) {
       edges {
         node {
@@ -15,7 +11,17 @@ export const GetLatestStories = gql`
           date
           uri
           excerpt
-          ...FeaturedImageFragment
+          featuredImage {
+            node {
+              id
+              sourceUrl
+              altText
+              mediaDetails {
+                width
+                height
+              }
+            }
+          }
           categories {
             edges {
               node {
@@ -53,7 +59,17 @@ export const GetLatestStories = gql`
           date
           uri
           excerpt
-          ...FeaturedImageFragment
+          featuredImage {
+            node {
+              id
+              sourceUrl
+              altText
+              mediaDetails {
+                width
+                height
+              }
+            }
+          }
           categories {
             edges {
               node {
@@ -79,7 +95,17 @@ export const GetLatestStories = gql`
           date
           uri
           excerpt
-          ...FeaturedImageFragment
+          featuredImage {
+            node {
+              id
+              sourceUrl
+              altText
+              mediaDetails {
+                width
+                height
+              }
+            }
+          }
           categories {
             edges {
               node {

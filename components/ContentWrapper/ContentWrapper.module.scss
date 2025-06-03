@@ -1,4 +1,3 @@
-
 @import 'styles/breakpoints';
 
 .component {
@@ -74,14 +73,29 @@
   }
 
   :global {
-    // Scope WordPress block styles within ContentWrapper.
-    @import 'styles/blocks';
-
     * {
       padding: 0 1rem 0.5rem;
 
       @media (min-width: $breakpoint-small) {
         padding: 0 2rem 0.5rem;
+      }
+    }
+
+    /* Dropcap */
+    .dropcap {
+      color: var(--wpe--color--black);
+      font-family: 'DreamOrphans-Regular';
+      font-weight: 700;
+      margin: 0;
+      padding: 0;
+      padding-right: 0.5rem !important;
+      padding-bottom: 0 !important;
+      font-size: 7rem;
+      float: left;
+      line-height: 1;
+
+      @media (min-width: $breakpoint-extra-small) {
+        font-size: 10rem;
       }
     }
 

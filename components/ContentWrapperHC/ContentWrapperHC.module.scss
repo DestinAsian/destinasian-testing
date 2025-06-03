@@ -31,9 +31,6 @@
   }
 
   :global {
-    // Scope WordPress block styles within ContentWrapper.
-    @import 'styles/blocks';
-
     * {
       font-family: var(--font--poppins);
       font-size: 1.25rem;

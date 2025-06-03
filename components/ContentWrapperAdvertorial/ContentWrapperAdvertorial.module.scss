@@ -19,15 +19,21 @@
   }
 
   :global {
-    // Scope WordPress block styles within ContentWrapper.
-    @import 'styles/blocks';
-
+    /* Dropcap */
     .dropcap {
-      font-family: var(--font--rubik);
+      color: var(--wpe--color--black);
+      font-family: 'DreamOrphans-Regular';
+      font-weight: 700;
+      margin: 0;
+      padding: 0;
+      padding-right: 0.5rem !important;
+      padding-bottom: 0 !important;
+      font-size: 7rem;
+      float: left;
       line-height: 1;
 
-      @media (min-width: $breakpoint-small) {
-        line-height: 0.8;
+      @media (min-width: $breakpoint-extra-small) {
+        font-size: 10rem;
       }
     }
 
@@ -43,7 +49,8 @@
     i,
     u,
     strong,
-    b {
+    b,
+    span {
       padding: 0;
     }
 
@@ -268,16 +275,29 @@
   }
 
   :global {
-    // Scope WordPress block styles within ContentWrapper.
-    @import 'styles/blocks';
-
+    /* Dropcap */
     .dropcap {
-      font-family: var(--font--rubik);
+      color: var(--wpe--color--black);
+      font-family: 'DreamOrphans-Regular';
+      font-weight: 700;
+      margin: 0;
+      padding: 0;
+      padding-right: 0.5rem !important;
+      padding-bottom: 0 !important;
+      font-size: 7rem;
+      float: left;
       line-height: 1;
 
-      @media (min-width: $breakpoint-small) {
-        line-height: 0.8;
+      @media (min-width: $breakpoint-extra-small) {
+        font-size: 10rem;
       }
+    }
+
+    /* Luxury Travel Standfirst */
+    .standfirst {
+      color: var(--wpe--color--black);
+      font-family: var(--font--rubik);
+      font-weight: 700;
     }
 
     * {
@@ -292,7 +312,8 @@
     i,
     u,
     strong,
-    b {
+    b,
+    span {
       padding: 0;
     }
 

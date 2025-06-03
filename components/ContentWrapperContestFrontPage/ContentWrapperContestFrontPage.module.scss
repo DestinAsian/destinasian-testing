@@ -32,9 +32,6 @@
   }
 
   :global {
-    // Scope WordPress block styles within ContentWrapper.
-    @import 'styles/blocks';
-
     * {
       max-width: 100%;
       padding: 0;

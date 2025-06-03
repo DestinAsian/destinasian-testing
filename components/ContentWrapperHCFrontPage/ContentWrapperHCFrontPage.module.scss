@@ -24,9 +24,6 @@
   }
 
   :global {
-    // Scope WordPress block styles within ContentWrapper.
-    @import 'styles/blocks';
-
     .hccard {
       display: grid;
       grid-template-columns: calc(50% - 0.125rem) calc(50% - 0.125rem);

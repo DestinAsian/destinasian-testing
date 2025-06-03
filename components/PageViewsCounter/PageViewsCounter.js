@@ -12,16 +12,6 @@ export default function PageViewsCounter() {
     <>
       {!isLocalhost && (
         <>
-          {/* Frmwrk Tracking Code */}
-          {/* <Script
-            strategy="afterInteractive"
-            id="frmwrk-script"
-            dangerouslySetInnerHTML={{
-              __html: `(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "j7qzcd7z4a");`,
-            }}
-          /> */}
-          {/* End Frmwrk Tracking Code */}
-
           {/* StatCounter Code */}
           <Script strategy="afterInteractive" id="statcounter-setup">
             {`

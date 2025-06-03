@@ -98,7 +98,7 @@
   }
 
   .content-index {
-    font-family: var(--font--poppins);
+    font-family: 'Ringside Regular A', 'Ringside Regular B';
     font-weight: 400;
     color: var(--wpe--color--white--smoke);
 
@@ -121,7 +121,7 @@
   }
 
   .content-property-name {
-    font-family: var(--font--poppins);
+    font-family: 'Ringside Regular A', 'Ringside Regular B';
     font-weight: 400;
   }
 
@@ -140,7 +140,7 @@
       * {
         padding: 0;
         text-decoration: none;
-        font-family: var(--font--poppins);
+        font-family: 'Ringside Regular A', 'Ringside Regular B';
         font-weight: 700;
 
         &:hover {
@@ -337,7 +337,7 @@
   }
 
   .menu-title {
-    font-family: var(--font--poppins);
+    font-family: 'Ringside Regular A', 'Ringside Regular B';
     font-weight: 700;
     text-transform: uppercase;
     padding: 0;
@@ -370,9 +370,6 @@
   }
 
   :global {
-    // Scope WordPress block styles within ContentWrapper.
-    @import 'styles/blocks';
-
     * {
       // font-family: 'ChunkFive-Regular';
       // font-weight: 400;
@@ -398,7 +395,7 @@
     }
 
     p {
-      font-family: var(--font--poppins);
+      font-family: 'Ringside Regular A', 'Ringside Regular B';
       font-weight: 400;
       font-size: 1.125rem;
 
@@ -451,7 +448,7 @@
     }
 
     a {
-      font-family: var(--font--poppins);
+      font-family: 'Ringside Regular A', 'Ringside Regular B';
       font-weight: 400;
       color: var(--wpe--color--white--smoke);
       text-decoration: underline;

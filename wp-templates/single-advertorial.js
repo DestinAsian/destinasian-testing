@@ -6,7 +6,6 @@ import { GetMenus } from '../queries/GetMenus'
 import { GetFooterMenus } from '../queries/GetFooterMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
 import {
-  bodoni_moda,
   eb_garamond,
   poppins,
   rubik,
@@ -46,8 +45,6 @@ const PasswordProtected = dynamic(() =>
   import('@/components/PasswordProtected/PasswordProtected'),
 )
 const Footer = dynamic(() => import('@/components/Footer/Footer'))
-// Import Components for query
-import FeaturedImage from '@/components/FeaturedImage/FeaturedImage'
 
 export default function SingleAdvertorial(props) {
   // Loading state for previews
@@ -298,7 +295,7 @@ export default function SingleAdvertorial(props) {
 
   return (
     <main
-      className={`${bodoni_moda.variable} ${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable}`}
+      className={`${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable}`}
     >
       <SEO
         title={seo?.title}
@@ -376,7 +373,6 @@ export default function SingleAdvertorial(props) {
 
 SingleAdvertorial.query = gql`
   ${BlogInfoFragment}
-  ${FeaturedImage.fragments.entry}
   query GetPost($databaseId: ID!, $asPreview: Boolean = false) {
     advertorial(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
       title
@@ -386,7 +382,17 @@ SingleAdvertorial.query = gql`
         onOff
         password
       }
-      ...FeaturedImageFragment
+      featuredImage {
+        node {
+          id
+          sourceUrl
+          altText
+          mediaDetails {
+            width
+            height
+          }
+        }
+      }
       author {
         node {
           name
@@ -427,7 +433,17 @@ SingleAdvertorial.query = gql`
       luxuryTravelDirectory {
         directory
       }
-      ...FeaturedImageFragment
+      featuredImage {
+        node {
+          id
+          sourceUrl
+          altText
+          mediaDetails {
+            width
+            height
+          }
+        }
+      }
     }
     generalSettings {
       ...BlogInfoFragment

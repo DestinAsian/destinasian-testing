@@ -5,7 +5,7 @@ import { BlogInfoFragment } from '../fragments/GeneralSettings'
 import { GetMenus } from '../queries/GetMenus'
 import { GetFooterMenus } from '../queries/GetFooterMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
-import { bodoni_moda, eb_garamond, poppins, rubik_mono_one } from '../styles/fonts/fonts'
+import { eb_garamond, poppins, rubik_mono_one } from '../styles/fonts/fonts'
 import { GetLatestRCA } from '../queries/GetLatestRCA'
 import { GetSecondaryHeader } from '../queries/GetSecondaryHeader'
 import dynamic from 'next/dynamic'
@@ -29,8 +29,6 @@ const CategoryStories = dynamic(() =>
 const SecondaryHeader = dynamic(() =>
   import('@/components/Header/SecondaryHeader/SecondaryHeader'),
 )
-// Import Components for query
-import FeaturedImage from '@/components/FeaturedImage/FeaturedImage'
 
 export default function Component(props) {
   // Loading state for previews
@@ -304,7 +302,7 @@ export default function Component(props) {
 
   return (
     <main
-      className={`${bodoni_moda.variable} ${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable}`}
+      className={`${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable}`}
     >
       <CategoryHeader
         title={siteTitle}
@@ -378,7 +376,6 @@ export default function Component(props) {
 
 Component.query = gql`
   ${BlogInfoFragment}
-  ${FeaturedImage.fragments.entry}
   query GetCategoryPage($databaseId: ID!) {
     category(id: $databaseId, idType: DATABASE_ID) {
       name
@@ -430,7 +427,17 @@ Component.query = gql`
             date
             uri
             excerpt
-            ...FeaturedImageFragment
+            featuredImage {
+              node {
+                id
+                sourceUrl
+                altText
+                mediaDetails {
+                  width
+                  height
+                }
+              }
+            }
             author {
               node {
                 name
@@ -469,7 +476,17 @@ Component.query = gql`
             date
             uri
             excerpt
-            ...FeaturedImageFragment
+            featuredImage {
+              node {
+                id
+                sourceUrl
+                altText
+                mediaDetails {
+                  width
+                  height
+                }
+              }
+            }
             author {
               node {
                 name
@@ -495,7 +512,17 @@ Component.query = gql`
             content
             date
             uri
-            ...FeaturedImageFragment
+            featuredImage {
+              node {
+                id
+                sourceUrl
+                altText
+                mediaDetails {
+                  width
+                  height
+                }
+              }
+            }
             author {
               node {
                 name

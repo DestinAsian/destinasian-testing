@@ -6,7 +6,6 @@ import { GetMenus } from '../queries/GetMenus'
 import { GetFooterMenus } from '../queries/GetFooterMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
 import {
-  bodoni_moda,
   eb_garamond,
   poppins,
   rubik,
@@ -48,8 +47,6 @@ const PasswordProtected = dynamic(() =>
   import('@/components/PasswordProtected/PasswordProtected'),
 )
 const Footer = dynamic(() => import('@/components/Footer/Footer'))
-// Import Components for query
-import FeaturedImage from '@/components/FeaturedImage/FeaturedImage'
 
 export default function SingleLuxuryTravel(props) {
   // Loading state for previews
@@ -346,7 +343,7 @@ export default function SingleLuxuryTravel(props) {
   if (passwordProtected?.onOff && !isAuthenticated) {
     return (
       <main
-        className={`${bodoni_moda.variable} ${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable} ${rubik.variable}`}
+        className={`${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable} ${rubik.variable}`}
       >
         <form onSubmit={handlePasswordSubmit}>
           <PasswordProtected
@@ -365,7 +362,7 @@ export default function SingleLuxuryTravel(props) {
 
   return (
     <main
-      className={`${bodoni_moda.variable} ${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable} ${rubik.variable}`}
+      className={`${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable} ${rubik.variable}`}
     >
       <SEO
         title={seo?.title}
@@ -497,7 +494,6 @@ export default function SingleLuxuryTravel(props) {
 
 SingleLuxuryTravel.query = gql`
   ${BlogInfoFragment}
-  ${FeaturedImage.fragments.entry}
   query GetPost($databaseId: ID!, $asPreview: Boolean = false) {
     luxuryTravel(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
       title
@@ -521,7 +517,17 @@ SingleLuxuryTravel.query = gql`
           }
         }
       }
-      ...FeaturedImageFragment
+      featuredImage {
+        node {
+          id
+          sourceUrl
+          altText
+          mediaDetails {
+            width
+            height
+          }
+        }
+      }
       author {
         node {
           name

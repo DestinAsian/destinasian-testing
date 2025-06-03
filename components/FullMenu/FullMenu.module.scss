@@ -7,6 +7,22 @@
   display: flex;
   justify-content: center;
   width: 100%;
+
+  :global {
+    li.rca-full-menu {
+      font-family: 'ChunkFive-Regular';
+    }
+
+    li.hc-full-menu {
+      font-family: var(--font--eb--garamond);
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    li.ll-full-menu {
+      font-family: var(--font--rubik--mono--one);
+    }
+  }
 }
 
 .full-menu-content {

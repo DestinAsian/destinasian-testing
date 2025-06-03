@@ -1,8 +1,6 @@
 import { gql } from '@apollo/client'
-import FeaturedImage from "@/components/FeaturedImage/FeaturedImage";
 
 export const GetHomepageStories = gql`
-  ${FeaturedImage.fragments.entry}
   query GetHomepageStories($first: Int, $after: String) {
     contentNodes(
       first: $first
@@ -27,7 +25,17 @@ export const GetHomepageStories = gql`
             content
             date
             excerpt
-            ...FeaturedImageFragment
+            featuredImage {
+              node {
+                id
+                sourceUrl
+                altText
+                mediaDetails {
+                  width
+                  height
+                }
+              }
+            }
             categories {
               edges {
                 node {

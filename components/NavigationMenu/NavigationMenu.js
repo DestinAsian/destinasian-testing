@@ -88,20 +88,6 @@ NavigationMenu.fragments = {
               url
             }
           }
-          videosThumbnailMenu {
-            videosPage {
-              url
-            }
-            videoLabel
-            videosThumbnail {
-              sourceUrl
-              altText
-              mediaDetails {
-                width
-                height
-              }
-            }
-          }
         }
       }
     }

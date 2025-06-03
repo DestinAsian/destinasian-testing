@@ -6,7 +6,7 @@ import { HeaderFooterVisibilityFragment } from '../fragments/HeaderFooterVisibil
 import { GetMenus } from '../queries/GetMenus'
 import { GetFooterMenus } from '../queries/GetFooterMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
-import { bodoni_moda, eb_garamond, poppins, rubik_mono_one } from '../styles/fonts/fonts'
+import { eb_garamond, poppins, rubik_mono_one } from '../styles/fonts/fonts'
 import { GetLatestRCA } from '../queries/GetLatestRCA'
 import dynamic from 'next/dynamic'
 // Import Components
@@ -24,8 +24,6 @@ const ContentWrapperTravelGuides = dynamic(() =>
   import('@/components/ContentWrapperTravelGuides/ContentWrapperTravelGuides'),
 )
 const Footer = dynamic(() => import('@/components/Footer/Footer'))
-// Import Components for query
-import FeaturedImage from '@/components/FeaturedImage/FeaturedImage'
 
 export default function Component(props) {
   // Loading state for previews
@@ -212,7 +210,7 @@ export default function Component(props) {
 
   return (
     <main
-      className={`${bodoni_moda.variable} ${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable}`}
+      className={`${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable}`}
     >
       <SEO
         title={seo?.title}
@@ -270,12 +268,21 @@ export default function Component(props) {
 Component.query = gql`
   ${BlogInfoFragment}
   ${HeaderFooterVisibilityFragment}
-  ${FeaturedImage.fragments.entry}
   query GetPageData($databaseId: ID!, $asPreview: Boolean = false) {
     page(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
       title
       content
-      ...FeaturedImageFragment
+      featuredImage {
+        node {
+          id
+          sourceUrl
+          altText
+          mediaDetails {
+            width
+            height
+          }
+        }
+      }
       headerFooterVisibility {
         ...HeaderFooterVisibilityFragment
       }

@@ -57,11 +57,8 @@
   }
 
   :global {
-    // Scope WordPress block styles within ContentWrapper.
-    @import 'styles/blocks';
-
     * {
-      font-family: var(--font--poppins);
+      font-family: 'Ringside Regular A', 'Ringside Regular B';
       font-weight: 400;
       max-width: 100%;
       padding: 0 0 0.5rem;
@@ -85,7 +82,7 @@
     }
 
     p {
-      font-family: var(--font--poppins);
+      font-family: 'Ringside Regular A', 'Ringside Regular B';
       font-weight: 400;
       font-size: 1.125rem;
       line-height: 1.2;
@@ -139,7 +136,7 @@
     }
 
     a {
-      font-family: var(--font--poppins);
+      font-family: 'Ringside Regular A', 'Ringside Regular B';
       font-weight: 400;
       text-decoration: underline;
 
