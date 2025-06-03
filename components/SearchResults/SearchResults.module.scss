@@ -95,7 +95,7 @@ $color-grey: #777;
   }
 
   * {
-    font-family: var(--font--poppins);
+    font-family: 'Ringside Regular A', 'Ringside Regular B';
     font-weight: 500;
     font-size: 0.6rem;
 
@@ -110,7 +110,7 @@ $color-grey: #777;
   align-items: flex-end;
   flex-wrap: wrap;
   column-gap: 0.5rem;
-  font-family: var(--font--poppins);
+  font-family: 'Ringside Regular A', 'Ringside Regular B';
   font-weight: 500;
   row-gap: 0.3rem;
 
@@ -252,7 +252,7 @@ $color-grey: #777;
   }
 
   p {
-    font-family: var(--font--bodoni--moda);
+    font-family: 'Chronicle Display A', 'Chronicle Display B';
     font-weight: 500;
     font-size: 0.65rem;
 
@@ -262,7 +262,7 @@ $color-grey: #777;
   }
 
   .more-link {
-    font-family: var(--font--bodoni--moda);
+    font-family: 'Chronicle Display A', 'Chronicle Display B';
     font-weight: 700;
     font-size: 0.65rem;
 

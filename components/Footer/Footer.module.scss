@@ -10,7 +10,7 @@
   margin: 0 auto;
   line-height: 1.2;
   padding: 0;
-  font-family: var(--font--poppins);
+  font-family: 'Ringside Regular A', 'Ringside Regular B';
   font-weight: 500;
   display: flex;
   flex-direction: column;
@@ -38,7 +38,7 @@
 
     // DestinAsian Guides Menu Name
     ul:first-child {
-      font-family: var(--font--poppins);
+      font-family: 'Ringside Regular A', 'Ringside Regular B';
       color: var(--wpe--color--black);
       padding: 0 1rem 1rem;
       font-size: 0.8rem;
@@ -51,7 +51,7 @@
 
     // DestinAsian Guides Menu List
     ul:nth-child(2) {
-      font-family: var(--font--poppins);
+      font-family: 'Ringside Regular A', 'Ringside Regular B';
       color: var(--wpe--color--black);
       padding: 0 1rem;
       font-size: 0.8rem;
