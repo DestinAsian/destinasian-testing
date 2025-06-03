@@ -13,7 +13,7 @@ html {
 
 body {
   margin: 0;
-  font-family: var(--font--poppins);
+  font-family: 'Ringside Regular A', 'Ringside Regular B';
   font-weight: 400;
   font-size: 1.125rem;
 
@@ -26,7 +26,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
   background-color: var(--wpe--main--background-color);
-  color: var(--wpe--code--color);
+  color: var(--wpe--color--black);
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
   white-space: nowrap;
@@ -71,41 +71,6 @@ iframe {
   margin: 0 auto;
 }
 
-/* Dropcap */
-.dropcap {
-  color: var(--wpe--color--black);
-  font-family: 'DreamOrphans-Regular';
-  font-weight: 700;
-  margin: 0;
-  padding: 0;
-  padding-right: 0.5rem !important;
-  padding-bottom: 0 !important;
-  font-size: 7rem;
-  float: left;
-  line-height: 1;
-
-  @media (min-width: $breakpoint-extra-small) {
-    font-size: 10rem;
-  }
-}
-
-/* Luxury Travel Standfirst */
-.standfirst {
-  color: var(--wpe--color--black);
-  font-family: var(--font--rubik);
-  font-weight: 700;
-}
-
-a.more-link {
-  font-family: 'Chronicle Display A', 'Chronicle Display B';
-  font-weight: 700;
-  font-size: 0.65rem;
-
-  @media (min-width: $breakpoint-extra-small) {
-    font-size: 0.95rem;
-  }
-}
-
 span.screen-reader-text {
   display: none;
 }
@@ -131,26 +96,12 @@ div > .yt-lite > .play-icon {
   position: absolute;
 }
 
-li.rca-full-menu {
-  font-family: 'ChunkFive-Regular';
-}
-
-li.hc-full-menu {
-  font-family: var(--font--eb--garamond);
-  font-weight: 700;
-  font-size: 1.1rem;
-}
-
-li.ll-full-menu {
-  font-family: var(--font--rubik--mono--one);
-}
-
 ::-moz-selection {
   color: var(--wpe--color--white);
-  background-color: var(--wpe--color--accent);
+  background-color: var(--wpe--color--blue);
 }
 
 ::selection {
   color: var(--wpe--color--white);
-  background-color: var(--wpe--color--accent);
+  background-color: var(--wpe--color--blue);
 }
