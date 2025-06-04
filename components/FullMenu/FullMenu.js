@@ -138,30 +138,22 @@ export default function FullMenu({
         </div>
         <div className={cx('menu-wrapper')}>
           <div className={cx('first-wrapper')}>
-            {/* Secondary Menu {Destinations Menu} */}
-            <NavigationMenu
-              className={cx('secondary-navigation')}
-              menuItems={secondaryMenuItems}
-            />
-          </div>
-          <div className={cx('second-wrapper')}>
-            {/* Primary Menu {Destination Guides Menu} */}
             <NavigationMenu
               className={cx('primary-navigation')}
               menuItems={primaryMenuItems}
             />
           </div>
-          <div className={cx('third-wrapper')}>
-            {/* Feature Stories & Latest Travel Stories */}
+          <div className={cx('second-wrapper')}>
+            {/* Feature Stories */}
             <nav className={cx('feature-stories')}>
               <NavigationMenu
                 className={cx('feature-navigation')}
                 menuItems={featureMenuItems}
               />
             </nav>
+            {/* Latest Travel Stories */}
             {latestStories?.length !== 0 && (
               <nav className={cx('latest-stories')}>
-                <ul className={cx('menu-name')}>{'Latest Travel Stories'}</ul>
                 <ul className={cx('menu-content')}>
                   {latestStories.slice(0, visiblePosts).map((post) => (
                     <li key={post?.id}>
@@ -175,28 +167,13 @@ export default function FullMenu({
                 </ul>
               </nav>
             )}
-            {luxuryTravelPosts?.length !== 0 && (
-              <nav className={cx('luxury-travel')}>
-                {featureMenuItems[0]?.menu?.node?.luxuryTravelsMenu
-                  ?.menuName && (
-                  <ul className={cx('menu-name')}>
-                    {
-                      featureMenuItems[0]?.menu?.node?.luxuryTravelsMenu
-                        ?.menuName
-                    }
-                  </ul>
-                )}
-                <ul className={cx('menu-content')}>
-                  {luxuryTravelPosts?.map((post, index) => (
-                    <li key={index}>
-                      <Link href={post?.url} className={cx('menu-item')}>
-                        {post?.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-            )}
+          </div>
+          <div className={cx('third-wrapper')}>
+            {/* Secondary Menu {Special Sections Menu} */}
+            <NavigationMenu
+              className={cx('secondary-navigation')}
+              menuItems={secondaryMenuItems}
+            />
           </div>
           <div className={cx('fourth-wrapper')}>
             <div className={cx('left-wrapper')}>

@@ -30,7 +30,6 @@ const SingleAdvertorialContainer = dynamic(() =>
   import('@/components/SingleAdvertorialContainer/SingleAdvertorialContainer'),
 )
 const Main = dynamic(() => import('@/components/Main/Main'))
-const SEO = dynamic(() => import('@/components/SEO/SEO'))
 const ContentWrapper = dynamic(() =>
   import('@/components/ContentWrapper/ContentWrapper'),
 )
@@ -297,13 +296,6 @@ export default function SingleAdvertorial(props) {
     <main
       className={`${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable}`}
     >
-      <SEO
-        title={seo?.title}
-        description={seo?.metaDesc}
-        imageUrl={featuredImage?.node?.sourceUrl}
-        url={uri}
-        focuskw={seo?.focuskw}
-      />
       <SingleHeader
         title={siteTitle}
         description={siteDescription}

@@ -26,7 +26,6 @@ const SingleUpdateEntryHeader = dynamic(() =>
 )
 const Main = dynamic(() => import('@/components/Main/Main'))
 const Container = dynamic(() => import('@/components/Container/Container'))
-const SEO = dynamic(() => import('@/components/SEO/SEO'))
 const ContentWrapperUpdate = dynamic(() =>
   import('@/components/ContentWrapperUpdate/ContentWrapperUpdate'),
 )
@@ -280,13 +279,6 @@ export default function SingleUpdate(props) {
     <main
       className={`${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable}`}
     >
-      <SEO
-        title={seo?.title}
-        description={seo?.metaDesc}
-        imageUrl={featuredImage?.node?.sourceUrl}
-        url={uri}
-        focuskw={seo?.focuskw}
-      />
       <SingleHeader
         title={siteTitle}
         description={siteDescription}

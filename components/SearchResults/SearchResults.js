@@ -432,9 +432,7 @@ export default function SearchResults({ searchResults, isLoading }) {
                         'ReadersChoiceAwards' &&
                         node?.uri && (
                           <Link href={node?.uri}>
-                            <h2 className={cx('title', 'title-rca')}>
-                              {node?.title}
-                            </h2>
+                            <h2 className={cx('title')}>{node?.title}</h2>
                           </Link>
                         )}
 

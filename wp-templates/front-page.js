@@ -19,7 +19,6 @@ const HomepageSecondaryHeader = dynamic(() =>
 )
 const Main = dynamic(() => import('@/components/Main/Main'))
 const Container = dynamic(() => import('@/components/Container/Container'))
-const SEO = dynamic(() => import('@/components/SEO/SEO'))
 const FeatureWell = dynamic(() =>
   import('@/components/FeatureWell/FeatureWell'),
 )
@@ -256,13 +255,6 @@ export default function Component(props) {
     <main
       className={`${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable}`}
     >
-      <SEO
-        title={seo?.title}
-        description={seo?.metaDesc}
-        imageUrl={featuredImage?.node?.sourceUrl}
-        url={uri}
-        focuskw={seo?.focuskw}
-      />
       <HomepageHeader
         title={siteTitle}
         description={siteDescription}

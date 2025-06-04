@@ -32,7 +32,6 @@ const EntryHeader = dynamic(() =>
   import('@/components/EntryHeader/EntryHeader'),
 )
 const Main = dynamic(() => import('@/components/Main/Main'))
-const SEO = dynamic(() => import('@/components/SEO/SEO'))
 const ContentWrapperHC = dynamic(() =>
   import('@/components/ContentWrapperHC/ContentWrapperHC'),
 )
@@ -277,13 +276,6 @@ export default function SingleHonorsCircle(props) {
     <main
       className={`${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable}`}
     >
-      <SEO
-        title={seo?.title}
-        description={seo?.metaDesc}
-        imageUrl={featuredImage?.node?.sourceUrl}
-        url={uri}
-        focuskw={seo?.focuskw}
-      />
       <Header
         title={siteTitle}
         description={siteDescription}

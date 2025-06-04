@@ -28,7 +28,6 @@ const SingleAdvertorialEntryHeader = dynamic(() =>
   ),
 )
 const Main = dynamic(() => import('@/components/Main/Main'))
-const SEO = dynamic(() => import('@/components/SEO/SEO'))
 const ContentWrapperAdvertorial = dynamic(() =>
   import('@/components/ContentWrapperAdvertorial/ContentWrapperAdvertorial'),
 )
@@ -364,13 +363,6 @@ export default function SingleLuxuryTravel(props) {
     <main
       className={`${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable} ${rubik.variable}`}
     >
-      <SEO
-        title={seo?.title}
-        description={seo?.metaDesc}
-        imageUrl={featuredImage?.node?.sourceUrl}
-        url={uri}
-        focuskw={seo?.focuskw}
-      />
       <LTHeader
         title={siteTitle}
         description={siteDescription}

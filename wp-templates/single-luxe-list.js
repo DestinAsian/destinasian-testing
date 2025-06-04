@@ -25,7 +25,6 @@ const SingleLLFeaturedImage = dynamic(() =>
   import('@/components/SingleLLFeaturedImage/SingleLLFeaturedImage'),
 )
 const Main = dynamic(() => import('@/components/Main/Main'))
-const SEO = dynamic(() => import('@/components/SEO/SEO'))
 const ContentWrapperLL = dynamic(() =>
   import('@/components/ContentWrapperLL/ContentWrapperLL'),
 )
@@ -285,50 +284,6 @@ export default function singleLuxeList(props) {
     <main
       className={`${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable}`}
     >
-      <SEO
-        title={seo?.title}
-        description={seo?.metaDesc}
-        imageUrl={featuredImage?.node?.sourceUrl}
-        url={uri}
-        focuskw={seo?.focuskw}
-      />
-      {/* Year pages */}
-      {/* {parent == null && (
-        <LLHeader
-          title={siteTitle}
-          description={siteDescription}
-          primaryMenuItems={primaryMenu}
-          secondaryMenuItems={secondaryMenu}
-          thirdMenuItems={thirdMenu}
-          fourthMenuItems={fourthMenu}
-          fifthMenuItems={fifthMenu}
-          featureMenuItems={featureMenu}
-          latestStories={latestAllPosts}
-          menusLoading={menusLoading}
-          latestLoading={latestLoading}
-        />
-      )}
-      {parent == null && (
-        <Main>
-          <>
-            <SingleLLFrontPageContainer>
-              // {'countries'} 
-              // All posts sorted by mainPosts & date 
-              <SingleLLFrontPageFeaturedImage
-                mainLogo={luxeListLogo?.mainLogo}
-                secondaryLogo={luxeListLogo?.secondaryLogo}
-                databaseId={databaseId}
-                uri={uri}
-              />
-              <ContentWrapperLLFrontPage
-                content={content}
-                databaseId={databaseId}
-                parentTitle={title}
-              />
-            </SingleLLFrontPageContainer>
-          </>
-        </Main>
-      )} */}
       <LLHeader
         title={siteTitle}
         description={siteDescription}

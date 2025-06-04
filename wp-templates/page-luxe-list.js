@@ -42,7 +42,6 @@ const ContentWrapperLLFrontPage = dynamic(() =>
   import('@/components/ContentWrapperLLFrontPage/ContentWrapperLLFrontPage'),
 )
 const Main = dynamic(() => import('@/components/Main/Main'))
-const SEO = dynamic(() => import('@/components/SEO/SEO'))
 const PasswordProtected = dynamic(() =>
   import('@/components/PasswordProtected/PasswordProtected'),
 )
@@ -282,13 +281,6 @@ export default function SingleLuxeList(props) {
     <main
       className={`${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable}`}
     >
-      <SEO
-        title={seo?.title}
-        description={seo?.metaDesc}
-        imageUrl={featuredImage?.node?.sourceUrl}
-        url={uri}
-        focuskw={seo?.focuskw}
-      />
       {/* Year pages */}
       {parent == null && (
         <>

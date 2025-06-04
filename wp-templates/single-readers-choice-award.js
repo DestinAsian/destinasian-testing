@@ -22,7 +22,6 @@ const SingleRCAContainer = dynamic(() =>
   import('@/components/SingleRCAContainer/SingleRCAContainer'),
 )
 const Main = dynamic(() => import('@/components/Main/Main'))
-const SEO = dynamic(() => import('@/components/SEO/SEO'))
 const ContentWrapperRCA = dynamic(() =>
   import('@/components/ContentWrapperRCA/ContentWrapperRCA'),
 )
@@ -320,13 +319,6 @@ export default function singleRca(props) {
     <main
       className={`${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable}`}
     >
-      <SEO
-        title={seo?.title}
-        description={seo?.metaDesc}
-        imageUrl={featuredImage?.node?.sourceUrl}
-        url={uri}
-        focuskw={seo?.focuskw}
-      />
       <RCAHeader
         primaryMenuItems={primaryMenu}
         secondaryMenuItems={secondaryMenu}
@@ -337,35 +329,20 @@ export default function singleRca(props) {
         latestStories={latestAllPosts}
         menusLoading={menusLoading}
         latestLoading={latestLoading}
-        // parent={parent}
-        // sliderRCA={sliderRCA}
-        // toggleAutoplay={toggleAutoplay}
         isNavShown={isNavShown}
         setIsNavShown={setIsNavShown}
         isRCANavShown={isRCANavShown}
         setIsRCANavShown={setIsRCANavShown}
-        // isGuidesNavShown={isGuidesNavShown}
-        // setIsGuidesNavShown={setIsGuidesNavShown}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
       />
       <RCASecondaryHeader
-        // isMainNavShown={isNavShown}
-        // setIsMainNavShown={setIsNavShown}
         isNavShown={isRCANavShown}
         setIsNavShown={setIsRCANavShown}
         isGuidesNavShown={isGuidesNavShown}
         setIsGuidesNavShown={setIsGuidesNavShown}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
-        // rcaDatabaseId={
-        //   parent != null
-        //     ? children?.edges?.length == 0
-        //       ? ancestors?.edges[0]?.node?.databaseId
-        //       : parent?.node?.databaseId
-        //     : databaseId
-        // }
-        // uri={parent != null ? parent?.node?.uri : uri}
         isAutoplayRunning={isAutoplayRunning}
         toggleAutoplay={toggleAutoplay}
       />
