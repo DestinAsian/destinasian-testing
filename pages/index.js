@@ -5,9 +5,8 @@ const SEO = dynamic(() => import('@/components/SEO/SEO'))
 
 export default function Page(props) {
   const page = props?.__TEMPLATE_QUERY_DATA__?.page
-  const single = props?.__TEMPLATE_QUERY_DATA__?.single
 
-  const source = page || single || {} // fallback to empty object to prevent errors
+  const source = page || {} // fallback to empty object to prevent errors
 
   const { featuredImage, seo, uri } = source ?? []
 

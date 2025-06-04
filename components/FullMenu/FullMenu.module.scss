@@ -35,15 +35,6 @@
     ul {
       text-transform: uppercase;
     }
-    // font-size: 1rem;
-
-    // @media (min-width: $breakpoint-extra-small) {
-    //   font-size: 0.7rem;
-    // }
-
-    // @media (min-width: $breakpoint-large) {
-    //   font-size: 1rem;
-    // }
   }
 
   @media (min-width: $breakpoint-extra-small) {
@@ -125,7 +116,7 @@
 
     a {
       font-weight: 600;
-      padding: 0 0 5px;
+      padding: 0 0 0.25rem;
     }
   }
 
@@ -163,7 +154,8 @@
 
     @media (min-width: $breakpoint-extra-small) {
       width: 20%;
-      padding-right: 1.25vw;
+      padding-left: 0;
+      padding-right: 1rem;
       margin-bottom: 0;
     }
 
