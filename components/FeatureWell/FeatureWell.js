@@ -101,9 +101,9 @@ export default function FeatureWell({ featureWells }) {
                         {featureWell.category && featureWell.categoryLink && (
                           <div
                             style={{
-                              width: captionWidths[index]
+                              '--caption-width': captionWidths[index]
                                 ? `${captionWidths[index]}px`
-                                : 'auto',
+                                : '100%',
                             }}
                             className={cx('category-wrapper')}
                           >
@@ -125,9 +125,9 @@ export default function FeatureWell({ featureWells }) {
                         {featureWell.standFirst && (
                           <div
                             style={{
-                              width: captionWidths[index]
+                              '--caption-width': captionWidths[index]
                                 ? `${captionWidths[index]}px`
-                                : 'auto',
+                                : '100%',
                             }}
                             className={cx('stand-first-wrapper')}
                           >
@@ -153,9 +153,9 @@ export default function FeatureWell({ featureWells }) {
                         {featureWell.category && featureWell.categoryLink && (
                           <div
                             style={{
-                              width: captionWidths[index]
+                              '--caption-width': captionWidths[index]
                                 ? `${captionWidths[index]}px`
-                                : 'auto',
+                                : '100%',
                             }}
                             className={cx('category-wrapper')}
                           >
@@ -177,9 +177,9 @@ export default function FeatureWell({ featureWells }) {
                         {featureWell.standFirst && (
                           <div
                             style={{
-                              width: captionWidths[index]
+                              '--caption-width': captionWidths[index]
                                 ? `${captionWidths[index]}px`
-                                : 'auto',
+                                : '100%',
                             }}
                             className={cx('stand-first-wrapper')}
                           >
@@ -211,9 +211,9 @@ export default function FeatureWell({ featureWells }) {
                       {featureWell.category && featureWell.categoryLink && (
                         <div
                           style={{
-                            width: captionWidths[index]
+                            '--caption-width': captionWidths[index]
                               ? `${captionWidths[index]}px`
-                              : 'auto',
+                              : '100%',
                           }}
                           className={cx('category-wrapper')}
                         >
@@ -235,9 +235,9 @@ export default function FeatureWell({ featureWells }) {
                       {featureWell.standFirst && (
                         <div
                           style={{
-                            width: captionWidths[index]
+                            '--caption-width': captionWidths[index]
                               ? `${captionWidths[index]}px`
-                              : 'auto',
+                              : '100%',
                           }}
                           className={cx('stand-first-wrapper')}
                         >

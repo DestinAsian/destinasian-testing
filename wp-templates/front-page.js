@@ -288,18 +288,16 @@ export default function Component(props) {
       <Main>
         <>
           {/* <NavigationHeader menuItems={navigationMenu}/> */}
-          <div className="snap-y snap-mandatory">
-            <div className="snap-start">
-              {currentFeatureWell && (
-                <Container>
-                  <FeatureWell featureWells={featureWell} />
-                </Container>
-              )}
-            </div>
-            <div id="snapStart" className="snap-start pt-16">
-              {/* All posts sorted by pinPosts then mainPosts & date */}
-              <HomepageStories pinPosts={homepagePinPosts} />
-            </div>
+          <div className="bg-black">
+            {currentFeatureWell && (
+              <Container>
+                <FeatureWell featureWells={featureWell} />
+              </Container>
+            )}
+          </div>
+          <div className="pt-16">
+            {/* All posts sorted by pinPosts then mainPosts & date */}
+            <HomepageStories pinPosts={homepagePinPosts} />
           </div>
         </>
       </Main>

@@ -59,7 +59,8 @@
 .category-wrapper {
   position: relative;
   text-align: left;
-  width: 100%;
+  width: var(--caption-width, 100%);
+  max-width: 100%;
 
   @media (min-width: $breakpoint-small) {
     margin-top: -1.5rem;
@@ -93,6 +94,8 @@
 .stand-first-wrapper {
   position: relative;
   text-align: left;
+  width: var(--caption-width, 100%);
+  max-width: 100%;
 
   @media (min-width: $breakpoint-small) {
     transform: none;

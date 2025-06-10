@@ -14,6 +14,7 @@ export default function Page(props) {
     luxuryTravel,
     readersChoiceAward,
     page,
+    post,
     tag,
     update,
   } = props?.__TEMPLATE_QUERY_DATA__ ?? {}
@@ -28,6 +29,7 @@ export default function Page(props) {
     luxuryTravel ||
     readersChoiceAward ||
     page ||
+    post ||
     tag ||
     update ||
     {}

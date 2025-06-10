@@ -35,7 +35,6 @@ export default function HomepageStories(pinPosts) {
   // Post per fetching
   const postsPerPage = 4
   const bannerPerPage = 20
-  const advertPerPage = 5
 
   // Get Stories / Posts
   const { data, error, loading, fetchMore } = useQuery(GetHomepageStories, {
@@ -289,12 +288,6 @@ export default function HomepageStories(pinPosts) {
                   category={post?.categories?.edges[0]?.node?.name}
                   categoryUri={post?.categories?.edges[0]?.node?.uri}
                   featuredImage={post?.featuredImage?.node}
-                  chooseYourCategory={post?.acfCategoryIcon?.chooseYourCategory}
-                  chooseIcon={post?.acfCategoryIcon?.chooseIcon?.mediaItemUrl}
-                  categoryLabel={post?.acfCategoryIcon?.categoryLabel}
-                  locationValidation={post?.acfLocationIcon?.fieldGroupName}
-                  locationLabel={post?.acfLocationIcon?.locationLabel}
-                  locationUrl={post?.acfLocationIcon?.locationUrl}
                 />
               </div>
             )}
