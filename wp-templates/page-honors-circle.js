@@ -22,7 +22,6 @@ const EntryHeader = dynamic(() =>
   import('@/components/EntryHeader/EntryHeader'),
 )
 const Main = dynamic(() => import('@/components/Main/Main'))
-const Container = dynamic(() => import('@/components/Container/Container'))
 const ContentWrapperHCFrontPage = dynamic(() =>
   import('@/components/ContentWrapperHCFrontPage/ContentWrapperHCFrontPage'),
 )
@@ -283,10 +282,10 @@ export default function Component(props) {
       />
       <Main>
         <>
-          <Container>
+          <>
             <EntryHeader hcTitle={title} hcCaption={hcCaption?.hcCaption} />
             <ContentWrapperHCFrontPage content={content} />
-          </Container>
+          </>
         </>
       </Main>
     </main>

@@ -27,7 +27,6 @@ const SingleEntryHeader = dynamic(() =>
   import('@/components/SingleEntryHeader/SingleEntryHeader'),
 )
 const Main = dynamic(() => import('@/components/Main/Main'))
-const Container = dynamic(() => import('@/components/Container/Container'))
 const ContentWrapper = dynamic(() =>
   import('@/components/ContentWrapper/ContentWrapper'),
 )
@@ -342,9 +341,9 @@ export default function Component(props) {
             locationLabel={acfLocationIcon?.locationLabel}
             locationUrl={acfLocationIcon?.locationUrl}
           />
-          <Container>
+          <>
             <ContentWrapper content={content} />
-          </Container>
+          </>
           <EntryMoreReviews
             parentName={categories[0]?.node?.parent?.node?.name}
             categoryName={categories[0]?.node?.name}

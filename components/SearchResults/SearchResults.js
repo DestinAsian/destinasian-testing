@@ -9,7 +9,6 @@ import dynamic from 'next/dynamic'
 const CategoryIcon = dynamic(() =>
   import('@/components/CategoryIcon/CategoryIcon'),
 )
-const Container = dynamic(() => import('@/components/Container/Container'))
 const FeaturedImage = dynamic(() =>
   import('@/components/FeaturedImage/FeaturedImage'),
 )
@@ -102,7 +101,7 @@ export default function SearchResults({ searchResults, isLoading }) {
     <>
       <div className={cx('component')}>
         {filteredResults?.map((node) => (
-          <Container>
+          <>
             {node?.__typename === 'Category' ? (
               // Search Result for Categories
               <div className={cx('content-wrapper')}>
@@ -491,7 +490,7 @@ export default function SearchResults({ searchResults, isLoading }) {
                 </div>
               </div>
             )}
-          </Container>
+          </>
         ))}
       </div>
     </>

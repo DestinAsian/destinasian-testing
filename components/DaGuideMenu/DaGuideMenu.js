@@ -4,7 +4,6 @@ import styles from './DaGuideMenu.module.scss'
 import dynamic from 'next/dynamic'
 // Import Components
 const Heading = dynamic(() => import('@/components/Heading/Heading'))
-const Container = dynamic(() => import('@/components/Container/Container'))
 
 let cx = className.bind(styles)
 
@@ -30,7 +29,7 @@ export default function DaGuideMenu({ parent, title, categories, className }) {
         {/* Parent category navigation */}
         {!!hasTitle && (
           <div key={'hasTitle'} className={cx('text')}>
-            <Container>
+            <>
               {/* {!!title && <Heading className={cx('title')}>{title}</Heading>} */}
               {!!title && (
                 <Heading className={cx('title')}>
@@ -51,22 +50,22 @@ export default function DaGuideMenu({ parent, title, categories, className }) {
                   <span>{title}</span>
                 </Heading>
               )}
-            </Container>
+            </>
           </div>
         )}
 
         {/* Children category navigation */}
         {!!hasParent && (
           <div key={'hasParent'} className={cx('text')}>
-            <Container>
+            <>
               {!!parent && <Heading className={cx('title')}>{parent}</Heading>}
-            </Container>
+            </>
           </div>
         )}
         {/* Single post navigation */}
         {!!hasCategory && (
           <div key={'hasCategory'} className={cx('text')}>
-            <Container>
+            <>
               {!!categories && (
                 <Heading className={cx('title')}>{categories}</Heading>
               )}
@@ -91,7 +90,7 @@ export default function DaGuideMenu({ parent, title, categories, className }) {
                   </div>
                 </div>
               </div> */}
-            </Container>
+            </>
           </div>
         )}
       </div>

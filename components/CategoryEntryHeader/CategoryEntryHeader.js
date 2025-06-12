@@ -9,7 +9,6 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import dynamic from 'next/dynamic'
 // Import Components
 const Heading = dynamic(() => import('@/components/Heading/Heading'))
-const Container = dynamic(() => import('@/components/Container/Container'))
 
 // Import Swiper styles
 import 'swiper/css'
@@ -196,12 +195,12 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
   return (
     <div className={cx(['component', className])}>
       {isNormalCategory && (
-        <Container>
+        <>
           {/* Normal Category with Slider */}
           {isSlider && (
             <div className={cx('container-wrapper')}>
               <div className={cx('text', { 'has-image': image })}>
-                <Container>
+                <>
                   {categorySlider ? (
                     <figure className={cx('image-slider')}>
                       <div>{swiperComponent}</div>
@@ -243,7 +242,7 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
                       }}
                     />
                   )}
-                </Container>
+                </>
               </div>
             </div>
           )}
@@ -251,7 +250,7 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
           {isImage && (
             <div className={cx('container-wrapper')}>
               <div className={cx('text', { 'has-image': image })}>
-                <Container>
+                <>
                   {image && (
                     <figure className={cx('image')}>
                       <Image
@@ -292,19 +291,19 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
                       }}
                     />
                   )}
-                </Container>
+                </>
               </div>
             </div>
           )}
-        </Container>
+        </>
       )}
       {isGuide && (
-        <Container>
+        <>
           {/* Guides with Slider */}
           {isSlider && (
             <div className={cx('container-wrapper')}>
               <div className={cx('text', { 'has-image': image })}>
-                <Container>
+                <>
                   {categorySlider ? (
                     <figure className={cx('image-slider')}>
                       <div>{swiperComponent}</div>
@@ -352,7 +351,7 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
                       }}
                     />
                   )}
-                </Container>
+                </>
               </div>
             </div>
           )}
@@ -360,7 +359,7 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
           {isImage && (
             <div className={cx('container-wrapper')}>
               <div className={cx('text', { 'has-image': image })}>
-                <Container>
+                <>
                   {image && (
                     <figure className={cx('image')}>
                       <Image
@@ -401,11 +400,11 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
                       }}
                     />
                   )}
-                </Container>
+                </>
               </div>
             </div>
           )}
-        </Container>
+        </>
       )}
     </div>
   )

@@ -25,7 +25,6 @@ const SingleUpdateEntryHeader = dynamic(() =>
   import('@/components/SingleUpdateEntryHeader/SingleUpdateEntryHeader'),
 )
 const Main = dynamic(() => import('@/components/Main/Main'))
-const Container = dynamic(() => import('@/components/Container/Container'))
 const ContentWrapperUpdate = dynamic(() =>
   import('@/components/ContentWrapperUpdate/ContentWrapperUpdate'),
 )
@@ -310,7 +309,7 @@ export default function SingleUpdate(props) {
       />
       <Main>
         <>
-          <Container>
+          <>
             <SingleUpdateEntryHeader
               image={featuredImage?.node}
               title={title}
@@ -321,7 +320,7 @@ export default function SingleUpdate(props) {
               date={date}
             />
             <ContentWrapperUpdate content={content} />
-          </Container>
+          </>
         </>
       </Main>
       <Footer footerMenu={footerMenu} />

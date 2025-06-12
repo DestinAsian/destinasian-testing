@@ -18,7 +18,6 @@ const EntryHeader = dynamic(() =>
   import('@/components/EntryHeader/EntryHeader'),
 )
 const Main = dynamic(() => import('@/components/Main/Main'))
-const Container = dynamic(() => import('@/components/Container/Container'))
 const ContentWrapperVideo = dynamic(() =>
   import('@/components/ContentWrapperVideo/ContentWrapperVideo'),
 )
@@ -250,9 +249,9 @@ export default function Component(props) {
           {headerFooterVisibility?.headerVisibility == true ? null : (
             <EntryHeader title={title} />
           )}
-          <Container>
+          <>
             <ContentWrapperVideo />
-          </Container>
+          </>
         </>
       </Main>
       {headerFooterVisibility?.footerVisibility == true ? null : (

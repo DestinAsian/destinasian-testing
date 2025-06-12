@@ -27,7 +27,6 @@ const SingleHCFeaturedImage = dynamic(() =>
 const SingleHCEntryHeader = dynamic(() =>
   import('@/components/SingleHCEntryHeader/SingleHCEntryHeader'),
 )
-const Container = dynamic(() => import('@/components/Container/Container'))
 const EntryHeader = dynamic(() =>
   import('@/components/EntryHeader/EntryHeader'),
 )
@@ -308,7 +307,7 @@ export default function SingleHonorsCircle(props) {
       {parent == null && (
         <Main>
           <>
-            <Container>
+            <>
               {/* {'countries'} */}
               {/* All posts sorted by mainPosts & date */}
               <EntryHeader
@@ -316,7 +315,7 @@ export default function SingleHonorsCircle(props) {
                 hcCaption={hcCaption?.hcCaption}
               />
               <ContentWrapperHCFrontPage content={content} />
-            </Container>
+            </>
           </>
         </Main>
       )}

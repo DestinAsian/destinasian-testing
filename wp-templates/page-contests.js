@@ -16,7 +16,6 @@ const EntryHeader = dynamic(() =>
   import('@/components/EntryHeader/EntryHeader'),
 )
 const Main = dynamic(() => import('@/components/Main/Main'))
-const Container = dynamic(() => import('@/components/Container/Container'))
 const ContentWrapperContestFrontPage = dynamic(() =>
   import(
     '@/components/ContentWrapperContestFrontPage/ContentWrapperContestFrontPage'
@@ -223,10 +222,10 @@ export default function Component(props) {
       />
       <Main>
         <>
-          <Container>
+          <>
             <EntryHeader contestTitle={title} />
             <ContentWrapperContestFrontPage />
-          </Container>
+          </>
         </>
       </Main>
     </main>

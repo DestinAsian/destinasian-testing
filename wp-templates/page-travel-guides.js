@@ -18,7 +18,6 @@ const TravelGuidesEntryHeader = dynamic(() =>
   import('@/components/TravelGuidesEntryHeader/TravelGuidesEntryHeader'),
 )
 const Main = dynamic(() => import('@/components/Main/Main'))
-const Container = dynamic(() => import('@/components/Container/Container'))
 const ContentWrapperTravelGuides = dynamic(() =>
   import('@/components/ContentWrapperTravelGuides/ContentWrapperTravelGuides'),
 )
@@ -245,9 +244,9 @@ export default function Component(props) {
           {headerFooterVisibility?.headerVisibility == true ? null : (
             <TravelGuidesEntryHeader title={title} />
           )}
-          <Container>
+          <>
             <ContentWrapperTravelGuides content={content} />
-          </Container>
+          </>
         </>
       </Main>
       {headerFooterVisibility?.footerVisibility == true ? null : (

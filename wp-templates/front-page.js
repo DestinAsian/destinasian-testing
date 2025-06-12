@@ -18,7 +18,6 @@ const HomepageSecondaryHeader = dynamic(() =>
   ),
 )
 const Main = dynamic(() => import('@/components/Main/Main'))
-const Container = dynamic(() => import('@/components/Container/Container'))
 const FeatureWell = dynamic(() =>
   import('@/components/FeatureWell/FeatureWell'),
 )
@@ -44,6 +43,7 @@ export default function Component(props) {
   const [isScrolled, setIsScrolled] = useState(false)
   // NavShown Function
   const [isNavShown, setIsNavShown] = useState(false)
+  const [isMagNavShown, setIsMagNavShown] = useState(false)
   const [isGuidesNavShown, setIsGuidesNavShown] = useState(false)
   const [isRCANavShown, setIsRCANavShown] = useState(false)
 
@@ -77,6 +77,15 @@ export default function Component(props) {
       document.body.style.overflow = 'visible'
     }
   }, [isNavShown])
+
+  // Stop scrolling pages when isNavShown
+  useEffect(() => {
+    if (isMagNavShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isMagNavShown])
 
   // Stop scrolling pages when isRCANavShown
   useEffect(() => {
@@ -258,16 +267,6 @@ export default function Component(props) {
       <HomepageHeader
         title={siteTitle}
         description={siteDescription}
-        primaryMenuItems={primaryMenu}
-        secondaryMenuItems={secondaryMenu}
-        thirdMenuItems={thirdMenu}
-        fourthMenuItems={fourthMenu}
-        fifthMenuItems={fifthMenu}
-        featureMenuItems={featureMenu}
-        latestStories={allPosts}
-        // home={uri}
-        menusLoading={menusLoading}
-        latestLoading={latestLoading}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
         isNavShown={isNavShown}
@@ -275,10 +274,19 @@ export default function Component(props) {
         isScrolled={isScrolled}
       />
       <HomepageSecondaryHeader
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
+        primaryMenuItems={primaryMenu}
+        secondaryMenuItems={secondaryMenu}
+        thirdMenuItems={thirdMenu}
+        fourthMenuItems={fourthMenu}
+        fifthMenuItems={fifthMenu}
+        featureMenuItems={featureMenu}
+        latestStories={allPosts}
+        menusLoading={menusLoading}
+        latestLoading={latestLoading}
         rcaDatabaseId={rcaDatabaseId}
         rcaUri={rcaUri}
+        isMagNavShown={isMagNavShown}
+        setIsMagNavShown={setIsMagNavShown}
         isGuidesNavShown={isGuidesNavShown}
         setIsGuidesNavShown={setIsGuidesNavShown}
         isRCANavShown={isRCANavShown}
@@ -290,9 +298,9 @@ export default function Component(props) {
           {/* <NavigationHeader menuItems={navigationMenu}/> */}
           <div className="bg-black">
             {currentFeatureWell && (
-              <Container>
+              <>
                 <FeatureWell featureWells={featureWell} />
-              </Container>
+              </>
             )}
           </div>
           <div className="pt-16">

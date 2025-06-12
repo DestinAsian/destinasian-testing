@@ -30,7 +30,6 @@ const SingleEditorialFeaturedImage = dynamic(() =>
   ),
 )
 const Main = dynamic(() => import('@/components/Main/Main'))
-const Container = dynamic(() => import('@/components/Container/Container'))
 const ContentWrapperEditorial = dynamic(() =>
   import('@/components/ContentWrapperEditorial/ContentWrapperEditorial'),
 )
@@ -375,7 +374,7 @@ export default function SingleEditorial(props) {
           <ContentWrapperEditorial content={content} images={images} />
           <EntryRelatedStories />
           {shuffledRelatedStories.map((post) => (
-            <Container>
+            <>
               {post.node.title !== title && (
                 // Render the merged posts here
                 <RelatedStories
@@ -388,7 +387,7 @@ export default function SingleEditorial(props) {
                   featuredImage={post.node.featuredImage?.node}
                 />
               )}
-            </Container>
+            </>
           ))}
         </>
       </Main>

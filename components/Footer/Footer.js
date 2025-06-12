@@ -12,7 +12,6 @@ import dynamic from 'next/dynamic'
 const NavigationMenu = dynamic(() =>
   import('@/components/NavigationMenu/NavigationMenu'),
 )
-const Container = dynamic(() => import('@/components/Container/Container'))
 const NewsletterEmbed = dynamic(() =>
   import('@/components/NewsletterEmbed/NewsletterEmbed'),
 )
@@ -51,7 +50,7 @@ export default function Footer(footerMenu) {
           />
         </div>
         <div className={cx('border-divider')}></div>
-        <Container>
+        <>
           <div className={cx('upper-menu-wrapper')}>
             <div className={cx('upper-left-menu-wrapper')}>
               {aboutUri && (
@@ -255,7 +254,7 @@ export default function Footer(footerMenu) {
               </div>
             </div>
           </div>
-        </Container>
+        </>
       </div>
     </footer>
   )

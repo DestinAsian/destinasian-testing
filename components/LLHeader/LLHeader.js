@@ -11,7 +11,6 @@ import { FaSearch } from 'react-icons/fa'
 import dynamic from 'next/dynamic'
 // Import Components
 const FullMenu = dynamic(() => import('@/components/FullMenu/FullMenu'))
-const Container = dynamic(() => import('@/components/Container/Container'))
 const SearchResults = dynamic(() =>
   import('@/components/SearchResults/SearchResults'),
 )
@@ -109,7 +108,7 @@ export default function LLHeader({
     >
       {/* Responsive header */}
       {isDesktop || (!isDesktop && !isNavShown) ? (
-        <Container>
+        <>
           <div className={cx('navbar')}>
             <Link href="/" className={cx('title')}>
               {/* DA logo */}
@@ -325,9 +324,9 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
               </div>
             )}
           </div>
-        </Container>
+        </>
       ) : (
-        <Container>
+        <>
           <div className={cx('close-button')}>
             {/* close button */}
             <button
@@ -368,7 +367,7 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
               </svg>
             </button>
           </div>
-        </Container>
+        </>
       )}
 
       {/* Search Bar */}
