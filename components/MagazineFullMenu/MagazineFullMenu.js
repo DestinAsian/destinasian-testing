@@ -108,16 +108,16 @@ export default function MagazineFullMenu({
           </div>
           <div className={cx('fourth-wrapper')}>
             <div className={cx('left-wrapper')}>
-              {/* Third Menu {Static Pages Menu} */}
+              {/* Third Menu {Luxe List Menu} */}
               <NavigationMenu
                 className={cx(['third-navigation'])}
                 menuItems={thirdMenuItems}
               />
               {/* Fourth Menu {Newsletters Menu} */}
-              <NavigationMenu
+              {/* <NavigationMenu
                 className={cx(['fourth-navigation'])}
                 menuItems={fourthMenuItems}
-              />
+              /> */}
             </div>
             <div className={cx('right-wrapper')}>
               {/* Fifth Menu {Print Magazine Menu} */}
