@@ -5,7 +5,6 @@ import page from './page'
 import pageContests from './page-contests'
 import pageHonorsCircle from './page-honors-circle'
 import pageNewsletter from './page-newsletter'
-import pageLuxeList from './page-luxe-list'
 import pageTravelGuides from './page-travel-guides'
 import pageVideos from './page-videos'
 import single from './single'
@@ -25,7 +24,6 @@ export default {
   page,
   'page-contests': pageContests,
   'page-honors-circle': pageHonorsCircle,
-  'page-luxe-list': pageLuxeList,
   'page-newsletter': pageNewsletter,
   'page-travel-guides': pageTravelGuides,
   'page-videos': pageVideos,

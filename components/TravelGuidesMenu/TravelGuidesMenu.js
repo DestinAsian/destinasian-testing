@@ -26,7 +26,6 @@ export default function TravelGuidesMenu(className) {
   const [PartnerContentArray, setPartnerContent] = useState([])
   const [HonorsCircleArray, setHonorsCircle] = useState([])
 
-
   // Get menus
   const { data: menusData, loading: menusLoading } = useQuery(GetPrimaryMenu, {
     variables: {
@@ -325,12 +324,13 @@ export default function TravelGuidesMenu(className) {
                               : '',
                           )}
                         >
-                          {connectedNode?.node?.countryCode?.countryCode &&
-                            connectedNode?.node?.countryCode?.countryCode}
+                          {connectedNode?.node?.name &&
+                            connectedNode?.node?.name}
                         </span>
                       </Link>
                     )}
                   </div>
+                  <div className={cx('title-divider')}>{'|'}</div>
                   <div className={cx('navigation-wrapper')}>
                     <div className={cx('navigation')}>
                       {connectedNode?.node?.children?.edges?.map((post) => (

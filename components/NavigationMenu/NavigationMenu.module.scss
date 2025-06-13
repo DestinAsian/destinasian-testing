@@ -19,17 +19,18 @@
 
 .menu-name {
   padding: 0 0 0.5rem;
-  color: var(--wpe--color--orange);
+  color: var(--wpe--color--black);
   display: block;
   transition: all 0.2s ease-out;
   width: 100%;
   white-space: normal;
   text-align: left;
   font-weight: 700;
+  font-size: 1rem;
 
-  // @media (min-width: $breakpoint-small) {
-  //   color: var(--wpe--color--orange);
-  // }
+  @media (min-width: $breakpoint-medium) {
+    font-size: 1.2rem;
+  }
 }
 
 .menu {
@@ -38,7 +39,8 @@
   margin: 0;
   position: relative;
   justify-content: flex-start;
-  gap: 0.25rem;
+  column-gap: 0.5rem;
+  row-gap: 0.25rem;
 
   a {
     color: var(--wpe--navigation-menu--color);

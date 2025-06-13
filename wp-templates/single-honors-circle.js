@@ -84,6 +84,7 @@ export default function SingleHonorsCircle(props) {
   const [isNavShown, setIsNavShown] = useState(false)
   const [isGuidesNavShown, setIsGuidesNavShown] = useState(false)
   const [isRCANavShown, setIsRCANavShown] = useState(false)
+  const [isMagNavShown, setIsMagNavShown] = useState(false)
 
   // Stop scrolling pages when searchQuery
   useEffect(() => {
@@ -115,6 +116,15 @@ export default function SingleHonorsCircle(props) {
       document.body.style.overflow = 'visible'
     }
   }, [isNavShown])
+
+  // Stop scrolling pages when isMagNavShown
+  useEffect(() => {
+    if (isMagNavShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isMagNavShown])
 
   // Stop scrolling pages when isRCANavShown
   useEffect(() => {
@@ -278,6 +288,13 @@ export default function SingleHonorsCircle(props) {
       <Header
         title={siteTitle}
         description={siteDescription}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        isNavShown={isNavShown}
+        setIsNavShown={setIsNavShown}
+        isScrolled={isScrolled}
+      />
+      <SecondaryHeader
         primaryMenuItems={primaryMenu}
         secondaryMenuItems={secondaryMenu}
         thirdMenuItems={thirdMenu}
@@ -287,17 +304,10 @@ export default function SingleHonorsCircle(props) {
         latestStories={latestAllPosts}
         menusLoading={menusLoading}
         latestLoading={latestLoading}
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        isNavShown={isNavShown}
-        setIsNavShown={setIsNavShown}
-        isScrolled={isScrolled}
-      />
-      <SecondaryHeader
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
         rcaDatabaseId={rcaDatabaseId}
         rcaUri={rcaUri}
+        isMagNavShown={isMagNavShown}
+        setIsMagNavShown={setIsMagNavShown}
         isGuidesNavShown={isGuidesNavShown}
         setIsGuidesNavShown={setIsGuidesNavShown}
         isRCANavShown={isRCANavShown}

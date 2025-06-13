@@ -78,7 +78,7 @@ export default function Component(props) {
     }
   }, [isNavShown])
 
-  // Stop scrolling pages when isNavShown
+  // Stop scrolling pages when isMagNavShown
   useEffect(() => {
     if (isMagNavShown) {
       document.body.style.overflow = 'hidden'

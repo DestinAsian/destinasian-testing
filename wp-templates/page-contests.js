@@ -38,6 +38,7 @@ export default function Component(props) {
   const [isScrolled, setIsScrolled] = useState(false)
   // NavShown Function
   const [isNavShown, setIsNavShown] = useState(false)
+  const [isMagNavShown, setIsMagNavShown] = useState(false)
   const [isGuidesNavShown, setIsGuidesNavShown] = useState(false)
   const [isRCANavShown, setIsRCANavShown] = useState(false)
 
@@ -62,6 +63,15 @@ export default function Component(props) {
       window.removeEventListener('scroll', handleScroll)
     }
   }, [])
+
+  // Stop scrolling pages when isMagNavShown
+  useEffect(() => {
+    if (isMagNavShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isMagNavShown])
 
   // Stop scrolling pages when isNavShown
   useEffect(() => {
@@ -194,6 +204,13 @@ export default function Component(props) {
       <Header
         title={siteTitle}
         description={siteDescription}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        isNavShown={isNavShown}
+        setIsNavShown={setIsNavShown}
+        isScrolled={isScrolled}
+      />
+      <SecondaryHeader
         primaryMenuItems={primaryMenu}
         secondaryMenuItems={secondaryMenu}
         thirdMenuItems={thirdMenu}
@@ -203,17 +220,10 @@ export default function Component(props) {
         latestStories={allPosts}
         menusLoading={menusLoading}
         latestLoading={latestLoading}
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        isNavShown={isNavShown}
-        setIsNavShown={setIsNavShown}
-        isScrolled={isScrolled}
-      />
-      <SecondaryHeader
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
         rcaDatabaseId={rcaDatabaseId}
         rcaUri={rcaUri}
+        isMagNavShown={isMagNavShown}
+        setIsMagNavShown={setIsMagNavShown}
         isGuidesNavShown={isGuidesNavShown}
         setIsGuidesNavShown={setIsGuidesNavShown}
         isRCANavShown={isRCANavShown}

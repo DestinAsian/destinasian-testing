@@ -32,9 +32,6 @@ export const GetTravelGuidesMenu = gql`
               destinationGuides {
                 guidesTitle
               }
-              countryCode {
-                countryCode
-              }
               parent {
                 node {
                   name
