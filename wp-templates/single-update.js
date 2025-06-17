@@ -15,8 +15,8 @@ import Cookies from 'js-cookie'
 import { GetLatestRCA } from '../queries/GetLatestRCA'
 import dynamic from 'next/dynamic'
 // Import Components
-const SingleHeader = dynamic(() =>
-  import('@/components/SingleHeader/SingleHeader'),
+const Header = dynamic(() =>
+  import('@/components/Header/Header'),
 )
 const SecondaryHeader = dynamic(() =>
   import('@/components/Header/SecondaryHeader/SecondaryHeader'),
@@ -79,6 +79,7 @@ export default function SingleUpdate(props) {
   const [isNavShown, setIsNavShown] = useState(false)
   const [isGuidesNavShown, setIsGuidesNavShown] = useState(false)
   const [isRCANavShown, setIsRCANavShown] = useState(false)
+  const [isMagNavShown, setIsMagNavShown] = useState(false)
 
   // Stop scrolling pages when searchQuery
   useEffect(() => {
@@ -110,6 +111,15 @@ export default function SingleUpdate(props) {
       document.body.style.overflow = 'visible'
     }
   }, [isNavShown])
+
+  // Stop scrolling pages when isMagNavShown
+  useEffect(() => {
+    if (isMagNavShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isMagNavShown])
 
   // Stop scrolling pages when isRCANavShown
   useEffect(() => {
@@ -278,9 +288,16 @@ export default function SingleUpdate(props) {
     <main
       className={`${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable}`}
     >
-      <SingleHeader
+      <Header
         title={siteTitle}
         description={siteDescription}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        isNavShown={isNavShown}
+        setIsNavShown={setIsNavShown}
+        isScrolled={isScrolled}
+      />
+      <SecondaryHeader
         primaryMenuItems={primaryMenu}
         secondaryMenuItems={secondaryMenu}
         thirdMenuItems={thirdMenu}
@@ -290,22 +307,16 @@ export default function SingleUpdate(props) {
         latestStories={allPosts}
         menusLoading={menusLoading}
         latestLoading={latestLoading}
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        isNavShown={isNavShown}
-        setIsNavShown={setIsNavShown}
-        isScrolled={isScrolled}
-      />
-      <SecondaryHeader
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
         rcaDatabaseId={rcaDatabaseId}
         rcaUri={rcaUri}
+        isMagNavShown={isMagNavShown}
+        setIsMagNavShown={setIsMagNavShown}
         isGuidesNavShown={isGuidesNavShown}
         setIsGuidesNavShown={setIsGuidesNavShown}
         isRCANavShown={isRCANavShown}
         setIsRCANavShown={setIsRCANavShown}
         isScrolled={isScrolled}
+        customClassName={'update'}
       />
       <Main>
         <>

@@ -77,6 +77,7 @@ export default function singleLuxeList(props) {
   const [isLLNavShown, setIsLLNavShown] = useState(false)
   const [isGuidesNavShown, setIsGuidesNavShown] = useState(false)
   const [isRCANavShown, setIsRCANavShown] = useState(false)
+  const [isMagNavShown, setIsMagNavShown] = useState(false)
 
   // Slider Autoplay state
   const sliderLL = useRef(null)
@@ -124,6 +125,15 @@ export default function singleLuxeList(props) {
       document.body.style.overflow = 'visible'
     }
   }, [isNavShown])
+
+  // Stop scrolling pages when isMagNavShown
+  useEffect(() => {
+    if (isMagNavShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isMagNavShown])
 
   // Stop scrolling pages when isRCANavShown
   useEffect(() => {
@@ -287,6 +297,13 @@ export default function singleLuxeList(props) {
       <LLHeader
         title={siteTitle}
         description={siteDescription}
+        isNavShown={isNavShown}
+        setIsNavShown={setIsNavShown}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        isScrolled={isScrolled}
+      />
+      <LLSecondaryHeader
         primaryMenuItems={primaryMenu}
         secondaryMenuItems={secondaryMenu}
         thirdMenuItems={thirdMenu}
@@ -296,19 +313,14 @@ export default function singleLuxeList(props) {
         latestStories={latestAllPosts}
         menusLoading={menusLoading}
         latestLoading={latestLoading}
-        isNavShown={isNavShown}
-        setIsNavShown={setIsNavShown}
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        isScrolled={isScrolled}
-      />
-      <LLSecondaryHeader
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
         rcaDatabaseId={rcaDatabaseId}
         rcaUri={rcaUri}
         isGuidesNavShown={isGuidesNavShown}
         setIsGuidesNavShown={setIsGuidesNavShown}
+        isMagNavShown={isMagNavShown}
+        setIsMagNavShown={setIsMagNavShown}
         isRCANavShown={isRCANavShown}
         setIsRCANavShown={setIsRCANavShown}
         // isScrolled={isScrolled}

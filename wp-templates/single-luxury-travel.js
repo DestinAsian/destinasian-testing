@@ -15,9 +15,9 @@ import Cookies from 'js-cookie'
 import { GetLatestRCA } from '../queries/GetLatestRCA'
 import dynamic from 'next/dynamic'
 // Import Components
-const LTHeader = dynamic(() => import('@/components/LTHeader/LTHeader'))
-const LTSecondaryHeader = dynamic(() =>
-  import('@/components/LTHeader/LTSecondaryHeader/LTSecondaryHeader'),
+const Header = dynamic(() => import('@/components/Header/Header'))
+const SecondaryHeader = dynamic(() =>
+  import('@/components/Header/SecondaryHeader/SecondaryHeader'),
 )
 const SingleLTContainer = dynamic(() =>
   import('@/components/SingleLTContainer/SingleLTContainer'),
@@ -93,6 +93,7 @@ export default function SingleLuxuryTravel(props) {
   const [isNavShown, setIsNavShown] = useState(false)
   const [isGuidesNavShown, setIsGuidesNavShown] = useState(false)
   const [isRCANavShown, setIsRCANavShown] = useState(false)
+  const [isMagNavShown, setIsMagNavShown] = useState(false)
 
   // Stop scrolling pages when searchQuery
   useEffect(() => {
@@ -124,6 +125,15 @@ export default function SingleLuxuryTravel(props) {
       document.body.style.overflow = 'visible'
     }
   }, [isNavShown])
+
+  // Stop scrolling pages when isMagNavShown
+  useEffect(() => {
+    if (isMagNavShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isMagNavShown])
 
   // Stop scrolling pages when isRCANavShown
   useEffect(() => {
@@ -361,11 +371,18 @@ export default function SingleLuxuryTravel(props) {
 
   return (
     <main
-      className={`${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable} ${rubik.variable}`}
+      className={`${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable} ${rubik.variable} bg-[--wpe--color--teal]`}
     >
-      <LTHeader
+      <Header
         title={siteTitle}
         description={siteDescription}
+        // visibleComponent={visibleComponent}
+        isNavShown={isNavShown}
+        setIsNavShown={setIsNavShown}
+        isScrolled={isScrolled}
+        customClassName={'luxury-travel'}
+      />
+      <SecondaryHeader
         primaryMenuItems={primaryMenu}
         secondaryMenuItems={secondaryMenu}
         thirdMenuItems={thirdMenu}
@@ -375,30 +392,25 @@ export default function SingleLuxuryTravel(props) {
         latestStories={allPosts}
         menusLoading={menusLoading}
         latestLoading={latestLoading}
-        // visibleComponent={visibleComponent}
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        isNavShown={isNavShown}
-        setIsNavShown={setIsNavShown}
-        isScrolled={isScrolled}
-      />
-      <LTSecondaryHeader
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
         rcaDatabaseId={rcaDatabaseId}
         rcaUri={rcaUri}
+        isMagNavShown={isMagNavShown}
+        setIsMagNavShown={setIsMagNavShown}
         isGuidesNavShown={isGuidesNavShown}
         setIsGuidesNavShown={setIsGuidesNavShown}
         isRCANavShown={isRCANavShown}
         setIsRCANavShown={setIsRCANavShown}
         isScrolled={isScrolled}
+        customClassName={'luxury-travel'}
       />
-      <Main>
+      <Main className="mt-[-0.75rem] sm:mt-[-1rem]">
         <>
           <SingleLTContainer>
             <div className=" bg-[#dbf2f1] sm:top-[4.5rem]">
               <section
-                className="relative pt-[3.5rem] sm:pt-[4.5rem]"
+                className="relative"
                 data-id="section1"
               >
                 <div className=" bg-[#dbf2f1]">

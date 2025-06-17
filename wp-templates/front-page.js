@@ -42,7 +42,7 @@ export default function Component(props) {
   // Scrolled Function
   const [isScrolled, setIsScrolled] = useState(false)
   // NavShown Function
-  const [isNavShown, setIsNavShown] = useState(false)
+  const [isSearchBarShown, setIsSearchBarShown] = useState(false)
   const [isMagNavShown, setIsMagNavShown] = useState(false)
   const [isGuidesNavShown, setIsGuidesNavShown] = useState(false)
   const [isRCANavShown, setIsRCANavShown] = useState(false)
@@ -69,14 +69,14 @@ export default function Component(props) {
     }
   }, [])
 
-  // Stop scrolling pages when isNavShown
+  // Stop scrolling pages when isSearchBarShown
   useEffect(() => {
-    if (isNavShown) {
+    if (isSearchBarShown) {
       document.body.style.overflow = 'hidden'
     } else {
       document.body.style.overflow = 'visible'
     }
-  }, [isNavShown])
+  }, [isSearchBarShown])
 
   // Stop scrolling pages when isMagNavShown
   useEffect(() => {
@@ -267,10 +267,6 @@ export default function Component(props) {
       <HomepageHeader
         title={siteTitle}
         description={siteDescription}
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        isNavShown={isNavShown}
-        setIsNavShown={setIsNavShown}
         isScrolled={isScrolled}
       />
       <HomepageSecondaryHeader
@@ -285,6 +281,10 @@ export default function Component(props) {
         latestLoading={latestLoading}
         rcaDatabaseId={rcaDatabaseId}
         rcaUri={rcaUri}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        isSearchBarShown={isSearchBarShown}
+        setIsSearchBarShown={setIsSearchBarShown}
         isMagNavShown={isMagNavShown}
         setIsMagNavShown={setIsMagNavShown}
         isGuidesNavShown={isGuidesNavShown}

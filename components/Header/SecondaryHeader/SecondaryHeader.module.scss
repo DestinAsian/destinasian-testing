@@ -101,6 +101,19 @@
   }
 }
 
+.navigation-wrapper.luxury-travel,
+.sticky.luxury-travel {
+  background-color: var(--wpe--color--teal);
+}
+
+.editorial,
+.advertorial,
+.update,
+.contest,
+.category {
+  top: 0;
+}
+
 .sticky {
   background-color: var(--wpe--main--background-color);
   position: fixed;
@@ -154,6 +167,10 @@
   }
 }
 
+.luxury-travel.full-menu-content > div > div {
+  background-color: var(--wpe--color--teal);
+}
+
 .full-menu-wrapper {
   background-color: var(--wpe--main--background-color);
   position: relative;
@@ -199,6 +216,10 @@
   }
 }
 
+.luxury-travel.magazine-menu-wrapper > div > div > div {
+  background-color: var(--wpe--color--teal);
+}
+
 .rca-menu-wrapper {
   display: block;
   width: 100vw;
@@ -233,4 +254,8 @@
       color: var(--wpe--color--black);
     }
   }
+}
+
+.luxury-travel.rca-menu-wrapper > div > div {
+  background-color: var(--wpe--color--teal);
 }

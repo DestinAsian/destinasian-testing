@@ -8,6 +8,13 @@
   z-index: 50;
 }
 
+.luxury-travel {
+  .navbar {
+    color: var(--wpe--header--color);
+    background-color: var(--wpe--color--teal);
+  }
+}
+
 .sticky {
   background-color: var(--wpe--main--background-color);
   position: fixed;

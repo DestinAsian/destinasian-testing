@@ -10,7 +10,6 @@ import { GetSearchResults } from '../../queries/GetSearchResults'
 import { FaSearch } from 'react-icons/fa'
 import dynamic from 'next/dynamic'
 // Import Components
-const FullMenu = dynamic(() => import('@/components/FullMenu/FullMenu'))
 const SearchResults = dynamic(() =>
   import('@/components/SearchResults/SearchResults'),
 )
@@ -18,15 +17,6 @@ const SearchResults = dynamic(() =>
 let cx = classNames.bind(styles)
 
 export default function LLHeader({
-  primaryMenuItems,
-  secondaryMenuItems,
-  thirdMenuItems,
-  fourthMenuItems,
-  fifthMenuItems,
-  featureMenuItems,
-  latestStories,
-  menusLoading,
-  latestLoading,
   searchQuery,
   setSearchQuery,
   isNavShown,
@@ -112,17 +102,17 @@ export default function LLHeader({
           <div className={cx('navbar')}>
             <Link href="/" className={cx('title')}>
               {/* DA logo */}
-              {isNavShown == false ? (
-                <div className={cx('brand')}>
-                  <Image
-                    src={destinasianLogoOrange.src}
-                    alt="Destinasian Logo"
-                    fill
-                    sizes="100%"
-                    priority
-                  />
-                </div>
-              ) : (
+              {/* {isNavShown == false ? ( */}
+              <div className={cx('brand')}>
+                <Image
+                  src={destinasianLogoOrange.src}
+                  alt="Destinasian Logo"
+                  fill
+                  sizes="100%"
+                  priority
+                />
+              </div>
+              {/* ) : (
                 <div className={cx('brand')}>
                   <Image
                     src={destinasianLogo.src}
@@ -132,7 +122,7 @@ export default function LLHeader({
                     priority
                   />
                 </div>
-              )}
+              )} */}
             </Link>
 
             {/* Menu Button */}
@@ -151,133 +141,6 @@ export default function LLHeader({
                     aria-expanded={!isNavShown}
                   >
                     <FaSearch className={cx('search-icon')} />
-                  </button>
-                </div>
-                <div className={cx('menu-button')}>
-                  {/* menu button */}
-                  <button
-                    type="button"
-                    className={cx('menu-icon')}
-                    onClick={() => {
-                      setIsNavShown(!isNavShown)
-                      setSearchQuery('')
-                    }}
-                    aria-controls={cx('full-menu-wrapper')}
-                    aria-expanded={!isNavShown}
-                  >
-                    <svg
-                      width="22"
-                      height="96"
-                      viewBox="0 0 22 96"
-                      fill="#ffffff"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <circle
-                        cx="10.7009"
-                        cy="10.7009"
-                        r="10.7009"
-                        transform="matrix(-1 0 0 1 21.4019 0)"
-                        fill="#ffffff"
-                      />
-                      <circle
-                        cx="10.7009"
-                        cy="10.7009"
-                        r="10.7009"
-                        transform="matrix(-1 0 0 1 21.4019 0)"
-                        fill="#ffffff"
-                      />
-                      <circle
-                        cx="10.7009"
-                        cy="10.7009"
-                        r="10.7009"
-                        transform="matrix(-1 0 0 1 21.4019 0)"
-                        fill="#ffffff"
-                      />
-                      <circle
-                        cx="10.7009"
-                        cy="10.7009"
-                        r="10.7009"
-                        transform="matrix(-1 0 0 1 21.4019 0)"
-                        fill="#ffffff"
-                      />
-                      <circle
-                        cx="10.7009"
-                        cy="10.7009"
-                        r="10.7009"
-                        transform="matrix(-1 0 0 1 21.4019 0)"
-                        fill="#ffffff"
-                      />
-                      <circle
-                        cx="10.7009"
-                        cy="10.7009"
-                        r="10.7009"
-                        transform="matrix(-1 0 0 1 21.4019 74.4785)"
-                        fill="#ffffff"
-                      />
-                      <circle
-                        cx="10.7009"
-                        cy="10.7009"
-                        r="10.7009"
-                        transform="matrix(-1 0 0 1 21.4019 74.4785)"
-                        fill="#ffffff"
-                      />
-                      <circle
-                        cx="10.7009"
-                        cy="10.7009"
-                        r="10.7009"
-                        transform="matrix(-1 0 0 1 21.4019 74.4785)"
-                        fill="#ffffff"
-                      />
-                      <circle
-                        cx="10.7009"
-                        cy="10.7009"
-                        r="10.7009"
-                        transform="matrix(-1 0 0 1 21.4019 74.4785)"
-                        fill="#ffffff"
-                      />
-                      <circle
-                        cx="10.7009"
-                        cy="10.7009"
-                        r="10.7009"
-                        transform="matrix(-1 0 0 1 21.4019 74.4785)"
-                        fill="#ffffff"
-                      />
-                      <circle
-                        cx="10.7009"
-                        cy="10.7009"
-                        r="10.7009"
-                        transform="matrix(-1 0 0 1 21.4019 36.8105)"
-                        fill="#ffffff"
-                      />
-                      <circle
-                        cx="10.7009"
-                        cy="10.7009"
-                        r="10.7009"
-                        transform="matrix(-1 0 0 1 21.4019 36.8105)"
-                        fill="#ffffff"
-                      />
-                      <circle
-                        cx="10.7009"
-                        cy="10.7009"
-                        r="10.7009"
-                        transform="matrix(-1 0 0 1 21.4019 36.8105)"
-                        fill="#ffffff"
-                      />
-                      <circle
-                        cx="10.7009"
-                        cy="10.7009"
-                        r="10.7009"
-                        transform="matrix(-1 0 0 1 21.4019 36.8105)"
-                        fill="#ffffff"
-                      />
-                      <circle
-                        cx="10.7009"
-                        cy="10.7009"
-                        r="10.7009"
-                        transform="matrix(-1 0 0 1 21.4019 36.8105)"
-                        fill="#ffffff"
-                      />
-                    </svg>
                   </button>
                 </div>
               </div>
@@ -304,7 +167,7 @@ export default function LLHeader({
                   >
                     <g
                       transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
-                      fill="#000000"
+                      fill="#ffffff"
                       stroke="none"
                     >
                       <path
@@ -349,7 +212,7 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
               >
                 <g
                   transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
-                  fill="#000000"
+                  fill="#ffffff"
                   stroke="none"
                 >
                   <path
@@ -398,30 +261,6 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
             />
           )}
         </div>
-      </div>
-
-      {/* Full menu */}
-      <div
-        className={cx(['full-menu-wrapper', isNavShown ? 'show' : undefined])}
-      >
-        <FullMenu
-          primaryMenuItems={primaryMenuItems}
-          secondaryMenuItems={secondaryMenuItems}
-          thirdMenuItems={thirdMenuItems}
-          fourthMenuItems={fourthMenuItems}
-          fifthMenuItems={fifthMenuItems}
-          featureMenuItems={featureMenuItems}
-          latestStories={latestStories}
-          clearSearch={clearSearch}
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-          menusLoading={menusLoading}
-          latestLoading={latestLoading}
-          contentNodesPosts={contentNodesPosts}
-          searchResultsLoading={searchResultsLoading}
-          searchResultsError={searchResultsError}
-          isSearchResultsVisible={isSearchResultsVisible}
-        />
       </div>
     </header>
   )

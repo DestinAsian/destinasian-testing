@@ -7,12 +7,6 @@ import dynamic from 'next/dynamic'
 const NavigationMenu = dynamic(() =>
   import('@/components/NavigationMenu/NavigationMenu'),
 )
-const SearchInput = dynamic(() =>
-  import('@/components/SearchInput/SearchInput'),
-)
-const SearchResults = dynamic(() =>
-  import('@/components/SearchResults/SearchResults'),
-)
 
 let cx = classNames.bind(styles)
 
@@ -27,9 +21,10 @@ export default function MagazineFullMenu({
   menusLoading,
   latestLoading,
   isSearchResultsVisible,
+  customClassName,
 }) {
   // LatestStories content
-  const [visiblePosts] = useState(3)
+  const [visiblePosts] = useState(5)
 
   // Loading Menu
   if (menusLoading || latestLoading) {
@@ -63,18 +58,16 @@ export default function MagazineFullMenu({
     <div className={cx('component')}>
       {/* Full menu */}
       <div
-        className={cx('full-menu-content', {
-          searchVisible: isSearchResultsVisible,
-        })}
+        className={cx(
+          'full-menu-content',
+          {
+            searchVisible: isSearchResultsVisible,
+          },
+          customClassName,
+        )}
       >
         <div className={cx('menu-wrapper')}>
           <div className={cx('first-wrapper')}>
-            <NavigationMenu
-              className={cx('primary-navigation')}
-              menuItems={primaryMenuItems}
-            />
-          </div>
-          <div className={cx('second-wrapper')}>
             {/* Feature Stories */}
             <nav className={cx('feature-stories')}>
               <NavigationMenu
@@ -98,6 +91,12 @@ export default function MagazineFullMenu({
                 </ul>
               </nav>
             )}
+          </div>
+          <div className={cx('second-wrapper')}>
+            <NavigationMenu
+              className={cx('primary-navigation')}
+              menuItems={primaryMenuItems}
+            />
           </div>
           <div className={cx('third-wrapper')}>
             {/* Secondary Menu {Special Sections Menu} */}

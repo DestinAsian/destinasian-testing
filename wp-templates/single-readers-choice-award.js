@@ -73,6 +73,7 @@ export default function singleRca(props) {
   const [isNavShown, setIsNavShown] = useState(false)
   const [isRCANavShown, setIsRCANavShown] = useState(false)
   const [isGuidesNavShown, setIsGuidesNavShown] = useState(false)
+  const [isMagNavShown, setIsMagNavShown] = useState(false)
 
   // Stop scrolling pages when isNavShown
   useEffect(() => {
@@ -82,6 +83,15 @@ export default function singleRca(props) {
       document.body.style.overflow = 'visible'
     }
   }, [isNavShown])
+
+  // Stop scrolling pages when isMagNavShown
+  useEffect(() => {
+    if (isMagNavShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isMagNavShown])
 
   // Stop scrolling pages when isRCANavShown
   useEffect(() => {
@@ -320,6 +330,14 @@ export default function singleRca(props) {
       className={`${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable}`}
     >
       <RCAHeader
+        isNavShown={isNavShown}
+        setIsNavShown={setIsNavShown}
+        isRCANavShown={isRCANavShown}
+        setIsRCANavShown={setIsRCANavShown}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+      />
+      <RCASecondaryHeader
         primaryMenuItems={primaryMenu}
         secondaryMenuItems={secondaryMenu}
         thirdMenuItems={thirdMenu}
@@ -329,16 +347,10 @@ export default function singleRca(props) {
         latestStories={latestAllPosts}
         menusLoading={menusLoading}
         latestLoading={latestLoading}
-        isNavShown={isNavShown}
-        setIsNavShown={setIsNavShown}
-        isRCANavShown={isRCANavShown}
-        setIsRCANavShown={setIsRCANavShown}
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-      />
-      <RCASecondaryHeader
         isNavShown={isRCANavShown}
         setIsNavShown={setIsRCANavShown}
+        isMagNavShown={isMagNavShown}
+        setIsMagNavShown={setIsMagNavShown}
         isGuidesNavShown={isGuidesNavShown}
         setIsGuidesNavShown={setIsGuidesNavShown}
         searchQuery={searchQuery}

@@ -35,10 +35,17 @@ export default function SecondaryHeader({
   isRCANavShown,
   setIsRCANavShown,
   isScrolled,
+  customClassName,
 }) {
   return (
     <>
-      <div className={cx('navigation-wrapper', { sticky: isScrolled })}>
+      <div
+        className={cx(
+          'navigation-wrapper',
+          { sticky: isScrolled },
+          customClassName,
+        )}
+      >
         <div className={cx('menu-wrapper')}>
           <button
             type="button"
@@ -90,6 +97,7 @@ export default function SecondaryHeader({
         className={cx(
           'full-menu-content',
           isGuidesNavShown ? 'show' : undefined,
+          customClassName,
         )}
       >
         <div className={cx('full-menu-wrapper')}>
@@ -101,6 +109,7 @@ export default function SecondaryHeader({
         className={cx([
           'magazine-menu-wrapper',
           isMagNavShown ? 'show' : undefined,
+          customClassName,
         ])}
       >
         <MagazineFullMenu
@@ -113,21 +122,21 @@ export default function SecondaryHeader({
           latestStories={latestStories}
           menusLoading={menusLoading}
           latestLoading={latestLoading}
-          // contentNodesPosts={contentNodesPosts}
-          // searchResultsLoading={searchResultsLoading}
-          // searchResultsError={searchResultsError}
-          // isSearchResultsVisible={isSearchResultsVisible}
         />
       </div>
       <div
-        className={cx('rca-menu-wrapper', isRCANavShown ? 'show' : undefined)}
+        className={cx(
+          'rca-menu-wrapper',
+          isRCANavShown ? 'show' : undefined,
+          customClassName,
+        )}
       >
         <RCAFullMenu
           rcaDatabaseId={rcaDatabaseId}
           uri={rcaUri}
           isNavShown={isRCANavShown}
           setIsNavShown={setIsRCANavShown}
-          className={'light-color'}
+          customClassName={'light-color'}
         />
       </div>
     </>

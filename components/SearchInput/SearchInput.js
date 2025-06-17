@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react'
-import { FaSearch } from 'react-icons/fa'
 
 import styles from './SearchInput.module.scss'
 
@@ -27,7 +26,6 @@ export default function SearchInput({
 
   return (
     <div className={styles.wrapper}>
-      <FaSearch className={styles.icon} />
       <label className="sr-only" htmlFor="search">
         Search
       </label>
@@ -46,7 +44,7 @@ export default function SearchInput({
         // autoFocus
         // onFocus={(e) => e.target.select()}
         type="text"
-        autoComplete='off'
+        autoComplete="off"
         {...props}
       />
       <button onClick={clearSearch} className={styles.closeIcon}>

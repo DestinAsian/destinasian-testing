@@ -45,7 +45,8 @@
     }
   }
 
-  .menu-button {
+  .menu-button,
+  .search-menu-button {
     padding: 0.5rem;
     margin: 0;
     min-width: 4rem;
@@ -82,9 +83,11 @@
     &.active {
       background-color: var(--wpe--color--black);
       color: var(--wpe--color--white);
+      fill: var(--wpe--color--white);
 
       * {
         color: var(--wpe--color--white);
+        fill: var(--wpe--color--white);
       }
     }
 
@@ -102,6 +105,23 @@
       height: 2rem;
     }
   }
+
+  .search-menu-button {
+    min-width: 1rem;
+
+    @media (min-width: $breakpoint-extra-small) {
+      min-width: 3rem;
+    }
+
+    .search-icon {
+      fill: var(--wpe--color--white--smoke);
+      height: 0.95rem;
+
+      @media (min-width: $breakpoint-extra-small) {
+        height: 1.9rem;
+      }
+    }
+  }
 }
 
 .sticky {
@@ -115,10 +135,74 @@
 
   * {
     color: var(--wpe--color--black);
+    fill: var(--wpe--color--black);
   }
 
   @media (min-width: $breakpoint-extra-small) {
     top: -3.5rem;
+  }
+}
+
+// Search Bar
+.search-bar-wrapper {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  z-index: 48;
+  top: -150vh;
+  background-color: rgba(0, 0, 0, 0.3); /* Slightly transparent */
+  backdrop-filter: blur(10px); /* Apply blur */
+
+  &.show {
+    padding: 0;
+    gap: 1rem;
+    top: 4.7rem;
+    height: calc(-4.7rem + 100vh);
+    transition: backdrop-filter 0.8s ease-in-out, visibility 0.8s ease-in-out;
+
+    @media (min-width: $breakpoint-extra-small) {
+      top: 5.8rem;
+      left: 0;
+      height: calc(-5.8rem + 100vh);
+      width: 100vw;
+    }
+
+    @media (min-width: $breakpoint-large) {
+      top: 6.35rem;
+      height: calc(-6.35rem + 100vh);
+    }
+  }
+
+  .search-input-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 700px;
+    background-color: var(--wpe--main--background-color);
+    margin: 0 auto;
+    padding: 1rem;
+
+    @media (min-width: $breakpoint-extra-small) {
+      padding: 2rem;
+    }
+  }
+
+  .search-result-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 700px;
+    background-color: var(--wpe--main--background-color);
+    margin: 0 auto;
+    padding: 1rem;
+
+    @media (min-width: $breakpoint-extra-small) {
+      padding: 2rem;
+    }
+
+    .alert-error {
+      color: var(--wpe--color--red);
+      text-align: center;
+    }
   }
 }
 

@@ -330,7 +330,7 @@ export default function SingleHonorsCircle(props) {
         </Main>
       )}
       {parent != null && (
-        <Main>
+        <Main className="mt-[-0.75rem] sm:mt-[-1rem]">
           <>
             <SingleHCContainer>
               {/* {'hotel'} */}

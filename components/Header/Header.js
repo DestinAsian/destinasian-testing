@@ -21,6 +21,7 @@ export default function Header({
   isNavShown,
   setIsNavShown,
   isScrolled,
+  customClassName,
 }) {
   const isDesktop = useMediaQuery({ minWidth: 768 })
   const postsPerPage = 1000
@@ -89,7 +90,11 @@ export default function Header({
 
   return (
     <header
-      className={cx('component', { sticky: isScrolled, navShown: isNavShown })}
+      className={cx(
+        'component',
+        { sticky: isScrolled, navShown: isNavShown },
+        customClassName,
+      )}
     >
       {/* Responsive header */}
       {isDesktop || (!isDesktop && !isNavShown) ? (
