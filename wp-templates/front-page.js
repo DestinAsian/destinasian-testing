@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
-import { BlogInfoFragment } from '../fragments/GeneralSettings'
 import { GetMenus } from '../queries/GetMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
 import { eb_garamond, poppins, rubik_mono_one } from '../styles/fonts/fonts'
@@ -30,10 +29,8 @@ export default function Component(props) {
   if (props.loading) {
     return <>Loading...</>
   }
-
-  const { title: siteTitle, description: siteDescription } =
-    props?.data?.generalSettings
-  const { featuredImage, acfHomepageSlider, uri, seo } = props?.data?.page ?? []
+  
+  const { acfHomepageSlider } = props?.data?.page ?? []
   const { databaseId, asPreview } = props?.__TEMPLATE_VARIABLES__ ?? []
 
   const [currentFeatureWell, setCurrentFeatureWell] = useState(null)
@@ -265,8 +262,6 @@ export default function Component(props) {
       className={`${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable}`}
     >
       <HomepageHeader
-        title={siteTitle}
-        description={siteDescription}
         isScrolled={isScrolled}
       />
       <HomepageSecondaryHeader
@@ -315,7 +310,6 @@ export default function Component(props) {
 }
 
 Component.query = gql`
-  ${BlogInfoFragment}
   query GetPageData($databaseId: ID!, $asPreview: Boolean = false) {
     page(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
       title
@@ -383,9 +377,6 @@ Component.query = gql`
         typeSlide2
         typeSlide3
       }
-    }
-    generalSettings {
-      ...BlogInfoFragment
     }
   }
 `

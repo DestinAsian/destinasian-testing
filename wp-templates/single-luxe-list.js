@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
-import { BlogInfoFragment } from '../fragments/GeneralSettings'
 import { GetMenus } from '../queries/GetMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
 import {
@@ -52,8 +51,6 @@ export default function singleLuxeList(props) {
     }
   }, [props?.data?.luxeList?.passwordProtected?.password])
 
-  const { title: siteTitle, description: siteDescription } =
-    props?.data?.generalSettings
   const {
     title,
     content,
@@ -73,6 +70,7 @@ export default function singleLuxeList(props) {
   // Scrolled Function
   const [isScrolled, setIsScrolled] = useState(false)
   // NavShown Function
+  const [isSearchBarShown, setIsSearchBarShown] = useState(false)
   const [isNavShown, setIsNavShown] = useState(false)
   const [isLLNavShown, setIsLLNavShown] = useState(false)
   const [isGuidesNavShown, setIsGuidesNavShown] = useState(false)
@@ -125,6 +123,15 @@ export default function singleLuxeList(props) {
       document.body.style.overflow = 'visible'
     }
   }, [isNavShown])
+
+  // Stop scrolling pages when searchQuery
+  useEffect(() => {
+    if (searchQuery !== '') {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [searchQuery])
 
   // Stop scrolling pages when isMagNavShown
   useEffect(() => {
@@ -295,12 +302,8 @@ export default function singleLuxeList(props) {
       className={`${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable}`}
     >
       <LLHeader
-        title={siteTitle}
-        description={siteDescription}
         isNavShown={isNavShown}
         setIsNavShown={setIsNavShown}
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
         isScrolled={isScrolled}
       />
       <LLSecondaryHeader
@@ -313,10 +316,12 @@ export default function singleLuxeList(props) {
         latestStories={latestAllPosts}
         menusLoading={menusLoading}
         latestLoading={latestLoading}
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
         rcaDatabaseId={rcaDatabaseId}
         rcaUri={rcaUri}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        isSearchBarShown={isSearchBarShown}
+        setIsSearchBarShown={setIsSearchBarShown}
         isGuidesNavShown={isGuidesNavShown}
         setIsGuidesNavShown={setIsGuidesNavShown}
         isMagNavShown={isMagNavShown}
@@ -386,7 +391,6 @@ export default function singleLuxeList(props) {
 }
 
 singleLuxeList.query = gql`
-  ${BlogInfoFragment}
   query GetPost($databaseId: ID!, $asPreview: Boolean = false) {
     luxeList(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
       title
@@ -501,9 +505,6 @@ singleLuxeList.query = gql`
           }
         }
       }
-    }
-    generalSettings {
-      ...BlogInfoFragment
     }
   }
 `

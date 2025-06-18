@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
-import { BlogInfoFragment } from '../fragments/GeneralSettings'
 import { GetMenus } from '../queries/GetMenus'
 import { GetFooterMenus } from '../queries/GetFooterMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
@@ -21,15 +20,14 @@ const Main = dynamic(() => import('@/components/Main/Main'))
 const Footer = dynamic(() => import('@/components/Footer/Footer'))
 
 export default function Component(props) {
-  const { title: siteTitle, description: siteDescription } =
-    props?.data?.generalSettings
-  const { name, databaseId, seo, uri } = props?.data?.tag ?? []
+  const { name, databaseId } = props?.data?.tag ?? []
 
   // Search function content
   const [searchQuery, setSearchQuery] = useState('')
   // Scrolled Function
   const [isScrolled, setIsScrolled] = useState(false)
   // NavShown Function
+  const [isSearchBarShown, setIsSearchBarShown] = useState(false)
   const [isNavShown, setIsNavShown] = useState(false)
   const [isGuidesNavShown, setIsGuidesNavShown] = useState(false)
   const [isRCANavShown, setIsRCANavShown] = useState(false)
@@ -65,6 +63,15 @@ export default function Component(props) {
       document.body.style.overflow = 'visible'
     }
   }, [isNavShown])
+
+  // Stop scrolling pages when isSearchBarShown
+  useEffect(() => {
+    if (isSearchBarShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isSearchBarShown])
 
   // Stop scrolling pages when isMagNavShown
   useEffect(() => {
@@ -212,15 +219,7 @@ export default function Component(props) {
     <main
       className={`${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable}`}
     >
-      <Header
-        title={siteTitle}
-        description={siteDescription}
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        isNavShown={isNavShown}
-        setIsNavShown={setIsNavShown}
-        isScrolled={isScrolled}
-      />
+      <Header isScrolled={isScrolled} />
       <SecondaryHeader
         primaryMenuItems={primaryMenu}
         secondaryMenuItems={secondaryMenu}
@@ -233,6 +232,10 @@ export default function Component(props) {
         latestLoading={latestLoading}
         rcaDatabaseId={rcaDatabaseId}
         rcaUri={rcaUri}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        isSearchBarShown={isSearchBarShown}
+        setIsSearchBarShown={setIsSearchBarShown}
         isMagNavShown={isMagNavShown}
         setIsMagNavShown={setIsMagNavShown}
         isGuidesNavShown={isGuidesNavShown}
@@ -253,7 +256,6 @@ export default function Component(props) {
 }
 
 Component.query = gql`
-  ${BlogInfoFragment}
   query GetTagPage($databaseId: ID!) {
     tag(id: $databaseId, idType: DATABASE_ID) {
       name
@@ -263,6 +265,17 @@ Component.query = gql`
         title
         metaDesc
         focuskw
+      }
+      featuredImage {
+        node {
+          id
+          sourceUrl
+          altText
+          mediaDetails {
+            width
+            height
+          }
+        }
       }
       categoryImages {
         changeToSlider
@@ -291,9 +304,6 @@ Component.query = gql`
         categorySlideCaption5
         categoryImagesCaption
       }
-    }
-    generalSettings {
-      ...BlogInfoFragment
     }
   }
 `

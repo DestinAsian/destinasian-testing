@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
-import { BlogInfoFragment } from '../fragments/GeneralSettings'
 import { GetMenus } from '../queries/GetMenus'
 import { GetFooterMenus } from '../queries/GetFooterMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
@@ -67,8 +66,6 @@ export default function SingleLuxuryTravel(props) {
     }
   }, [props?.data?.luxuryTravel?.passwordProtected?.password])
 
-  const { title: siteTitle, description: siteDescription } =
-    props?.data?.generalSettings
   const {
     title,
     databaseId,
@@ -90,6 +87,7 @@ export default function SingleLuxuryTravel(props) {
   // Scrolled Function
   const [isScrolled, setIsScrolled] = useState(false)
   // NavShown Function
+  const [isSearchBarShown, setIsSearchBarShown] = useState(false)
   const [isNavShown, setIsNavShown] = useState(false)
   const [isGuidesNavShown, setIsGuidesNavShown] = useState(false)
   const [isRCANavShown, setIsRCANavShown] = useState(false)
@@ -125,6 +123,15 @@ export default function SingleLuxuryTravel(props) {
       document.body.style.overflow = 'visible'
     }
   }, [isNavShown])
+
+  // Stop scrolling pages when isSearchBarShown
+  useEffect(() => {
+    if (isSearchBarShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isSearchBarShown])
 
   // Stop scrolling pages when isMagNavShown
   useEffect(() => {
@@ -175,26 +182,6 @@ export default function SingleLuxuryTravel(props) {
     databaseId: rcaDatabaseId,
     uri: rcaUri,
   } = latestRCA ?? []
-
-  const [visibleComponent, setVisibleComponent] = useState(null)
-  // const sliderLL = useRef(null)
-  // const [isSliderMounted, setIsSliderMounted] = useState(false) // Track slider mount status
-
-  // // scroll to section button
-  // const scrollToSection2 = useCallback(() => {
-  //   const section = document.querySelector('[data-id="section2"]')
-  //   if (section) {
-  //     section.scrollIntoView({ behavior: 'smooth' })
-  //   }
-  // }, [])
-
-  // // scroll to section button
-  // const scrollToSection3 = useCallback(() => {
-  //   const section = document.querySelector('[data-id="section3"]')
-  //   if (section) {
-  //     section.scrollIntoView({ behavior: 'smooth' })
-  //   }
-  // }, [])
 
   const [directoryTitle, setDirectoryTitle] = useState('')
   // Function to extract directory title from HTML string
@@ -373,15 +360,7 @@ export default function SingleLuxuryTravel(props) {
     <main
       className={`${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable} ${rubik.variable} bg-[--wpe--color--teal]`}
     >
-      <Header
-        title={siteTitle}
-        description={siteDescription}
-        // visibleComponent={visibleComponent}
-        isNavShown={isNavShown}
-        setIsNavShown={setIsNavShown}
-        isScrolled={isScrolled}
-        customClassName={'luxury-travel'}
-      />
+      <Header isScrolled={isScrolled} customClassName={'luxury-travel'} />
       <SecondaryHeader
         primaryMenuItems={primaryMenu}
         secondaryMenuItems={secondaryMenu}
@@ -396,6 +375,8 @@ export default function SingleLuxuryTravel(props) {
         setSearchQuery={setSearchQuery}
         rcaDatabaseId={rcaDatabaseId}
         rcaUri={rcaUri}
+        isSearchBarShown={isSearchBarShown}
+        setIsSearchBarShown={setIsSearchBarShown}
         isMagNavShown={isMagNavShown}
         setIsMagNavShown={setIsMagNavShown}
         isGuidesNavShown={isGuidesNavShown}
@@ -409,10 +390,7 @@ export default function SingleLuxuryTravel(props) {
         <>
           <SingleLTContainer>
             <div className=" bg-[#dbf2f1] sm:top-[4.5rem]">
-              <section
-                className="relative"
-                data-id="section1"
-              >
+              <section className="relative" data-id="section1">
                 <div className=" bg-[#dbf2f1]">
                   <SingleAdvertorialSlider
                     images={images?.map((image) => image[0])}
@@ -497,7 +475,6 @@ export default function SingleLuxuryTravel(props) {
 }
 
 SingleLuxuryTravel.query = gql`
-  ${BlogInfoFragment}
   query GetPost($databaseId: ID!, $asPreview: Boolean = false) {
     luxuryTravel(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
       title
@@ -863,9 +840,6 @@ SingleLuxuryTravel.query = gql`
           }
         }
       }
-    }
-    generalSettings {
-      ...BlogInfoFragment
     }
   }
 `

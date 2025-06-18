@@ -1,6 +1,5 @@
 import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
-import { BlogInfoFragment } from '../fragments/GeneralSettings'
 import { GetMenus } from '../queries/GetMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
 import { GetRCASlider } from '../queries/GetRCASlider'
@@ -69,11 +68,36 @@ export default function singleRca(props) {
       setIsAutoplayRunning(!isAutoplayRunning)
     }
   }
+  // Scrolled Function
+  const [isScrolled, setIsScrolled] = useState(false)
 
+  const [isSearchBarShown, setIsSearchBarShown] = useState(false)
   const [isNavShown, setIsNavShown] = useState(false)
   const [isRCANavShown, setIsRCANavShown] = useState(false)
   const [isGuidesNavShown, setIsGuidesNavShown] = useState(false)
   const [isMagNavShown, setIsMagNavShown] = useState(false)
+
+  // Stop scrolling pages when searchQuery
+  useEffect(() => {
+    if (searchQuery !== '') {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [searchQuery])
+
+  // Add sticky header on scroll
+  useEffect(() => {
+    function handleScroll() {
+      setIsScrolled(window.scrollY > 0)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
 
   // Stop scrolling pages when isNavShown
   useEffect(() => {
@@ -83,6 +107,15 @@ export default function singleRca(props) {
       document.body.style.overflow = 'visible'
     }
   }, [isNavShown])
+
+  // Stop scrolling pages when isSearchBarShown
+  useEffect(() => {
+    if (isSearchBarShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isSearchBarShown])
 
   // Stop scrolling pages when isMagNavShown
   useEffect(() => {
@@ -331,11 +364,8 @@ export default function singleRca(props) {
     >
       <RCAHeader
         isNavShown={isNavShown}
-        setIsNavShown={setIsNavShown}
         isRCANavShown={isRCANavShown}
-        setIsRCANavShown={setIsRCANavShown}
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
+        isScrolled={isScrolled}
       />
       <RCASecondaryHeader
         primaryMenuItems={primaryMenu}
@@ -347,16 +377,19 @@ export default function singleRca(props) {
         latestStories={latestAllPosts}
         menusLoading={menusLoading}
         latestLoading={latestLoading}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        isSearchBarShown={isSearchBarShown}
+        setIsSearchBarShown={setIsSearchBarShown}
         isNavShown={isRCANavShown}
         setIsNavShown={setIsRCANavShown}
         isMagNavShown={isMagNavShown}
         setIsMagNavShown={setIsMagNavShown}
         isGuidesNavShown={isGuidesNavShown}
         setIsGuidesNavShown={setIsGuidesNavShown}
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
         isAutoplayRunning={isAutoplayRunning}
         toggleAutoplay={toggleAutoplay}
+        isScrolled={isScrolled}
       />
       <Main>
         <>
@@ -416,7 +449,6 @@ export default function singleRca(props) {
 }
 
 singleRca.query = gql`
-  ${BlogInfoFragment}
   query GetPost($databaseId: ID!, $asPreview: Boolean = false) {
     readersChoiceAward(
       id: $databaseId
@@ -503,9 +535,6 @@ singleRca.query = gql`
           }
         }
       }
-    }
-    generalSettings {
-      ...BlogInfoFragment
     }
   }
 `

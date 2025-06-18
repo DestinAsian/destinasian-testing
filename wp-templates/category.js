@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
-import { BlogInfoFragment } from '../fragments/GeneralSettings'
 import { GetMenus } from '../queries/GetMenus'
 import { GetFooterMenus } from '../queries/GetFooterMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
@@ -36,8 +35,6 @@ export default function Component(props) {
     return <>Loading...</>
   }
 
-  const { title: siteTitle, description: siteDescription } =
-    props?.data?.generalSettings
   const {
     name,
     description,
@@ -47,8 +44,6 @@ export default function Component(props) {
     categoryImages,
     destinationGuides,
     databaseId,
-    seo,
-    uri,
   } = props?.data?.category ?? []
 
   // Search function content
@@ -56,6 +51,7 @@ export default function Component(props) {
   // Scrolled Function
   const [isScrolled, setIsScrolled] = useState(false)
   // NavShown Function
+  const [isSearchBarShown, setIsSearchBarShown] = useState(false)
   const [isNavShown, setIsNavShown] = useState(false)
   const [isGuidesNavShown, setIsGuidesNavShown] = useState(false)
   const [isRCANavShown, setIsRCANavShown] = useState(false)
@@ -91,6 +87,15 @@ export default function Component(props) {
       document.body.style.overflow = 'visible'
     }
   }, [isNavShown])
+
+  // Stop scrolling pages when isSearchBarShown
+  useEffect(() => {
+    if (isSearchBarShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isSearchBarShown])
 
   // Stop scrolling pages when isMagNavShown
   useEffect(() => {
@@ -314,24 +319,7 @@ export default function Component(props) {
     <main
       className={`${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable}`}
     >
-      <CategoryHeader
-        title={siteTitle}
-        description={siteDescription}
-        primaryMenuItems={primaryMenu}
-        secondaryMenuItems={secondaryMenu}
-        thirdMenuItems={thirdMenu}
-        fourthMenuItems={fourthMenu}
-        fifthMenuItems={fifthMenu}
-        featureMenuItems={featureMenu}
-        latestStories={latestAllPosts}
-        menusLoading={menusLoading}
-        latestLoading={latestLoading}
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        isNavShown={isNavShown}
-        setIsNavShown={setIsNavShown}
-        isScrolled={isScrolled}
-      />
+      <CategoryHeader isScrolled={isScrolled} />
       {/* Guides category */}
       {isGuidesCategory && (
         <CategorySecondaryHeader
@@ -357,6 +345,8 @@ export default function Component(props) {
           setSearchQuery={setSearchQuery}
           rcaDatabaseId={rcaDatabaseId}
           rcaUri={rcaUri}
+          isSearchBarShown={isSearchBarShown}
+          setIsSearchBarShown={setIsSearchBarShown}
           isMagNavShown={isMagNavShown}
           setIsMagNavShown={setIsMagNavShown}
           isGuidesNavShown={isGuidesNavShown}
@@ -397,7 +387,6 @@ export default function Component(props) {
 }
 
 Component.query = gql`
-  ${BlogInfoFragment}
   query GetCategoryPage($databaseId: ID!) {
     category(id: $databaseId, idType: DATABASE_ID) {
       name
@@ -581,9 +570,6 @@ Component.query = gql`
           }
         }
       }
-    }
-    generalSettings {
-      ...BlogInfoFragment
     }
   }
 `

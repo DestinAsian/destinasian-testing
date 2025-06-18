@@ -182,7 +182,7 @@ export default function HomepageSecondaryHeader({
             )}
             onClick={() => {
               setIsRCANavShown(!isRCANavShown)
-              isSearchBarShown ? setisSearchBarShown(!isSearchBarShown) : null
+              isSearchBarShown ? setIsSearchBarShown(!isSearchBarShown) : null
               isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
               isMagNavShown ? setIsMagNavShown(!isMagNavShown) : null
               setSearchQuery('')
@@ -202,27 +202,29 @@ export default function HomepageSecondaryHeader({
           isSearchBarShown ? 'show' : undefined,
         )}
       >
-        <div className={cx('search-input-wrapper')}>
-          <SearchInput
-            value={searchQuery}
-            onChange={(newValue) => setSearchQuery(newValue)}
-            clearSearch={clearSearch}
-          />
-        </div>
-        <div className={cx('search-result-wrapper')}>
-          {searchResultsError && (
-            <div className={cx('alert-error')}>
-              {'An error has occurred. Please refresh and try again.'}
-            </div>
-          )}
-
-          {/* Conditionally render the SearchResults component */}
-          {isSearchResultsVisible && (
-            <SearchResults
-              searchResults={contentNodesPosts}
-              isLoading={searchResultsLoading}
+        <div className={cx('search-bg-wrapper')}>
+          <div className={cx('search-input-wrapper')}>
+            <SearchInput
+              value={searchQuery}
+              onChange={(newValue) => setSearchQuery(newValue)}
+              clearSearch={clearSearch}
             />
-          )}
+          </div>
+          <div className={cx('search-result-wrapper')}>
+            {searchResultsError && (
+              <div className={cx('alert-error')}>
+                {'An error has occurred. Please refresh and try again.'}
+              </div>
+            )}
+
+            {/* Conditionally render the SearchResults component */}
+            {isSearchResultsVisible && (
+              <SearchResults
+                searchResults={contentNodesPosts}
+                isLoading={searchResultsLoading}
+              />
+            )}
+          </div>
         </div>
       </div>
       {/* Guides Menu */}

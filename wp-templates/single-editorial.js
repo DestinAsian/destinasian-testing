@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
-import { BlogInfoFragment } from '../fragments/GeneralSettings'
 import { GetMenus } from '../queries/GetMenus'
 import { GetFooterMenus } from '../queries/GetFooterMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
@@ -71,8 +70,6 @@ export default function SingleEditorial(props) {
     }
   }, [props?.data?.editorial?.passwordProtected?.password])
 
-  const { title: siteTitle, description: siteDescription } =
-    props?.data?.generalSettings
   const {
     title,
     content,
@@ -92,6 +89,7 @@ export default function SingleEditorial(props) {
   // Scrolled Function
   const [isScrolled, setIsScrolled] = useState(false)
   // NavShown Function
+  const [isSearchBarShown, setIsSearchBarShown] = useState(false)
   const [isNavShown, setIsNavShown] = useState(false)
   const [isGuidesNavShown, setIsGuidesNavShown] = useState(false)
   const [isRCANavShown, setIsRCANavShown] = useState(false)
@@ -127,6 +125,15 @@ export default function SingleEditorial(props) {
       document.body.style.overflow = 'visible'
     }
   }, [isNavShown])
+
+  // Stop scrolling pages when isSearchBarShown
+  useEffect(() => {
+    if (isSearchBarShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isSearchBarShown])
 
   // Stop scrolling pages when isMagNavShown
   useEffect(() => {
@@ -338,15 +345,7 @@ export default function SingleEditorial(props) {
     <main
       className={`${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable}`}
     >
-      <Header
-        title={siteTitle}
-        description={siteDescription}
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        isNavShown={isNavShown}
-        setIsNavShown={setIsNavShown}
-        isScrolled={isScrolled}
-      />
+      <Header isScrolled={isScrolled} />
       <SecondaryHeader
         primaryMenuItems={primaryMenu}
         secondaryMenuItems={secondaryMenu}
@@ -359,6 +358,10 @@ export default function SingleEditorial(props) {
         latestLoading={latestLoading}
         rcaDatabaseId={rcaDatabaseId}
         rcaUri={rcaUri}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        isSearchBarShown={isSearchBarShown}
+        setIsSearchBarShown={setIsSearchBarShown}
         isMagNavShown={isMagNavShown}
         setIsMagNavShown={setIsMagNavShown}
         isGuidesNavShown={isGuidesNavShown}
@@ -366,7 +369,6 @@ export default function SingleEditorial(props) {
         isRCANavShown={isRCANavShown}
         setIsRCANavShown={setIsRCANavShown}
         isScrolled={isScrolled}
-        customClassName={'editorial'}
       />
       <Main className={'relative top-[-0.75rem] sm:top-[-1rem]'}>
         <>
@@ -406,7 +408,6 @@ export default function SingleEditorial(props) {
 }
 
 SingleEditorial.query = gql`
-  ${BlogInfoFragment}
   query GetPost($databaseId: ID!, $asPreview: Boolean = false) {
     editorial(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
       title
@@ -517,9 +518,6 @@ SingleEditorial.query = gql`
           }
         }
       }
-    }
-    generalSettings {
-      ...BlogInfoFragment
     }
   }
 `

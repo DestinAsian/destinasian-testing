@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
-import { BlogInfoFragment } from '../fragments/GeneralSettings'
 import { GetMenus } from '../queries/GetMenus'
 import { GetFooterMenus } from '../queries/GetFooterMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
@@ -15,9 +14,7 @@ import Cookies from 'js-cookie'
 import { GetLatestRCA } from '../queries/GetLatestRCA'
 import dynamic from 'next/dynamic'
 // Import Components
-const Header = dynamic(() =>
-  import('@/components/Header/Header'),
-)
+const Header = dynamic(() => import('@/components/Header/Header'))
 const SecondaryHeader = dynamic(() =>
   import('@/components/Header/SecondaryHeader/SecondaryHeader'),
 )
@@ -65,8 +62,6 @@ export default function SingleAdvertorial(props) {
     }
   }, [props?.data?.advertorial?.passwordProtected?.password])
 
-  const { title: siteTitle, description: siteDescription } =
-    props?.data?.generalSettings
   const {
     title,
     content,
@@ -86,6 +81,7 @@ export default function SingleAdvertorial(props) {
   // Scrolled Function
   const [isScrolled, setIsScrolled] = useState(false)
   // NavShown Function
+  const [isSearchBarShown, setIsSearchBarShown] = useState(false)
   const [isNavShown, setIsNavShown] = useState(false)
   const [isGuidesNavShown, setIsGuidesNavShown] = useState(false)
   const [isRCANavShown, setIsRCANavShown] = useState(false)
@@ -121,6 +117,15 @@ export default function SingleAdvertorial(props) {
       document.body.style.overflow = 'visible'
     }
   }, [isNavShown])
+
+  // Stop scrolling pages when isSearchBarShown
+  useEffect(() => {
+    if (isSearchBarShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isSearchBarShown])
 
   // Stop scrolling pages when isMagNavShown
   useEffect(() => {
@@ -306,15 +311,7 @@ export default function SingleAdvertorial(props) {
     <main
       className={`${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable}`}
     >
-      <Header
-        title={siteTitle}
-        description={siteDescription}
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        isNavShown={isNavShown}
-        setIsNavShown={setIsNavShown}
-        isScrolled={isScrolled}
-      />
+      <Header isScrolled={isScrolled} />
       <SecondaryHeader
         primaryMenuItems={primaryMenu}
         secondaryMenuItems={secondaryMenu}
@@ -327,6 +324,10 @@ export default function SingleAdvertorial(props) {
         latestLoading={latestLoading}
         rcaDatabaseId={rcaDatabaseId}
         rcaUri={rcaUri}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        isSearchBarShown={isSearchBarShown}
+        setIsSearchBarShown={setIsSearchBarShown}
         isMagNavShown={isMagNavShown}
         setIsMagNavShown={setIsMagNavShown}
         isGuidesNavShown={isGuidesNavShown}
@@ -334,9 +335,8 @@ export default function SingleAdvertorial(props) {
         isRCANavShown={isRCANavShown}
         setIsRCANavShown={setIsRCANavShown}
         isScrolled={isScrolled}
-        customClassName={'advertorial'}
       />
-      <Main>
+      <Main className="mt-[-0.75rem] sm:mt-[-1rem]">
         <>
           <SingleAdvertorialContainer>
             <SingleAdvertorialSlider images={images} />
@@ -375,7 +375,6 @@ export default function SingleAdvertorial(props) {
 }
 
 SingleAdvertorial.query = gql`
-  ${BlogInfoFragment}
   query GetPost($databaseId: ID!, $asPreview: Boolean = false) {
     advertorial(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
       title
@@ -447,9 +446,6 @@ SingleAdvertorial.query = gql`
           }
         }
       }
-    }
-    generalSettings {
-      ...BlogInfoFragment
     }
   }
 `

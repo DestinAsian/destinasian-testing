@@ -1,7 +1,16 @@
 import classNames from 'classnames/bind'
 import styles from './RCASecondaryHeader.module.scss'
+import { useQuery } from '@apollo/client'
+import { GetSearchResults } from '@/queries/GetSearchResults'
+import { FaSearch } from 'react-icons/fa'
 import dynamic from 'next/dynamic'
 // Import Components
+const SearchInput = dynamic(() =>
+  import('@/components/SearchInput/SearchInput'),
+)
+const SearchResults = dynamic(() =>
+  import('@/components/SearchResults/SearchResults'),
+)
 const MagazineFullMenu = dynamic(() =>
   import('@/components/MagazineFullMenu/MagazineFullMenu'),
 )
@@ -27,14 +36,108 @@ export default function RCASecondaryHeader({
   setIsGuidesNavShown,
   isMagNavShown,
   setIsMagNavShown,
+  isSearchBarShown,
+  setIsSearchBarShown,
+  searchQuery,
   setSearchQuery,
   isAutoplayRunning,
   toggleAutoplay,
+  isScrolled,
 }) {
+  // Posts for Search Function
+  const postsPerPage = 1000
+
+  // Clear search input
+  const clearSearch = () => {
+    setSearchQuery('') // Reset the search query
+  }
+
+  // Add search query function
+  const {
+    data: searchResultsData,
+    loading: searchResultsLoading,
+    error: searchResultsError,
+  } = useQuery(GetSearchResults, {
+    variables: {
+      first: postsPerPage,
+      after: null,
+      search: searchQuery,
+    },
+    skip: searchQuery === '',
+    fetchPolicy: 'network-only',
+    nextFetchPolicy: 'cache-and-network',
+  })
+
+  // Check if the search query is empty and no search results are loading, then hide the SearchResults component
+  const isSearchResultsVisible = !!searchQuery
+
+  // Create a Set to store unique databaseId values
+  const uniqueDatabaseIds = new Set()
+
+  // Initialize an array to store unique posts
+  const contentNodesPosts = []
+
+  // Loop through categories (assuming similar structure)
+  searchResultsData?.categories?.edges?.forEach((post) => {
+    const { databaseId } = post.node
+
+    if (!uniqueDatabaseIds.has(databaseId)) {
+      uniqueDatabaseIds.add(databaseId)
+      contentNodesPosts.push(post.node)
+    }
+  })
+
+  // Loop through tags
+  searchResultsData?.tags?.edges?.forEach((contentNodes) => {
+    contentNodes.node?.contentNodes?.edges.forEach((post) => {
+      const { databaseId } = post.node
+
+      if (!uniqueDatabaseIds.has(databaseId)) {
+        uniqueDatabaseIds.add(databaseId)
+        contentNodesPosts.push(post.node)
+      }
+    })
+  })
+
+  // Sort contentNodesPosts array by date
+  contentNodesPosts.sort((a, b) => {
+    // Assuming your date is stored in 'date' property of the post objects
+    const dateA = new Date(a.date)
+    const dateB = new Date(b.date)
+
+    // Compare the dates
+    return dateB - dateA
+  })
+
   return (
     <>
       <div className={cx('navigation-wrapper')}>
         <div className={cx('menu-wrapper')}>
+          <button
+            type="button"
+            className={cx(
+              'search-menu-button',
+              isSearchBarShown ? 'active' : '',
+              isSearchBarShown && !isScrolled && 'active-not-scrolled',
+            )}
+            onClick={() => {
+              setIsSearchBarShown(!isSearchBarShown)
+              isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
+              isMagNavShown ? setIsMagNavShown(!isMagNavShown) : null
+              isNavShown ? setIsNavShown(!isNavShown) : null
+              setSearchQuery('')
+              if (!isSearchBarShown && isAutoplayRunning) {
+                return toggleAutoplay()
+              }
+              if (isSearchBarShown && !isAutoplayRunning) {
+                return toggleAutoplay()
+              }
+            }}
+            aria-controls={cx('search-bar-wrapper')}
+            aria-expanded={!isSearchBarShown}
+          >
+            <FaSearch className={cx('search-icon')} />
+          </button>
           <button
             type="button"
             className={cx('menu-button', isGuidesNavShown ? 'active' : '')}
@@ -42,6 +145,7 @@ export default function RCASecondaryHeader({
               setIsGuidesNavShown(!isGuidesNavShown)
               isNavShown ? setIsNavShown(!isNavShown) : null
               isMagNavShown ? setIsMagNavShown(!isMagNavShown) : null
+              isSearchBarShown ? setIsSearchBarShown(!isSearchBarShown) : null
               setSearchQuery('')
               if (!isGuidesNavShown && isAutoplayRunning) {
                 return toggleAutoplay()
@@ -62,6 +166,14 @@ export default function RCASecondaryHeader({
               setIsMagNavShown(!isMagNavShown)
               isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
               isNavShown ? setIsNavShown(!isNavShown) : null
+              isSearchBarShown ? setIsSearchBarShown(!isSearchBarShown) : null
+              setSearchQuery('')
+              if (!isMagNavShown && isAutoplayRunning) {
+                return toggleAutoplay()
+              }
+              if (isMagNavShown && !isAutoplayRunning) {
+                return toggleAutoplay()
+              }
             }}
             aria-controls={cx('rca-menu-wrapper')}
             aria-expanded={!isNavShown}
@@ -75,6 +187,7 @@ export default function RCASecondaryHeader({
               setIsNavShown(!isNavShown)
               isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
               isMagNavShown ? setIsMagNavShown(!isMagNavShown) : null
+              isSearchBarShown ? setIsSearchBarShown(!isSearchBarShown) : null
               setSearchQuery('')
               if (!isNavShown && isAutoplayRunning) {
                 return toggleAutoplay()
@@ -91,6 +204,38 @@ export default function RCASecondaryHeader({
         </div>
       </div>
 
+      {/* Search Bar */}
+      <div
+        className={cx(
+          'search-bar-wrapper',
+          isSearchBarShown ? 'show' : undefined,
+        )}
+      >
+        <div className={cx('search-bg-wrapper')}>
+          <div className={cx('search-input-wrapper')}>
+            <SearchInput
+              value={searchQuery}
+              onChange={(newValue) => setSearchQuery(newValue)}
+              clearSearch={clearSearch}
+            />
+          </div>
+          <div className={cx('search-result-wrapper')}>
+            {searchResultsError && (
+              <div className={cx('alert-error')}>
+                {'An error has occurred. Please refresh and try again.'}
+              </div>
+            )}
+
+            {/* Conditionally render the SearchResults component */}
+            {isSearchResultsVisible && (
+              <SearchResults
+                searchResults={contentNodesPosts}
+                isLoading={searchResultsLoading}
+              />
+            )}
+          </div>
+        </div>
+      </div>
       <div
         className={cx(
           'full-menu-content',

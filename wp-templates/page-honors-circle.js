@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
-import { BlogInfoFragment } from '../fragments/GeneralSettings'
 import { GetMenus } from '../queries/GetMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
 import {
@@ -49,8 +48,6 @@ export default function Component(props) {
     }
   }, [props?.data?.page?.passwordProtected?.password])
 
-  const { title: siteTitle, description: siteDescription } =
-    props?.data?.generalSettings
   const {
     title,
     content,
@@ -66,6 +63,7 @@ export default function Component(props) {
   // Scrolled Function
   const [isScrolled, setIsScrolled] = useState(false)
   // NavShown Function
+  const [isSearchBarShown, setIsSearchBarShown] = useState(false)
   const [isNavShown, setIsNavShown] = useState(false)
   const [isGuidesNavShown, setIsGuidesNavShown] = useState(false)
   const [isRCANavShown, setIsRCANavShown] = useState(false)
@@ -101,6 +99,15 @@ export default function Component(props) {
       document.body.style.overflow = 'visible'
     }
   }, [isNavShown])
+
+  // Stop scrolling pages when isSearchBarShown
+  useEffect(() => {
+    if (isSearchBarShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isSearchBarShown])
 
   // Stop scrolling pages when isMagNavShown
   useEffect(() => {
@@ -261,15 +268,7 @@ export default function Component(props) {
     <main
       className={`${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable}`}
     >
-      <Header
-        title={siteTitle}
-        description={siteDescription}
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        isNavShown={isNavShown}
-        setIsNavShown={setIsNavShown}
-        isScrolled={isScrolled}
-      />
+      <Header isScrolled={isScrolled} />
       <SecondaryHeader
         primaryMenuItems={primaryMenu}
         secondaryMenuItems={secondaryMenu}
@@ -282,6 +281,10 @@ export default function Component(props) {
         latestLoading={latestLoading}
         rcaDatabaseId={rcaDatabaseId}
         rcaUri={rcaUri}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        isSearchBarShown={isSearchBarShown}
+        setIsSearchBarShown={setIsSearchBarShown}
         isMagNavShown={isMagNavShown}
         setIsMagNavShown={setIsMagNavShown}
         isGuidesNavShown={isGuidesNavShown}
@@ -290,7 +293,7 @@ export default function Component(props) {
         setIsRCANavShown={setIsRCANavShown}
         isScrolled={isScrolled}
       />
-      <Main>
+      <Main className="mt-[-0.75rem] sm:mt-[-1rem]">
         <>
           <>
             <EntryHeader hcTitle={title} hcCaption={hcCaption?.hcCaption} />
@@ -303,7 +306,6 @@ export default function Component(props) {
 }
 
 Component.query = gql`
-  ${BlogInfoFragment}
   query GetPageData($databaseId: ID = "131573", $asPreview: Boolean = false) {
     page(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
       title
@@ -332,9 +334,6 @@ Component.query = gql`
         focuskw
       }
       uri
-    }
-    generalSettings {
-      ...BlogInfoFragment
     }
   }
 `

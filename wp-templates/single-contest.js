@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
-import { BlogInfoFragment } from '../fragments/GeneralSettings'
 import { GetMenus } from '../queries/GetMenus'
 import { GetFooterMenus } from '../queries/GetFooterMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
@@ -15,9 +14,7 @@ import Cookies from 'js-cookie'
 import { GetLatestRCA } from '../queries/GetLatestRCA'
 import dynamic from 'next/dynamic'
 // Import Components
-const Header = dynamic(() =>
-  import('@/components/Header/Header'),
-)
+const Header = dynamic(() => import('@/components/Header/Header'))
 const SecondaryHeader = dynamic(() =>
   import('@/components/Header/SecondaryHeader/SecondaryHeader'),
 )
@@ -59,8 +56,6 @@ export default function SingleContest(props) {
     }
   }, [props?.data?.contest?.passwordProtected?.password])
 
-  const { title: siteTitle, description: siteDescription } =
-    props?.data?.generalSettings
   const {
     title,
     content,
@@ -76,6 +71,7 @@ export default function SingleContest(props) {
   // Scrolled Function
   const [isScrolled, setIsScrolled] = useState(false)
   // NavShown Function
+  const [isSearchBarShown, setIsSearchBarShown] = useState(false)
   const [isNavShown, setIsNavShown] = useState(false)
   const [isGuidesNavShown, setIsGuidesNavShown] = useState(false)
   const [isRCANavShown, setIsRCANavShown] = useState(false)
@@ -111,6 +107,15 @@ export default function SingleContest(props) {
       document.body.style.overflow = 'visible'
     }
   }, [isNavShown])
+
+  // Stop scrolling pages when isSearchBarShown
+  useEffect(() => {
+    if (isSearchBarShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isSearchBarShown])
 
   // Stop scrolling pages when isMagNavShown
   useEffect(() => {
@@ -329,17 +334,9 @@ export default function SingleContest(props) {
 
   return (
     <main
-      className={`${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable}`}
+      className={`${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable} bg-[--wpe--color--teal]`}
     >
-      <Header
-        title={siteTitle}
-        description={siteDescription}
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        isNavShown={isNavShown}
-        setIsNavShown={setIsNavShown}
-        isScrolled={isScrolled}
-      />
+      <Header isScrolled={isScrolled} />
       <SecondaryHeader
         primaryMenuItems={primaryMenu}
         secondaryMenuItems={secondaryMenu}
@@ -352,6 +349,10 @@ export default function SingleContest(props) {
         latestLoading={latestLoading}
         rcaDatabaseId={rcaDatabaseId}
         rcaUri={rcaUri}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        isSearchBarShown={isSearchBarShown}
+        setIsSearchBarShown={setIsSearchBarShown}
         isMagNavShown={isMagNavShown}
         setIsMagNavShown={setIsMagNavShown}
         isGuidesNavShown={isGuidesNavShown}
@@ -359,9 +360,8 @@ export default function SingleContest(props) {
         isRCANavShown={isRCANavShown}
         setIsRCANavShown={setIsRCANavShown}
         isScrolled={isScrolled}
-        customClassName={'contest'}
       />
-      <Main>
+      <Main className="mt-[-0.75rem] sm:mt-[-1rem]">
         <>
           <SingleContestContainer>
             <SingleSlider images={images} />
@@ -376,7 +376,6 @@ export default function SingleContest(props) {
 }
 
 SingleContest.query = gql`
-  ${BlogInfoFragment}
   query GetPost($databaseId: ID!, $asPreview: Boolean = false) {
     contest(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
       title
@@ -397,6 +396,17 @@ SingleContest.query = gql`
         focuskw
       }
       uri
+      featuredImage {
+        node {
+          id
+          sourceUrl
+          altText
+          mediaDetails {
+            width
+            height
+          }
+        }
+      }
       acfPostSlider {
         slide1 {
           mediaItemUrl
@@ -414,9 +424,6 @@ SingleContest.query = gql`
           mediaItemUrl
         }
       }
-    }
-    generalSettings {
-      ...BlogInfoFragment
     }
   }
 `

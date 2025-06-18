@@ -58,6 +58,14 @@
       > div {
         padding: 0;
         height: auto;
+
+        > div {
+          padding: 1rem 0;
+
+          @media (min-width: $breakpoint-small) {
+            padding: 2rem 0;
+          }
+        }
       }
     }
   }
