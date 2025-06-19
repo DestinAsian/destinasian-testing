@@ -169,8 +169,8 @@
 
 .navbar {
   display: flex;
-  justify-content: space-between;
-  // justify-content: center;
+  // justify-content: space-between;
+  justify-content: center;
   flex-wrap: wrap;
   padding: 0;
   gap: 1rem;
@@ -183,14 +183,14 @@
 }
 
 .brand {
-  margin-left: 1rem;
+  // margin-left: 1rem;
   width: 10rem;
   height: 3.5rem;
   position: relative;
 
   @media (min-width: $breakpoint-extra-small) {
     width: 14rem;
-    margin-left: 2rem;
+    // margin-left: 2rem;
   }
 
   img {
