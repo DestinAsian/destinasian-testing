@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind'
 import Link from 'next/link'
-import destinasianLogoWht from '../../assets/logo/destinasianLogoWht.png'
+import destinasianLogoWht from '@/assets/logo/destinasianLogoWht.png'
 import styles from './RCAHeader.module.scss'
 import Image from 'next/image'
 

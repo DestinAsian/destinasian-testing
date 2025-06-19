@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind'
 import Link from 'next/link'
-import destinasianLogoOrange from '../../assets/logo/destinasian-logo-orange.png'
+import destinasianLogoOrange from '@/assets/logo/destinasian-logo-orange.png'
 import styles from './LLHeader.module.scss'
 import Image from 'next/image'
 

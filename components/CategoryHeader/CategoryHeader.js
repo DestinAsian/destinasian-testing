@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind'
 import Link from 'next/link'
-import destinasianLogo from '../../assets/logo/destinasian-logo.png'
+import destinasianLogo from '@/assets/logo/destinasian-logo.png'
 import styles from './CategoryHeader.module.scss'
 import { useMediaQuery } from 'react-responsive'
 import Image from 'next/image'

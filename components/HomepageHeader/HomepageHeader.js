@@ -1,7 +1,8 @@
 import classNames from 'classnames/bind'
 import Link from 'next/link'
-import destinasianLogoBlk from '../../assets/logo/destinasian-logo.png'
-import destinasianLogoWht from '../../assets/logo/destinasianLogoWht.png'
+import destinasianLogoBlk from '@/assets/logo/destinasian-logo.png'
+// import destinasianLogoWht from '../../assets/logo/destinasianLogoWht.png'
+import destinasianLogoOrange from '@/assets/logo/destinasian-logo-orange.png'
 import styles from './HomepageHeader.module.scss'
 import Image from 'next/image'
 
@@ -16,7 +17,7 @@ export default function HomepageHeader({ isScrolled }) {
           <div className={cx('brand')}>
             {isScrolled ? (
               <Image
-                src={destinasianLogoBlk.src}
+                src={destinasianLogoOrange.src}
                 alt="Destinasian Logo"
                 fill
                 sizes="100%"
@@ -24,7 +25,7 @@ export default function HomepageHeader({ isScrolled }) {
               />
             ) : (
               <Image
-                src={destinasianLogoWht.src}
+                src={destinasianLogoOrange.src}
                 alt="Destinasian Logo"
                 fill
                 sizes="100%"

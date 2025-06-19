@@ -28,10 +28,6 @@
   background-color: var(--wpe--color--white--smoke);
   z-index: 1000;
 
-  // .navbar {
-  //   padding: 1.5rem 0 1.5rem;
-  // }
-
   .search-bar-wrapper {
     display: none;
     justify-content: center;
@@ -101,10 +97,6 @@
   // color: var(--wpe--color--black);
   // background-color: var(--wpe--color--white--smoke);
   z-index: 1000;
-
-  // .navbar {
-  //   padding: 1.5rem 0 1.5rem;
-  // }
 
   .search-bar-wrapper {
     display: none;
@@ -178,6 +170,7 @@
 .navbar {
   display: flex;
   justify-content: space-between;
+  // justify-content: center;
   flex-wrap: wrap;
   padding: 0;
   gap: 1rem;
