@@ -10,6 +10,7 @@ import {
   rubik,
   rubik_mono_one,
 } from '../styles/fonts/fonts'
+import { GetLatestRCA } from '../queries/GetLatestRCA'
 import Cookies from 'js-cookie'
 import { GetSecondaryHeader } from '../queries/GetSecondaryHeader'
 import dynamic from 'next/dynamic'
@@ -85,7 +86,11 @@ export default function Component(props) {
   // Scrolled Function
   const [isScrolled, setIsScrolled] = useState(false)
   // NavShown Function
+  const [isSearchBarShown, setIsSearchBarShown] = useState(false)
   const [isNavShown, setIsNavShown] = useState(false)
+  const [isGuidesNavShown, setIsGuidesNavShown] = useState(false)
+  const [isRCANavShown, setIsRCANavShown] = useState(false)
+  const [isMagNavShown, setIsMagNavShown] = useState(false)
 
   // Stop scrolling pages when searchQuery
   useEffect(() => {
@@ -117,6 +122,65 @@ export default function Component(props) {
       document.body.style.overflow = 'visible'
     }
   }, [isNavShown])
+
+  // Stop scrolling pages when isSearchBarShown
+  useEffect(() => {
+    if (isSearchBarShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isSearchBarShown])
+
+  // Stop scrolling pages when isMagNavShown
+  useEffect(() => {
+    if (isMagNavShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isMagNavShown])
+
+  // Stop scrolling pages when isRCANavShown
+  useEffect(() => {
+    if (isRCANavShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isRCANavShown])
+
+  // Stop scrolling pages when isGuidesNavShown
+  useEffect(() => {
+    if (isGuidesNavShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isGuidesNavShown])
+
+  const { data: rcaData } = useQuery(GetLatestRCA, {
+    fetchPolicy: 'network-only',
+    nextFetchPolicy: 'cache-and-network',
+  })
+
+  const [latestRCA, setLatestRCA] = useState(null)
+
+  useEffect(() => {
+    if (rcaData?.readersChoiceAwards?.edges) {
+      // Find the first RCA where parent is null
+      const filteredRCA = rcaData.readersChoiceAwards.edges.find(
+        (edge) => !edge.node.parent,
+      )?.node
+      setLatestRCA(filteredRCA || null)
+    }
+  }, [rcaData]) // Runs whenever rcaData changes
+
+  const {
+    // title: rcaTitle,
+    databaseId: rcaDatabaseId,
+    uri: rcaUri,
+  } = latestRCA ?? []
 
   let catVariable = {
     first: 1,
@@ -305,6 +369,30 @@ export default function Component(props) {
         databaseId={databaseId}
         categoryUri={categories[0]?.node?.uri}
         parentCategory={categories[0]?.node?.parent?.node?.name}
+        categoryCountryCode={categories[0]?.node?.parent?.node?.countryCode?.countryCode}
+        primaryMenuItems={primaryMenu}
+        secondaryMenuItems={secondaryMenu}
+        thirdMenuItems={thirdMenu}
+        fourthMenuItems={fourthMenu}
+        fifthMenuItems={fifthMenu}
+        featureMenuItems={featureMenu}
+        latestStories={allPosts}
+        menusLoading={menusLoading}
+        latestLoading={latestLoading}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        rcaDatabaseId={rcaDatabaseId}
+        rcaUri={rcaUri}
+        isSearchBarShown={isSearchBarShown}
+        setIsSearchBarShown={setIsSearchBarShown}
+        isMagNavShown={isMagNavShown}
+        setIsMagNavShown={setIsMagNavShown}
+        isGuidesNavShown={isGuidesNavShown}
+        setIsGuidesNavShown={setIsGuidesNavShown}
+        isRCANavShown={isRCANavShown}
+        setIsRCANavShown={setIsRCANavShown}
+        isScrolled={isScrolled}
+        customClassName={'category'}
       />
       <Main>
         <>

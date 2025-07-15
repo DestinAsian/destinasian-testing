@@ -34,7 +34,6 @@
     height: calc(-8.5rem + 100vh);
     width: 100%;
     padding: 0 0 7rem;
-    background-color: var(--wpe--color--black);
   }
 
   > div > div {
@@ -111,7 +110,7 @@
     .title {
       font-weight: 700;
       color: var(--wpe--color--white);
-      background-color: var(--wpe--color--black);
+      // background-color: var(--wpe--color--black);
       padding: 0.75rem;
       display: flex;
       text-transform: uppercase;
@@ -200,8 +199,6 @@
 
 .accordion-content-wrapper {
   padding: 0;
-  background-color: var(--wpe--color--black);
-  color: var(--wpe--color--white--smoke);
 }
 
 .accordion-content {
@@ -232,26 +229,26 @@
       padding-bottom: 1rem;
       justify-content: flex-start;
 
-      @media (min-width: $breakpoint-extra-small) {
-        width: calc(50% - 1rem);
-      }
+      // @media (min-width: $breakpoint-extra-small) {
+      //   width: calc(50% - 1rem);
+      // }
 
-      .left-wrapper {
-        width: 25%;
-        height: 100%;
+      // .left-wrapper {
+      //   width: 25%;
+      //   height: 100%;
 
-        @media (min-width: $breakpoint-extra-small) {
-          width: 40%;
-        }
-      }
+      //   @media (min-width: $breakpoint-extra-small) {
+      //     width: 40%;
+      //   }
+      // }
 
-      .right-wrapper {
-        width: 75%;
+      // .right-wrapper {
+      //   width: 75%;
 
-        @media (min-width: $breakpoint-extra-small) {
-          width: 60%;
-        }
-      }
+      //   @media (min-width: $breakpoint-extra-small) {
+      //     width: 60%;
+      //   }
+      // }
 
       .image-wrapper {
         padding: 0;
@@ -305,8 +302,9 @@
 
       .posts-wrapper {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         flex-wrap: wrap;
+        gap: 0.25rem;
 
         a {
           padding: 0;
@@ -370,26 +368,26 @@
       padding-bottom: 2rem;
       justify-content: flex-start;
 
-      @media (min-width: $breakpoint-extra-small) {
-        width: calc(50% - 1rem);
-      }
+      // @media (min-width: $breakpoint-extra-small) {
+      //   width: calc(50% - 1rem);
+      // }
 
-      .left-wrapper {
-        width: 25%;
-        height: 100%;
+      // .left-wrapper {
+      //   width: 25%;
+      //   height: 100%;
 
-        @media (min-width: $breakpoint-extra-small) {
-          width: 40%;
-        }
-      }
+      //   @media (min-width: $breakpoint-extra-small) {
+      //     width: 40%;
+      //   }
+      // }
 
-      .right-wrapper {
-        width: 75%;
+      // .right-wrapper {
+      //   width: 75%;
 
-        @media (min-width: $breakpoint-extra-small) {
-          width: 60%;
-        }
-      }
+      //   @media (min-width: $breakpoint-extra-small) {
+      //     width: 60%;
+      //   }
+      // }
 
       .image-wrapper {
         padding: 0;
@@ -431,8 +429,9 @@
 
       .posts-wrapper {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         flex-wrap: wrap;
+        gap: 0.25rem;
 
         a {
           padding: 0;

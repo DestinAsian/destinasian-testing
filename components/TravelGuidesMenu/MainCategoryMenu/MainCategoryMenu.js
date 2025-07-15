@@ -363,7 +363,7 @@ export default function MainCategoryMenu(categoryName) {
                           </div>
                           <div className={cx('second-wrapper')}>
                             <div className={cx('partner-content-wrapper')}>
-                              <div className={cx('left-wrapper')}>
+                              {/* <div className={cx('left-wrapper')}>
                                 {results[index]?.data?.advertorials?.map(
                                   (advertorial, index) => (
                                     <>
@@ -429,7 +429,7 @@ export default function MainCategoryMenu(categoryName) {
                                       )}
                                   </>
                                 )}
-                              </div>
+                              </div> */}
                               <div className={cx('right-wrapper')}>
                                 <div className={cx('partner-content-title')}>
                                   <span className={cx('content-title')}>
@@ -456,8 +456,8 @@ export default function MainCategoryMenu(categoryName) {
                                                 >
                                                   <span className={cx('name')}>
                                                     {advertorial?.title}
-                                                    {index !==
-                                                      array.length - 1 && ' |'}
+                                                    {/* {index !==
+                                                      array.length - 1 && ' |'} */}
                                                   </span>
                                                 </div>
                                               </div>
@@ -494,9 +494,9 @@ export default function MainCategoryMenu(categoryName) {
                                                         className={cx('name')}
                                                       >
                                                         {advertorial?.title}
-                                                        {index !==
+                                                        {/* {index !==
                                                           array.length - 1 &&
-                                                          ' |'}
+                                                          ' |'} */}
                                                       </span>
                                                     </div>
                                                   </div>
@@ -511,7 +511,7 @@ export default function MainCategoryMenu(categoryName) {
                               </div>
                             </div>
                             <div className={cx('honors-circle-wrapper')}>
-                              <div className={cx('left-wrapper')}>
+                              {/* <div className={cx('left-wrapper')}>
                                 {results[index]?.data?.honorsCircles?.map(
                                   (honorsCircle, index) => (
                                     <>
@@ -575,7 +575,7 @@ export default function MainCategoryMenu(categoryName) {
                                       )}
                                   </>
                                 )}
-                              </div>
+                              </div> */}
                               <div className={cx('right-wrapper')}>
                                 <div className={cx('honors-circle-title')}>
                                   <span className={cx('content-title')}>
@@ -602,8 +602,8 @@ export default function MainCategoryMenu(categoryName) {
                                                 >
                                                   <span className={cx('name')}>
                                                     {honorsCircle?.title}
-                                                    {index !==
-                                                      array.length - 1 && ' |'}
+                                                    {/* {index !==
+                                                      array.length - 1 && ' |'} */}
                                                   </span>
                                                 </div>
                                               </div>
@@ -640,9 +640,9 @@ export default function MainCategoryMenu(categoryName) {
                                                         className={cx('name')}
                                                       >
                                                         {honorsCircle?.title}
-                                                        {index !==
+                                                        {/* {index !==
                                                           array.length - 1 &&
-                                                          ' |'}
+                                                          ' |'} */}
                                                       </span>
                                                     </div>
                                                   </div>
@@ -662,7 +662,7 @@ export default function MainCategoryMenu(categoryName) {
                     </div>
                   ) : (
                     <>
-                      <div className={cx('left-wrapper')}>
+                      {/* <div className={cx('left-wrapper')}>
                         {connectedNode?.node?.uri &&
                           connectedNode?.node?.name &&
                           connectedNode?.node?.categoryImages && (
@@ -687,7 +687,7 @@ export default function MainCategoryMenu(categoryName) {
                               </div>
                             </Link>
                           )}
-                      </div>
+                      </div> */}
                       <div className={cx('right-wrapper')}>
                         <div className={cx('sub-guides-wrapper')}>
                           <div className={cx('sub-guides-content')}>
@@ -720,8 +720,8 @@ export default function MainCategoryMenu(categoryName) {
                                           >
                                             <span className={cx('name')}>
                                               {post?.node?.title}
-                                              {index !== array.length - 1 &&
-                                                ' |'}
+                                              {/* {index !== array.length - 1 &&
+                                                ' |'} */}
                                             </span>
                                           </div>
                                         </div>

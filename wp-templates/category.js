@@ -44,6 +44,7 @@ export default function Component(props) {
     categoryImages,
     destinationGuides,
     databaseId,
+    countryCode,
   } = props?.data?.category ?? []
 
   // Search function content
@@ -327,6 +328,31 @@ export default function Component(props) {
           databaseId={databaseId}
           name={name}
           parent={parent?.node?.name}
+          countryCode={countryCode?.countryCode}
+          parentCountryCode={parent?.node?.countryCode?.countryCode}
+          primaryMenuItems={primaryMenu}
+          secondaryMenuItems={secondaryMenu}
+          thirdMenuItems={thirdMenu}
+          fourthMenuItems={fourthMenu}
+          fifthMenuItems={fifthMenu}
+          featureMenuItems={featureMenu}
+          latestStories={latestAllPosts}
+          menusLoading={menusLoading}
+          latestLoading={latestLoading}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          rcaDatabaseId={rcaDatabaseId}
+          rcaUri={rcaUri}
+          isSearchBarShown={isSearchBarShown}
+          setIsSearchBarShown={setIsSearchBarShown}
+          isMagNavShown={isMagNavShown}
+          setIsMagNavShown={setIsMagNavShown}
+          isGuidesNavShown={isGuidesNavShown}
+          setIsGuidesNavShown={setIsGuidesNavShown}
+          isRCANavShown={isRCANavShown}
+          setIsRCANavShown={setIsRCANavShown}
+          isScrolled={isScrolled}
+          customClassName={'category'}
         />
       )}
       {/* Another category */}
@@ -393,6 +419,9 @@ Component.query = gql`
       description
       databaseId
       uri
+      countryCode {
+        countryCode
+      }
       seo {
         title
         metaDesc
