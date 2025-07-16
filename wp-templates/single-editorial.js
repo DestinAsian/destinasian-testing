@@ -94,6 +94,7 @@ export default function SingleEditorial(props) {
   const [isGuidesNavShown, setIsGuidesNavShown] = useState(false)
   const [isRCANavShown, setIsRCANavShown] = useState(false)
   const [isMagNavShown, setIsMagNavShown] = useState(false)
+  const [isBurgerNavShown, setIsBurgerNavShown] = useState(false)
 
   // Stop scrolling pages when searchQuery
   useEffect(() => {
@@ -161,6 +162,15 @@ export default function SingleEditorial(props) {
       document.body.style.overflow = 'visible'
     }
   }, [isGuidesNavShown])
+
+  // Stop scrolling pages when isBurgerNavShown
+  useEffect(() => {
+    if (isBurgerNavShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isBurgerNavShown])
 
   const { data: rcaData } = useQuery(GetLatestRCA, {
     fetchPolicy: 'network-only',
@@ -368,6 +378,8 @@ export default function SingleEditorial(props) {
         setIsGuidesNavShown={setIsGuidesNavShown}
         isRCANavShown={isRCANavShown}
         setIsRCANavShown={setIsRCANavShown}
+        isBurgerNavShown={isBurgerNavShown}
+        setIsBurgerNavShown={setIsBurgerNavShown}
         isScrolled={isScrolled}
       />
       <Main className={'relative top-[-0.75rem] sm:top-[-1rem]'}>

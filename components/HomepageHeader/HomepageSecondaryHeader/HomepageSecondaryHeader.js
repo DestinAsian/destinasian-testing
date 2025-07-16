@@ -20,6 +20,9 @@ const MagazineFullMenu = dynamic(() =>
 const TravelGuidesMenu = dynamic(() =>
   import('@/components/TravelGuidesMenu/TravelGuidesMenu'),
 )
+const BurgerFullMenu = dynamic(() =>
+  import('@/components/BurgerFullMenu/BurgerFullMenu'),
+)
 
 let cx = classNames.bind(styles)
 
@@ -33,6 +36,8 @@ export default function HomepageSecondaryHeader({
   latestStories,
   menusLoading,
   latestLoading,
+  latestPartnerContent,
+  latestPartnerContentLoading,
   searchQuery,
   setSearchQuery,
   rcaDatabaseId,
@@ -45,6 +50,8 @@ export default function HomepageSecondaryHeader({
   setIsMagNavShown,
   isRCANavShown,
   setIsRCANavShown,
+  isBurgerNavShown,
+  setIsBurgerNavShown,
   isScrolled,
 }) {
   // Posts for Search Function
@@ -128,50 +135,13 @@ export default function HomepageSecondaryHeader({
               isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
               isMagNavShown ? setIsMagNavShown(!isMagNavShown) : null
               isRCANavShown ? setIsRCANavShown(!isRCANavShown) : null
+              isBurgerNavShown ? setIsBurgerNavShown(!isBurgerNavShown) : null
               setSearchQuery('')
             }}
             aria-controls={cx('search-bar-wrapper')}
             aria-expanded={!isSearchBarShown}
           >
             <FaSearch className={cx('search-icon')} />
-          </button>
-          <button
-            type="button"
-            className={cx(
-              'menu-button',
-              isGuidesNavShown ? 'active' : '',
-              isGuidesNavShown && !isScrolled && 'active-not-scrolled',
-            )}
-            onClick={() => {
-              setIsGuidesNavShown(!isGuidesNavShown)
-              isSearchBarShown ? setIsSearchBarShown(!isSearchBarShown) : null
-              isMagNavShown ? setIsMagNavShown(!isMagNavShown) : null
-              isRCANavShown ? setIsRCANavShown(!isRCANavShown) : null
-              setSearchQuery('')
-            }}
-            aria-controls={cx('rca-menu-wrapper')}
-            aria-expanded={!isRCANavShown}
-          >
-            <div className={cx('menu-title')}>{`Guides`}</div>
-          </button>
-          <button
-            type="button"
-            className={cx(
-              'menu-button',
-              isMagNavShown ? 'active' : '',
-              isMagNavShown && !isScrolled && 'active-not-scrolled',
-            )}
-            onClick={() => {
-              setIsMagNavShown(!isMagNavShown)
-              isSearchBarShown ? setIsSearchBarShown(!isSearchBarShown) : null
-              isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
-              isRCANavShown ? setIsRCANavShown(!isRCANavShown) : null
-              setSearchQuery('')
-            }}
-            aria-controls={cx('rca-menu-wrapper')}
-            aria-expanded={!isRCANavShown}
-          >
-            <div className={cx('menu-title')}>{`Magazine`}</div>
           </button>
           <button
             type="button"
@@ -185,12 +155,85 @@ export default function HomepageSecondaryHeader({
               isSearchBarShown ? setIsSearchBarShown(!isSearchBarShown) : null
               isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
               isMagNavShown ? setIsMagNavShown(!isMagNavShown) : null
+              isBurgerNavShown ? setIsBurgerNavShown(!isBurgerNavShown) : null
               setSearchQuery('')
             }}
             aria-controls={cx('rca-menu-wrapper')}
             aria-expanded={!isRCANavShown}
           >
             <div className={cx('menu-title')}>{`Readers' Choice Awards`}</div>
+          </button>
+          <button
+            type="button"
+            className={cx(
+              'menu-button',
+              isMagNavShown ? 'active' : '',
+              isMagNavShown && !isScrolled && 'active-not-scrolled',
+            )}
+            onClick={() => {
+              setIsMagNavShown(!isMagNavShown)
+              isSearchBarShown ? setIsSearchBarShown(!isSearchBarShown) : null
+              isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
+              isRCANavShown ? setIsRCANavShown(!isRCANavShown) : null
+              isBurgerNavShown ? setIsBurgerNavShown(!isBurgerNavShown) : null
+              setSearchQuery('')
+            }}
+            aria-controls={cx('rca-menu-wrapper')}
+            aria-expanded={!isRCANavShown}
+          >
+            <div className={cx('menu-title')}>{`Stories`}</div>
+          </button>
+          <button
+            type="button"
+            className={cx(
+              'menu-button',
+              isGuidesNavShown ? 'active' : '',
+              isGuidesNavShown && !isScrolled && 'active-not-scrolled',
+            )}
+            onClick={() => {
+              setIsGuidesNavShown(!isGuidesNavShown)
+              isSearchBarShown ? setIsSearchBarShown(!isSearchBarShown) : null
+              isMagNavShown ? setIsMagNavShown(!isMagNavShown) : null
+              isRCANavShown ? setIsRCANavShown(!isRCANavShown) : null
+              isBurgerNavShown ? setIsBurgerNavShown(!isBurgerNavShown) : null
+              setSearchQuery('')
+            }}
+            aria-controls={cx('rca-menu-wrapper')}
+            aria-expanded={!isRCANavShown}
+          >
+            <div className={cx('menu-title')}>{`Guides`}</div>
+          </button>
+          <button
+            type="button"
+            className={cx(
+              'burger-menu-button',
+              isBurgerNavShown ? 'active' : '',
+              isBurgerNavShown && !isScrolled && 'active-not-scrolled',
+            )}
+            onClick={() => {
+              setIsBurgerNavShown(!isBurgerNavShown)
+              isSearchBarShown ? setIsSearchBarShown(!isSearchBarShown) : null
+              isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
+              isRCANavShown ? setIsRCANavShown(!isRCANavShown) : null
+              isMagNavShown ? setIsMagNavShown(!isMagNavShown) : null
+              setSearchQuery('')
+            }}
+            aria-controls={cx('burger-bar-wrapper')}
+            aria-expanded={!isRCANavShown}
+          >
+            <div className={cx('burger-icon')}>
+              <svg
+                width="28"
+                height="23"
+                viewBox="0 0 28 23"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect width="28" height="5" fill="#000000" />
+                <rect y="9" width="28" height="5" fill="#000000" />
+                <rect y="18" width="28" height="5" fill="#000000" />
+              </svg>
+            </div>
           </button>
         </div>
       </div>
@@ -227,18 +270,19 @@ export default function HomepageSecondaryHeader({
           </div>
         </div>
       </div>
-      {/* Guides Menu */}
+      {/* RCA Menu */}
       <div
-        className={cx(
-          'full-menu-content',
-          isGuidesNavShown ? 'show' : undefined,
-        )}
+        className={cx('rca-menu-wrapper', isRCANavShown ? 'show' : undefined)}
       >
-        <div className={cx('full-menu-wrapper')}>
-          <TravelGuidesMenu />
-        </div>
+        <RCAFullMenu
+          rcaDatabaseId={rcaDatabaseId}
+          uri={rcaUri}
+          isNavShown={isRCANavShown}
+          setIsNavShown={setIsRCANavShown}
+          customClassName={'light-color'}
+        />
       </div>
-      {/* Magazine Menu */}
+      {/* Stories Menu */}
       <div
         className={cx([
           'magazine-menu-wrapper',
@@ -255,18 +299,38 @@ export default function HomepageSecondaryHeader({
           latestStories={latestStories}
           menusLoading={menusLoading}
           latestLoading={latestLoading}
+          latestPartnerContent={latestPartnerContent}
+          latestPartnerContentLoading={latestPartnerContentLoading}
         />
       </div>
-      {/* RCA Menu */}
+      {/* Guides Menu */}
       <div
-        className={cx('rca-menu-wrapper', isRCANavShown ? 'show' : undefined)}
+        className={cx(
+          'full-menu-content',
+          isGuidesNavShown ? 'show' : undefined,
+        )}
       >
-        <RCAFullMenu
-          rcaDatabaseId={rcaDatabaseId}
-          uri={rcaUri}
-          isNavShown={isRCANavShown}
-          setIsNavShown={setIsRCANavShown}
-          customClassName={'light-color'}
+        <div className={cx('full-menu-wrapper')}>
+          <TravelGuidesMenu />
+        </div>
+      </div>
+      {/* Burger Menu */}
+      <div
+        className={cx([
+          'burger-menu-wrapper',
+          isBurgerNavShown ? 'show' : undefined,
+        ])}
+      >
+        <BurgerFullMenu
+          primaryMenuItems={primaryMenuItems}
+          secondaryMenuItems={secondaryMenuItems}
+          thirdMenuItems={thirdMenuItems}
+          fourthMenuItems={fourthMenuItems}
+          fifthMenuItems={fifthMenuItems}
+          featureMenuItems={featureMenuItems}
+          latestStories={latestStories}
+          menusLoading={menusLoading}
+          latestLoading={latestLoading}
         />
       </div>
     </>

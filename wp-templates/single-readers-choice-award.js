@@ -76,6 +76,7 @@ export default function singleRca(props) {
   const [isRCANavShown, setIsRCANavShown] = useState(false)
   const [isGuidesNavShown, setIsGuidesNavShown] = useState(false)
   const [isMagNavShown, setIsMagNavShown] = useState(false)
+  const [isBurgerNavShown, setIsBurgerNavShown] = useState(false)
 
   // Stop scrolling pages when searchQuery
   useEffect(() => {
@@ -143,6 +144,15 @@ export default function singleRca(props) {
       document.body.style.overflow = 'visible'
     }
   }, [isGuidesNavShown])
+
+  // Stop scrolling pages when isBurgerNavShown
+  useEffect(() => {
+    if (isBurgerNavShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isBurgerNavShown])
 
   const {
     title,
@@ -387,6 +397,8 @@ export default function singleRca(props) {
         setIsMagNavShown={setIsMagNavShown}
         isGuidesNavShown={isGuidesNavShown}
         setIsGuidesNavShown={setIsGuidesNavShown}
+        isBurgerNavShown={isBurgerNavShown}
+        setIsBurgerNavShown={setIsBurgerNavShown}
         isAutoplayRunning={isAutoplayRunning}
         toggleAutoplay={toggleAutoplay}
         isScrolled={isScrolled}

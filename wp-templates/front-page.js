@@ -3,6 +3,7 @@ import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
 import { GetMenus } from '../queries/GetMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
+import { GetLatestPartnerContent } from '../queries/GetLatestPartnerContent'
 import { eb_garamond, poppins, rubik_mono_one } from '../styles/fonts/fonts'
 import { GetHomepagePinPosts } from '../queries/GetHomepagePinPosts'
 import { GetLatestRCA } from '../queries/GetLatestRCA'
@@ -29,7 +30,7 @@ export default function Component(props) {
   if (props.loading) {
     return <>Loading...</>
   }
-  
+
   const { acfHomepageSlider } = props?.data?.page ?? []
   const { databaseId, asPreview } = props?.__TEMPLATE_VARIABLES__ ?? []
 
@@ -43,6 +44,7 @@ export default function Component(props) {
   const [isMagNavShown, setIsMagNavShown] = useState(false)
   const [isGuidesNavShown, setIsGuidesNavShown] = useState(false)
   const [isRCANavShown, setIsRCANavShown] = useState(false)
+  const [isBurgerNavShown, setIsBurgerNavShown] = useState(false)
 
   // Stop scrolling pages when searchQuery
   useEffect(() => {
@@ -101,6 +103,15 @@ export default function Component(props) {
       document.body.style.overflow = 'visible'
     }
   }, [isGuidesNavShown])
+
+  // Stop scrolling pages when isBurgerNavShown
+  useEffect(() => {
+    if (isBurgerNavShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isBurgerNavShown])
 
   const { data: rcaData } = useQuery(GetLatestRCA, {
     fetchPolicy: 'network-only',
@@ -257,13 +268,30 @@ export default function Component(props) {
   // sortByDate mainCat & childCat Posts
   const allPosts = mainCatPosts.sort(sortPostsByDate)
 
+  // Get latest travel stories
+  const { data: latestPartnerContent, loading: latestPartnerContentLoading } =
+    useQuery(GetLatestPartnerContent, {
+      variables: {
+        first: 5,
+      },
+      fetchPolicy: 'network-only',
+      nextFetchPolicy: 'cache-and-network',
+    })
+
+  const advertorials = latestPartnerContent?.advertorials ?? []
+
+  const allPartnerContents = []
+
+  // loop through all the main categories partner content
+  advertorials?.edges?.forEach((post) => {
+    allPartnerContents.push(post.node)
+  })
+
   return (
     <main
       className={`${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable}`}
     >
-      <HomepageHeader
-        isScrolled={isScrolled}
-      />
+      <HomepageHeader isScrolled={isScrolled} />
       <HomepageSecondaryHeader
         primaryMenuItems={primaryMenu}
         secondaryMenuItems={secondaryMenu}
@@ -274,6 +302,8 @@ export default function Component(props) {
         latestStories={allPosts}
         menusLoading={menusLoading}
         latestLoading={latestLoading}
+        latestPartnerContent={allPartnerContents}
+        latestPartnerContentLoading={latestPartnerContentLoading}
         rcaDatabaseId={rcaDatabaseId}
         rcaUri={rcaUri}
         searchQuery={searchQuery}
@@ -286,6 +316,8 @@ export default function Component(props) {
         setIsGuidesNavShown={setIsGuidesNavShown}
         isRCANavShown={isRCANavShown}
         setIsRCANavShown={setIsRCANavShown}
+        isBurgerNavShown={isBurgerNavShown}
+        setIsBurgerNavShown={setIsBurgerNavShown}
         isScrolled={isScrolled}
       />
       <Main>

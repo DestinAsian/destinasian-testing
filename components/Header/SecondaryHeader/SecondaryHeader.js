@@ -144,18 +144,18 @@ export default function SecondaryHeader({
           </button>
           <button
             type="button"
-            className={cx('menu-button', isGuidesNavShown ? 'active' : '')}
+            className={cx('menu-button', isRCANavShown ? 'active' : '')}
             onClick={() => {
-              setIsGuidesNavShown(!isGuidesNavShown)
+              setIsRCANavShown(!isRCANavShown)
+              isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
               isMagNavShown ? setIsMagNavShown(!isMagNavShown) : null
-              isRCANavShown ? setIsRCANavShown(!isRCANavShown) : null
               isSearchBarShown ? setIsSearchBarShown(!isSearchBarShown) : null
               setSearchQuery('')
             }}
             aria-controls={cx('rca-menu-wrapper')}
             aria-expanded={!isRCANavShown}
           >
-            <div className={cx('menu-title')}>{`Guides`}</div>
+            <div className={cx('menu-title')}>{`Readers' Choice Awards`}</div>
           </button>
           <button
             type="button"
@@ -178,18 +178,18 @@ export default function SecondaryHeader({
           </button>
           <button
             type="button"
-            className={cx('menu-button', isRCANavShown ? 'active' : '')}
+            className={cx('menu-button', isGuidesNavShown ? 'active' : '')}
             onClick={() => {
-              setIsRCANavShown(!isRCANavShown)
-              isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
+              setIsGuidesNavShown(!isGuidesNavShown)
               isMagNavShown ? setIsMagNavShown(!isMagNavShown) : null
+              isRCANavShown ? setIsRCANavShown(!isRCANavShown) : null
               isSearchBarShown ? setIsSearchBarShown(!isSearchBarShown) : null
               setSearchQuery('')
             }}
             aria-controls={cx('rca-menu-wrapper')}
             aria-expanded={!isRCANavShown}
           >
-            <div className={cx('menu-title')}>{`Readers' Choice Awards`}</div>
+            <div className={cx('menu-title')}>{`Guides`}</div>
           </button>
         </div>
       </div>
