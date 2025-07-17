@@ -1,7 +1,6 @@
 import classNames from 'classnames/bind'
 import styles from './BurgerFullMenu.module.scss'
 import { useState } from 'react'
-import Image from 'next/image'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
 // Import Components
@@ -18,7 +17,6 @@ export default function BurgerFullMenu({
   fourthMenuItems,
   fifthMenuItems,
   featureMenuItems,
-  latestStories,
   menusLoading,
   latestLoading,
   isSearchResultsVisible,
@@ -29,9 +27,11 @@ export default function BurgerFullMenu({
 
   // Socmed Uri
   const videoUri = '/videos'
-  const linkedInUri = 'https://www.linkedin.com/company/destinasian-media/'
+  const linkedInUri = 'https://www.linkedin.com/company/destinasian-media'
   const facebookUri = 'https://www.facebook.com/DestinAsian.Mag'
   const instagramUri = 'https://www.instagram.com/destinasianmagazine'
+  const twitterUri = 'https://x.com/DestinAsian_Mag'
+  const newsletterUri = '/newsletter'
 
   // Loading Menu
   if (menusLoading || latestLoading) {
@@ -75,68 +75,35 @@ export default function BurgerFullMenu({
       >
         <div className={cx('menu-wrapper')}>
           <div className={cx('first-wrapper')}>
-            {/* Feature Stories */}
-            <nav className={cx('feature-stories')}>
-              <NavigationMenu
-                className={cx('feature-navigation')}
-                menuItems={featureMenuItems}
-              />
-            </nav>
-            {/* Latest Travel Stories */}
-            {latestStories?.length !== 0 && (
-              <nav className={cx('latest-stories')}>
-                <ul className={cx('menu-content')}>
-                  {latestStories.slice(0, visiblePosts).map((post) => (
-                    <li key={post?.id}>
-                      {post?.uri && (
-                        <Link href={post?.uri} className={cx('menu-item')}>
-                          {post?.title}
-                        </Link>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-            )}
+            {/* Feature Menu */}
+            <NavigationMenu
+              className={cx('feature-navigation')}
+              menuItems={featureMenuItems}
+            />
           </div>
           <div className={cx('second-wrapper')}>
+            {/* Third Menu {Luxe List Menu} */}
+            <NavigationMenu
+              className={cx(['third-navigation'])}
+              menuItems={thirdMenuItems}
+            />
+            {/* Readers' Choice Awards Menu */}
+            <NavigationMenu
+              className={cx('fourth-navigation')}
+              menuItems={fourthMenuItems}
+            />
+          </div>
+          <div className={cx('third-wrapper')}>
+            {/* Destinations Menu */}
             <NavigationMenu
               className={cx('primary-navigation')}
               menuItems={primaryMenuItems}
             />
           </div>
-          <div className={cx('third-wrapper')}>
-            {/* Secondary Menu {Special Sections Menu} */}
-            <NavigationMenu
-              className={cx('secondary-navigation')}
-              menuItems={secondaryMenuItems}
-            />
-          </div>
           <div className={cx('fourth-wrapper')}>
-            <div className={cx('left-wrapper')}>
-              {/* Third Menu {Luxe List Menu} */}
-              <NavigationMenu
-                className={cx(['third-navigation'])}
-                menuItems={thirdMenuItems}
-              />
-              {/* Fourth Menu {Newsletters Menu} */}
-              {/* <NavigationMenu
-                className={cx(['fourth-navigation'])}
-                menuItems={fourthMenuItems}
-              /> */}
-            </div>
-            <div className={cx('right-wrapper')}>
-              {/* Fifth Menu {Print Magazine Menu} */}
-              <NavigationMenu
-                className={cx(['fifth-navigation'])}
-                menuItems={fifthMenuItems}
-              />
-            </div>
-          </div>
-          <div className={cx('fifth-wrapper')}>
             <div className={cx('socmed-wrapper')}>
               {videoUri && (
-                <Link href={videoUri}>
+                <Link href={videoUri} target="_blank">
                   <div className={cx('socmed-icon')}>
                     {/* Video Icon */}
                     <svg
@@ -157,7 +124,7 @@ export default function BurgerFullMenu({
                 </Link>
               )}
               {linkedInUri && (
-                <Link href={linkedInUri}>
+                <Link href={linkedInUri} target="_blank">
                   <div className={cx('socmed-icon')}>
                     {/* Linkedin Icon */}
                     <svg
@@ -178,7 +145,7 @@ export default function BurgerFullMenu({
                 </Link>
               )}
               {facebookUri && (
-                <Link href={facebookUri}>
+                <Link href={facebookUri} target="_blank">
                   <div className={cx('socmed-icon')}>
                     {/* FB Icon */}
                     <svg
@@ -199,7 +166,7 @@ export default function BurgerFullMenu({
                 </Link>
               )}
               {instagramUri && (
-                <Link href={instagramUri}>
+                <Link href={instagramUri} target="_blank">
                   <div className={cx('socmed-icon')}>
                     {/* IG Icon */}
                     <svg
@@ -229,7 +196,63 @@ export default function BurgerFullMenu({
                   </div>
                 </Link>
               )}
+              {twitterUri && (
+                <Link href={twitterUri} target="_blank">
+                  <div className={cx('socmed-icon')}>
+                    {/* X Icon */}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      shape-rendering="geometricPrecision"
+                      text-rendering="geometricPrecision"
+                      image-rendering="optimizeQuality"
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      viewBox="0 0 512 512"
+                    >
+                      <path d="M256 0c141.385 0 256 114.615 256 256S397.385 512 256 512 0 397.385 0 256 114.615 0 256 0z" />
+                      <path
+                        fill="#fff"
+                        fill-rule="nonzero"
+                        d="M318.64 157.549h33.401l-72.973 83.407 85.85 113.495h-67.222l-52.647-68.836-60.242 68.836h-33.423l78.052-89.212-82.354-107.69h68.924l47.59 62.917 55.044-62.917zm-11.724 176.908h18.51L205.95 176.493h-19.86l120.826 157.964z"
+                      />
+                    </svg>
+                  </div>
+                </Link>
+              )}
+              {twitterUri && (
+                <Link href={twitterUri} target="_blank">
+                  <div className={cx('socmed-icon')}>
+                    {/* Newsletter Icon */}
+                    <svg
+                      id="Layer_1"
+                      data-name="Layer 1"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 122.88 122.88"
+                    >
+                      <defs>
+                        <style
+                          dangerouslySetInnerHTML={{
+                            __html: `.cls-1 { fill-rule: evenodd; }`,
+                          }}
+                        />
+                      </defs>
+                      <title>email-round-color</title>
+                      <path
+                        class="cls-1"
+                        d="M61.44,0A61.44,61.44,0,1,1,0,61.44,61.44,61.44,0,0,1,61.44,0ZM30.73,38,62,63.47,91.91,38Zm-2,42.89L51,58.55,28.71,40.39V80.87ZM53.43,60.55l-22.95,23H92.21l-21.94-23L63,66.71h0a1.57,1.57,0,0,1-2,0l-7.59-6.19Zm19.24-2,21.5,22.54V40.19L72.67,58.51Z"
+                      />
+                    </svg>
+                  </div>
+                </Link>
+              )}
             </div>
+          </div>
+          <div className={cx('fifth-wrapper')}>
+            {/* Fifth Menu {Others Menu} */}
+            <NavigationMenu
+              className={cx(['fifth-navigation'])}
+              menuItems={fifthMenuItems}
+            />
           </div>
         </div>
       </div>

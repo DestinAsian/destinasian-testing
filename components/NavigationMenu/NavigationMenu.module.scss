@@ -50,8 +50,8 @@
     text-align: left;
     font-weight: 700;
     white-space: break-spaces;
-    word-break: break-word;
-    word-wrap: break-word;
+    word-break: normal;
+    word-wrap: normal;
 
     &:hover,
     &:focus {
