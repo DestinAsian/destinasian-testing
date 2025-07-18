@@ -77,7 +77,6 @@
       a {
         font-weight: 400;
         padding: 0 0 0.25rem;
-
         font-size: 0.8rem;
 
         @media (min-width: $breakpoint-medium) {
@@ -101,7 +100,18 @@
       .feature-navigation {
         display: flex;
         flex-direction: row;
-        width: 100%;
+        align-items: center;
+        // width: 100%;
+
+        ul:first-child {
+          padding-bottom: 0.25rem;
+          font-weight: 400;
+          font-size: 0.8rem;
+
+          @media (min-width: $breakpoint-extra-small) {
+            font-size: 1rem;
+          }
+        }
 
         ul {
           display: flex;
@@ -109,7 +119,14 @@
           flex-wrap: wrap;
           text-transform: none;
 
+          li:first-child {
+            padding-left: 0.5rem;
+          }
+
           li {
+            position: relative;
+            padding-right: 0.5rem;
+
             a {
               color: var(--wpe--navigation-menu--color);
               display: block;
@@ -126,6 +143,20 @@
                 //   color: var(--wpe--color--orange);
                 // }
               }
+            }
+
+            &::after {
+              content: '';
+              position: absolute;
+              top: 10%; // adjust as needed
+              bottom: 30%;
+              right: 0;
+              width: 1px;
+              border-right: 1px solid var(--wpe--color--black);
+            }
+
+            &:last-child::after {
+              display: none;
             }
           }
         }
@@ -156,10 +187,17 @@
         ul:first-child {
           color: var(--wpe--color--black);
           width: auto;
+          font-weight: 400;
+          font-size: 0.8rem;
+
+          @media (min-width: $breakpoint-medium) {
+            font-size: 1rem;
+          }
         }
 
         ul {
           display: flex;
+          column-gap: 0;
 
           li:first-child {
             padding-left: 0.25rem;
@@ -172,6 +210,13 @@
             &::after {
               content: ',';
               border-right: none !important;
+              font-weight: 400;
+              font-size: 0.8rem;
+              margin-left: -2px;
+
+              @media (min-width: $breakpoint-medium) {
+                font-size: 1rem;
+              }
             }
 
             &:last-child::after {
@@ -179,11 +224,12 @@
             }
 
             a {
-              font-weight: 700;
-              font-size: 1rem;
+              text-decoration: underline;
+              font-weight: 400;
+              font-size: 0.8rem;
 
               @media (min-width: $breakpoint-medium) {
-                font-size: 1.2rem;
+                font-size: 1rem;
               }
             }
           }
@@ -372,6 +418,7 @@
             width: 1px;
             border-right: 1px solid var(--wpe--color--black);
           }
+
           .menu-item {
             display: inline-block;
             white-space: nowrap;

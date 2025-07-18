@@ -3,7 +3,6 @@ import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
 import { GetMenus } from '../queries/GetMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
-import { GetLatestPartnerContent } from '../queries/GetLatestPartnerContent'
 import { eb_garamond, poppins, rubik_mono_one } from '../styles/fonts/fonts'
 import { GetHomepagePinPosts } from '../queries/GetHomepagePinPosts'
 import { GetLatestRCA } from '../queries/GetLatestRCA'
@@ -268,25 +267,6 @@ export default function Component(props) {
   // sortByDate mainCat & childCat Posts
   const allPosts = mainCatPosts.sort(sortPostsByDate)
 
-  // Get latest travel stories
-  const { data: latestPartnerContent, loading: latestPartnerContentLoading } =
-    useQuery(GetLatestPartnerContent, {
-      variables: {
-        first: 5,
-      },
-      fetchPolicy: 'network-only',
-      nextFetchPolicy: 'cache-and-network',
-    })
-
-  const advertorials = latestPartnerContent?.advertorials ?? []
-
-  const allPartnerContents = []
-
-  // loop through all the main categories partner content
-  advertorials?.edges?.forEach((post) => {
-    allPartnerContents.push(post.node)
-  })
-
   return (
     <main
       className={`${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable}`}
@@ -302,8 +282,6 @@ export default function Component(props) {
         latestStories={allPosts}
         menusLoading={menusLoading}
         latestLoading={latestLoading}
-        latestPartnerContent={allPartnerContents}
-        latestPartnerContentLoading={latestPartnerContentLoading}
         rcaDatabaseId={rcaDatabaseId}
         rcaUri={rcaUri}
         searchQuery={searchQuery}

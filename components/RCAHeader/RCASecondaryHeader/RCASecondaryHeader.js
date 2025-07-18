@@ -2,6 +2,7 @@ import classNames from 'classnames/bind'
 import styles from './RCASecondaryHeader.module.scss'
 import { useQuery } from '@apollo/client'
 import { GetSearchResults } from '@/queries/GetSearchResults'
+import { GetLatestPartnerContent } from '@/queries/GetLatestPartnerContent'
 import { FaSearch } from 'react-icons/fa'
 import dynamic from 'next/dynamic'
 // Import Components
@@ -16,6 +17,9 @@ const MagazineFullMenu = dynamic(() =>
 )
 const TravelGuidesMenu = dynamic(() =>
   import('@/components/TravelGuidesMenu/TravelGuidesMenu'),
+)
+const BurgerFullMenu = dynamic(() =>
+  import('@/components/BurgerFullMenu/BurgerFullMenu'),
 )
 
 let cx = classNames.bind(styles)
@@ -40,6 +44,8 @@ export default function RCASecondaryHeader({
   setIsSearchBarShown,
   searchQuery,
   setSearchQuery,
+  isBurgerNavShown,
+  setIsBurgerNavShown,
   isAutoplayRunning,
   toggleAutoplay,
   isScrolled,
@@ -109,6 +115,25 @@ export default function RCASecondaryHeader({
     return dateB - dateA
   })
 
+  // Get latest travel stories
+  const { data: latestPartnerContent, loading: latestPartnerContentLoading } =
+    useQuery(GetLatestPartnerContent, {
+      variables: {
+        first: 5,
+      },
+      fetchPolicy: 'network-only',
+      nextFetchPolicy: 'cache-and-network',
+    })
+
+  const advertorials = latestPartnerContent?.advertorials ?? []
+
+  const allPartnerContents = []
+
+  // loop through all the main categories partner content
+  advertorials?.edges?.forEach((post) => {
+    allPartnerContents.push(post.node)
+  })
+
   return (
     <>
       <div className={cx('navigation-wrapper')}>
@@ -125,6 +150,7 @@ export default function RCASecondaryHeader({
               isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
               isMagNavShown ? setIsMagNavShown(!isMagNavShown) : null
               isNavShown ? setIsNavShown(!isNavShown) : null
+              isBurgerNavShown ? setIsBurgerNavShown(!isBurgerNavShown) : null
               setSearchQuery('')
               if (!isSearchBarShown && isAutoplayRunning) {
                 return toggleAutoplay()
@@ -146,6 +172,7 @@ export default function RCASecondaryHeader({
               isNavShown ? setIsNavShown(!isNavShown) : null
               isMagNavShown ? setIsMagNavShown(!isMagNavShown) : null
               isSearchBarShown ? setIsSearchBarShown(!isSearchBarShown) : null
+              isBurgerNavShown ? setIsBurgerNavShown(!isBurgerNavShown) : null
               setSearchQuery('')
               if (!isGuidesNavShown && isAutoplayRunning) {
                 return toggleAutoplay()
@@ -167,6 +194,7 @@ export default function RCASecondaryHeader({
               isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
               isNavShown ? setIsNavShown(!isNavShown) : null
               isSearchBarShown ? setIsSearchBarShown(!isSearchBarShown) : null
+              isBurgerNavShown ? setIsBurgerNavShown(!isBurgerNavShown) : null
               setSearchQuery('')
               if (!isMagNavShown && isAutoplayRunning) {
                 return toggleAutoplay()
@@ -188,6 +216,7 @@ export default function RCASecondaryHeader({
               isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
               isMagNavShown ? setIsMagNavShown(!isMagNavShown) : null
               isSearchBarShown ? setIsSearchBarShown(!isSearchBarShown) : null
+              isBurgerNavShown ? setIsBurgerNavShown(!isBurgerNavShown) : null
               setSearchQuery('')
               if (!isNavShown && isAutoplayRunning) {
                 return toggleAutoplay()
@@ -200,6 +229,43 @@ export default function RCASecondaryHeader({
             aria-expanded={!isNavShown}
           >
             <div className={cx('menu-title')}>{`Readers' Choice Awards`}</div>
+          </button>
+          <button
+            type="button"
+            className={cx(
+              'burger-menu-button',
+              isBurgerNavShown ? 'active' : '',
+            )}
+            onClick={() => {
+              setIsBurgerNavShown(!isBurgerNavShown)
+              isSearchBarShown ? setIsSearchBarShown(!isSearchBarShown) : null
+              isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
+              isNavShown ? setIsNavShown(!isNavShown) : null
+              isMagNavShown ? setIsMagNavShown(!isMagNavShown) : null
+              setSearchQuery('')
+              if (!isBurgerNavShown && isAutoplayRunning) {
+                return toggleAutoplay()
+              }
+              if (isBurgerNavShown && !isAutoplayRunning) {
+                return toggleAutoplay()
+              }
+            }}
+            aria-controls={cx('burger-bar-wrapper')}
+            aria-expanded={!isNavShown}
+          >
+            <div className={cx('burger-icon')}>
+              <svg
+                width="28"
+                height="23"
+                viewBox="0 0 28 23"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect width="28" height="5" fill="#000000" />
+                <rect y="9" width="28" height="5" fill="#000000" />
+                <rect y="18" width="28" height="5" fill="#000000" />
+              </svg>
+            </div>
           </button>
         </div>
       </div>
@@ -263,7 +329,28 @@ export default function RCASecondaryHeader({
           latestStories={latestStories}
           menusLoading={menusLoading}
           latestLoading={latestLoading}
+          latestPartnerContent={allPartnerContents}
+          latestPartnerContentLoading={latestPartnerContentLoading}
           customClassName={'dark-color'}
+        />
+      </div>
+      {/* Burger Menu */}
+      <div
+        className={cx([
+          'burger-menu-wrapper',
+          isBurgerNavShown ? 'show' : undefined,
+        ])}
+      >
+        <BurgerFullMenu
+          primaryMenuItems={primaryMenuItems}
+          secondaryMenuItems={secondaryMenuItems}
+          thirdMenuItems={thirdMenuItems}
+          fourthMenuItems={fourthMenuItems}
+          fifthMenuItems={fifthMenuItems}
+          featureMenuItems={featureMenuItems}
+          latestStories={latestStories}
+          menusLoading={menusLoading}
+          latestLoading={latestLoading}
         />
       </div>
     </>

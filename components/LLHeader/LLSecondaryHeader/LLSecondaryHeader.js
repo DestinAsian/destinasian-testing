@@ -2,6 +2,7 @@ import classNames from 'classnames/bind'
 import styles from './LLSecondaryHeader.module.scss'
 import { useQuery } from '@apollo/client'
 import { GetSearchResults } from '@/queries/GetSearchResults'
+import { GetLatestPartnerContent } from '@/queries/GetLatestPartnerContent'
 import { FaSearch } from 'react-icons/fa'
 import dynamic from 'next/dynamic'
 // Import Components
@@ -19,6 +20,9 @@ const MagazineFullMenu = dynamic(() =>
 )
 const TravelGuidesMenu = dynamic(() =>
   import('@/components/TravelGuidesMenu/TravelGuidesMenu'),
+)
+const BurgerFullMenu = dynamic(() =>
+  import('@/components/BurgerFullMenu/BurgerFullMenu'),
 )
 
 let cx = classNames.bind(styles)
@@ -45,6 +49,8 @@ export default function LLSecondaryHeader({
   setIsMagNavShown,
   isRCANavShown,
   setIsRCANavShown,
+  isBurgerNavShown,
+  setIsBurgerNavShown,
   isAutoplayRunning,
   toggleAutoplay,
 }) {
@@ -113,6 +119,25 @@ export default function LLSecondaryHeader({
     return dateB - dateA
   })
 
+  // Get latest travel stories
+  const { data: latestPartnerContent, loading: latestPartnerContentLoading } =
+    useQuery(GetLatestPartnerContent, {
+      variables: {
+        first: 5,
+      },
+      fetchPolicy: 'network-only',
+      nextFetchPolicy: 'cache-and-network',
+    })
+
+  const advertorials = latestPartnerContent?.advertorials ?? []
+
+  const allPartnerContents = []
+
+  // loop through all the main categories partner content
+  advertorials?.edges?.forEach((post) => {
+    allPartnerContents.push(post.node)
+  })
+
   return (
     <>
       <div className={cx('navigation-wrapper')}>
@@ -128,6 +153,7 @@ export default function LLSecondaryHeader({
               isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
               isMagNavShown ? setIsMagNavShown(!isMagNavShown) : null
               isRCANavShown ? setIsRCANavShown(!isRCANavShown) : null
+              isBurgerNavShown ? setIsBurgerNavShown(!isBurgerNavShown) : null
               setSearchQuery('')
               if (!isSearchBarShown && isAutoplayRunning) {
                 return toggleAutoplay()
@@ -143,24 +169,25 @@ export default function LLSecondaryHeader({
           </button>
           <button
             type="button"
-            className={cx('menu-button', isGuidesNavShown ? 'active' : '')}
+            className={cx('menu-button', isRCANavShown ? 'active' : '')}
             onClick={() => {
-              setIsGuidesNavShown(!isGuidesNavShown)
-              isRCANavShown ? setIsRCANavShown(!isRCANavShown) : null
+              setIsRCANavShown(!isRCANavShown)
+              isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
               isMagNavShown ? setIsMagNavShown(!isMagNavShown) : null
               isSearchBarShown ? setIsSearchBarShown(!isSearchBarShown) : null
+              isBurgerNavShown ? setIsBurgerNavShown(!isBurgerNavShown) : null
               setSearchQuery('')
-              if (!isGuidesNavShown && isAutoplayRunning) {
+              if (!isRCANavShown && isAutoplayRunning) {
                 return toggleAutoplay()
               }
-              if (isGuidesNavShown && !isAutoplayRunning) {
+              if (isRCANavShown && !isAutoplayRunning) {
                 return toggleAutoplay()
               }
             }}
             aria-controls={cx('rca-menu-wrapper')}
             aria-expanded={!isRCANavShown}
           >
-            <div className={cx('menu-title')}>{`Guides`}</div>
+            <div className={cx('menu-title')}>{`Readers' Choice Awards`}</div>
           </button>
           <button
             type="button"
@@ -170,6 +197,7 @@ export default function LLSecondaryHeader({
               isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
               isRCANavShown ? setIsRCANavShown(!isRCANavShown) : null
               isSearchBarShown ? setIsSearchBarShown(!isSearchBarShown) : null
+              isBurgerNavShown ? setIsBurgerNavShown(!isBurgerNavShown) : null
               setSearchQuery('')
               if (!isMagNavShown && isAutoplayRunning) {
                 return toggleAutoplay()
@@ -185,24 +213,62 @@ export default function LLSecondaryHeader({
           </button>
           <button
             type="button"
-            className={cx('menu-button', isRCANavShown ? 'active' : '')}
+            className={cx('menu-button', isGuidesNavShown ? 'active' : '')}
             onClick={() => {
-              setIsRCANavShown(!isRCANavShown)
-              isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
+              setIsGuidesNavShown(!isGuidesNavShown)
+              isRCANavShown ? setIsRCANavShown(!isRCANavShown) : null
               isMagNavShown ? setIsMagNavShown(!isMagNavShown) : null
               isSearchBarShown ? setIsSearchBarShown(!isSearchBarShown) : null
+              isBurgerNavShown ? setIsBurgerNavShown(!isBurgerNavShown) : null
               setSearchQuery('')
-              if (!isRCANavShown && isAutoplayRunning) {
+              if (!isGuidesNavShown && isAutoplayRunning) {
                 return toggleAutoplay()
               }
-              if (isRCANavShown && !isAutoplayRunning) {
+              if (isGuidesNavShown && !isAutoplayRunning) {
                 return toggleAutoplay()
               }
             }}
             aria-controls={cx('rca-menu-wrapper')}
             aria-expanded={!isRCANavShown}
           >
-            <div className={cx('menu-title')}>{`Readers' Choice Awards`}</div>
+            <div className={cx('menu-title')}>{`Guides`}</div>
+          </button>
+          <button
+            type="button"
+            className={cx(
+              'burger-menu-button',
+              isBurgerNavShown ? 'active' : '',
+            )}
+            onClick={() => {
+              setIsBurgerNavShown(!isBurgerNavShown)
+              isSearchBarShown ? setIsSearchBarShown(!isSearchBarShown) : null
+              isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
+              isRCANavShown ? setIsRCANavShown(!isRCANavShown) : null
+              isMagNavShown ? setIsMagNavShown(!isMagNavShown) : null
+              setSearchQuery('')
+              if (!isBurgerNavShown && isAutoplayRunning) {
+                return toggleAutoplay()
+              }
+              if (isBurgerNavShown && !isAutoplayRunning) {
+                return toggleAutoplay()
+              }
+            }}
+            aria-controls={cx('burger-bar-wrapper')}
+            aria-expanded={!isRCANavShown}
+          >
+            <div className={cx('burger-icon')}>
+              <svg
+                width="28"
+                height="23"
+                viewBox="0 0 28 23"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect width="28" height="5" fill="#000000" />
+                <rect y="9" width="28" height="5" fill="#000000" />
+                <rect y="18" width="28" height="5" fill="#000000" />
+              </svg>
+            </div>
           </button>
         </div>
       </div>
@@ -266,6 +332,8 @@ export default function LLSecondaryHeader({
           latestStories={latestStories}
           menusLoading={menusLoading}
           latestLoading={latestLoading}
+          latestPartnerContent={allPartnerContents}
+          latestPartnerContentLoading={latestPartnerContentLoading}
           customClassName={'dark-color'}
         />
       </div>
@@ -277,6 +345,25 @@ export default function LLSecondaryHeader({
           uri={rcaUri}
           isNavShown={isRCANavShown}
           setIsNavShown={setIsRCANavShown}
+        />
+      </div>
+      {/* Burger Menu */}
+      <div
+        className={cx([
+          'burger-menu-wrapper',
+          isBurgerNavShown ? 'show' : undefined,
+        ])}
+      >
+        <BurgerFullMenu
+          primaryMenuItems={primaryMenuItems}
+          secondaryMenuItems={secondaryMenuItems}
+          thirdMenuItems={thirdMenuItems}
+          fourthMenuItems={fourthMenuItems}
+          fifthMenuItems={fifthMenuItems}
+          featureMenuItems={featureMenuItems}
+          latestStories={latestStories}
+          menusLoading={menusLoading}
+          latestLoading={latestLoading}
         />
       </div>
     </>

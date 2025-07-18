@@ -106,6 +106,7 @@ export default function MagazineFullMenu({
             {/* Latest Partner Content */}
             {latestPartnerContent?.length !== 0 && (
               <nav className={cx('latest-stories')}>
+                <ul class="menu-name">{'Partner Content Stories'}</ul>
                 <ul className={cx('menu-content')}>
                   {latestPartnerContent.slice(0, visiblePosts).map((post) => (
                     <li key={post?.id}>

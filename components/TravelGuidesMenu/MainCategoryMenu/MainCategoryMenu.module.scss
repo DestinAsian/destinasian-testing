@@ -202,10 +202,10 @@
 }
 
 .accordion-content {
-  padding: 0.5rem 1rem;
+  padding: 1rem 0;
 
   @media (min-width: $breakpoint-extra-small) {
-    padding: 1rem;
+    padding: 2rem;
   }
 
   .first-wrapper > div > div {

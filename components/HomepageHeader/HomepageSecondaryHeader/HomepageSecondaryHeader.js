@@ -2,6 +2,7 @@ import classNames from 'classnames/bind'
 import styles from './HomepageSecondaryHeader.module.scss'
 import { useQuery } from '@apollo/client'
 import { GetSearchResults } from '@/queries/GetSearchResults'
+import { GetLatestPartnerContent } from '@/queries/GetLatestPartnerContent'
 import { FaSearch } from 'react-icons/fa'
 import dynamic from 'next/dynamic'
 // Import Components
@@ -36,8 +37,6 @@ export default function HomepageSecondaryHeader({
   latestStories,
   menusLoading,
   latestLoading,
-  latestPartnerContent,
-  latestPartnerContentLoading,
   searchQuery,
   setSearchQuery,
   rcaDatabaseId,
@@ -118,6 +117,25 @@ export default function HomepageSecondaryHeader({
     // Compare the dates
     return dateB - dateA
   })
+
+    // Get latest travel stories
+    const { data: latestPartnerContent, loading: latestPartnerContentLoading } =
+      useQuery(GetLatestPartnerContent, {
+        variables: {
+          first: 5,
+        },
+        fetchPolicy: 'network-only',
+        nextFetchPolicy: 'cache-and-network',
+      })
+  
+    const advertorials = latestPartnerContent?.advertorials ?? []
+  
+    const allPartnerContents = []
+  
+    // loop through all the main categories partner content
+    advertorials?.edges?.forEach((post) => {
+      allPartnerContents.push(post.node)
+    })
 
   return (
     <>
@@ -299,7 +317,7 @@ export default function HomepageSecondaryHeader({
           latestStories={latestStories}
           menusLoading={menusLoading}
           latestLoading={latestLoading}
-          latestPartnerContent={latestPartnerContent}
+          latestPartnerContent={allPartnerContents}
           latestPartnerContentLoading={latestPartnerContentLoading}
         />
       </div>
