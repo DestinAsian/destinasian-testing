@@ -30,6 +30,15 @@ export default function MainCategoryMenu(categoryName) {
 
   // main category name
   const mainCategory = categoryName?.categoryName
+  const getLabelCategory = (label) => {
+    if (!label) return ''
+    const lower = label.toLowerCase()
+    if (lower.includes('attractions')) return 'Do'
+    if (lower.includes('dining')) return 'Dining'
+    if (lower.includes('hotels')) return 'Hotels'
+    if (lower.includes('nightlife')) return 'Nightlife'
+    return label
+  }
 
   const AccordionCustomIcon = () => (
     <span className={cx('custom-icon')}>{'+'}</span>
@@ -363,73 +372,6 @@ export default function MainCategoryMenu(categoryName) {
                           </div>
                           <div className={cx('second-wrapper')}>
                             <div className={cx('partner-content-wrapper')}>
-                              {/* <div className={cx('left-wrapper')}>
-                                {results[index]?.data?.advertorials?.map(
-                                  (advertorial, index) => (
-                                    <>
-                                      {index === 0 && (
-                                        <>
-                                          {advertorial?.uri &&
-                                            advertorial?.title &&
-                                            advertorial?.featuredImage?.node
-                                              ?.sourceUrl && (
-                                              <Link href={advertorial?.uri}>
-                                                <div
-                                                  className={cx(
-                                                    'image-wrapper',
-                                                  )}
-                                                >
-                                                  <div className={cx('image')}>
-                                                    <Image
-                                                      src={
-                                                        advertorial
-                                                          ?.featuredImage?.node
-                                                          ?.sourceUrl
-                                                      }
-                                                      alt={advertorial?.title}
-                                                      fill
-                                                      sizes="100%"
-                                                      priority
-                                                    />
-                                                  </div>
-                                                </div>
-                                              </Link>
-                                            )}
-                                        </>
-                                      )}
-                                    </>
-                                  ),
-                                )}
-                                {results[index]?.data?.advertorials?.length ===
-                                  0 && (
-                                  <>
-                                    {getPartnerContent[0]?.uri &&
-                                      getPartnerContent[0]?.title &&
-                                      getPartnerContent[0]?.featuredImage?.node
-                                        ?.sourceUrl && (
-                                        <Link href={getPartnerContent[0]?.uri}>
-                                          <div className={cx('image-wrapper')}>
-                                            <div className={cx('image')}>
-                                              <Image
-                                                src={
-                                                  getPartnerContent[0]
-                                                    ?.featuredImage?.node
-                                                    ?.sourceUrl
-                                                }
-                                                alt={
-                                                  getPartnerContent[0]?.title
-                                                }
-                                                fill
-                                                sizes="100%"
-                                                priority
-                                              />
-                                            </div>
-                                          </div>
-                                        </Link>
-                                      )}
-                                  </>
-                                )}
-                              </div> */}
                               <div className={cx('right-wrapper')}>
                                 <div className={cx('partner-content-title')}>
                                   <span className={cx('content-title')}>
@@ -511,71 +453,6 @@ export default function MainCategoryMenu(categoryName) {
                               </div>
                             </div>
                             <div className={cx('honors-circle-wrapper')}>
-                              {/* <div className={cx('left-wrapper')}>
-                                {results[index]?.data?.honorsCircles?.map(
-                                  (honorsCircle, index) => (
-                                    <>
-                                      {index === 0 && (
-                                        <>
-                                          {honorsCircle?.uri &&
-                                            honorsCircle?.title &&
-                                            honorsCircle?.featuredImage?.node
-                                              ?.sourceUrl && (
-                                              <Link href={honorsCircle?.uri}>
-                                                <div
-                                                  className={cx(
-                                                    'image-wrapper',
-                                                  )}
-                                                >
-                                                  <div className={cx('image')}>
-                                                    <Image
-                                                      src={
-                                                        honorsCircle
-                                                          ?.featuredImage?.node
-                                                          ?.sourceUrl
-                                                      }
-                                                      alt={honorsCircle?.title}
-                                                      fill
-                                                      sizes="100%"
-                                                      priority
-                                                    />
-                                                  </div>
-                                                </div>
-                                              </Link>
-                                            )}
-                                        </>
-                                      )}
-                                    </>
-                                  ),
-                                )}
-                                {results[index]?.data?.honorsCircles?.length ===
-                                  0 && (
-                                  <>
-                                    {getHonorsCircle[0]?.uri &&
-                                      getHonorsCircle[0]?.title &&
-                                      getHonorsCircle[0]?.featuredImage?.node
-                                        ?.sourceUrl && (
-                                        <Link href={getHonorsCircle[0]?.uri}>
-                                          <div className={cx('image-wrapper')}>
-                                            <div className={cx('image')}>
-                                              <Image
-                                                src={
-                                                  getHonorsCircle[0]
-                                                    ?.featuredImage?.node
-                                                    ?.sourceUrl
-                                                }
-                                                alt={getHonorsCircle[0]?.title}
-                                                fill
-                                                sizes="100%"
-                                                priority
-                                              />
-                                            </div>
-                                          </div>
-                                        </Link>
-                                      )}
-                                  </>
-                                )}
-                              </div> */}
                               <div className={cx('right-wrapper')}>
                                 <div className={cx('honors-circle-title')}>
                                   <span className={cx('content-title')}>
@@ -662,32 +539,6 @@ export default function MainCategoryMenu(categoryName) {
                     </div>
                   ) : (
                     <>
-                      {/* <div className={cx('left-wrapper')}>
-                        {connectedNode?.node?.uri &&
-                          connectedNode?.node?.name &&
-                          connectedNode?.node?.categoryImages && (
-                            <Link href={connectedNode?.node?.uri}>
-                              <div className={cx('image-wrapper')}>
-                                <div className={cx('image')}>
-                                  <Image
-                                    src={
-                                      connectedNode?.node?.categoryImages
-                                        ?.categorySlide1 !== null
-                                        ? connectedNode?.node?.categoryImages
-                                            ?.categorySlide1?.sourceUrl
-                                        : connectedNode?.node?.categoryImages
-                                            ?.categoryImages?.sourceUrl
-                                    }
-                                    alt={connectedNode?.node?.name}
-                                    fill
-                                    sizes="100%"
-                                    priority
-                                  />
-                                </div>
-                              </div>
-                            </Link>
-                          )}
-                      </div> */}
                       <div className={cx('right-wrapper')}>
                         <div className={cx('sub-guides-wrapper')}>
                           <div className={cx('sub-guides-content')}>
@@ -695,10 +546,11 @@ export default function MainCategoryMenu(categoryName) {
                               {path && (
                                 <Link href={path}>
                                   <span className={cx('title')}>
-                                    {connectedNode?.node?.parent &&
+                                    {/* {connectedNode?.node?.parent &&
                                       connectedNode?.node?.parent?.node
                                         ?.name}{' '}
-                                    {label ?? ''}
+                                    {label ?? ''} */}
+                                    {getLabelCategory(label)}
                                   </span>
                                 </Link>
                               )}

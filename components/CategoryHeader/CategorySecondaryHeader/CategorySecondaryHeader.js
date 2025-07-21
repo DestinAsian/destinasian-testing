@@ -264,7 +264,7 @@ export default function CategorySecondaryHeader({
             aria-controls={cx('rca-menu-wrapper')}
             aria-expanded={!isRCANavShown}
           >
-            <div className={cx('menu-title')}>{`Magazine`}</div>
+            <div className={cx('menu-title')}>{`Stories`}</div>
           </button>
           <button
             type="button"
