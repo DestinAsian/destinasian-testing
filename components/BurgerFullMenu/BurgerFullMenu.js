@@ -12,7 +12,6 @@ let cx = classNames.bind(styles)
 
 export default function BurgerFullMenu({
   primaryMenuItems,
-  secondaryMenuItems,
   thirdMenuItems,
   fourthMenuItems,
   fifthMenuItems,
@@ -31,7 +30,6 @@ export default function BurgerFullMenu({
   const facebookUri = 'https://www.facebook.com/DestinAsian.Mag'
   const instagramUri = 'https://www.instagram.com/destinasianmagazine'
   const twitterUri = 'https://x.com/DestinAsian_Mag'
-  const newsletterUri = '/newsletter'
 
   // Loading Menu
   if (menusLoading || latestLoading) {
@@ -211,35 +209,9 @@ export default function BurgerFullMenu({
                     >
                       <path d="M256 0c141.385 0 256 114.615 256 256S397.385 512 256 512 0 397.385 0 256 114.615 0 256 0z" />
                       <path
-                        fill="#fff"
+                        fill="#ffffff"
                         fill-rule="nonzero"
                         d="M318.64 157.549h33.401l-72.973 83.407 85.85 113.495h-67.222l-52.647-68.836-60.242 68.836h-33.423l78.052-89.212-82.354-107.69h68.924l47.59 62.917 55.044-62.917zm-11.724 176.908h18.51L205.95 176.493h-19.86l120.826 157.964z"
-                      />
-                    </svg>
-                  </div>
-                </Link>
-              )}
-              {twitterUri && (
-                <Link href={twitterUri} target="_blank">
-                  <div className={cx('socmed-icon')}>
-                    {/* Newsletter Icon */}
-                    <svg
-                      id="Layer_1"
-                      data-name="Layer 1"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 122.88 122.88"
-                    >
-                      <defs>
-                        <style
-                          dangerouslySetInnerHTML={{
-                            __html: `.cls-1 { fill-rule: evenodd; }`,
-                          }}
-                        />
-                      </defs>
-                      <title>email-round-color</title>
-                      <path
-                        class="cls-1"
-                        d="M61.44,0A61.44,61.44,0,1,1,0,61.44,61.44,61.44,0,0,1,61.44,0ZM30.73,38,62,63.47,91.91,38Zm-2,42.89L51,58.55,28.71,40.39V80.87ZM53.43,60.55l-22.95,23H92.21l-21.94-23L63,66.71h0a1.57,1.57,0,0,1-2,0l-7.59-6.19Zm19.24-2,21.5,22.54V40.19L72.67,58.51Z"
                       />
                     </svg>
                   </div>

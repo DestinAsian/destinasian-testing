@@ -351,6 +351,7 @@ export default function RCASecondaryHeader({
           latestStories={latestStories}
           menusLoading={menusLoading}
           latestLoading={latestLoading}
+          customClassName={'dark-color'}
         />
       </div>
     </>

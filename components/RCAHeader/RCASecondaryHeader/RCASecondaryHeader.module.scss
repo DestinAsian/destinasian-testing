@@ -102,12 +102,13 @@
 
       svg {
         height: 1rem;
+        fill: var(--wpe--color--black);
 
         @media (min-width: $breakpoint-extra-small) {
           height: 2rem;
         }
         * {
-          fill: var(--wpe--color--white);
+          fill: var(--wpe--color--black);
         }
       }
     }
@@ -153,7 +154,7 @@
       }
 
       * {
-        fill: var(--wpe--color--black);
+        fill: var(--wpe--color--white);
       }
     }
   }
@@ -357,6 +358,14 @@
     @media (min-width: $breakpoint-large) {
       top: 6.35rem;
       height: calc(-6.35rem + 100vh);
+    }
+
+    div > div > div {
+      background-color: var(--wpe--color--deep--black) !important;
+
+      * {
+        color: var(--wpe--color--white--smoke);
+      }
     }
   }
 }

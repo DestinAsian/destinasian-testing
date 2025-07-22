@@ -190,7 +190,7 @@ export default function SingleAdvertorial(props) {
   // Get menus
   const { data: menusData, loading: menusLoading } = useQuery(GetMenus, {
     variables: {
-      first: 20,
+      first: 30,
       headerLocation: MENUS.PRIMARY_LOCATION,
       secondHeaderLocation: MENUS.SECONDARY_LOCATION,
       thirdHeaderLocation: MENUS.THIRD_LOCATION,
