@@ -39,7 +39,7 @@ export const GetTravelGuidesMenu = gql`
               }
               posts(
                 first: 5
-                where: { orderby: { field: DATE, order: ASC }, status: PUBLISH }
+                where: { orderby: { field: DATE, order: DESC }, status: PUBLISH }
               ) {
                 edges {
                   node {
@@ -49,7 +49,7 @@ export const GetTravelGuidesMenu = gql`
                   }
                 }
               }
-              children(first: 4, where: { order: ASC, orderby: NAME }) {
+              children(first: 4, where: { order: DESC, orderby: NAME }) {
                 edges {
                   node {
                     id
@@ -68,7 +68,7 @@ export const GetTravelGuidesMenu = gql`
                     posts(
                       first: 5
                       where: {
-                        orderby: { field: DATE, order: ASC }
+                        orderby: { field: DATE, order: DESC }
                         status: PUBLISH
                       }
                     ) {
