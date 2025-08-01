@@ -99,6 +99,56 @@
     }
   }
 
+  .menu-list-wrapper {
+    padding: 1rem 0;
+
+    .menu-list {
+      ul.menu {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      li {
+        list-style: none;
+        flex: 0 0 calc(50% - 0.5rem);
+
+        @media (min-width: $breakpoint-small) {
+          flex: 0 0 calc(33.333% - 0.667rem);
+        }
+      }
+
+      .hidden-title {
+        display: none;
+      }
+    }
+
+    p {
+      font-family: 'Ringside Regular A', 'Ringside Regular B';
+      color: var(--wpe--color--black);
+      font-weight: 400;
+      font-size: 0.6rem;
+
+      @media (min-width: $breakpoint-small) {
+        font-size: 0.8rem;
+      }
+    }
+
+    a {
+      font-size: 0.6rem;
+
+      @media (min-width: $breakpoint-small) {
+        font-size: 0.8rem;
+      }
+
+      &:hover,
+      &:focus {
+        color: var(--wpe--color--orange);
+      }
+    }
+  }
+
   .close-button {
     display: none;
 

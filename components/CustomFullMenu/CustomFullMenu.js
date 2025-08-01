@@ -2,7 +2,9 @@ import { useQuery } from '@apollo/client'
 import classNames from 'classnames/bind'
 import styles from './CustomFullMenu.module.scss'
 import { GetCustomMenu } from '../../queries/GetCustomMenu'
+import flatListToHierarchical from '../../utilities/flatListToHierarchical'
 import Link from 'next/link'
+import Image from 'next/image'
 import dynamic from 'next/dynamic'
 // Import Components
 const Button = dynamic(() => import('@/components/Button/Button'))
@@ -13,8 +15,6 @@ export default function CustomFullMenu({
   setIsNavShown,
   customClassName,
 }) {
-  const firstYearOfRCA = 2007
-
   // Get menus
   const { data, loading, error } = useQuery(GetCustomMenu, {
     variables: { id: 'custom' },
@@ -23,9 +23,63 @@ export default function CustomFullMenu({
   })
 
   const { menuDescription } = data?.menu?.customMenuFields ?? []
-  const allPosts = data?.menu?.menuItems?.nodes ?? []
+  const menuItems = data?.menu?.menuItems?.nodes ?? []
 
-  console.log(allPosts)
+  if (!menuItems) {
+    return null
+  }
+
+  // Based on https://www.wpgraphql.com/docs/menus/#hierarchical-data
+  const hierarchicalMenuItems = flatListToHierarchical(menuItems)
+
+  function renderMenu(items) {
+    return (
+      <ul className={cx('menu')}>
+        {items.map((item) => {
+          const { id, path, label, customMenuFields, children, cssClasses } =
+            item
+
+          const menuImage = customMenuFields?.menuImage
+
+          // @TODO - Remove guard clause after ghost menu items are no longer appended to array.
+          if (!item.hasOwnProperty('__typename')) {
+            return null
+          }
+
+          return (
+            <li key={id} className={cx(cssClasses)}>
+              {path && menuImage && (
+                <Link href={path} target={'_blank'} className={cx('menu-item')}>
+                  <Image
+                    src={menuImage?.sourceUrl}
+                    alt={menuImage?.altText}
+                    width={
+                      menuImage?.mediaDetails?.width
+                        ? menuImage?.mediaDetails?.width
+                        : '500'
+                    }
+                    height={
+                      menuImage?.mediaDetails?.height
+                        ? menuImage?.mediaDetails?.height
+                        : '500'
+                    }
+                    style={{ objectFit: 'contain' }}
+                    priority
+                  />
+                </Link>
+              )}
+              {path && (
+                <Link href={path} target={'_blank'} className={cx('menu-item')}>
+                  {label ?? ''}
+                </Link>
+              )}
+              {children.length ? renderMenu(children) : null}
+            </li>
+          )
+        })}
+      </ul>
+    )
+  }
 
   if (error) {
     return <pre>{JSON.stringify(error)}</pre>
@@ -56,6 +110,11 @@ export default function CustomFullMenu({
               className={cx('description')}
               dangerouslySetInnerHTML={{ __html: menuDescription }}
             />
+          </div>
+          <div className={cx('menu-list-wrapper')}>
+            <nav className={cx('menu-list')} role="navigation">
+              {renderMenu(hierarchicalMenuItems)}
+            </nav>
           </div>
           {/* close button */}
           <div className={cx('close-button')}>

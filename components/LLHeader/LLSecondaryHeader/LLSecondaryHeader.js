@@ -341,8 +341,6 @@ export default function LLSecondaryHeader({
         className={cx('rca-menu-wrapper', isRCANavShown ? 'show' : undefined)}
       >
         <CustomFullMenu
-          rcaDatabaseId={rcaDatabaseId}
-          uri={rcaUri}
           isNavShown={isRCANavShown}
           setIsNavShown={setIsRCANavShown}
         />

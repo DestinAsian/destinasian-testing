@@ -293,8 +293,6 @@ export default function HomepageSecondaryHeader({
         className={cx('rca-menu-wrapper', isRCANavShown ? 'show' : undefined)}
       >
         <CustomFullMenu
-          rcaDatabaseId={rcaDatabaseId}
-          uri={rcaUri}
           isNavShown={isRCANavShown}
           setIsNavShown={setIsRCANavShown}
           customClassName={'light-color'}

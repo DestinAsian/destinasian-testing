@@ -6,78 +6,31 @@ export const GetCustomMenu = gql`
       id
       customMenuFields {
         menuDescription
+        menuImage {
+          id
+          sourceUrl
+          altText
+          mediaDetails {
+            width
+            height
+          }
+        }
       }
       menuItems(first: 30, where: { location: CUSTOM }) {
         nodes {
-          uri
+          id
+          path
           label
-          connectedNode {
-            node {
-              uri
-              ... on Post {
-                featuredImage {
-                  node {
-                    id
-                    sourceUrl
-                    altText
-                    mediaDetails {
-                      width
-                      height
-                    }
-                  }
-                }
-              }
-              ... on Editorial {
-                featuredImage {
-                  node {
-                    id
-                    sourceUrl
-                    altText
-                    mediaDetails {
-                      width
-                      height
-                    }
-                  }
-                }
-              }
-              ... on Update {
-                featuredImage {
-                  node {
-                    id
-                    sourceUrl
-                    altText
-                    mediaDetails {
-                      width
-                      height
-                    }
-                  }
-                }
-              }
-              ... on HonorsCircle {
-                featuredImage {
-                  node {
-                    id
-                    sourceUrl
-                    altText
-                    mediaDetails {
-                      width
-                      height
-                    }
-                  }
-                }
-              }
-              ... on LuxuryTravel {
-                featuredImage {
-                  node {
-                    id
-                    sourceUrl
-                    altText
-                    mediaDetails {
-                      width
-                      height
-                    }
-                  }
-                }
+          cssClasses
+          customMenuFields {
+            menuDescription
+            menuImage {
+              id
+              sourceUrl
+              altText
+              mediaDetails {
+                width
+                height
               }
             }
           }

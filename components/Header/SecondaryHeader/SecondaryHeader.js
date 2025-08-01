@@ -331,8 +331,6 @@ export default function SecondaryHeader({
         )}
       >
         <CustomFullMenu
-          rcaDatabaseId={rcaDatabaseId}
-          uri={rcaUri}
           isNavShown={isRCANavShown}
           setIsNavShown={setIsRCANavShown}
           customClassName={'light-color'}
