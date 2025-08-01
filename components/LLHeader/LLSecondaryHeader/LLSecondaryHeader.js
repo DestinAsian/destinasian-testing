@@ -12,8 +12,8 @@ const SearchInput = dynamic(() =>
 const SearchResults = dynamic(() =>
   import('@/components/SearchResults/SearchResults'),
 )
-const RCAFullMenu = dynamic(() =>
-  import('@/components/RCAFullMenu/RCAFullMenu'),
+const CustomFullMenu = dynamic(() =>
+  import('@/components/CustomFullMenu/CustomFullMenu'),
 )
 const MagazineFullMenu = dynamic(() =>
   import('@/components/MagazineFullMenu/MagazineFullMenu'),
@@ -340,7 +340,7 @@ export default function LLSecondaryHeader({
       <div
         className={cx('rca-menu-wrapper', isRCANavShown ? 'show' : undefined)}
       >
-        <RCAFullMenu
+        <CustomFullMenu
           rcaDatabaseId={rcaDatabaseId}
           uri={rcaUri}
           isNavShown={isRCANavShown}
