@@ -100,7 +100,11 @@
   }
 
   .menu-list-wrapper {
-    padding: 1rem 0;
+    padding: 1rem 0 10rem;
+
+    @media (min-width: $breakpoint-extra-small) {
+      padding: 1rem 0 5rem;
+    }
 
     .menu-list {
       ul.menu {
@@ -119,7 +123,7 @@
         }
       }
 
-      .hidden-title {
+      li.hidden-title a:not(:has(img)) {
         display: none;
       }
     }
