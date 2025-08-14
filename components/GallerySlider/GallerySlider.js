@@ -17,7 +17,7 @@ import { EffectFade, Autoplay, Pagination, Navigation } from 'swiper'
 
 let cx = className.bind(styles)
 
-export default function GallerySlider({ gallerySlider }) {
+export default function GallerySlider({ gallerySlider, className }) {
   const [images, setImages] = useState([])
 
   useEffect(() => {
@@ -82,7 +82,7 @@ export default function GallerySlider({ gallerySlider }) {
         >
           {images.map((image, index) => (
           <SwiperSlide key={index}>
-              <div className={cx('slide-wrapper')}>
+              <div className={cx('slide-wrapper', className)}>
                 <div className={cx('image-wrapper')}>
                   <Image
                     src={image.src}
