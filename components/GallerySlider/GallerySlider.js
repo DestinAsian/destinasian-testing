@@ -19,7 +19,12 @@ let cx = className.bind(styles)
 
 export default function GallerySlider({ gallerySlider, className }) {
   const [images, setImages] = useState([])
-
+  const [activeIndex, setActiveIndex] = useState(0)
+  // ✅ Generate CSS-safe unique ID
+  const uniqueId = React.useMemo(
+    () => `gallery-slider-${Math.random().toString(36).substring(2, 9)}`,
+    [],
+  )
   useEffect(() => {
     if (!gallerySlider) return
 
@@ -63,25 +68,38 @@ export default function GallerySlider({ gallerySlider, className }) {
     <div className={cx('component', 'gallery-slider-wrapper')}>
       <div className={cx('swiper-slider', 'swiper-wrapper')}>
         <Swiper
+          spaceBetween={30}
           effect={'fade'}
           autoplay={{ delay: 5000, disableOnInteraction: true }}
           // autoplay={'false'}
           loop={true}
           // autoHeight={true}
           pagination={{
-            el: '.swiper-custom-pagination',
+            el: `.${uniqueId}-pagination`,
             clickable: true,
             type: 'bullets',
           }}
-          navigation={{
-            prevEl: '.swiper-custom-button-prev',
-            nextEl: '.swiper-custom-button-next',
-          }}
           modules={[EffectFade, Autoplay, Pagination, Navigation]}
-          className="gallery-swiper-wrapper"
+          className="post-swiper"
+          onSlideChange={(swiper) => {
+            setActiveIndex(swiper.realIndex)
+            const currentSlide = images[swiper.realIndex]
+
+            if (currentSlide) {
+              const imgElement = document.getElementById(
+                `image-${swiper.realIndex}`,
+              )
+              if (imgElement) {
+                imgElement.classList.add('fade-in')
+                setTimeout(() => {
+                  imgElement.classList.remove('fade-in')
+                }, 500) // match CSS animation
+              }
+            }
+          }}
         >
           {images.map((image, index) => (
-          <SwiperSlide key={index}>
+            <SwiperSlide key={index}>
               <div className={cx('slide-wrapper', className)}>
                 <div className={cx('image-wrapper')}>
                   <Image
@@ -92,54 +110,24 @@ export default function GallerySlider({ gallerySlider, className }) {
                     priority
                   />
                 </div>
-                
-                <div className={cx('caption-wrapper')}>
-                {image?.caption && (
-                    <div className={cx('caption')}>
-                      <div
-                        dangerouslySetInnerHTML={{
-                          __html: image.caption,
-                        }}
-                      />
-                    </div>
-                )}
-                  </div>
               </div>
-              </SwiperSlide>
-              ))}
-          <div className="swiper-custom-pagination"></div>
-          <div className="swiper-custom-button-prev">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="65"
-              height="65"
-              viewBox="0 0 65 65"
-              fill="none"
-            >
-              <rect width="65" height="65" fill="black" />
-              <path d="M45 12L21 31L45 49" stroke="white" strokeWidth="3" />
-            </svg>
-          </div>
-          <div className="swiper-custom-button-next">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="65"
-              height="65"
-              viewBox="0 0 65 65"
-              fill="none"
-            >
-              <rect
-                x="65"
-                y="65"
-                width="65"
-                height="65"
-                transform="rotate(-180 65 65)"
-                fill="black"
-              />
-              <path d="M20 53L44 34L20 16" stroke="white" strokeWidth="3" />
-            </svg>
-          </div>
+            </SwiperSlide>
+          ))}
         </Swiper>
+        <div
+          className={`swiper-post-custom-pagination ${uniqueId}-pagination`}
+        ></div>
+        {/* Caption absolutely positioned relative to Swiper */}
+        {images[activeIndex]?.caption && (
+          <div className={cx('caption-wrapper', className)}>
+            <div
+              className={cx('caption')}
+              dangerouslySetInnerHTML={{
+                __html: images[activeIndex].caption,
+              }}
+            />
+          </div>
+        )}
       </div>
     </div>
   )

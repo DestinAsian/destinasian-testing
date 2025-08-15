@@ -42,8 +42,8 @@ export default function ContentWrapperEditorial({ content, children, images }) {
 
           const src = node.getAttribute('src')
           const alt = node.getAttribute('alt') || 'Image'
-          const width = node.getAttribute('width') || 500
-          const height = node.getAttribute('height') || 500
+          const width = node.getAttribute('width') || 800
+          const height = node.getAttribute('height') || 600
 
           const imageComponent = (
             <Image
@@ -91,7 +91,12 @@ export default function ContentWrapperEditorial({ content, children, images }) {
         if (node?.nodeType === 1 && node?.matches('div.gallery')) {
           const gallerySlider = node
 
-          return <GallerySlider gallerySlider={gallerySlider} className={'editorial'}/>
+          return (
+            <GallerySlider
+              gallerySlider={gallerySlider}
+              className={'editorial'}
+            />
+          )
         }
 
         return (
@@ -110,20 +115,11 @@ export default function ContentWrapperEditorial({ content, children, images }) {
 
   return (
     <article className={cx('component')}>
-      {images[0] != null && (
-        <div className={cx('with-slider-wrapper')}>
-          <SingleEditorialSlider images={images} />
-          <div className={cx('content-wrapper')}>{transformedContent}</div>
-          {children}
-        </div>
-      )}
-
-      {images[0] == null && (
-        <div className={cx('with-slider-wrapper')}>
-          <div className={cx('content-wrapper')}>{transformedContent}</div>
-          {children}
-        </div>
-      )}
+      <div className={cx('with-slider-wrapper')}>
+        {images[0] != null && <SingleEditorialSlider images={images} />}
+        <div className={cx('content-wrapper')}>{transformedContent}</div>
+        {children}
+      </div>
     </article>
   )
 }

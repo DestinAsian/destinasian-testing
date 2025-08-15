@@ -31,10 +31,6 @@
       font-size: 7rem;
       float: left;
       line-height: 1;
-
-      @media (min-width: $breakpoint-extra-small) {
-        font-size: 10rem;
-      }
     }
 
     * {

@@ -6,6 +6,10 @@ import Image from 'next/image'
 import { BACKEND_URL } from '../../constants/backendUrl'
 import dynamic from 'next/dynamic'
 // Import Components
+const GallerySlider = dynamic(() =>
+  import('@/components/GallerySlider/GallerySlider'),
+)
+// Import Components
 const SingleHCSlider = dynamic(() =>
   import('@/components/SingleHCSlider/SingleHCSlider'),
 )
@@ -16,49 +20,93 @@ export default function ContentWrapperHC({ content, children, images }) {
   const [transformedContent, setTransformedContent] = useState('')
 
   useEffect(() => {
-    // Function to extract image data and replace <img> with <Image>
-    const extractImageData = () => {
-      // Create a DOMParser
+    const extractHTMLData = () => {
       const parser = new DOMParser()
-
-      // Parse the HTML content
       const doc = parser.parseFromString(content, 'text/html')
 
-      // Get only image elements with src containing BACKEND_URL
-      const imageElements = doc.querySelectorAll(`img[src*="${BACKEND_URL}"]`)
+      // Recursively extract all images and their captions
+      const extractImagesRecursively = (node) => {
+        if (
+          typeof node === 'object' &&
+          node.nodeType === 1 &&
+          node.tagName === 'IMG' &&
+          typeof node.getAttribute === 'function' &&
+          node.getAttribute('src')?.includes(BACKEND_URL)
+        ) {
+          // Skip images inside .gallery-slider
+          const insideGallerySlider = node.closest('.gallery')
+          if (insideGallerySlider) return
 
-      // Replace <img> elements with <Image> components
-      imageElements.forEach((img) => {
-        const src = img.getAttribute('src')
-        const alt = img.getAttribute('alt')
-        const width = img.getAttribute('width')
-        const height = img.getAttribute('height')
+          // Skip if img has inline styles
+          const hasInlineStyle = node.hasAttribute('style')
+          if (hasInlineStyle) return
 
-        // Create Image component
-        const imageComponent = (
-          <Image
-            src={src}
-            alt={alt}
-            width={width ? width : '500'}
-            height={height ? height : '500'}
-            style={{ objectFit: 'contain' }}
-            priority
+          const src = node.getAttribute('src')
+          const alt = node.getAttribute('alt') || 'Image'
+          const width = node.getAttribute('width') || 800
+          const height = node.getAttribute('height') || 600
+
+          const imageComponent = (
+            <Image
+              src={src}
+              alt={alt}
+              width={width}
+              height={height}
+              style={{ objectFit: 'contain' }}
+              priority
+            />
+          )
+
+          const imageHtmlString = renderToStaticMarkup(imageComponent)
+          node.outerHTML = imageHtmlString
+        } else {
+          // Traverse child nodes
+          node.childNodes?.forEach(extractImagesRecursively)
+        }
+      }
+
+      // Process the content's root element to find all <img> nodes and replace them
+      Array.from(doc.body.childNodes).forEach(extractImagesRecursively)
+
+      // Handle Instagram blockquote
+      const elements = Array.from(doc.body.childNodes).map((node, index) => {
+        // Instagram Post Embed
+        if (
+          node?.nodeType === 1 &&
+          node?.matches('blockquote[data-instgrm-permalink*="instagram.com"]')
+        ) {
+          const url = node?.getAttribute('data-instgrm-permalink')
+          const captioned = node?.hasAttribute('data-instgrm-captioned')
+
+          return (
+            <div
+              key={index}
+              style={{ display: 'flex', justifyContent: 'center' }}
+            >
+              <InstagramEmbed url={url} width={500} captioned={captioned} />
+            </div>
+          )
+        }
+
+        // Gallery Slider
+        if (node?.nodeType === 1 && node?.matches('div.gallery')) {
+          const gallerySlider = node
+
+          return <GallerySlider gallerySlider={gallerySlider} />
+        }
+
+        return (
+          <div
+            key={index}
+            dangerouslySetInnerHTML={{ __html: node.outerHTML }}
           />
         )
-
-        // Render the Image component to HTML string
-        const imageHtmlString = renderToStaticMarkup(imageComponent)
-
-        // Replace the <img> element with the Image HTML string in the HTML content
-        img.outerHTML = imageHtmlString
       })
 
-      // Set the transformed HTML content
-      setTransformedContent(doc.body.innerHTML)
+      setTransformedContent(elements)
     }
 
-    // Call the function to extract image data and replace <img>
-    extractImageData()
+    extractHTMLData()
   }, [content])
 
   return (
@@ -66,19 +114,13 @@ export default function ContentWrapperHC({ content, children, images }) {
       {images[0] != null && (
         <div className={cx('with-slider-wrapper')}>
           <SingleHCSlider images={images} />
-          <div
-            className={cx('content-wrapper')}
-            dangerouslySetInnerHTML={{ __html: transformedContent ?? '' }}
-          />
+          <div className={cx('content-wrapper')}>{transformedContent}</div>
           {children}
         </div>
       )}
       {images[0] == null && (
         <div className={cx('with-slider-wrapper')}>
-          <div
-            className={cx('content-wrapper')}
-            dangerouslySetInnerHTML={{ __html: transformedContent ?? '' }}
-          />
+          <div className={cx('content-wrapper')}>{transformedContent}</div>
           {children}
         </div>
       )}

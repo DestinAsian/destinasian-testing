@@ -39,8 +39,8 @@ export default function ContentWrapper({ content, children }) {
 
           const src = node.getAttribute('src')
           const alt = node.getAttribute('alt') || 'Image'
-          const width = node.getAttribute('width') || 500
-          const height = node.getAttribute('height') || 500
+          const width = node.getAttribute('width') || 800
+          const height = node.getAttribute('height') || 600
 
           const imageComponent = (
             <Image

@@ -357,14 +357,7 @@ export default function SingleAdvertorial(props) {
               label={acfAdvertorialLabel?.advertorialLabel}
             />
 
-            <ContentWrapper
-              content={content}
-              backIssue={
-                categories?.nodes.some((cat) => cat.slug === 'backissue')
-                  ? 'backissue'
-                  : ''
-              }
-            />
+            <ContentWrapper content={content} />
 
             {(tabsEditor?.tabTitle1 && tabsEditor?.tab1) !== null && (
               <TabsEditor
