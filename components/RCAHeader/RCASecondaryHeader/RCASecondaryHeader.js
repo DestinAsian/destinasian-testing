@@ -1,6 +1,8 @@
 import classNames from 'classnames/bind'
 import styles from './RCASecondaryHeader.module.scss'
 import { useQuery } from '@apollo/client'
+import { useRef } from 'react'
+import { useClickOutside } from '@/constants/useClickOutside'
 import { GetSearchResults } from '@/queries/GetSearchResults'
 import { GetLatestPartnerContent } from '@/queries/GetLatestPartnerContent'
 import { FaSearch } from 'react-icons/fa'
@@ -49,6 +51,7 @@ export default function RCASecondaryHeader({
   isAutoplayRunning,
   toggleAutoplay,
   isScrolled,
+  menuRef,
 }) {
   // Posts for Search Function
   const postsPerPage = 1000
@@ -57,6 +60,17 @@ export default function RCASecondaryHeader({
   const clearSearch = () => {
     setSearchQuery('') // Reset the search query
   }
+
+  const searchRef = useRef(null)
+  const guidesRef = useRef(null)
+  const magazineRef = useRef(null)
+  const burgerRef = useRef(null)
+
+  // Close handlers
+  useClickOutside(searchRef, () => setIsSearchBarShown(false), [menuRef])
+  useClickOutside(guidesRef, () => setIsGuidesNavShown(false), [menuRef])
+  useClickOutside(magazineRef, () => setIsMagNavShown(false), [menuRef])
+  useClickOutside(burgerRef, () => setIsBurgerNavShown(false), [menuRef])
 
   // Add search query function
   const {
@@ -137,7 +151,7 @@ export default function RCASecondaryHeader({
   return (
     <>
       <div className={cx('navigation-wrapper')}>
-        <div className={cx('menu-wrapper')}>
+        <div ref={menuRef} className={cx('menu-wrapper')}>
           <button
             type="button"
             className={cx(
@@ -166,25 +180,25 @@ export default function RCASecondaryHeader({
           </button>
           <button
             type="button"
-            className={cx('menu-button', isGuidesNavShown ? 'active' : '')}
+            className={cx('menu-button', isNavShown ? 'active' : '')}
             onClick={() => {
-              setIsGuidesNavShown(!isGuidesNavShown)
-              isNavShown ? setIsNavShown(!isNavShown) : null
+              setIsNavShown(!isNavShown)
+              isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
               isMagNavShown ? setIsMagNavShown(!isMagNavShown) : null
               isSearchBarShown ? setIsSearchBarShown(!isSearchBarShown) : null
               isBurgerNavShown ? setIsBurgerNavShown(!isBurgerNavShown) : null
               setSearchQuery('')
-              if (!isGuidesNavShown && isAutoplayRunning) {
+              if (!isNavShown && isAutoplayRunning) {
                 return toggleAutoplay()
               }
-              if (isGuidesNavShown && !isAutoplayRunning) {
+              if (isNavShown && !isAutoplayRunning) {
                 return toggleAutoplay()
               }
             }}
             aria-controls={cx('rca-menu-wrapper')}
             aria-expanded={!isNavShown}
           >
-            <div className={cx('menu-title')}>{`Guides`}</div>
+            <div className={cx('menu-title')}>{`Readers' Choice Awards`}</div>
           </button>
           <button
             type="button"
@@ -210,25 +224,25 @@ export default function RCASecondaryHeader({
           </button>
           <button
             type="button"
-            className={cx('menu-button', isNavShown ? 'active' : '')}
+            className={cx('menu-button', isGuidesNavShown ? 'active' : '')}
             onClick={() => {
-              setIsNavShown(!isNavShown)
-              isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
+              setIsGuidesNavShown(!isGuidesNavShown)
+              isNavShown ? setIsNavShown(!isNavShown) : null
               isMagNavShown ? setIsMagNavShown(!isMagNavShown) : null
               isSearchBarShown ? setIsSearchBarShown(!isSearchBarShown) : null
               isBurgerNavShown ? setIsBurgerNavShown(!isBurgerNavShown) : null
               setSearchQuery('')
-              if (!isNavShown && isAutoplayRunning) {
+              if (!isGuidesNavShown && isAutoplayRunning) {
                 return toggleAutoplay()
               }
-              if (isNavShown && !isAutoplayRunning) {
+              if (isGuidesNavShown && !isAutoplayRunning) {
                 return toggleAutoplay()
               }
             }}
             aria-controls={cx('rca-menu-wrapper')}
             aria-expanded={!isNavShown}
           >
-            <div className={cx('menu-title')}>{`Readers' Choice Awards`}</div>
+            <div className={cx('menu-title')}>{`Guides`}</div>
           </button>
           <button
             type="button"
@@ -277,7 +291,7 @@ export default function RCASecondaryHeader({
           isSearchBarShown ? 'show' : undefined,
         )}
       >
-        <div className={cx('search-bg-wrapper')}>
+        <div ref={searchRef} className={cx('search-bg-wrapper')}>
           <div className={cx('search-input-wrapper')}>
             <SearchInput
               value={searchQuery}
@@ -308,7 +322,7 @@ export default function RCASecondaryHeader({
           isGuidesNavShown ? 'show' : undefined,
         )}
       >
-        <div className={cx('full-menu-wrapper')}>
+        <div ref={guidesRef} className={cx('full-menu-wrapper')}>
           <TravelGuidesMenu className={'dark-color'} />
         </div>
       </div>
@@ -332,6 +346,7 @@ export default function RCASecondaryHeader({
           latestPartnerContent={allPartnerContents}
           latestPartnerContentLoading={latestPartnerContentLoading}
           customClassName={'dark-color'}
+          magazineRef={magazineRef}
         />
       </div>
       {/* Burger Menu */}
@@ -352,6 +367,7 @@ export default function RCASecondaryHeader({
           menusLoading={menusLoading}
           latestLoading={latestLoading}
           customClassName={'dark-color'}
+          burgerRef={burgerRef}
         />
       </div>
     </>

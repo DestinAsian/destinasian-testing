@@ -4,6 +4,7 @@ import { GetMenus } from '../queries/GetMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
 import { GetRCASlider } from '../queries/GetRCASlider'
 import React, { useEffect, useState, useRef } from 'react'
+import { useClickOutside } from '@/constants/useClickOutside'
 import {
   eb_garamond,
   poppins,
@@ -38,6 +39,11 @@ export default function singleRca(props) {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   // Search function content
   const [searchQuery, setSearchQuery] = useState('')
+
+  const rcaRef = useRef(null)
+  const menuRef = useRef(null)
+
+  useClickOutside(rcaRef, () => setIsNavShown(false), [menuRef])
 
   // Check for stored password in cookies on mount
   useEffect(() => {
@@ -402,6 +408,7 @@ export default function singleRca(props) {
         isAutoplayRunning={isAutoplayRunning}
         toggleAutoplay={toggleAutoplay}
         isScrolled={isScrolled}
+        menuRef={menuRef}
       />
       <Main>
         <>
@@ -449,6 +456,7 @@ export default function singleRca(props) {
                     toggleAutoplay={toggleAutoplay}
                     activeIndex={activeIndex}
                     setActiveIndex={setActiveIndex}
+                    rcaRef={rcaRef}
                   />
                 </div>
               </div>

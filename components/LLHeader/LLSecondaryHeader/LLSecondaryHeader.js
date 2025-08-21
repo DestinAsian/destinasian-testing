@@ -1,6 +1,8 @@
 import classNames from 'classnames/bind'
 import styles from './LLSecondaryHeader.module.scss'
 import { useQuery } from '@apollo/client'
+import { useRef } from 'react'
+import { useClickOutside } from '@/constants/useClickOutside'
 import { GetSearchResults } from '@/queries/GetSearchResults'
 import { GetLatestPartnerContent } from '@/queries/GetLatestPartnerContent'
 import { FaSearch } from 'react-icons/fa'
@@ -39,8 +41,6 @@ export default function LLSecondaryHeader({
   latestLoading,
   searchQuery,
   setSearchQuery,
-  rcaDatabaseId,
-  rcaUri,
   isSearchBarShown,
   setIsSearchBarShown,
   isGuidesNavShown,
@@ -61,6 +61,20 @@ export default function LLSecondaryHeader({
   const clearSearch = () => {
     setSearchQuery('') // Reset the search query
   }
+
+  const searchRef = useRef(null)
+  const guidesRef = useRef(null)
+  const magazineRef = useRef(null)
+  const rcaRef = useRef(null)
+  const burgerRef = useRef(null)
+  const menuRef = useRef(null)
+
+  // Close handlers
+  useClickOutside(searchRef, () => setIsSearchBarShown(false), [menuRef])
+  useClickOutside(guidesRef, () => setIsGuidesNavShown(false), [menuRef])
+  useClickOutside(magazineRef, () => setIsMagNavShown(false), [menuRef])
+  useClickOutside(rcaRef, () => setIsRCANavShown(false), [menuRef])
+  useClickOutside(burgerRef, () => setIsBurgerNavShown(false), [menuRef])
 
   // Add search query function
   const {
@@ -141,7 +155,7 @@ export default function LLSecondaryHeader({
   return (
     <>
       <div className={cx('navigation-wrapper')}>
-        <div className={cx('menu-wrapper')}>
+        <div ref={menuRef} className={cx('menu-wrapper')}>
           <button
             type="button"
             className={cx(
@@ -280,7 +294,7 @@ export default function LLSecondaryHeader({
           isSearchBarShown ? 'show' : undefined,
         )}
       >
-        <div className={cx('search-bg-wrapper')}>
+        <div ref={searchRef} className={cx('search-bg-wrapper')}>
           <div className={cx('search-input-wrapper')}>
             <SearchInput
               value={searchQuery}
@@ -311,7 +325,7 @@ export default function LLSecondaryHeader({
           isGuidesNavShown ? 'show' : undefined,
         )}
       >
-        <div className={cx('full-menu-wrapper')}>
+        <div ref={guidesRef} className={cx('full-menu-wrapper')}>
           <TravelGuidesMenu className={'dark-color'} />
         </div>
       </div>
@@ -335,6 +349,7 @@ export default function LLSecondaryHeader({
           latestPartnerContent={allPartnerContents}
           latestPartnerContentLoading={latestPartnerContentLoading}
           customClassName={'dark-color'}
+          magazineRef={magazineRef}
         />
       </div>
       <div
@@ -343,6 +358,7 @@ export default function LLSecondaryHeader({
         <CustomFullMenu
           isNavShown={isRCANavShown}
           setIsNavShown={setIsRCANavShown}
+          rcaRef={rcaRef}
         />
       </div>
       {/* Burger Menu */}
@@ -363,6 +379,7 @@ export default function LLSecondaryHeader({
           menusLoading={menusLoading}
           latestLoading={latestLoading}
           customClassName={'dark-color'}
+          burgerRef={burgerRef}
         />
       </div>
     </>

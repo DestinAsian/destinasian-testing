@@ -17,6 +17,7 @@ export default function RCAFullMenu({
   isNavShown,
   setIsNavShown,
   customClassName,
+  rcaRef,
 }) {
   const postsPerPage = 100
   const firstYearOfRCA = 2007
@@ -92,7 +93,7 @@ export default function RCAFullMenu({
   }
 
   return (
-    <div className={cx('component')}>
+    <div ref={rcaRef} className={cx('component')}>
       {/* Full menu */}
       <div
         className={cx(

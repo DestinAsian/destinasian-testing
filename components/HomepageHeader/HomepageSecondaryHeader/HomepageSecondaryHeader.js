@@ -1,6 +1,8 @@
 import classNames from 'classnames/bind'
 import styles from './HomepageSecondaryHeader.module.scss'
 import { useQuery } from '@apollo/client'
+import { useRef } from 'react'
+import { useClickOutside } from '@/constants/useClickOutside'
 import { GetSearchResults } from '@/queries/GetSearchResults'
 import { GetLatestPartnerContent } from '@/queries/GetLatestPartnerContent'
 import { FaSearch } from 'react-icons/fa'
@@ -39,8 +41,6 @@ export default function HomepageSecondaryHeader({
   latestLoading,
   searchQuery,
   setSearchQuery,
-  rcaDatabaseId,
-  rcaUri,
   isSearchBarShown,
   setIsSearchBarShown,
   isGuidesNavShown,
@@ -61,6 +61,20 @@ export default function HomepageSecondaryHeader({
     setSearchQuery('') // Reset the search query
   }
 
+  const searchRef = useRef(null)
+  const guidesRef = useRef(null)
+  const magazineRef = useRef(null)
+  const rcaRef = useRef(null)
+  const burgerRef = useRef(null)
+  const menuRef = useRef(null)
+
+  // Close handlers
+  useClickOutside(searchRef, () => setIsSearchBarShown(false), [menuRef])
+  useClickOutside(guidesRef, () => setIsGuidesNavShown(false), [menuRef])
+  useClickOutside(magazineRef, () => setIsMagNavShown(false), [menuRef])
+  useClickOutside(rcaRef, () => setIsRCANavShown(false), [menuRef])
+  useClickOutside(burgerRef, () => setIsBurgerNavShown(false), [menuRef])
+  
   // Add search query function
   const {
     data: searchResultsData,
@@ -118,29 +132,29 @@ export default function HomepageSecondaryHeader({
     return dateB - dateA
   })
 
-    // Get latest travel stories
-    const { data: latestPartnerContent, loading: latestPartnerContentLoading } =
-      useQuery(GetLatestPartnerContent, {
-        variables: {
-          first: 5,
-        },
-        fetchPolicy: 'network-only',
-        nextFetchPolicy: 'cache-and-network',
-      })
-  
-    const advertorials = latestPartnerContent?.advertorials ?? []
-  
-    const allPartnerContents = []
-  
-    // loop through all the main categories partner content
-    advertorials?.edges?.forEach((post) => {
-      allPartnerContents.push(post.node)
+  // Get latest travel stories
+  const { data: latestPartnerContent, loading: latestPartnerContentLoading } =
+    useQuery(GetLatestPartnerContent, {
+      variables: {
+        first: 5,
+      },
+      fetchPolicy: 'network-only',
+      nextFetchPolicy: 'cache-and-network',
     })
+
+  const advertorials = latestPartnerContent?.advertorials ?? []
+
+  const allPartnerContents = []
+
+  // loop through all the main categories partner content
+  advertorials?.edges?.forEach((post) => {
+    allPartnerContents.push(post.node)
+  })
 
   return (
     <>
       <div className={cx('navigation-wrapper', { sticky: isScrolled })}>
-        <div className={cx('menu-wrapper')}>
+        <div ref={menuRef} className={cx('menu-wrapper')}>
           <button
             type="button"
             className={cx(
@@ -263,7 +277,7 @@ export default function HomepageSecondaryHeader({
           isSearchBarShown ? 'show' : undefined,
         )}
       >
-        <div className={cx('search-bg-wrapper')}>
+        <div ref={searchRef} className={cx('search-bg-wrapper')}>
           <div className={cx('search-input-wrapper')}>
             <SearchInput
               value={searchQuery}
@@ -296,6 +310,7 @@ export default function HomepageSecondaryHeader({
           isNavShown={isRCANavShown}
           setIsNavShown={setIsRCANavShown}
           customClassName={'light-color'}
+          rcaRef={rcaRef}
         />
       </div>
       {/* Stories Menu */}
@@ -317,6 +332,7 @@ export default function HomepageSecondaryHeader({
           latestLoading={latestLoading}
           latestPartnerContent={allPartnerContents}
           latestPartnerContentLoading={latestPartnerContentLoading}
+          magazineRef={magazineRef}
         />
       </div>
       {/* Guides Menu */}
@@ -326,7 +342,7 @@ export default function HomepageSecondaryHeader({
           isGuidesNavShown ? 'show' : undefined,
         )}
       >
-        <div className={cx('full-menu-wrapper')}>
+        <div ref={guidesRef} className={cx('full-menu-wrapper')}>
           <TravelGuidesMenu />
         </div>
       </div>
@@ -347,6 +363,7 @@ export default function HomepageSecondaryHeader({
           latestStories={latestStories}
           menusLoading={menusLoading}
           latestLoading={latestLoading}
+          burgerRef={burgerRef}
         />
       </div>
     </>

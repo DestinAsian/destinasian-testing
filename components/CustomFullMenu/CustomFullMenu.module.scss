@@ -74,7 +74,7 @@
     .description {
       p {
         font-family: 'Ringside Regular A', 'Ringside Regular B';
-        color: var(--wpe--color--black);
+        color: var(--wpe--color--white--smoke);
         font-weight: 400;
         font-size: 0.8rem;
 
@@ -130,7 +130,7 @@
 
     p {
       font-family: 'Ringside Regular A', 'Ringside Regular B';
-      color: var(--wpe--color--black);
+      color: var(--wpe--color--white--smoke);
       font-weight: 400;
       font-size: 0.6rem;
 
@@ -181,4 +181,18 @@
 
 .full-menu-content-light {
   background-color: var(--wpe--main--background-color);
+
+  .description-wrapper {
+    .description {
+      p {
+        color: var(--wpe--color--black);
+      }
+    }
+  }
+
+  .menu-list-wrapper {
+    p {
+      color: var(--wpe--color--black);
+    }
+  }
 }

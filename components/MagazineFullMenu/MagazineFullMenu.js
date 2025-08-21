@@ -25,6 +25,7 @@ export default function MagazineFullMenu({
   latestPartnerContentLoading,
   isSearchResultsVisible,
   customClassName,
+  magazineRef,
 }) {
   // LatestStories content
   const [visiblePosts] = useState(5)
@@ -75,7 +76,7 @@ export default function MagazineFullMenu({
           customClassName,
         )}
       >
-        <div className={cx('menu-wrapper')}>
+        <div ref={magazineRef} className={cx('menu-wrapper')}>
           <div className={cx('first-wrapper')}>
             {/* Latest Travel Stories */}
             {latestStories?.length !== 0 && (

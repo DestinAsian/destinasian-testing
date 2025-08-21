@@ -40,6 +40,7 @@ export default function ContentWrapperRCA({
   toggleAutoplay,
   activeIndex,
   setActiveIndex,
+  rcaRef,
 }) {
   const batchSize = 100
   const [transformedContent, setTransformedContent] = useState('')
@@ -467,6 +468,7 @@ export default function ContentWrapperRCA({
           uri={uri}
           isNavShown={isNavShown}
           setIsNavShown={setIsNavShown}
+          rcaRef={rcaRef}
         />
       </div>
     </>

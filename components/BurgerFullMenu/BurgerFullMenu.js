@@ -20,6 +20,7 @@ export default function BurgerFullMenu({
   latestLoading,
   isSearchResultsVisible,
   customClassName,
+  burgerRef,
 }) {
   // LatestStories content
   const [visiblePosts] = useState(5)
@@ -71,7 +72,7 @@ export default function BurgerFullMenu({
           customClassName,
         )}
       >
-        <div className={cx('menu-wrapper')}>
+        <div ref={burgerRef} className={cx('menu-wrapper')}>
           <div className={cx('first-wrapper')}>
             {/* Feature Menu */}
             <NavigationMenu
