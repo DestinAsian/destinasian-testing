@@ -81,6 +81,14 @@
       }
     }
 
+    div {
+      padding: 0 1rem 0.5rem;
+
+      @media (min-width: $breakpoint-small) {
+        padding: 0 0 0.5rem;
+      }
+    }
+
     /* Dropcap */
     .dropcap {
       color: var(--wpe--color--black);
@@ -99,6 +107,10 @@
       }
     }
 
+    div:empty {
+      display: none;
+    }
+
     i,
     u,
     strong,
@@ -113,19 +125,15 @@
       padding: 0;
 
       figcaption {
-        // display: flex;
-        padding: 0 1rem;
-        // justify-content: flex-start;
-        color: var(--wpe--color--grey);
         font-size: 0.8rem;
-        // text-transform: uppercase;
         line-height: 1.2;
         text-align: start;
+        color: var(--wpe--color--grey);
+        padding: 0 1rem 1rem;
 
         @media (min-width: $breakpoint-extra-small) {
-          padding: 0;
+          padding: 0 0 1rem;
           font-size: 1rem;
-          padding-left: 2rem;
         }
       }
     }
@@ -188,8 +196,9 @@
       }
     }
 
-    p:empty,
-    p:has(br:only-child) {
+    p:empty
+    // p:has(br:only-child)
+    {
       display: none;
     }
 

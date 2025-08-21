@@ -111,8 +111,9 @@
       }
     }
 
-    p:empty,
-    p:has(br:only-child) {
+    p:empty
+    // p:has(br:only-child)
+    {
       display: none;
     }
 

@@ -9,16 +9,13 @@
   position: relative;
   z-index: 2;
   padding: 0;
-  aspect-ratio: 4 / 3;
 
   @media (min-width: $breakpoint-extra-small) {
-    aspect-ratio: 4 / 3;
     max-width: 100%;
   }
 
   img {
     display: block;
-    aspect-ratio: 4 / 3;
     height: auto;
     width: 100%;
   }
@@ -27,64 +24,45 @@
 .swiper-wrapper {
   position: relative;
   width: 100%;
+  padding: 0;
+
+  > div {
+    padding: 0;
+  }
+
+  // > div > div {
+  //   padding: 0;
+  //   // aspect-ratio: 4 / 3;
+  // }
+
+  > div > div > div {
+    padding: 0;
+  }
 }
 
 .slide-wrapper {
   width: 100%;
-  height: 100%;
   background-color: transparent !important;
-
-  img {
-    object-fit: cover;
-    object-position: center;
-  }
+  aspect-ratio: 4 / 3;
 }
 
 .image-wrapper {
   max-width: 800px;
   box-sizing: border-box;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   position: relative;
   width: 100%;
-  aspect-ratio: 4 / 3;
+  height: 100%;
   overflow: hidden;
+  padding: 0;
 
   img {
-    position: relative;
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center;
-  }
-}
-
-.gallery-slider-wrapper {
-  .slide-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
     padding: 0;
-  }
-
-  .image-wrapper {
-    max-width: 800px;
-    width: 100%;
-    aspect-ratio: 4 / 3;
-    padding: 0;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-      padding: 0 1rem;
-      @media (min-width: $breakpoint-extra-small) {
-        padding: 0 2rem;
-      }
-    }
   }
 }
 
@@ -108,18 +86,17 @@
 }
 
 .caption {
-  // background-color: var(--wpe--color--light--green) !important;
   color: var(--wpe--color--grey);
-  padding: 0 0.5rem 0.5rem 0;
   width: 100%;
   text-align: left;
   pointer-events: auto;
   font-size: 0.8rem;
   line-height: 1.2;
   box-sizing: border-box;
+  padding: 0 1rem;
 
   @media (min-width: $breakpoint-extra-small) {
-    padding: 0 1rem 0.5rem 0;
+    padding: 0;
     font-size: 1rem;
   }
 
@@ -139,5 +116,7 @@
 }
 
 .editorial.caption-wrapper {
-  padding: 0 0 1.8rem;
+  @media (min-width: $breakpoint-extra-small) {
+    padding: 0 0 1.8rem;
+  }
 }

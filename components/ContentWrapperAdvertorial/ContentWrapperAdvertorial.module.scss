@@ -42,6 +42,10 @@
       }
     }
 
+    div:empty {
+      display: none;
+    }
+
     i,
     u,
     strong,
@@ -66,6 +70,13 @@
 
       figcaption {
         color: var(--wpe--color--grey);
+        font-size: 0.8rem;
+        line-height: 1.2;
+        text-align: start;
+
+        @media (min-width: $breakpoint-extra-small) {
+          font-size: 1rem;
+        }
       }
     }
 
@@ -329,6 +340,15 @@
 
       figcaption {
         color: var(--wpe--color--grey);
+        font-size: 0.8rem;
+        line-height: 1.2;
+        text-align: start;
+        padding: 0 1rem 1rem;
+
+        @media (min-width: $breakpoint-extra-small) {
+          padding: 0 0 1rem;
+          font-size: 1rem;
+        }
       }
     }
 

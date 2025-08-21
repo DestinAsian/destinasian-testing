@@ -20,7 +20,7 @@ let cx = className.bind(styles)
 export default function GallerySlider({ gallerySlider, className }) {
   const [images, setImages] = useState([])
   const [activeIndex, setActiveIndex] = useState(0)
-  // ✅ Generate CSS-safe unique ID
+  // Generate CSS-safe unique ID
   const uniqueId = React.useMemo(
     () => `gallery-slider-${Math.random().toString(36).substring(2, 9)}`,
     [],
@@ -71,9 +71,7 @@ export default function GallerySlider({ gallerySlider, className }) {
           spaceBetween={30}
           effect={'fade'}
           autoplay={{ delay: 5000, disableOnInteraction: true }}
-          // autoplay={'false'}
           loop={true}
-          // autoHeight={true}
           pagination={{
             el: `.${uniqueId}-pagination`,
             clickable: true,
@@ -106,7 +104,7 @@ export default function GallerySlider({ gallerySlider, className }) {
                     src={image.src}
                     alt={image.alt}
                     fill
-                    // sizes="100%"
+                    sizes="100%"
                     priority
                   />
                 </div>

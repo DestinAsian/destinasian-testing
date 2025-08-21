@@ -96,7 +96,16 @@
       padding: 0;
 
       figcaption {
-        display: none;
+        color: var(--wpe--color--grey);
+        font-size: 0.8rem;
+        line-height: 1.2;
+        text-align: start;
+        padding: 0 1rem 1rem;
+
+        @media (min-width: $breakpoint-extra-small) {
+          padding: 0 0 1rem;
+          font-size: 1rem;
+        }
       }
     }
 
