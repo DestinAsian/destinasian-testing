@@ -1,0 +1,65 @@
+@import 'styles/breakpoints';
+@import 'styles/fonts/typography';
+
+.component {
+  .header-wrapper {
+    display: flex;
+    margin: 0 auto;
+    padding: 0 1rem;
+    flex-direction: column;
+    row-gap: 0;
+
+    @media (min-width: $breakpoint-small) {
+      row-gap: 0.5rem;
+      padding: 0;
+    }
+  }
+
+  .name {
+    color: var(--wpe--color--black);
+    font-size: 1.125rem;
+    font-family: 'Chronicle Display A', 'Chronicle Display B';
+    font-weight: 600;
+    text-align: left;
+
+    @media (min-width: $breakpoint-extra-small) {
+      font-size: 1.5rem;
+    }
+  }
+
+  .title {
+    font-family: 'Chronicle Display A', 'Chronicle Display B';
+    font-weight: 600;
+    font-size: 1.125rem;
+    color: var(--wpe--color--black);
+    text-align: left;
+
+    @media (min-width: $breakpoint-extra-small) {
+      font-size: 1.5rem;
+    }
+  }
+
+  .content-wrapper {
+    font-family: 'Chronicle Display A', 'Chronicle Display B';
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--wpe--color--black);
+    text-align: left;
+
+    @media (min-width: $breakpoint-extra-small) {
+      font-size: 1.25rem;
+    }
+  }
+
+  :global {
+    div,
+    p,
+    article {
+      padding: 0;
+
+      * {
+        padding: 0;
+      }
+    }
+  }
+}

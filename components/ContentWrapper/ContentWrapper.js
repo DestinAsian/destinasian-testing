@@ -12,7 +12,7 @@ const GallerySlider = dynamic(() =>
 
 let cx = className.bind(styles)
 
-export default function ContentWrapper({ content, children }) {
+export default function ContentWrapper({ content, children, className }) {
   const [transformedContent, setTransformedContent] = useState('')
 
   useEffect(() => {
@@ -106,7 +106,7 @@ export default function ContentWrapper({ content, children }) {
   }, [content])
 
   return (
-    <article className={cx('component')}>
+    <article className={cx('component', className)}>
       <div className={cx('content-wrapper')}>{transformedContent}</div>
       {children}
     </article>

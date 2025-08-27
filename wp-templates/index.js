@@ -1,39 +1,41 @@
 import category from './category'
-import tag from './tag'
 import frontPage from './front-page'
-import page from './page'
 import pageContests from './page-contests'
 import pageHonorsCircle from './page-honors-circle'
 import pageNewsletter from './page-newsletter'
 import pageTravelGuides from './page-travel-guides'
 import pageVideos from './page-videos'
-import single from './single'
-import singleEditorial from './single-editorial'
+import page from './page'
 import singleAdvertorial from './single-advertorial'
-import singleHonorsCircle from './single-honors-circle'
-import singleUpdate from './single-update'
 import singleContest from './single-contest'
+import singleContributor from './single-contributor'
+import singleEditorial from './single-editorial'
+import singleHonorsCircle from './single-honors-circle'
 import singleLuxeList from './single-luxe-list'
-import singleRca from './single-readers-choice-award'
 import singleLuxuryTravel from './single-luxury-travel'
+import singleRca from './single-readers-choice-award'
+import singleUpdate from './single-update'
+import single from './single'
+import tag from './tag'
 
 export default {
   category,
-  tag,
   'front-page': frontPage,
-  page,
   'page-contests': pageContests,
   'page-honors-circle': pageHonorsCircle,
   'page-newsletter': pageNewsletter,
   'page-travel-guides': pageTravelGuides,
   'page-videos': pageVideos,
-  single,
-  'single-editorial': singleEditorial,
+  page,
   'single-advertorial': singleAdvertorial,
-  'single-honors-circle': singleHonorsCircle,
-  'single-update': singleUpdate,
   'single-contest': singleContest,
+  'single-contributor': singleContributor,
+  'single-editorial': singleEditorial,
+  'single-honors-circle': singleHonorsCircle,
   'single-luxe-list': singleLuxeList,
-  'single-readers-choice-award': singleRca,
   'single-luxury-travel': singleLuxuryTravel,
+  'single-readers-choice-award': singleRca,
+  'single-update': singleUpdate,
+  single,
+  tag,
 }
