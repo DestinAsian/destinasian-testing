@@ -327,7 +327,7 @@ export default function SingleContributor(props) {
       />
       <Main className="mt-[-0.75rem] sm:mt-[-1rem]">
         <>
-          <div className="relative mx-auto flex max-w-full flex-col items-start gap-4 py-4 sm:max-w-[700px] sm:flex-row sm:gap-8">
+          <div className="relative mx-auto flex max-w-full flex-col items-start gap-4 pb-4 pt-[50px] sm:max-w-[700px] sm:flex-row sm:gap-8 sm:pt-[100px]">
             <div className="h-auto w-full sm:w-2/6">
               {featuredImage && (
                 <div className="w-full pl-4 pr-[70vw] sm:px-8">
@@ -340,7 +340,7 @@ export default function SingleContributor(props) {
                     }
                     width={500}
                     height={500}
-                    className="h-auto w-full rounded-full object-cover"
+                    className="h-auto w-full rounded-full border border-black object-cover"
                     priority
                   />
                 </div>
