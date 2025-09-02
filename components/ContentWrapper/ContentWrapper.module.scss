@@ -376,17 +376,27 @@
 }
 
 .newsletter {
+  margin-bottom: 0;
+
   .content-wrapper {
-    p {
+    padding: 0.5rem 0;
+
+    @media (min-width: $breakpoint-extra-small) {
+      padding: 2rem 0;
+    }
+
+    h2 {
       font-family: 'Unit Slab Pro Black';
       line-height: 1.2;
       font-weight: 500;
       color: var(--wpe--color--title);
       padding: 0.5rem 0;
-      font-size: 1.2rem;
+      font-size: 1rem;
+      letter-spacing: 0;
+      text-transform: none;
 
       @media (min-width: $breakpoint-extra-small) {
-        font-size: 1.65rem;
+        font-size: 1.8rem;
       }
     }
   }
@@ -394,52 +404,6 @@
   :global {
     * {
       padding: 0;
-    }
-
-    #mc_embed_shell {
-      padding: 0;
-
-      div {
-        margin: 0;
-        padding: 0;
-      }
-    }
-
-    .text-form,
-    .select-form {
-      font-size: 0.7rem;
-      width: 100%;
-      padding: 0.5rem;
-      border: 1px solid rgba(0, 0, 0, 0.24);
-      border-right: none;
-      border-radius: 0.3rem 0 0 0.3rem;
-
-      @media (min-width: $breakpoint-extra-small) {
-        font-size: 1rem;
-      }
-    }
-
-    .text-form {
-      padding-left: 0.8rem;
-    }
-
-    .submit-button {
-      background-color: #000000;
-      color: #ffffff !important;
-      font-size: 0.7rem;
-      padding: 0.5rem 2rem;
-      border: 1px solid rgba(0, 0, 0, 0.24);
-      border-left: none;
-      border-radius: 0 0.3rem 0.3rem 0;
-      cursor: pointer;
-
-      @media (min-width: $breakpoint-extra-small) {
-        font-size: 1rem;
-      }
-    }
-
-    .asterisk {
-      color: #f94700 !important;
     }
   }
 }

@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react'
+import classNames from 'classnames/bind'
+import styles from '@/components/Footer/Footer.module.scss'
 import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
 import { HeaderFooterVisibilityFragment } from '../fragments/HeaderFooterVisibility'
@@ -22,12 +24,17 @@ const Footer = dynamic(() => import('@/components/Footer/Footer'))
 const ContentWrapper = dynamic(() =>
   import('@/components/ContentWrapper/ContentWrapper'),
 )
+const NewsletterEmbed = dynamic(() =>
+  import('@/components/NewsletterEmbed/NewsletterEmbed'),
+)
 const PageRelatedStories = dynamic(() =>
   import('@/components/PageRelatedStories/PageRelatedStories'),
 )
 const PasswordProtected = dynamic(() =>
   import('@/components/PasswordProtected/PasswordProtected'),
 )
+
+let cx = classNames.bind(styles)
 
 export default function Component(props) {
   // Loading state for previews
@@ -331,6 +338,11 @@ export default function Component(props) {
           )}
           <>
             <ContentWrapper content={content} className={'newsletter'} />
+            <div className={cx('container-wrapper')}>
+              <div className={`${styles.newsletterWrapper} mb-12`}>
+                <NewsletterEmbed />
+              </div>
+            </div>
             <PageRelatedStories databaseId={databaseId} />
           </>
         </>
