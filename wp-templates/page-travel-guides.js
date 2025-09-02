@@ -6,6 +6,7 @@ import { GetMenus } from '../queries/GetMenus'
 import { GetFooterMenus } from '../queries/GetFooterMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
 import { eb_garamond, poppins, rubik_mono_one } from '../styles/fonts/fonts'
+import Cookies from 'js-cookie'
 import { GetLatestRCA } from '../queries/GetLatestRCA'
 import dynamic from 'next/dynamic'
 // Import Components
@@ -20,6 +21,9 @@ const Main = dynamic(() => import('@/components/Main/Main'))
 const ContentWrapperTravelGuides = dynamic(() =>
   import('@/components/ContentWrapperTravelGuides/ContentWrapperTravelGuides'),
 )
+const PasswordProtected = dynamic(() =>
+  import('@/components/PasswordProtected/PasswordProtected'),
+)
 const Footer = dynamic(() => import('@/components/Footer/Footer'))
 
 export default function Component(props) {
@@ -28,7 +32,29 @@ export default function Component(props) {
     return <>Loading...</>
   }
 
-  const { title, content, headerFooterVisibility } = props?.data?.page
+  const [enteredPassword, setEnteredPassword] = useState('')
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+
+  // Check for stored password in cookies on mount
+  useEffect(() => {
+    const storedPassword = Cookies.get('pagePassword')
+    if (
+      storedPassword &&
+      storedPassword === props?.data?.page?.passwordProtected?.password
+    ) {
+      setIsAuthenticated(true)
+    }
+  }, [props?.data?.page?.passwordProtected?.password])
+
+  const {
+    title,
+    content,
+    featuredImage,
+    headerFooterVisibility,
+    seo,
+    uri,
+    passwordProtected,
+  } = props?.data?.page
 
   // Search function content
   const [searchQuery, setSearchQuery] = useState('')
@@ -232,6 +258,37 @@ export default function Component(props) {
   // sortByDate mainCat & childCat Posts
   const allPosts = mainCatPosts.sort(sortPostsByDate)
 
+    // Handle password submission
+    const handlePasswordSubmit = (e) => {
+      e.preventDefault()
+      if (enteredPassword === passwordProtected?.password) {
+        setIsAuthenticated(true)
+        Cookies.set('pagePassword', enteredPassword, { expires: 1 }) // Set cookie to expire in 1 day
+      } else {
+        alert('Incorrect password. Please try again.')
+      }
+    }
+  
+    if (passwordProtected?.onOff && !isAuthenticated) {
+      return (
+        <main
+          className={`${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable} ${rubik.variable}`}
+        >
+          <form onSubmit={handlePasswordSubmit}>
+            <PasswordProtected
+              enteredPassword={enteredPassword}
+              setEnteredPassword={setEnteredPassword}
+              title={seo?.title}
+              description={seo?.metaDesc}
+              imageUrl={featuredImage?.node?.sourceUrl}
+              url={uri}
+              focuskw={seo?.focuskw}
+            />
+          </form>
+        </main>
+      )
+    }
+
   return (
     <main
       className={`${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable}`}
@@ -286,6 +343,10 @@ Component.query = gql`
     page(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
       title
       content
+      passwordProtected {
+        onOff
+        password
+      }
       headerFooterVisibility {
         ...HeaderFooterVisibilityFragment
       }

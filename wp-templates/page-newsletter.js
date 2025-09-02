@@ -6,6 +6,7 @@ import { GetMenus } from '../queries/GetMenus'
 import { GetFooterMenus } from '../queries/GetFooterMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
 import { eb_garamond, poppins, rubik_mono_one } from '../styles/fonts/fonts'
+import Cookies from 'js-cookie'
 import { GetLatestRCA } from '../queries/GetLatestRCA'
 import dynamic from 'next/dynamic'
 // Import Components
@@ -18,6 +19,15 @@ const EntryHeader = dynamic(() =>
 )
 const Main = dynamic(() => import('@/components/Main/Main'))
 const Footer = dynamic(() => import('@/components/Footer/Footer'))
+const ContentWrapper = dynamic(() =>
+  import('@/components/ContentWrapper/ContentWrapper'),
+)
+const PageRelatedStories = dynamic(() =>
+  import('@/components/PageRelatedStories/PageRelatedStories'),
+)
+const PasswordProtected = dynamic(() =>
+  import('@/components/PasswordProtected/PasswordProtected'),
+)
 
 export default function Component(props) {
   // Loading state for previews
@@ -25,7 +35,30 @@ export default function Component(props) {
     return <>Loading...</>
   }
 
-  const { title, headerFooterVisibility } = props?.data?.page
+  const [enteredPassword, setEnteredPassword] = useState('')
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+
+  // Check for stored password in cookies on mount
+  useEffect(() => {
+    const storedPassword = Cookies.get('pagePassword')
+    if (
+      storedPassword &&
+      storedPassword === props?.data?.page?.passwordProtected?.password
+    ) {
+      setIsAuthenticated(true)
+    }
+  }, [props?.data?.page?.passwordProtected?.password])
+
+  const {
+    title,
+    databaseId,
+    content,
+    featuredImage,
+    headerFooterVisibility,
+    seo,
+    uri,
+    passwordProtected,
+  } = props?.data?.page
 
   // Search function content
   const [searchQuery, setSearchQuery] = useState('')
@@ -229,6 +262,37 @@ export default function Component(props) {
   // sortByDate mainCat & childCat Posts
   const allPosts = mainCatPosts.sort(sortPostsByDate)
 
+  // Handle password submission
+  const handlePasswordSubmit = (e) => {
+    e.preventDefault()
+    if (enteredPassword === passwordProtected?.password) {
+      setIsAuthenticated(true)
+      Cookies.set('pagePassword', enteredPassword, { expires: 1 }) // Set cookie to expire in 1 day
+    } else {
+      alert('Incorrect password. Please try again.')
+    }
+  }
+
+  if (passwordProtected?.onOff && !isAuthenticated) {
+    return (
+      <main
+        className={`${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable} ${rubik.variable}`}
+      >
+        <form onSubmit={handlePasswordSubmit}>
+          <PasswordProtected
+            enteredPassword={enteredPassword}
+            setEnteredPassword={setEnteredPassword}
+            title={seo?.title}
+            description={seo?.metaDesc}
+            imageUrl={featuredImage?.node?.sourceUrl}
+            url={uri}
+            focuskw={seo?.focuskw}
+          />
+        </form>
+      </main>
+    )
+  }
+
   return (
     <main
       className={`${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable}`}
@@ -266,12 +330,8 @@ export default function Component(props) {
             <EntryHeader title={title} />
           )}
           <>
-            <div
-              dangerouslySetInnerHTML={{
-                __html: `<div id="mc_embed_shell"><div id="mc_embed_signup"><form action="https://destinasian.us5.list-manage.com/subscribe/post?u=ee44e7f13f448e90776db3877&amp;id=d4a22bd002&amp;f_id=00d7c2e1f0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank"><div id="mc_embed_signup_scroll"><h2>Stay inspired with our DestinAsian newsletters</h2><div class="divider"></div><div class="content-wrapper"><div class="mc-field-wrapper mc-field-group input-group"><ul><li><div class="container-check"><input type="checkbox" name="group[7601][4]" id="mce-group[7601]-7601-2" value="" class="checkbox-button" checked="checked"><label for="mce-group[7601]-7601-2">Travel News</label></div></li><li><div class="container-check"><input type="checkbox" name="group[7601][1]" id="mce-group[7601]-7601-0" value="" class="checkbox-button"><label for="mce-group[7601]-7601-0">Airline News</label></div></li><li><div class="container-check"><input type="checkbox" name="group[7601][2]" id="mce-group[7601]-7601-1" value="" class="checkbox-button"><label for="mce-group[7601]-7601-1">Contests/Partner Offers</label></div></li></ul></div><div class="mc-field-wrapper mc-field-group-two-column"><div class="mc-field-group mc-field-email"><input type="email" name="EMAIL" class="required text-form email" id="mce-EMAIL" required="" value="" placeholder="Email address"></div><div class="clear"><input type="submit" name="subscribe" id="mc-embedded-subscribe" class="submit-button" value="Subscribe"></div></div><div id="mce-responses" class="clearfalse"><div class="response" id="mce-error-response" style="display:none"></div><div class="response" id="mce-success-response" style="display:none"></div></div><div aria-hidden="true" style="position:absolute;left:-5000px"><input type="text" name="b_ee44e7f13f448e90776db3877_d4a22bd002" tabindex="-1" value=""></div></div></div></form></div></div>`,
-              }}
-              className="mx-auto my-0 w-screen pb-[50vh] pt-[25vh] sm:max-w-[700px]"
-            />
+            <ContentWrapper content={content} className={'newsletter'} />
+            <PageRelatedStories databaseId={databaseId} />
           </>
         </>
       </Main>
@@ -287,6 +347,12 @@ Component.query = gql`
   query GetPageData($databaseId: ID!, $asPreview: Boolean = false) {
     page(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
       title
+      databaseId
+      content
+      passwordProtected {
+        onOff
+        password
+      }
       headerFooterVisibility {
         ...HeaderFooterVisibilityFragment
       }
