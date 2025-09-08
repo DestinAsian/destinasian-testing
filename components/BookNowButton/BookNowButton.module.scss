@@ -21,25 +21,45 @@
 
 .honors-circle {
   bottom: 0;
+
+  .book-now-wrapper {
+    @media (min-width: $breakpoint-small) {
+      padding: 0 2rem 1rem;
+    }
+  }
 }
 
 .book-now-wrapper {
   width: 100%;
   max-width: 700px;
-  margin: 0 auto 1rem;
-  padding: 0;
+  margin: 0 auto;
+  padding: 0 0 1rem;
   z-index: 1;
+
+  @media (min-width: $breakpoint-small) {
+    padding: 0 1rem 1rem;
+  }
 }
 
 .book-now-button {
-  width: fit-content;
+  position: relative;
+  width: 90%;
   margin: 0 auto;
   padding: 0.5rem;
   background-color: var(--wpe--color--black);
   border-radius: 5rem;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  box-shadow: -0.1rem 0.25rem 0.5rem var(--wpe--color--deep--black);
+
+  @media (min-width: $breakpoint-small) {
+    max-width: 600px;
+  }
 
   .close-button {
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
     margin: 0 auto;
     padding: 0.25rem;
   }
