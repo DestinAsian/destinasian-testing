@@ -1,3 +1,4 @@
+import React from 'react'
 import classNames from 'classnames/bind'
 import styles from './ContributorStories.module.scss'
 import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css'
@@ -13,7 +14,6 @@ const AdvertorialPostTwoColumns = dynamic(() =>
 let cx = classNames.bind(styles)
 
 export default function ContributorStories(contributorPostId) {
-
   const contributorPosts = contributorPostId?.contributorPosts
 
   // Declare all posts
