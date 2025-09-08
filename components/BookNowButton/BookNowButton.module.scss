@@ -78,4 +78,10 @@
       text-decoration: underline;
     }
   }
+
+  a {
+    width: calc(100% - 4rem);
+    display: block;
+    padding: 0;
+  }
 }

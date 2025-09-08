@@ -359,7 +359,7 @@ export default function SingleHonorsCircle(props) {
                 locationLabel={hcLocation?.hcLocation}
               />
               {/* <SingleHCSlider images={images} /> */}
-              <BookNowButton bookNowButton={bookNowButton} className={'honors-circle'}/>
+              <BookNowButton bookNowButton={bookNowButton} className={'honors-circle'} id={'HC_Book_Now_ClickTracker'}/>
               <ContentWrapperHC content={content} images={images} />
             </SingleHCContainer>
           </>
