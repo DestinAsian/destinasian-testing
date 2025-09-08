@@ -359,7 +359,10 @@ export default function SingleAdvertorial(props) {
               title={title}
               label={acfAdvertorialLabel?.advertorialLabel}
             />
-            <BookNowButton bookNowButton={bookNowButton} id={'PC_Book_Now_ClickTracker'}/>
+            <BookNowButton
+              bookNowButton={bookNowButton}
+              id={'PC_Book_Now_ClickTracker'}
+            />
             <ContentWrapper content={content} />
             {(tabsEditor?.tabTitle1 && tabsEditor?.tab1) !== null && (
               <TabsEditor
@@ -456,6 +459,8 @@ SingleAdvertorial.query = gql`
       bookNowButton {
         bookNowLabel
         bookNowLink
+        bookNowBackgroundColor
+        bookNowTextColor
       }
     }
   }

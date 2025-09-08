@@ -13,15 +13,9 @@
   @media (min-width: $breakpoint-extra-small) {
     padding: 0;
   }
-
-  @media (min-width: $breakpoint-small) {
-    bottom: unset;
-  }
 }
 
 .honors-circle {
-  bottom: 0;
-
   .book-now-wrapper {
     @media (min-width: $breakpoint-small) {
       padding: 0 2rem 1rem;
@@ -81,6 +75,7 @@
 
   a {
     width: calc(100% - 4rem);
+    text-align: start;
     display: block;
     padding: 0;
   }

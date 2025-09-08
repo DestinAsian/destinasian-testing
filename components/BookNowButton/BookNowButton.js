@@ -15,9 +15,25 @@ export default function BookNowButton({ bookNowButton, className, id }) {
         <div
           className={cx('book-now-wrapper', showBookNow ? 'show' : 'hidden')}
         >
-          <div className={cx('book-now-button')}>
+          <div
+            className={cx('book-now-button')}
+            style={{
+              ...(bookNowButton?.bookNowBackgroundColor && {
+                backgroundColor: bookNowButton.bookNowBackgroundColor,
+              }),
+            }}
+          >
             {/* {'Book Now Button'} */}
-            <Link id={id} target="_blank" href={bookNowButton.bookNowLink}>
+            <Link
+              id={id}
+              target="_blank"
+              href={bookNowButton.bookNowLink}
+              style={{
+                ...(bookNowButton?.bookNowTextColor && {
+                  color: bookNowButton.bookNowTextColor,
+                }),
+              }}
+            >
               {bookNowButton.bookNowLabel}
             </Link>
             {/* {'Close Button'} */}
@@ -25,6 +41,11 @@ export default function BookNowButton({ bookNowButton, className, id }) {
               className={cx('close-button')}
               onClick={() => setShowBookNow(false)}
               aria-label="Close"
+              style={{
+                ...(bookNowButton?.bookNowTextColor && {
+                  color: bookNowButton.bookNowTextColor,
+                }),
+              }}
             >
               &times;
             </button>
