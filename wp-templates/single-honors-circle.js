@@ -29,6 +29,9 @@ const SingleHCEntryHeader = dynamic(() =>
 const EntryHeader = dynamic(() =>
   import('@/components/EntryHeader/EntryHeader'),
 )
+const BookNowButton = dynamic(() =>
+  import('@/components/BookNowButton/BookNowButton'),
+)
 const Main = dynamic(() => import('@/components/Main/Main'))
 const ContentWrapperHC = dynamic(() =>
   import('@/components/ContentWrapperHC/ContentWrapperHC'),
@@ -71,6 +74,7 @@ export default function SingleHonorsCircle(props) {
     seo,
     uri,
     passwordProtected,
+    bookNowButton,
   } = props?.data?.honorsCircle
 
   // Search function content
@@ -355,6 +359,7 @@ export default function SingleHonorsCircle(props) {
                 locationLabel={hcLocation?.hcLocation}
               />
               {/* <SingleHCSlider images={images} /> */}
+              <BookNowButton bookNowButton={bookNowButton} className={'honors-circle'}/>
               <ContentWrapperHC content={content} images={images} />
             </SingleHCContainer>
           </>
@@ -461,6 +466,10 @@ SingleHonorsCircle.query = gql`
             date
           }
         }
+      }
+      bookNowButton {
+        bookNowLabel
+        bookNowLink
       }
     }
   }

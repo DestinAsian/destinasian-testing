@@ -42,6 +42,14 @@
       }
     }
 
+    div {
+      padding: 0 1rem 0.5rem;
+
+      @media (min-width: $breakpoint-small) {
+        padding: 0 1rem 0.5rem;
+      }
+    }
+
     div:empty {
       display: none;
     }
@@ -49,7 +57,9 @@
     i,
     u,
     strong,
-    b {
+    b,
+    p,
+    span {
       padding: 0;
     }
 
@@ -88,10 +98,18 @@
       padding-bottom: 0;
     }
 
+    div:has(img),
     p:has(img),
     img,
+    div:has(iframe),
+    p:has(iframe),
+    iframe,
+    p > em:first-of-type,
     a,
-    div.column {
+    em,
+    div:has(video),
+    p:has(video),
+    video div.column {
       padding: 0.5rem 0 0.5rem;
 
       @media (min-width: $breakpoint-small) {
@@ -137,6 +155,10 @@
       display: inline-flex;
       height: auto;
       padding-bottom: 0;
+
+      @media (min-width: $breakpoint-small) {
+        padding: 0 1rem 0;
+      }
     }
 
     .alignleft {

@@ -26,6 +26,9 @@ const SingleAdvertorialEntryHeader = dynamic(() =>
 const SingleAdvertorialContainer = dynamic(() =>
   import('@/components/SingleAdvertorialContainer/SingleAdvertorialContainer'),
 )
+const BookNowButton = dynamic(() =>
+  import('@/components/BookNowButton/BookNowButton'),
+)
 const Main = dynamic(() => import('@/components/Main/Main'))
 const ContentWrapper = dynamic(() =>
   import('@/components/ContentWrapper/ContentWrapper'),
@@ -73,7 +76,7 @@ export default function SingleAdvertorial(props) {
     luxuryTravelDirectory,
     tabsEditor,
     passwordProtected,
-    categories,
+    bookNowButton,
   } = props?.data?.advertorial
 
   // Search function content
@@ -356,9 +359,8 @@ export default function SingleAdvertorial(props) {
               title={title}
               label={acfAdvertorialLabel?.advertorialLabel}
             />
-
+            <BookNowButton bookNowButton={bookNowButton} />
             <ContentWrapper content={content} />
-
             {(tabsEditor?.tabTitle1 && tabsEditor?.tab1) !== null && (
               <TabsEditor
                 tabsEditor={tabsEditor}
@@ -450,6 +452,10 @@ SingleAdvertorial.query = gql`
             height
           }
         }
+      }
+      bookNowButton {
+        bookNowLabel
+        bookNowLink
       }
     }
   }
