@@ -30,7 +30,7 @@ export default function Component(props) {
     return <>Loading...</>
   }
 
-  const { acfHomepageSlider } = props?.data?.page ?? []
+  const { acfHomepageSlider, content } = props?.data?.page ?? []
   const { databaseId, asPreview } = props?.__TEMPLATE_VARIABLES__ ?? []
 
   const [currentFeatureWell, setCurrentFeatureWell] = useState(null)
@@ -304,7 +304,7 @@ export default function Component(props) {
           <div className="bg-black">
             {currentFeatureWell && (
               <>
-                <FeatureWell featureWells={featureWell} />
+                <FeatureWell featureWells={featureWell} content={content} />
               </>
             )}
           </div>
@@ -323,6 +323,7 @@ Component.query = gql`
   query GetPageData($databaseId: ID!, $asPreview: Boolean = false) {
     page(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
       title
+      content
       uri
       seo {
         title

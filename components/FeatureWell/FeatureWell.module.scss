@@ -24,6 +24,128 @@
   }
 }
 
+.content-wrapper {
+  position: absolute;
+  top: calc(50% - 4.5rem);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0 auto;
+  padding: 0.5rem 1rem;
+  width: 100%;
+  max-width: 1400px;
+  z-index: 20;
+
+  @media (min-width: $breakpoint-extra-small) {
+    top: calc(50% - 6.5rem);
+    padding: 1rem;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  :global {
+    * {
+      color: var(--wpe--color--white);
+      line-height: 1.2;
+    }
+
+    tbody {
+      gap: 1rem;
+    }
+
+    td {
+      width: 100% !important;
+      padding: 0.5rem 0 0.5rem;
+      min-height: 10vh;
+      max-height: 15vh;
+
+      @media (min-width: $breakpoint-small) {
+        width: 50% !important;
+      }
+    }
+
+    td:empty {
+      display: none;
+
+      @media (min-width: $breakpoint-small) {
+        display: table-row;
+      }
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: 'Unit Slab Pro Black';
+      font-weight: 500;
+      letter-spacing: 0;
+    }
+
+    h4,
+    h5 {
+      font-family: 'Ringside Regular A', 'Ringside Regular B';
+      font-weight: 400;
+    }
+
+    h1 {
+      font-size: 58px;
+
+      @media (min-width: $breakpoint-small) {
+        font-size: 96px;
+      }
+    }
+
+    h2 {
+      font-size: 29px;
+
+      @media (min-width: $breakpoint-small) {
+        font-size: 48px;
+      }
+    }
+
+    h3 {
+      font-size: 19px;
+
+      @media (min-width: $breakpoint-small) {
+        font-size: 32px;
+      }
+    }
+
+    h4 {
+      font-size: 14px;
+
+      @media (min-width: $breakpoint-small) {
+        font-size: 24px;
+      }
+    }
+
+    h5 {
+      font-size: 11px;
+
+      @media (min-width: $breakpoint-small) {
+        font-size: 19px;
+      }
+    }
+
+    h6 {
+      font-size: 10px;
+
+      @media (min-width: $breakpoint-small) {
+        font-size: 16px;
+      }
+    }
+
+     p {
+      font-size: 12px;
+
+      @media (min-width: $breakpoint-small) {
+        font-size: 20px;
+      }
+    }
+  }
+}
+
 .caption-wrapper {
   display: flex;
   flex-direction: row;
