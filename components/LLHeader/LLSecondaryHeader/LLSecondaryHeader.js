@@ -203,7 +203,7 @@ export default function LLSecondaryHeader({
           >
             <div className={cx('menu-title')}>{`Readers' Choice Awards`}</div>
           </button>
-          <button
+          {/* <button
             type="button"
             className={cx('menu-button', isMagNavShown ? 'active' : '')}
             onClick={() => {
@@ -224,7 +224,7 @@ export default function LLSecondaryHeader({
             aria-expanded={!isRCANavShown}
           >
             <div className={cx('menu-title')}>{`Stories`}</div>
-          </button>
+          </button> */}
           <button
             type="button"
             className={cx('menu-button', isGuidesNavShown ? 'active' : '')}
@@ -330,7 +330,7 @@ export default function LLSecondaryHeader({
         </div>
       </div>
       {/* Full menu */}
-      <div
+      {/* <div
         className={cx([
           'magazine-menu-wrapper',
           isMagNavShown ? 'show' : undefined,
@@ -351,7 +351,7 @@ export default function LLSecondaryHeader({
           customClassName={'dark-color'}
           magazineRef={magazineRef}
         />
-      </div>
+      </div> */}
       <div
         className={cx('rca-menu-wrapper', isRCANavShown ? 'show' : undefined)}
       >
@@ -378,6 +378,8 @@ export default function LLSecondaryHeader({
           latestStories={latestStories}
           menusLoading={menusLoading}
           latestLoading={latestLoading}
+          latestPartnerContent={allPartnerContents}
+          latestPartnerContentLoading={latestPartnerContentLoading}
           customClassName={'dark-color'}
           burgerRef={burgerRef}
         />

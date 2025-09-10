@@ -200,7 +200,7 @@ export default function RCASecondaryHeader({
           >
             <div className={cx('menu-title')}>{`Readers' Choice Awards`}</div>
           </button>
-          <button
+          {/* <button
             type="button"
             className={cx('menu-button', isMagNavShown ? 'active' : '')}
             onClick={() => {
@@ -221,7 +221,7 @@ export default function RCASecondaryHeader({
             aria-expanded={!isNavShown}
           >
             <div className={cx('menu-title')}>{`Stories`}</div>
-          </button>
+          </button> */}
           <button
             type="button"
             className={cx('menu-button', isGuidesNavShown ? 'active' : '')}
@@ -327,7 +327,7 @@ export default function RCASecondaryHeader({
         </div>
       </div>
       {/* Full menu */}
-      <div
+      {/* <div
         className={cx([
           'magazine-menu-wrapper',
           isMagNavShown ? 'show' : undefined,
@@ -348,7 +348,7 @@ export default function RCASecondaryHeader({
           customClassName={'dark-color'}
           magazineRef={magazineRef}
         />
-      </div>
+      </div> */}
       {/* Burger Menu */}
       <div
         className={cx([
@@ -366,6 +366,8 @@ export default function RCASecondaryHeader({
           latestStories={latestStories}
           menusLoading={menusLoading}
           latestLoading={latestLoading}
+          latestPartnerContent={allPartnerContents}
+          latestPartnerContentLoading={latestPartnerContentLoading}
           customClassName={'dark-color'}
           burgerRef={burgerRef}
         />

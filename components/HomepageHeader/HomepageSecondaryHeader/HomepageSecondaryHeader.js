@@ -195,7 +195,7 @@ export default function HomepageSecondaryHeader({
           >
             <div className={cx('menu-title')}>{`Readers' Choice Awards`}</div>
           </button>
-          <button
+          {/* <button
             type="button"
             className={cx(
               'menu-button',
@@ -214,7 +214,7 @@ export default function HomepageSecondaryHeader({
             aria-expanded={!isRCANavShown}
           >
             <div className={cx('menu-title')}>{`Stories`}</div>
-          </button>
+          </button> */}
           <button
             type="button"
             className={cx(
@@ -314,7 +314,7 @@ export default function HomepageSecondaryHeader({
         />
       </div>
       {/* Stories Menu */}
-      <div
+      {/* <div
         className={cx([
           'magazine-menu-wrapper',
           isMagNavShown ? 'show' : undefined,
@@ -334,7 +334,7 @@ export default function HomepageSecondaryHeader({
           latestPartnerContentLoading={latestPartnerContentLoading}
           magazineRef={magazineRef}
         />
-      </div>
+      </div> */}
       {/* Guides Menu */}
       <div
         className={cx(
@@ -363,6 +363,8 @@ export default function HomepageSecondaryHeader({
           latestStories={latestStories}
           menusLoading={menusLoading}
           latestLoading={latestLoading}
+          latestPartnerContent={allPartnerContents}
+          latestPartnerContentLoading={latestPartnerContentLoading}
           burgerRef={burgerRef}
         />
       </div>
