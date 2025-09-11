@@ -330,6 +330,7 @@ export default function SecondaryHeader({
           latestPartnerContent={allPartnerContents}
           latestPartnerContentLoading={latestPartnerContentLoading}
           burgerRef={burgerRef}
+          customClassName={customClassName}
         />
       </div>
     </>

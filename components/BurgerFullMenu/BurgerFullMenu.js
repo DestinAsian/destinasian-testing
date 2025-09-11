@@ -167,7 +167,7 @@ export default function BurgerFullMenu({
                         id="Video_Play"
                         data-name="Video Play"
                         d="M12.5,0A12.5,12.5,0,1,0,25,12.5,12.52,12.52,0,0,0,12.5,0Zm5.26,12.92-8,5A.56.56,0,0,1,9.5,18a.5.5,0,0,1-.24-.06A.51.51,0,0,1,9,17.5V7.5a.51.51,0,0,1,.26-.44.49.49,0,0,1,.51,0l8,5a.49.49,0,0,1,0,.84Z"
-                        fill="#0e1d25"
+                        fill="black"
                       ></path>
                     </svg>
                   </div>
@@ -249,21 +249,26 @@ export default function BurgerFullMenu({
               {twitterUri && (
                 <Link href={twitterUri} target="_blank">
                   <div className={cx('socmed-icon')}>
-                    {/* X Icon */}
+                    {/* X Icon with Transparent Cutout */}
                     <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      shape-rendering="geometricPrecision"
-                      text-rendering="geometricPrecision"
-                      image-rendering="optimizeQuality"
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
+                      width="48"
+                      height="48"
                       viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
-                      <path d="M256 0c141.385 0 256 114.615 256 256S397.385 512 256 512 0 397.385 0 256 114.615 0 256 0z" />
                       <path
-                        fill="#ffffff"
-                        fill-rule="nonzero"
-                        d="M318.64 157.549h33.401l-72.973 83.407 85.85 113.495h-67.222l-52.647-68.836-60.242 68.836h-33.423l78.052-89.212-82.354-107.69h68.924l47.59 62.917 55.044-62.917zm-11.724 176.908h18.51L205.95 176.493h-19.86l120.826 157.964z"
+                        fill="black"
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="
+      M256 0
+      C397.385 0 512 114.615 512 256
+      C512 397.385 397.385 512 256 512
+      C114.615 512 0 397.385 0 256
+      C0 114.615 114.615 0 256 0Z
+
+      M318.64 157.549H352.041L279.068 240.956L364.918 354.451H297.696L245.049 285.615L184.807 354.451H151.384L229.436 265.239L147.082 157.549H216.006L263.596 220.466L318.64 157.549ZM306.916 334.457H325.426L205.95 176.493H186.09L306.916 334.457Z
+    "
                       />
                     </svg>
                   </div>

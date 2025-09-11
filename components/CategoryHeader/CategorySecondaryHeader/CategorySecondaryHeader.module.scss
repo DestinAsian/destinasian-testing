@@ -167,15 +167,11 @@
   }
 
   .menu-divider {
-    // margin-left: -0.25rem;
-    margin-right: -0.25rem;
     padding: 0.5rem 0;
     font-weight: 500;
     font-size: 0.65rem;
 
     @media (min-width: $breakpoint-extra-small) {
-      // margin-left: -0.5rem;
-      margin-right: -0.5rem;
       font-size: 0.875rem;
     }
 
@@ -186,34 +182,23 @@
 
   .single-guides {
     justify-content: flex-start;
-    padding: 0;
+    // padding: 0;
 
-    .menu-title {
-      padding: 0.5rem;
-    }
+    // // .menu-title {
+    // //   padding: 0.5rem;
+    // // }
 
-    &.active {
-      background-color: transparent;
-      color: var(--wpe--color--white);
-      fill: var(--wpe--color--white);
+    // // &.active {
+    // //   background-color: transparent;
+    // //   color: var(--wpe--color--white);
+    // //   fill: var(--wpe--color--white);
 
-      * {
-        background-color: var(--wpe--color--black);
-        color: var(--wpe--color--white);
-        fill: var(--wpe--color--white);
-      }
-
-      svg {
-        height: 1rem;
-
-        @media (min-width: $breakpoint-extra-small) {
-          height: 2rem;
-        }
-        * {
-          fill: var(--wpe--color--white);
-        }
-      }
-    }
+    // //   * {
+    // //     background-color: var(--wpe--color--black);
+    // //     color: var(--wpe--color--white);
+    // //     fill: var(--wpe--color--white);
+    // //   }
+    // // }
   }
 
   .search-menu-button {
