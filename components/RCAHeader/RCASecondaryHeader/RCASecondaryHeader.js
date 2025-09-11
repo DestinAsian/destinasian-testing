@@ -152,6 +152,7 @@ export default function RCASecondaryHeader({
     <>
       <div className={cx('navigation-wrapper')}>
         <div ref={menuRef} className={cx('menu-wrapper')}>
+          {/* Search Button */}
           <button
             type="button"
             className={cx(
@@ -178,6 +179,7 @@ export default function RCASecondaryHeader({
           >
             <FaSearch className={cx('search-icon')} />
           </button>
+          {/* RCA Button */}
           <button
             type="button"
             className={cx('menu-button', isNavShown ? 'active' : '')}
@@ -200,28 +202,7 @@ export default function RCASecondaryHeader({
           >
             <div className={cx('menu-title')}>{`Readers' Choice Awards`}</div>
           </button>
-          {/* <button
-            type="button"
-            className={cx('menu-button', isMagNavShown ? 'active' : '')}
-            onClick={() => {
-              setIsMagNavShown(!isMagNavShown)
-              isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
-              isNavShown ? setIsNavShown(!isNavShown) : null
-              isSearchBarShown ? setIsSearchBarShown(!isSearchBarShown) : null
-              isBurgerNavShown ? setIsBurgerNavShown(!isBurgerNavShown) : null
-              setSearchQuery('')
-              if (!isMagNavShown && isAutoplayRunning) {
-                return toggleAutoplay()
-              }
-              if (isMagNavShown && !isAutoplayRunning) {
-                return toggleAutoplay()
-              }
-            }}
-            aria-controls={cx('rca-menu-wrapper')}
-            aria-expanded={!isNavShown}
-          >
-            <div className={cx('menu-title')}>{`Stories`}</div>
-          </button> */}
+          {/* Guides Button */}
           <button
             type="button"
             className={cx('menu-button', isGuidesNavShown ? 'active' : '')}
@@ -244,6 +225,7 @@ export default function RCASecondaryHeader({
           >
             <div className={cx('menu-title')}>{`Guides`}</div>
           </button>
+          {/* Burger Button */}
           <button
             type="button"
             className={cx(

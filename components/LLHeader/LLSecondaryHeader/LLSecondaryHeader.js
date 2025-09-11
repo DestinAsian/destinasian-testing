@@ -156,6 +156,7 @@ export default function LLSecondaryHeader({
     <>
       <div className={cx('navigation-wrapper')}>
         <div ref={menuRef} className={cx('menu-wrapper')}>
+          {/* Search Button */}
           <button
             type="button"
             className={cx(
@@ -181,6 +182,7 @@ export default function LLSecondaryHeader({
           >
             <FaSearch className={cx('search-icon')} />
           </button>
+          {/* RCA Button */}
           <button
             type="button"
             className={cx('menu-button', isRCANavShown ? 'active' : '')}
@@ -203,28 +205,7 @@ export default function LLSecondaryHeader({
           >
             <div className={cx('menu-title')}>{`Readers' Choice Awards`}</div>
           </button>
-          {/* <button
-            type="button"
-            className={cx('menu-button', isMagNavShown ? 'active' : '')}
-            onClick={() => {
-              setIsMagNavShown(!isMagNavShown)
-              isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
-              isRCANavShown ? setIsRCANavShown(!isRCANavShown) : null
-              isSearchBarShown ? setIsSearchBarShown(!isSearchBarShown) : null
-              isBurgerNavShown ? setIsBurgerNavShown(!isBurgerNavShown) : null
-              setSearchQuery('')
-              if (!isMagNavShown && isAutoplayRunning) {
-                return toggleAutoplay()
-              }
-              if (isMagNavShown && !isAutoplayRunning) {
-                return toggleAutoplay()
-              }
-            }}
-            aria-controls={cx('rca-menu-wrapper')}
-            aria-expanded={!isRCANavShown}
-          >
-            <div className={cx('menu-title')}>{`Stories`}</div>
-          </button> */}
+          {/* Guides Button */}
           <button
             type="button"
             className={cx('menu-button', isGuidesNavShown ? 'active' : '')}
@@ -247,6 +228,7 @@ export default function LLSecondaryHeader({
           >
             <div className={cx('menu-title')}>{`Guides`}</div>
           </button>
+          {/* Burger Button */}
           <button
             type="button"
             className={cx(
@@ -329,29 +311,6 @@ export default function LLSecondaryHeader({
           <TravelGuidesMenu className={'dark-color'} />
         </div>
       </div>
-      {/* Full menu */}
-      {/* <div
-        className={cx([
-          'magazine-menu-wrapper',
-          isMagNavShown ? 'show' : undefined,
-        ])}
-      >
-        <MagazineFullMenu
-          primaryMenuItems={primaryMenuItems}
-          secondaryMenuItems={secondaryMenuItems}
-          thirdMenuItems={thirdMenuItems}
-          fourthMenuItems={fourthMenuItems}
-          fifthMenuItems={fifthMenuItems}
-          featureMenuItems={featureMenuItems}
-          latestStories={latestStories}
-          menusLoading={menusLoading}
-          latestLoading={latestLoading}
-          latestPartnerContent={allPartnerContents}
-          latestPartnerContentLoading={latestPartnerContentLoading}
-          customClassName={'dark-color'}
-          magazineRef={magazineRef}
-        />
-      </div> */}
       <div
         className={cx('rca-menu-wrapper', isRCANavShown ? 'show' : undefined)}
       >
