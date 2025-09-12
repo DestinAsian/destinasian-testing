@@ -118,39 +118,48 @@ export default function BurgerFullMenu({
             )}
           </div>
           <div className={cx('fourth-wrapper')}>
-            {/* Secondary Menu {Special Sections Menu} */}
-            <NavigationMenu
-              className={cx('secondary-navigation')}
-              menuItems={secondaryMenuItems}
-            />
-          </div>
-          <div className={cx('fifth-wrapper')}>
-            {/* Latest Partner Content */}
-            {latestPartnerContent?.length !== 0 && (
-              <nav className={cx('latest-stories')}>
-                <ul class="menu-name">{'Partner Content Stories'}</ul>
-                <ul className={cx('menu-content')}>
-                  {latestPartnerContent.slice(0, visiblePosts).map((post) => (
-                    <li key={post?.id}>
-                      {post?.uri && (
-                        <Link href={post?.uri} className={cx('menu-item')}>
-                          {post?.title}
-                        </Link>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-            )}
-          </div>
-          <div className={cx('sixth-wrapper')}>
             {/* Destinations Menu */}
             <NavigationMenu
               className={cx('primary-navigation')}
               menuItems={primaryMenuItems}
             />
           </div>
-          <div className={cx('seventh-wrapper')}>
+          <div className={cx('fifth-wrapper')}>
+            <span className={cx('menu-name')}>{'Partner Content Stories'}</span>
+            <div className={cx('column-wrapper')}>
+              <div className={cx('left-column')}>
+                {/* Latest Partner Content */}
+                {latestPartnerContent?.length !== 0 && (
+                  <nav className={cx('latest-stories')}>
+                    <ul className={cx('menu-content')}>
+                      {latestPartnerContent
+                        .slice(0, visiblePosts)
+                        .map((post) => (
+                          <li key={post?.id}>
+                            {post?.uri && (
+                              <Link
+                                href={post?.uri}
+                                className={cx('menu-item')}
+                              >
+                                {post?.title}
+                              </Link>
+                            )}
+                          </li>
+                        ))}
+                    </ul>
+                  </nav>
+                )}
+              </div>
+              <div className={cx('right-column')}>
+                {/* Secondary Menu {Special Sections Menu} */}
+                <NavigationMenu
+                  className={cx('secondary-navigation')}
+                  menuItems={secondaryMenuItems}
+                />
+              </div>
+            </div>
+          </div>
+          <div className={cx('sixth-wrapper')}>
             <div className={cx('socmed-wrapper')}>
               {videoUri && (
                 <Link href={videoUri} target="_blank">
@@ -276,7 +285,7 @@ export default function BurgerFullMenu({
               )}
             </div>
           </div>
-          <div className={cx('eighth-wrapper')}>
+          <div className={cx('seventh-wrapper')}>
             {/* Fifth Menu {Others Menu} */}
             <NavigationMenu
               className={cx(['fifth-navigation'])}
