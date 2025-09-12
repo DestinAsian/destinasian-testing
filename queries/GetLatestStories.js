@@ -11,6 +11,9 @@ export const GetLatestStories = gql`
           date
           uri
           excerpt
+          passwordProtected {
+            onOff
+          }
           featuredImage {
             node {
               id
@@ -59,6 +62,9 @@ export const GetLatestStories = gql`
           date
           uri
           excerpt
+          passwordProtected {
+            onOff
+          }
           featuredImage {
             node {
               id
@@ -95,6 +101,9 @@ export const GetLatestStories = gql`
           date
           uri
           excerpt
+          passwordProtected {
+            onOff
+          }
           featuredImage {
             node {
               id

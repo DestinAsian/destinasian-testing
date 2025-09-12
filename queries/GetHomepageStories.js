@@ -25,6 +25,9 @@ export const GetHomepageStories = gql`
             content
             date
             excerpt
+            passwordProtected {
+              onOff
+            }
             featuredImage {
               node {
                 id

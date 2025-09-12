@@ -219,8 +219,10 @@ export default function HomepageStories(pinPosts) {
     )
   }
 
-  // Declare all posts
-  const allPosts = (data?.contentNodes?.edges || []).map((post) => post.node)
+  // Declare all posts (exclude password protected)
+  const allPosts = (data?.contentNodes?.edges || [])
+    .map((post) => post.node)
+    .filter((node) => !node?.passwordProtected?.onOff)
 
   // Declare all pin posts
   const allPinPosts = [
