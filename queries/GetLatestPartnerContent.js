@@ -11,6 +11,9 @@ export const GetLatestPartnerContent = gql`
           title
           excerpt
           uri
+          passwordProtected {
+            onOff
+          }
         }
       }
     }

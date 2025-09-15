@@ -98,6 +98,9 @@ export const GetSearchResults = gql`
                   title
                   excerpt
                   date
+                  passwordProtected {
+                    onOff
+                  }
                   featuredImage {
                     node {
                       sourceUrl
@@ -137,6 +140,9 @@ export const GetSearchResults = gql`
                 ... on Page {
                   title
                   date
+                  passwordProtected {
+                    onOff
+                  }
                   featuredImage {
                     node {
                       sourceUrl
@@ -152,6 +158,9 @@ export const GetSearchResults = gql`
                   title
                   excerpt
                   date
+                  passwordProtected {
+                    onOff
+                  }
                   featuredImage {
                     node {
                       sourceUrl
@@ -167,6 +176,9 @@ export const GetSearchResults = gql`
                   title
                   excerpt
                   date
+                  passwordProtected {
+                    onOff
+                  }
                   featuredImage {
                     node {
                       sourceUrl
@@ -190,6 +202,9 @@ export const GetSearchResults = gql`
                   title
                   excerpt
                   date
+                  passwordProtected {
+                    onOff
+                  }
                   featuredImage {
                     node {
                       sourceUrl
@@ -213,6 +228,9 @@ export const GetSearchResults = gql`
                   title
                   excerpt
                   date
+                  passwordProtected {
+                    onOff
+                  }
                   featuredImage {
                     node {
                       sourceUrl
@@ -228,6 +246,9 @@ export const GetSearchResults = gql`
                   title
                   excerpt
                   date
+                  passwordProtected {
+                    onOff
+                  }
                   featuredImage {
                     node {
                       sourceUrl
@@ -243,6 +264,9 @@ export const GetSearchResults = gql`
                   title
                   excerpt
                   date
+                  passwordProtected {
+                    onOff
+                  }
                   featuredImage {
                     node {
                       sourceUrl
@@ -258,6 +282,9 @@ export const GetSearchResults = gql`
                   title
                   excerpt
                   date
+                  passwordProtected {
+                    onOff
+                  }
                   featuredImage {
                     node {
                       sourceUrl
@@ -273,6 +300,9 @@ export const GetSearchResults = gql`
                   title
                   excerpt
                   date
+                  passwordProtected {
+                    onOff
+                  }
                   featuredImage {
                     node {
                       sourceUrl

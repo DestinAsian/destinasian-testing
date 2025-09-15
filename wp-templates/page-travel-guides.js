@@ -222,24 +222,20 @@ export default function Component(props) {
   const editorials = latestStories?.editorials ?? []
   const updates = latestStories?.updates ?? []
 
-  const mainPosts = []
-  const mainEditorialPosts = []
-  const mainUpdatesPosts = []
+  const mainPosts =
+    posts?.edges
+      ?.filter((post) => !post.node?.passwordProtected?.onOff)
+      .map((post) => post.node) ?? []
 
-  // loop through all the main categories posts
-  posts?.edges?.forEach((post) => {
-    mainPosts.push(post.node)
-  })
+  const mainEditorialPosts =
+    editorials?.edges
+      ?.filter((post) => !post.node?.passwordProtected?.onOff)
+      .map((post) => post.node) ?? []
 
-  // loop through all the main categories and their posts
-  editorials?.edges?.forEach((post) => {
-    mainEditorialPosts.push(post.node)
-  })
-
-  // loop through all the main categories and their posts
-  updates?.edges?.forEach((post) => {
-    mainUpdatesPosts.push(post.node)
-  })
+  const mainUpdatesPosts =
+    updates?.edges
+      ?.filter((post) => !post.node?.passwordProtected?.onOff)
+      .map((post) => post.node) ?? []
 
   // sort posts by date
   const sortPostsByDate = (a, b) => {

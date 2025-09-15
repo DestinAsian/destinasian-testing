@@ -110,9 +110,9 @@ export default function HomepageSecondaryHeader({
   // Loop through tags
   searchResultsData?.tags?.edges?.forEach((contentNodes) => {
     contentNodes.node?.contentNodes?.edges.forEach((post) => {
-      const { databaseId } = post.node
+      const { databaseId, passwordProtected } = post.node
 
-      if (!uniqueDatabaseIds.has(databaseId)) {
+      if (!passwordProtected?.onOff && !uniqueDatabaseIds.has(databaseId)) {
         uniqueDatabaseIds.add(databaseId)
         contentNodesPosts.push(post.node)
       }
@@ -133,7 +133,7 @@ export default function HomepageSecondaryHeader({
   const { data: latestPartnerContent, loading: latestPartnerContentLoading } =
     useQuery(GetLatestPartnerContent, {
       variables: {
-        first: 5,
+        first: 10,
       },
       fetchPolicy: 'network-only',
       nextFetchPolicy: 'cache-and-network',
@@ -141,12 +141,10 @@ export default function HomepageSecondaryHeader({
 
   const advertorials = latestPartnerContent?.advertorials ?? []
 
-  const allPartnerContents = []
-
-  // loop through all the main categories partner content
-  advertorials?.edges?.forEach((post) => {
-    allPartnerContents.push(post.node)
-  })
+  const allPartnerContents =
+    advertorials?.edges
+      ?.filter((post) => !post.node?.passwordProtected?.onOff)
+      .map((post) => post.node) ?? []
 
   return (
     <>

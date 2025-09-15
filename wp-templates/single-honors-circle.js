@@ -227,24 +227,22 @@ export default function SingleHonorsCircle(props) {
   const latestEditorials = latestStories?.editorials ?? []
   const latestUpdates = latestStories?.updates ?? []
 
-  const latestMainPosts = []
-  const latestMainEditorialPosts = []
-  const latestMainUpdatesPosts = []
+  const latestMainPosts =
+    latestPosts?.edges
+      ?.filter((post) => !post.node?.passwordProtected?.onOff)
+      .map((post) => post.node) ?? []
 
-  // loop through all the latest categories posts
-  latestPosts?.edges?.forEach((post) => {
-    latestMainPosts.push(post.node)
-  })
+  const latestMainEditorialPosts =
+    latestEditorials?.edges
+      ?.filter((post) => !post.node?.passwordProtected?.onOff)
+      .map((post) => post.node) ?? []
 
-  // loop through all the latest categories and their posts
-  latestEditorials?.edges?.forEach((post) => {
-    latestMainEditorialPosts.push(post.node)
-  })
-
-  // loop through all the latest categories and their posts
-  latestUpdates?.edges?.forEach((post) => {
-    latestMainUpdatesPosts.push(post.node)
-  })
+  const latestMainUpdatesPosts =
+    latestUpdates?.edges
+      ?.filter((post) => !post.node?.passwordProtected?.onOff)
+      .map((post) => post.node) ?? []
+      ?.filter((post) => !post.node?.passwordProtected?.onOff)
+      .map((post) => post.node) ?? []
 
   // define latestCatPostCards
   const latestMainCatPosts = [
