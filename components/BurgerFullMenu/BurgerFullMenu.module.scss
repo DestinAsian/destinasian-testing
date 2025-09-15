@@ -53,6 +53,11 @@
     li.no-divider:last-child::after {
       display: none;
     }
+
+    li.bold,
+    li.bold a {
+      font-weight: 700 !important;
+    }
   }
 
   .full-menu-content {
