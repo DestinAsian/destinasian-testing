@@ -427,16 +427,29 @@ export default function CategoryStories(categoryUri) {
                 locationUrl={post?.acfLocationIcon?.locationUrl}
               />
             </div>
-            {/* Show 1st banner after 2 posts and then every 4 posts */}
+            {/* Show 2 banners after 2 posts and then every 4 posts */}
             {(index - 1) % 4 === 0 && (
-              <div className={cx('banner-ad-wrapper')}>
-                <ModuleAd
-                  bannerAd={
-                    sortedBannerAdsArray[((index - 1) / 4) % numberOfBannerAds]
-                      ?.node?.content
-                  }
-                />
-              </div>
+              <>
+                <div className={cx('banner-ad-wrapper')}>
+                  <ModuleAd
+                    bannerAd={
+                      sortedBannerAdsArray[
+                        (((index - 1) / 4) * 2) % numberOfBannerAds
+                      ]?.node?.content
+                    }
+                  />
+                </div>
+
+                <div className={cx('banner-ad-wrapper')}>
+                  <ModuleAd
+                    bannerAd={
+                      sortedBannerAdsArray[
+                        (((index - 1) / 4) * 2 + 1) % numberOfBannerAds
+                      ]?.node?.content
+                    }
+                  />
+                </div>
+              </>
             )}
             {index - 1 === 2 && (
               <div className={cx('advertorial-wrapper')}>
