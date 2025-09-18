@@ -326,7 +326,7 @@ export default function Component(props) {
 
   return (
     <main
-      className={`${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable}`}
+      className={`${eb_garamond.variable} ${poppins.variable}`}
     >
       <CategoryHeader isScrolled={isScrolled} />
       {/* Guides category */}

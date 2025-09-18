@@ -279,7 +279,7 @@ export default function Component(props) {
   if (passwordProtected?.onOff && !isAuthenticated) {
     return (
       <main
-        className={`${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable} ${rubik.variable}`}
+        className={`${eb_garamond.variable} ${poppins.variable} ${rubik.variable}`}
       >
         <form onSubmit={handlePasswordSubmit}>
           <PasswordProtected
@@ -298,7 +298,7 @@ export default function Component(props) {
 
   return (
     <main
-      className={`${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable}`}
+      className={`${eb_garamond.variable} ${poppins.variable}`}
     >
       <Header isScrolled={isScrolled} />
       <SecondaryHeader

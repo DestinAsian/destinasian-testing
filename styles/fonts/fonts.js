@@ -2,7 +2,6 @@ import {
   EB_Garamond,
   Poppins,
   Rubik,
-  Rubik_Mono_One,
 } from 'next/font/google'
 
 export const eb_garamond = EB_Garamond({
@@ -27,11 +26,4 @@ export const rubik = Rubik({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font--rubik',
-})
-
-export const rubik_mono_one = Rubik_Mono_One({
-  weight: ['400'],
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font--rubik--mono--one',
 })

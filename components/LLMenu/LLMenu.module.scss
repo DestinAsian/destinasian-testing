@@ -45,11 +45,10 @@
   }
 
   .title-header-wrapper {
-    font-family: var(--font--rubik--mono--one);
+    font-family: 'Unit Slab Pro Black';
+    font-weight: 500;
     font-size: 1rem;
-    font-weight: 400;
     letter-spacing: 0.06rem;
-    word-spacing: -0.4rem;
     padding: 0 1rem;
     width: 100%;
     text-align: right;
@@ -97,9 +96,9 @@
     row-gap: 2rem;
     width: 100%;
     padding: 2rem 1rem 7rem;
-    font-family: var(--font--rubik--mono--one);
+    font-family: 'Unit Slab Pro Black';
+    font-weight: 500;
     font-size: 1rem;
-    font-weight: 400;
     text-align: right;
     text-align-last: right;
 
@@ -154,7 +153,6 @@
     .title-wrapper {
       font-size: 0.8rem;
       letter-spacing: 0.06rem;
-      word-spacing: -0.4rem;
 
       @media (min-width: $breakpoint-extra-small) {
         font-size: 0.7rem;

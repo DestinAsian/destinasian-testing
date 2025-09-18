@@ -3,13 +3,13 @@
 
 .component {
   display: block;
-  background-color: var(--wpe--color--black);
+  background-color: var(--wpe--color--deep--black);
   color: var(--wpe--color--black);
   position: relative;
   overflow: hidden;
   max-width: 100vw;
-  font-family: var(--font--rubik--mono--one);
-  font-weight: 400;
+  font-family: 'Unit Slab Pro Black';
+  font-weight: 500;
   top: 20rem;
   height: fit-content;
   padding: 4.5rem 0 1rem;
@@ -63,7 +63,6 @@
   color: var(--wpe--color--white);
   text-align: left;
   text-align-last: left;
-  word-spacing: -0.4rem;
   padding: 0;
 
   @media (min-width: $breakpoint-extra-small) {

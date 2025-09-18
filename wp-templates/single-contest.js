@@ -321,7 +321,7 @@ export default function SingleContest(props) {
   if (passwordProtected?.onOff && !isAuthenticated) {
     return (
       <main
-        className={`${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable} ${rubik.variable}`}
+        className={`${eb_garamond.variable} ${poppins.variable} ${rubik.variable}`}
       >
         <form onSubmit={handlePasswordSubmit}>
           <PasswordProtected
@@ -340,7 +340,7 @@ export default function SingleContest(props) {
 
   return (
     <main
-      className={`${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable} bg-[--wpe--color--teal]`}
+      className={`${eb_garamond.variable} ${poppins.variable} bg-[--wpe--color--teal]`}
     >
       <Header isScrolled={isScrolled} />
       <SecondaryHeader

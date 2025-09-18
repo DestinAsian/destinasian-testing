@@ -273,7 +273,7 @@ export default function SingleContributor(props) {
   if (passwordProtected?.onOff && !isAuthenticated) {
     return (
       <main
-        className={`${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable} ${rubik.variable}`}
+        className={`${eb_garamond.variable} ${poppins.variable} ${rubik.variable}`}
       >
         <form onSubmit={handlePasswordSubmit}>
           <PasswordProtected
@@ -292,7 +292,7 @@ export default function SingleContributor(props) {
 
   return (
     <main
-      className={`${eb_garamond.variable} ${poppins.variable} ${rubik_mono_one.variable} ${rubik.variable} bg-[--wpe--color--teal]`}
+      className={`${eb_garamond.variable} ${poppins.variable} ${rubik.variable} bg-[--wpe--color--teal]`}
     >
       <Header isScrolled={isScrolled} />
       <SecondaryHeader
