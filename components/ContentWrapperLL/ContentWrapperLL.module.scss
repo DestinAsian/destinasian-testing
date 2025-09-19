@@ -257,27 +257,41 @@
         height: 2rem;
       }
     }
-  }
 
-  .autoplay-icon {
-    display: flex;
-    margin-top: 0;
-    margin-bottom: 0;
-    background-color: transparent;
-    font-size: 1.875rem;
-    line-height: 2.25rem;
-    align-items: center;
-    cursor: pointer;
-    user-select: none;
-    width: 1.3rem;
+    .autoplay-icon {
+      display: flex;
+      margin-top: 0;
+      margin-bottom: 0;
+      background-color: transparent;
+      font-size: 1.875rem;
+      line-height: 2.25rem;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+      width: 5rem;
 
-    @media (min-width: $breakpoint-extra-small) {
-      width: 1.6rem;
-      height: 3.5rem;
-    }
+      span {
+        padding: 0;
+      }
 
-    @media (min-width: $breakpoint-medium) {
-      width: 1.8rem;
+      svg {
+        width: 1.3rem;
+
+        @media (min-width: $breakpoint-extra-small) {
+          width: 1.6rem;
+          height: 3.5rem;
+        }
+      }
+
+      span {
+        font-size: 1.25rem;
+        font-family: 'Unit Slab Pro Black';
+        font-weight: 400;
+
+        @media (min-width: $breakpoint-extra-small) {
+          font-size: 1.5rem;
+        }
+      }
     }
   }
 
