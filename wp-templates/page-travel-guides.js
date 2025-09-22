@@ -5,7 +5,7 @@ import { HeaderFooterVisibilityFragment } from '../fragments/HeaderFooterVisibil
 import { GetMenus } from '../queries/GetMenus'
 import { GetFooterMenus } from '../queries/GetFooterMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
-import { eb_garamond, poppins, rubik_mono_one } from '../styles/fonts/fonts'
+import { eb_garamond, poppins } from '../styles/fonts/fonts'
 import Cookies from 'js-cookie'
 import { GetLatestRCA } from '../queries/GetLatestRCA'
 import dynamic from 'next/dynamic'

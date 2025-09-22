@@ -5,12 +5,7 @@ import { HeaderFooterVisibilityFragment } from '../fragments/HeaderFooterVisibil
 import { GetMenus } from '../queries/GetMenus'
 import { GetFooterMenus } from '../queries/GetFooterMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
-import {
-  eb_garamond,
-  poppins,
-  rubik,
-  rubik_mono_one,
-} from '../styles/fonts/fonts'
+import { eb_garamond, poppins, rubik } from '../styles/fonts/fonts'
 import Cookies from 'js-cookie'
 import { GetLatestRCA } from '../queries/GetLatestRCA'
 import dynamic from 'next/dynamic'
@@ -25,6 +20,9 @@ const EntryHeader = dynamic(() =>
 const Main = dynamic(() => import('@/components/Main/Main'))
 const ContentWrapperPage = dynamic(() =>
   import('@/components/ContentWrapperPage/ContentWrapperPage'),
+)
+const PageRelatedStories = dynamic(() =>
+  import('@/components/PageRelatedStories/PageRelatedStories'),
 )
 const PasswordProtected = dynamic(() =>
   import('@/components/PasswordProtected/PasswordProtected'),
@@ -53,6 +51,7 @@ export default function Component(props) {
 
   const {
     title,
+    databaseId,
     content,
     featuredImage,
     headerFooterVisibility,
@@ -291,9 +290,7 @@ export default function Component(props) {
   }
 
   return (
-    <main
-      className={`${eb_garamond.variable} ${poppins.variable}`}
-    >
+    <main className={`${eb_garamond.variable} ${poppins.variable}`}>
       <Header isScrolled={isScrolled} />
       <SecondaryHeader
         primaryMenuItems={primaryMenu}
@@ -328,6 +325,7 @@ export default function Component(props) {
           )}
           <>
             <ContentWrapperPage content={content} />
+            <PageRelatedStories databaseId={databaseId} />
           </>
         </>
       </Main>
@@ -343,6 +341,7 @@ Component.query = gql`
   query GetPageData($databaseId: ID!, $asPreview: Boolean = false) {
     page(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
       title
+      databaseId
       content
       passwordProtected {
         onOff

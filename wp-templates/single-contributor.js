@@ -8,7 +8,6 @@ import {
   eb_garamond,
   poppins,
   rubik,
-  rubik_mono_one,
 } from '../styles/fonts/fonts'
 import Image from 'next/image'
 import Cookies from 'js-cookie'

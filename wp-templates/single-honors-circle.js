@@ -7,7 +7,6 @@ import {
   eb_garamond,
   poppins,
   rubik,
-  rubik_mono_one,
 } from '../styles/fonts/fonts'
 import Cookies from 'js-cookie'
 import { GetLatestRCA } from '../queries/GetLatestRCA'
