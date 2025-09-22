@@ -19,8 +19,7 @@
   }
 
   .post-wrapper,
-  .advertorial-wrapper,
-  .banner-ad-wrapper {
+  .advertorial-wrapper {
     width: 100vw;
     max-width: 700px;
 
@@ -54,7 +53,7 @@
     }
   }
 
-  // .banner-ad-wrapper {
-  //   width: 100vw;
-  // }
+  .banner-ad-wrapper {
+    width: 100vw;
+  }
 }

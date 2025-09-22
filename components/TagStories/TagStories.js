@@ -350,56 +350,59 @@ export default function TagStories(tagUri) {
                 locationUrl={post?.acfLocationIcon?.locationUrl}
               />
             </div>
-            {/* Show 2 banners after 2 posts and then every 4 posts */}
-            {(index - 1) % 4 === 0 && (
-              <>
-                <div className={cx('banner-ad-wrapper')}>
-                  <ModuleAd
-                    bannerAd={
-                      sortedBannerAdsArray[
-                        (((index - 1) / 4) * 2) % numberOfBannerAds
-                      ]?.node?.content
-                    }
-                  />
-                </div>
+            {(() => {
+              const pos = (index - 1) % 8 // cycle through 8 slots
 
-                <div className={cx('banner-ad-wrapper')}>
-                  <ModuleAd
-                    bannerAd={
-                      sortedBannerAdsArray[
-                        (((index - 1) / 4) * 2 + 1) % numberOfBannerAds
-                      ]?.node?.content
-                    }
-                  />
-                </div>
-              </>
-            )}
-            {index - 1 === 2 && (
-              <div className={cx('advertorial-wrapper')}>
-                {/* Advertorial Stories */}
-                {numberOfAdvertorial !== 0 && (
-                  <AdvertorialPostTwoColumns
-                    title={getAdvertorialPost[0]?.title}
-                    excerpt={getAdvertorialPost[0]?.excerpt}
-                    uri={getAdvertorialPost[0]?.uri}
-                    featuredImage={getAdvertorialPost[0]?.featuredImage?.node}
-                  />
-                )}
-              </div>
-            )}
-            {index - 1 === 2 && (
-              <div className={cx('advertorial-wrapper')}>
-                {/* Advertorial Stories */}
-                {numberOfAdvertorial !== 0 && numberOfAdvertorial > 1 && (
-                  <AdvertorialPostTwoColumns
-                    title={getAdvertorialPost[1]?.title}
-                    excerpt={getAdvertorialPost[1]?.excerpt}
-                    uri={getAdvertorialPost[1]?.uri}
-                    featuredImage={getAdvertorialPost[1]?.featuredImage?.node}
-                  />
-                )}
-              </div>
-            )}
+              // Show banner after 2 posts
+              if (pos === 2) {
+                return (
+                  <div className={cx('banner-ad-wrapper')}>
+                    <ModuleAd
+                      bannerAd={
+                        sortedBannerAdsArray[
+                          Math.floor((index - 1) / 8) % numberOfBannerAds
+                        ]?.node?.content
+                      }
+                    />
+                  </div>
+                )
+              }
+
+              // Show advertorials after another 2 posts
+              if (pos === 6) {
+                return (
+                  <>
+                    <div className={cx('advertorial-wrapper')}>
+                      {numberOfAdvertorial > 0 && (
+                        <AdvertorialPostTwoColumns
+                          title={getAdvertorialPost[0]?.title}
+                          excerpt={getAdvertorialPost[0]?.excerpt}
+                          uri={getAdvertorialPost[0]?.uri}
+                          featuredImage={
+                            getAdvertorialPost[0]?.featuredImage?.node
+                          }
+                        />
+                      )}
+                    </div>
+
+                    <div className={cx('advertorial-wrapper')}>
+                      {numberOfAdvertorial > 1 && (
+                        <AdvertorialPostTwoColumns
+                          title={getAdvertorialPost[1]?.title}
+                          excerpt={getAdvertorialPost[1]?.excerpt}
+                          uri={getAdvertorialPost[1]?.uri}
+                          featuredImage={
+                            getAdvertorialPost[1]?.featuredImage?.node
+                          }
+                        />
+                      )}
+                    </div>
+                  </>
+                )
+              }
+
+              return null // nothing extra
+            })()}
           </React.Fragment>
         ))}
       {mergedPosts?.length === 0 && (
