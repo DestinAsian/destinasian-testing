@@ -54,6 +54,13 @@
       display: none;
     }
 
+    li.blank,
+    li.blank + li {
+      column-span: all; // take full width, escape columns
+      display: block;
+      margin-top: auto; // push them down if parent is flex/grid
+    }
+
     li.bold,
     li.bold a {
       font-weight: 700 !important;
