@@ -24,7 +24,7 @@
     width: 100%;
     z-index: 49;
     transform: translate(-50%, 3.5rem);
-    background-color: var(--wpe--color--black);
+    background-color: var(--wpe--color--deep--black);
 
     @media (min-width: $breakpoint-extra-small) {
       height: calc(-4.5rem + 100vh);
@@ -65,43 +65,6 @@
     }
   }
 }
-
-// .sticky-image-wrapper {
-//   background-color: var(--wpe--color--black);
-//   color: var(--wpe--color--white);
-//   position: fixed;
-//   padding: 1rem;
-//   z-index: 49;
-//   top: 0;
-
-//   // Sticky menu with background
-//   left: 50%;
-//   width: 100%;
-//   transform: translate(-50%, 3.5rem);
-
-//   // Sticky menu without background
-//   // right: 0;
-//   // width: fit-content;
-//   // transform: translateY(3.5rem);
-
-//   @media (min-width: $breakpoint-extra-small) {
-//     display: none;
-//     width: 50vw;
-//     transform: translate(0, 4.5rem);
-//     padding: 1rem 2rem;
-//   }
-
-//   figure {
-//     width: 5rem;
-//     height: 5rem;
-
-//     img {
-//       width: 100%;
-//       height: 100%;
-//       object-fit: cover;
-//     }
-//   }
-// }
 
 .image-menu-wrapper {
   display: flex;
@@ -175,7 +138,7 @@
   position: absolute;
   z-index: 49;
   top: -150vh;
-  background-color: var(--wpe--color--black);
+  background-color: var(--wpe--color--deep--black);
   color: var(--wpe--color--white);
   margin: 0;
 
