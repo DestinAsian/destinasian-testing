@@ -284,19 +284,28 @@
 
 .post-ll-swiper > .swiper-wrapper > .swiper-slide,
 .post-lt-swiper > .swiper-wrapper > .swiper-slide {
-  padding: 0;
+  position: relative;
   width: 100%;
-  height: 100%;
+  /* enforce square */
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
 }
 
 .post-ll-swiper > .swiper-wrapper > .swiper-slide > img,
 .post-lt-swiper > .swiper-wrapper > .swiper-slide > img {
   padding: 0;
+
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .swiper-ll-custom-pagination > .swiper-pagination-bullet {
-  color: #494949;
-  background: #494949 !important;
+  color: #000000;
+  background: #000000 !important;
   padding: 0.5rem !important;
   opacity: 1;
 }
@@ -482,26 +491,10 @@
     height: 89%;
   } */
 
-  .post-ll-swiper {
-    padding: 0;
-  }
-
   .post-lt-swiper {
     padding: 0;
     aspect-ratio: auto;
     margin-left: 2rem;
-  }
-
-  .swiper-ll-custom-pagination.swiper-pagination-bullets.swiper-pagination-horizontal,
-  .swiper-lt-custom-pagination.swiper-pagination-bullets.swiper-pagination-horizontal {
-    display: block;
-    top: 50%;
-    width: fit-content;
-    height: fit-content;
-    position: fixed;
-    transform-origin: left;
-    transform: translate(12%, -100%) rotate(90deg);
-    padding: 0;
   }
 
   .swiper-rca-custom-pagination.swiper-pagination-bullets.swiper-pagination-horizontal {
@@ -569,11 +562,6 @@
     width: 100%;
     max-width: 350px;
   }
-
-  .post-ll-swiper > .swiper-wrapper > .swiper-slide,
-  .post-lt-swiper > .swiper-wrapper > .swiper-slide {
-    height: calc(100vh - 4.5rem);
-  }
 }
 
 @media only screen and (min-width: 768px) {
@@ -594,5 +582,26 @@
     width: 100vw;
     padding: 0 1rem;
     margin-bottom: 2rem;
+  }
+
+  .post-ll-swiper {
+    padding: 0;
+  }
+
+  .post-ll-swiper > .swiper-wrapper > .swiper-slide,
+  .post-lt-swiper > .swiper-wrapper > .swiper-slide {
+    height: calc(100vh - 4.5rem);
+  }
+
+  .swiper-ll-custom-pagination.swiper-pagination-bullets.swiper-pagination-horizontal,
+  .swiper-lt-custom-pagination.swiper-pagination-bullets.swiper-pagination-horizontal {
+    display: block;
+    top: 50%;
+    width: fit-content;
+    height: fit-content;
+    position: fixed;
+    transform-origin: left;
+    transform: translate(12%, -100%) rotate(90deg);
+    padding: 0;
   }
 }

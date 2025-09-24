@@ -11,10 +11,18 @@
   color: #000000;
 }
 
-#mc_embed_signup input::placeholder,
-#mc_embed_signup select::placeholder,
-#mc_embed_signup select:required:invalid {
+#mc_embed_signup input::placeholder {
   color: #929292;
+}
+
+/* default look */
+#mc_embed_signup select {
+  color: #929292; /* gray for placeholder */
+}
+
+/* once we detect a real value via JS */
+#mc_embed_signup select.has-value {
+  color: #000; /* black for chosen country */
 }
 
 .content-wrapper {
@@ -25,7 +33,8 @@
 }
 
 .mc-field-group-two-column,
-.mc-field-wrapper {
+.mc-field-wrapper,
+.mc-field-wrapper-footer {
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -33,7 +42,8 @@
   align-items: center;
 }
 
-.mc-field-wrapper-column {
+.mc-field-wrapper-column,
+.mc-field-wrapper-footer-column {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -188,16 +198,18 @@ input[type='checkbox'] + label::after {
   .mc-field-group-two-column,
   .mc-field-wrapper {
     padding-bottom: 1rem;
+    width: 100%;
+  }
+
+  .mc-field-wrapper-footer,
+  .mc-field-wrapper-footer-column {
     width: 80%;
   }
 
-  .mc-field-wrapper-column {
+  .mc-field-wrapper-column,
+  .mc-field-wrapper-footer-column {
     row-gap: 1rem;
   }
-
-  /* .input-group ul {
-    justify-content: space-between;
-  } */
 
   .input-group > ul > * {
     font-size: 0.9rem;

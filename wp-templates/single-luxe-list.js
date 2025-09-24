@@ -345,8 +345,8 @@ export default function singleLuxeList(props) {
         <>
           {/* {'hotel'} */}
           <SingleLLContainer>
-            <div className="sm:fixed sm:left-[50vw] sm:flex sm:w-[50vw] sm:flex-col">
-              <div className="w-full sm:relative sm:flex sm:h-[100vh] sm:flex-row-reverse sm:flex-nowrap sm:overflow-y-auto">
+            <div className="lg:fixed lg:left-[50vw] lg:flex lg:w-[50vw] lg:flex-col">
+              <div className="w-full lg:relative lg:flex lg:h-[100vh] lg:flex-row-reverse lg:flex-nowrap lg:overflow-y-auto">
                 {/* First wrapper */}
                 <SingleLLFeaturedImage
                   mainLogo={
@@ -367,7 +367,7 @@ export default function singleLuxeList(props) {
                   setIsLLNavShown={setIsLLNavShown}
                 />
                 {/* Second wrapper */}
-                <div className="w-full sm:relative sm:pt-20">
+                <div className="w-full lg:relative lg:pt-20">
                   <ContentWrapperLL
                     router={props?.router}
                     title={title}
