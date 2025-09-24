@@ -2,14 +2,14 @@
 @import 'styles/fonts/typography';
 
 .component {
-  background-color: var(--wpe--color--deep--black);
+  background-color: var(--wpe--color--charcoal);
   position: relative;
   overflow: hidden;
   margin: 0 auto;
   width: 100vw;
 
   @media (min-width: $breakpoint-extra-small) {
-    width: 5rem;
+    width: 0;
     padding: 0;
     margin: 0;
   }
@@ -24,7 +24,7 @@
     width: 100%;
     z-index: 49;
     transform: translate(-50%, 3.5rem);
-    background-color: var(--wpe--color--deep--black);
+    background-color: var(--wpe--color--charcoal);
 
     @media (min-width: $breakpoint-extra-small) {
       height: calc(-4.5rem + 100vh);
@@ -138,7 +138,7 @@
   position: absolute;
   z-index: 49;
   top: -150vh;
-  background-color: var(--wpe--color--deep--black);
+  background-color: var(--wpe--color--charcoal);
   color: var(--wpe--color--white);
   margin: 0;
 
