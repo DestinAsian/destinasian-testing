@@ -87,7 +87,7 @@ export default function TabsEditor({ tabsEditor, luxuryTravelClass }) {
             : 'tabs-container mx-auto max-w-[700px] p-0'
         }
       >
-        <div className="my-4 flex border-2 border-black p-0" ref={topButtonRef}>
+        <div className="my-4 flex border-2 p-0" ref={topButtonRef}>
           <button
             onClick={() => setActiveTab('tab1')}
             className={`flex-1 border px-4 py-2 ${
@@ -127,7 +127,7 @@ export default function TabsEditor({ tabsEditor, luxuryTravelClass }) {
             />
           )}
         </div>
-        <div className="mb-4 flex border-2 border-black p-0">
+        <div className="mb-4 flex border-2 p-0">
           <button
             // onClick={() => setActiveTab('tab1')}
             onClick={() => handleClick('tab1')}
