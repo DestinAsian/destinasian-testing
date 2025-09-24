@@ -7,7 +7,7 @@ import { HeaderFooterVisibilityFragment } from '../fragments/HeaderFooterVisibil
 import { GetMenus } from '../queries/GetMenus'
 import { GetFooterMenus } from '../queries/GetFooterMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
-import { eb_garamond, poppins } from '../styles/fonts/fonts'
+import { eb_garamond, poppins, rubik } from '../styles/fonts/fonts'
 import Cookies from 'js-cookie'
 import { GetLatestRCA } from '../queries/GetLatestRCA'
 import dynamic from 'next/dynamic'
@@ -297,9 +297,7 @@ export default function Component(props) {
   }
 
   return (
-    <main
-      className={`${eb_garamond.variable} ${poppins.variable}`}
-    >
+    <main className={`${eb_garamond.variable} ${poppins.variable}`}>
       <Header isScrolled={isScrolled} />
       <SecondaryHeader
         primaryMenuItems={primaryMenu}

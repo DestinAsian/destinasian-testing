@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react'
+import classNames from 'classnames/bind'
+import styles from '@/components/Footer/Footer.module.scss'
 import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
 import { HeaderFooterVisibilityFragment } from '../fragments/HeaderFooterVisibility'
@@ -14,17 +16,25 @@ const Header = dynamic(() => import('@/components/Header/Header'))
 const SecondaryHeader = dynamic(() =>
   import('@/components/Header/SecondaryHeader/SecondaryHeader'),
 )
-const TravelGuidesEntryHeader = dynamic(() =>
-  import('@/components/TravelGuidesEntryHeader/TravelGuidesEntryHeader'),
+const EntryHeader = dynamic(() =>
+  import('@/components/EntryHeader/EntryHeader'),
 )
 const Main = dynamic(() => import('@/components/Main/Main'))
-const ContentWrapperTravelGuides = dynamic(() =>
-  import('@/components/ContentWrapperTravelGuides/ContentWrapperTravelGuides'),
+const Footer = dynamic(() => import('@/components/Footer/Footer'))
+const ContentWrapper = dynamic(() =>
+  import('@/components/ContentWrapper/ContentWrapper'),
+)
+const NewsletterEmbed = dynamic(() =>
+  import('@/components/NewsletterEmbed/NewsletterEmbed'),
+)
+const PageRelatedStories = dynamic(() =>
+  import('@/components/PageRelatedStories/PageRelatedStories'),
 )
 const PasswordProtected = dynamic(() =>
   import('@/components/PasswordProtected/PasswordProtected'),
 )
-const Footer = dynamic(() => import('@/components/Footer/Footer'))
+
+let cx = classNames.bind(styles)
 
 export default function Component(props) {
   // Loading state for previews
@@ -48,6 +58,7 @@ export default function Component(props) {
 
   const {
     title,
+    databaseId,
     content,
     featuredImage,
     headerFooterVisibility,
@@ -254,36 +265,36 @@ export default function Component(props) {
   // sortByDate mainCat & childCat Posts
   const allPosts = mainCatPosts.sort(sortPostsByDate)
 
-    // Handle password submission
-    const handlePasswordSubmit = (e) => {
-      e.preventDefault()
-      if (enteredPassword === passwordProtected?.password) {
-        setIsAuthenticated(true)
-        Cookies.set('pagePassword', enteredPassword, { expires: 1 }) // Set cookie to expire in 1 day
-      } else {
-        alert('Incorrect password. Please try again.')
-      }
+  // Handle password submission
+  const handlePasswordSubmit = (e) => {
+    e.preventDefault()
+    if (enteredPassword === passwordProtected?.password) {
+      setIsAuthenticated(true)
+      Cookies.set('pagePassword', enteredPassword, { expires: 1 }) // Set cookie to expire in 1 day
+    } else {
+      alert('Incorrect password. Please try again.')
     }
-  
-    if (passwordProtected?.onOff && !isAuthenticated) {
-      return (
-        <main
-          className={`${eb_garamond.variable} ${poppins.variable} ${rubik.variable}`}
-        >
-          <form onSubmit={handlePasswordSubmit}>
-            <PasswordProtected
-              enteredPassword={enteredPassword}
-              setEnteredPassword={setEnteredPassword}
-              title={seo?.title}
-              description={seo?.metaDesc}
-              imageUrl={featuredImage?.node?.sourceUrl}
-              url={uri}
-              focuskw={seo?.focuskw}
-            />
-          </form>
-        </main>
-      )
-    }
+  }
+
+  if (passwordProtected?.onOff && !isAuthenticated) {
+    return (
+      <main
+        className={`${eb_garamond.variable} ${poppins.variable} ${rubik.variable}`}
+      >
+        <form onSubmit={handlePasswordSubmit}>
+          <PasswordProtected
+            enteredPassword={enteredPassword}
+            setEnteredPassword={setEnteredPassword}
+            title={seo?.title}
+            description={seo?.metaDesc}
+            imageUrl={featuredImage?.node?.sourceUrl}
+            url={uri}
+            focuskw={seo?.focuskw}
+          />
+        </form>
+      </main>
+    )
+  }
 
   return (
     <main
@@ -319,10 +330,16 @@ export default function Component(props) {
       <Main>
         <>
           {headerFooterVisibility?.headerVisibility == true ? null : (
-            <TravelGuidesEntryHeader title={title} />
+            <EntryHeader title={title} />
           )}
           <>
-            <ContentWrapperTravelGuides content={content} />
+            <ContentWrapper content={content} className={'newsletter'} />
+            <div className={cx('container-wrapper')}>
+              <div className={`${styles.newsletterWrapper} mb-12`}>
+                <NewsletterEmbed />
+              </div>
+            </div>
+            <PageRelatedStories databaseId={databaseId} />
           </>
         </>
       </Main>
@@ -338,6 +355,7 @@ Component.query = gql`
   query GetPageData($databaseId: ID!, $asPreview: Boolean = false) {
     page(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
       title
+      databaseId
       content
       passwordProtected {
         onOff

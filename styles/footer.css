@@ -94,6 +94,8 @@
 
 .asterisk {
   color: #f94700 !important;
+  position: absolute;
+  margin-left: -1rem; 
 }
 
 .input-group > ul > li input {

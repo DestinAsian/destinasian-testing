@@ -1,5 +1,6 @@
 import category from './category'
 import frontPage from './front-page'
+import pageBaliGuideNotification from './page-bali-guide-notification-sign-up'
 import pageContests from './page-contests'
 import pageHonorsCircle from './page-honors-circle'
 import pageNewsletter from './page-newsletter'
@@ -21,6 +22,7 @@ import tag from './tag'
 export default {
   category,
   'front-page': frontPage,
+  'page-bali-guide-notification-sign-up': pageBaliGuideNotification,
   'page-contests': pageContests,
   'page-honors-circle': pageHonorsCircle,
   'page-newsletter': pageNewsletter,

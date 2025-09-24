@@ -314,6 +314,7 @@ export default function NewsletterEmbed() {
                   </div>
                   <div class="mc-field-wrapper mc-field-group-two-column">
                     <div class="mc-field-group mc-field-email">
+                      <span class="asterisk">*</span>
                       <input
                         type="email"
                         name="EMAIL"

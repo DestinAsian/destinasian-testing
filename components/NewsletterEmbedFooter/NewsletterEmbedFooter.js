@@ -341,6 +341,7 @@ export default function NewsletterEmbedFooter() {
                   </div>
                   <div class="mc-field-wrapper-footer mc-field-group-two-column">
                     <div class="mc-field-group mc-field-email">
+                      <span class="asterisk">*</span>
                       <input
                         type="email"
                         name="EMAIL"
