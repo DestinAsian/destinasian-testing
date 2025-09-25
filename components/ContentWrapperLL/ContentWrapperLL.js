@@ -2,7 +2,8 @@ import className from 'classnames/bind'
 import styles from './ContentWrapperLL.module.scss'
 import { GetLuxeListPagination } from '../../queries/GetLuxeListPagination'
 import { useQuery } from '@apollo/client'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef, useLayoutEffect } from 'react'
+import { useMediaQuery } from 'react-responsive'
 import { renderToStaticMarkup } from 'react-dom/server'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -40,6 +41,8 @@ export default function ContentWrapperLL({
   const batchSize = 30
   const [transformedContent, setTransformedContent] = useState('')
   const [isSliderMounted, setIsSliderMounted] = useState(false) // Track slider mount status
+
+  const isMobile = useMediaQuery({ maxWidth: 1023 })
 
   const { data, loading, error } = useQuery(GetLuxeListPagination, {
     variables: { first: batchSize, after: null, id: databaseId },
@@ -156,6 +159,63 @@ export default function ContentWrapperLL({
     }
   })
 
+  const [sliderHeight, setSliderHeight] = useState(0)
+  const sliderRef = useRef(null)
+
+  // Measure slider height reliably and watch for changes
+  useLayoutEffect(() => {
+    if (typeof window === 'undefined') return
+
+    const getHeight = () => {
+      let h = 0
+
+      // Prefer the wrapper measured DOM box
+      if (sliderRef.current) {
+        const rect = sliderRef.current.getBoundingClientRect()
+        h = rect.height || 0
+      }
+
+      // Fallback: if Swiper instance is present, measure its element
+      if ((!h || h === 0) && sliderLL?.current?.swiper?.el) {
+        const el = sliderLL.current.swiper.el
+        const rect = el.getBoundingClientRect()
+        h = rect.height || 0
+      }
+
+      // Round to avoid fractional px that cause repaint thrash
+      setSliderHeight(Math.round(h))
+    }
+
+    // measure once now
+    getHeight()
+
+    // Observe changes using ResizeObserver when available
+    let ro
+    const target = sliderRef.current ?? sliderLL?.current?.swiper?.el ?? null
+
+    if (target && typeof window.ResizeObserver !== 'undefined') {
+      ro = new ResizeObserver(() => {
+        getHeight()
+      })
+      ro.observe(target)
+    } else {
+      // fallback to window resize
+      const handleResize = () => getHeight()
+      window.addEventListener('resize', handleResize)
+      // cleanup fallback later
+      return () => window.removeEventListener('resize', handleResize)
+    }
+
+    return () => {
+      if (ro) ro.disconnect()
+    }
+  }, [
+    // re-run when slider mount flag or images change (images usually affect height)
+    isSliderMounted,
+    images && images.length,
+    // don't include sliderLL.current in deps (ref doesn't trigger updates)
+  ])
+
   if (loading) {
     return null
   }
@@ -168,7 +228,7 @@ export default function ContentWrapperLL({
     <article className={cx('component')}>
       <div className={cx('with-slider-wrapper')}>
         {images[0] != null && (
-          <div className={cx('slider-wrapper')}>
+          <div ref={sliderRef} className={cx('slider-wrapper')}>
             <SingleLLSlider
               images={images}
               nextUri={nextUri}
@@ -178,12 +238,17 @@ export default function ContentWrapperLL({
             />
           </div>
         )}
-        {images[0] == null && <div className={cx('slider-wrapper')}></div>}
-        <SingleLLEntryHeader
-          title={title}
-          category={category}
-          responsive={'mobile'}
-        />
+        {images[0] == null && (
+          <div ref={sliderRef} className={cx('slider-wrapper')}></div>
+        )}
+        {/* Wrap header so style actually affects the DOM */}
+        <div style={{ marginTop: isMobile ? `${sliderHeight}px` : '' }}>
+          <SingleLLEntryHeader
+            title={title}
+            category={category}
+            responsive={'mobile'}
+          />
+        </div>
         <div
           className={cx('content-wrapper')}
           dangerouslySetInnerHTML={{ __html: transformedContent ?? '' }}
