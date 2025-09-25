@@ -13,6 +13,7 @@ export default function Page(props) {
     luxeList,
     luxuryTravel,
     readersChoiceAward,
+    travelGuides,
     page,
     post,
     tag,
@@ -28,6 +29,7 @@ export default function Page(props) {
     luxeList ||
     luxuryTravel ||
     readersChoiceAward ||
+    travelGuides ||
     page ||
     post ||
     tag ||

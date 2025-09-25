@@ -15,6 +15,7 @@ import singleHonorsCircle from './single-honors-circle'
 import singleLuxeList from './single-luxe-list'
 import singleLuxuryTravel from './single-luxury-travel'
 import singleRca from './single-readers-choice-award'
+import singleTravelGuides from './single-travel-guides'
 import singleUpdate from './single-update'
 import single from './single'
 import tag from './tag'
@@ -37,6 +38,7 @@ export default {
   'single-luxe-list': singleLuxeList,
   'single-luxury-travel': singleLuxuryTravel,
   'single-readers-choice-award': singleRca,
+  'single-travel-guides': singleTravelGuides,
   'single-update': singleUpdate,
   single,
   tag,
