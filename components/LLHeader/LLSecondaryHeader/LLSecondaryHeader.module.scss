@@ -8,7 +8,7 @@
   width: 100vw;
   top: 2.75rem;
   padding: 0;
-  background-color: var(--wpe--color--black);
+  background-color: var(--wpe--color--deep--black);
   z-index: 51;
   // min-height: 2.5rem;
 
@@ -185,7 +185,7 @@
   .search-bg-wrapper {
     width: 100%;
     max-width: 700px;
-    background-color: var(--wpe--color--black);
+    background-color: var(--wpe--color--deep--black);
     height: 100%;
     margin: 0 auto;
   }
@@ -230,7 +230,7 @@
     }
 
     div {
-      background-color: var(--wpe--color--black);
+      background-color: var(--wpe--color--deep--black);
     }
 
     * {
@@ -278,7 +278,7 @@
 }
 
 .full-menu-wrapper {
-  background-color: var(--wpe--color--black);
+  background-color: var(--wpe--color--deep--black);
   position: relative;
   max-width: 700px;
 
@@ -321,7 +321,7 @@
     }
 
     > div > div > div {
-      background-color: var(--wpe--color--black);
+      background-color: var(--wpe--color--deep--black);
 
       * {
         color: var(--wpe--color--white--smoke);
@@ -361,7 +361,7 @@
     }
 
     > div > div {
-      background-color: var(--wpe--color--black);
+      background-color: var(--wpe--color--deep--black);
 
       * {
         color: var(--wpe--color--white--smoke);
@@ -400,7 +400,7 @@
     }
 
     div > div > div {
-      background-color: var(--wpe--color--black) !important;
+      background-color: var(--wpe--color--deep--black) !important;
 
       * {
         color: var(--wpe--color--white--smoke);

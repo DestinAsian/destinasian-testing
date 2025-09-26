@@ -160,34 +160,39 @@ export default function ContentWrapperLL({
   })
 
   const [sliderHeight, setSliderHeight] = useState(0)
+  const [sliderWidth, setSliderWidth] = useState(0)
   const sliderRef = useRef(null)
 
-  // Measure slider height reliably and watch for changes
+  // Measure slider width & height reliably and watch for changes
   useLayoutEffect(() => {
     if (typeof window === 'undefined') return
 
-    const getHeight = () => {
+    const getDimensions = () => {
       let h = 0
+      let w = 0
 
       // Prefer the wrapper measured DOM box
       if (sliderRef.current) {
         const rect = sliderRef.current.getBoundingClientRect()
         h = rect.height || 0
+        w = rect.width || 0
       }
 
       // Fallback: if Swiper instance is present, measure its element
-      if ((!h || h === 0) && sliderLL?.current?.swiper?.el) {
+      if ((!h || !w) && sliderLL?.current?.swiper?.el) {
         const el = sliderLL.current.swiper.el
         const rect = el.getBoundingClientRect()
         h = rect.height || 0
+        w = rect.width || 0
       }
 
       // Round to avoid fractional px that cause repaint thrash
       setSliderHeight(Math.round(h))
+      setSliderWidth(Math.round(w))
     }
 
     // measure once now
-    getHeight()
+    getDimensions()
 
     // Observe changes using ResizeObserver when available
     let ro
@@ -195,12 +200,12 @@ export default function ContentWrapperLL({
 
     if (target && typeof window.ResizeObserver !== 'undefined') {
       ro = new ResizeObserver(() => {
-        getHeight()
+        getDimensions()
       })
       ro.observe(target)
     } else {
       // fallback to window resize
-      const handleResize = () => getHeight()
+      const handleResize = () => getDimensions()
       window.addEventListener('resize', handleResize)
       // cleanup fallback later
       return () => window.removeEventListener('resize', handleResize)
@@ -210,10 +215,9 @@ export default function ContentWrapperLL({
       if (ro) ro.disconnect()
     }
   }, [
-    // re-run when slider mount flag or images change (images usually affect height)
+    // re-run when slider mount flag or images change
     isSliderMounted,
     images && images.length,
-    // don't include sliderLL.current in deps (ref doesn't trigger updates)
   ])
 
   if (loading) {
@@ -242,7 +246,12 @@ export default function ContentWrapperLL({
           <div ref={sliderRef} className={cx('slider-wrapper')}></div>
         )}
         {/* Wrap header so style actually affects the DOM */}
-        <div style={{ marginTop: isMobile ? `${sliderHeight}px` : '' }}>
+        <div
+          style={{
+            marginTop: isMobile ? `${sliderHeight}px` : '',
+            marginLeft: !isMobile ? `${sliderWidth}px` : '',
+          }}
+        >
           <SingleLLEntryHeader
             title={title}
             category={category}
@@ -250,10 +259,19 @@ export default function ContentWrapperLL({
           />
         </div>
         <div
+          style={{
+            marginLeft: !isMobile ? `${sliderWidth}px` : '',
+          }}
           className={cx('content-wrapper')}
           dangerouslySetInnerHTML={{ __html: transformedContent ?? '' }}
         />
-        <div className={cx('navigation-wrapper')}>
+        <div
+          style={{
+            marginLeft: !isMobile ? `${sliderWidth}px` : '',
+            width: !isMobile ? `calc( 100vw - ${sliderWidth}px)` : '',
+          }}
+          className={cx('navigation-wrapper')}
+        >
           <div className={cx('navigation-button')}>
             {prevUri && (
               <Link href={prevUri} className={cx('prev-button')}>
