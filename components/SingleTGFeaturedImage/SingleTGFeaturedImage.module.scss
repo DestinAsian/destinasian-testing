@@ -2,7 +2,7 @@
 @import 'styles/fonts/typography';
 
 .component {
-  background-color: var(--wpe--color--deep--black);
+  background-color: var(--wpe--main--background-color);
   position: relative;
   overflow: hidden;
   margin: 0 auto;
@@ -24,7 +24,7 @@
     width: 100%;
     z-index: 49;
     transform: translate(-50%, 3.5rem);
-    background-color: var(--wpe--color--deep--black);
+    background-color: var(--wpe--main--background-color);
 
     @media (min-width: $breakpoint-extra-small) {
       height: calc(-4.5rem + 100vh);
@@ -138,8 +138,8 @@
   position: absolute;
   z-index: 49;
   top: -150vh;
-  background-color: var(--wpe--color--deep--black);
-  color: var(--wpe--color--white);
+  background-color: var(--wpe--main--background-color);
+  color: var(--wpe--color--black);
   margin: 0;
 
   @media (min-width: $breakpoint-extra-small) {

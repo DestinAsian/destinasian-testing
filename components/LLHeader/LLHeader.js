@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind'
 import Link from 'next/link'
-import destinasianLogoOrange from '@/assets/logo/destinasian-logo-orange.png'
+import destinasianLogoWht from '../../assets/logo/destinasianLogoWht.png'
 import styles from './LLHeader.module.scss'
 import Image from 'next/image'
 
@@ -13,7 +13,7 @@ export default function LLHeader({ isScrolled }) {
         <Link href="/" className={cx('title')}>
           <div className={cx('brand')}>
             <Image
-              src={destinasianLogoOrange.src}
+              src={destinasianLogoWht.src}
               alt="Destinasian Logo"
               fill
               sizes="100%"

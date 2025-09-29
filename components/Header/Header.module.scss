@@ -8,10 +8,25 @@
   z-index: 50;
 }
 
-.luxury-travel, .contest {
+.luxury-travel,
+.contest {
   .navbar {
     color: var(--wpe--header--color);
     background-color: var(--wpe--color--teal);
+  }
+}
+
+.travel-guide,
+.sticky.travel-guide {
+  position: fixed;
+  z-index: 50;
+
+  .navbar {
+    justify-content: space-between;
+
+    @media (min-width: $breakpoint-extra-small) {
+      padding: 0.5rem 2rem;
+    }
   }
 }
 

@@ -8,19 +8,19 @@ import Cookies from 'js-cookie'
 import { GetLatestRCA } from '../queries/GetLatestRCA'
 import dynamic from 'next/dynamic'
 // Import Components
-const LLHeader = dynamic(() => import('@/components/LLHeader/LLHeader'))
-const LLSecondaryHeader = dynamic(() =>
-  import('@/components/LLHeader/LLSecondaryHeader/LLSecondaryHeader'),
+const Header = dynamic(() => import('@/components/Header/Header'))
+const SecondaryHeader = dynamic(() =>
+  import('@/components/Header/SecondaryHeader/SecondaryHeader'),
 )
-const SingleLLContainer = dynamic(() =>
-  import('@/components/SingleLLContainer/SingleLLContainer'),
+const SingleTGContainer = dynamic(() =>
+  import('@/components/SingleTGContainer/SingleTGContainer'),
 )
-const SingleLLFeaturedImage = dynamic(() =>
-  import('@/components/SingleLLFeaturedImage/SingleLLFeaturedImage'),
+const SingleTGFeaturedImage = dynamic(() =>
+  import('@/components/SingleTGFeaturedImage/SingleTGFeaturedImage'),
 )
 const Main = dynamic(() => import('@/components/Main/Main'))
-const ContentWrapperLL = dynamic(() =>
-  import('@/components/ContentWrapperLL/ContentWrapperLL'),
+const ContentWrapperTG = dynamic(() =>
+  import('@/components/ContentWrapperTG/ContentWrapperTG'),
 )
 const PasswordProtected = dynamic(() =>
   import('@/components/PasswordProtected/PasswordProtected'),
@@ -37,10 +37,10 @@ export default function singleTravelGuide(props) {
 
   // Check for stored password in cookies on mount
   useEffect(() => {
-    const storedPassword = Cookies.get('luxeListPassword')
+    const storedPassword = Cookies.get('travelGuidePassword')
     if (
       storedPassword &&
-      storedPassword === props?.data?.luxeList?.passwordProtected?.password
+      storedPassword === props?.data?.travelGuide?.passwordProtected?.password
     ) {
       setIsAuthenticated(true)
     }
@@ -55,7 +55,7 @@ export default function singleTravelGuide(props) {
     seo,
     uri,
     databaseId,
-    luxeListLogo,
+    travelGuidesLogo,
     categories,
     passwordProtected,
   } = props?.data?.travelGuide
@@ -67,18 +67,18 @@ export default function singleTravelGuide(props) {
   // NavShown Function
   const [isSearchBarShown, setIsSearchBarShown] = useState(false)
   const [isNavShown, setIsNavShown] = useState(false)
-  const [isLLNavShown, setIsLLNavShown] = useState(false)
+  const [isTGNavShown, setIsTGNavShown] = useState(false)
   const [isGuidesNavShown, setIsGuidesNavShown] = useState(false)
   const [isRCANavShown, setIsRCANavShown] = useState(false)
   const [isMagNavShown, setIsMagNavShown] = useState(false)
   const [isBurgerNavShown, setIsBurgerNavShown] = useState(false)
 
   // Slider Autoplay state
-  const sliderLL = useRef(null)
+  const sliderTG = useRef(null)
   const [isAutoplayRunning, setIsAutoplayRunning] = useState(true)
 
   const toggleAutoplay = () => {
-    const swiperInstance = sliderLL?.current?.swiper
+    const swiperInstance = sliderTG?.current?.swiper
     if (swiperInstance) {
       if (isAutoplayRunning) {
         swiperInstance.autoplay?.stop()
@@ -276,7 +276,7 @@ export default function singleTravelGuide(props) {
     e.preventDefault()
     if (enteredPassword === passwordProtected?.password) {
       setIsAuthenticated(true)
-      Cookies.set('luxeListPassword', enteredPassword, { expires: 1 }) // Set cookie to expire in 1 day
+      Cookies.set('travelGuidePassword', enteredPassword, { expires: 1 }) // Set cookie to expire in 1 day
     } else {
       alert('Incorrect password. Please try again.')
     }
@@ -304,12 +304,13 @@ export default function singleTravelGuide(props) {
 
   return (
     <main className={`${eb_garamond.variable} ${poppins.variable}`}>
-      <LLHeader
+      <Header
         isNavShown={isNavShown}
         setIsNavShown={setIsNavShown}
         isScrolled={isScrolled}
+        customClassName={'travel-guide'}
       />
-      <LLSecondaryHeader
+      <SecondaryHeader
         primaryMenuItems={primaryMenu}
         secondaryMenuItems={secondaryMenu}
         thirdMenuItems={thirdMenu}
@@ -336,15 +337,16 @@ export default function singleTravelGuide(props) {
         // isScrolled={isScrolled}
         isAutoplayRunning={isAutoplayRunning}
         toggleAutoplay={toggleAutoplay}
+        customClassName={'travel-guide'}
       />
       <Main>
         <>
           {/* {'hotel'} */}
-          <SingleLLContainer>
-            <div className="lg:fixed lg:left-[50vw] lg:flex lg:w-[50vw] lg:flex-col">
+          <SingleTGContainer>
+            <div className="lg:fixed lg:flex lg:w-[100w] lg:flex-col">
               <div className="w-full lg:relative lg:flex lg:h-[100vh] lg:flex-row-reverse lg:flex-nowrap lg:overflow-y-auto">
                 {/* First wrapper */}
-                <SingleLLFeaturedImage
+                <SingleTGFeaturedImage
                   mainLogo={
                     parent != null
                       ? parent?.node?.luxeListLogo?.mainLogo
@@ -359,12 +361,12 @@ export default function singleTravelGuide(props) {
                     parent != null ? parent?.node?.databaseId : databaseId
                   }
                   uri={parent != null ? parent?.node?.uri : uri}
-                  isLLNavShown={isLLNavShown}
-                  setIsLLNavShown={setIsLLNavShown}
+                  isTGNavShown={isTGNavShown}
+                  setIsTGNavShown={setIsTGNavShown}
                 />
                 {/* Second wrapper */}
                 <div className="w-full lg:relative lg:pt-20">
-                  <ContentWrapperLL
+                  <ContentWrapperTG
                     router={props?.router}
                     title={title}
                     category={categories?.edges[0]?.node?.name}
@@ -372,22 +374,22 @@ export default function singleTravelGuide(props) {
                     images={images}
                     mainLogo={
                       parent != null
-                        ? parent?.node?.luxeListLogo?.mainLogo
-                        : luxeListLogo?.mainLogo
+                        ? parent?.node?.travelGuidesLogo?.mainLogo
+                        : travelGuidesLogo?.mainLogo
                     }
                     databaseId={databaseId}
                     isNavShown={isNavShown}
-                    isLLNavShown={isLLNavShown}
-                    setIsLLNavShown={setIsLLNavShown}
+                    isTGNavShown={isTGNavShown}
+                    setIsTGNavShown={setIsTGNavShown}
                     isAutoplayRunning={isAutoplayRunning}
                     setIsAutoplayRunning={setIsAutoplayRunning}
-                    sliderLL={sliderLL}
+                    sliderTG={sliderTG}
                     toggleAutoplay={toggleAutoplay}
                   />
                 </div>
               </div>
             </div>
-          </SingleLLContainer>
+          </SingleTGContainer>
         </>
       </Main>
       {/* <Footer /> */}
@@ -407,6 +409,17 @@ singleTravelGuide.query = gql`
       }
       featuredImage {
         node {
+          id
+          sourceUrl
+          altText
+          mediaDetails {
+            width
+            height
+          }
+        }
+      }
+      travelGuidesLogo {
+        mainLogo {
           id
           sourceUrl
           altText
@@ -467,6 +480,17 @@ singleTravelGuide.query = gql`
           ... on TravelGuide {
             uri
             databaseId
+            travelGuidesLogo {
+              mainLogo {
+                id
+                sourceUrl
+                altText
+                mediaDetails {
+                  width
+                  height
+                }
+              }
+            }
           }
         }
       }
