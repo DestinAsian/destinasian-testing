@@ -299,7 +299,7 @@
 .post-lt-swiper > .swiper-wrapper > .swiper-slide > img,
 .post-tg-swiper > .swiper-wrapper > .swiper-slide > img {
   padding: 0;
-  width: auto !important;
+  /* width: auto !important; */
 }
 
 .swiper-ll-custom-pagination > .swiper-pagination-bullet {
@@ -595,6 +595,12 @@
   .post-lt-swiper > .swiper-wrapper > .swiper-slide,
   .post-tg-swiper > .swiper-wrapper > .swiper-slide {
     height: calc(100vh - 8.5rem);
+  }
+
+  .post-ll-swiper > .swiper-wrapper > .swiper-slide > img,
+  .post-lt-swiper > .swiper-wrapper > .swiper-slide > img,
+  .post-tg-swiper > .swiper-wrapper > .swiper-slide > img {
+    width: auto !important;
   }
 
   .swiper-ll-custom-pagination.swiper-pagination-bullets.swiper-pagination-horizontal,
