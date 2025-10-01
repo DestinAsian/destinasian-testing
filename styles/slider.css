@@ -600,7 +600,7 @@
   .post-ll-swiper > .swiper-wrapper > .swiper-slide > img,
   .post-lt-swiper > .swiper-wrapper > .swiper-slide > img,
   .post-tg-swiper > .swiper-wrapper > .swiper-slide > img {
-    width: auto !important;
+    /* width: auto !important; */
   }
 
   .swiper-ll-custom-pagination.swiper-pagination-bullets.swiper-pagination-horizontal,

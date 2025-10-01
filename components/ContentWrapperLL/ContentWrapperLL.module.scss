@@ -17,17 +17,17 @@
 
   .with-slider-wrapper {
     top: 4.75rem;
-    padding: 0 0 10rem;
+    padding: 0 0 3.5rem;
     position: relative; /* Ensure positioning context for children */
 
     @media (min-width: $breakpoint-extra-small) {
       top: 3rem;
-      padding: 0 0 12rem;
+      // padding: 0 0 12rem;
     }
 
     @media (min-width: $breakpoint-medium) {
       top: 1.5rem;
-      padding: 0 0 5rem;
+      padding: 0 0 5.25rem;
     }
   }
 
@@ -48,7 +48,7 @@
     }
 
     @media (min-width: $breakpoint-medium) {
-      aspect-ratio: auto;
+      aspect-ratio: 1 / 1;
       position: fixed;
       top: 6.5rem;
       width: auto;
@@ -83,12 +83,7 @@
     top: 0.5rem;
     max-width: 700px;
 
-    // @media (min-width: $breakpoint-extra-small) {
-    //   margin: 0 auto;
-    //   top: 0;
-    // }
-
-    @media (min-width: $breakpoint-small) {
+    @media (min-width: $breakpoint-extra-small) {
       padding: 0 2rem;
       margin: 0 0 5.25rem 0;
       border-left: none;
