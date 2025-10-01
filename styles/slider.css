@@ -615,4 +615,39 @@
     transform: translate(12%, -100%) rotate(90deg);
     padding: 0;
   }
+
+  /* first slide */
+  .swiper-ll-custom-pagination
+    .swiper-pagination-bullet:nth-child(1).swiper-pagination-bullet-active {
+    color: #e06010;
+    background-color: #e06010 !important;
+  }
+
+  /* second slide */
+  .swiper-ll-custom-pagination
+    .swiper-pagination-bullet:nth-child(2).swiper-pagination-bullet-active {
+    color: #fd9acc;
+    background-color: #fd9acc !important;
+  }
+
+  /* third slide */
+  .swiper-ll-custom-pagination
+    .swiper-pagination-bullet:nth-child(3).swiper-pagination-bullet-active {
+    color: #ffdf30;
+    background-color: #ffdf30 !important;
+  }
+
+  /* fourth slide */
+  .swiper-ll-custom-pagination
+    .swiper-pagination-bullet:nth-child(4).swiper-pagination-bullet-active {
+    color: #539fd2;
+    background-color: #539fd2 !important;
+  }
+
+  /* fifth slide */
+  .swiper-ll-custom-pagination
+    .swiper-pagination-bullet:nth-child(5).swiper-pagination-bullet-active {
+    color: #e06010;
+    background-color: #e06010 !important;
+  }
 }

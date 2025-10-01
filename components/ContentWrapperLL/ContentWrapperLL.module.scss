@@ -48,12 +48,12 @@
     }
 
     @media (min-width: $breakpoint-medium) {
-      // aspect-ratio: unset;
+      aspect-ratio: auto;
       position: fixed;
       top: 6.5rem;
       width: auto;
       padding: 0;
-      height: calc(calc(-6.5rem + 100vh) * 1 / 1);
+      height: calc(-6.5rem + 100vh);
       border-left: 2rem solid var(--wpe--color--deep--black);
       border-bottom: 2rem solid var(--wpe--color--deep--black);
       box-shadow: none;
