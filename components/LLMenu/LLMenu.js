@@ -3,6 +3,7 @@ import classNames from 'classnames/bind'
 import styles from './LLMenu.module.scss'
 import React, { useState } from 'react'
 import { GetLuxeListMenu } from '../../queries/GetLuxeListMenu'
+import Image from 'next/image'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
 // Import Components
@@ -10,7 +11,13 @@ const Button = dynamic(() => import('@/components/Button/Button'))
 
 let cx = classNames.bind(styles)
 
-export default function LLMenu({ mainLogo, secondaryLogo, databaseId, uri }) {
+export default function LLMenu({
+  databaseId,
+  isNavShown,
+  setIsNavShown,
+  customRef,
+  customClassName,
+}) {
   const postsPerPage = 100
 
   // Get Pages
@@ -38,9 +45,12 @@ export default function LLMenu({ mainLogo, secondaryLogo, databaseId, uri }) {
     )
   }
 
+  // Luxe List main page
+  const luxeList = data?.luxeList
+  const menuTitleImage = luxeList.luxeListLogo?.secondaryLogo
+
   // Declare all posts
-  const allPosts =
-    data?.luxeList?.children?.edges.map((post) => post.node) || []
+  const allPosts = luxeList.children?.edges.map((post) => post.node) || []
 
   // Function to filter out duplicate categories
   const uniqueCategories = allPosts
@@ -54,14 +64,26 @@ export default function LLMenu({ mainLogo, secondaryLogo, databaseId, uri }) {
     .sort() // Sort alphabetically
 
   return (
-    <div className={cx('component')}>
+    <div ref={customRef} className={cx('component', customClassName)}>
       {/* Full menu */}
       <div className={cx('full-menu-content')}>
         <div className={cx('ll-menu-header')}>
-          {data?.luxeList?.uri && data?.luxeList?.title && (
+          {luxeList?.uri && luxeList?.title && (
             <div className={cx('title-header-wrapper')}>
-              <Link href={data?.luxeList?.uri}>
-                <span>{data?.luxeList?.title}</span>
+              <Link href={luxeList?.uri}>
+                {menuTitleImage ? (
+                  <div>
+                    <Image
+                      src={menuTitleImage?.sourceUrl}
+                      alt={menuTitleImage?.altText}
+                      fill
+                      sizes="100%"
+                      priority
+                    />
+                  </div>
+                ) : (
+                  <span>{luxeList?.title}</span>
+                )}
               </Link>
             </div>
           )}

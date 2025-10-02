@@ -5,6 +5,17 @@ export const GetLuxeListMenu = gql`
     luxeList(id: $id, idType: DATABASE_ID) {
       title
       uri
+      luxeListLogo {
+        secondaryLogo {
+          id
+          sourceUrl
+          altText
+          mediaDetails {
+            width
+            height
+          }
+        }
+      }
       children(
         first: $first
         after: $after

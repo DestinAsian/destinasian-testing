@@ -13,9 +13,9 @@ import {
 import Cookies from 'js-cookie'
 import dynamic from 'next/dynamic'
 // Import Components
-const RCAHeader = dynamic(() => import('@/components/RCAHeader/RCAHeader'))
-const RCASecondaryHeader = dynamic(() =>
-  import('@/components/RCAHeader/RCASecondaryHeader/RCASecondaryHeader'),
+const DarkColorHeader = dynamic(() => import('@/components/DarkColorHeader/DarkColorHeader'))
+const DarkColorSecondaryHeader = dynamic(() =>
+  import('@/components/DarkColorHeader/DarkColorSecondaryHeader/DarkColorSecondaryHeader'),
 )
 const SingleRCAContainer = dynamic(() =>
   import('@/components/SingleRCAContainer/SingleRCAContainer'),
@@ -78,7 +78,7 @@ export default function singleRca(props) {
 
   const [isSearchBarShown, setIsSearchBarShown] = useState(false)
   const [isNavShown, setIsNavShown] = useState(false)
-  const [isRCANavShown, setIsRCANavShown] = useState(false)
+  const [isCustomNavShown, setIsCustomNavShown] = useState(false)
   const [isGuidesNavShown, setIsGuidesNavShown] = useState(false)
   const [isMagNavShown, setIsMagNavShown] = useState(false)
   const [isBurgerNavShown, setIsBurgerNavShown] = useState(false)
@@ -132,14 +132,14 @@ export default function singleRca(props) {
     }
   }, [isMagNavShown])
 
-  // Stop scrolling pages when isRCANavShown
+  // Stop scrolling pages when isCustomNavShown
   useEffect(() => {
-    if (isRCANavShown) {
+    if (isCustomNavShown) {
       document.body.style.overflow = 'hidden'
     } else {
       document.body.style.overflow = 'visible'
     }
-  }, [isRCANavShown])
+  }, [isCustomNavShown])
 
   // Stop scrolling pages when isGuidesNavShown
   useEffect(() => {
@@ -375,12 +375,12 @@ export default function singleRca(props) {
     <main
       className={`${eb_garamond.variable} ${poppins.variable}`}
     >
-      <RCAHeader
+      <DarkColorHeader
         isNavShown={isNavShown}
-        isRCANavShown={isRCANavShown}
+        setIsNavShown={setIsNavShown}
         isScrolled={isScrolled}
       />
-      <RCASecondaryHeader
+      <DarkColorSecondaryHeader
         primaryMenuItems={primaryMenu}
         secondaryMenuItems={secondaryMenu}
         thirdMenuItems={thirdMenu}
@@ -394,10 +394,12 @@ export default function singleRca(props) {
         setSearchQuery={setSearchQuery}
         isSearchBarShown={isSearchBarShown}
         setIsSearchBarShown={setIsSearchBarShown}
-        isNavShown={isRCANavShown}
-        setIsNavShown={setIsRCANavShown}
+        isNavShown={isCustomNavShown}
+        setIsNavShown={setIsCustomNavShown}
         isMagNavShown={isMagNavShown}
         setIsMagNavShown={setIsMagNavShown}
+        isCustomNavShown={isCustomNavShown}
+        setIsCustomNavShown={setIsCustomNavShown}
         isGuidesNavShown={isGuidesNavShown}
         setIsGuidesNavShown={setIsGuidesNavShown}
         isBurgerNavShown={isBurgerNavShown}
@@ -406,6 +408,7 @@ export default function singleRca(props) {
         toggleAutoplay={toggleAutoplay}
         isScrolled={isScrolled}
         menuRef={menuRef}
+        customClassName={'rca-color'}
       />
       <Main>
         <>
@@ -445,8 +448,8 @@ export default function singleRca(props) {
                     uri={parent != null ? parent?.node?.uri : uri}
                     rcaIndexData={rcaIndexData}
                     sliderLoading={sliderLoading}
-                    isNavShown={isRCANavShown}
-                    setIsNavShown={setIsRCANavShown}
+                    isNavShown={isCustomNavShown}
+                    setIsNavShown={setIsCustomNavShown}
                     isAutoplayRunning={isAutoplayRunning}
                     setIsAutoplayRunning={setIsAutoplayRunning}
                     sliderRCA={sliderRCA}

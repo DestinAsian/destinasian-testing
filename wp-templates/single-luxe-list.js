@@ -12,9 +12,9 @@ import Cookies from 'js-cookie'
 import { GetLatestRCA } from '../queries/GetLatestRCA'
 import dynamic from 'next/dynamic'
 // Import Components
-const LLHeader = dynamic(() => import('@/components/LLHeader/LLHeader'))
-const LLSecondaryHeader = dynamic(() =>
-  import('@/components/LLHeader/LLSecondaryHeader/LLSecondaryHeader'),
+const DarkColorHeader = dynamic(() => import('@/components/DarkColorHeader/DarkColorHeader'))
+const DarkColorSecondaryHeader = dynamic(() =>
+  import('@/components/DarkColorHeader/DarkColorSecondaryHeader/DarkColorSecondaryHeader'),
 )
 const SingleLLContainer = dynamic(() =>
   import('@/components/SingleLLContainer/SingleLLContainer'),
@@ -73,7 +73,7 @@ export default function singleLuxeList(props) {
   const [isNavShown, setIsNavShown] = useState(false)
   const [isLLNavShown, setIsLLNavShown] = useState(false)
   const [isGuidesNavShown, setIsGuidesNavShown] = useState(false)
-  const [isRCANavShown, setIsRCANavShown] = useState(false)
+  const [isCustomNavShown, setIsCustomNavShown] = useState(false)
   const [isMagNavShown, setIsMagNavShown] = useState(false)
   const [isBurgerNavShown, setIsBurgerNavShown] = useState(false)
 
@@ -142,14 +142,14 @@ export default function singleLuxeList(props) {
     }
   }, [isMagNavShown])
 
-  // Stop scrolling pages when isRCANavShown
+  // Stop scrolling pages when isCustomNavShown
   useEffect(() => {
-    if (isRCANavShown) {
+    if (isCustomNavShown) {
       document.body.style.overflow = 'hidden'
     } else {
       document.body.style.overflow = 'visible'
     }
-  }, [isRCANavShown])
+  }, [isCustomNavShown])
 
   // Stop scrolling pages when isGuidesNavShown
   useEffect(() => {
@@ -308,12 +308,12 @@ export default function singleLuxeList(props) {
     <main
       className={`${eb_garamond.variable} ${poppins.variable}`}
     >
-      <LLHeader
+      <DarkColorHeader
         isNavShown={isNavShown}
         setIsNavShown={setIsNavShown}
         isScrolled={isScrolled}
       />
-      <LLSecondaryHeader
+      <DarkColorSecondaryHeader
         primaryMenuItems={primaryMenu}
         secondaryMenuItems={secondaryMenu}
         thirdMenuItems={thirdMenu}
@@ -333,13 +333,14 @@ export default function singleLuxeList(props) {
         setIsGuidesNavShown={setIsGuidesNavShown}
         isMagNavShown={isMagNavShown}
         setIsMagNavShown={setIsMagNavShown}
-        isRCANavShown={isRCANavShown}
-        setIsRCANavShown={setIsRCANavShown}
+        isCustomNavShown={isCustomNavShown}
+        setIsCustomNavShown={setIsCustomNavShown}
         isBurgerNavShown={isBurgerNavShown}
         setIsBurgerNavShown={setIsBurgerNavShown}
         // isScrolled={isScrolled}
         isAutoplayRunning={isAutoplayRunning}
         toggleAutoplay={toggleAutoplay}
+        customClassName={'ll-color'}
       />
       <Main>
         <>
@@ -366,6 +367,8 @@ export default function singleLuxeList(props) {
                   isLLNavShown={isLLNavShown}
                   setIsLLNavShown={setIsLLNavShown}
                 />
+
+                {console.log(databaseId)}
                 {/* Second wrapper */}
                 <div className="w-full lg:relative lg:pt-20">
                   <ContentWrapperLL

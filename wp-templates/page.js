@@ -68,7 +68,7 @@ export default function Component(props) {
   const [isSearchBarShown, setIsSearchBarShown] = useState(false)
   const [isNavShown, setIsNavShown] = useState(false)
   const [isGuidesNavShown, setIsGuidesNavShown] = useState(false)
-  const [isRCANavShown, setIsRCANavShown] = useState(false)
+  const [isCustomNavShown, setIsCustomNavShown] = useState(false)
   const [isMagNavShown, setIsMagNavShown] = useState(false)
   const [isBurgerNavShown, setIsBurgerNavShown] = useState(false)
 
@@ -121,14 +121,14 @@ export default function Component(props) {
     }
   }, [isMagNavShown])
 
-  // Stop scrolling pages when isRCANavShown
+  // Stop scrolling pages when isCustomNavShown
   useEffect(() => {
-    if (isRCANavShown) {
+    if (isCustomNavShown) {
       document.body.style.overflow = 'hidden'
     } else {
       document.body.style.overflow = 'visible'
     }
-  }, [isRCANavShown])
+  }, [isCustomNavShown])
 
   // Stop scrolling pages when isGuidesNavShown
   useEffect(() => {
@@ -312,8 +312,8 @@ export default function Component(props) {
         setIsMagNavShown={setIsMagNavShown}
         isGuidesNavShown={isGuidesNavShown}
         setIsGuidesNavShown={setIsGuidesNavShown}
-        isRCANavShown={isRCANavShown}
-        setIsRCANavShown={setIsRCANavShown}
+        isCustomNavShown={isCustomNavShown}
+        setIsCustomNavShown={setIsCustomNavShown}
         isBurgerNavShown={isBurgerNavShown}
         setIsBurgerNavShown={setIsBurgerNavShown}
         isScrolled={isScrolled}

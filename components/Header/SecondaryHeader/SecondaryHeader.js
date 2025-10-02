@@ -3,6 +3,7 @@ import styles from './SecondaryHeader.module.scss'
 import { useQuery } from '@apollo/client'
 import { useRef } from 'react'
 import { useClickOutside } from '@/constants/useClickOutside'
+import { CUSTOM_DATABASE_ID } from '@/constants/customDatabaseId'
 import { GetSearchResults } from '@/queries/GetSearchResults'
 import { GetLatestPartnerContent } from '@/queries/GetLatestPartnerContent'
 import { FaSearch } from 'react-icons/fa'
@@ -17,6 +18,7 @@ const SearchResults = dynamic(() =>
 const CustomFullMenu = dynamic(() =>
   import('@/components/CustomFullMenu/CustomFullMenu'),
 )
+const LLMenu = dynamic(() => import('@/components/LLMenu/LLMenu'))
 const TravelGuidesMenu = dynamic(() =>
   import('@/components/TravelGuidesMenu/TravelGuidesMenu'),
 )
@@ -44,8 +46,8 @@ export default function SecondaryHeader({
   setIsGuidesNavShown,
   isMagNavShown,
   setIsMagNavShown,
-  isRCANavShown,
-  setIsRCANavShown,
+  isCustomNavShown,
+  setIsCustomNavShown,
   isBurgerNavShown,
   setIsBurgerNavShown,
   isScrolled,
@@ -62,7 +64,7 @@ export default function SecondaryHeader({
   const searchRef = useRef(null)
   const guidesRef = useRef(null)
   const magazineRef = useRef(null)
-  const rcaRef = useRef(null)
+  const customRef = useRef(null)
   const burgerRef = useRef(null)
   const menuRef = useRef(null)
 
@@ -70,7 +72,7 @@ export default function SecondaryHeader({
   useClickOutside(searchRef, () => setIsSearchBarShown(false), [menuRef])
   useClickOutside(guidesRef, () => setIsGuidesNavShown(false), [menuRef])
   useClickOutside(magazineRef, () => setIsMagNavShown(false), [menuRef])
-  useClickOutside(rcaRef, () => setIsRCANavShown(false), [menuRef])
+  useClickOutside(customRef, () => setIsCustomNavShown(false), [menuRef])
   useClickOutside(burgerRef, () => setIsBurgerNavShown(false), [menuRef])
 
   // Add search query function
@@ -169,7 +171,7 @@ export default function SecondaryHeader({
               setIsSearchBarShown(!isSearchBarShown)
               isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
               isMagNavShown ? setIsMagNavShown(!isMagNavShown) : null
-              isRCANavShown ? setIsRCANavShown(!isRCANavShown) : null
+              isCustomNavShown ? setIsCustomNavShown(!isCustomNavShown) : null
               isBurgerNavShown ? setIsBurgerNavShown(!isBurgerNavShown) : null
               setSearchQuery('')
             }}
@@ -181,9 +183,9 @@ export default function SecondaryHeader({
           {/* RCA Button */}
           <button
             type="button"
-            className={cx('menu-button', isRCANavShown ? 'active' : '')}
+            className={cx('menu-button', isCustomNavShown ? 'active' : '')}
             onClick={() => {
-              setIsRCANavShown(!isRCANavShown)
+              setIsCustomNavShown(!isCustomNavShown)
               isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
               isMagNavShown ? setIsMagNavShown(!isMagNavShown) : null
               isSearchBarShown ? setIsSearchBarShown(!isSearchBarShown) : null
@@ -191,9 +193,9 @@ export default function SecondaryHeader({
               setSearchQuery('')
             }}
             aria-controls={cx('rca-menu-wrapper')}
-            aria-expanded={!isRCANavShown}
+            aria-expanded={!isCustomNavShown}
           >
-            <div className={cx('menu-title')}>{`Readers' Choice Awards`}</div>
+            <div className={cx('menu-title')}>{`The Luxe List 2025`}</div>
           </button>
           {/* Guides Button */}
           <button
@@ -202,13 +204,13 @@ export default function SecondaryHeader({
             onClick={() => {
               setIsGuidesNavShown(!isGuidesNavShown)
               isMagNavShown ? setIsMagNavShown(!isMagNavShown) : null
-              isRCANavShown ? setIsRCANavShown(!isRCANavShown) : null
+              isCustomNavShown ? setIsCustomNavShown(!isCustomNavShown) : null
               isSearchBarShown ? setIsSearchBarShown(!isSearchBarShown) : null
               isBurgerNavShown ? setIsBurgerNavShown(!isBurgerNavShown) : null
               setSearchQuery('')
             }}
-            aria-controls={cx('rca-menu-wrapper')}
-            aria-expanded={!isRCANavShown}
+            aria-controls={cx('full-menu-content')}
+            aria-expanded={!isCustomNavShown}
           >
             <div className={cx('menu-title')}>{`Guides`}</div>
           </button>
@@ -224,12 +226,12 @@ export default function SecondaryHeader({
               setIsBurgerNavShown(!isBurgerNavShown)
               isSearchBarShown ? setIsSearchBarShown(!isSearchBarShown) : null
               isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
-              isRCANavShown ? setIsRCANavShown(!isRCANavShown) : null
+              isCustomNavShown ? setIsCustomNavShown(!isCustomNavShown) : null
               isMagNavShown ? setIsMagNavShown(!isMagNavShown) : null
               setSearchQuery('')
             }}
             aria-controls={cx('burger-bar-wrapper')}
-            aria-expanded={!isRCANavShown}
+            aria-expanded={!isCustomNavShown}
           >
             <div className={cx('burger-icon')}>
               <svg
@@ -297,15 +299,16 @@ export default function SecondaryHeader({
       <div
         className={cx(
           'rca-menu-wrapper',
-          isRCANavShown ? 'show' : undefined,
+          isCustomNavShown ? 'show' : undefined,
           customClassName,
         )}
       >
-        <CustomFullMenu
-          isNavShown={isRCANavShown}
-          setIsNavShown={setIsRCANavShown}
+        <LLMenu
+          databaseId={CUSTOM_DATABASE_ID}
+          isNavShown={isCustomNavShown}
+          setIsNavShown={setIsCustomNavShown}
+          customRef={customRef}
           customClassName={'light-color'}
-          rcaRef={rcaRef}
         />
       </div>
       {/* Burger Menu */}

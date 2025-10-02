@@ -1,8 +1,9 @@
 import classNames from 'classnames/bind'
-import styles from './LLSecondaryHeader.module.scss'
+import styles from './DarkColorSecondaryHeader.module.scss'
 import { useQuery } from '@apollo/client'
 import { useRef } from 'react'
 import { useClickOutside } from '@/constants/useClickOutside'
+import { CUSTOM_DATABASE_ID } from '@/constants/customDatabaseId'
 import { GetSearchResults } from '@/queries/GetSearchResults'
 import { GetLatestPartnerContent } from '@/queries/GetLatestPartnerContent'
 import { FaSearch } from 'react-icons/fa'
@@ -17,9 +18,7 @@ const SearchResults = dynamic(() =>
 const CustomFullMenu = dynamic(() =>
   import('@/components/CustomFullMenu/CustomFullMenu'),
 )
-const MagazineFullMenu = dynamic(() =>
-  import('@/components/MagazineFullMenu/MagazineFullMenu'),
-)
+const LLMenu = dynamic(() => import('@/components/LLMenu/LLMenu'))
 const TravelGuidesMenu = dynamic(() =>
   import('@/components/TravelGuidesMenu/TravelGuidesMenu'),
 )
@@ -29,7 +28,7 @@ const BurgerFullMenu = dynamic(() =>
 
 let cx = classNames.bind(styles)
 
-export default function LLSecondaryHeader({
+export default function DarkColorSecondaryHeader({
   primaryMenuItems,
   secondaryMenuItems,
   thirdMenuItems,
@@ -47,12 +46,13 @@ export default function LLSecondaryHeader({
   setIsGuidesNavShown,
   isMagNavShown,
   setIsMagNavShown,
-  isRCANavShown,
-  setIsRCANavShown,
+  isCustomNavShown,
+  setIsCustomNavShown,
   isBurgerNavShown,
   setIsBurgerNavShown,
   isAutoplayRunning,
   toggleAutoplay,
+  customClassName,
 }) {
   // Posts for Search Function
   const postsPerPage = 1000
@@ -65,7 +65,7 @@ export default function LLSecondaryHeader({
   const searchRef = useRef(null)
   const guidesRef = useRef(null)
   const magazineRef = useRef(null)
-  const rcaRef = useRef(null)
+  const customRef = useRef(null)
   const burgerRef = useRef(null)
   const menuRef = useRef(null)
 
@@ -73,7 +73,7 @@ export default function LLSecondaryHeader({
   useClickOutside(searchRef, () => setIsSearchBarShown(false), [menuRef])
   useClickOutside(guidesRef, () => setIsGuidesNavShown(false), [menuRef])
   useClickOutside(magazineRef, () => setIsMagNavShown(false), [menuRef])
-  useClickOutside(rcaRef, () => setIsRCANavShown(false), [menuRef])
+  useClickOutside(customRef, () => setIsCustomNavShown(false), [menuRef])
   useClickOutside(burgerRef, () => setIsBurgerNavShown(false), [menuRef])
 
   // Add search query function
@@ -165,7 +165,7 @@ export default function LLSecondaryHeader({
               setIsSearchBarShown(!isSearchBarShown)
               isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
               isMagNavShown ? setIsMagNavShown(!isMagNavShown) : null
-              isRCANavShown ? setIsRCANavShown(!isRCANavShown) : null
+              isCustomNavShown ? setIsCustomNavShown(!isCustomNavShown) : null
               isBurgerNavShown ? setIsBurgerNavShown(!isBurgerNavShown) : null
               setSearchQuery('')
               if (!isSearchBarShown && isAutoplayRunning) {
@@ -183,25 +183,25 @@ export default function LLSecondaryHeader({
           {/* RCA Button */}
           <button
             type="button"
-            className={cx('menu-button', isRCANavShown ? 'active' : '')}
+            className={cx('menu-button', isCustomNavShown ? 'active' : '')}
             onClick={() => {
-              setIsRCANavShown(!isRCANavShown)
+              setIsCustomNavShown(!isCustomNavShown)
               isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
               isMagNavShown ? setIsMagNavShown(!isMagNavShown) : null
               isSearchBarShown ? setIsSearchBarShown(!isSearchBarShown) : null
               isBurgerNavShown ? setIsBurgerNavShown(!isBurgerNavShown) : null
               setSearchQuery('')
-              if (!isRCANavShown && isAutoplayRunning) {
+              if (!isCustomNavShown && isAutoplayRunning) {
                 return toggleAutoplay()
               }
-              if (isRCANavShown && !isAutoplayRunning) {
+              if (isCustomNavShown && !isAutoplayRunning) {
                 return toggleAutoplay()
               }
             }}
             aria-controls={cx('rca-menu-wrapper')}
-            aria-expanded={!isRCANavShown}
+            aria-expanded={!isCustomNavShown}
           >
-            <div className={cx('menu-title')}>{`Readers' Choice Awards`}</div>
+            <div className={cx('menu-title')}>{`The Luxe List 2025`}</div>
           </button>
           {/* Guides Button */}
           <button
@@ -209,7 +209,7 @@ export default function LLSecondaryHeader({
             className={cx('menu-button', isGuidesNavShown ? 'active' : '')}
             onClick={() => {
               setIsGuidesNavShown(!isGuidesNavShown)
-              isRCANavShown ? setIsRCANavShown(!isRCANavShown) : null
+              isCustomNavShown ? setIsCustomNavShown(!isCustomNavShown) : null
               isMagNavShown ? setIsMagNavShown(!isMagNavShown) : null
               isSearchBarShown ? setIsSearchBarShown(!isSearchBarShown) : null
               isBurgerNavShown ? setIsBurgerNavShown(!isBurgerNavShown) : null
@@ -222,7 +222,7 @@ export default function LLSecondaryHeader({
               }
             }}
             aria-controls={cx('rca-menu-wrapper')}
-            aria-expanded={!isRCANavShown}
+            aria-expanded={!isCustomNavShown}
           >
             <div className={cx('menu-title')}>{`Guides`}</div>
           </button>
@@ -237,7 +237,7 @@ export default function LLSecondaryHeader({
               setIsBurgerNavShown(!isBurgerNavShown)
               isSearchBarShown ? setIsSearchBarShown(!isSearchBarShown) : null
               isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
-              isRCANavShown ? setIsRCANavShown(!isRCANavShown) : null
+              isCustomNavShown ? setIsCustomNavShown(!isCustomNavShown) : null
               isMagNavShown ? setIsMagNavShown(!isMagNavShown) : null
               setSearchQuery('')
               if (!isBurgerNavShown && isAutoplayRunning) {
@@ -248,7 +248,7 @@ export default function LLSecondaryHeader({
               }
             }}
             aria-controls={cx('burger-bar-wrapper')}
-            aria-expanded={!isRCANavShown}
+            aria-expanded={!isCustomNavShown}
           >
             <div className={cx('burger-icon')}>
               <svg
@@ -310,12 +310,17 @@ export default function LLSecondaryHeader({
         </div>
       </div>
       <div
-        className={cx('rca-menu-wrapper', isRCANavShown ? 'show' : undefined)}
+        className={cx(
+          'rca-menu-wrapper',
+          isCustomNavShown ? 'show' : undefined,
+        )}
       >
-        <CustomFullMenu
-          isNavShown={isRCANavShown}
-          setIsNavShown={setIsRCANavShown}
-          rcaRef={rcaRef}
+        <LLMenu
+          databaseId={CUSTOM_DATABASE_ID}
+          isNavShown={isCustomNavShown}
+          setIsNavShown={setIsCustomNavShown}
+          customRef={customRef}
+          customClassName={customClassName}
         />
       </div>
       {/* Burger Menu */}

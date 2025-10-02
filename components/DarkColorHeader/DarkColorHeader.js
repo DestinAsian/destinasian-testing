@@ -1,12 +1,12 @@
 import classNames from 'classnames/bind'
 import Link from 'next/link'
 import destinasianLogoWht from '../../assets/logo/destinasianLogoWht.png'
-import styles from './LLHeader.module.scss'
+import styles from './DarkColorHeader.module.scss'
 import Image from 'next/image'
 
 let cx = classNames.bind(styles)
 
-export default function LLHeader({ isScrolled }) {
+export default function DarkColorHeader({ isScrolled }) {
   return (
     <header className={cx('component', { sticky: isScrolled })}>
       <div className={cx('navbar')}>

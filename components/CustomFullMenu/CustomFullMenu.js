@@ -14,7 +14,7 @@ export default function CustomFullMenu({
   isNavShown,
   setIsNavShown,
   customClassName,
-  rcaRef,
+  customRef,
 }) {
   // Get menus
   const { data, loading, error } = useQuery(GetCustomMenu, {
@@ -97,7 +97,7 @@ export default function CustomFullMenu({
   }
 
   return (
-    <div ref={rcaRef} className={cx('component')}>
+    <div ref={customRef} className={cx('component')}>
       {/* Full menu */}
       <div
         className={cx(
