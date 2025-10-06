@@ -23,6 +23,8 @@
 
   .navbar {
     justify-content: space-between;
+    color: var(--wpe--color--black);
+    background-color: var(--wpe--color--light--cream);
 
     @media (min-width: $breakpoint-extra-small) {
       padding: 0.5rem 2rem;

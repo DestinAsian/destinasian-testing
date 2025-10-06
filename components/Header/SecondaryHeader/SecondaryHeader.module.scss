@@ -160,11 +160,13 @@
   background-color: var(--wpe--color--teal);
 }
 
-.navigation-wrapper.travel-guide {
+.navigation-wrapper.travel-guide,
+.sticky.travel-guide {
   position: fixed;
   top: 2.75rem;
   padding: 0;
   z-index: 51;
+  background-color: var(--wpe--color--light--cream);
 
   @media (min-width: $breakpoint-extra-small) {
     top: 3.5rem;

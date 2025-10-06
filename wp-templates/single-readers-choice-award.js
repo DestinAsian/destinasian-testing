@@ -5,17 +5,17 @@ import { GetLatestStories } from '../queries/GetLatestStories'
 import { GetRCASlider } from '../queries/GetRCASlider'
 import React, { useEffect, useState, useRef } from 'react'
 import { useClickOutside } from '@/constants/useClickOutside'
-import {
-  eb_garamond,
-  poppins,
-  rubik,
-} from '../styles/fonts/fonts'
+import { eb_garamond, poppins, rubik } from '../styles/fonts/fonts'
 import Cookies from 'js-cookie'
 import dynamic from 'next/dynamic'
 // Import Components
-const DarkColorHeader = dynamic(() => import('@/components/DarkColorHeader/DarkColorHeader'))
+const DarkColorHeader = dynamic(() =>
+  import('@/components/DarkColorHeader/DarkColorHeader'),
+)
 const DarkColorSecondaryHeader = dynamic(() =>
-  import('@/components/DarkColorHeader/DarkColorSecondaryHeader/DarkColorSecondaryHeader'),
+  import(
+    '@/components/DarkColorHeader/DarkColorSecondaryHeader/DarkColorSecondaryHeader'
+  ),
 )
 const SingleRCAContainer = dynamic(() =>
   import('@/components/SingleRCAContainer/SingleRCAContainer'),
@@ -68,6 +68,8 @@ export default function singleRca(props) {
         swiperInstance.autoplay?.stop()
       } else {
         swiperInstance.autoplay?.start()
+        // ➕ Advance to next slide immediately
+        swiperInstance.slideNext(300) // optional speed in ms
         setActiveIndex(swiperInstance.realIndex)
       }
       setIsAutoplayRunning(!isAutoplayRunning)
@@ -226,9 +228,11 @@ export default function singleRca(props) {
   const latestMainUpdatesPosts =
     latestUpdates?.edges
       ?.filter((post) => !post.node?.passwordProtected?.onOff)
-      .map((post) => post.node) ?? []
+      .map((post) => post.node) ??
+    []
       ?.filter((post) => !post.node?.passwordProtected?.onOff)
-      .map((post) => post.node) ?? []
+      .map((post) => post.node) ??
+    []
 
   // define latestCatPostCards
   const latestMainCatPosts = [
@@ -372,9 +376,7 @@ export default function singleRca(props) {
   }
 
   return (
-    <main
-      className={`${eb_garamond.variable} ${poppins.variable}`}
-    >
+    <main className={`${eb_garamond.variable} ${poppins.variable}`}>
       <DarkColorHeader
         isNavShown={isNavShown}
         setIsNavShown={setIsNavShown}

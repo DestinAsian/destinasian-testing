@@ -84,6 +84,8 @@ export default function singleTravelGuide(props) {
         swiperInstance.autoplay?.stop()
       } else {
         swiperInstance.autoplay?.start()
+        // ➕ Advance to next slide immediately
+        swiperInstance.slideNext(300) // optional speed in ms
       }
       setIsAutoplayRunning(!isAutoplayRunning)
     }

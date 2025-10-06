@@ -3,18 +3,18 @@ import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
 import { GetMenus } from '../queries/GetMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
-import {
-  eb_garamond,
-  poppins,
-  rubik,
-} from '../styles/fonts/fonts'
+import { eb_garamond, poppins, rubik } from '../styles/fonts/fonts'
 import Cookies from 'js-cookie'
 import { GetLatestRCA } from '../queries/GetLatestRCA'
 import dynamic from 'next/dynamic'
 // Import Components
-const DarkColorHeader = dynamic(() => import('@/components/DarkColorHeader/DarkColorHeader'))
+const DarkColorHeader = dynamic(() =>
+  import('@/components/DarkColorHeader/DarkColorHeader'),
+)
 const DarkColorSecondaryHeader = dynamic(() =>
-  import('@/components/DarkColorHeader/DarkColorSecondaryHeader/DarkColorSecondaryHeader'),
+  import(
+    '@/components/DarkColorHeader/DarkColorSecondaryHeader/DarkColorSecondaryHeader'
+  ),
 )
 const SingleLLContainer = dynamic(() =>
   import('@/components/SingleLLContainer/SingleLLContainer'),
@@ -88,6 +88,8 @@ export default function singleLuxeList(props) {
         swiperInstance.autoplay?.stop()
       } else {
         swiperInstance.autoplay?.start()
+        // ➕ Advance to next slide immediately
+        swiperInstance.slideNext(300) // optional speed in ms
       }
       setIsAutoplayRunning(!isAutoplayRunning)
     }
@@ -244,9 +246,11 @@ export default function singleLuxeList(props) {
   const latestMainUpdatesPosts =
     latestUpdates?.edges
       ?.filter((post) => !post.node?.passwordProtected?.onOff)
-      .map((post) => post.node) ?? []
+      .map((post) => post.node) ??
+    []
       ?.filter((post) => !post.node?.passwordProtected?.onOff)
-      .map((post) => post.node) ?? []
+      .map((post) => post.node) ??
+    []
 
   // define latestCatPostCards
   const latestMainCatPosts = [
@@ -305,9 +309,7 @@ export default function singleLuxeList(props) {
   }
 
   return (
-    <main
-      className={`${eb_garamond.variable} ${poppins.variable}`}
-    >
+    <main className={`${eb_garamond.variable} ${poppins.variable}`}>
       <DarkColorHeader
         isNavShown={isNavShown}
         setIsNavShown={setIsNavShown}
@@ -367,8 +369,6 @@ export default function singleLuxeList(props) {
                   isLLNavShown={isLLNavShown}
                   setIsLLNavShown={setIsLLNavShown}
                 />
-
-                {console.log(databaseId)}
                 {/* Second wrapper */}
                 <div className="w-full lg:relative lg:pt-20">
                   <ContentWrapperLL

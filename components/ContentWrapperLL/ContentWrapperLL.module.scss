@@ -10,7 +10,7 @@
 
   @media (min-width: $breakpoint-medium) {
     margin: 0;
-    background-color: var(--wpe--color--deep--black);
+    // background-color: var(--wpe--color--deep--black);
     width: 100%;
     position: relative;
   }
@@ -40,7 +40,7 @@
     // height: 20rem;
     aspect-ratio: 1 / 1;
     z-index: 47;
-    box-shadow: 0 0.25rem 0.5rem var(--wpe--color--deep--black);
+    // box-shadow: 0 0.25rem 0.5rem var(--wpe--color--deep--black);
 
     @media (min-width: $breakpoint-extra-small) {
       top: 7rem;
@@ -54,8 +54,8 @@
       width: auto;
       padding: 0;
       height: calc(-6.5rem + 100vh);
-      border-left: 2rem solid var(--wpe--color--deep--black);
-      border-bottom: 2rem solid var(--wpe--color--deep--black);
+      border-left: 2rem solid transparent;
+      border-bottom: 2rem solid transparent;
       box-shadow: none;
     }
 
@@ -113,6 +113,7 @@
     box-shadow: 0 -0.25rem 0.5rem var(--wpe--color--deep--black);
 
     @media (min-width: $breakpoint-medium) {
+      background-color: transparent;
       height: 5.25rem;
       // left: 50%;
       // width: 50vw;
@@ -219,7 +220,8 @@
   }
 
   .autoplay-button-wrapper,
-  .menu-center-wrapper {
+  .menu-center-wrapper,
+  .share-button-wrapper {
     display: block;
     position: relative;
     height: auto;
@@ -288,7 +290,8 @@
       }
     }
 
-    .autoplay-icon {
+    .autoplay-icon,
+    .share-icon {
       display: flex;
       margin-top: 0;
       margin-bottom: 0;
@@ -298,7 +301,11 @@
       align-items: center;
       cursor: pointer;
       user-select: none;
-      width: 5rem;
+      width: 2rem;
+
+      @media (min-width: $breakpoint-medium) {
+        width: 5rem;
+      }
 
       span {
         padding: 0;
@@ -312,15 +319,11 @@
           height: 3.5rem;
         }
       }
+    }
 
-      span {
-        font-size: 1.25rem;
-        font-family: 'Unit Slab Pro Black';
-        font-weight: 400;
-
-        @media (min-width: $breakpoint-medium) {
-          font-size: 1.5rem;
-        }
+    .share-icon {
+      svg {
+        width: 2.5rem;
       }
     }
   }
