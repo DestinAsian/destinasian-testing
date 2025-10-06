@@ -220,7 +220,8 @@
   }
 
   .autoplay-button-wrapper,
-  .menu-center-wrapper {
+  .menu-center-wrapper,
+  .share-button-wrapper {
     display: block;
     position: relative;
     height: auto;
@@ -289,7 +290,8 @@
       }
     }
 
-    .autoplay-icon {
+    .autoplay-icon,
+    .share-icon {
       display: flex;
       margin-top: 0;
       margin-bottom: 0;
@@ -314,13 +316,9 @@
         }
       }
 
-      span {
-        font-size: 1.25rem;
-        font-family: 'Unit Slab Pro Black';
-        font-weight: 400;
-
-        @media (min-width: $breakpoint-medium) {
-          font-size: 1.5rem;
+      .share-icon {
+        svg {
+          width: 2.5rem;
         }
       }
     }
