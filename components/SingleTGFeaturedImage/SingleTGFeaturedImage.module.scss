@@ -22,7 +22,7 @@
     top: 0;
     left: 50%;
     width: 100%;
-    z-index: 49;
+    z-index: 44;
     transform: translate(-50%, 3.5rem);
     background-color: var(--wpe--main--background-color);
 
@@ -136,7 +136,7 @@
   width: 90%;
   height: 100vh;
   position: absolute;
-  z-index: 49;
+  z-index: 44;
   top: -150vh;
   background-color: var(--wpe--main--background-color);
   color: var(--wpe--color--black);

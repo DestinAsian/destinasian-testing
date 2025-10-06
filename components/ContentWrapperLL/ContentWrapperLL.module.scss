@@ -39,7 +39,7 @@
     padding: 0;
     // height: 20rem;
     aspect-ratio: 1 / 1;
-    z-index: 47;
+    z-index: 43;
     // box-shadow: 0 0.25rem 0.5rem var(--wpe--color--deep--black);
 
     @media (min-width: $breakpoint-extra-small) {
@@ -109,11 +109,11 @@
     padding: 0 1rem 0.5rem;
     background-color: var(--wpe--color--deep--black);
     align-items: center;
-    z-index: 49;
+    z-index: 45;
     box-shadow: 0 -0.25rem 0.5rem var(--wpe--color--deep--black);
 
     @media (min-width: $breakpoint-medium) {
-      background-color: transparent;
+      // background-color: transparent;
       height: 5.25rem;
       // left: 50%;
       // width: 50vw;
@@ -260,7 +260,7 @@
     }
 
     svg {
-      z-index: 50;
+      z-index: 46;
       position: relative;
       width: 2.5rem;
       height: 2.5rem;
