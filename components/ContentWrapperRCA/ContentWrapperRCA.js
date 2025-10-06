@@ -32,8 +32,8 @@ export default function ContentWrapperRCA({
   uri,
   rcaIndexData,
   sliderLoading,
-  isNavShown,
-  setIsNavShown,
+  isRCANavShown,
+  setIsRCANavShown,
   isAutoplayRunning,
   setIsAutoplayRunning,
   sliderRCA,
@@ -226,7 +226,7 @@ export default function ContentWrapperRCA({
   }, [isSliderMounted, urlPath])
 
   useEffect(() => {
-    if (isAutoplayRunning && isNavShown) {
+    if (isAutoplayRunning && isRCANavShown) {
       return toggleAutoplay() // Calls the toggleAutoplay function
     }
   })
@@ -378,13 +378,13 @@ export default function ContentWrapperRCA({
                 type="button"
                 className={cx('menu-button')}
                 onClick={() => {
-                  setIsNavShown(!isNavShown)
+                  setIsRCANavShown(!isRCANavShown)
                   if (isAutoplayRunning) {
                     return toggleAutoplay() // Calls the toggleAutoplay function
                   }
                 }}
                 aria-controls={cx('rca-menu-wrapper')}
-                aria-expanded={!isNavShown}
+                aria-expanded={!isRCANavShown}
               >
                 <div className={cx('menu-title')}>{'Awards Menu'}</div>
               </button>
@@ -397,8 +397,8 @@ export default function ContentWrapperRCA({
                     className={cx('autoplay-icon')}
                     onClick={() => {
                       toggleAutoplay() // Calls the toggleAutoplay function
-                      if (isNavShown) {
-                        return setIsNavShown(!isNavShown) // Calls the toggleAutoplay function
+                      if (isRCANavShown) {
+                        return setIsRCANavShown(!isRCANavShown) // Calls the toggleAutoplay function
                       }
                     }}
                     // // aria-controls={cx('full-menu-wrapper')}
@@ -461,13 +461,13 @@ export default function ContentWrapperRCA({
       </article>
       {/* RCA menu */}
       <div
-        className={cx(['rca-menu-wrapper', isNavShown ? 'show' : undefined])}
+        className={cx(['rca-menu-wrapper', isRCANavShown ? 'show' : undefined])}
       >
         <RCAFullMenu
           rcaDatabaseId={rcaDatabaseId}
           uri={uri}
-          isNavShown={isNavShown}
-          setIsNavShown={setIsNavShown}
+          isRCANavShown={isRCANavShown}
+          setIsRCANavShown={setIsRCANavShown}
           rcaRef={rcaRef}
         />
       </div>

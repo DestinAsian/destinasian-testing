@@ -80,6 +80,7 @@ export default function singleRca(props) {
 
   const [isSearchBarShown, setIsSearchBarShown] = useState(false)
   const [isNavShown, setIsNavShown] = useState(false)
+  const [isRCANavShown, setIsRCANavShown] = useState(false)
   const [isCustomNavShown, setIsCustomNavShown] = useState(false)
   const [isGuidesNavShown, setIsGuidesNavShown] = useState(false)
   const [isMagNavShown, setIsMagNavShown] = useState(false)
@@ -450,8 +451,8 @@ export default function singleRca(props) {
                     uri={parent != null ? parent?.node?.uri : uri}
                     rcaIndexData={rcaIndexData}
                     sliderLoading={sliderLoading}
-                    isNavShown={isCustomNavShown}
-                    setIsNavShown={setIsCustomNavShown}
+                    isRCANavShown={isRCANavShown}
+                    setIsRCANavShown={setIsRCANavShown}
                     isAutoplayRunning={isAutoplayRunning}
                     setIsAutoplayRunning={setIsAutoplayRunning}
                     sliderRCA={sliderRCA}

@@ -14,8 +14,8 @@ export default function RCAFullMenu({
   secondaryLogo,
   rcaDatabaseId,
   uri,
-  isNavShown,
-  setIsNavShown,
+  isRCANavShown,
+  setIsRCANavShown,
   customClassName,
   rcaRef,
 }) {
@@ -154,10 +154,10 @@ export default function RCAFullMenu({
               type="button"
               className={cx('close-icon')}
               onClick={() => {
-                setIsNavShown(!isNavShown)
+                setIsRCANavShown(!isRCANavShown)
               }}
               aria-controls={cx('full-menu-wrapper')}
-              aria-expanded={!isNavShown}
+              aria-expanded={!isRCANavShown}
             >
               <svg
                 width="83"
