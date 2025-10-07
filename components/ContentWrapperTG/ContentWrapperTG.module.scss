@@ -301,7 +301,11 @@
       align-items: center;
       cursor: pointer;
       user-select: none;
-      width: 5rem;
+      width: 2rem;
+
+      @media (min-width: $breakpoint-medium) {
+        width: 5rem;
+      }
 
       span {
         padding: 0;

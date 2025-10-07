@@ -274,6 +274,10 @@
   background-color: var(--wpe--color--teal);
 }
 
+.travel-guide.search-bar-wrapper div {
+  background-color: var(--wpe--color--light--cream);
+}
+
 .full-menu-content {
   display: block;
   width: 100vw;
@@ -311,6 +315,10 @@
 
 .luxury-travel.full-menu-content > div > div {
   background-color: var(--wpe--color--teal);
+}
+
+.travel-guide.full-menu-content > div > div {
+  background-color: var(--wpe--color--light--cream);
 }
 
 .full-menu-wrapper {
@@ -360,6 +368,10 @@
 
 .luxury-travel.magazine-menu-wrapper > div > div > div {
   background-color: var(--wpe--color--teal);
+}
+
+.travel-guide.magazine-menu-wrapper > div > div > div {
+  background-color: var(--wpe--color--light--cream);
 }
 
 .rca-menu-wrapper {
@@ -431,4 +443,8 @@
 
 .luxury-travel.rca-menu-wrapper > div > div {
   background-color: var(--wpe--color--teal);
+}
+
+.travel-guide.rca-menu-wrapper > div > div {
+  background-color: var(--wpe--color--light--cream);
 }
