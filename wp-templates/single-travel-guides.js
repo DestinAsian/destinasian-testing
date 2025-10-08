@@ -51,6 +51,7 @@ export default function singleTravelGuide(props) {
     content,
     featuredImage,
     acfPostSlider,
+    children,
     parent,
     seo,
     uri,
@@ -343,6 +344,14 @@ export default function singleTravelGuide(props) {
       />
       <Main>
         <>
+          {console.log(
+            parent != null &&
+              children?.edges?.length === 0 &&
+              parent?.node?.travelGuidesLogo?.mainLogo,
+            parent != null &&
+              children?.edges?.length !== 0 &&
+              travelGuidesLogo?.mainLogo,
+          )}
           {/* {'hotel'} */}
           <SingleTGContainer>
             <div className="lg:fixed lg:flex lg:w-[100w] lg:flex-col">
@@ -350,19 +359,33 @@ export default function singleTravelGuide(props) {
                 {/* First wrapper */}
                 <SingleTGFeaturedImage
                   mainLogo={
-                    parent != null
-                      ? parent?.node?.luxeListLogo?.mainLogo
-                      : luxeListLogo?.mainLogo
+                    parent != null && children?.edges?.length === 0
+                      ? parent?.node?.travelGuidesLogo?.mainLogo
+                      : parent != null && children?.edges?.length !== 0
+                      ? travelGuidesLogo?.mainLogo
+                      : null
                   }
                   secondaryLogo={
-                    parent != null
-                      ? parent?.node?.luxeListLogo?.secondaryLogo
-                      : luxeListLogo?.secondaryLogo
+                    parent != null && children?.edges?.length === 0
+                      ? parent?.node?.travelGuidesLogo?.secondaryLogo
+                      : parent != null && children?.edges?.length !== 0
+                      ? travelGuidesLogo?.secondaryLogo
+                      : null
                   }
                   databaseId={
-                    parent != null ? parent?.node?.databaseId : databaseId
+                    parent != null && children?.edges?.length === 0
+                      ? parent?.node?.databaseId
+                      : parent != null && children?.edges?.length !== 0
+                      ? databaseId
+                      : null
                   }
-                  uri={parent != null ? parent?.node?.uri : uri}
+                  uri={
+                    parent != null && children?.edges?.length === 0
+                      ? parent?.node?.uri
+                      : parent != null && children?.edges?.length !== 0
+                      ? uri
+                      : null
+                  }
                   isTGNavShown={isTGNavShown}
                   setIsTGNavShown={setIsTGNavShown}
                 />
@@ -375,9 +398,11 @@ export default function singleTravelGuide(props) {
                     content={content}
                     images={images}
                     mainLogo={
-                      parent != null
+                      parent != null && children?.edges?.length === 0
                         ? parent?.node?.travelGuidesLogo?.mainLogo
-                        : travelGuidesLogo?.mainLogo
+                        : parent != null && children?.edges?.length !== 0
+                        ? travelGuidesLogo?.mainLogo
+                        : null
                     }
                     databaseId={databaseId}
                     isNavShown={isNavShown}
@@ -474,6 +499,13 @@ singleTravelGuide.query = gql`
           mediaDetails {
             width
             height
+          }
+        }
+      }
+      children(first: 1) {
+        edges {
+          node {
+            id
           }
         }
       }
