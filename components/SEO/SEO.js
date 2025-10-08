@@ -52,7 +52,7 @@ export default function SEO() {
         <link
           rel="stylesheet"
           type="text/css"
-          href="https://cloud.typography.com/7429004/6477832/css/fonts.css"
+          href="https://cloud.typography.com/7429004/7980032/css/fonts.css"
         />
       </Head>
     </>
