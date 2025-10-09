@@ -344,14 +344,6 @@ export default function singleTravelGuide(props) {
       />
       <Main>
         <>
-          {console.log(
-            parent != null &&
-              children?.edges?.length === 0 &&
-              parent?.node?.travelGuidesLogo?.mainLogo,
-            parent != null &&
-              children?.edges?.length !== 0 &&
-              travelGuidesLogo?.mainLogo,
-          )}
           {/* {'hotel'} */}
           <SingleTGContainer>
             <div className="lg:fixed lg:flex lg:w-[100w] lg:flex-col">

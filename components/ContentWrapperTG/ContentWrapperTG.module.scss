@@ -119,6 +119,14 @@
       // width: 50vw;
       padding: 0 2rem 0.5rem;
     }
+
+    > div {
+      width: 25%;
+
+      .image-wrapper {
+        align-items: center;
+      }
+    }
   }
 
   .navigation-button {
@@ -319,11 +327,11 @@
           height: 3.5rem;
         }
       }
+    }
 
-      .share-icon {
-        svg {
-          width: 2.5rem;
-        }
+    .share-icon {
+      svg {
+        width: 2.5rem;
       }
     }
   }

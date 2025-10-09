@@ -2,7 +2,13 @@ import className from 'classnames/bind'
 import styles from './ContentWrapperTG.module.scss'
 import { GetTravelGuidePagination } from '../../queries/GetTravelGuidePagination'
 import { useQuery } from '@apollo/client'
-import React, { useEffect, useState, useRef, useLayoutEffect } from 'react'
+import React, {
+  useEffect,
+  useState,
+  useRef,
+  useLayoutEffect,
+  useMemo,
+} from 'react'
 import { useMediaQuery } from 'react-responsive'
 import { renderToStaticMarkup } from 'react-dom/server'
 import Image from 'next/image'
@@ -59,7 +65,7 @@ export default function ContentWrapperTG({
         alert('Link copied to clipboard!')
       }
     } catch (err) {
-      console.error('Share failed:', err)
+      alert('Sharing was canceled.')
     } finally {
       // allow another share after it completes (even if canceled)
       setIsSharing(false)
@@ -74,32 +80,41 @@ export default function ContentWrapperTG({
     nextFetchPolicy: 'cache-and-network',
   })
 
-  const parent = data?.travelGuideBy?.parent
+  const travelGuideBy = data?.travelGuideBy
+  const parent = travelGuideBy?.parent
+  const children = travelGuideBy?.children
 
-  const travelGuideAll = parent
-    ? [
-        parent?.node,
-        ...(data?.travelGuideBy?.parent?.node?.children?.edges.map(
-          (post) => post.node,
-        ) || []),
-      ]
-    : [
-        data?.travelGuideBy,
-        ...(data?.travelGuideBy?.children?.edges.map((post) => post.node) ||
-          []),
-      ]
+  const travelGuideAll = useMemo(() => {
+    if (loading || !travelGuideBy) return null
 
-  const indexOfTravelGuide = data?.travelGuideBy?.menuOrder ?? 0
+    if (parent && children?.edges?.length === 0) {
+      return [
+        parent.node,
+        ...(parent.node.children?.edges?.map((post) => post.node) || []),
+      ]
+    }
+
+    if (parent && children?.edges?.length !== 0) {
+      return [
+        travelGuideBy,
+        ...(children.edges?.map((post) => post.node) || []),
+      ]
+    }
+
+    return null
+  }, [loading, travelGuideBy])
+
+  const indexOfTravelGuide = travelGuideBy?.menuOrder ?? 0
   const numberOfTravelGuides = travelGuideAll?.length
   const prevIndex = indexOfTravelGuide - 1
   const nextIndex = indexOfTravelGuide + 1
 
   // Loop nextUri to the first index when reaching the last index
-  const prevUri = prevIndex >= 0 ? travelGuideAll[prevIndex]?.uri : null
+  const prevUri = prevIndex >= 0 ? travelGuideAll?.[prevIndex]?.uri : null
   const nextUri =
     nextIndex < numberOfTravelGuides
-      ? travelGuideAll[nextIndex]?.uri
-      : travelGuideAll[0]?.uri // Loop back to the first URI
+      ? travelGuideAll?.[nextIndex]?.uri
+      : travelGuideAll?.[0]?.uri // Loop back to the first URI
 
   useEffect(() => {
     if (isAutoplayRunning && isSliderMounted && sliderTG.current) {

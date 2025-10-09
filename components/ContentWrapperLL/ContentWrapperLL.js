@@ -59,7 +59,7 @@ export default function ContentWrapperLL({
         alert('Link copied to clipboard!')
       }
     } catch (err) {
-      console.error('Share failed:', err)
+      alert('Sharing was canceled.')
     } finally {
       // allow another share after it completes (even if canceled)
       setIsSharing(false)
@@ -94,11 +94,11 @@ export default function ContentWrapperLL({
   const nextIndex = indexOfLuxeList + 1
 
   // Loop nextUri to the first index when reaching the last index
-  const prevUri = prevIndex >= 0 ? luxeListAll[prevIndex]?.uri : null
+  const prevUri = prevIndex >= 0 ? luxeListAll?.[prevIndex]?.uri : null
   const nextUri =
     nextIndex < numberOfLuxeLists
-      ? luxeListAll[nextIndex]?.uri
-      : luxeListAll[0]?.uri // Loop back to the first URI
+      ? luxeListAll?.[nextIndex]?.uri
+      : luxeListAll?.[0]?.uri // Loop back to the first URI
 
   useEffect(() => {
     if (isAutoplayRunning && isSliderMounted && sliderLL.current) {
