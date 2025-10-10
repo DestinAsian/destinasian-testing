@@ -79,21 +79,21 @@ export default function singleLuxeList(props) {
 
   // Slider Autoplay state
   const sliderLL = useRef(null)
-  const [isAutoplayRunning, setIsAutoplayRunning] = useState(true)
+  // const [isAutoplayRunning, setIsAutoplayRunning] = useState(true)
 
-  const toggleAutoplay = () => {
-    const swiperInstance = sliderLL?.current?.swiper
-    if (swiperInstance) {
-      if (isAutoplayRunning) {
-        swiperInstance.autoplay?.stop()
-      } else {
-        swiperInstance.autoplay?.start()
-        // ➕ Advance to next slide immediately
-        swiperInstance.slideNext(300) // optional speed in ms
-      }
-      setIsAutoplayRunning(!isAutoplayRunning)
-    }
-  }
+  // const toggleAutoplay = () => {
+  //   const swiperInstance = sliderLL?.current?.swiper
+  //   if (swiperInstance) {
+  //     if (isAutoplayRunning) {
+  //       swiperInstance.autoplay?.stop()
+  //     } else {
+  //       swiperInstance.autoplay?.start()
+  //       // ➕ Advance to next slide immediately
+  //       swiperInstance.slideNext(300) // optional speed in ms
+  //     }
+  //     setIsAutoplayRunning(!isAutoplayRunning)
+  //   }
+  // }
 
   // Stop scrolling pages when searchQuery
   useEffect(() => {
@@ -340,8 +340,8 @@ export default function singleLuxeList(props) {
         isBurgerNavShown={isBurgerNavShown}
         setIsBurgerNavShown={setIsBurgerNavShown}
         // isScrolled={isScrolled}
-        isAutoplayRunning={isAutoplayRunning}
-        toggleAutoplay={toggleAutoplay}
+        // isAutoplayRunning={isAutoplayRunning}
+        // toggleAutoplay={toggleAutoplay}
         customClassName={'ll-color'}
       />
       <Main>
@@ -386,10 +386,10 @@ export default function singleLuxeList(props) {
                     isNavShown={isNavShown}
                     isLLNavShown={isLLNavShown}
                     setIsLLNavShown={setIsLLNavShown}
-                    isAutoplayRunning={isAutoplayRunning}
-                    setIsAutoplayRunning={setIsAutoplayRunning}
+                    // isAutoplayRunning={isAutoplayRunning}
+                    // setIsAutoplayRunning={setIsAutoplayRunning}
                     sliderLL={sliderLL}
-                    toggleAutoplay={toggleAutoplay}
+                    // toggleAutoplay={toggleAutoplay}
                   />
                 </div>
               </div>

@@ -50,8 +50,8 @@ export default function DarkColorSecondaryHeader({
   setIsCustomNavShown,
   isBurgerNavShown,
   setIsBurgerNavShown,
-  isAutoplayRunning,
-  toggleAutoplay,
+  // isAutoplayRunning,
+  // toggleAutoplay,
   customClassName,
 }) {
   // Posts for Search Function
@@ -168,12 +168,12 @@ export default function DarkColorSecondaryHeader({
               isCustomNavShown ? setIsCustomNavShown(!isCustomNavShown) : null
               isBurgerNavShown ? setIsBurgerNavShown(!isBurgerNavShown) : null
               setSearchQuery('')
-              if (!isSearchBarShown && isAutoplayRunning) {
-                return toggleAutoplay()
-              }
-              if (isSearchBarShown && !isAutoplayRunning) {
-                return toggleAutoplay()
-              }
+              // if (!isSearchBarShown && isAutoplayRunning) {
+              //   return toggleAutoplay()
+              // }
+              // if (isSearchBarShown && !isAutoplayRunning) {
+              //   return toggleAutoplay()
+              // }
             }}
             aria-controls={cx('search-bar-wrapper')}
             aria-expanded={!isSearchBarShown}
@@ -190,13 +190,13 @@ export default function DarkColorSecondaryHeader({
               isMagNavShown ? setIsMagNavShown(!isMagNavShown) : null
               isSearchBarShown ? setIsSearchBarShown(!isSearchBarShown) : null
               isBurgerNavShown ? setIsBurgerNavShown(!isBurgerNavShown) : null
-              setSearchQuery('')
-              if (!isCustomNavShown && isAutoplayRunning) {
-                return toggleAutoplay()
-              }
-              if (isCustomNavShown && !isAutoplayRunning) {
-                return toggleAutoplay()
-              }
+              // setSearchQuery('')
+              // if (!isCustomNavShown && isAutoplayRunning) {
+              //   return toggleAutoplay()
+              // }
+              // if (isCustomNavShown && !isAutoplayRunning) {
+              //   return toggleAutoplay()
+              // }
             }}
             aria-controls={cx('rca-menu-wrapper')}
             aria-expanded={!isCustomNavShown}
@@ -214,12 +214,12 @@ export default function DarkColorSecondaryHeader({
               isSearchBarShown ? setIsSearchBarShown(!isSearchBarShown) : null
               isBurgerNavShown ? setIsBurgerNavShown(!isBurgerNavShown) : null
               setSearchQuery('')
-              if (!isGuidesNavShown && isAutoplayRunning) {
-                return toggleAutoplay()
-              }
-              if (isGuidesNavShown && !isAutoplayRunning) {
-                return toggleAutoplay()
-              }
+              // if (!isGuidesNavShown && isAutoplayRunning) {
+              //   return toggleAutoplay()
+              // }
+              // if (isGuidesNavShown && !isAutoplayRunning) {
+              //   return toggleAutoplay()
+              // }
             }}
             aria-controls={cx('rca-menu-wrapper')}
             aria-expanded={!isCustomNavShown}
@@ -240,12 +240,12 @@ export default function DarkColorSecondaryHeader({
               isCustomNavShown ? setIsCustomNavShown(!isCustomNavShown) : null
               isMagNavShown ? setIsMagNavShown(!isMagNavShown) : null
               setSearchQuery('')
-              if (!isBurgerNavShown && isAutoplayRunning) {
-                return toggleAutoplay()
-              }
-              if (isBurgerNavShown && !isAutoplayRunning) {
-                return toggleAutoplay()
-              }
+              // if (!isBurgerNavShown && isAutoplayRunning) {
+              //   return toggleAutoplay()
+              // }
+              // if (isBurgerNavShown && !isAutoplayRunning) {
+              //   return toggleAutoplay()
+              // }
             }}
             aria-controls={cx('burger-bar-wrapper')}
             aria-expanded={!isCustomNavShown}

@@ -76,21 +76,21 @@ export default function singleTravelGuide(props) {
 
   // Slider Autoplay state
   const sliderTG = useRef(null)
-  const [isAutoplayRunning, setIsAutoplayRunning] = useState(true)
+  // const [isAutoplayRunning, setIsAutoplayRunning] = useState(true)
 
-  const toggleAutoplay = () => {
-    const swiperInstance = sliderTG?.current?.swiper
-    if (swiperInstance) {
-      if (isAutoplayRunning) {
-        swiperInstance.autoplay?.stop()
-      } else {
-        swiperInstance.autoplay?.start()
-        // ➕ Advance to next slide immediately
-        swiperInstance.slideNext(300) // optional speed in ms
-      }
-      setIsAutoplayRunning(!isAutoplayRunning)
-    }
-  }
+  // const toggleAutoplay = () => {
+  //   const swiperInstance = sliderTG?.current?.swiper
+  //   if (swiperInstance) {
+  //     if (isAutoplayRunning) {
+  //       swiperInstance.autoplay?.stop()
+  //     } else {
+  //       swiperInstance.autoplay?.start()
+  //       // ➕ Advance to next slide immediately
+  //       swiperInstance.slideNext(300) // optional speed in ms
+  //     }
+  //     setIsAutoplayRunning(!isAutoplayRunning)
+  //   }
+  // }
 
   // Stop scrolling pages when searchQuery
   useEffect(() => {
@@ -337,9 +337,9 @@ export default function singleTravelGuide(props) {
         setIsCustomNavShown={setIsCustomNavShown}
         isBurgerNavShown={isBurgerNavShown}
         setIsBurgerNavShown={setIsBurgerNavShown}
-        // isScrolled={isScrolled}
-        isAutoplayRunning={isAutoplayRunning}
-        toggleAutoplay={toggleAutoplay}
+        isScrolled={isScrolled}
+        // isAutoplayRunning={isAutoplayRunning}
+        // toggleAutoplay={toggleAutoplay}
         customClassName={'travel-guide'}
       />
       <Main>
@@ -400,10 +400,10 @@ export default function singleTravelGuide(props) {
                     isNavShown={isNavShown}
                     isTGNavShown={isTGNavShown}
                     setIsTGNavShown={setIsTGNavShown}
-                    isAutoplayRunning={isAutoplayRunning}
-                    setIsAutoplayRunning={setIsAutoplayRunning}
+                    // isAutoplayRunning={isAutoplayRunning}
+                    // setIsAutoplayRunning={setIsAutoplayRunning}
                     sliderTG={sliderTG}
-                    toggleAutoplay={toggleAutoplay}
+                    // toggleAutoplay={toggleAutoplay}
                   />
                 </div>
               </div>

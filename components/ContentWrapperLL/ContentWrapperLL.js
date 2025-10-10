@@ -33,10 +33,10 @@ export default function ContentWrapperLL({
   isLLNavShown,
   setIsLLNavShown,
   router,
-  isAutoplayRunning,
-  setIsAutoplayRunning,
+  // isAutoplayRunning,
+  // setIsAutoplayRunning,
   sliderLL,
-  toggleAutoplay,
+  // toggleAutoplay,
 }) {
   const batchSize = 30
   const [transformedContent, setTransformedContent] = useState('')
@@ -100,32 +100,32 @@ export default function ContentWrapperLL({
       ? luxeListAll?.[nextIndex]?.uri
       : luxeListAll?.[0]?.uri // Loop back to the first URI
 
-  useEffect(() => {
-    if (isAutoplayRunning && isSliderMounted && sliderLL.current) {
-      const swiperInstance = sliderLL.current.swiper
+  // useEffect(() => {
+  //   if (isAutoplayRunning && isSliderMounted && sliderLL.current) {
+  //     const swiperInstance = sliderLL.current.swiper
 
-      const handleSlideChange = () => {
-        const isLastSlide =
-          swiperInstance.realIndex === swiperInstance.slides.length - 1
+  //     const handleSlideChange = () => {
+  //       const isLastSlide =
+  //         swiperInstance.realIndex === swiperInstance.slides.length - 1
 
-        if (isLastSlide) {
-          const timer = setTimeout(() => {
-            if (nextUri) {
-              router.replace(nextUri)
-            }
-          }, 3000)
+  //       if (isLastSlide) {
+  //         const timer = setTimeout(() => {
+  //           if (nextUri) {
+  //             router.replace(nextUri)
+  //           }
+  //         }, 3000)
 
-          return () => clearTimeout(timer) // Clear the timeout on cleanup
-        }
-      }
+  //         return () => clearTimeout(timer) // Clear the timeout on cleanup
+  //       }
+  //     }
 
-      swiperInstance.on('slideChange', handleSlideChange)
+  //     swiperInstance.on('slideChange', handleSlideChange)
 
-      return () => {
-        swiperInstance.off('slideChange', handleSlideChange)
-      }
-    }
-  }, [sliderLL.current, isAutoplayRunning, nextUri, router, isSliderMounted])
+  //     return () => {
+  //       swiperInstance.off('slideChange', handleSlideChange)
+  //     }
+  //   }
+  // }, [sliderLL.current, isAutoplayRunning, nextUri, router, isSliderMounted])
 
   useEffect(() => {
     const extractImageData = () => {
@@ -160,28 +160,28 @@ export default function ContentWrapperLL({
     extractImageData()
   }, [content, isSliderMounted])
 
-  useEffect(() => {
-    if (isSliderMounted) {
-      const swiperInstance = sliderLL?.current?.swiper
-      const initialAutoplayState = swiperInstance?.autoplay?.running || false
-      setIsAutoplayRunning(initialAutoplayState)
+  // useEffect(() => {
+  //   if (isSliderMounted) {
+  //     const swiperInstance = sliderLL?.current?.swiper
+  //     const initialAutoplayState = swiperInstance?.autoplay?.running || false
+  //     setIsAutoplayRunning(initialAutoplayState)
 
-      swiperInstance.on('slideChange', () => {
-        const currentAutoplayState = swiperInstance?.autoplay?.running || false
-        setIsAutoplayRunning(currentAutoplayState)
-      })
+  //     swiperInstance.on('slideChange', () => {
+  //       const currentAutoplayState = swiperInstance?.autoplay?.running || false
+  //       setIsAutoplayRunning(currentAutoplayState)
+  //     })
 
-      return () => {
-        swiperInstance.off('slideChange')
-      }
-    }
-  }, [isAutoplayRunning, isSliderMounted])
+  //     return () => {
+  //       swiperInstance.off('slideChange')
+  //     }
+  //   }
+  // }, [isAutoplayRunning, isSliderMounted])
 
-  useEffect(() => {
-    if (isAutoplayRunning && isNavShown) {
-      return toggleAutoplay() // Calls the toggleAutoplay function
-    }
-  })
+  // useEffect(() => {
+  //   if (isAutoplayRunning && isNavShown) {
+  //     return toggleAutoplay() // Calls the toggleAutoplay function
+  //   }
+  // })
 
   const [sliderHeight, setSliderHeight] = useState(0)
   const [sliderWidth, setSliderWidth] = useState(0)
@@ -311,7 +311,7 @@ export default function ContentWrapperLL({
               </Link>
             )}
           </div>
-          <div className={cx('autoplay-button-wrapper')}>
+          {/* <div className={cx('autoplay-button-wrapper')}>
             <div className={cx('image-wrapper')}>
               <div className={cx('menu-button')}>
                 <button
@@ -332,7 +332,6 @@ export default function ContentWrapperLL({
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
                     >
-                      {/* Pause Button */}
                       <path
                         d="M2.11088 0.486993H8.29661C8.61163 0.486993 8.88369 0.601543 9.11279 0.830643C9.34189 1.05974 9.45644 1.3318 9.45644 1.64682V42.2407C9.45644 42.5557 9.34189 42.8278 9.11279 43.0569C8.88369 43.286 8.61163 43.4005 8.29661 43.4005H2.11088C1.79587 43.4005 1.52381 43.286 1.29471 43.0569C1.06561 42.8278 0.951057 42.5557 0.951057 42.2407V1.64682C0.951057 1.3318 1.06561 1.05974 1.29471 0.830643C1.52381 0.601543 1.79587 0.486993 2.11088 0.486993ZM25.7202 0.486993H31.9059C32.2209 0.486993 32.493 0.601543 32.7221 0.830643C32.9512 1.05974 33.0657 1.3318 33.0657 1.64682V42.2407C33.0657 42.5557 32.9512 42.8278 32.7221 43.0569C32.493 43.286 32.2209 43.4005 31.9059 43.4005H25.7202C25.4051 43.4005 25.1331 43.286 24.904 43.0569C24.6749 42.8278 24.5603 42.5557 24.5603 42.2407V1.64682C24.5603 1.3318 24.6749 1.05974 24.904 0.830643C25.1331 0.601543 25.4051 0.486993 25.7202 0.486993Z"
                         fill="#ffffff"
@@ -346,13 +345,37 @@ export default function ContentWrapperLL({
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
                     >
-                      {/* Play Button */}
                       <path
                         d="M50 34.5L0.499997 68.708L0.5 0.291994L50 34.5Z"
                         fill="#ffffff"
                       />
                     </svg>
                   )}
+                </button>
+              </div>
+            </div>
+          </div> */}
+          <div className={cx('share-button-wrapper')}>
+            <div className={cx('image-wrapper')}>
+              <div className={cx('menu-button')}>
+                <button
+                  type="button"
+                  className={cx('share-icon')}
+                  onClick={handleShare}
+                  disabled={isSharing}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    class="size-6"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M15.75 4.5a3 3 0 1 1 .825 2.066l-8.421 4.679a3.002 3.002 0 0 1 0 1.51l8.421 4.679a3 3 0 1 1-.729 1.31l-8.421-4.678a3 3 0 1 1 0-4.132l8.421-4.679a3 3 0 0 1-.096-.755Z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
                 </button>
               </div>
             </div>
@@ -369,9 +392,9 @@ export default function ContentWrapperLL({
                       className={cx('menu-icon')}
                       onClick={() => {
                         setIsLLNavShown(!isLLNavShown) // Toggles navigation visibility
-                        if (isAutoplayRunning) {
-                          return toggleAutoplay() // Calls the toggleAutoplay function
-                        }
+                        // if (isAutoplayRunning) {
+                        //   return toggleAutoplay() // Calls the toggleAutoplay function
+                        // }
                       }}
                       aria-controls={cx('full-menu-wrapper')}
                       aria-expanded={!isLLNavShown}
@@ -470,31 +493,6 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
                 </div>
               </div>
             )}
-          </div>
-          <div className={cx('share-button-wrapper')}>
-            <div className={cx('image-wrapper')}>
-              <div className={cx('menu-button')}>
-                <button
-                  type="button"
-                  className={cx('share-icon')}
-                  onClick={handleShare}
-                  disabled={isSharing}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    class="size-6"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M15.75 4.5a3 3 0 1 1 .825 2.066l-8.421 4.679a3.002 3.002 0 0 1 0 1.51l8.421 4.679a3 3 0 1 1-.729 1.31l-8.421-4.678a3 3 0 1 1 0-4.132l8.421-4.679a3 3 0 0 1-.096-.755Z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
-                </button>
-              </div>
-            </div>
           </div>
           <div className={cx('navigation-button')}>
             {nextUri && (
