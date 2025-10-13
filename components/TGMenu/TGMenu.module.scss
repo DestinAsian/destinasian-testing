@@ -34,7 +34,7 @@
   }
 
   * {
-    text-transform: uppercase;
+    text-transform: capitalize;
   }
 
   .ll-menu-header {
@@ -67,6 +67,10 @@
       width: 50%;
       // text-align: left;
       // text-align-last: auto;
+    }
+
+    * {
+      text-transform: uppercase;
     }
   }
 
