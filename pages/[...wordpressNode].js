@@ -20,8 +20,6 @@ export default function Page(props) {
     update,
   } = props?.__TEMPLATE_QUERY_DATA__ ?? {}
 
-  console.log(props?.__TEMPLATE_QUERY_DATA__)
-
   const source =
     advertorial ||
     category ||
