@@ -82,6 +82,7 @@ export default function singleRca(props) {
   const [isNavShown, setIsNavShown] = useState(false)
   const [isRCANavShown, setIsRCANavShown] = useState(false)
   const [isCustomNavShown, setIsCustomNavShown] = useState(false)
+  const [isHCNavShown, setIsHCNavShown] = useState(false)
   const [isGuidesNavShown, setIsGuidesNavShown] = useState(false)
   const [isMagNavShown, setIsMagNavShown] = useState(false)
   const [isBurgerNavShown, setIsBurgerNavShown] = useState(false)
@@ -143,6 +144,15 @@ export default function singleRca(props) {
       document.body.style.overflow = 'visible'
     }
   }, [isCustomNavShown])
+
+  // Stop scrolling pages when isHCNavShown
+  useEffect(() => {
+    if (isHCNavShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isHCNavShown])
 
   // Stop scrolling pages when isGuidesNavShown
   useEffect(() => {
@@ -403,6 +413,8 @@ export default function singleRca(props) {
         setIsMagNavShown={setIsMagNavShown}
         isCustomNavShown={isCustomNavShown}
         setIsCustomNavShown={setIsCustomNavShown}
+        isHCNavShown={isHCNavShown}
+        setIsHCNavShown={setIsHCNavShown}
         isGuidesNavShown={isGuidesNavShown}
         setIsGuidesNavShown={setIsGuidesNavShown}
         isBurgerNavShown={isBurgerNavShown}

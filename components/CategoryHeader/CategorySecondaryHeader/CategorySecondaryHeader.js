@@ -28,6 +28,8 @@ const LLMenu = dynamic(() => import('@/components/LLMenu/LLMenu'))
 const TravelGuidesMenu = dynamic(() =>
   import('@/components/TravelGuidesMenu/TravelGuidesMenu'),
 )
+const HCMenu = dynamic(() => import('@/components/HCMenu/HCMenu'))
+
 const BurgerFullMenu = dynamic(() =>
   import('@/components/BurgerFullMenu/BurgerFullMenu'),
 )
@@ -63,6 +65,8 @@ export default function CategorySecondaryHeader({
   setIsMagNavShown,
   isCustomNavShown,
   setIsCustomNavShown,
+  isHCNavShown,
+  setIsHCNavShown,
   isBurgerNavShown,
   setIsBurgerNavShown,
   isScrolled,
@@ -84,6 +88,7 @@ export default function CategorySecondaryHeader({
   const guidesRef = useRef(null)
   const magazineRef = useRef(null)
   const customRef = useRef(null)
+  const hcRef = useRef(null)
   const burgerRef = useRef(null)
   const menuRef = useRef(null)
 
@@ -92,6 +97,7 @@ export default function CategorySecondaryHeader({
   useClickOutside(guidesRef, () => setIsGuidesNavShown(false), [menuRef])
   useClickOutside(magazineRef, () => setIsMagNavShown(false), [menuRef])
   useClickOutside(customRef, () => setIsCustomNavShown(false), [menuRef])
+  useClickOutside(hcRef, () => setIsHCNavShown(false), [menuRef])
   useClickOutside(burgerRef, () => setIsBurgerNavShown(false), [menuRef])
 
   // Add search query function
@@ -219,6 +225,7 @@ export default function CategorySecondaryHeader({
               isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
               isMagNavShown ? setIsMagNavShown(!isMagNavShown) : null
               isCustomNavShown ? setIsCustomNavShown(!isCustomNavShown) : null
+              isHCNavShown ? setIsHCNavShown(!isHCNavShown) : null
               isBurgerNavShown ? setIsBurgerNavShown(!isBurgerNavShown) : null
               setSearchQuery('')
             }}
@@ -240,6 +247,7 @@ export default function CategorySecondaryHeader({
               isSearchBarShown ? setIsSearchBarShown(!isSearchBarShown) : null
               isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
               isMagNavShown ? setIsMagNavShown(!isMagNavShown) : null
+              isHCNavShown ? setIsHCNavShown(!isHCNavShown) : null
               isBurgerNavShown ? setIsBurgerNavShown(!isBurgerNavShown) : null
               setSearchQuery('')
             }}
@@ -261,6 +269,7 @@ export default function CategorySecondaryHeader({
               isSearchBarShown ? setIsSearchBarShown(!isSearchBarShown) : null
               isMagNavShown ? setIsMagNavShown(!isMagNavShown) : null
               isCustomNavShown ? setIsCustomNavShown(!isCustomNavShown) : null
+              isHCNavShown ? setIsHCNavShown(!isHCNavShown) : null
               isBurgerNavShown ? setIsBurgerNavShown(!isBurgerNavShown) : null
               setSearchQuery('')
             }}
@@ -285,6 +294,7 @@ export default function CategorySecondaryHeader({
               isSearchBarShown ? setIsSearchBarShown(!isSearchBarShown) : null
               isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
               isCustomNavShown ? setIsCustomNavShown(!isCustomNavShown) : null
+              isHCNavShown ? setIsHCNavShown(!isHCNavShown) : null
               isBurgerNavShown ? setIsBurgerNavShown(!isBurgerNavShown) : null
               setSearchQuery('')
             }}
@@ -309,6 +319,38 @@ export default function CategorySecondaryHeader({
               <div className={cx('menu-title')}>{categoryCountryCode}</div>
             )}
           </button>
+          {/* Honors Circle Button */}
+          <button
+            type="button"
+            className={cx(
+              'hc-menu-button',
+              isHCNavShown ? 'active' : '',
+              isHCNavShown && !isScrolled && 'active-not-scrolled',
+            )}
+            onClick={() => {
+              setIsHCNavShown(!isHCNavShown)
+              isSearchBarShown ? setIsSearchBarShown(!isSearchBarShown) : null
+              isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
+              isMagNavShown ? setIsMagNavShown(!isMagNavShown) : null
+              isCustomNavShown ? setIsCustomNavShown(!isCustomNavShown) : null
+              isBurgerNavShown ? setIsBurgerNavShown(!isBurgerNavShown) : null
+              setSearchQuery('')
+            }}
+            aria-controls={cx('hc-menu-wrapper')}
+            aria-expanded={!isCustomNavShown}
+          >
+            <div className={cx('hc-icon')}>
+              <svg
+                width="34"
+                height="34"
+                viewBox="0 0 34 34"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle cx="17" cy="17" r="17" fill="black" />
+              </svg>
+            </div>
+          </button>
           {/* Burger Button */}
           <button
             type="button"
@@ -321,6 +363,7 @@ export default function CategorySecondaryHeader({
               setIsBurgerNavShown(!isBurgerNavShown)
               isSearchBarShown ? setIsSearchBarShown(!isSearchBarShown) : null
               isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
+              isHCNavShown ? setIsHCNavShown(!isHCNavShown) : null
               isCustomNavShown ? setIsCustomNavShown(!isCustomNavShown) : null
               isMagNavShown ? setIsMagNavShown(!isMagNavShown) : null
               setSearchQuery('')
@@ -452,6 +495,14 @@ export default function CategorySecondaryHeader({
               categoryName={parentCategory}
             />
           )}
+        </div>
+      </div>
+      {/* Honors Circle Menu */}
+      <div
+        className={cx('full-menu-content', isHCNavShown ? 'show' : undefined)}
+      >
+        <div ref={hcRef} className={cx('hc-menu-wrapper')}>
+          <HCMenu />
         </div>
       </div>
       {/* Burger Menu */}

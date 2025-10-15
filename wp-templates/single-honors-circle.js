@@ -3,11 +3,7 @@ import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '../constants/menus'
 import { GetMenus } from '../queries/GetMenus'
 import { GetLatestStories } from '../queries/GetLatestStories'
-import {
-  eb_garamond,
-  poppins,
-  rubik,
-} from '../styles/fonts/fonts'
+import { eb_garamond, poppins, rubik } from '../styles/fonts/fonts'
 import Cookies from 'js-cookie'
 import { GetLatestRCA } from '../queries/GetLatestRCA'
 import dynamic from 'next/dynamic'
@@ -84,6 +80,7 @@ export default function SingleHonorsCircle(props) {
   const [isSearchBarShown, setIsSearchBarShown] = useState(false)
   const [isNavShown, setIsNavShown] = useState(false)
   const [isGuidesNavShown, setIsGuidesNavShown] = useState(false)
+  const [isHCNavShown, setIsHCNavShown] = useState(false)
   const [isCustomNavShown, setIsCustomNavShown] = useState(false)
   const [isMagNavShown, setIsMagNavShown] = useState(false)
   const [isBurgerNavShown, setIsBurgerNavShown] = useState(false)
@@ -145,6 +142,15 @@ export default function SingleHonorsCircle(props) {
       document.body.style.overflow = 'visible'
     }
   }, [isCustomNavShown])
+
+  // Stop scrolling pages when isHCNavShown
+  useEffect(() => {
+    if (isHCNavShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isHCNavShown])
 
   // Stop scrolling pages when isGuidesNavShown
   useEffect(() => {
@@ -239,9 +245,11 @@ export default function SingleHonorsCircle(props) {
   const latestMainUpdatesPosts =
     latestUpdates?.edges
       ?.filter((post) => !post.node?.passwordProtected?.onOff)
-      .map((post) => post.node) ?? []
+      .map((post) => post.node) ??
+    []
       ?.filter((post) => !post.node?.passwordProtected?.onOff)
-      .map((post) => post.node) ?? []
+      .map((post) => post.node) ??
+    []
 
   // define latestCatPostCards
   const latestMainCatPosts = [
@@ -300,9 +308,7 @@ export default function SingleHonorsCircle(props) {
   }
 
   return (
-    <main
-      className={`${eb_garamond.variable} ${poppins.variable}`}
-    >
+    <main className={`${eb_garamond.variable} ${poppins.variable}`}>
       <Header isScrolled={isScrolled} />
       <SecondaryHeader
         primaryMenuItems={primaryMenu}
@@ -324,6 +330,8 @@ export default function SingleHonorsCircle(props) {
         setIsMagNavShown={setIsMagNavShown}
         isGuidesNavShown={isGuidesNavShown}
         setIsGuidesNavShown={setIsGuidesNavShown}
+        isHCNavShown={isHCNavShown}
+        setIsHCNavShown={setIsHCNavShown}
         isCustomNavShown={isCustomNavShown}
         setIsCustomNavShown={setIsCustomNavShown}
         isBurgerNavShown={isBurgerNavShown}

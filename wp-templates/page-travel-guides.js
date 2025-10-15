@@ -64,6 +64,7 @@ export default function Component(props) {
   const [isSearchBarShown, setIsSearchBarShown] = useState(false)
   const [isNavShown, setIsNavShown] = useState(false)
   const [isGuidesNavShown, setIsGuidesNavShown] = useState(false)
+  const [isHCNavShown, setIsHCNavShown] = useState(false)
   const [isCustomNavShown, setIsCustomNavShown] = useState(false)
   const [isMagNavShown, setIsMagNavShown] = useState(false)
   const [isBurgerNavShown, setIsBurgerNavShown] = useState(false)
@@ -116,6 +117,15 @@ export default function Component(props) {
       document.body.style.overflow = 'visible'
     }
   }, [isMagNavShown])
+
+  // Stop scrolling pages when isHCNavShown
+  useEffect(() => {
+    if (isHCNavShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isHCNavShown])
 
   // Stop scrolling pages when isCustomNavShown
   useEffect(() => {
@@ -254,41 +264,39 @@ export default function Component(props) {
   // sortByDate mainCat & childCat Posts
   const allPosts = mainCatPosts.sort(sortPostsByDate)
 
-    // Handle password submission
-    const handlePasswordSubmit = (e) => {
-      e.preventDefault()
-      if (enteredPassword === passwordProtected?.password) {
-        setIsAuthenticated(true)
-        Cookies.set('pagePassword', enteredPassword, { expires: 1 }) // Set cookie to expire in 1 day
-      } else {
-        alert('Incorrect password. Please try again.')
-      }
+  // Handle password submission
+  const handlePasswordSubmit = (e) => {
+    e.preventDefault()
+    if (enteredPassword === passwordProtected?.password) {
+      setIsAuthenticated(true)
+      Cookies.set('pagePassword', enteredPassword, { expires: 1 }) // Set cookie to expire in 1 day
+    } else {
+      alert('Incorrect password. Please try again.')
     }
-  
-    if (passwordProtected?.onOff && !isAuthenticated) {
-      return (
-        <main
-          className={`${eb_garamond.variable} ${poppins.variable} ${rubik.variable}`}
-        >
-          <form onSubmit={handlePasswordSubmit}>
-            <PasswordProtected
-              enteredPassword={enteredPassword}
-              setEnteredPassword={setEnteredPassword}
-              title={seo?.title}
-              description={seo?.metaDesc}
-              imageUrl={featuredImage?.node?.sourceUrl}
-              url={uri}
-              focuskw={seo?.focuskw}
-            />
-          </form>
-        </main>
-      )
-    }
+  }
+
+  if (passwordProtected?.onOff && !isAuthenticated) {
+    return (
+      <main
+        className={`${eb_garamond.variable} ${poppins.variable} ${rubik.variable}`}
+      >
+        <form onSubmit={handlePasswordSubmit}>
+          <PasswordProtected
+            enteredPassword={enteredPassword}
+            setEnteredPassword={setEnteredPassword}
+            title={seo?.title}
+            description={seo?.metaDesc}
+            imageUrl={featuredImage?.node?.sourceUrl}
+            url={uri}
+            focuskw={seo?.focuskw}
+          />
+        </form>
+      </main>
+    )
+  }
 
   return (
-    <main
-      className={`${eb_garamond.variable} ${poppins.variable}`}
-    >
+    <main className={`${eb_garamond.variable} ${poppins.variable}`}>
       <Header isScrolled={isScrolled} />
       <SecondaryHeader
         primaryMenuItems={primaryMenu}
@@ -310,6 +318,8 @@ export default function Component(props) {
         setIsMagNavShown={setIsMagNavShown}
         isGuidesNavShown={isGuidesNavShown}
         setIsGuidesNavShown={setIsGuidesNavShown}
+        isHCNavShown={isHCNavShown}
+        setIsHCNavShown={setIsHCNavShown}
         isCustomNavShown={isCustomNavShown}
         setIsCustomNavShown={setIsCustomNavShown}
         isBurgerNavShown={isBurgerNavShown}

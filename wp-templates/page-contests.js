@@ -57,6 +57,7 @@ export default function Component(props) {
   const [isNavShown, setIsNavShown] = useState(false)
   const [isMagNavShown, setIsMagNavShown] = useState(false)
   const [isGuidesNavShown, setIsGuidesNavShown] = useState(false)
+  const [isHCNavShown, setIsHCNavShown] = useState(false)
   const [isCustomNavShown, setIsCustomNavShown] = useState(false)
   const [isBurgerNavShown, setIsBurgerNavShown] = useState(false)
 
@@ -108,6 +109,15 @@ export default function Component(props) {
       document.body.style.overflow = 'visible'
     }
   }, [isNavShown])
+
+  // Stop scrolling pages when isHCNavShown
+  useEffect(() => {
+    if (isHCNavShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isHCNavShown])
 
   // Stop scrolling pages when isCustomNavShown
   useEffect(() => {
@@ -261,9 +271,7 @@ export default function Component(props) {
   }
 
   return (
-    <main
-      className={`${eb_garamond.variable} ${poppins.variable}`}
-    >
+    <main className={`${eb_garamond.variable} ${poppins.variable}`}>
       <Header isScrolled={isScrolled} />
       <SecondaryHeader
         primaryMenuItems={primaryMenu}
@@ -285,6 +293,8 @@ export default function Component(props) {
         setIsMagNavShown={setIsMagNavShown}
         isGuidesNavShown={isGuidesNavShown}
         setIsGuidesNavShown={setIsGuidesNavShown}
+        isHCNavShown={isHCNavShown}
+        setIsHCNavShown={setIsHCNavShown}
         isCustomNavShown={isCustomNavShown}
         setIsCustomNavShown={setIsCustomNavShown}
         isBurgerNavShown={isBurgerNavShown}

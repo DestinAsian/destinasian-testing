@@ -48,6 +48,7 @@
 
   .menu-button,
   .search-menu-button,
+  .hc-menu-button,
   .burger-menu-button {
     padding: 0.5rem;
     margin: 0;
@@ -124,6 +125,22 @@
 
       @media (min-width: $breakpoint-extra-small) {
         height: 1.9rem;
+      }
+    }
+  }
+
+  .hc-menu-button {
+    .hc-icon {
+      svg {
+        height: 1rem;
+
+        @media (min-width: $breakpoint-extra-small) {
+          height: 1.5rem;
+        }
+      }
+
+      * {
+        fill: var(--wpe--color--white);
       }
     }
   }
@@ -277,7 +294,8 @@
   }
 }
 
-.full-menu-wrapper {
+.full-menu-wrapper,
+.hc-menu-wrapper {
   background-color: var(--wpe--color--deep--black);
   position: relative;
   max-width: 700px;
