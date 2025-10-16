@@ -7,6 +7,9 @@ import { CUSTOM_DATABASE_ID } from '@/constants/customDatabaseId'
 import { GetSearchResults } from '@/queries/GetSearchResults'
 import { GetLatestPartnerContent } from '@/queries/GetLatestPartnerContent'
 import { FaSearch } from 'react-icons/fa'
+import Image from 'next/image'
+import HCLogoBlack from '@/assets/logo/HC-Logo-Black.png'
+import HCLogoWhite from '@/assets/logo/HC-Logo-BW.png'
 import dynamic from 'next/dynamic'
 // Import Components
 const SearchInput = dynamic(() =>
@@ -57,6 +60,9 @@ export default function DarkColorSecondaryHeader({
   // toggleAutoplay,
   customClassName,
 }) {
+  // don’t render anything until after menus loading
+  if (menusLoading) return null
+
   // Posts for Search Function
   const postsPerPage = 1000
 
@@ -251,15 +257,23 @@ export default function DarkColorSecondaryHeader({
             aria-expanded={!isCustomNavShown}
           >
             <div className={cx('hc-icon')}>
-              <svg
-                width="34"
-                height="34"
-                viewBox="0 0 34 34"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <circle cx="17" cy="17" r="17" fill="black" />
-              </svg>
+              {!isHCNavShown ? (
+                <Image
+                  src={HCLogoWhite}
+                  alt="Honors Circle White Logo"
+                  fill
+                  sizes="100%"
+                  priority
+                />
+              ) : (
+                <Image
+                  src={HCLogoBlack}
+                  alt="Honors Circle Black Logo"
+                  fill
+                  sizes="100%"
+                  priority
+                />
+              )}
             </div>
           </button>
           {/* Burger Button */}
