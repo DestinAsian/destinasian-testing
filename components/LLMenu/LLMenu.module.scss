@@ -27,6 +27,7 @@
 
   * {
     text-transform: uppercase;
+    line-height: 1.2;
   }
 
   .ll-menu-header {
@@ -158,9 +159,9 @@
         padding: 0 2rem 0 0;
       }
 
-      // @media (min-width: $breakpoint-large) {
-      //   width: 50%;
-      // }
+      @media (min-height: $breakpoint-medium) {
+        width: 50%;
+      }
 
       .category-wrapper {
         padding: 0 0 0.5rem;
@@ -189,15 +190,16 @@
     }
 
     .title-wrapper {
+      font-family: 'Ringside Regular A', 'Ringside Regular B';
+      font-weight: 500;
       font-size: 0.8rem;
-      letter-spacing: 0.06rem;
 
-      @media (min-width: $breakpoint-extra-small) {
-        font-size: 0.7rem;
+      @media (min-width: $breakpoint-medium) {
+        font-size: 1rem;
       }
 
-      @media (min-width: $breakpoint-large) {
-        font-size: 0.9rem;
+      .title {
+        text-transform: capitalize;
       }
     }
   }

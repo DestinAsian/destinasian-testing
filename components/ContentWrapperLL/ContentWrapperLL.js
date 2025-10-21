@@ -187,22 +187,23 @@ export default function ContentWrapperLL({
   const [sliderWidth, setSliderWidth] = useState(0)
   const sliderRef = useRef(null)
 
+  const useIsomorphicLayoutEffect =
+    typeof window !== 'undefined' ? useLayoutEffect : useEffect
+
   // Measure slider width & height reliably and watch for changes
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (typeof window === 'undefined') return
 
     const getDimensions = () => {
       let h = 0
       let w = 0
 
-      // Prefer the wrapper measured DOM box
       if (sliderRef.current) {
         const rect = sliderRef.current.getBoundingClientRect()
         h = rect.height || 0
         w = rect.width || 0
       }
 
-      // Fallback: if Swiper instance is present, measure its element
       if ((!h || !w) && sliderLL?.current?.swiper?.el) {
         const el = sliderLL.current.swiper.el
         const rect = el.getBoundingClientRect()
@@ -210,39 +211,28 @@ export default function ContentWrapperLL({
         w = rect.width || 0
       }
 
-      // Round to avoid fractional px that cause repaint thrash
       setSliderHeight(Math.round(h))
       setSliderWidth(Math.round(w))
     }
 
-    // measure once now
     getDimensions()
 
-    // Observe changes using ResizeObserver when available
     let ro
     const target = sliderRef.current ?? sliderLL?.current?.swiper?.el ?? null
 
     if (target && typeof window.ResizeObserver !== 'undefined') {
-      ro = new ResizeObserver(() => {
-        getDimensions()
-      })
+      ro = new ResizeObserver(getDimensions)
       ro.observe(target)
     } else {
-      // fallback to window resize
       const handleResize = () => getDimensions()
       window.addEventListener('resize', handleResize)
-      // cleanup fallback later
       return () => window.removeEventListener('resize', handleResize)
     }
 
     return () => {
       if (ro) ro.disconnect()
     }
-  }, [
-    // re-run when slider mount flag or images change
-    isSliderMounted,
-    images && images.length,
-  ])
+  }, [isSliderMounted, images && images.length])
 
   if (loading) {
     return null

@@ -105,7 +105,7 @@
       }
 
       a {
-        font-weight: 400;
+        font-weight: 500;
         padding: 0 0 0.25rem;
         font-size: 0.8rem;
 
@@ -135,7 +135,7 @@
 
         ul:first-child {
           padding-bottom: 0.25rem;
-          font-weight: 400;
+          font-weight: 500;
           font-size: 0.8rem;
 
           @media (min-width: $breakpoint-extra-small) {
@@ -217,7 +217,7 @@
         ul:first-child {
           color: var(--wpe--color--black);
           width: auto;
-          font-weight: 400;
+          font-weight: 500;
           font-size: 0.8rem;
 
           @media (min-width: $breakpoint-medium) {
@@ -240,7 +240,7 @@
             &::after {
               content: ',';
               border-right: none !important;
-              font-weight: 400;
+              font-weight: 500;
               font-size: 0.8rem;
               margin-left: -2px;
 
@@ -255,7 +255,7 @@
 
             a {
               text-decoration: underline;
-              font-weight: 400;
+              font-weight: 500;
               font-size: 0.8rem;
 
               @media (min-width: $breakpoint-medium) {
@@ -445,6 +445,7 @@
       }
 
       .menu-name {
+        text-transform: uppercase;
         padding: 0 0 0.25rem;
         color: var(--wpe--color--black);
         display: block;
@@ -469,6 +470,7 @@
       }
 
       span.menu-name {
+        text-transform: uppercase;
         padding: 0 0 0.75rem;
         color: var(--wpe--color--black);
         display: block;
@@ -614,6 +616,7 @@
           }
 
           .menu-name {
+            text-transform: uppercase;
             padding: 0 0 0.25rem;
             color: var(--wpe--color--black);
             display: block;
