@@ -38,7 +38,7 @@ const PasswordProtected = dynamic(() =>
   import('@/components/PasswordProtected/PasswordProtected'),
 )
 
-export default function SingleHonorsCircle(props) {
+export default function Component(props) {
   // Loading state for previews
   if (props.loading) {
     return <>Loading...</>
@@ -70,7 +70,7 @@ export default function SingleHonorsCircle(props) {
     uri,
     passwordProtected,
     bookNowButton,
-  } = props?.data?.honorsCircle
+  } = props?.data?.honorsCircle ?? []
 
   // Search function content
   const [searchQuery, setSearchQuery] = useState('')
@@ -379,7 +379,7 @@ export default function SingleHonorsCircle(props) {
   )
 }
 
-SingleHonorsCircle.query = gql`
+Component.query = gql`
   query GetPost($databaseId: ID!, $asPreview: Boolean = false) {
     honorsCircle(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
       title
@@ -486,7 +486,7 @@ SingleHonorsCircle.query = gql`
   }
 `
 
-SingleHonorsCircle.variables = ({ databaseId }, ctx) => {
+Component.variables = ({ databaseId }, ctx) => {
   return {
     databaseId,
     asPreview: ctx?.asPreview,

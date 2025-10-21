@@ -41,7 +41,7 @@ const PasswordProtected = dynamic(() =>
 )
 const Footer = dynamic(() => import('@/components/Footer/Footer'))
 
-export default function SingleLuxuryTravel(props) {
+export default function Component(props) {
   // Loading state for previews
   if (props.loading) {
     return <>Loading...</>
@@ -489,7 +489,7 @@ export default function SingleLuxuryTravel(props) {
   )
 }
 
-SingleLuxuryTravel.query = gql`
+Component.query = gql`
   query GetPost($databaseId: ID!, $asPreview: Boolean = false) {
     luxuryTravel(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
       title
@@ -859,7 +859,7 @@ SingleLuxuryTravel.query = gql`
   }
 `
 
-SingleLuxuryTravel.variables = ({ databaseId }, ctx) => {
+Component.variables = ({ databaseId }, ctx) => {
   return {
     databaseId,
     asPreview: ctx?.asPreview,

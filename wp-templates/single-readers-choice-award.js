@@ -28,7 +28,7 @@ const PasswordProtected = dynamic(() =>
   import('@/components/PasswordProtected/PasswordProtected'),
 )
 
-export default function singleRca(props) {
+export default function Component(props) {
   // Loading state for previews
   if (props.loading) {
     return <>Loading...</>
@@ -483,7 +483,7 @@ export default function singleRca(props) {
   )
 }
 
-singleRca.query = gql`
+Component.query = gql`
   query GetPost($databaseId: ID!, $asPreview: Boolean = false) {
     readersChoiceAward(
       id: $databaseId
@@ -574,7 +574,7 @@ singleRca.query = gql`
   }
 `
 
-singleRca.variables = ({ databaseId }, ctx) => {
+Component.variables = ({ databaseId }, ctx) => {
   return {
     databaseId,
     asPreview: ctx?.asPreview,

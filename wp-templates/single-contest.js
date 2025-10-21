@@ -31,7 +31,7 @@ const PasswordProtected = dynamic(() =>
 )
 const Footer = dynamic(() => import('@/components/Footer/Footer'))
 
-export default function SingleContest(props) {
+export default function Component(props) {
   // Loading state for previews
   if (props.loading) {
     return <>Loading...</>
@@ -390,7 +390,7 @@ export default function SingleContest(props) {
   )
 }
 
-SingleContest.query = gql`
+Component.query = gql`
   query GetPost($databaseId: ID!, $asPreview: Boolean = false) {
     contest(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
       title
@@ -443,7 +443,7 @@ SingleContest.query = gql`
   }
 `
 
-SingleContest.variables = ({ databaseId }, ctx) => {
+Component.variables = ({ databaseId }, ctx) => {
   return {
     databaseId,
     asPreview: ctx?.asPreview,

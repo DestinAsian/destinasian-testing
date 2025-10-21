@@ -25,7 +25,7 @@ const PasswordProtected = dynamic(() =>
 )
 const Footer = dynamic(() => import('@/components/Footer/Footer'))
 
-export default function SingleUpdate(props) {
+export default function Component(props) {
   // Loading state for previews
   if (props.loading) {
     return <>Loading...</>
@@ -350,7 +350,7 @@ export default function SingleUpdate(props) {
   )
 }
 
-SingleUpdate.query = gql`
+Component.query = gql`
   query GetPost($databaseId: ID!, $asPreview: Boolean = false) {
     update(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
       title
@@ -460,7 +460,7 @@ SingleUpdate.query = gql`
   }
 `
 
-SingleUpdate.variables = ({ databaseId }, ctx) => {
+Component.variables = ({ databaseId }, ctx) => {
   return {
     databaseId,
     asPreview: ctx?.asPreview,

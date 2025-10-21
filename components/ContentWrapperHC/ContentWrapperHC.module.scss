@@ -282,5 +282,42 @@
         }
       }
     }
+
+    .need-to-know-wrapper {
+      display: flex;
+      flex-direction: column;
+      padding: 0 0 1rem;
+      margin-bottom: 1rem;
+      background-color: var(--wpe--color--black);
+      color: var(--wpe--color--cream);
+
+      p {
+        padding: 0;
+      }
+
+      span.need-to-know-title {
+        display: flex;
+        padding: 2rem 1rem;
+        font-weight: 700;
+        line-height: 1.2;
+        font-size: 1.5rem;
+        color: var(--wpe--color--cream);
+        text-transform: none;
+        width: 100%;
+
+        @media (min-width: $breakpoint-extra-small) {
+          padding: 2rem;
+          font-size: 2rem;
+        }
+      }
+
+      p.need-to-know-text {
+        padding: 0 1rem 1rem;
+
+        @media (min-width: $breakpoint-extra-small) {
+          padding: 0 2rem 1rem;
+        }
+      }
+    }
   }
 }

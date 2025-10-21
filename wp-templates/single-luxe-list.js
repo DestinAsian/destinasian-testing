@@ -30,7 +30,7 @@ const PasswordProtected = dynamic(() =>
   import('@/components/PasswordProtected/PasswordProtected'),
 )
 
-export default function singleLuxeList(props) {
+export default function Component(props) {
   // Loading state for previews
   if (props.loading) {
     return <>Loading...</>
@@ -414,7 +414,7 @@ export default function singleLuxeList(props) {
   )
 }
 
-singleLuxeList.query = gql`
+Component.query = gql`
   query GetPost($databaseId: ID!, $asPreview: Boolean = false) {
     luxeList(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
       title
@@ -533,7 +533,7 @@ singleLuxeList.query = gql`
   }
 `
 
-singleLuxeList.variables = ({ databaseId }, ctx) => {
+Component.variables = ({ databaseId }, ctx) => {
   return {
     databaseId,
     asPreview: ctx?.asPreview,
