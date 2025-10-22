@@ -220,8 +220,8 @@ export default function ContentWrapperTG({
         w = rect.width || 0
       }
 
-      if ((!h || !w) && sliderLL?.current?.swiper?.el) {
-        const el = sliderLL.current.swiper.el
+      if ((!h || !w) && sliderTG?.current?.swiper?.el) {
+        const el = sliderTG.current.swiper.el
         const rect = el.getBoundingClientRect()
         h = rect.height || 0
         w = rect.width || 0
@@ -234,7 +234,7 @@ export default function ContentWrapperTG({
     getDimensions()
 
     let ro
-    const target = sliderRef.current ?? sliderLL?.current?.swiper?.el ?? null
+    const target = sliderRef.current ?? sliderTG?.current?.swiper?.el ?? null
 
     if (target && typeof window.ResizeObserver !== 'undefined') {
       ro = new ResizeObserver(getDimensions)
