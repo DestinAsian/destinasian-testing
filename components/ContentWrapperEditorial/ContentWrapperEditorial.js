@@ -12,6 +12,9 @@ const GallerySlider = dynamic(() =>
 const SingleEditorialSlider = dynamic(() =>
   import('@/components/SingleEditorialSlider/SingleEditorialSlider'),
 )
+const TextToSpeech = dynamic(() =>
+  import('@/components/TextToSpeech/TextToSpeech'),
+)
 
 let cx = className.bind(styles)
 
@@ -114,12 +117,17 @@ export default function ContentWrapperEditorial({ content, children, images }) {
   }, [content])
 
   return (
-    <article className={cx('component')}>
-      <div className={cx('with-slider-wrapper')}>
-        {images[0] != null && <SingleEditorialSlider images={images} />}
-        <div className={cx('content-wrapper')}>{transformedContent}</div>
-        {children}
+    <>
+      <article className={cx('component')}>
+        <div className={cx('with-slider-wrapper')}>
+          {images[0] != null && <SingleEditorialSlider images={images} />}
+          <div className={cx('content-wrapper')}>{transformedContent}</div>
+          {children}
+        </div>
+      </article>
+      <div className={cx('tts-button-wrapper')}>
+        <TextToSpeech content={content} />
       </div>
-    </article>
+    </>
   )
 }

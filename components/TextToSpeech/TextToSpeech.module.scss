@@ -1,0 +1,53 @@
+@import 'styles/breakpoints';
+
+.component {
+  position: fixed;
+  width: 100%;
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+  padding: 0 1rem;
+  z-index: 10;
+  bottom: 0;
+
+  @media (min-width: $breakpoint-extra-small) {
+    padding: 0;
+  }
+}
+
+.tts-button-wrapper {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  padding: 0 1rem 1rem;
+  z-index: 10;
+  bottom: 0;
+
+  @media (min-width: $breakpoint-extra-small) {
+    padding: 0 0 1rem;
+  }
+}
+
+.tts-button {
+  position: relative;
+  width: 90%;
+  margin: 0 auto;
+  padding: 0.5rem;
+  background-color: var(--wpe--color--black);
+  border-radius: 5rem;
+  text-align: center;
+  box-shadow: -0.1rem 0.25rem 0.5rem var(--wpe--color--deep--black);
+  font-family: 'Ringside Regular A', 'Ringside Regular B';
+  font-weight: 500;
+  margin: 0 auto;
+  color: var(--wpe--color--white);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--wpe--color--white);
+    text-decoration: underline;
+  }
+}
