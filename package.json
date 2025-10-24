@@ -29,6 +29,7 @@
     "react-icons": "^4.8.0",
     "react-lite-youtube-embed": "^2.4.0",
     "react-responsive": "^9.0.2",
+    "react-text-to-speech": "^0.19.5",
     "sass": "^1.54.9",
     "sharp": "^0.34.2",
     "swiper": "^9.2.4"
