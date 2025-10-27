@@ -58,6 +58,15 @@ export default function TGMenu({ mainLogo, secondaryLogo, databaseId, uri }) {
       {/* Full menu */}
       <div className={cx('full-menu-content')}>
         <div className={cx('ll-menu-header')}>
+          {uniqueCategories.map((categoryName, index) => (
+            <div className={cx('menu-list-wrapper')} key={index}>
+              <div className={cx('category-wrapper')}>
+                <h2 className={cx('category')}>{categoryName}</h2>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className={cx('ll-menu-header')}>
           {data?.travelGuide?.uri && data?.travelGuide?.title && (
             <div className={cx('title-header-wrapper')}>
               <Link href={data?.travelGuide?.uri}>
@@ -69,9 +78,9 @@ export default function TGMenu({ mainLogo, secondaryLogo, databaseId, uri }) {
         <div className={cx('menu-wrapper')}>
           {uniqueCategories.map((categoryName, index) => (
             <div className={cx('menu-list-wrapper')} key={index}>
-              <div className={cx('category-wrapper')}>
+              {/* <div className={cx('category-wrapper')}>
                 <h2 className={cx('category')}>{categoryName}</h2>
-              </div>
+              </div> */}
               {allPosts.map((post) => {
                 const postCategory = post?.categories?.edges[0]?.node?.name
                 if (postCategory === categoryName) {
