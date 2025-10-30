@@ -25,8 +25,8 @@ export default function TextToSpeech({ content, customClassName }) {
   const { start, stop, speechStatus } = useSpeech({
     text: textToRead,
     lang: 'en-US',
-    rate: 1,
-    pitch: 1,
+    rate: 0.6,
+    pitch: 0.7,
   })
 
   // ---- Stop reading when page changes ----
@@ -97,19 +97,19 @@ export default function TextToSpeech({ content, customClassName }) {
                     fill="#ffffff"
                   />
                 </svg>
-                {'Read Aloud'}
+                {'Listen to this story'}
               </>
             )}
           </button>
 
           {/* === Close Button === */}
-          <button
+          {/* <button
             className={cx('close-button')}
             onClick={handleClose}
             aria-label="Close"
           >
             <span>&times;</span>
-          </button>
+          </button> */}
         </div>
       )}
     </div>

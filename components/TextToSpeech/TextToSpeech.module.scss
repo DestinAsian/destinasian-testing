@@ -35,7 +35,7 @@
   position: relative;
   width: 100%;
   margin: 0 auto;
-  padding: 0.25rem 0.5rem;
+  padding: 0.25rem 1rem;
   background-color: var(--wpe--color--black);
   border-radius: 5rem;
   text-align: center;
@@ -46,13 +46,13 @@
   color: var(--wpe--color--white);
   text-decoration: none;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: baseline;
+  justify-content: flex-start;
   gap: 0.5rem;
 
   @media (min-width: $breakpoint-extra-small) {
     width: 90%;
-    padding: 0.5rem;
+    padding: 0.5rem 2rem;
   }
 
   &:hover {
@@ -63,42 +63,42 @@
   svg {
     padding: 0;
     margin: 0;
-    height: 1.2rem;
+    height: 0.75rem;
     width: fit-content;
 
     @media (min-width: $breakpoint-extra-small) {
-      height: 1.5rem;
+      height: 0.8rem;
     }
   }
 }
 
-.close-button {
-  position: absolute;
-  right: 0.25rem;
-  transform: translateY(-50%);
-  margin: 0;
-  width: 1rem;
-  height: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--wpe--color--black);
-  color: var(--wpe--color--white);
-  border: none;
-  border-radius: 50%;
-  font-size: 1.1rem;
-  line-height: 1;
-  cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.2s ease;
+// .close-button {
+//   position: absolute;
+//   right: 0.25rem;
+//   transform: translateY(-50%);
+//   margin: 0;
+//   width: 1rem;
+//   height: 1rem;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   background-color: var(--wpe--color--black);
+//   color: var(--wpe--color--white);
+//   border: none;
+//   border-radius: 50%;
+//   font-size: 1.1rem;
+//   line-height: 1;
+//   cursor: pointer;
+//   transition: background-color 0.2s ease, transform 0.2s ease;
 
-  // subtle nudge to visually center the ×
-  span {
-    display: inline-block;
-    transform: translateY(-2px);
-    text-transform: uppercase;
-  }
+//   // subtle nudge to visually center the ×
+//   span {
+//     display: inline-block;
+//     transform: translateY(-2px);
+//     text-transform: uppercase;
+//   }
 
-  @media (min-width: $breakpoint-extra-small) {
-    right: 1rem;
-  }
-}
+//   @media (min-width: $breakpoint-extra-small) {
+//     right: 1rem;
+//   }
+// }
