@@ -37,7 +37,7 @@ export default function BookNowButton({ bookNowButton, className, id }) {
               {bookNowButton.bookNowLabel}
             </Link>
             {/* {'Close Button'} */}
-            <button
+            {/* <button
               className={cx('close-button')}
               onClick={() => setShowBookNow(false)}
               aria-label="Close"
@@ -48,7 +48,7 @@ export default function BookNowButton({ bookNowButton, className, id }) {
               }}
             >
               &times;
-            </button>
+            </button> */}
           </div>
         </div>
       )}
