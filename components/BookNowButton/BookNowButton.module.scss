@@ -15,54 +15,51 @@
   }
 }
 
-.honors-circle {
-  .book-now-wrapper {
-    @media (min-width: $breakpoint-small) {
-      padding: 0 2rem 1rem;
-    }
-  }
-}
+// .honors-circle {
+//   .book-now-wrapper {
+//     @media (min-width: $breakpoint-small) {
+//       padding: 0 2rem 1rem;
+//     }
+//   }
+// }
 
 .book-now-wrapper {
-  width: 100%;
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 0 0 1rem;
-  z-index: 1;
+  width: 90%;
+  margin: 0 auto 0.5rem;
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+  z-index: 10;
+  bottom: 0;
+  background-color: var(--wpe--color--black);
+  border-radius: 5rem;
+  box-shadow: -0.1rem 0.25rem 0.5rem var(--wpe--color--deep--black);
 
-  @media (min-width: $breakpoint-small) {
-    padding: 0 1rem 1rem;
+  @media (min-width: $breakpoint-extra-small) {
+    width: 100%;
+    max-width: 630px;
   }
 }
 
 .book-now-button {
   position: relative;
-  width: 90%;
-  margin: 0 auto;
-  padding: 0.5rem;
+  width: fit-content;
+  padding: 0.25rem 1rem;
   background-color: var(--wpe--color--black);
   border-radius: 5rem;
   text-align: center;
   box-shadow: -0.1rem 0.25rem 0.5rem var(--wpe--color--deep--black);
 
   @media (min-width: $breakpoint-small) {
-    max-width: 600px;
+    padding: 0.5rem 2rem;
   }
-
-  // .close-button {
-  //   position: absolute;
-  //   top: 50%;
-  //   right: 1rem;
-  //   transform: translateY(-50%);
-  //   margin: 0 auto;
-  //   padding: 0.25rem;
-  // }
 
   * {
     font-family: 'Ringside Regular A', 'Ringside Regular B';
     font-weight: 500;
     margin: 0 auto;
-    padding: 1rem;
+    padding: 0;
     color: var(--wpe--color--white);
     text-decoration: none;
 
@@ -73,10 +70,26 @@
     }
   }
 
-  a {
-    width: calc(100% - 4rem);
-    text-align: start;
-    display: block;
-    padding: 0;
+  // a {
+  //   width: calc(100% - 4rem);
+  //   text-align: start;
+  //   display: block;
+  //   padding: 0;
+  // }
+}
+
+.share-button {
+  padding: 0.25rem 1rem;
+
+  @media (min-width: $breakpoint-extra-small) {
+    padding: 0.5rem 2rem;
+  }
+
+  svg {
+    height: 0.9rem;
+
+    @media (min-width: $breakpoint-extra-small) {
+      height: 1.1rem;
+    }
   }
 }
