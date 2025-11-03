@@ -10,6 +10,7 @@ export default function TextToSpeech({ content, customClassName }) {
   const router = useRouter()
   const [visible, setVisible] = useState(true)
   const [isSharing, setIsSharing] = useState(false)
+  const [fixedVoice, setFixedVoice] = useState(null)
 
   const handleShare = async () => {
     if (isSharing) return // prevent double-clicks
@@ -44,12 +45,31 @@ export default function TextToSpeech({ content, customClassName }) {
 
   const textToRead = useMemo(() => getPlainText(content), [content])
 
-  // ---- Initialize speech ----
+  // ---- Detect and fix the voice ----
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.speechSynthesis) return
+
+    const setVoice = () => {
+      const voices = window.speechSynthesis.getVoices()
+      const preferredVoices = ['Google US English', 'Samantha']
+      const targetVoice =
+        voices.find((v) => preferredVoices.includes(v.name)) ||
+        voices.find((v) => v.lang === 'en-US') ||
+        voices[0]
+      setFixedVoice(targetVoice)
+    }
+
+    // voices may not be loaded immediately
+    window.speechSynthesis.onvoiceschanged = setVoice
+    setVoice()
+  }, [])
+
   const { start, stop, speechStatus } = useSpeech({
     text: textToRead,
     lang: 'en-US',
     rate: 0.6,
-    pitch: 0.7,
+    pitch: 0.9,
+    voice: fixedVoice,
   })
 
   // ---- Stop reading when page changes ----
