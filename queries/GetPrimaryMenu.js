@@ -14,6 +14,9 @@ export const GetPrimaryMenu = gql`
                 id
                 name
                 uri
+                countryCode {
+                  countryCode
+                }
                 categoryImages {
                   categoryImages {
                     sourceUrl

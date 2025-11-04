@@ -325,7 +325,12 @@ export default function TravelGuidesMenu(className) {
                           )}
                         >
                           {connectedNode?.node?.name &&
-                            connectedNode?.node?.name}
+                          !connectedNode?.node?.countryCode?.countryCode
+                            ? connectedNode?.node?.name
+                            : connectedNode?.node?.name &&
+                              connectedNode?.node?.countryCode?.countryCode
+                            ? connectedNode?.node?.countryCode?.countryCode
+                            : ''}
                         </span>
                       </Link>
                     )}
