@@ -333,7 +333,7 @@ export default function Component(props) {
           <div className="relative mx-auto flex max-w-full flex-col items-start gap-4 pb-4 pt-[50px] sm:max-w-[700px] sm:flex-row sm:gap-8 sm:pt-[100px]">
             <div className="h-auto w-full sm:w-2/6">
               {featuredImage && (
-                <div className="w-full pl-4 pr-[70vw] sm:px-8">
+                <div className="w-full pl-4 pr-[70vw] sm:pl-8 sm:pr-0">
                   <Image
                     src={featuredImage?.node?.sourceUrl}
                     alt={
@@ -343,7 +343,7 @@ export default function Component(props) {
                     }
                     width={500}
                     height={500}
-                    className="h-auto w-full rounded-full border border-black object-cover"
+                    className="h-auto w-full rounded-full border object-cover"
                     priority
                   />
                 </div>
