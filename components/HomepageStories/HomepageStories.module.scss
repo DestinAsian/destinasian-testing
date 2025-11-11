@@ -28,6 +28,26 @@
     }
   }
 
+  .advertorial-wrapper {
+    article {
+      width: 100%;
+      margin: 0 auto;
+      line-height: 1;
+      margin-bottom: 2rem;
+      background-color: var(--wpe--color--light--green);
+      border-bottom: 0.6rem solid var(--wpe--color--black);
+      height: auto;
+
+      @media (min-width: $breakpoint-extra-small) {
+        min-height: 45rem;
+      }
+
+      @media (min-width: $breakpoint-medium) {
+        min-height: 50rem;
+      }
+    }
+  }
+
   .hc-wrapper {
     margin: 0;
     border-bottom: none;

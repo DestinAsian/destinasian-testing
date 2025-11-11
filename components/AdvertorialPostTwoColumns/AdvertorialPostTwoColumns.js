@@ -73,7 +73,6 @@ export default function AdvertorialPostTwoColumns({
           </div>
         )}
       </div>
-      <div className={cx('border-bottom')}></div>
     </article>
   )
 }

@@ -29,6 +29,7 @@ export default function PostTwoColumns({
   locationLabel,
   locationUrl,
   locationValidation,
+  customClassName,
 }) {
   let trimmedExcerpt = excerpt?.substring(0, MAX_EXCERPT_LENGTH)
   const lastSpaceIndex = trimmedExcerpt?.lastIndexOf(' ')
@@ -38,7 +39,7 @@ export default function PostTwoColumns({
   }
 
   return (
-    <article className={cx('component')}>
+    <article className={cx('component', customClassName)}>
       <div className={cx('container-wrapper')}>
         {featuredImage && (
           <div className={cx('content-wrapper-image')}>

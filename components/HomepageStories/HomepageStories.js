@@ -335,6 +335,20 @@ export default function HomepageStories(pinPosts) {
                 />
               </div>
             )}
+            {post?.contentTypeName === 'advertorial' && (
+              <div className={cx('advertorial-wrapper')}>
+                {/* Partner Content Stories */}
+                <PostTwoColumns
+                  title={post?.title}
+                  excerpt={post?.excerpt}
+                  uri={post?.uri}
+                  category={'Partner Content'}
+                  categoryUri={post?.uri}
+                  featuredImage={post?.featuredImage?.node}
+                  customClassName={'advertorial'}
+                />
+              </div>
+            )}
             {(() => {
               const pos = (index - 1) % 8 // cycle through 8 slots
 

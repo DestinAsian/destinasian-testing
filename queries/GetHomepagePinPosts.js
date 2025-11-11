@@ -13,13 +13,8 @@ export const GetHomepagePinPosts = gql`
             excerpt
             featuredImage {
               node {
-                id
                 sourceUrl
                 altText
-                mediaDetails {
-                  width
-                  height
-                }
               }
             }
             categories(where: { childless: true }) {
@@ -48,6 +43,7 @@ export const GetHomepagePinPosts = gql`
               locationUrl
             }
           }
+
           ... on Editorial {
             id
             uri
@@ -56,13 +52,8 @@ export const GetHomepagePinPosts = gql`
             excerpt
             featuredImage {
               node {
-                id
                 sourceUrl
                 altText
-                mediaDetails {
-                  width
-                  height
-                }
               }
             }
             categories {
@@ -87,13 +78,8 @@ export const GetHomepagePinPosts = gql`
             excerpt
             featuredImage {
               node {
-                id
                 sourceUrl
                 altText
-                mediaDetails {
-                  width
-                  height
-                }
               }
             }
             categories {
@@ -123,13 +109,8 @@ export const GetHomepagePinPosts = gql`
             }
             featuredImage {
               node {
-                id
                 sourceUrl
                 altText
-                mediaDetails {
-                  width
-                  height
-                }
               }
             }
           }
@@ -146,13 +127,21 @@ export const GetHomepagePinPosts = gql`
             }
             featuredImage {
               node {
-                id
                 sourceUrl
                 altText
-                mediaDetails {
-                  width
-                  height
-                }
+              }
+            }
+          }
+          ... on Advertorial {
+            id
+            title
+            excerpt
+            uri
+            contentTypeName
+            featuredImage {
+              node {
+                sourceUrl
+                altText
               }
             }
           }
@@ -166,13 +155,8 @@ export const GetHomepagePinPosts = gql`
             excerpt
             featuredImage {
               node {
-                id
                 sourceUrl
                 altText
-                mediaDetails {
-                  width
-                  height
-                }
               }
             }
             categories(where: { childless: true }) {
@@ -201,6 +185,7 @@ export const GetHomepagePinPosts = gql`
               locationUrl
             }
           }
+
           ... on Editorial {
             id
             uri
@@ -209,13 +194,8 @@ export const GetHomepagePinPosts = gql`
             excerpt
             featuredImage {
               node {
-                id
                 sourceUrl
                 altText
-                mediaDetails {
-                  width
-                  height
-                }
               }
             }
             categories {
@@ -240,13 +220,8 @@ export const GetHomepagePinPosts = gql`
             excerpt
             featuredImage {
               node {
-                id
                 sourceUrl
                 altText
-                mediaDetails {
-                  width
-                  height
-                }
               }
             }
             categories {
@@ -276,13 +251,8 @@ export const GetHomepagePinPosts = gql`
             }
             featuredImage {
               node {
-                id
                 sourceUrl
                 altText
-                mediaDetails {
-                  width
-                  height
-                }
               }
             }
           }
@@ -299,13 +269,21 @@ export const GetHomepagePinPosts = gql`
             }
             featuredImage {
               node {
-                id
                 sourceUrl
                 altText
-                mediaDetails {
-                  width
-                  height
-                }
+              }
+            }
+          }
+          ... on Advertorial {
+            id
+            title
+            excerpt
+            uri
+            contentTypeName
+            featuredImage {
+              node {
+                sourceUrl
+                altText
               }
             }
           }
@@ -319,13 +297,8 @@ export const GetHomepagePinPosts = gql`
             excerpt
             featuredImage {
               node {
-                id
                 sourceUrl
                 altText
-                mediaDetails {
-                  width
-                  height
-                }
               }
             }
             categories(where: { childless: true }) {
@@ -354,6 +327,7 @@ export const GetHomepagePinPosts = gql`
               locationUrl
             }
           }
+
           ... on Editorial {
             id
             uri
@@ -362,13 +336,8 @@ export const GetHomepagePinPosts = gql`
             excerpt
             featuredImage {
               node {
-                id
                 sourceUrl
                 altText
-                mediaDetails {
-                  width
-                  height
-                }
               }
             }
             categories {
@@ -393,13 +362,8 @@ export const GetHomepagePinPosts = gql`
             excerpt
             featuredImage {
               node {
-                id
                 sourceUrl
                 altText
-                mediaDetails {
-                  width
-                  height
-                }
               }
             }
             categories {
@@ -429,13 +393,8 @@ export const GetHomepagePinPosts = gql`
             }
             featuredImage {
               node {
-                id
                 sourceUrl
                 altText
-                mediaDetails {
-                  width
-                  height
-                }
               }
             }
           }
@@ -452,13 +411,21 @@ export const GetHomepagePinPosts = gql`
             }
             featuredImage {
               node {
-                id
                 sourceUrl
                 altText
-                mediaDetails {
-                  width
-                  height
-                }
+              }
+            }
+          }
+          ... on Advertorial {
+            id
+            title
+            excerpt
+            uri
+            contentTypeName
+            featuredImage {
+              node {
+                sourceUrl
+                altText
               }
             }
           }
