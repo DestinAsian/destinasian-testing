@@ -64,12 +64,12 @@
   display: flex;
   margin: 0 auto;
   padding: 0 1rem;
-  flex-direction: column;
-  row-gap: 0;
+  flex-direction: column-reverse;
+  row-gap: 0.5rem;
 
-  @media (min-width: $breakpoint-small) {
-    row-gap: 0.5rem;
-  }
+  // @media (min-width: $breakpoint-small) {
+  //   row-gap: 0.5rem;
+  // }
 }
 
 .sponsored {
