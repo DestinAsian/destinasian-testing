@@ -43,7 +43,6 @@ export const GetHomepagePinPosts = gql`
               locationUrl
             }
           }
-
           ... on Editorial {
             id
             uri
@@ -185,7 +184,6 @@ export const GetHomepagePinPosts = gql`
               locationUrl
             }
           }
-
           ... on Editorial {
             id
             uri
@@ -327,7 +325,6 @@ export const GetHomepagePinPosts = gql`
               locationUrl
             }
           }
-
           ... on Editorial {
             id
             uri
