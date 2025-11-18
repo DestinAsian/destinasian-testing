@@ -99,7 +99,7 @@ export default function SecondaryHeader({
     },
     skip: searchQuery === '',
     fetchPolicy: 'cache-and-network',
-    nextFetchPolicy: "network-only",
+    nextFetchPolicy: 'network-only',
   })
 
   // Check if the search query is empty and no search results are loading, then hide the SearchResults component
@@ -150,7 +150,7 @@ export default function SecondaryHeader({
         first: 10,
       },
       fetchPolicy: 'cache-and-network',
-      nextFetchPolicy: "network-only",
+      nextFetchPolicy: 'network-only',
     })
 
   const advertorials = latestPartnerContent?.advertorials ?? []
@@ -368,7 +368,11 @@ export default function SecondaryHeader({
       </div>
       {/* Honors Circle Menu */}
       <div
-        className={cx('full-menu-content', isHCNavShown ? 'show' : undefined)}
+        className={cx(
+          'full-menu-content',
+          isHCNavShown ? 'show' : undefined,
+          customClassName,
+        )}
       >
         <div ref={hcRef} className={cx('hc-menu-wrapper')}>
           <HCMenu />
