@@ -124,8 +124,8 @@ export default function LuxuryTravelStories(luxuryTravelId) {
     GetSpecificBannerAds,
     {
       variables: bannerVariable,
-      fetchPolicy: 'network-only',
-      nextFetchPolicy: 'cache-and-network',
+      fetchPolicy: 'cache-and-network',
+      nextFetchPolicy: "network-only",
     },
   )
 

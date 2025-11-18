@@ -73,8 +73,8 @@ export default function MainCategoryMenu(categoryName) {
       first: 100,
       headerLocation: PRIMARY_LOCATION,
     },
-    fetchPolicy: 'network-only',
-    nextFetchPolicy: 'cache-and-network',
+    fetchPolicy: 'cache-and-network',
+    nextFetchPolicy: "network-only",
   })
 
   // Primary Menu
@@ -140,8 +140,8 @@ export default function MainCategoryMenu(categoryName) {
     error: travelGuidesError,
   } = useQuery(GetTravelGuides, {
     variables: travelGuidesVariable,
-    fetchPolicy: 'network-only',
-    nextFetchPolicy: 'cache-and-network',
+    fetchPolicy: 'cache-and-network',
+    nextFetchPolicy: "network-only",
   })
 
   if (travelGuidesError) {
@@ -157,7 +157,7 @@ export default function MainCategoryMenu(categoryName) {
         const response = await client.query({
           query: GetTravelGuides,
           variables: { search: category },
-          fetchPolicy: 'network-only',
+          fetchPolicy: 'cache-and-network',
         })
         const processedData = processResults(response.data.tags.edges)
         allResults.push({ category, data: processedData })
@@ -287,8 +287,8 @@ export default function MainCategoryMenu(categoryName) {
     GetTravelGuidesMenu,
     {
       variables: menuVariable,
-      fetchPolicy: 'network-only',
-      nextFetchPolicy: 'cache-and-network',
+      fetchPolicy: 'cache-and-network',
+      nextFetchPolicy: "network-only",
     },
   )
 

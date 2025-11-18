@@ -54,8 +54,8 @@ export default function PartnerContent({ parentName }) {
   //     search: parentName,
   //     id: '/honors-circle',
   //   },
-  //   fetchPolicy: 'network-only',
-  //   nextFetchPolicy: 'cache-and-network',
+  //   fetchPolicy: 'cache-and-network',
+  //   nextFetchPolicy: "network-only",
   // })
 
   // Get Advertorial Stories
@@ -63,8 +63,8 @@ export default function PartnerContent({ parentName }) {
     GetAdvertorialStories,
     {
       variables: { search: parentName }, // Use the modified variables
-      fetchPolicy: 'network-only',
-      nextFetchPolicy: 'cache-and-network',
+      fetchPolicy: 'cache-and-network',
+      nextFetchPolicy: "network-only",
     },
   )
 
@@ -77,8 +77,8 @@ export default function PartnerContent({ parentName }) {
     GetHCStories,
     {
       variables: { search: parentName }, // Use the modified variables
-      fetchPolicy: 'network-only',
-      nextFetchPolicy: 'cache-and-network',
+      fetchPolicy: 'cache-and-network',
+      nextFetchPolicy: "network-only",
     },
   )
 

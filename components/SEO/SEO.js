@@ -15,8 +15,8 @@ import { useQuery } from '@apollo/client'
  */
 export default function SEO() {
   const { data } = useQuery(GetFavicon, {
-    fetchPolicy: 'network-only',
-    nextFetchPolicy: 'cache-and-network',
+    fetchPolicy: 'cache-and-network',
+    nextFetchPolicy: "network-only",
   })
 
   const favicon = data?.favicon?.mediaDetails?.sizes

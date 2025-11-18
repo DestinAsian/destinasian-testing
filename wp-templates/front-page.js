@@ -123,8 +123,8 @@ export default function Component(props) {
   }, [isBurgerNavShown])
 
   const { data: rcaData } = useQuery(GetLatestRCA, {
-    fetchPolicy: 'network-only',
-    nextFetchPolicy: 'cache-and-network',
+    fetchPolicy: 'cache-and-network',
+    nextFetchPolicy: "network-only",
   })
 
   const [latestRCA, setLatestRCA] = useState(null)
@@ -201,8 +201,8 @@ export default function Component(props) {
       fifthHeaderLocation: MENUS.FIFTH_LOCATION,
       featureHeaderLocation: MENUS.FEATURE_LOCATION,
     },
-    fetchPolicy: 'network-only',
-    nextFetchPolicy: 'cache-and-network',
+    fetchPolicy: 'cache-and-network',
+    nextFetchPolicy: "network-only",
   })
 
   const primaryMenu = menusData?.headerMenuItems?.nodes ?? []
@@ -218,8 +218,8 @@ export default function Component(props) {
       id: databaseId,
       asPreview: asPreview,
     },
-    fetchPolicy: 'network-only',
-    nextFetchPolicy: 'cache-and-network',
+    fetchPolicy: 'cache-and-network',
+    nextFetchPolicy: "network-only",
   })
 
   // State variable of homepage pin posts
@@ -232,8 +232,8 @@ export default function Component(props) {
       variables: {
         first: 5,
       },
-      fetchPolicy: 'network-only',
-      nextFetchPolicy: 'cache-and-network',
+      fetchPolicy: 'cache-and-network',
+      nextFetchPolicy: "network-only",
     },
   )
 

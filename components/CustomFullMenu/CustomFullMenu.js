@@ -19,8 +19,8 @@ export default function CustomFullMenu({
   // Get menus
   const { data, loading, error } = useQuery(GetCustomMenu, {
     variables: { id: 'custom' },
-    fetchPolicy: 'network-only',
-    nextFetchPolicy: 'cache-and-network',
+    fetchPolicy: 'cache-and-network',
+    nextFetchPolicy: "network-only",
   })
 
   const { menuDescription } = data?.menu?.customMenuFields ?? []

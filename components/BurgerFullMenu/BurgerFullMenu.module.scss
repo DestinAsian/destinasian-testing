@@ -65,6 +65,11 @@
     li.bold a {
       font-weight: 700 !important;
     }
+
+    li.no-wrap,
+    li.no-wrap a {
+      white-space: nowrap;
+    }
   }
 
   .full-menu-content {

@@ -70,8 +70,8 @@ export default function ContentWrapperLL({
 
   const { data, loading, error } = useQuery(GetLuxeListPagination, {
     variables: { first: batchSize, after: null, id: databaseId },
-    fetchPolicy: 'network-only',
-    nextFetchPolicy: 'cache-and-network',
+    fetchPolicy: 'cache-and-network',
+    nextFetchPolicy: "network-only",
   })
 
   const parent = data?.luxeListBy?.parent
@@ -358,7 +358,7 @@ export default function ContentWrapperLL({
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
                     fill="currentColor"
-                    class="size-6"
+                    className="size-6"
                   >
                     <path
                       fill-rule="evenodd"

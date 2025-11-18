@@ -1,9 +1,10 @@
 import { gql } from '@apollo/client'
 
 export const GetAdvertorialHomepageStories = gql`
-  query GetAdvertorialHomepageStories {
+  query GetAdvertorialHomepageStories($first: Int, $after: String) {
     contentNodes(
-      first: 12
+      first: $first
+      after: $after
       where: {
         contentTypes: ADVERTORIAL
         status: PUBLISH

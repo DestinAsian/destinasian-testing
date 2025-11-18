@@ -20,8 +20,8 @@ export default function ContentWrapperContestFrontPage() {
       first: postsPerPage,
       after: null,
     },
-    fetchPolicy: 'network-only',
-    nextFetchPolicy: 'cache-and-network',
+    fetchPolicy: 'cache-and-network',
+    nextFetchPolicy: "network-only",
   })
 
   const updateQuery = (prev, { fetchMoreResult }) => {

@@ -102,7 +102,7 @@ export default function BurgerFullMenu({
             {/* Latest Travel Stories */}
             {latestStories?.length !== 0 && (
               <nav className={cx('latest-stories')}>
-                <ul class="menu-name">{'Travel Stories'}</ul>
+                <ul className="menu-name">{'Travel Stories'}</ul>
                 <ul className={cx('menu-content')}>
                   {latestStories.slice(0, visiblePosts).map((post) => (
                     <li key={post?.id}>

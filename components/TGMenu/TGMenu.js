@@ -20,8 +20,8 @@ export default function TGMenu({ mainLogo, secondaryLogo, databaseId, uri }) {
       after: null,
       id: databaseId,
     },
-    fetchPolicy: 'network-only',
-    nextFetchPolicy: 'cache-and-network',
+    fetchPolicy: 'cache-and-network',
+    nextFetchPolicy: "network-only",
   })
 
   if (error) {

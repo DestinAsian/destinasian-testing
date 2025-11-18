@@ -18,8 +18,8 @@ export default function HCMenu(customClassName) {
   // Get HC menus
   const { data, loading } = useQuery(GetHCMenu, {
     variables: menuVariable,
-    fetchPolicy: 'network-only',
-    nextFetchPolicy: 'cache-and-network',
+    fetchPolicy: 'cache-and-network',
+    nextFetchPolicy: "network-only",
   })
 
   // HC Menu

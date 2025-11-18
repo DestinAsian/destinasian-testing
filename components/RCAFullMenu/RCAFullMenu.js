@@ -29,8 +29,8 @@ export default function RCAFullMenu({
       after: null,
       id: rcaDatabaseId,
     },
-    fetchPolicy: 'network-only',
-    nextFetchPolicy: 'cache-and-network',
+    fetchPolicy: 'cache-and-network',
+    nextFetchPolicy: "network-only",
   })
 
   // Get all posts (including nested child posts if needed)

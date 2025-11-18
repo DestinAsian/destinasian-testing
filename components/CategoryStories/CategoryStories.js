@@ -68,8 +68,8 @@ export default function CategoryStories(categoryUri) {
   // Get Stories / Posts
   const { data, error, loading, fetchMore } = useQuery(GetCategoryStories, {
     variables: storiesVariable,
-    fetchPolicy: 'network-only',
-    nextFetchPolicy: 'cache-and-network',
+    fetchPolicy: 'cache-and-network',
+    nextFetchPolicy: "network-only",
   })
 
   const updateQuery = (prev, { fetchMoreResult }) => {
@@ -98,8 +98,8 @@ export default function CategoryStories(categoryUri) {
       variables: {
         first: bannerPerPage,
       },
-      fetchPolicy: 'network-only',
-      nextFetchPolicy: 'cache-and-network',
+      fetchPolicy: 'cache-and-network',
+      nextFetchPolicy: "network-only",
     },
   )
 
@@ -163,8 +163,8 @@ export default function CategoryStories(categoryUri) {
     GetSpecificBannerAds,
     {
       variables: bannerVariable,
-      fetchPolicy: 'network-only',
-      nextFetchPolicy: 'cache-and-network',
+      fetchPolicy: 'cache-and-network',
+      nextFetchPolicy: "network-only",
     },
   )
 
@@ -177,8 +177,8 @@ export default function CategoryStories(categoryUri) {
     GetAdvertorialStories,
     {
       variables: queryVariables, // Use the modified variables
-      fetchPolicy: 'network-only',
-      nextFetchPolicy: 'cache-and-network',
+      fetchPolicy: 'cache-and-network',
+      nextFetchPolicy: "network-only",
     },
   )
 

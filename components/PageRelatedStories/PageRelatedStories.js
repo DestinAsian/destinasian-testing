@@ -36,8 +36,8 @@ export default function PageRelatedStories(databaseId) {
     variables: {
       id: pageId,
     },
-    fetchPolicy: 'network-only',
-    nextFetchPolicy: 'cache-and-network',
+    fetchPolicy: 'cache-and-network',
+    nextFetchPolicy: "network-only",
   })
 
   // Declare all posts

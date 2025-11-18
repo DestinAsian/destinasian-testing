@@ -357,7 +357,7 @@ export default function FeatureWell({ featureWells, content }) {
             </SwiperSlide>
           ))}
         </Swiper>
-        <div class="swiper-custom-pagination"></div>
+        <div className="swiper-custom-pagination"></div>
       </Div100vh>
     </>
   )

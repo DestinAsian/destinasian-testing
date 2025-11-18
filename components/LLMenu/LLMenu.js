@@ -27,8 +27,8 @@ export default function LLMenu({
       after: null,
       id: databaseId,
     },
-    fetchPolicy: 'network-only',
-    nextFetchPolicy: 'cache-and-network',
+    fetchPolicy: 'cache-and-network',
+    nextFetchPolicy: "network-only",
   })
 
   if (error) {

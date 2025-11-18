@@ -99,8 +99,8 @@ export default function DarkColorSecondaryHeader({
       search: searchQuery,
     },
     skip: searchQuery === '',
-    fetchPolicy: 'network-only',
-    nextFetchPolicy: 'cache-and-network',
+    fetchPolicy: 'cache-and-network',
+    nextFetchPolicy: "network-only",
   })
 
   // Check if the search query is empty and no search results are loading, then hide the SearchResults component
@@ -150,8 +150,8 @@ export default function DarkColorSecondaryHeader({
       variables: {
         first: 10,
       },
-      fetchPolicy: 'network-only',
-      nextFetchPolicy: 'cache-and-network',
+      fetchPolicy: 'cache-and-network',
+      nextFetchPolicy: "network-only",
     })
 
   const advertorials = latestPartnerContent?.advertorials ?? []

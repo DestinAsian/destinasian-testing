@@ -166,8 +166,8 @@ export default function Component(props) {
   }, [isBurgerNavShown])
 
   const { data: rcaData } = useQuery(GetLatestRCA, {
-    fetchPolicy: 'network-only',
-    nextFetchPolicy: 'cache-and-network',
+    fetchPolicy: 'cache-and-network',
+    nextFetchPolicy: "network-only",
   })
 
   const [latestRCA, setLatestRCA] = useState(null)
@@ -199,8 +199,8 @@ export default function Component(props) {
       fifthHeaderLocation: MENUS.FIFTH_LOCATION,
       featureHeaderLocation: MENUS.FEATURE_LOCATION,
     },
-    fetchPolicy: 'network-only',
-    nextFetchPolicy: 'cache-and-network',
+    fetchPolicy: 'cache-and-network',
+    nextFetchPolicy: "network-only",
   })
 
   // Header Menu
@@ -219,8 +219,8 @@ export default function Component(props) {
         first: 100,
         footerHeaderLocation: MENUS.FOOTER_LOCATION,
       },
-      fetchPolicy: 'network-only',
-      nextFetchPolicy: 'cache-and-network',
+      fetchPolicy: 'cache-and-network',
+      nextFetchPolicy: "network-only",
     },
   )
 
@@ -234,8 +234,8 @@ export default function Component(props) {
       variables: {
         first: 5,
       },
-      fetchPolicy: 'network-only',
-      nextFetchPolicy: 'cache-and-network',
+      fetchPolicy: 'cache-and-network',
+      nextFetchPolicy: "network-only",
     },
   )
 

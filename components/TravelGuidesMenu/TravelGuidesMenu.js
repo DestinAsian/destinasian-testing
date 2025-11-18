@@ -32,8 +32,8 @@ export default function TravelGuidesMenu(className) {
       first: 20,
       headerLocation: PRIMARY_LOCATION,
     },
-    fetchPolicy: 'network-only',
-    nextFetchPolicy: 'cache-and-network',
+    fetchPolicy: 'cache-and-network',
+    nextFetchPolicy: "network-only",
   })
 
   // Primary Menu
@@ -94,19 +94,14 @@ export default function TravelGuidesMenu(className) {
   }
 
   // Get Advertorial Stories
-  const {
-    data: travelGuidesData,
-    loading: travelGuidesloading,
-    error: travelGuidesError,
-  } = useQuery(GetTravelGuides, {
-    variables: travelGuidesVariable,
-    fetchPolicy: 'network-only',
-    nextFetchPolicy: 'cache-and-network',
-  })
-
-  if (travelGuidesError) {
-    return <pre>{JSON.stringify(error)}</pre>
-  }
+  const { data: travelGuidesData, loading: travelGuidesloading } = useQuery(
+    GetTravelGuides,
+    {
+      variables: travelGuidesVariable,
+      fetchPolicy: 'cache-and-network',
+      nextFetchPolicy: "network-only",
+    },
+  )
 
   useEffect(() => {
     const fetchData = async () => {
@@ -118,7 +113,8 @@ export default function TravelGuidesMenu(className) {
           const response = await client.query({
             query: GetTravelGuides,
             variables: { search: category },
-            fetchPolicy: 'network-only',
+            fetchPolicy: 'cache-and-network',
+            nextFetchPolicy: "network-only",
           })
           const processedData = processResults(response.data.tags.edges)
           allResults.push({ category, data: processedData })
@@ -248,8 +244,8 @@ export default function TravelGuidesMenu(className) {
     GetTravelGuidesMenu,
     {
       variables: menuVariable,
-      fetchPolicy: 'network-only',
-      nextFetchPolicy: 'cache-and-network',
+      fetchPolicy: 'cache-and-network',
+      nextFetchPolicy: "network-only",
     },
   )
 

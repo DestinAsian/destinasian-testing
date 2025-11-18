@@ -58,8 +58,8 @@ export default function ContentWrapperVideo() {
       after: null,
       first: offsetPosts,
     },
-    fetchPolicy: 'network-only',
-    nextFetchPolicy: 'cache-and-network',
+    fetchPolicy: 'cache-and-network',
+    nextFetchPolicy: "network-only",
   })
 
   // First Post
@@ -72,8 +72,8 @@ export default function ContentWrapperVideo() {
       first: videosPerPage,
       after: startCursor,
     },
-    fetchPolicy: 'network-only',
-    nextFetchPolicy: 'cache-and-network',
+    fetchPolicy: 'cache-and-network',
+    nextFetchPolicy: "network-only",
   })
 
   const updateQuery = (prev, { fetchMoreResult }) => {
