@@ -44,7 +44,7 @@ export default function HomepageStories(pinPosts) {
       after: null,
     },
     fetchPolicy: 'cache-and-network',
-    nextFetchPolicy: "network-only",
+    nextFetchPolicy: 'network-only',
   })
 
   // Get Banner
@@ -57,7 +57,7 @@ export default function HomepageStories(pinPosts) {
       first: bannerPerPage,
     },
     fetchPolicy: 'cache-and-network',
-    nextFetchPolicy: "network-only",
+    nextFetchPolicy: 'network-only',
   })
 
   // Get Advertorial Stories
@@ -72,7 +72,7 @@ export default function HomepageStories(pinPosts) {
       after: null,
     },
     fetchPolicy: 'cache-and-network',
-    nextFetchPolicy: "network-only",
+    nextFetchPolicy: 'network-only',
   })
 
   // Update for stories / posts
@@ -488,7 +488,13 @@ export default function HomepageStories(pinPosts) {
                       fill="#000000"
                       stroke="none"
                     >
-                      <path d="M1387 5110 c-243 -62 ... 248 20z" />
+                      <path
+                        d="M1387 5110 c-243 -62 -373 -329 -272 -560 27 -62 77 -114 989 -1027
+l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
+-289 39 -117 106 -191 220 -245 59 -28 74 -31 160 -30 74 0 108 5 155 23 58
+22 106 70 1198 1160 1304 1302 1202 1185 1202 1371 0 186 102 69 -1202 1371
+-1102 1101 -1140 1137 -1198 1159 -67 25 -189 34 -248 20z"
+                      />
                     </g>
                   </svg>
                 </>

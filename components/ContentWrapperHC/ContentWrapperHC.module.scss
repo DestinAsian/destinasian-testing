@@ -42,11 +42,20 @@
       }
     }
 
-    div {
+    div,
+    div.column:has(.hc-socmed img) {
       padding: 0 1rem 0.5rem;
 
       @media (min-width: $breakpoint-small) {
         padding: 0 1rem 0.5rem;
+      }
+    }
+
+    div.hc-socmed:has(img) {
+      padding: 0 1rem 0.5rem 0;
+
+      @media (min-width: $breakpoint-small) {
+        padding: 0 1rem 0.5rem 0;
       }
     }
 

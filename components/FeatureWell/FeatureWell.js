@@ -2,15 +2,8 @@ import className from 'classnames/bind'
 import styles from './FeatureWell.module.scss'
 import React, { useRef, useEffect, useState } from 'react'
 import { useMediaQuery } from 'react-responsive'
-import { renderToStaticMarkup } from 'react-dom/server'
 import Image from 'next/image'
 import Link from 'next/link'
-import { BACKEND_URL } from '../../constants/backendUrl'
-import dynamic from 'next/dynamic'
-// Import Components
-const GallerySlider = dynamic(() =>
-  import('@/components/GallerySlider/GallerySlider'),
-)
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -37,77 +30,8 @@ export default function FeatureWell({ featureWells, content }) {
       const parser = new DOMParser()
       const doc = parser.parseFromString(content, 'text/html')
 
-      // Recursively extract all images and their captions
-      const extractImagesRecursively = (node) => {
-        if (
-          typeof node === 'object' &&
-          node.nodeType === 1 &&
-          node.tagName === 'IMG' &&
-          typeof node.getAttribute === 'function' &&
-          node.getAttribute('src')?.includes(BACKEND_URL)
-        ) {
-          // Skip images inside .gallery-slider
-          const insideGallerySlider = node.closest('.gallery')
-          if (insideGallerySlider) return
-
-          // Skip if img has inline styles
-          const hasInlineStyle = node.hasAttribute('style')
-          if (hasInlineStyle) return
-
-          const src = node.getAttribute('src')
-          const alt = node.getAttribute('alt') || 'Image'
-          const width = node.getAttribute('width') || 800
-          const height = node.getAttribute('height') || 600
-
-          const imageComponent = (
-            <Image
-              src={src}
-              alt={alt}
-              width={width}
-              height={height}
-              style={{ objectFit: 'contain' }}
-              priority
-            />
-          )
-
-          const imageHtmlString = renderToStaticMarkup(imageComponent)
-          node.outerHTML = imageHtmlString
-        } else {
-          // Traverse child nodes
-          node.childNodes?.forEach(extractImagesRecursively)
-        }
-      }
-
-      // Process the content's root element to find all <img> nodes and replace them
-      Array.from(doc.body.childNodes).forEach(extractImagesRecursively)
-
       // Handle Instagram blockquote
       const elements = Array.from(doc.body.childNodes).map((node, index) => {
-        // Instagram Post Embed
-        if (
-          node?.nodeType === 1 &&
-          node?.matches('blockquote[data-instgrm-permalink*="instagram.com"]')
-        ) {
-          const url = node?.getAttribute('data-instgrm-permalink')
-          const captioned = node?.hasAttribute('data-instgrm-captioned')
-
-          return (
-            <div
-              key={index}
-              style={{ display: 'flex', justifyContent: 'center' }}
-            >
-              <InstagramEmbed url={url} width={500} captioned={captioned} />
-            </div>
-          )
-        }
-
-        // Gallery Slider
-        if (node?.nodeType === 1 && node?.matches('div.gallery')) {
-          const gallerySlider = node
-
-          return <GallerySlider gallerySlider={gallerySlider} />
-        }
-
         return (
           <div
             key={index}
@@ -190,16 +114,20 @@ export default function FeatureWell({ featureWells, content }) {
           {featureWells?.map((featureWell, index) => (
             <SwiperSlide key={index}>
               {featureWell.type === 'image' && featureWell.url && (
-                <Link href={featureWell.url}>
+                <>
                   {isDesktop && (
                     <div className={cx('image-wrapper')}>
-                      <Image
-                        src={featureWell.desktopSrc}
-                        alt="Feature Well Image"
-                        fill
-                        sizes="100%"
-                        priority
-                      />
+                      <Link href={featureWell.url}>
+                        <div className={cx('image')}>
+                          <Image
+                            src={featureWell.desktopSrc}
+                            alt="Feature Well Image"
+                            fill
+                            sizes="100%"
+                            priority
+                          />
+                        </div>
+                      </Link>
                       <div className={cx('caption-wrapper')}>
                         {featureWell.category && featureWell.categoryLink && (
                           <div
@@ -222,7 +150,9 @@ export default function FeatureWell({ featureWells, content }) {
                             ref={(el) => (captionRefs.current[index] = el)}
                             className={cx('caption')}
                           >
-                            {featureWell.caption}
+                            <Link href={featureWell.url}>
+                              {featureWell.caption}
+                            </Link>
                           </h1>
                         )}
                         {featureWell.standFirst && (
@@ -234,9 +164,11 @@ export default function FeatureWell({ featureWells, content }) {
                             }}
                             className={cx('stand-first-wrapper')}
                           >
-                            <h2 className={cx('stand-first')}>
-                              {featureWell.standFirst}
-                            </h2>
+                            <Link href={featureWell.url}>
+                              <h2 className={cx('stand-first')}>
+                                {featureWell.standFirst}
+                              </h2>
+                            </Link>
                           </div>
                         )}
                       </div>
@@ -245,13 +177,17 @@ export default function FeatureWell({ featureWells, content }) {
                   )}
                   {isMobile && (
                     <div className={cx('image-wrapper')}>
-                      <Image
-                        src={featureWell.mobileSrc}
-                        alt="Feature Well Image"
-                        fill
-                        sizes="100%"
-                        priority
-                      />
+                      <Link href={featureWell.url}>
+                        <div className={cx('image')}>
+                          <Image
+                            src={featureWell.mobileSrc}
+                            alt="Feature Well Image"
+                            fill
+                            sizes="100%"
+                            priority
+                          />
+                        </div>
+                      </Link>
                       <div className={cx('caption-wrapper')}>
                         {featureWell.category && featureWell.categoryLink && (
                           <div
@@ -274,7 +210,9 @@ export default function FeatureWell({ featureWells, content }) {
                             ref={(el) => (captionRefs.current[index] = el)}
                             className={cx('caption')}
                           >
-                            {featureWell.caption}
+                            <Link href={featureWell.url}>
+                              {featureWell.caption}
+                            </Link>
                           </h1>
                         )}
                         {featureWell.standFirst && (
@@ -286,30 +224,33 @@ export default function FeatureWell({ featureWells, content }) {
                             }}
                             className={cx('stand-first-wrapper')}
                           >
-                            <h2 className={cx('stand-first')}>
-                              {featureWell.standFirst}
-                            </h2>
+                            <Link href={featureWell.url}>
+                              <h2 className={cx('stand-first')}>
+                                {featureWell.standFirst}
+                              </h2>
+                            </Link>
                           </div>
                         )}
                       </div>
                       <div className={cx('bottom-gradient')}></div>
                     </div>
                   )}
-                </Link>
+                </>
               )}
               {featureWell.type === 'video' && featureWell.url && (
-                <Link href={featureWell.url}>
+                <>
                   <div className={cx('video-wrapper')}>
-                    <video
-                      id={`video-${index}`}
-                      src={featureWell.videoSrc}
-                      className="video-content"
-                      loop
-                      autoPlay
-                      playsInline
-                      muted
-                    />
-
+                    <Link href={featureWell.url}>
+                      <video
+                        id={`video-${index}`}
+                        src={featureWell.videoSrc}
+                        className="video-content"
+                        loop
+                        autoPlay
+                        playsInline
+                        muted
+                      />
+                    </Link>
                     <div className={cx('caption-wrapper')}>
                       {featureWell.category && featureWell.categoryLink && (
                         <div
@@ -332,7 +273,9 @@ export default function FeatureWell({ featureWells, content }) {
                           ref={(el) => (captionRefs.current[index] = el)}
                           className={cx('caption')}
                         >
-                          {featureWell.caption}
+                          <Link href={featureWell.url}>
+                            {featureWell.caption}
+                          </Link>
                         </h1>
                       )}
                       {featureWell.standFirst && (
@@ -344,15 +287,17 @@ export default function FeatureWell({ featureWells, content }) {
                           }}
                           className={cx('stand-first-wrapper')}
                         >
-                          <h2 className={cx('stand-first')}>
-                            {featureWell.standFirst}
-                          </h2>
+                          <Link href={featureWell.url}>
+                            <h2 className={cx('stand-first')}>
+                              {featureWell.standFirst}
+                            </h2>
+                          </Link>
                         </div>
                       )}
                     </div>
                     <div className={cx('bottom-gradient')}></div>
                   </div>
-                </Link>
+                </>
               )}
             </SwiperSlide>
           ))}

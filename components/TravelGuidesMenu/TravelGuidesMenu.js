@@ -33,7 +33,7 @@ export default function TravelGuidesMenu(className) {
       headerLocation: PRIMARY_LOCATION,
     },
     fetchPolicy: 'cache-and-network',
-    nextFetchPolicy: "network-only",
+    nextFetchPolicy: 'network-only',
   })
 
   // Primary Menu
@@ -99,7 +99,7 @@ export default function TravelGuidesMenu(className) {
     {
       variables: travelGuidesVariable,
       fetchPolicy: 'cache-and-network',
-      nextFetchPolicy: "network-only",
+      nextFetchPolicy: 'network-only',
     },
   )
 
@@ -114,7 +114,7 @@ export default function TravelGuidesMenu(className) {
             query: GetTravelGuides,
             variables: { search: category },
             fetchPolicy: 'cache-and-network',
-            nextFetchPolicy: "network-only",
+            nextFetchPolicy: 'network-only',
           })
           const processedData = processResults(response.data.tags.edges)
           allResults.push({ category, data: processedData })
@@ -122,10 +122,11 @@ export default function TravelGuidesMenu(className) {
         setResults(allResults)
       } catch (error) {
         return <pre>{JSON.stringify(error)}</pre>
+      } finally {
+        setLoading(false)
       }
     }
     fetchData()
-    setLoading(false)
   }, [client, mainCategoryLabels])
 
   // Random Partner Content Stories
@@ -245,7 +246,7 @@ export default function TravelGuidesMenu(className) {
     {
       variables: menuVariable,
       fetchPolicy: 'cache-and-network',
-      nextFetchPolicy: "network-only",
+      nextFetchPolicy: 'network-only',
     },
   )
 
