@@ -288,17 +288,6 @@ Component.query = gql`
         metaDesc
         focuskw
       }
-      featuredImage {
-        node {
-          id
-          sourceUrl
-          altText
-          mediaDetails {
-            width
-            height
-          }
-        }
-      }
       categoryImages {
         changeToSlider
         categorySlide1 {
