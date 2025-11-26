@@ -18,7 +18,7 @@ const TextToSpeech = dynamic(() =>
 
 let cx = className.bind(styles)
 
-export default function ContentWrapperEditorial({ content, children, images }) {
+export default function ContentWrapperEditorial({ content, children, images, textToSpeech }) {
   const [transformedContent, setTransformedContent] = useState('')
 
   useEffect(() => {
@@ -126,7 +126,7 @@ export default function ContentWrapperEditorial({ content, children, images }) {
         </div>
       </article>
       <div className={cx('tts-button-wrapper')}>
-        <TextToSpeech content={content} />
+        <TextToSpeech textToSpeech={textToSpeech} />
       </div>
     </>
   )

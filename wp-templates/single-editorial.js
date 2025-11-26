@@ -71,6 +71,7 @@ export default function Component(props) {
     featuredImage,
     author,
     date,
+    textToSpeech,
     acfSingleEditorialSlider,
     seo,
     uri,
@@ -179,7 +180,7 @@ export default function Component(props) {
 
   const { data: rcaData } = useQuery(GetLatestRCA, {
     fetchPolicy: 'cache-and-network',
-    nextFetchPolicy: "network-only",
+    nextFetchPolicy: 'network-only',
   })
 
   const [latestRCA, setLatestRCA] = useState(null)
@@ -212,7 +213,7 @@ export default function Component(props) {
       featureHeaderLocation: MENUS.FEATURE_LOCATION,
     },
     fetchPolicy: 'cache-and-network',
-    nextFetchPolicy: "network-only",
+    nextFetchPolicy: 'network-only',
   })
 
   // Header Menu
@@ -232,7 +233,7 @@ export default function Component(props) {
         footerHeaderLocation: MENUS.FOOTER_LOCATION,
       },
       fetchPolicy: 'cache-and-network',
-      nextFetchPolicy: "network-only",
+      nextFetchPolicy: 'network-only',
     },
   )
 
@@ -247,7 +248,7 @@ export default function Component(props) {
         first: 5,
       },
       fetchPolicy: 'cache-and-network',
-      nextFetchPolicy: "network-only",
+      nextFetchPolicy: 'network-only',
     },
   )
 
@@ -395,7 +396,11 @@ export default function Component(props) {
             author={author.node.name}
             date={date}
           />
-          <ContentWrapperEditorial content={content} images={images} />
+          <ContentWrapperEditorial
+            content={content}
+            images={images}
+            textToSpeech={textToSpeech}
+          />
           <EntryRelatedStories />
           {shuffledRelatedStories.map((post) => (
             <>
@@ -451,6 +456,12 @@ Component.query = gql`
         metaDesc
       }
       uri
+      textToSpeech {
+        audioFile {
+          id
+          mediaItemUrl
+        }
+      }
       acfSingleEditorialSlider {
         slide1 {
           mediaItemUrl
