@@ -1,7 +1,7 @@
 import className from 'classnames/bind'
 import styles from './LocationIcon.module.scss'
 
-import locationIcon from '../../assets/icons/icon-location.png'
+import locationIcon from '@/public/icons/icon-location.png'
 import Image from 'next/image'
 import Link from 'next/link'
 

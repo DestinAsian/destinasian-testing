@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind'
 import Link from 'next/link'
-import destinasianLogo from '@/assets/logo/destinasian-logo.png'
+import destinasianLogo from '@/public/logo/destinasian-logo.png'
 import styles from './SingleHeader.module.scss'
 import Image from 'next/image'
 

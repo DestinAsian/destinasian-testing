@@ -1,7 +1,7 @@
 import className from 'classnames/bind'
 import styles from './SingleHCEntryHeader.module.scss'
 import { useState, useEffect } from 'react'
-import locationIcon from '../../assets/icons/icon-location.png'
+import locationIcon from '@/public/icons/icon-location.png'
 import Image from 'next/image'
 import dynamic from 'next/dynamic'
 // Import Components

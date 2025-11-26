@@ -75,12 +75,6 @@ export default function TextToSpeech({ content, customClassName }) {
     else start()
   }
 
-  // ---- Close button ----
-  const handleClose = () => {
-    stop()
-    setVisible(false)
-  }
-
   if (!visible || !textToRead) return null
 
   return (

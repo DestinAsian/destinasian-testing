@@ -9,8 +9,8 @@ import { GetSearchResults } from '@/queries/GetSearchResults'
 import { GetLatestPartnerContent } from '@/queries/GetLatestPartnerContent'
 import { FaSearch } from 'react-icons/fa'
 import Image from 'next/image'
-import HCLogoBlack from '@/assets/logo/HC-Logo-Black.png'
-import HCLogoWhite from '@/assets/logo/HC-Logo-White.png'
+import HCLogoBlack from '@/public/logo/HC-Logo-Black.png'
+import HCLogoWhite from '@/public/logo/HC-Logo-White.png'
 import dynamic from 'next/dynamic'
 // Import Components
 const Navigation = dynamic(() =>
