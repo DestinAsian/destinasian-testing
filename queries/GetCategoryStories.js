@@ -35,6 +35,7 @@ export const GetCategoryStories = gql`
               date
               uri
               excerpt
+              contentTypeName
               featuredImage {
                 node {
                   id
@@ -78,6 +79,7 @@ export const GetCategoryStories = gql`
               date
               uri
               excerpt
+              contentTypeName
               featuredImage {
                 node {
                   id
@@ -109,6 +111,7 @@ export const GetCategoryStories = gql`
               date
               uri
               excerpt
+              contentTypeName
               featuredImage {
                 node {
                   id

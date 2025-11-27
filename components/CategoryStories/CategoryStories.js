@@ -173,18 +173,15 @@ export default function CategoryStories(categoryUri) {
   }
 
   // Get Advertorial Stories
-  const { data: advertorialsData, error: advertorialsError } = useQuery(
-    GetAdvertorialStories,
-    {
-      variables: queryVariables, // Use the modified variables
-      fetchPolicy: 'cache-and-network',
-      nextFetchPolicy: 'network-only',
-    },
-  )
-
-  if (advertorialsError) {
-    return <pre>{JSON.stringify(error)}</pre>
-  }
+  const {
+    data: advertorialsData,
+    error: advertorialsError,
+    loading: advertorialsLoading,
+  } = useQuery(GetAdvertorialStories, {
+    variables: queryVariables, // Use the modified variables
+    fetchPolicy: 'cache-and-network',
+    nextFetchPolicy: 'network-only',
+  })
 
   // Function to shuffle the banner ads and store them in state
   // ROS Banner
@@ -302,9 +299,9 @@ export default function CategoryStories(categoryUri) {
       const shuffledAdvertorialArray = [...shuffleAdvertorialPost]
 
       // Get the last two elements
-      const lastTwoAdvertorials = shuffledAdvertorialArray.slice(-2)
+      const lastSixAdvertorials = shuffledAdvertorialArray.slice(-6)
 
-      setAdvertorialArray(lastTwoAdvertorials)
+      setAdvertorialArray(lastSixAdvertorials)
     }
 
     // Shuffle the banner ads when the component mounts
@@ -349,11 +346,11 @@ export default function CategoryStories(categoryUri) {
   //   }
   // }, [fetchMorePosts])
 
-  if (error) {
+  if (error || advertorialsError) {
     return <pre>{JSON.stringify(error)}</pre>
   }
 
-  if (loading) {
+  if (loading || advertorialsLoading) {
     return (
       <>
         <div className="mx-auto my-0 flex max-w-[100vw] justify-center md:max-w-[700px]	">
@@ -399,18 +396,13 @@ export default function CategoryStories(categoryUri) {
     [],
   )
 
-  // Declare 2 Advertorial Post
-  const getAdvertorialPost = [...AdvertorialArray]
-  const numberOfAdvertorial = AdvertorialArray.length
+  // // Declare 2 Advertorial Post
+  // const getAdvertorialPost = [...AdvertorialArray]
+  // const numberOfAdvertorial = AdvertorialArray.length
 
   const numberOfBannerAds = sortedBannerAdsArray.length
 
-  const postTypeMap = {
-    'readers-choice-award': 'Readers Choice Award',
-    advertorial: 'Partner Content',
-    'honors-circle': 'Honors Circle',
-    'luxe-list': 'Luxe List',
-  }
+  console.log(AdvertorialArray)
 
   return (
     <div className={cx('component')}>
@@ -544,33 +536,22 @@ export default function CategoryStories(categoryUri) {
 
               // Show advertorials after another 2 posts
               if (pos === 6) {
+                const cycle = Math.floor((index - 1) / 8) // which 8-post block
+                const start = cycle * 2 // index in advertorial array
+                const advertorialPost = AdvertorialArray.slice(start, start + 2)
+
                 return (
                   <>
-                    <div className={cx('advertorial-wrapper')}>
-                      {numberOfAdvertorial > 0 && (
+                    {advertorialPost.map((item, i) => (
+                      <div key={i} className={cx('advertorial-wrapper')}>
                         <AdvertorialPostTwoColumns
-                          title={getAdvertorialPost[0]?.title}
-                          excerpt={getAdvertorialPost[0]?.excerpt}
-                          uri={getAdvertorialPost[0]?.uri}
-                          featuredImage={
-                            getAdvertorialPost[0]?.featuredImage?.node
-                          }
+                          title={item?.title}
+                          excerpt={item?.excerpt}
+                          uri={item?.uri}
+                          featuredImage={item?.featuredImage?.node}
                         />
-                      )}
-                    </div>
-
-                    <div className={cx('advertorial-wrapper')}>
-                      {numberOfAdvertorial > 1 && (
-                        <AdvertorialPostTwoColumns
-                          title={getAdvertorialPost[1]?.title}
-                          excerpt={getAdvertorialPost[1]?.excerpt}
-                          uri={getAdvertorialPost[1]?.uri}
-                          featuredImage={
-                            getAdvertorialPost[1]?.featuredImage?.node
-                          }
-                        />
-                      )}
-                    </div>
+                      </div>
+                    ))}
                   </>
                 )
               }

@@ -410,33 +410,6 @@ export default function HomepageStories(pinPosts) {
                 const advertorialPost = AdvertorialArray.slice(start, start + 2)
 
                 return (
-                  // <>
-                  //   <div className={cx('advertorial-wrapper')}>
-                  //     {numberOfAdvertorial > 0 && (
-                  //       <AdvertorialPostTwoColumns
-                  //         title={getAdvertorialPost[0]?.title}
-                  //         excerpt={getAdvertorialPost[0]?.excerpt}
-                  //         uri={getAdvertorialPost[0]?.uri}
-                  //         featuredImage={
-                  //           getAdvertorialPost[0]?.featuredImage?.node
-                  //         }
-                  //       />
-                  //     )}
-                  //   </div>
-
-                  //   <div className={cx('advertorial-wrapper')}>
-                  //     {numberOfAdvertorial > 1 && (
-                  //       <AdvertorialPostTwoColumns
-                  //         title={getAdvertorialPost[1]?.title}
-                  //         excerpt={getAdvertorialPost[1]?.excerpt}
-                  //         uri={getAdvertorialPost[1]?.uri}
-                  //         featuredImage={
-                  //           getAdvertorialPost[1]?.featuredImage?.node
-                  //         }
-                  //       />
-                  //     )}
-                  //   </div>
-                  // </>
                   <>
                     {advertorialPost.map((item, i) => (
                       <div key={i} className={cx('advertorial-wrapper')}>
