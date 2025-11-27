@@ -32,7 +32,6 @@ export const GetCategoryStories = gql`
             ... on Post {
               id
               title
-              content
               date
               uri
               excerpt
@@ -45,11 +44,6 @@ export const GetCategoryStories = gql`
                     width
                     height
                   }
-                }
-              }
-              author {
-                node {
-                  name
                 }
               }
               categories(where: { childless: true }) {
@@ -81,7 +75,6 @@ export const GetCategoryStories = gql`
             ... on Editorial {
               id
               title
-              content
               date
               uri
               excerpt
@@ -94,11 +87,6 @@ export const GetCategoryStories = gql`
                     width
                     height
                   }
-                }
-              }
-              author {
-                node {
-                  name
                 }
               }
               categories {
@@ -118,7 +106,6 @@ export const GetCategoryStories = gql`
             ... on Update {
               id
               title
-              content
               date
               uri
               excerpt

@@ -313,9 +313,9 @@ export default function HomepageStories(pinPosts) {
                 />
               </div>
             )}
+            {/* Editorials Stories */}
             {post?.contentTypeName === 'editorial' && (
               <div className={cx('post-wrapper')}>
-                {/* Editorials Stories */}
                 <PostTwoColumns
                   title={post?.title}
                   excerpt={post?.excerpt}
@@ -345,35 +345,35 @@ export default function HomepageStories(pinPosts) {
                 />
               </div>
             )}
+            {/* Honors Circle Stories */}
             {post?.contentTypeName === 'honors-circle' && (
               <div className={cx('hc-wrapper')}>
-                {/* Honors Circle Stories */}
                 <PostTwoColumns
                   title={post?.title}
                   excerpt={post?.excerpt}
                   uri={post?.uri}
-                  category={post?.contentType?.node?.label.slice(0, -1)}
+                  category={'Honors Circle'}
                   categoryUri={post?.uri}
                   featuredImage={post?.featuredImage?.node}
                 />
               </div>
             )}
+            {/* Luxury Travel Stories */}
             {post?.contentTypeName === 'luxury-travel' && (
               <div className={cx('post-wrapper')}>
-                {/* Luxury Travel Stories */}
                 <PostTwoColumns
                   title={post?.title}
                   excerpt={post?.excerpt}
                   uri={post?.uri}
-                  category={post?.contentType?.node?.label.slice(0, -1)}
+                  category={'Luxury Travel'}
                   categoryUri={post?.uri}
                   featuredImage={post?.featuredImage?.node}
                 />
               </div>
             )}
+            {/* Partner Content Stories */}
             {post?.contentTypeName === 'advertorial' && (
               <div className={cx('advertorial-wrapper')}>
-                {/* Partner Content Stories */}
                 <PostTwoColumns
                   title={post?.title}
                   excerpt={post?.excerpt}

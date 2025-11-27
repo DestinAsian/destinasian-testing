@@ -1,56 +1,18 @@
 import { gql } from '@apollo/client'
 
-export const GetHomepagePinPosts = gql`
-  query GetHomepagePinPosts($id: ID!, $asPreview: Boolean = false) {
-    page(id: $id, idType: DATABASE_ID, asPreview: $asPreview) {
-      homepagePinPosts {
-        pinPost1 {
-          ... on Post {
-            id
-            uri
-            contentTypeName
-            title
-            excerpt
-            featuredImage {
-              node {
-                sourceUrl
-                altText
-              }
-            }
-            categories(where: { childless: true }) {
-              edges {
-                node {
-                  name
-                  uri
-                  parent {
-                    node {
-                      name
-                    }
-                  }
-                }
-              }
-            }
-            acfCategoryIcon {
-              categoryLabel
-              chooseYourCategory
-              chooseIcon {
-                mediaItemUrl
-              }
-            }
-            acfLocationIcon {
-              fieldGroupName
-              locationLabel
-              locationUrl
-            }
-          }
+export const GetCategoryPinPosts = gql`
+  query GetCategoryPinPosts($id: ID!) {
+    category(id: $id, idType: DATABASE_ID) {
+      pinPosts {
+        pinPost {
           ... on Editorial {
             id
-            uri
-            contentTypeName
             title
+            uri
             excerpt
             featuredImage {
               node {
+                id
                 sourceUrl
                 altText
               }
@@ -66,58 +28,6 @@ export const GetHomepagePinPosts = gql`
                     }
                   }
                 }
-              }
-            }
-          }
-          ... on Update {
-            id
-            uri
-            contentTypeName
-            title
-            excerpt
-            featuredImage {
-              node {
-                sourceUrl
-                altText
-              }
-            }
-            categories {
-              edges {
-                node {
-                  name
-                  uri
-                  parent {
-                    node {
-                      name
-                    }
-                  }
-                }
-              }
-            }
-          }
-          ... on HonorsCircle {
-            id
-            uri
-            contentTypeName
-            title
-            excerpt
-            featuredImage {
-              node {
-                sourceUrl
-                altText
-              }
-            }
-          }
-          ... on LuxuryTravel {
-            id
-            uri
-            contentTypeName
-            title
-            excerpt
-            featuredImage {
-              node {
-                sourceUrl
-                altText
               }
             }
           }
@@ -125,10 +35,53 @@ export const GetHomepagePinPosts = gql`
             id
             title
             excerpt
-            uri
             contentTypeName
+            uri
             featuredImage {
               node {
+                id
+                sourceUrl
+                altText
+              }
+            }
+          }
+          ... on HonorsCircle {
+            id
+            title
+            excerpt
+            contentTypeName
+            uri
+            featuredImage {
+              node {
+                id
+                sourceUrl
+                altText
+              }
+            }
+          }
+          ... on ReadersChoiceAward {
+            id
+            title
+            excerpt
+            contentTypeName
+            uri
+            featuredImage {
+              node {
+                id
+                sourceUrl
+                altText
+              }
+            }
+          }
+          ... on LuxeList {
+            id
+            title
+            excerpt
+            contentTypeName
+            uri
+            featuredImage {
+              node {
+                id
                 sourceUrl
                 altText
               }
@@ -136,52 +89,14 @@ export const GetHomepagePinPosts = gql`
           }
         }
         pinPost2 {
-          ... on Post {
-            id
-            uri
-            contentTypeName
-            title
-            excerpt
-            featuredImage {
-              node {
-                sourceUrl
-                altText
-              }
-            }
-            categories(where: { childless: true }) {
-              edges {
-                node {
-                  name
-                  uri
-                  parent {
-                    node {
-                      name
-                    }
-                  }
-                }
-              }
-            }
-            acfCategoryIcon {
-              categoryLabel
-              chooseYourCategory
-              chooseIcon {
-                mediaItemUrl
-              }
-            }
-            acfLocationIcon {
-              fieldGroupName
-              locationLabel
-              locationUrl
-            }
-          }
           ... on Editorial {
             id
-            uri
-            contentTypeName
             title
+            uri
             excerpt
             featuredImage {
               node {
+                id
                 sourceUrl
                 altText
               }
@@ -197,58 +112,6 @@ export const GetHomepagePinPosts = gql`
                     }
                   }
                 }
-              }
-            }
-          }
-          ... on Update {
-            id
-            uri
-            contentTypeName
-            title
-            excerpt
-            featuredImage {
-              node {
-                sourceUrl
-                altText
-              }
-            }
-            categories {
-              edges {
-                node {
-                  name
-                  uri
-                  parent {
-                    node {
-                      name
-                    }
-                  }
-                }
-              }
-            }
-          }
-          ... on HonorsCircle {
-            id
-            uri
-            contentTypeName
-            title
-            excerpt
-            featuredImage {
-              node {
-                sourceUrl
-                altText
-              }
-            }
-          }
-          ... on LuxuryTravel {
-            id
-            uri
-            contentTypeName
-            title
-            excerpt
-            featuredImage {
-              node {
-                sourceUrl
-                altText
               }
             }
           }
@@ -256,10 +119,53 @@ export const GetHomepagePinPosts = gql`
             id
             title
             excerpt
-            uri
             contentTypeName
+            uri
             featuredImage {
               node {
+                id
+                sourceUrl
+                altText
+              }
+            }
+          }
+          ... on HonorsCircle {
+            id
+            title
+            excerpt
+            contentTypeName
+            uri
+            featuredImage {
+              node {
+                id
+                sourceUrl
+                altText
+              }
+            }
+          }
+          ... on ReadersChoiceAward {
+            id
+            title
+            excerpt
+            contentTypeName
+            uri
+            featuredImage {
+              node {
+                id
+                sourceUrl
+                altText
+              }
+            }
+          }
+          ... on LuxeList {
+            id
+            title
+            excerpt
+            contentTypeName
+            uri
+            featuredImage {
+              node {
+                id
                 sourceUrl
                 altText
               }
@@ -267,52 +173,14 @@ export const GetHomepagePinPosts = gql`
           }
         }
         pinPost3 {
-          ... on Post {
-            id
-            uri
-            contentTypeName
-            title
-            excerpt
-            featuredImage {
-              node {
-                sourceUrl
-                altText
-              }
-            }
-            categories(where: { childless: true }) {
-              edges {
-                node {
-                  name
-                  uri
-                  parent {
-                    node {
-                      name
-                    }
-                  }
-                }
-              }
-            }
-            acfCategoryIcon {
-              categoryLabel
-              chooseYourCategory
-              chooseIcon {
-                mediaItemUrl
-              }
-            }
-            acfLocationIcon {
-              fieldGroupName
-              locationLabel
-              locationUrl
-            }
-          }
           ... on Editorial {
             id
-            uri
-            contentTypeName
             title
+            uri
             excerpt
             featuredImage {
               node {
+                id
                 sourceUrl
                 altText
               }
@@ -328,58 +196,6 @@ export const GetHomepagePinPosts = gql`
                     }
                   }
                 }
-              }
-            }
-          }
-          ... on Update {
-            id
-            uri
-            contentTypeName
-            title
-            excerpt
-            featuredImage {
-              node {
-                sourceUrl
-                altText
-              }
-            }
-            categories {
-              edges {
-                node {
-                  name
-                  uri
-                  parent {
-                    node {
-                      name
-                    }
-                  }
-                }
-              }
-            }
-          }
-          ... on HonorsCircle {
-            id
-            uri
-            contentTypeName
-            title
-            excerpt
-            featuredImage {
-              node {
-                sourceUrl
-                altText
-              }
-            }
-          }
-          ... on LuxuryTravel {
-            id
-            uri
-            contentTypeName
-            title
-            excerpt
-            featuredImage {
-              node {
-                sourceUrl
-                altText
               }
             }
           }
@@ -387,10 +203,137 @@ export const GetHomepagePinPosts = gql`
             id
             title
             excerpt
-            uri
             contentTypeName
+            uri
             featuredImage {
               node {
+                id
+                sourceUrl
+                altText
+              }
+            }
+          }
+          ... on HonorsCircle {
+            id
+            title
+            excerpt
+            contentTypeName
+            uri
+            featuredImage {
+              node {
+                id
+                sourceUrl
+                altText
+              }
+            }
+          }
+          ... on ReadersChoiceAward {
+            id
+            title
+            excerpt
+            contentTypeName
+            uri
+            featuredImage {
+              node {
+                id
+                sourceUrl
+                altText
+              }
+            }
+          }
+          ... on LuxeList {
+            id
+            title
+            excerpt
+            contentTypeName
+            uri
+            featuredImage {
+              node {
+                id
+                sourceUrl
+                altText
+              }
+            }
+          }
+        }
+        pinPost4 {
+          ... on Editorial {
+            id
+            title
+            uri
+            excerpt
+            featuredImage {
+              node {
+                id
+                sourceUrl
+                altText
+              }
+            }
+            categories {
+              edges {
+                node {
+                  name
+                  uri
+                  parent {
+                    node {
+                      name
+                    }
+                  }
+                }
+              }
+            }
+          }
+          ... on Advertorial {
+            id
+            title
+            excerpt
+            contentTypeName
+            uri
+            featuredImage {
+              node {
+                id
+                sourceUrl
+                altText
+              }
+            }
+          }
+          ... on HonorsCircle {
+            id
+            title
+            excerpt
+            contentTypeName
+            uri
+            featuredImage {
+              node {
+                id
+                sourceUrl
+                altText
+              }
+            }
+          }
+          ... on ReadersChoiceAward {
+            id
+            title
+            excerpt
+            contentTypeName
+            uri
+            featuredImage {
+              node {
+                id
+                sourceUrl
+                altText
+              }
+            }
+          }
+          ... on LuxeList {
+            id
+            title
+            excerpt
+            contentTypeName
+            uri
+            featuredImage {
+              node {
+                id
                 sourceUrl
                 altText
               }

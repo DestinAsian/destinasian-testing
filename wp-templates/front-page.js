@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { gql, useQuery } from '@apollo/client'
-import * as MENUS from '../constants/menus'
-import { GetMenus } from '../queries/GetMenus'
-import { GetLatestStories } from '../queries/GetLatestStories'
-import { eb_garamond, poppins } from '../styles/fonts/fonts'
-import { GetHomepagePinPosts } from '../queries/GetHomepagePinPosts'
-import { GetLatestRCA } from '../queries/GetLatestRCA'
+import * as MENUS from '@/constants/menus'
+import { GetMenus } from '@/queries/GetMenus'
+import { GetLatestStories } from '@/queries/GetLatestStories'
+import { eb_garamond, poppins } from '@/styles/fonts/fonts'
+import { GetHomepagePinPosts } from '@/queries/GetHomepagePinPosts'
+import { GetLatestRCA } from '@/queries/GetLatestRCA'
 import dynamic from 'next/dynamic'
 // Import Components
 const HomepageHeader = dynamic(() =>

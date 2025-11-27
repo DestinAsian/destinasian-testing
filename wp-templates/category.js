@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react'
 import { gql, useQuery } from '@apollo/client'
-import * as MENUS from '../constants/menus'
-import { GetMenus } from '../queries/GetMenus'
-import { GetFooterMenus } from '../queries/GetFooterMenus'
-import { GetLatestStories } from '../queries/GetLatestStories'
-import { eb_garamond, poppins } from '../styles/fonts/fonts'
-import { GetLatestRCA } from '../queries/GetLatestRCA'
-import { GetSecondaryHeader } from '../queries/GetSecondaryHeader'
+import * as MENUS from '@/constants/menus'
+import { GetMenus } from '@/queries/GetMenus'
+import { GetFooterMenus } from '@/queries/GetFooterMenus'
+import { GetLatestStories } from '@/queries/GetLatestStories'
+import { eb_garamond, poppins } from '@/styles/fonts/fonts'
+import { GetLatestRCA } from '@/queries/GetLatestRCA'
+import { GetSecondaryHeader } from '@/queries/GetSecondaryHeader'
+import { GetCategoryPinPosts } from '@/queries/GetCategoryPinPosts'
 import dynamic from 'next/dynamic'
+
 // Import Components
 const CategoryHeader = dynamic(() =>
   import('@/components/CategoryHeader/CategoryHeader'),
@@ -40,7 +42,6 @@ export default function Component(props) {
     description,
     children,
     parent,
-    pinPosts,
     categoryImages,
     destinationGuides,
     databaseId,
@@ -147,7 +148,7 @@ export default function Component(props) {
 
   const { data: rcaData } = useQuery(GetLatestRCA, {
     fetchPolicy: 'cache-and-network',
-    nextFetchPolicy: "network-only",
+    nextFetchPolicy: 'network-only',
   })
 
   const [latestRCA, setLatestRCA] = useState(null)
@@ -177,7 +178,7 @@ export default function Component(props) {
   const { data, loading } = useQuery(GetSecondaryHeader, {
     variables: catVariable,
     fetchPolicy: 'cache-and-network',
-    nextFetchPolicy: "network-only",
+    nextFetchPolicy: 'network-only',
   })
 
   // Logic for Guides Category
@@ -202,7 +203,7 @@ export default function Component(props) {
       featureHeaderLocation: MENUS.FEATURE_LOCATION,
     },
     fetchPolicy: 'cache-and-network',
-    nextFetchPolicy: "network-only",
+    nextFetchPolicy: 'network-only',
   })
 
   // Header Menu
@@ -213,6 +214,18 @@ export default function Component(props) {
   const fifthMenu = menusData?.fifthHeaderMenuItems?.nodes ?? []
   const featureMenu = menusData?.featureHeaderMenuItems?.nodes ?? []
 
+  // Get pin posts stories
+  const { data: pinPostsStories } = useQuery(GetCategoryPinPosts, {
+    variables: {
+      id: databaseId,
+    },
+    fetchPolicy: 'cache-and-network',
+    nextFetchPolicy: 'network-only',
+  })
+
+  // State variable of Category pin posts
+  const pinPosts = pinPostsStories?.category?.pinPosts ?? []
+
   // Get Footer menus
   const { data: footerMenusData, loading: footerMenusLoading } = useQuery(
     GetFooterMenus,
@@ -222,7 +235,7 @@ export default function Component(props) {
         footerHeaderLocation: MENUS.FOOTER_LOCATION,
       },
       fetchPolicy: 'cache-and-network',
-      nextFetchPolicy: "network-only",
+      nextFetchPolicy: 'network-only',
     },
   )
 
@@ -237,7 +250,7 @@ export default function Component(props) {
         first: 5,
       },
       fetchPolicy: 'cache-and-network',
-      nextFetchPolicy: "network-only",
+      nextFetchPolicy: 'network-only',
     },
   )
 
@@ -483,119 +496,6 @@ Component.query = gql`
       destinationGuides {
         destinationGuides
         guidesTitle
-      }
-      pinPosts {
-        pinPost {
-          ... on Post {
-            id
-            title
-            content
-            date
-            uri
-            excerpt
-            featuredImage {
-              node {
-                id
-                sourceUrl
-                altText
-                mediaDetails {
-                  width
-                  height
-                }
-              }
-            }
-            author {
-              node {
-                name
-              }
-            }
-            categories(first: 1000, where: { childless: true }) {
-              edges {
-                node {
-                  name
-                  uri
-                  parent {
-                    node {
-                      name
-                    }
-                  }
-                }
-              }
-            }
-            acfCategoryIcon {
-              categoryLabel
-              chooseYourCategory
-              chooseIcon {
-                mediaItemUrl
-              }
-            }
-            acfLocationIcon {
-              fieldGroupName
-              locationLabel
-              locationUrl
-            }
-          }
-          ... on Editorial {
-            id
-            title
-            content
-            date
-            uri
-            excerpt
-            featuredImage {
-              node {
-                id
-                sourceUrl
-                altText
-                mediaDetails {
-                  width
-                  height
-                }
-              }
-            }
-            author {
-              node {
-                name
-              }
-            }
-            categories {
-              edges {
-                node {
-                  name
-                  uri
-                  parent {
-                    node {
-                      name
-                    }
-                  }
-                }
-              }
-            }
-          }
-          ... on Advertorial {
-            id
-            title
-            content
-            date
-            uri
-            featuredImage {
-              node {
-                id
-                sourceUrl
-                altText
-                mediaDetails {
-                  width
-                  height
-                }
-              }
-            }
-            author {
-              node {
-                name
-              }
-            }
-          }
-        }
       }
       parent {
         node {

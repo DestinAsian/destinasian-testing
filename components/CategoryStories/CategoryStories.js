@@ -69,7 +69,7 @@ export default function CategoryStories(categoryUri) {
   const { data, error, loading, fetchMore } = useQuery(GetCategoryStories, {
     variables: storiesVariable,
     fetchPolicy: 'cache-and-network',
-    nextFetchPolicy: "network-only",
+    nextFetchPolicy: 'network-only',
   })
 
   const updateQuery = (prev, { fetchMoreResult }) => {
@@ -99,7 +99,7 @@ export default function CategoryStories(categoryUri) {
         first: bannerPerPage,
       },
       fetchPolicy: 'cache-and-network',
-      nextFetchPolicy: "network-only",
+      nextFetchPolicy: 'network-only',
     },
   )
 
@@ -164,7 +164,7 @@ export default function CategoryStories(categoryUri) {
     {
       variables: bannerVariable,
       fetchPolicy: 'cache-and-network',
-      nextFetchPolicy: "network-only",
+      nextFetchPolicy: 'network-only',
     },
   )
 
@@ -178,7 +178,7 @@ export default function CategoryStories(categoryUri) {
     {
       variables: queryVariables, // Use the modified variables
       fetchPolicy: 'cache-and-network',
-      nextFetchPolicy: "network-only",
+      nextFetchPolicy: 'network-only',
     },
   )
 
@@ -367,7 +367,12 @@ export default function CategoryStories(categoryUri) {
   const allPosts = data?.category?.contentNodes?.edges?.map((post) => post.node)
 
   // Declare Pin Posts
-  const allPinPosts = pinPosts?.pinPost ? [pinPosts?.pinPost] : []
+  const allPinPosts = [
+    pinPosts?.pinPost ? pinPosts?.pinPost : null,
+    pinPosts?.pinPost2 ? pinPosts?.pinPost2 : null,
+    pinPosts?.pinPost3 ? pinPosts?.pinPost3 : null,
+    pinPosts?.pinPost4 ? pinPosts?.pinPost4 : null,
+  ].filter((pinPost) => pinPost !== null)
 
   // Merge All posts and Pin posts
   const mergedPosts = [...allPinPosts, ...allPosts].reduce(
@@ -400,33 +405,125 @@ export default function CategoryStories(categoryUri) {
 
   const numberOfBannerAds = sortedBannerAdsArray.length
 
+  const postTypeMap = {
+    'readers-choice-award': 'Readers Choice Award',
+    advertorial: 'Partner Content',
+    'honors-circle': 'Honors Circle',
+    'luxe-list': 'Luxe List',
+  }
+
   return (
     <div className={cx('component')}>
       {mergedPosts?.length !== 0 &&
         mergedPosts?.map((post, index) => (
           <React.Fragment key={post?.id}>
-            <div className={cx('post-wrapper')}>
-              <PostTwoColumns
-                title={post?.title}
-                excerpt={post?.excerpt}
-                content={post?.content}
-                date={post?.date}
-                author={post?.author?.node?.name}
-                uri={post?.uri}
-                parentCategory={
-                  post?.categories?.edges[0]?.node?.parent?.node?.name
-                }
-                category={post?.categories?.edges[0]?.node?.name}
-                categoryUri={post?.categories?.edges[0]?.node?.uri}
-                featuredImage={post?.featuredImage?.node}
-                chooseYourCategory={post?.acfCategoryIcon?.chooseYourCategory}
-                chooseIcon={post?.acfCategoryIcon?.chooseIcon?.mediaItemUrl}
-                categoryLabel={post?.acfCategoryIcon?.categoryLabel}
-                locationValidation={post?.acfLocationIcon?.fieldGroupName}
-                locationLabel={post?.acfLocationIcon?.locationLabel}
-                locationUrl={post?.acfLocationIcon?.locationUrl}
-              />
-            </div>
+            {/* Post / Guides Stories */}
+            {post?.contentTypeName === 'post' && (
+              <div className={cx('post-wrapper')}>
+                <PostTwoColumns
+                  title={post?.title}
+                  excerpt={post?.excerpt}
+                  uri={post?.uri}
+                  parentCategory={
+                    post?.categories?.edges[0]?.node?.parent?.node?.name
+                  }
+                  category={post?.categories?.edges[0]?.node?.name}
+                  categoryUri={post?.categories?.edges[0]?.node?.uri}
+                  featuredImage={post?.featuredImage?.node}
+                  chooseYourCategory={post?.acfCategoryIcon?.chooseYourCategory}
+                  chooseIcon={post?.acfCategoryIcon?.chooseIcon?.mediaItemUrl}
+                  categoryLabel={post?.acfCategoryIcon?.categoryLabel}
+                  locationValidation={post?.acfLocationIcon?.fieldGroupName}
+                  locationLabel={post?.acfLocationIcon?.locationLabel}
+                  locationUrl={post?.acfLocationIcon?.locationUrl}
+                />
+              </div>
+            )}
+            {/* Editorials Stories */}
+            {post?.contentTypeName === 'editorial' && (
+              <div className={cx('post-wrapper')}>
+                <PostTwoColumns
+                  title={post?.title}
+                  excerpt={post?.excerpt}
+                  uri={post?.uri}
+                  parentCategory={
+                    post?.categories?.edges[0]?.node?.parent?.node?.name
+                  }
+                  category={post?.categories?.edges[0]?.node?.name}
+                  categoryUri={post?.categories?.edges[0]?.node?.uri}
+                  featuredImage={post?.featuredImage?.node}
+                />
+              </div>
+            )}
+            {/* Updates Stories */}
+            {post?.contentTypeName === 'update' && (
+              <div className={cx('post-wrapper')}>
+                <PostTwoColumns
+                  title={post?.title}
+                  excerpt={post?.excerpt}
+                  uri={post?.uri}
+                  parentCategory={
+                    post?.categories?.edges[0]?.node?.parent?.node?.name
+                  }
+                  category={post?.categories?.edges[0]?.node?.name}
+                  categoryUri={post?.categories?.edges[0]?.node?.uri}
+                  featuredImage={post?.featuredImage?.node}
+                />
+              </div>
+            )}
+            {/* Honors Circle Stories */}
+            {post?.contentTypeName === 'honors-circle' && (
+              <div className={cx('hc-wrapper')}>
+                <PostTwoColumns
+                  title={post?.title}
+                  excerpt={post?.excerpt}
+                  uri={post?.uri}
+                  category={'Honors Circle'}
+                  categoryUri={post?.uri}
+                  featuredImage={post?.featuredImage?.node}
+                />
+              </div>
+            )}
+            {/* Luxe List Stories */}
+            {post?.contentTypeName === 'luxe-list' && (
+              <div className={cx('ll-wrapper')}>
+                <PostTwoColumns
+                  title={post?.title}
+                  excerpt={post?.excerpt}
+                  uri={post?.uri}
+                  category={'Luxe List'}
+                  categoryUri={post?.uri}
+                  featuredImage={post?.featuredImage?.node}
+                />
+              </div>
+            )}
+            {/* RCA Stories */}
+            {post?.contentTypeName === 'readers-choice-award' && (
+              <div className={cx('rca-wrapper')}>
+                <PostTwoColumns
+                  title={post?.title}
+                  excerpt={post?.excerpt}
+                  uri={post?.uri}
+                  category={'Readers’ Choice Award'}
+                  categoryUri={post?.uri}
+                  featuredImage={post?.featuredImage?.node}
+                />
+              </div>
+            )}
+            {/* Partner Content Stories */}
+            {post?.contentTypeName === 'advertorial' && (
+              <div className={cx('advertorial-wrapper')}>
+                <PostTwoColumns
+                  title={post?.title}
+                  excerpt={post?.excerpt}
+                  uri={post?.uri}
+                  category={'Partner Content'}
+                  categoryUri={post?.uri}
+                  featuredImage={post?.featuredImage?.node}
+                  customClassName={'advertorial'}
+                />
+              </div>
+            )}
             {(() => {
               const pos = (index - 1) % 8 // cycle through 8 slots
 

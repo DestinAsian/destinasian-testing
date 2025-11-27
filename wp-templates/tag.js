@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { gql, useQuery } from '@apollo/client'
-import * as MENUS from '../constants/menus'
-import { GetMenus } from '../queries/GetMenus'
-import { GetFooterMenus } from '../queries/GetFooterMenus'
-import { GetLatestStories } from '../queries/GetLatestStories'
-import { eb_garamond, poppins } from '../styles/fonts/fonts'
-import { GetLatestRCA } from '../queries/GetLatestRCA'
+import * as MENUS from '@/constants/menus'
+import { GetMenus } from '@/queries/GetMenus'
+import { GetFooterMenus } from '@/queries/GetFooterMenus'
+import { GetLatestStories } from '@/queries/GetLatestStories'
+import { eb_garamond, poppins } from '@/styles/fonts/fonts'
+import { GetLatestRCA } from '@/queries/GetLatestRCA'
 import dynamic from 'next/dynamic'
 // Import Components
 const Header = dynamic(() => import('@/components/Header/Header'))
