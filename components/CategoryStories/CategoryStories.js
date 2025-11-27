@@ -402,8 +402,6 @@ export default function CategoryStories(categoryUri) {
 
   const numberOfBannerAds = sortedBannerAdsArray.length
 
-  console.log(AdvertorialArray)
-
   return (
     <div className={cx('component')}>
       {mergedPosts?.length !== 0 &&
