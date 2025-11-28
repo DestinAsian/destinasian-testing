@@ -219,7 +219,7 @@
     border: none;
 
     @media (min-width: $breakpoint-extra-small) {
-      flex-direction: row;
+      // flex-direction: row;
       flex-wrap: wrap;
       gap: 0.5rem;
     }

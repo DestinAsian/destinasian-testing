@@ -12,6 +12,9 @@ export const GetTravelGuides = gql`
                 databaseId
                 title
                 uri
+                passwordProtected {
+                  onOff
+                }
                 featuredImage {
                   node {
                     sourceUrl
@@ -27,6 +30,9 @@ export const GetTravelGuides = gql`
                 databaseId
                 title
                 uri
+                passwordProtected {
+                  onOff
+                }
                 featuredImage {
                   node {
                     sourceUrl
