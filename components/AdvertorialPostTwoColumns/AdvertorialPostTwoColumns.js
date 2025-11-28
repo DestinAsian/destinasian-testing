@@ -6,6 +6,9 @@ import dynamic from 'next/dynamic'
 const FeaturedImage = dynamic(() =>
   import('@/components/FeaturedImage/FeaturedImage'),
 )
+const BookNowButton = dynamic(() =>
+  import('@/components/BookNowButton/BookNowButton'),
+)
 
 let cx = classNames.bind(styles)
 
@@ -16,6 +19,7 @@ export default function AdvertorialPostTwoColumns({
   excerpt,
   uri,
   featuredImage,
+  bookNowButton,
   luxuryTravelClass,
 }) {
   let trimmedExcerpt = excerpt?.substring(0, MAX_EXCERPT_LENGTH)
@@ -70,6 +74,11 @@ export default function AdvertorialPostTwoColumns({
                 />
               </Link>
             )}
+          </div>
+        )}
+        {bookNowButton && (
+          <div className={cx('book-now-wrapper')}>
+            <BookNowButton bookNowButton={bookNowButton} />
           </div>
         )}
       </div>

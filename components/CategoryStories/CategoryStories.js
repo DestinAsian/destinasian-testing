@@ -400,6 +400,8 @@ export default function CategoryStories(categoryUri) {
   // const getAdvertorialPost = [...AdvertorialArray]
   // const numberOfAdvertorial = AdvertorialArray.length
 
+  console.log(AdvertorialArray)
+
   const numberOfBannerAds = sortedBannerAdsArray.length
 
   return (
@@ -547,6 +549,7 @@ export default function CategoryStories(categoryUri) {
                           excerpt={item?.excerpt}
                           uri={item?.uri}
                           featuredImage={item?.featuredImage?.node}
+                          bookNowButton={item?.bookNowButton}
                         />
                       </div>
                     ))}

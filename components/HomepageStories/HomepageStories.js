@@ -418,6 +418,7 @@ export default function HomepageStories(pinPosts) {
                           excerpt={item?.excerpt}
                           uri={item?.uri}
                           featuredImage={item?.featuredImage?.node}
+                          bookNowButton={item?.bookNowButton}
                         />
                       </div>
                     ))}

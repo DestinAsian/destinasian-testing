@@ -15,6 +15,8 @@
 
 .container-wrapper {
   height: auto;
+  display: flex;
+  flex-direction: column;
 
   @media (min-width: $breakpoint-extra-small) {
     min-height: 45rem;
@@ -95,5 +97,23 @@
   p {
     font-family: 'Ringside Regular A', 'Ringside Regular B';
     font-weight: 500;
+  }
+}
+
+.book-now-wrapper {
+  position: relative;
+  margin-top: auto;
+
+  div {
+    position: relative;
+  }
+
+  > div > div {
+    width: 100%;
+    margin: 1rem 0;
+
+    @media (min-width: $breakpoint-extra-small) {
+      margin: 1rem 2rem;
+    }
   }
 }
