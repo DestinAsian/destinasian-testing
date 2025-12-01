@@ -37,13 +37,25 @@
     text-transform: capitalize;
   }
 
-  .ll-menu-header {
+  .guides-menu-header-wrapper {
+    display: flex;
+    flex-direction: row-reverse;
+    width: 100%;
+    column-gap: 0.5rem;
+
+     @media (min-width: $breakpoint-extra-small) {
+      flex-direction: row;
+      column-gap: 1rem;
+    }
+  }
+
+  .guides-menu-header {
     display: flex;
     flex-direction: column-reverse;
     align-items: flex-end;
     row-gap: 1rem;
     height: auto;
-    padding: 1rem 0;
+    padding: 0.5rem 0;
 
     @media (min-width: $breakpoint-extra-small) {
       flex-direction: row;
@@ -77,7 +89,7 @@
     }
   }
 
-  .ll-menu-header:has(.category-wrapper) {
+  .guides-menu-header:has(.category-wrapper) {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -94,15 +106,13 @@
     font-weight: 800;
     font-size: 1rem;
     letter-spacing: 0.06rem;
-    padding: 0 1rem;
+    padding: 0;
     width: 100%;
     text-align: right;
     text-align-last: right;
 
     @media (min-width: $breakpoint-extra-small) {
       font-size: 2rem;
-      padding: 0;
-      width: 50%;
       text-align: left;
       text-align-last: auto;
     }
@@ -184,30 +194,27 @@
       //   width: 50%;
       // }
 
-      // .category-wrapper {
-      //   padding: 0 0 0.5rem;
-      // }
+      .category-wrapper {
+        padding: 0 0 0.5rem;
+      }
 
-      // .category {
-      //   color: var(--wpe--color--light--cream);
-      //   background-color: var(--wpe--color--black);
-      //   font-size: 0.6rem;
-      //   line-height: 1.2;
-      //   text-transform: uppercase;
-      //   text-align: center;
-      //   padding: 0.4rem;
-      //   width: fit-content;
-      //   font-family: 'Ringside Regular A', 'Ringside Regular B';
-      //   font-weight: 700;
+      .category {
+        font-size: 1.25rem;
+        line-height: 1.2;
+        text-transform: uppercase;
+        text-align: center;
+        width: fit-content;
+        // font-family: 'Ringside Regular A', 'Ringside Regular B';
+        font-weight: 700;
 
-      //   @media (min-width: $breakpoint-extra-small) {
-      //     font-size: 0.5rem;
-      //   }
+        @media (min-width: $breakpoint-extra-small) {
+          font-size: 1.5rem;
+        }
 
-      //   @media (min-width: $breakpoint-large) {
-      //     font-size: 0.65rem;
-      //   }
-      // }
+        // @media (min-width: $breakpoint-large) {
+        //   font-size: 0.65rem;
+        // }
+      }
     }
 
     .title-wrapper {

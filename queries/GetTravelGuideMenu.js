@@ -1,91 +1,33 @@
 import { gql } from '@apollo/client'
 
-export const GetTravelGuidesMenu = gql`
-  query GetTravelGuidesMenu(
-    $first: Int
-    $footerHeaderLocation: MenuLocationEnum
-  ) {
-    footerHeaderMenuItems: menuItems(
-      where: { location: $footerHeaderLocation }
-      first: $first
-    ) {
-      nodes {
-        id
-        path
-        label
-        parentId
-        cssClasses
-        connectedNode {
+export const GetTravelGuideMenu = gql`
+  query GetTravelGuideMenu($first: Int, $after: String, $id: ID = "") {
+    travelGuide(id: $id, idType: DATABASE_ID) {
+      title
+      uri
+      children(
+        first: $first
+        after: $after
+        where: { orderby: { field: MENU_ORDER, order: ASC } }
+      ) {
+        pageInfo {
+          endCursor
+          hasNextPage
+        }
+        edges {
           node {
-            ... on Category {
-              name
+            ... on TravelGuide {
+              id
+              title
               uri
-              countryCode {
-                countryCode
+              travelGuidesThemes {
+                themesSelection
               }
-              categoryImages {
-                changeToSlider
-                categoryImages {
-                  sourceUrl
-                }
-                categorySlide1 {
-                  sourceUrl
-                }
-              }
-              destinationGuides {
-                guidesTitle
-              }
-              parent {
-                node {
-                  name
-                }
-              }
-              posts(
-                first: 5
-                where: {
-                  orderby: { field: DATE, order: DESC }
-                  status: PUBLISH
-                }
-              ) {
-                edges {
-                  node {
-                    id
-                    title
-                    uri
-                  }
-                }
-              }
-              children(first: 4, where: { order: DESC, orderby: NAME }) {
+              categories {
                 edges {
                   node {
                     id
                     name
-                    uri
-                    categoryImages {
-                      categoryImages {
-                        sourceUrl
-                      }
-                    }
-                    parent {
-                      node {
-                        name
-                      }
-                    }
-                    posts(
-                      first: 5
-                      where: {
-                        orderby: { field: DATE, order: DESC }
-                        status: PUBLISH
-                      }
-                    ) {
-                      edges {
-                        node {
-                          id
-                          title
-                          uri
-                        }
-                      }
-                    }
                   }
                 }
               }

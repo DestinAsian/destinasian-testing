@@ -180,7 +180,7 @@ export default function Component(props) {
 
   const { data: rcaData } = useQuery(GetLatestRCA, {
     fetchPolicy: 'cache-and-network',
-    nextFetchPolicy: "network-only",
+    nextFetchPolicy: 'network-only',
   })
 
   const [latestRCA, setLatestRCA] = useState(null)
@@ -213,7 +213,7 @@ export default function Component(props) {
       featureHeaderLocation: MENUS.FEATURE_LOCATION,
     },
     fetchPolicy: 'cache-and-network',
-    nextFetchPolicy: "network-only",
+    nextFetchPolicy: 'network-only',
   })
 
   const primaryMenu = menusData?.headerMenuItems?.nodes ?? []
@@ -231,7 +231,7 @@ export default function Component(props) {
         first: 5,
       },
       fetchPolicy: 'cache-and-network',
-      nextFetchPolicy: "network-only",
+      nextFetchPolicy: 'network-only',
     },
   )
 
@@ -350,8 +350,6 @@ export default function Component(props) {
         isBurgerNavShown={isBurgerNavShown}
         setIsBurgerNavShown={setIsBurgerNavShown}
         isScrolled={isScrolled}
-        // isAutoplayRunning={isAutoplayRunning}
-        // toggleAutoplay={toggleAutoplay}
         customClassName={'travel-guide'}
       />
       <Main>
@@ -394,6 +392,14 @@ export default function Component(props) {
                   setIsTGNavShown={setIsTGNavShown}
                 />
                 {/* Second wrapper */}
+                {console.log(
+                  'Guides Title:',
+                  parent != null && children?.edges?.length === 0
+                    ? parent?.node?.title
+                    : parent != null && children?.edges?.length !== 0
+                    ? title
+                    : null,
+                )}
                 <div className="w-full lg:relative lg:pt-20">
                   <ContentWrapperTG
                     router={props?.router}
@@ -408,14 +414,25 @@ export default function Component(props) {
                         ? travelGuidesLogo?.mainLogo
                         : null
                     }
+                    guidesTitle={
+                      parent != null && children?.edges?.length === 0
+                        ? parent?.node?.title
+                        : parent != null && children?.edges?.length !== 0
+                        ? title
+                        : null
+                    }
+                    guidesUri={
+                      parent != null && children?.edges?.length === 0
+                        ? parent?.node?.uri
+                        : parent != null && children?.edges?.length !== 0
+                        ? uri
+                        : null
+                    }
                     databaseId={databaseId}
                     isNavShown={isNavShown}
                     isTGNavShown={isTGNavShown}
                     setIsTGNavShown={setIsTGNavShown}
-                    // isAutoplayRunning={isAutoplayRunning}
-                    // setIsAutoplayRunning={setIsAutoplayRunning}
                     sliderTG={sliderTG}
-                    // toggleAutoplay={toggleAutoplay}
                   />
                 </div>
               </div>
@@ -432,6 +449,7 @@ Component.query = gql`
   query GetPost($databaseId: ID!, $asPreview: Boolean = false) {
     travelGuide(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
       title
+      uri
       content
       databaseId
       passwordProtected {
@@ -516,6 +534,7 @@ Component.query = gql`
       parent {
         node {
           ... on TravelGuide {
+            title
             uri
             databaseId
             travelGuidesLogo {
