@@ -124,7 +124,7 @@ export default function Component(props) {
 
   const { data: rcaData } = useQuery(GetLatestRCA, {
     fetchPolicy: 'cache-and-network',
-    nextFetchPolicy: "network-only",
+    nextFetchPolicy: 'network-only',
   })
 
   const [latestRCA, setLatestRCA] = useState(null)
@@ -202,7 +202,7 @@ export default function Component(props) {
       featureHeaderLocation: MENUS.FEATURE_LOCATION,
     },
     fetchPolicy: 'cache-and-network',
-    nextFetchPolicy: "network-only",
+    nextFetchPolicy: 'network-only',
   })
 
   const primaryMenu = menusData?.headerMenuItems?.nodes ?? []
@@ -219,7 +219,7 @@ export default function Component(props) {
       asPreview: asPreview,
     },
     fetchPolicy: 'cache-and-network',
-    nextFetchPolicy: "network-only",
+    nextFetchPolicy: 'network-only',
   })
 
   // State variable of homepage pin posts
@@ -233,7 +233,7 @@ export default function Component(props) {
         first: 5,
       },
       fetchPolicy: 'cache-and-network',
-      nextFetchPolicy: "network-only",
+      nextFetchPolicy: 'network-only',
     },
   )
 
@@ -328,7 +328,9 @@ export default function Component(props) {
 Component.query = gql`
   query GetPageData($databaseId: ID!, $asPreview: Boolean = false) {
     page(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
+      id
       title
+      databaseId
       content
       uri
       seo {

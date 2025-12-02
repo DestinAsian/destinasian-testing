@@ -428,7 +428,9 @@ export default function Component(props) {
 Component.query = gql`
   query GetPost($databaseId: ID!, $asPreview: Boolean = false) {
     editorial(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
+      id
       title
+      databaseId
       content
       date
       passwordProtected {

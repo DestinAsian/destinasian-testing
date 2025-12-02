@@ -454,6 +454,7 @@ export default function Component(props) {
 Component.query = gql`
   query GetCategoryPage($databaseId: ID!) {
     category(id: $databaseId, idType: DATABASE_ID) {
+      id
       name
       description
       databaseId

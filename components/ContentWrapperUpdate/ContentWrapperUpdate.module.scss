@@ -111,6 +111,11 @@
       }
     }
 
+    div:has(p),
+    div:has(figure) {
+      padding: 0;
+    }
+
     strong {
       padding: 0;
       font-weight: 700;

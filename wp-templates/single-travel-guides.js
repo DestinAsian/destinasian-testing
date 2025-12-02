@@ -440,7 +440,9 @@ export default function Component(props) {
 Component.query = gql`
   query GetPost($databaseId: ID!, $asPreview: Boolean = false) {
     travelGuide(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
+      id
       title
+      databaseId
       uri
       content
       databaseId

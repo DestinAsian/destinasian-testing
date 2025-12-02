@@ -176,7 +176,7 @@ export default function Component(props) {
 
   const { data: rcaData } = useQuery(GetLatestRCA, {
     fetchPolicy: 'cache-and-network',
-    nextFetchPolicy: "network-only",
+    nextFetchPolicy: 'network-only',
   })
 
   const [latestRCA, setLatestRCA] = useState(null)
@@ -206,7 +206,7 @@ export default function Component(props) {
   const { data, loading } = useQuery(GetSecondaryHeader, {
     variables: catVariable,
     fetchPolicy: 'cache-and-network',
-    nextFetchPolicy: "network-only",
+    nextFetchPolicy: 'network-only',
   })
 
   // Get menus
@@ -221,7 +221,7 @@ export default function Component(props) {
       featureHeaderLocation: MENUS.FEATURE_LOCATION,
     },
     fetchPolicy: 'cache-and-network',
-    nextFetchPolicy: "network-only",
+    nextFetchPolicy: 'network-only',
   })
 
   // Header Menu
@@ -241,7 +241,7 @@ export default function Component(props) {
         footerHeaderLocation: MENUS.FOOTER_LOCATION,
       },
       fetchPolicy: 'cache-and-network',
-      nextFetchPolicy: "network-only",
+      nextFetchPolicy: 'network-only',
     },
   )
 
@@ -256,7 +256,7 @@ export default function Component(props) {
         first: 5,
       },
       fetchPolicy: 'cache-and-network',
-      nextFetchPolicy: "network-only",
+      nextFetchPolicy: 'network-only',
     },
   )
 
@@ -446,6 +446,7 @@ export default function Component(props) {
 Component.query = gql`
   query GetPost($databaseId: ID!, $asPreview: Boolean = false) {
     post(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
+      id
       title
       databaseId
       content
