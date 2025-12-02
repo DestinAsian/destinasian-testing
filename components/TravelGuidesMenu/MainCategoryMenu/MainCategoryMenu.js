@@ -138,8 +138,8 @@ export default function MainCategoryMenu(categoryName) {
         const processedData = processResults(response.data.tags.edges)
 
         setResults([{ category, data: processedData }])
-      } catch (error) {
-        console.error('Fetch Error:', error)
+      } catch {
+        setResults([])
       } finally {
         setLoading(false)
       }

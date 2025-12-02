@@ -392,14 +392,6 @@ export default function Component(props) {
                   setIsTGNavShown={setIsTGNavShown}
                 />
                 {/* Second wrapper */}
-                {console.log(
-                  'Guides Title:',
-                  parent != null && children?.edges?.length === 0
-                    ? parent?.node?.title
-                    : parent != null && children?.edges?.length !== 0
-                    ? title
-                    : null,
-                )}
                 <div className="w-full lg:relative lg:pt-20">
                   <ContentWrapperTG
                     router={props?.router}
