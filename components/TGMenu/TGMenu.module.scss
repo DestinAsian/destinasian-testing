@@ -43,7 +43,7 @@
     column-gap: 1rem;
     row-gap: 1rem;
     width: 100%;
-    padding: 1rem 0 7rem;
+    padding: 0 0 7rem;
     font-family: 'Ringside Condensed SSm A', 'Ringside Condensed SSm B';
     font-weight: 800;
     font-size: 1rem;
@@ -52,7 +52,7 @@
 
     @media (min-width: $breakpoint-extra-small) {
       grid-template-columns: max-content 1fr;
-      padding: 1rem 0 2.5rem;
+      padding: 0 0 2.5rem;
       // height: calc(100vh - 12.5rem);
       max-width: calc(100vw - 4.5rem);
       text-align: left;
@@ -62,12 +62,15 @@
     .guides-menu-header-wrapper {
       display: flex;
       flex-direction: row-reverse;
+      align-items: center;
+      column-gap: 0.5rem;
 
       @media (min-width: $breakpoint-extra-small) {
         display: contents;
       }
 
-      .left-wrapper {
+      .left-wrapper,
+      .right-wrapper {
         padding: 0;
 
         @media (min-width: $breakpoint-extra-small) {
@@ -108,7 +111,7 @@
       .title-header-wrapper {
         font-family: 'Ringside Condensed SSm A', 'Ringside Condensed SSm B';
         font-weight: 800;
-        font-size: 1rem;
+        font-size: 1.5rem;
         letter-spacing: 0.06rem;
         padding: 0;
         width: 100%;
@@ -144,7 +147,6 @@
         text-transform: uppercase;
         text-align: center;
         width: fit-content;
-        font-weight: 700;
 
         @media (min-width: $breakpoint-extra-small) {
           font-size: 1.5rem;
@@ -156,13 +158,17 @@
       }
 
       .category {
+        font-family: 'Ringside Condensed SSm A', 'Ringside Condensed SSm B';
+        font-weight: 800;
         width: fit-content;
       }
 
       .title-wrapper {
-        letter-spacing: 0.06rem;
+        // letter-spacing: 0.06rem;
 
         .title {
+          font-family: 'Ringside Regular A', 'Ringside Regular B';
+          font-weight: 500;
           line-height: 1.5;
         }
       }
