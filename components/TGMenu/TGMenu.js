@@ -86,36 +86,38 @@ export default function TGMenu({ mainLogo, secondaryLogo, databaseId, uri }) {
     <div className={cx('component')}>
       {/* Full menu */}
       <div className={cx('full-menu-content')}>
-        <div className={cx('guides-menu-header-wrapper')}>
-          <div className={cx('guides-menu-header')}>
-            {uniqueCategories.map((categoryName, index) => (
-              <div className={cx('menu-list-wrapper')} key={index}>
-                <div className={cx('category-wrapper')}>
+        <div className={cx('menu-wrapper')}>
+          {/* HEADER ROW — now part of same grid */}
+          <div className={cx('guides-menu-header-wrapper')}>
+            <div className={cx('left-wrapper')}>
+              {uniqueCategories.map((categoryName, index) => (
+                <div className={cx('category-wrapper')} key={index}>
                   <h2 className={cx('category')}>{categoryName}</h2>
                 </div>
-              </div>
-            ))}
-          </div>
-          <div className={cx('guides-menu-header')}>
-            {data?.travelGuide?.uri && data?.travelGuide?.title && (
-              <div className={cx('title-header-wrapper')}>
-                <Link href={data?.travelGuide?.uri}>
-                  <span>{data?.travelGuide?.title}</span>
-                </Link>
-              </div>
-            )}
-          </div>
-        </div>
-        <div className={cx('menu-wrapper')}>
-          {sortedThemes.map((theme, index) => (
-            <div className={cx('menu-list-wrapper')} key={index}>
-              {theme && theme !== 'none' && (
-                <div className={cx('category-wrapper')}>
-                  <h2 className={cx('category')}>{theme}</h2>
+              ))}
+            </div>
+            <div className={cx('right-wrapper')}>
+              {data?.travelGuide?.uri && data?.travelGuide?.title && (
+                <div className={cx('title-header-wrapper')}>
+                  <Link href={data?.travelGuide?.uri}>
+                    <span>{data?.travelGuide?.title}</span>
+                  </Link>
                 </div>
               )}
-              {postsByTheme[theme].map((post) => {
-                return (
+            </div>
+          </div>
+          {/* MENU ROWS */}
+          {sortedThemes.map((theme, index) => (
+            <div className={cx('menu-list-wrapper')} key={index}>
+              <div className={cx('left-wrapper')}>
+                {theme && theme !== 'none' && (
+                  <div className={cx('category-wrapper')}>
+                    <h2 className={cx('category')}>{theme}</h2>
+                  </div>
+                )}
+              </div>
+              <div className={cx('right-wrapper')}>
+                {postsByTheme[theme].map((post) => (
                   <div className={cx('content-wrapper')} key={post?.id}>
                     <div className={cx('title-wrapper')}>
                       {post?.uri && (
@@ -125,8 +127,8 @@ export default function TGMenu({ mainLogo, secondaryLogo, databaseId, uri }) {
                       )}
                     </div>
                   </div>
-                )
-              })}
+                ))}
+              </div>
             </div>
           ))}
         </div>

@@ -29,9 +29,11 @@ export default function SingleTGEntryHeader({
           </div>
         </div>
       </div>
-      <div className={cx('guides-title-wrapper')}>
-        <Heading className={cx('title')}>{title}</Heading>
-      </div>
+      {guidesTitle !== title && (
+        <div className={cx('guides-title-wrapper')}>
+          <Heading className={cx('title')}>{title}</Heading>
+        </div>
+      )}
     </div>
   )
 }
