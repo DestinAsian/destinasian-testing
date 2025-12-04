@@ -12,6 +12,15 @@
   @media (min-width: $breakpoint-extra-small) {
     justify-content: center;
   }
+
+  a {
+    * {
+      &:hover,
+      &:focus {
+        color: var(--wpe--color--orange);
+      }
+    }
+  }
 }
 
 .full-menu-content {
@@ -34,7 +43,7 @@
   }
 
   * {
-    text-transform: capitalize;
+    text-transform: none;
   }
 
   .menu-wrapper {
@@ -124,6 +133,10 @@
           text-align: left;
           text-align-last: auto;
           line-height: 1;
+        }
+
+        span {
+          text-transform: uppercase;
         }
       }
     }
