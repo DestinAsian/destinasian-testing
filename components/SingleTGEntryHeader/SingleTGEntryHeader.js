@@ -1,6 +1,5 @@
 import className from 'classnames/bind'
 import styles from './SingleTGEntryHeader.module.scss'
-import Link from 'next/link'
 import dynamic from 'next/dynamic'
 // Import Components
 const Heading = dynamic(() => import('@/components/Heading/Heading'))
@@ -11,7 +10,6 @@ export default function SingleTGEntryHeader({
   title,
   category,
   guidesTitle,
-  guidesUri,
 }) {
   return (
     <div className={cx('component', className)}>
@@ -19,11 +17,9 @@ export default function SingleTGEntryHeader({
         <div className={cx('guides-header-wrapper')}>
           <Heading className={cx('category')}>{category}</Heading>
           <div className={cx('guides-header')}>
-            {guidesTitle && guidesUri && (
+            {guidesTitle && (
               <div className={cx('title-header-wrapper')}>
-                <Link href={guidesUri}>
-                  <span>{guidesTitle}</span>
-                </Link>
+                <span>{guidesTitle}</span>
               </div>
             )}
           </div>
