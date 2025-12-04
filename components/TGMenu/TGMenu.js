@@ -97,11 +97,9 @@ export default function TGMenu({ mainLogo, secondaryLogo, databaseId, uri }) {
               ))}
             </div>
             <div className={cx('right-wrapper')}>
-              {data?.travelGuide?.uri && data?.travelGuide?.title && (
+              {data?.travelGuide?.title && (
                 <div className={cx('title-header-wrapper')}>
-                  <Link href={data?.travelGuide?.uri}>
-                    <span>{data?.travelGuide?.title}</span>
-                  </Link>
+                  <span>{data?.travelGuide?.title}</span>
                 </div>
               )}
             </div>

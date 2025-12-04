@@ -41,7 +41,7 @@ export default function ContentWrapperTG({
   setIsTGNavShown,
   sliderTG,
 }) {
-  const batchSize = 30
+  const batchSize = 50
   const [transformedContent, setTransformedContent] = useState('')
   const [isSliderMounted, setIsSliderMounted] = useState(false) // Track slider mount status
 
@@ -86,18 +86,10 @@ export default function ContentWrapperTG({
 
     if (parent && children?.edges?.length === 0) {
       return [
-        parent.node,
+        // parent.node,
         ...(parent.node.children?.edges?.map((post) => post.node) || []),
       ]
     }
-
-    if (parent && children?.edges?.length !== 0) {
-      return [
-        travelGuideBy,
-        ...(children.edges?.map((post) => post.node) || []),
-      ]
-    }
-
     return null
   }, [loading, travelGuideBy])
 
