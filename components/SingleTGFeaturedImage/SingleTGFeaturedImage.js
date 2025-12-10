@@ -79,6 +79,8 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
           mainLogo={mainLogo}
           databaseId={databaseId}
           uri={uri}
+          isTGNavShown={isTGNavShown}
+          setIsTGNavShown={setIsTGNavShown}
         />
       </div>
     </div>

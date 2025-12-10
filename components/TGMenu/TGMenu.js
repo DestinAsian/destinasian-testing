@@ -1,4 +1,5 @@
 import { useQuery } from '@apollo/client'
+import { useRouter } from 'next/router'
 import classNames from 'classnames/bind'
 import styles from './TGMenu.module.scss'
 import React from 'react'
@@ -10,8 +11,19 @@ const Button = dynamic(() => import('@/components/Button/Button'))
 
 let cx = classNames.bind(styles)
 
-export default function TGMenu({ mainLogo, secondaryLogo, databaseId, uri }) {
+export default function TGMenu({
+  mainLogo,
+  secondaryLogo,
+  databaseId,
+  uri,
+  isTGNavShown,
+  setIsTGNavShown,
+}) {
   const postsPerPage = 100
+
+  const router = useRouter()
+
+  const normalize = (path) => (path?.endsWith('/') ? path.slice(0, -1) : path)
 
   // Get Pages
   const { data, error, loading, fetchMore } = useQuery(GetTravelGuideMenu, {
@@ -119,7 +131,16 @@ export default function TGMenu({ mainLogo, secondaryLogo, databaseId, uri }) {
                   <div className={cx('content-wrapper')} key={post?.id}>
                     <div className={cx('title-wrapper')}>
                       {post?.uri && (
-                        <Link href={post?.uri}>
+                        <Link
+                          href={post?.uri}
+                          onClick={() => {
+                            if (
+                              normalize(router.asPath) === normalize(post?.uri)
+                            ) {
+                              setIsTGNavShown(false)
+                            }
+                          }}
+                        >
                           <h2 className={cx('title')}>{post?.title}</h2>
                         </Link>
                       )}
