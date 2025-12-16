@@ -217,7 +217,7 @@ export default function ContentWrapperTG({
         {/* Wrap header so style actually affects the DOM */}
         <div
           style={{
-            marginTop: isMobile ? `${sliderHeight}px` : '',
+            // marginTop: isMobile ? `${sliderHeight}px` : '',
             marginLeft: !isMobile ? `${sliderWidth}px` : '',
           }}
         >
