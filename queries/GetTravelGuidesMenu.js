@@ -39,7 +39,10 @@ export const GetTravelGuidesMenu = gql`
               }
               posts(
                 first: 5
-                where: { orderby: { field: DATE, order: DESC }, status: PUBLISH }
+                where: {
+                  orderby: { field: DATE, order: DESC }
+                  status: PUBLISH
+                }
               ) {
                 edges {
                   node {

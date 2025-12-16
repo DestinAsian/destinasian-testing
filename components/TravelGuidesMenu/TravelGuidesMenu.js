@@ -298,7 +298,7 @@ export default function TravelGuidesMenu(className) {
         className={cx('menu-wrapper')}
       >
         {items.map((item) => {
-          const { id, path, parentId, connectedNode } = item
+          const { id, path, parentId, label, cssClasses, connectedNode } = item
 
           // @TODO - Remove guard clause after ghost menu items are no longer appended to array.
           if (!item.hasOwnProperty('__typename')) {
@@ -327,12 +327,14 @@ export default function TravelGuidesMenu(className) {
                             : connectedNode?.node?.name &&
                               connectedNode?.node?.countryCode?.countryCode
                             ? connectedNode?.node?.countryCode?.countryCode
-                            : ''}
+                            : label}
                         </span>
                       </Link>
                     )}
                   </div>
-                  <div className={cx('title-divider')}>{'|'}</div>
+                  {cssClasses != 'no-divider' && (
+                    <div className={cx('title-divider')}>{'|'}</div>
+                  )}
                   <div className={cx('navigation-wrapper')}>
                     <div className={cx('navigation')}>
                       {connectedNode?.node?.children?.edges?.map((post) => (
