@@ -139,6 +139,7 @@ export const GetSearchResults = gql`
                 }
                 ... on Page {
                   title
+                  excerpt
                   date
                   passwordProtected {
                     onOff
