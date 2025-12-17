@@ -100,7 +100,7 @@ export default function DarkColorSecondaryHeader({
     },
     skip: searchQuery === '',
     fetchPolicy: 'cache-and-network',
-    nextFetchPolicy: "network-only",
+    nextFetchPolicy: 'network-only',
   })
 
   // Check if the search query is empty and no search results are loading, then hide the SearchResults component
@@ -151,7 +151,7 @@ export default function DarkColorSecondaryHeader({
         first: 10,
       },
       fetchPolicy: 'cache-and-network',
-      nextFetchPolicy: "network-only",
+      nextFetchPolicy: 'network-only',
     })
 
   const advertorials = latestPartnerContent?.advertorials ?? []
@@ -243,7 +243,7 @@ export default function DarkColorSecondaryHeader({
           {/* Honors Circle Button */}
           <button
             type="button"
-            className={cx('hc-menu-button', isHCNavShown ? 'active' : '')}
+            className={cx('menu-button', isHCNavShown ? 'active' : '')}
             onClick={() => {
               setIsHCNavShown(!isHCNavShown)
               isSearchBarShown ? setIsSearchBarShown(!isSearchBarShown) : null
@@ -256,25 +256,7 @@ export default function DarkColorSecondaryHeader({
             aria-controls={cx('hc-menu-wrapper')}
             aria-expanded={!isCustomNavShown}
           >
-            <div className={cx('hc-icon')}>
-              {!isHCNavShown ? (
-                <Image
-                  src={HCLogoWhite}
-                  alt="Honors Circle White Logo"
-                  fill
-                  sizes="100%"
-                  priority
-                />
-              ) : (
-                <Image
-                  src={HCLogoBlack}
-                  alt="Honors Circle Black Logo"
-                  fill
-                  sizes="100%"
-                  priority
-                />
-              )}
-            </div>
+            <div className={cx('menu-title')}>{'Honors Circle'}</div>
           </button>
           {/* Burger Button */}
           <button

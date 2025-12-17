@@ -232,7 +232,7 @@ export default function SecondaryHeader({
           <button
             type="button"
             className={cx(
-              'hc-menu-button',
+              'menu-button',
               isHCNavShown ? 'active' : '',
               isHCNavShown && !isScrolled && 'active-not-scrolled',
             )}
@@ -248,25 +248,7 @@ export default function SecondaryHeader({
             aria-controls={cx('hc-menu-wrapper')}
             aria-expanded={!isCustomNavShown}
           >
-            <div className={cx('hc-icon')}>
-              {!isHCNavShown ? (
-                <Image
-                  src={HCLogoBlack}
-                  alt="Honors Circle Black Logo"
-                  fill
-                  sizes="100%"
-                  priority
-                />
-              ) : (
-                <Image
-                  src={HCLogoWhite}
-                  alt="Honors Circle White Logo"
-                  fill
-                  sizes="100%"
-                  priority
-                />
-              )}
-            </div>
+            <div className={cx('menu-title')}>{'Honors Circle'}</div>
           </button>
           {/* Burger Button */}
           <button

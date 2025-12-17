@@ -87,18 +87,6 @@ export default function BurgerFullMenu({
             />
           </div>
           <div className={cx('second-wrapper')}>
-            {/* Third Menu {Luxe List Menu} */}
-            <NavigationMenu
-              className={cx(['third-navigation'])}
-              menuItems={thirdMenuItems}
-            />
-            {/* Readers' Choice Awards Menu */}
-            <NavigationMenu
-              className={cx('fourth-navigation')}
-              menuItems={fourthMenuItems}
-            />
-          </div>
-          <div className={cx('third-wrapper')}>
             {/* Latest Travel Stories */}
             {latestStories?.length !== 0 && (
               <nav className={cx('latest-stories')}>
@@ -117,14 +105,7 @@ export default function BurgerFullMenu({
               </nav>
             )}
           </div>
-          <div className={cx('fourth-wrapper')}>
-            {/* Destinations Menu */}
-            <NavigationMenu
-              className={cx('primary-navigation')}
-              menuItems={primaryMenuItems}
-            />
-          </div>
-          <div className={cx('fifth-wrapper')}>
+          <div className={cx('third-wrapper')}>
             <span className={cx('menu-name')}>{'Partner Content Stories'}</span>
             <div className={cx('column-wrapper')}>
               <div className={cx('left-column')}>
@@ -158,6 +139,25 @@ export default function BurgerFullMenu({
                 />
               </div>
             </div>
+          </div>
+          <div className={cx('fourth-wrapper')}>
+            {/* Destinations Menu */}
+            <NavigationMenu
+              className={cx('primary-navigation')}
+              menuItems={primaryMenuItems}
+            />
+          </div>
+          <div className={cx('fifth-wrapper')}>
+            {/* Third Menu {Luxe List Menu} */}
+            <NavigationMenu
+              className={cx(['third-navigation'])}
+              menuItems={thirdMenuItems}
+            />
+            {/* Readers' Choice Awards Menu */}
+            <NavigationMenu
+              className={cx('fourth-navigation')}
+              menuItems={fourthMenuItems}
+            />
           </div>
           <div className={cx('sixth-wrapper')}>
             <div className={cx('socmed-wrapper')}>

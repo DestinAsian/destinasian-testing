@@ -329,7 +329,7 @@ export default function CategorySecondaryHeader({
           <button
             type="button"
             className={cx(
-              'hc-menu-button',
+              'menu-button',
               isHCNavShown ? 'active' : '',
               isHCNavShown && !isScrolled && 'active-not-scrolled',
             )}
@@ -345,7 +345,8 @@ export default function CategorySecondaryHeader({
             aria-controls={cx('hc-menu-wrapper')}
             aria-expanded={!isCustomNavShown}
           >
-            <div className={cx('hc-icon')}>
+            <div className={cx('menu-title')}>{'Honors Circle'}</div>
+            {/* <div className={cx('hc-icon')}>
               {!isHCNavShown ? (
                 <Image
                   src={HCLogoBlack}
@@ -363,7 +364,7 @@ export default function CategorySecondaryHeader({
                   priority
                 />
               )}
-            </div>
+            </div> */}
           </button>
           {/* Burger Button */}
           <button
