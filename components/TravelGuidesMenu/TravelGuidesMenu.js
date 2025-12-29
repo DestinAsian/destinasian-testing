@@ -1,13 +1,13 @@
 import { useQuery, useApolloClient } from '@apollo/client'
-import { FOOTER_LOCATION, PRIMARY_LOCATION } from '../../constants/menus'
+import { FOOTER_LOCATION, PRIMARY_LOCATION } from '@/constants/menus'
 import React, { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 import classNames from 'classnames/bind'
 import styles from './TravelGuidesMenu.module.scss'
-import flatListToHierarchical from '../../utilities/flatListToHierarchical'
-import { GetPrimaryMenu } from '../../queries/GetPrimaryMenu'
-import { GetTravelGuides } from '../../queries/GetTravelGuides'
-import { GetTravelGuidesMenu } from '../../queries/GetTravelGuidesMenu'
+import flatListToHierarchical from '@/utilities/flatListToHierarchical'
+import { GetPrimaryMenu } from '@/queries/GetPrimaryMenu'
+import { GetTravelGuides } from '@/queries/GetTravelGuides'
+import { GetTravelGuidesMenu } from '@/queries/GetTravelGuidesMenu'
 
 let cx = classNames.bind(styles)
 

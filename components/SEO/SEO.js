@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { GetFavicon } from '../../queries/GetFavicon'
+import { GetFavicon } from '@/queries/GetFavicon'
 import { useQuery } from '@apollo/client'
 
 /**

@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client'
 import React, { useState, useEffect } from 'react'
 import className from 'classnames/bind'
 import styles from './ContentWrapperContestFrontPage.module.scss'
-import { GetContestPages } from '../../queries/GetContestPages'
+import { GetContestPages } from '@/queries/GetContestPages'
 import dynamic from 'next/dynamic'
 // Import Components
 const Button = dynamic(() => import('@/components/Button/Button'))

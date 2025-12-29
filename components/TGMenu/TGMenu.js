@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import classNames from 'classnames/bind'
 import styles from './TGMenu.module.scss'
 import React from 'react'
-import { GetTravelGuideMenu } from '../../queries/GetTravelGuideMenu'
+import { GetTravelGuideMenu } from '@/queries/GetTravelGuideMenu'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
 // Import Components

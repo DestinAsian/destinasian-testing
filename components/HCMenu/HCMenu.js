@@ -1,10 +1,10 @@
 import { useQuery } from '@apollo/client'
-import { HC_LOCATION } from '../../constants/menus'
+import { HC_LOCATION } from '@/constants/menus'
 import React, { useMemo } from 'react'
 import Link from 'next/link'
 import classNames from 'classnames/bind'
 import styles from './HCMenu.module.scss'
-import flatListToHierarchical from '../../utilities/flatListToHierarchical'
+import flatListToHierarchical from '@/utilities/flatListToHierarchical'
 import { GetHCMenu } from '@/queries/GetHCMenu'
 
 let cx = classNames.bind(styles)

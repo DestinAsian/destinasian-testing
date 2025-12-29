@@ -1,13 +1,13 @@
 import className from 'classnames/bind'
 import styles from './ContentWrapperLL.module.scss'
-import { GetLuxeListPagination } from '../../queries/GetLuxeListPagination'
+import { GetLuxeListPagination } from '@/queries/GetLuxeListPagination'
 import { useQuery } from '@apollo/client'
 import React, { useEffect, useState, useRef, useLayoutEffect } from 'react'
 import { useMediaQuery } from 'react-responsive'
 import { renderToStaticMarkup } from 'react-dom/server'
 import Image from 'next/image'
 import Link from 'next/link'
-import { BACKEND_URL } from '../../constants/backendUrl'
+import { BACKEND_URL } from '@/constants/backendUrl'
 import dynamic from 'next/dynamic'
 // Import Components
 const SingleLLSlider = dynamic(() =>

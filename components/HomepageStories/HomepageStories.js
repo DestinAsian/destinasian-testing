@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react'
 import classNames from 'classnames/bind'
 import styles from './HomepageStories.module.scss'
 import { useQuery } from '@apollo/client'
-import { GetHomepageStories } from '../../queries/GetHomepageStories'
-import { GetHomepageBannerAds } from '../../queries/GetHomepageBannerAds'
-import { GetAdvertorialHomepageStories } from '../../queries/GetAdvertorialHomepageStories'
+import { GetHomepageStories } from '@/queries/GetHomepageStories'
+import { GetHomepageBannerAds } from '@/queries/GetHomepageBannerAds'
+import { GetAdvertorialHomepageStories } from '@/queries/GetAdvertorialHomepageStories'
 import dynamic from 'next/dynamic'
 // Import Components
 const Button = dynamic(() => import('@/components/Button/Button'))

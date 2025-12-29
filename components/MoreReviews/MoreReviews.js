@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client'
 import React, { useState, useEffect } from 'react'
 import classNames from 'classnames/bind'
 import styles from './MoreReviews.module.scss'
-import { GetMoreReviews } from '../../queries/GetMoreReviews'
+import { GetMoreReviews } from '@/queries/GetMoreReviews'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
 // Import Components

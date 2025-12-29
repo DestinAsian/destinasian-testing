@@ -208,6 +208,12 @@
     }
   }
 
+  .menu-button {
+    @media (min-width: $breakpoint-extra-small) {
+      min-width: auto;
+    }
+  }
+
   .search-menu-button {
     min-width: 1rem;
 

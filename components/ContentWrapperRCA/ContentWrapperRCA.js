@@ -4,9 +4,9 @@ import React, { useEffect, useState, useRef } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import Image from 'next/image'
 import Link from 'next/link'
-import { BACKEND_URL } from '../../constants/backendUrl'
+import { BACKEND_URL } from '@/constants/backendUrl'
 import { useQuery } from '@apollo/client'
-import { GetRCAPagination } from '../../queries/GetRCAPagination'
+import { GetRCAPagination } from '@/queries/GetRCAPagination'
 import dynamic from 'next/dynamic'
 // Import Components
 const SingleRCASlider = dynamic(() =>

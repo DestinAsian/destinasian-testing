@@ -3,7 +3,7 @@ import styles from './CategoryEntryHeader.module.scss'
 import { useEffect, useState } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import Image from 'next/image'
-import { BACKEND_URL } from '../../constants/backendUrl'
+import { BACKEND_URL } from '@/constants/backendUrl'
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react'
 import dynamic from 'next/dynamic'

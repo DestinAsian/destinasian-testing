@@ -1,10 +1,10 @@
 import className from 'classnames/bind'
 import styles from './CategoryIcon.module.scss'
 
-import attractionIcon from '../../public/icons/icon-attraction.png'
-import diningIcon from '../../public/icons/icon-dining.png'
-import hotelIcon from '../../public/icons/icon-hotel.png'
-import nightlifeIcon from '../../public/icons/icon-nightlife.png'
+import attractionIcon from '@/public/icons/icon-attraction.png'
+import diningIcon from '@/public/icons/icon-dining.png'
+import hotelIcon from '@/public/icons/icon-hotel.png'
+import nightlifeIcon from '@/public/icons/icon-nightlife.png'
 import Image from 'next/image'
 
 let cx = className.bind(styles)

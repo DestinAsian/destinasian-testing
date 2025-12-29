@@ -2,7 +2,7 @@ import classNames from 'classnames/bind'
 import { gql } from '@apollo/client'
 import styles from './NavigationMenu.module.scss'
 import stylesFromWP from './NavigationMenuClassesFromWP.module.scss'
-import flatListToHierarchical from '../../utilities/flatListToHierarchical'
+import flatListToHierarchical from '@/utilities/flatListToHierarchical'
 import Link from 'next/link'
 
 let cx = classNames.bind(styles)

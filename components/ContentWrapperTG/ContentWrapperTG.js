@@ -1,6 +1,6 @@
 import className from 'classnames/bind'
 import styles from './ContentWrapperTG.module.scss'
-import { GetTravelGuidePagination } from '../../queries/GetTravelGuidePagination'
+import { GetTravelGuidePagination } from '@/queries/GetTravelGuidePagination'
 import { useQuery } from '@apollo/client'
 import React, {
   useEffect,
@@ -13,7 +13,7 @@ import { useMediaQuery } from 'react-responsive'
 import { renderToStaticMarkup } from 'react-dom/server'
 import Image from 'next/image'
 import Link from 'next/link'
-import { BACKEND_URL } from '../../constants/backendUrl'
+import { BACKEND_URL } from '@/constants/backendUrl'
 import dynamic from 'next/dynamic'
 // Import Components
 const SingleTGSlider = dynamic(() =>

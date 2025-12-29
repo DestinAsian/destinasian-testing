@@ -3,7 +3,7 @@ import styles from './TabsEditor.module.scss'
 import { renderToStaticMarkup } from 'react-dom/server'
 import Image from 'next/image'
 import React, { useState, useEffect, useRef } from 'react'
-import { BACKEND_URL } from '../../constants/backendUrl'
+import { BACKEND_URL } from '@/constants/backendUrl'
 
 let cx = className.bind(styles)
 

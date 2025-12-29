@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client'
 import classNames from 'classnames/bind'
 import styles from './RCAFullMenu.module.scss'
-import { GetRCAMenu } from '../../queries/GetRCAMenu'
+import { GetRCAMenu } from '@/queries/GetRCAMenu'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
 // Import Components

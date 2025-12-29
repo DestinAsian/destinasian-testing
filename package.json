@@ -19,6 +19,7 @@
     "flowbite": "^2.4.1",
     "framer-motion": "^11.1.9",
     "graphql": "^16.6.0",
+    "graphql-request": "^7.4.0",
     "js-cookie": "^3.0.5",
     "lite-youtube-embed": "^0.3.2",
     "next": "^14.2.1",
@@ -31,7 +32,8 @@
     "react-text-to-speech": "^0.19.5",
     "sass": "^1.54.9",
     "sharp": "^0.34.2",
-    "swiper": "^9.2.4"
+    "swiper": "^9.2.4",
+    "swr": "^2.3.8"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.14",
