@@ -179,6 +179,12 @@
     padding: 1rem 0;
   }
 
+  ul {
+    li {
+      list-style-type: disc;
+    }
+  }
+
   a {
     font-family: 'Chronicle Display A', 'Chronicle Display B';
     font-weight: 600;
