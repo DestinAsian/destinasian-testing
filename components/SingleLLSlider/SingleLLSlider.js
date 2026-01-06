@@ -65,7 +65,7 @@ export default function SingleLLSlider({
         style={{ display: images[0] ? 'block' : 'none' }}
       >
         {images?.map((image, index) => (
-          <div className="post-swiper-slide">
+          <div key={index} className="post-swiper-slide">
             {image && (
               <SwiperSlide key={index}>
                 <Image

@@ -1,10 +1,8 @@
 import classNames from 'classnames/bind'
 import styles from './BurgerFullMenu.module.scss'
-import { useQuery } from '@apollo/client'
 import { useState } from 'react'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
-import { GetLatestPartnerContent } from '@/queries/GetLatestPartnerContent'
 // Import Components
 const NavigationMenu = dynamic(() =>
   import('@/components/NavigationMenu/NavigationMenu'),

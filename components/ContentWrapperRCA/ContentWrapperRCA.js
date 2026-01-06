@@ -367,7 +367,7 @@ export default function ContentWrapperRCA({
                     <path
                       d="M52 8L15 45L52 82"
                       stroke="none"
-                      stroke-width="20"
+                      strokeWidth="20"
                     />
                   </svg>
                 </Link>
@@ -450,7 +450,7 @@ export default function ContentWrapperRCA({
                     <path
                       d="M8 82L45 45L8.00001 8"
                       stroke="none"
-                      stroke-width="20"
+                      strokeWidth="20"
                     />
                   </svg>
                 </Link>

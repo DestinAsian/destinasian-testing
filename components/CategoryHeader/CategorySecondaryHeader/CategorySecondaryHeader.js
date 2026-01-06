@@ -74,9 +74,6 @@ export default function CategorySecondaryHeader({
   setIsBurgerNavShown,
   isScrolled,
 }) {
-  // don’t render anything until after menus loading
-  if (menusLoading) return null
-
   const [currentUrl, setCurrentUrl] = useState('')
   const [categoryUrl, setCategoryUrl] = useState('')
   const [isMainNavShown, setIsMainNavShown] = useState(false)

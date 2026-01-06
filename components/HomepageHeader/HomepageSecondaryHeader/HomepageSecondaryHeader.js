@@ -7,9 +7,6 @@ import { CUSTOM_DATABASE_ID } from '@/constants/customDatabaseId'
 import { GetSearchResults } from '@/queries/GetSearchResults'
 import { GetLatestPartnerContent } from '@/queries/GetLatestPartnerContent'
 import { FaSearch } from 'react-icons/fa'
-import Image from 'next/image'
-import HCLogoBlack from '@/public/logo/HC-Logo-Black.png'
-import HCLogoWhite from '@/public/logo/HC-Logo-White.png'
 import dynamic from 'next/dynamic'
 // Import Components
 const SearchInput = dynamic(() =>
@@ -17,9 +14,6 @@ const SearchInput = dynamic(() =>
 )
 const SearchResults = dynamic(() =>
   import('@/components/SearchResults/SearchResults'),
-)
-const CustomFullMenu = dynamic(() =>
-  import('@/components/CustomFullMenu/CustomFullMenu'),
 )
 const LLMenu = dynamic(() => import('@/components/LLMenu/LLMenu'))
 const TravelGuidesMenu = dynamic(() =>
@@ -58,9 +52,6 @@ export default function HomepageSecondaryHeader({
   setIsBurgerNavShown,
   isScrolled,
 }) {
-  // don’t render anything until after menus loading
-  if (menusLoading) return null
-
   // Posts for Search Function
   const postsPerPage = 1000
 
@@ -98,7 +89,7 @@ export default function HomepageSecondaryHeader({
     },
     skip: searchQuery === '',
     fetchPolicy: 'cache-and-network',
-    nextFetchPolicy: "network-only",
+    nextFetchPolicy: 'network-only',
   })
 
   // Check if the search query is empty and no search results are loading, then hide the SearchResults component
@@ -149,7 +140,7 @@ export default function HomepageSecondaryHeader({
         first: 10,
       },
       fetchPolicy: 'cache-and-network',
-      nextFetchPolicy: "network-only",
+      nextFetchPolicy: 'network-only',
     })
 
   const advertorials = latestPartnerContent?.advertorials ?? []

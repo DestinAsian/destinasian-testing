@@ -60,9 +60,6 @@ export default function DarkColorSecondaryHeader({
   // toggleAutoplay,
   customClassName,
 }) {
-  // don’t render anything until after menus loading
-  if (menusLoading) return null
-
   // Posts for Search Function
   const postsPerPage = 1000
 

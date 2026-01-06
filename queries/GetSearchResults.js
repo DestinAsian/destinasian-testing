@@ -13,6 +13,7 @@ export const GetSearchResults = gql`
       }
       edges {
         node {
+          id
           uri
           databaseId
           name
@@ -86,6 +87,7 @@ export const GetSearchResults = gql`
           ) {
             edges {
               node {
+                id
                 uri
                 databaseId
                 contentType {

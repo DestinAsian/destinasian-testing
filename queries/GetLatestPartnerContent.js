@@ -8,6 +8,7 @@ export const GetLatestPartnerContent = gql`
     ) {
       edges {
         node {
+          id
           title
           excerpt
           uri

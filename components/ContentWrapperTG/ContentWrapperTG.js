@@ -253,7 +253,7 @@ export default function ContentWrapperTG({
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  <path d="M52 8L15 45L52 82" stroke="none" stroke-width="20" />
+                  <path d="M52 8L15 45L52 82" stroke="none" strokeWidth="20" />
                 </svg>
               </Link>
             )}
@@ -410,7 +410,7 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
                   <path
                     d="M8 82L45 45L8.00001 8"
                     stroke="none"
-                    stroke-width="20"
+                    strokeWidth="20"
                   />
                 </svg>
               </Link>

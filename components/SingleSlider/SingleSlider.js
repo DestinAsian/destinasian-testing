@@ -44,7 +44,7 @@ export default function SingleSlider({ images }) {
         style={{ display: images[0] ? 'block' : 'none' }}
       >
         {images?.map((image, index) => (
-          <div className="post-swiper-slide">
+          <div key={index} className="post-swiper-slide">
             {image[0] && (
               <SwiperSlide key={index}>
                 <Image
