@@ -2,93 +2,32 @@ import { gql } from '@apollo/client'
 
 export const GetSearchResults = gql`
   query GetSearchResults($first: Int!, $after: String, $search: String) {
-    categories(
-      first: $first
-      after: $after
-      where: { search: $search, hideEmpty: true }
-    ) {
-      pageInfo {
-        hasNextPage
-        endCursor
-      }
-      edges {
-        node {
-          id
-          uri
-          databaseId
-          name
-          description
-          parent {
-            node {
-              name
-            }
-          }
-          children {
-            edges {
-              node {
-                name
-                uri
-              }
-            }
-          }
-          categoryImages {
-            changeToSlider
-            categoryImages {
-              sourceUrl
-            }
-            categorySlide1 {
-              sourceUrl
-            }
-          }
-          destinationGuides {
-            guidesTitle
-          }
-          contentNodes(first: 10, where: { contentTypes: POST }) {
-            edges {
-              node {
-                ... on Post {
-                  title
-                  uri
-                }
-              }
-            }
-          }
-        }
-      }
-    }
     tags(
       first: $first
       after: $after
       where: { search: $search, hideEmpty: true }
     ) {
-      pageInfo {
-        hasNextPage
-        endCursor
-      }
       edges {
         node {
           contentNodes(
+            first: 1000
             where: {
               status: PUBLISH
               contentTypes: [
                 POST
-                PAGE
                 EDITORIAL
                 ADVERTORIAL
-                HONORS_CIRCLE
-                UPDATE
-                CONTEST
                 LUXE_LIST
                 READERS_CHOICE_AWARD
-                LUXURY_TRAVEL
+                TRAVEL_GUIDES
               ]
             }
-            first: $first
           ) {
             edges {
               node {
                 id
                 uri
+                date
                 databaseId
                 contentType {
                   node {
@@ -99,7 +38,6 @@ export const GetSearchResults = gql`
                 ... on Post {
                   title
                   excerpt
-                  date
                   passwordProtected {
                     onOff
                   }
@@ -107,13 +45,9 @@ export const GetSearchResults = gql`
                     node {
                       sourceUrl
                       altText
-                      mediaDetails {
-                        width
-                        height
-                      }
                     }
                   }
-                  categories(where: { childless: true }) {
+                  categories(first: 10, where: { childless: true }) {
                     edges {
                       node {
                         name
@@ -139,46 +73,9 @@ export const GetSearchResults = gql`
                     locationUrl
                   }
                 }
-                ... on Page {
-                  title
-                  excerpt
-                  date
-                  passwordProtected {
-                    onOff
-                  }
-                  featuredImage {
-                    node {
-                      sourceUrl
-                      altText
-                      mediaDetails {
-                        width
-                        height
-                      }
-                    }
-                  }
-                }
-                ... on HonorsCircle {
-                  title
-                  excerpt
-                  date
-                  passwordProtected {
-                    onOff
-                  }
-                  featuredImage {
-                    node {
-                      sourceUrl
-                      altText
-                      mediaDetails {
-                        width
-                        height
-                      }
-                    }
-                  }
-                }
                 ... on Editorial {
                   title
                   excerpt
-                  date
                   passwordProtected {
                     onOff
                   }
@@ -186,36 +83,6 @@ export const GetSearchResults = gql`
                     node {
                       sourceUrl
                       altText
-                      mediaDetails {
-                        width
-                        height
-                      }
-                    }
-                  }
-                  categories {
-                    edges {
-                      node {
-                        name
-                        uri
-                      }
-                    }
-                  }
-                }
-                ... on Update {
-                  title
-                  excerpt
-                  date
-                  passwordProtected {
-                    onOff
-                  }
-                  featuredImage {
-                    node {
-                      sourceUrl
-                      altText
-                      mediaDetails {
-                        width
-                        height
-                      }
                     }
                   }
                   categories {
@@ -230,7 +97,6 @@ export const GetSearchResults = gql`
                 ... on Advertorial {
                   title
                   excerpt
-                  date
                   passwordProtected {
                     onOff
                   }
@@ -238,17 +104,12 @@ export const GetSearchResults = gql`
                     node {
                       sourceUrl
                       altText
-                      mediaDetails {
-                        width
-                        height
-                      }
                     }
                   }
                 }
                 ... on LuxeList {
                   title
                   excerpt
-                  date
                   passwordProtected {
                     onOff
                   }
@@ -256,35 +117,12 @@ export const GetSearchResults = gql`
                     node {
                       sourceUrl
                       altText
-                      mediaDetails {
-                        width
-                        height
-                      }
-                    }
-                  }
-                }
-                ... on Contest {
-                  title
-                  excerpt
-                  date
-                  passwordProtected {
-                    onOff
-                  }
-                  featuredImage {
-                    node {
-                      sourceUrl
-                      altText
-                      mediaDetails {
-                        width
-                        height
-                      }
                     }
                   }
                 }
                 ... on ReadersChoiceAward {
                   title
                   excerpt
-                  date
                   passwordProtected {
                     onOff
                   }
@@ -292,30 +130,18 @@ export const GetSearchResults = gql`
                     node {
                       sourceUrl
                       altText
-                      mediaDetails {
-                        width
-                        height
-                      }
                     }
                   }
                 }
-                ... on LuxuryTravel {
+                ... on TravelGuide {
                   title
                   excerpt
-                  date
-                  passwordProtected {
-                    onOff
-                  }
                   featuredImage {
                     node {
                       sourceUrl
                       altText
-                      mediaDetails {
-                        width
-                        height
-                      }
                     }
-                  }
+                  }                  
                 }
               }
             }

@@ -3,15 +3,15 @@ import className from 'classnames/bind'
 import styles from './SearchResults.module.scss'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import { useMemo } from 'react'
 import dynamic from 'next/dynamic'
 // Import Components
 const CategoryIcon = dynamic(() =>
   import('@/components/CategoryIcon/CategoryIcon'),
 )
-const FeaturedImage = dynamic(() =>
-  import('@/components/FeaturedImage/FeaturedImage'),
-)
+// const FeaturedImage = dynamic(() =>
+//   import('@/components/FeaturedImage/FeaturedImage'),
+// )
 const LocationIcon = dynamic(() =>
   import('@/components/LocationIcon/LocationIcon'),
 )
@@ -19,35 +19,31 @@ const PostInfo = dynamic(() => import('@/components/PostInfo/PostInfo'))
 
 let cx = className.bind(styles)
 
-/**
- * Renders the search results list.
- *
- * @param {Props} props The props object.
- * @param {object[]} props.searchResults The search results list.
- * @param {boolean} props.isLoading Whether the search results are loading.
- * @returns {React.ReactElement} The SearchResults component.
- */
+/* ---------------- helpers ---------------- */
+
+const CONTENT_META = {
+  posts: (node) => ({
+    label: `${node.categories?.edges?.[0]?.node?.parent?.node?.name ?? ''} ${
+      node.categories?.edges?.[0]?.node?.name ?? ''
+    }`,
+    url: node.categories?.edges?.[0]?.node?.uri,
+  }),
+  Editorials: (node) => ({
+    label: node.categories?.edges?.[0]?.node?.name,
+    url: node.categories?.edges?.[0]?.node?.uri,
+  }),
+  Advertorials: () => ({ label: 'Partner Content' }),
+  LuxeLists: () => ({ label: 'Luxe List' }),
+  ReadersChoiceAwards: () => ({ label: 'Readers’ Choice Awards' }),
+  TravelGuides: () => ({ label: 'Travel Guides' }),
+}
+
 export default function SearchResults({ searchResults, isLoading }) {
-  const [filteredResults, setFilteredResults] = useState([])
+  const results = useMemo(() => searchResults ?? [], [searchResults])
 
-  useEffect(() => {
-    if (searchResults && searchResults.length) {
-      const categoryNodes = searchResults.filter(
-        (node) =>
-          node?.__typename !== 'Category' &&
-          node?.contentNodes?.edges?.length !== 0,
-      )
-      setFilteredResults(categoryNodes)
-    }
-  }, [searchResults])
+  if (!isLoading && searchResults === undefined) return null
 
-  // If there are no results, or are loading, return null.
-  if (!isLoading && searchResults === undefined) {
-    return null
-  }
-
-  // If there are no results, return a message.
-  if (!isLoading && !filteredResults?.length) {
+  if (!isLoading && !results.length) {
     return (
       <div className={styles['no-results']}>
         <FaSearch className={styles['no-results-icon']} />
@@ -56,7 +52,6 @@ export default function SearchResults({ searchResults, isLoading }) {
     )
   }
 
-  // If loading is running, return a Loading screen
   if (isLoading) {
     return (
       <>
@@ -84,415 +79,112 @@ export default function SearchResults({ searchResults, isLoading }) {
     )
   }
 
-  const calculateTrimmedExcerpt = (excerpt, uri, title) => {
-    const MAX_EXCERPT_LENGTH = 100 // You can adjust this value according to your needs
-
-    let trimmedExcerpt = excerpt?.substring(0, MAX_EXCERPT_LENGTH)
-    const lastSpaceIndex = trimmedExcerpt?.lastIndexOf(' ')
-
-    if (lastSpaceIndex !== -1) {
-      trimmedExcerpt = trimmedExcerpt?.substring(0, lastSpaceIndex) + '...'
-    }
-
-    return `${trimmedExcerpt} <a class="more-link" href="${uri}">Continue reading <span class="screen-reader-text">${title}</span></a>`
-  }
-
   return (
-    <>
-      <div className={cx('component')}>
-        {filteredResults?.map((node) => (
-          <>
-            {node?.__typename === 'Category' ? (
-              // Search Result for Categories
-              <div className={cx('content-wrapper')}>
-                <div className={cx('left-wrapper')}>
-                  {node?.categoryImages?.changeToSlider === null &&
-                    node?.categoryImages?.categoryImages?.sourceUrl &&
-                    node?.uri && (
-                      <Link href={node?.uri}>
-                        <div className={cx('wrapper-image')}>
-                          <div className={cx('featured-image')}>
-                            <Image
-                              src={
-                                node?.categoryImages?.categoryImages?.sourceUrl
-                              }
-                              alt={'Category Images ' + node?.title}
-                              fill
-                              sizes="100%"
-                              priority
-                            />
-                          </div>
-                        </div>
-                      </Link>
-                    )}
-                  {node?.categoryImages?.changeToSlider === 'yes' &&
-                    node?.categoryImages?.categorySlide1?.sourceUrl &&
-                    node?.uri && (
-                      <Link href={node?.uri}>
-                        <div className={cx('wrapper-image')}>
-                          <div className={cx('featured-image')}>
-                            <Image
-                              src={
-                                node?.categoryImages?.categorySlide1?.sourceUrl
-                              }
-                              alt={'Category Images ' + node?.title}
-                              fill
-                              sizes="100%"
-                              priority
-                            />
-                          </div>
-                        </div>
-                      </Link>
-                    )}
-                </div>
+    <div className={cx('component')}>
+      {results.map((node) => {
+        const type = node?.contentType?.node?.graphqlPluralName
+        const meta = CONTENT_META[type]?.(node)
 
-                <div className={cx('right-wrapper')}>
-                  <div key={node?.databaseId} className={cx('result')}>
-                    {node?.children?.edges?.length !== 0 && (
-                      <div className={cx('title-wrapper')}>
-                        <Link href={node?.uri}>
-                          <h2 className={cx('title')}>{node?.name}</h2>
-                        </Link>
-                      </div>
-                    )}
-                    {node?.children?.edges?.length === 0 && (
-                      <div className={cx('title-wrapper')}>
-                        <Link href={node?.uri}>
-                          <h2 className={cx('title')}>
-                            {(node?.parent?.node?.name
-                              ? node?.parent?.node?.name
-                              : '') +
-                              ' ' +
-                              node?.name}
-                          </h2>
-                        </Link>
-                      </div>
-                    )}
-                    {node?.description && node?.uri && (
-                      <Link href={node?.uri}>
-                        <p
-                          dangerouslySetInnerHTML={{
-                            __html: calculateTrimmedExcerpt(
-                              node?.description,
-                              node?.uri,
-                              node?.title,
-                            ),
-                          }}
-                        />
+        return (
+          <div key={node.id} className={cx('content-wrapper')}>
+            {/* LEFT */}
+            <div className={cx('left-wrapper')}>
+              {node?.featuredImage?.node && node?.uri && (
+                <Link href={node.uri}>
+                  <div className={cx('wrapper-image')}>
+                    <Image
+                      src={node?.featuredImage?.node?.sourceUrl}
+                      alt={
+                        node?.featuredImage?.node?.altText
+                          ? node?.featuredImage?.node?.altText
+                          : 'Search Results Image'
+                      }
+                      className={cx('featured-image')}
+                      fill
+                      sizes="100%"
+                      priority
+                    />
+                  </div>
+                </Link>
+              )}
+            </div>
+
+            {/* RIGHT */}
+            <div className={cx('right-wrapper')}>
+              <div className={cx('result')}>
+                {/* META */}
+                {type !== 'pages' && meta?.label && (
+                  <div className={cx('category-wrapper')}>
+                    {meta.url ? (
+                      <Link href={meta.url}>
+                        <h2 className={cx('meta')}>{meta.label}</h2>
                       </Link>
-                    )}
-                    {node?.children?.edges?.length !== 0 ? (
-                      // Main Guides Category posts
-                      <div className={cx('main-category-post')}>
-                        {node?.children?.edges?.map((post, index, array) => (
-                          <div
-                            key={index}
-                            className={cx('main-category-post-wrapper')}
-                          >
-                            <Link href={post?.node?.uri}>
-                              <div className={cx('category-post-wrapper')}>
-                                <p className={cx('category-post')}>
-                                  {post?.node?.name}
-                                </p>
-                              </div>
-                            </Link>
-                            {/* Border gap */}
-                            {index !== array.length - 1 && (
-                              <div className={cx('border-gap')}></div>
-                            )}
-                          </div>
-                        ))}
-                      </div>
                     ) : (
-                      // Sub Guides Category posts
-                      <div className={cx('sub-category-post')}>
-                        {node?.contentNodes?.edges?.map(
-                          (post, index, array) => (
-                            <div
-                              key={index}
-                              className={cx('sub-category-post-wrapper')}
-                            >
-                              <Link href={post?.node?.uri}>
-                                <div className={cx('category-post-wrapper')}>
-                                  <p className={cx('category-post')}>
-                                    {post?.node?.title}
-                                  </p>
-                                </div>
-                              </Link>
-                              {index !== array.length - 1 && (
-                                <div className={cx('border-gap')}></div>
-                              )}
-                            </div>
-                          ),
-                        )}
-                      </div>
+                      <h2 className={cx('meta')}>{meta.label}</h2>
                     )}
                   </div>
-                </div>
-              </div>
-            ) : (
-              // Search Result for Tags
-              <div className={cx('content-wrapper')}>
-                <div className={cx('left-wrapper')}>
-                  {node?.featuredImage?.node && node?.uri && (
-                    <Link href={node?.uri}>
-                      <div className={cx('wrapper-image')}>
-                        <FeaturedImage
-                          image={node?.featuredImage?.node}
-                          className={cx('featured-image')}
-                        />
-                      </div>
+                )}
+
+                {/* TITLE */}
+                {node?.uri && node?.title && (
+                  <div className={cx('title-wrapper')}>
+                    <Link href={node.uri}>
+                      <h2 className={cx('title')}>{node.title}</h2>
                     </Link>
+                  </div>
+                )}
+
+                {/* DATE + ICONS */}
+                <div className={cx('meta-wrapper')}>
+                  {node?.date && (
+                    <PostInfo date={node.date} className={cx('meta')} />
+                  )}
+                  {node?.acfCategoryIcon && node?.acfLocationIcon && (
+                    <div className={cx('icon-wrapper')}>
+                      <CategoryIcon
+                        chooseYourCategory={
+                          node?.acfCategoryIcon?.chooseYourCategory
+                        }
+                        chooseIcon={
+                          node?.acfCategoryIcon?.chooseIcon?.mediaItemUrl
+                        }
+                        categoryLabel={node?.acfCategoryIcon?.categoryLabel}
+                      />
+                      <LocationIcon
+                        locationValidation={
+                          node?.acfLocationIcon?.fieldGroupName
+                        }
+                        locationLabel={node?.acfLocationIcon?.locationLabel}
+                        locationUrl={node?.acfLocationIcon?.locationUrl}
+                      />
+                    </div>
                   )}
                 </div>
 
-                <div className={cx('right-wrapper')}>
-                  <div key={node?.databaseId} className={cx('result')}>
-                    {/* No Category in Pages */}
-                    {node?.contentType?.node?.graphqlPluralName ==
-                    'pages' ? null : (
-                      <div className={cx('category-wrapper')}>
-                        {/* Destinations */}
-                        {node?.contentType?.node?.graphqlPluralName ==
-                          'Editorials' &&
-                          node?.categories?.edges[0]?.node?.uri && (
-                            <Link href={node?.categories?.edges[0]?.node?.uri}>
-                              <h2 className={cx('meta')}>
-                                {node?.categories?.edges[0]?.node?.name}
-                              </h2>
-                            </Link>
-                          )}
-
-                        {/* Destination Guides */}
-                        {node?.contentType?.node?.graphqlPluralName ==
-                          'posts' &&
-                          node?.categories?.edges[0]?.node?.uri && (
-                            <Link href={node?.categories?.edges[0]?.node?.uri}>
-                              <h2 className={cx('meta')}>
-                                {
-                                  node?.categories?.edges[0]?.node?.parent?.node
-                                    ?.name
-                                }{' '}
-                                {node?.categories?.edges[0]?.node?.name}
-                              </h2>
-                            </Link>
-                          )}
-
-                        {/* Update */}
-                        {node?.contentType?.node?.graphqlPluralName ==
-                          'Updates' &&
-                          node?.categories?.edges[0]?.node?.uri && (
-                            <Link href={node?.categories?.edges[0]?.node?.uri}>
-                              <h2 className={cx('meta')}>
-                                {
-                                  node?.categories?.edges[0]?.node?.parent?.node
-                                    ?.name
-                                }{' '}
-                                {node?.categories?.edges[0]?.node?.name}
-                              </h2>
-                            </Link>
-                          )}
-
-                        {/* HonorsCircle */}
-                        {node?.contentType?.node?.graphqlPluralName ==
-                          'HonorsCircles' && (
-                          <Link href={'/honors-circle'}>
-                            <h2 className={cx('meta', 'meta-hc')}>
-                              {'Honors Circle'}
-                            </h2>
-                          </Link>
-                        )}
-
-                        {/* Advertorials */}
-                        {node?.contentType?.node?.graphqlPluralName ==
-                          'Advertorials' &&
-                          node?.uri && (
-                            <Link href={node?.uri}>
-                              <h2 className={cx('meta')}>
-                                {'Partner Content'}
-                              </h2>
-                            </Link>
-                          )}
-
-                        {/* LuxeList */}
-                        {node?.contentType?.node?.graphqlPluralName ==
-                          'LuxeLists' && (
-                          <h2 className={cx('meta')}>{'Luxe List'}</h2>
-                        )}
-
-                        {/* Contest */}
-                        {node?.contentType?.node?.graphqlPluralName ==
-                          'Contests' && (
-                          <Link href={'/contests'}>
-                            <h2 className={cx('meta')}>{'Contest'}</h2>
-                          </Link>
-                        )}
-
-                        {/* Readers Choice Awards */}
-                        {node?.contentType?.node?.graphqlPluralName ==
-                          'ReadersChoiceAwards' && (
-                          <h2 className={cx('meta')}>
-                            {'Readers’ Choice Awards'}
-                          </h2>
-                        )}
-
-                        {/* Luxury Travel */}
-                        {node?.contentType?.node?.graphqlPluralName ==
-                          'LuxuryTravels' &&
-                          node?.uri && (
-                            <Link href={node?.uri}>
-                              <h2 className={cx('meta')}>{'Luxury Travel'}</h2>
-                            </Link>
-                          )}
-                      </div>
-                    )}
-
-                    <div className={cx('title-wrapper')}>
-                      {/* Destinations */}
-                      {node?.contentType?.node?.graphqlPluralName ==
-                        'Editorials' &&
-                        node?.uri && (
-                          <Link href={node?.uri}>
-                            <h2 className={cx('title')}>{node?.title}</h2>
-                          </Link>
-                        )}
-
-                      {/* Destination Guides */}
-                      {node?.contentType?.node?.graphqlPluralName == 'posts' &&
-                        node?.uri && (
-                          <Link href={node?.uri}>
-                            <h2 className={cx('title')}>{node?.title}</h2>
-                          </Link>
-                        )}
-
-                      {/* Pages */}
-                      {node?.contentType?.node?.graphqlPluralName == 'pages' &&
-                        node?.uri && (
-                          <Link href={node?.uri}>
-                            <h2 className={cx('title')}>{node?.title}</h2>
-                          </Link>
-                        )}
-
-                      {/* Update */}
-                      {node?.contentType?.node?.graphqlPluralName ==
-                        'Updates' &&
-                        node?.uri && (
-                          <Link href={node?.uri}>
-                            <h2 className={cx('title')}>{node?.title}</h2>
-                          </Link>
-                        )}
-
-                      {/* HonorsCircle */}
-                      {node?.contentType?.node?.graphqlPluralName ==
-                        'HonorsCircles' &&
-                        node?.uri && (
-                          <Link href={node?.uri}>
-                            <h2 className={cx('title', 'title-hc')}>
-                              {node?.title}
-                            </h2>
-                          </Link>
-                        )}
-
-                      {/* Advertorials */}
-                      {node?.contentType?.node?.graphqlPluralName ==
-                        'Advertorials' &&
-                        node?.uri && (
-                          <Link href={node?.uri}>
-                            <h2 className={cx('title', 'title-advertorial')}>
-                              {node?.title}
-                            </h2>
-                          </Link>
-                        )}
-
-                      {/* LuxeList */}
-                      {node?.contentType?.node?.graphqlPluralName ==
-                        'LuxeLists' &&
-                        node?.uri && (
-                          <Link href={node?.uri}>
-                            <h2 className={cx('title', 'title-ll')}>
-                              {node?.title}
-                            </h2>
-                          </Link>
-                        )}
-
-                      {/* Contest */}
-                      {node?.contentType?.node?.graphqlPluralName ==
-                        'Contests' &&
-                        node?.uri && (
-                          <Link href={node?.uri}>
-                            <h2 className={cx('title', 'title-contest')}>
-                              {node?.title}
-                            </h2>
-                          </Link>
-                        )}
-
-                      {/* Readers Choice Awards */}
-                      {node?.contentType?.node?.graphqlPluralName ==
-                        'ReadersChoiceAwards' &&
-                        node?.uri && (
-                          <Link href={node?.uri}>
-                            <h2 className={cx('title')}>{node?.title}</h2>
-                          </Link>
-                        )}
-
-                      {/* Luxury Travel */}
-                      {node?.contentType?.node?.graphqlPluralName ==
-                        'LuxuryTravels' &&
-                        node?.uri && (
-                          <Link href={node?.uri}>
-                            <h2 className={cx('title', 'title-advertorial')}>
-                              {node?.title}
-                            </h2>
-                          </Link>
-                        )}
-                    </div>
-
-                    <div className={cx('meta-wrapper')}>
-                      <div className={cx('date-wrapper')}>
-                        <PostInfo date={node?.date} className={cx('meta')} />
-                      </div>
-                      {node?.acfCategoryIcon && node?.acfLocationIcon && (
-                        <div className={cx('icon-wrapper')}>
-                          <CategoryIcon
-                            chooseYourCategory={
-                              node?.acfCategoryIcon?.chooseYourCategory
-                            }
-                            chooseIcon={
-                              node?.acfCategoryIcon?.chooseIcon?.mediaItemUrl
-                            }
-                            categoryLabel={node?.acfCategoryIcon?.categoryLabel}
-                          />
-                          <LocationIcon
-                            locationValidation={
-                              node?.acfLocationIcon?.fieldGroupName
-                            }
-                            locationLabel={node?.acfLocationIcon?.locationLabel}
-                            locationUrl={node?.acfLocationIcon?.locationUrl}
-                          />
-                        </div>
-                      )}
-                    </div>
-
-                    {node?.excerpt && node?.uri && (
-                      <Link href={node?.uri}>
-                        <div
-                          dangerouslySetInnerHTML={{
-                            __html: calculateTrimmedExcerpt(
-                              node?.excerpt,
-                              node?.uri,
-                              node?.title,
-                            ),
-                          }}
-                        />
-                      </Link>
-                    )}
-                  </div>
-                </div>
+                {/* EXCERPT */}
+                {node?.excerpt && node?.uri && (
+                  <Link href={node.uri}>
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: trimExcerpt(node.excerpt, node.uri, node.title),
+                      }}
+                    />
+                  </Link>
+                )}
               </div>
-            )}
-          </>
-        ))}
-      </div>
-    </>
+            </div>
+          </div>
+        )
+      })}
+    </div>
   )
+}
+
+function trimExcerpt(excerpt, uri, title, max = 100) {
+  const text = excerpt?.slice(0, max)
+  const cut = text?.lastIndexOf(' ')
+  return `${text?.slice(0, cut)}… 
+    <a class="more-link" href="${uri}">
+      Continue reading <span class="screen-reader-text">${title}</span>
+    </a>`
 }

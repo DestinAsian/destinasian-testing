@@ -55,27 +55,13 @@ $color-grey: #777;
 }
 
 .wrapper-image {
-  margin: 0 auto;
-  padding: 0;
-  display: flex;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
 
-  figure,
-  .featured-image {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    position: relative;
-
-    // @media (min-width: $breakpoint-extra-small) {
-    //   height: 12rem;
-    // }
-
-    span,
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-    }
+  img {
+    object-fit: cover;
+    object-position: top;
   }
 }
 

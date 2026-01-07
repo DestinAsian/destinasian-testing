@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind'
 import styles from './HomepageSecondaryHeader.module.scss'
 import { useQuery } from '@apollo/client'
-import { useRef } from 'react'
+import { useRef, useMemo } from 'react'
 import { useClickOutside } from '@/constants/useClickOutside'
 import { CUSTOM_DATABASE_ID } from '@/constants/customDatabaseId'
 import { GetSearchResults } from '@/queries/GetSearchResults'
@@ -53,7 +53,7 @@ export default function HomepageSecondaryHeader({
   isScrolled,
 }) {
   // Posts for Search Function
-  const postsPerPage = 1000
+  const postsPerPage = 100
 
   // Clear search input
   const clearSearch = () => {
@@ -95,43 +95,27 @@ export default function HomepageSecondaryHeader({
   // Check if the search query is empty and no search results are loading, then hide the SearchResults component
   const isSearchResultsVisible = !!searchQuery
 
-  // Create a Set to store unique databaseId values
-  const uniqueDatabaseIds = new Set()
+  // Search Results - tags content nodes, remove duplicates, and sort by date
+  const contentNodesPosts = useMemo(() => {
+    if (!searchResultsData?.tags?.edges) return []
 
-  // Initialize an array to store unique posts
-  const contentNodesPosts = []
+    const seen = new Set()
+    const results = []
 
-  // Loop through categories (assuming similar structure)
-  searchResultsData?.categories?.edges?.forEach((post) => {
-    const { databaseId } = post.node
+    for (const { node } of searchResultsData.tags.edges) {
+      for (const { node: post } of node.contentNodes.edges) {
+        if (!post?.databaseId) continue
+        if (post?.passwordProtected?.onOff) continue
+        if (seen.has(post.databaseId)) continue
 
-    if (!uniqueDatabaseIds.has(databaseId)) {
-      uniqueDatabaseIds.add(databaseId)
-      contentNodesPosts.push(post.node)
-    }
-  })
-
-  // Loop through tags
-  searchResultsData?.tags?.edges?.forEach((contentNodes) => {
-    contentNodes.node?.contentNodes?.edges.forEach((post) => {
-      const { databaseId, passwordProtected } = post.node
-
-      if (!passwordProtected?.onOff && !uniqueDatabaseIds.has(databaseId)) {
-        uniqueDatabaseIds.add(databaseId)
-        contentNodesPosts.push(post.node)
+        seen.add(post.databaseId)
+        results.push(post)
       }
-    })
-  })
+    }
 
-  // Sort contentNodesPosts array by date
-  contentNodesPosts.sort((a, b) => {
-    // Assuming your date is stored in 'date' property of the post objects
-    const dateA = new Date(a.date)
-    const dateB = new Date(b.date)
-
-    // Compare the dates
-    return dateB - dateA
-  })
+    results.sort((a, b) => Date.parse(b.date) - Date.parse(a.date))
+    return results
+  }, [searchResultsData?.tags?.edges])
 
   // Get latest travel stories
   const { data: latestPartnerContent, loading: latestPartnerContentLoading } =
@@ -326,12 +310,6 @@ export default function HomepageSecondaryHeader({
           customRef={customRef}
           customClassName={'light-color'}
         />
-        {/* <CustomFullMenu
-          isNavShown={isCustomNavShown}
-          setIsNavShown={setIsCustomNavShown}
-          customClassName={'light-color'}
-          customRef={customRef}
-        /> */}
       </div>
       {/* Guides Menu */}
       <div
