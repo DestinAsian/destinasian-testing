@@ -33,7 +33,6 @@ const CONTENT_META = {
     url: node.categories?.edges?.[0]?.node?.uri,
   }),
   Advertorials: () => ({ label: 'Partner Content' }),
-  LuxeLists: () => ({ label: 'Luxe List' }),
   ReadersChoiceAwards: () => ({ label: 'Readers’ Choice Awards' }),
   TravelGuides: () => ({ label: 'Travel Guides' }),
 }

@@ -17,10 +17,10 @@ export const GetSearchResults = gql`
                 POST
                 EDITORIAL
                 ADVERTORIAL
-                LUXE_LIST
                 READERS_CHOICE_AWARD
                 TRAVEL_GUIDES
               ]
+              dateQuery: { after: { month: 1, year: 2024 } }
             }
           ) {
             edges {
@@ -107,19 +107,6 @@ export const GetSearchResults = gql`
                     }
                   }
                 }
-                ... on LuxeList {
-                  title
-                  excerpt
-                  passwordProtected {
-                    onOff
-                  }
-                  featuredImage {
-                    node {
-                      sourceUrl
-                      altText
-                    }
-                  }
-                }
                 ... on ReadersChoiceAward {
                   title
                   excerpt
@@ -141,7 +128,7 @@ export const GetSearchResults = gql`
                       sourceUrl
                       altText
                     }
-                  }                  
+                  }
                 }
               }
             }
