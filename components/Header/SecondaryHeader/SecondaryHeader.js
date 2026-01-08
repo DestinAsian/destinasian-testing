@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind'
 import styles from './SecondaryHeader.module.scss'
 import { useQuery } from '@apollo/client'
-import { useRef } from 'react'
+import { useRef, useMemo } from 'react'
 import { useClickOutside } from '@/constants/useClickOutside'
 import { CUSTOM_DATABASE_ID } from '@/constants/customDatabaseId'
 import { GetSearchResults } from '@/queries/GetSearchResults'

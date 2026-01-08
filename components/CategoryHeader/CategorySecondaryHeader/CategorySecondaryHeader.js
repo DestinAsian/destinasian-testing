@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo} from 'react'
 import classNames from 'classnames/bind'
 import styles from './CategorySecondaryHeader.module.scss'
 import { useQuery } from '@apollo/client'
