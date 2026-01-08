@@ -2,16 +2,12 @@ import { FaSearch } from 'react-icons/fa'
 import className from 'classnames/bind'
 import styles from './SearchResults.module.scss'
 import Link from 'next/link'
-import Image from 'next/image'
 import { useMemo } from 'react'
 import dynamic from 'next/dynamic'
 // Import Components
 const CategoryIcon = dynamic(() =>
   import('@/components/CategoryIcon/CategoryIcon'),
 )
-// const FeaturedImage = dynamic(() =>
-//   import('@/components/FeaturedImage/FeaturedImage'),
-// )
 const LocationIcon = dynamic(() =>
   import('@/components/LocationIcon/LocationIcon'),
 )
@@ -37,7 +33,13 @@ const CONTENT_META = {
   TravelGuides: () => ({ label: 'Travel Guides' }),
 }
 
-export default function SearchResults({ searchResults, isLoading }) {
+export default function SearchResults({
+  searchResults,
+  isLoading,
+  isFetchingMore,
+  onLoadMore,
+  hasMore,
+}) {
   const results = useMemo(() => searchResults ?? [], [searchResults])
 
   if (!isLoading && searchResults === undefined) return null
@@ -87,26 +89,6 @@ export default function SearchResults({ searchResults, isLoading }) {
         return (
           <div key={node.id} className={cx('content-wrapper')}>
             {/* LEFT */}
-            {/* <div className={cx('left-wrapper')}>
-              {node?.featuredImage?.node && node?.uri && (
-                <Link href={node.uri}>
-                  <div className={cx('wrapper-image')}>
-                    <Image
-                      src={node?.featuredImage?.node?.sourceUrl}
-                      alt={
-                        node?.featuredImage?.node?.altText
-                          ? node?.featuredImage?.node?.altText
-                          : 'Search Results Image'
-                      }
-                      className={cx('featured-image')}
-                      fill
-                      sizes="100%"
-                      priority
-                    />
-                  </div>
-                </Link>
-              )}
-            </div> */}
 
             {/* RIGHT */}
             <div className={cx('right-wrapper')}>
@@ -138,52 +120,56 @@ export default function SearchResults({ searchResults, isLoading }) {
                   {node?.date && (
                     <PostInfo date={node.date} className={cx('meta')} />
                   )}
-                  {/* {node?.acfCategoryIcon && node?.acfLocationIcon && (
-                    <div className={cx('icon-wrapper')}>
-                      <CategoryIcon
-                        chooseYourCategory={
-                          node?.acfCategoryIcon?.chooseYourCategory
-                        }
-                        chooseIcon={
-                          node?.acfCategoryIcon?.chooseIcon?.mediaItemUrl
-                        }
-                        categoryLabel={node?.acfCategoryIcon?.categoryLabel}
-                      />
-                      <LocationIcon
-                        locationValidation={
-                          node?.acfLocationIcon?.fieldGroupName
-                        }
-                        locationLabel={node?.acfLocationIcon?.locationLabel}
-                        locationUrl={node?.acfLocationIcon?.locationUrl}
-                      />
-                    </div>
-                  )} */}
                 </div>
-
-                {/* EXCERPT */}
-                {node?.excerpt && node?.uri && (
-                  <Link href={node.uri}>
-                    <div
-                      dangerouslySetInnerHTML={{
-                        __html: trimExcerpt(node.excerpt, node.uri, node.title),
-                      }}
-                    />
-                  </Link>
-                )}
               </div>
             </div>
           </div>
         )
       })}
+      {results.length > 0 && hasMore && (
+        <div className="mx-auto my-0 flex max-w-[100vw] justify-center md:max-w-[700px]">
+          <button
+            type="button"
+            onClick={() => {
+              if (!isFetchingMore) {
+                onLoadMore()
+              }
+            }}
+            className="flex items-center gap-x-4"
+            disabled={isFetchingMore}
+          >
+            {isFetchingMore ? (
+              'Loading...'
+            ) : (
+              <>
+                Load More
+                <svg
+                  className="h-auto w-8 origin-center rotate-90"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 512 512"
+                >
+                  <path
+                    d="M1387 5110 c-243 -62 -373 -329 -272 -560
+              27 -62 77 -114 989 -1027
+              l961 -963 -961 -963
+              c-912 -913 -962 -965 -989 -1027
+              -40 -91 -46 -200 -15 -289
+              39 -117 106 -191 220 -245
+              59 -28 74 -31 160 -30
+              74 0 108 5 155 23
+              58 22 106 70 1198 1160
+              1304 1302 1202 1185 1202 1371
+              0 186 102 69 -1202 1371
+              -1102 1101 -1140 1137 -1198 1159
+              -67 25 -189 34 -248 20z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </>
+            )}
+          </button>
+        </div>
+      )}
     </div>
   )
-}
-
-function trimExcerpt(excerpt, uri, title, max = 100) {
-  const text = excerpt?.slice(0, max)
-  const cut = text?.lastIndexOf(' ')
-  return `${text?.slice(0, cut)}… 
-    <a class="more-link" href="${uri}">
-      Continue reading <span class="screen-reader-text">${title}</span>
-    </a>`
 }

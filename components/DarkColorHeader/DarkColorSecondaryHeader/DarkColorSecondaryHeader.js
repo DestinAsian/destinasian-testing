@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind'
 import styles from './DarkColorSecondaryHeader.module.scss'
 import { useQuery } from '@apollo/client'
-import { useRef, useMemo } from 'react'
+import { useRef, useMemo, useState, useEffect } from 'react'
 import { useClickOutside } from '@/constants/useClickOutside'
 import { CUSTOM_DATABASE_ID } from '@/constants/customDatabaseId'
 import { GetSearchResults } from '@/queries/GetSearchResults'
@@ -55,7 +55,11 @@ export default function DarkColorSecondaryHeader({
   customClassName,
 }) {
   // Posts for Search Function
-  const postsPerPage = 100
+  const postsPerPage = 200
+
+  // Search Results Query
+  const [isFetchingMore, setIsFetchingMore] = useState(false)
+  const [year, setYear] = useState(2024)
 
   // Clear search input
   const clearSearch = () => {
@@ -78,24 +82,41 @@ export default function DarkColorSecondaryHeader({
   useClickOutside(hcRef, () => setIsHCNavShown(false), [menuRef])
   useClickOutside(burgerRef, () => setIsBurgerNavShown(false), [menuRef])
 
-  // Add search query function
-  const {
-    data: searchResultsData,
-    loading: searchResultsLoading,
-    error: searchResultsError,
-  } = useQuery(GetSearchResults, {
+ // Add search query function
+  const { data: searchResultsData, loading, error, fetchMore } = useQuery(GetSearchResults, {
     variables: {
       first: postsPerPage,
-      after: null,
+
       search: searchQuery,
+      year,
     },
-    skip: searchQuery === '',
+    skip: !searchQuery,
     fetchPolicy: 'cache-and-network',
     nextFetchPolicy: 'network-only',
   })
 
   // Check if the search query is empty and no search results are loading, then hide the SearchResults component
   const isSearchResultsVisible = !!searchQuery
+
+  const MIN_YEAR = 2023
+
+  const fetchMorePosts = async () => {
+    if (isFetchingMore) return
+
+    const nextYear = year - 1
+    if (nextYear < MIN_YEAR) return
+
+    setIsFetchingMore(true)
+
+    await fetchMore({
+      variables: {
+        year: nextYear,
+      },
+    })
+
+    setYear(nextYear)
+    setIsFetchingMore(false)
+  }
 
   // Search Results - tags content nodes, remove duplicates, and sort by date
   const contentNodesPosts = useMemo(() => {
@@ -118,6 +139,12 @@ export default function DarkColorSecondaryHeader({
     results.sort((a, b) => Date.parse(b.date) - Date.parse(a.date))
     return results
   }, [searchResultsData?.tags?.edges])
+
+  useEffect(() => {
+    if (!searchQuery) return
+
+    setYear(2024)
+  }, [searchQuery])
 
   // Get latest travel stories
   const { data: latestPartnerContent, loading: latestPartnerContentLoading } =
@@ -291,7 +318,7 @@ export default function DarkColorSecondaryHeader({
             />
           </div>
           <div className={cx('search-result-wrapper')}>
-            {searchResultsError && (
+            {error && (
               <div className={cx('alert-error')}>
                 {'An error has occurred. Please refresh and try again.'}
               </div>
@@ -301,7 +328,10 @@ export default function DarkColorSecondaryHeader({
             {isSearchResultsVisible && (
               <SearchResults
                 searchResults={contentNodesPosts}
-                isLoading={searchResultsLoading}
+                isLoading={loading}
+                isFetchingMore={isFetchingMore}
+                onLoadMore={fetchMorePosts}
+                hasMore={year > 2023}
               />
             )}
           </div>

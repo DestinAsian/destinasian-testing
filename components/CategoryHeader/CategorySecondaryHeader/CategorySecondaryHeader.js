@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useMemo} from 'react'
 import classNames from 'classnames/bind'
 import styles from './CategorySecondaryHeader.module.scss'
 import { useQuery } from '@apollo/client'
-import { useRef } from 'react'
+import { useRef, useMemo, useState, useEffect } from 'react'
 import { useClickOutside } from '@/constants/useClickOutside'
 import { CUSTOM_DATABASE_ID } from '@/constants/customDatabaseId'
 import { GetSearchResults } from '@/queries/GetSearchResults'
@@ -74,7 +73,11 @@ export default function CategorySecondaryHeader({
   const [isNavShown, setIsNavShown] = useState(false)
 
   // Posts for Search Function
-  const postsPerPage = 100
+  const postsPerPage = 200
+
+  // Search Results Query
+  const [isFetchingMore, setIsFetchingMore] = useState(false)
+  const [year, setYear] = useState(2024)
 
   // Clear search input
   const clearSearch = () => {
@@ -100,21 +103,43 @@ export default function CategorySecondaryHeader({
   // Add search query function
   const {
     data: searchResultsData,
-    loading: searchResultsLoading,
-    error: searchResultsError,
+    loading,
+    error,
+    fetchMore,
   } = useQuery(GetSearchResults, {
     variables: {
       first: postsPerPage,
-      after: null,
+
       search: searchQuery,
+      year,
     },
-    skip: searchQuery === '',
+    skip: !searchQuery,
     fetchPolicy: 'cache-and-network',
     nextFetchPolicy: 'network-only',
   })
 
   // Check if the search query is empty and no search results are loading, then hide the SearchResults component
   const isSearchResultsVisible = !!searchQuery
+
+  const MIN_YEAR = 2023
+
+  const fetchMorePosts = async () => {
+    if (isFetchingMore) return
+
+    const nextYear = year - 1
+    if (nextYear < MIN_YEAR) return
+
+    setIsFetchingMore(true)
+
+    await fetchMore({
+      variables: {
+        year: nextYear,
+      },
+    })
+
+    setYear(nextYear)
+    setIsFetchingMore(false)
+  }
 
   // Search Results - tags content nodes, remove duplicates, and sort by date
   const contentNodesPosts = useMemo(() => {
@@ -137,6 +162,12 @@ export default function CategorySecondaryHeader({
     results.sort((a, b) => Date.parse(b.date) - Date.parse(a.date))
     return results
   }, [searchResultsData?.tags?.edges])
+
+  useEffect(() => {
+    if (!searchQuery) return
+
+    setYear(2024)
+  }, [searchQuery])
 
   // Add currentUrl function
   useEffect(() => {
@@ -394,7 +425,7 @@ export default function CategorySecondaryHeader({
             />
           </div>
           <div className={cx('search-result-wrapper')}>
-            {searchResultsError && (
+            {error && (
               <div className={cx('alert-error')}>
                 {'An error has occurred. Please refresh and try again.'}
               </div>
@@ -404,7 +435,10 @@ export default function CategorySecondaryHeader({
             {isSearchResultsVisible && (
               <SearchResults
                 searchResults={contentNodesPosts}
-                isLoading={searchResultsLoading}
+                isLoading={loading}
+                isFetchingMore={isFetchingMore}
+                onLoadMore={fetchMorePosts}
+                hasMore={year > 2023}
               />
             )}
           </div>

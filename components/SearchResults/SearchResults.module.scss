@@ -21,6 +21,16 @@ $color-grey: #777;
     height: calc(-12.85rem + 100vh);
     max-width: 700px;
   }
+
+  button {
+    font-family: 'Ringside Regular A', 'Ringside Regular B';
+    font-weight: 700;
+    font-size: 0.8rem;
+
+    @media (min-width: $breakpoint-extra-small) {
+      font-size: 1rem;
+    }
+  }
 }
 
 .content-wrapper {

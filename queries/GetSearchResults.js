@@ -1,16 +1,12 @@
 import { gql } from '@apollo/client'
 
 export const GetSearchResults = gql`
-  query GetSearchResults($first: Int!, $after: String, $search: String) {
-    tags(
-      first: $first
-      after: $after
-      where: { search: $search, hideEmpty: true }
-    ) {
+  query GetSearchResults($first: Int!, $search: String, $year: Int!) {
+    tags(first: 500, where: { search: $search, hideEmpty: true }) {
       edges {
         node {
           contentNodes(
-            first: 1000
+            first: $first
             where: {
               status: PUBLISH
               contentTypes: [
@@ -20,7 +16,7 @@ export const GetSearchResults = gql`
                 READERS_CHOICE_AWARD
                 TRAVEL_GUIDES
               ]
-              dateQuery: { after: { month: 12, year: 2024 } }
+              dateQuery: { after: { month: 12, year: $year } }
             }
           ) {
             edges {
