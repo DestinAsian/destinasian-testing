@@ -20,7 +20,7 @@ export const GetSearchResults = gql`
                 READERS_CHOICE_AWARD
                 TRAVEL_GUIDES
               ]
-              dateQuery: { after: { month: 1, year: 2024 } }
+              dateQuery: { after: { month: 12, year: 2024 } }
             }
           ) {
             edges {
@@ -37,17 +37,10 @@ export const GetSearchResults = gql`
                 }
                 ... on Post {
                   title
-                  excerpt
                   passwordProtected {
                     onOff
                   }
-                  featuredImage {
-                    node {
-                      sourceUrl
-                      altText
-                    }
-                  }
-                  categories(first: 10, where: { childless: true }) {
+                  categories(first: 1, where: { childless: true }) {
                     edges {
                       node {
                         name
@@ -60,30 +53,11 @@ export const GetSearchResults = gql`
                       }
                     }
                   }
-                  acfCategoryIcon {
-                    categoryLabel
-                    chooseYourCategory
-                    chooseIcon {
-                      mediaItemUrl
-                    }
-                  }
-                  acfLocationIcon {
-                    fieldGroupName
-                    locationLabel
-                    locationUrl
-                  }
                 }
                 ... on Editorial {
                   title
-                  excerpt
                   passwordProtected {
                     onOff
-                  }
-                  featuredImage {
-                    node {
-                      sourceUrl
-                      altText
-                    }
                   }
                   categories {
                     edges {
@@ -96,39 +70,18 @@ export const GetSearchResults = gql`
                 }
                 ... on Advertorial {
                   title
-                  excerpt
                   passwordProtected {
                     onOff
-                  }
-                  featuredImage {
-                    node {
-                      sourceUrl
-                      altText
-                    }
                   }
                 }
                 ... on ReadersChoiceAward {
                   title
-                  excerpt
                   passwordProtected {
                     onOff
-                  }
-                  featuredImage {
-                    node {
-                      sourceUrl
-                      altText
-                    }
                   }
                 }
                 ... on TravelGuide {
                   title
-                  excerpt
-                  featuredImage {
-                    node {
-                      sourceUrl
-                      altText
-                    }
-                  }
                 }
               }
             }

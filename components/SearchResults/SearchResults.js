@@ -87,7 +87,7 @@ export default function SearchResults({ searchResults, isLoading }) {
         return (
           <div key={node.id} className={cx('content-wrapper')}>
             {/* LEFT */}
-            <div className={cx('left-wrapper')}>
+            {/* <div className={cx('left-wrapper')}>
               {node?.featuredImage?.node && node?.uri && (
                 <Link href={node.uri}>
                   <div className={cx('wrapper-image')}>
@@ -106,7 +106,7 @@ export default function SearchResults({ searchResults, isLoading }) {
                   </div>
                 </Link>
               )}
-            </div>
+            </div> */}
 
             {/* RIGHT */}
             <div className={cx('right-wrapper')}>
@@ -138,7 +138,7 @@ export default function SearchResults({ searchResults, isLoading }) {
                   {node?.date && (
                     <PostInfo date={node.date} className={cx('meta')} />
                   )}
-                  {node?.acfCategoryIcon && node?.acfLocationIcon && (
+                  {/* {node?.acfCategoryIcon && node?.acfLocationIcon && (
                     <div className={cx('icon-wrapper')}>
                       <CategoryIcon
                         chooseYourCategory={
@@ -157,7 +157,7 @@ export default function SearchResults({ searchResults, isLoading }) {
                         locationUrl={node?.acfLocationIcon?.locationUrl}
                       />
                     </div>
-                  )}
+                  )} */}
                 </div>
 
                 {/* EXCERPT */}
