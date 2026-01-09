@@ -22,6 +22,10 @@
       }
     }
   }
+
+  li.no-link > a {
+    pointer-events: none;
+  }
 }
 
 .full-menu-content {

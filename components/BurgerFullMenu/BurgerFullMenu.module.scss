@@ -36,6 +36,11 @@
       }
     }
 
+    li.no-link > a {
+      pointer-events: none;
+      text-decoration: none !important;
+    }
+
     li.blank {
       flex-basis: 100%; /* forces a new row */
       height: 0; /* optional: reduce vertical space if needed */

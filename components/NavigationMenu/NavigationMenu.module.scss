@@ -15,6 +15,13 @@
 
 .component {
   background-color: var(--wpe--navigation-menu--background-color);
+
+  :global {
+    li.no-link > a {
+      pointer-events: none;
+      text-decoration: none !important;
+    }
+  }
 }
 
 .menu-name {
