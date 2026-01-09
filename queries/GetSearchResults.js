@@ -13,8 +13,6 @@ export const GetSearchResults = gql`
                 POST
                 EDITORIAL
                 ADVERTORIAL
-                READERS_CHOICE_AWARD
-                TRAVEL_GUIDES
               ]
               dateQuery: { after: { month: 12, year: $year } }
             }
@@ -69,15 +67,6 @@ export const GetSearchResults = gql`
                   passwordProtected {
                     onOff
                   }
-                }
-                ... on ReadersChoiceAward {
-                  title
-                  passwordProtected {
-                    onOff
-                  }
-                }
-                ... on TravelGuide {
-                  title
                 }
               }
             }

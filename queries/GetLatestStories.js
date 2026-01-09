@@ -7,7 +7,6 @@ export const GetLatestStories = gql`
         node {
           id
           title
-          content
           date
           uri
           excerpt
@@ -18,7 +17,6 @@ export const GetLatestStories = gql`
             node {
               id
               sourceUrl
-              altText
               mediaDetails {
                 width
                 height
@@ -58,7 +56,6 @@ export const GetLatestStories = gql`
         node {
           id
           title
-          content
           date
           uri
           excerpt
@@ -69,7 +66,6 @@ export const GetLatestStories = gql`
             node {
               id
               sourceUrl
-              altText
               mediaDetails {
                 width
                 height
@@ -97,7 +93,6 @@ export const GetLatestStories = gql`
         node {
           id
           title
-          content
           date
           uri
           excerpt
@@ -108,7 +103,6 @@ export const GetLatestStories = gql`
             node {
               id
               sourceUrl
-              altText
               mediaDetails {
                 width
                 height

@@ -15,6 +15,9 @@ const SearchInput = dynamic(() =>
 const SearchResults = dynamic(() =>
   import('@/components/SearchResults/SearchResults'),
 )
+const NavigationMenu = dynamic(() =>
+  import('@/components/NavigationMenu/NavigationMenu'),
+)
 const LLMenu = dynamic(() => import('@/components/LLMenu/LLMenu'))
 const TravelGuidesMenu = dynamic(() =>
   import('@/components/TravelGuidesMenu/TravelGuidesMenu'),
@@ -81,7 +84,12 @@ export default function HomepageSecondaryHeader({
   useClickOutside(burgerRef, () => setIsBurgerNavShown(false), [menuRef])
 
   // Add search query function
-  const { data: searchResultsData, loading, error, fetchMore } = useQuery(GetSearchResults, {
+  const {
+    data: searchResultsData,
+    loading,
+    error,
+    fetchMore,
+  } = useQuery(GetSearchResults, {
     variables: {
       first: postsPerPage,
 
@@ -148,7 +156,7 @@ export default function HomepageSecondaryHeader({
   const { data: latestPartnerContent, loading: latestPartnerContentLoading } =
     useQuery(GetLatestPartnerContent, {
       variables: {
-        first: 10,
+        first: 5,
       },
       fetchPolicy: 'cache-and-network',
       nextFetchPolicy: 'network-only',
@@ -306,6 +314,18 @@ export default function HomepageSecondaryHeader({
               clearSearch={clearSearch}
             />
           </div>
+          <div className={cx('search-header-wrapper')}>
+            {/* Third Menu {Luxe List Menu} */}
+            <NavigationMenu
+              className={cx(['third-navigation'])}
+              menuItems={thirdMenuItems}
+            />
+            {/* Readers' Choice Awards Menu */}
+            <NavigationMenu
+              className={cx('fourth-navigation')}
+              menuItems={fourthMenuItems}
+            />
+          </div>
           <div className={cx('search-result-wrapper')}>
             {error && (
               <div className={cx('alert-error')}>
@@ -375,7 +395,7 @@ export default function HomepageSecondaryHeader({
           fifthMenuItems={fifthMenuItems}
           featureMenuItems={featureMenuItems}
           latestStories={latestStories}
-          menusLoading={menusLoading}
+          // menusLoading={menusLoading}
           latestLoading={latestLoading}
           latestPartnerContent={allPartnerContents}
           latestPartnerContentLoading={latestPartnerContentLoading}

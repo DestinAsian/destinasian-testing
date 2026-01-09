@@ -20,23 +20,6 @@ export const GetTravelGuidesMenu = gql`
             ... on Category {
               name
               uri
-              categoryImages {
-                changeToSlider
-                categoryImages {
-                  sourceUrl
-                }
-                categorySlide1 {
-                  sourceUrl
-                }
-              }
-              destinationGuides {
-                guidesTitle
-              }
-              parent {
-                node {
-                  name
-                }
-              }
               posts(
                 first: 5
                 where: {
@@ -49,40 +32,6 @@ export const GetTravelGuidesMenu = gql`
                     id
                     title
                     uri
-                  }
-                }
-              }
-              children(first: 4, where: { order: DESC, orderby: NAME }) {
-                edges {
-                  node {
-                    id
-                    name
-                    uri
-                    categoryImages {
-                      categoryImages {
-                        sourceUrl
-                      }
-                    }
-                    parent {
-                      node {
-                        name
-                      }
-                    }
-                    posts(
-                      first: 5
-                      where: {
-                        orderby: { field: DATE, order: DESC }
-                        status: PUBLISH
-                      }
-                    ) {
-                      edges {
-                        node {
-                          id
-                          title
-                          uri
-                        }
-                      }
-                    }
                   }
                 }
               }

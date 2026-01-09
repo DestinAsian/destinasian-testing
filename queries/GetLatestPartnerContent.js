@@ -10,7 +10,6 @@ export const GetLatestPartnerContent = gql`
         node {
           id
           title
-          excerpt
           uri
           passwordProtected {
             onOff

@@ -20,6 +20,9 @@ const SearchInput = dynamic(() =>
 const SearchResults = dynamic(() =>
   import('@/components/SearchResults/SearchResults'),
 )
+const NavigationMenu = dynamic(() =>
+  import('@/components/NavigationMenu/NavigationMenu'),
+)
 const LLMenu = dynamic(() => import('@/components/LLMenu/LLMenu'))
 const TravelGuidesMenu = dynamic(() =>
   import('@/components/TravelGuidesMenu/TravelGuidesMenu'),
@@ -422,6 +425,18 @@ export default function CategorySecondaryHeader({
               value={searchQuery}
               onChange={(newValue) => setSearchQuery(newValue)}
               clearSearch={clearSearch}
+            />
+          </div>
+          <div className={cx('search-header-wrapper')}>
+            {/* Third Menu {Luxe List Menu} */}
+            <NavigationMenu
+              className={cx(['third-navigation'])}
+              menuItems={thirdMenuItems}
+            />
+            {/* Readers' Choice Awards Menu */}
+            <NavigationMenu
+              className={cx('fourth-navigation')}
+              menuItems={fourthMenuItems}
             />
           </div>
           <div className={cx('search-result-wrapper')}>

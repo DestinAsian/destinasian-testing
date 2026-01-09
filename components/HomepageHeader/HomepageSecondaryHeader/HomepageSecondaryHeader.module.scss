@@ -257,6 +257,84 @@
     }
   }
 
+  .search-header-wrapper {
+    display: block;
+    width: 100%;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-family: 'Ringside Regular A', 'Ringside Regular B';
+    min-width: calc(100vw - 2rem);
+    padding: 0 1rem;
+
+    @media (min-width: $breakpoint-extra-small) {
+      padding: 0 2rem;
+      min-width: calc(700px - 4rem);
+      margin-bottom: 0;
+    }
+
+    // Third Menu {Luxe List & RCA Menu}
+    .third-navigation,
+    .fourth-navigation {
+      display: flex;
+
+      * {
+        text-transform: none;
+      }
+
+      ul:first-child {
+        color: var(--wpe--color--black);
+        width: auto;
+        font-weight: 500;
+        font-size: 0.8rem;
+
+        @media (min-width: $breakpoint-medium) {
+          font-size: 1rem;
+        }
+      }
+
+      ul {
+        display: flex;
+        column-gap: 0;
+
+        li:first-child {
+          padding-left: 0.25rem;
+        }
+
+        li {
+          display: flex;
+          padding-right: 0.5rem;
+
+          &::after {
+            content: ',';
+            border-right: none !important;
+            font-weight: 500;
+            font-size: 0.8rem;
+            margin-left: -2px;
+
+            @media (min-width: $breakpoint-medium) {
+              font-size: 1rem;
+            }
+          }
+
+          &:last-child::after {
+            display: none;
+          }
+
+          a {
+            text-decoration: underline;
+            font-weight: 500;
+            font-size: 0.8rem;
+            min-width: auto;
+
+            @media (min-width: $breakpoint-medium) {
+              font-size: 1rem;
+            }
+          }
+        }
+      }
+    }
+  }
+
   .search-bg-wrapper {
     width: 100%;
     max-width: 700px;

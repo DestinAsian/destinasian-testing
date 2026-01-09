@@ -22,9 +22,6 @@ module.exports = withFaust({
     locales: ['en'],
     defaultLocale: 'en',
   },
-  experimental: {
-    scrollRestoration: true, // ✅ Preserve scroll position between pages
-  },
   async redirects() {
     return [
       {
