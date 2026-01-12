@@ -3,6 +3,8 @@ import styles from './BurgerFullMenu.module.scss'
 import { useState } from 'react'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
+import { GetLatestStoriesBurgerMenu } from '@/queries/GetLatestStoriesBurgerMenu'
+import { useQuery } from '@apollo/client'
 // Import Components
 const NavigationMenu = dynamic(() =>
   import('@/components/NavigationMenu/NavigationMenu'),
@@ -17,9 +19,7 @@ export default function BurgerFullMenu({
   fourthMenuItems,
   fifthMenuItems,
   featureMenuItems,
-  latestStories,
   menusLoading,
-  latestLoading,
   latestPartnerContent,
   latestPartnerContentLoading,
   isSearchResultsVisible,
@@ -30,14 +30,39 @@ export default function BurgerFullMenu({
   const [visiblePosts] = useState(5)
 
   // Socmed Uri
-  const videoUri = '/videos'
   const linkedInUri = 'https://www.linkedin.com/company/destinasian-media'
   const facebookUri = 'https://www.facebook.com/DestinAsian.Mag'
   const instagramUri = 'https://www.instagram.com/destinasianmagazine'
   const twitterUri = 'https://x.com/DestinAsian_Mag'
 
+  // Get latest travel stories
+  const { data, loading } = useQuery(GetLatestStoriesBurgerMenu, {
+    variables: {
+      first: 10,
+    },
+    fetchPolicy: 'cache-and-network',
+    nextFetchPolicy: 'network-only',
+  })
+
+  const editorials = data?.editorials ?? []
+
+  const mainEditorialPosts =
+    editorials?.edges
+      ?.filter((post) => !post.node?.passwordProtected?.onOff)
+      .map((post) => post.node) ?? []
+
+  // sort posts by date
+  const sortPostsByDate = (a, b) => {
+    const dateA = new Date(a.date)
+    const dateB = new Date(b.date)
+    return dateB - dateA // Sort in descending order
+  }
+
+  // sortByDate mainCat & childCat Posts
+  const latestStories = mainEditorialPosts.sort(sortPostsByDate)
+
   // Loading Menu
-  if (menusLoading || latestLoading || latestPartnerContentLoading) {
+  if (menusLoading || loading || latestPartnerContentLoading) {
     return (
       <>
         <div className="mx-auto my-0 flex max-w-[100vw] justify-center md:max-w-[700px]	">

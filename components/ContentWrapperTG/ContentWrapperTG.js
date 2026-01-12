@@ -10,11 +10,9 @@ import React, {
   useMemo,
 } from 'react'
 import { useMediaQuery } from 'react-responsive'
-import { renderToStaticMarkup } from 'react-dom/server'
-import Image from 'next/image'
 import Link from 'next/link'
-import { BACKEND_URL } from '@/constants/backendUrl'
 import dynamic from 'next/dynamic'
+import { transformWpImages } from '@/utilities/transformWpImages'
 // Import Components
 const SingleTGSlider = dynamic(() =>
   import('@/components/SingleTGSlider/SingleTGSlider'),
@@ -42,7 +40,6 @@ export default function ContentWrapperTG({
   sliderTG,
 }) {
   const batchSize = 50
-  const [transformedContent, setTransformedContent] = useState('')
   const [isSliderMounted, setIsSliderMounted] = useState(false) // Track slider mount status
 
   const [isSharing, setIsSharing] = useState(false)
@@ -105,38 +102,11 @@ export default function ContentWrapperTG({
       ? travelGuideAll?.[nextIndex]?.uri
       : travelGuideAll?.[0]?.uri // Loop back to the first URI
 
-  useEffect(() => {
-    const extractImageData = () => {
-      const parser = new DOMParser()
-      const doc = parser.parseFromString(content, 'text/html')
-      const imageElements = doc.querySelectorAll(`img[src*="${BACKEND_URL}"]`)
-
-      imageElements.forEach((img) => {
-        const src = img.getAttribute('src')
-        const alt = img.getAttribute('alt')
-        const width = img.getAttribute('width')
-        const height = img.getAttribute('height')
-
-        const imageComponent = (
-          <Image
-            src={src}
-            alt={alt}
-            width={width ? width : '500'}
-            height={height ? height : '500'}
-            style={{ objectFit: 'contain' }}
-            priority
-          />
-        )
-
-        const imageHtmlString = renderToStaticMarkup(imageComponent)
-        img.outerHTML = imageHtmlString
-      })
-
-      setTransformedContent(doc.body.innerHTML)
-    }
-
-    extractImageData()
-  }, [content, isSliderMounted])
+  // Transform Wordpress Images
+  const transformedContent = useMemo(
+    () => transformWpImages(content),
+    [content, isSliderMounted],
+  )
 
   const [sliderHeight, setSliderHeight] = useState(0)
   const [sliderWidth, setSliderWidth] = useState(0)

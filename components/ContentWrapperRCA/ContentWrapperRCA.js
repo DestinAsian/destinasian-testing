@@ -1,13 +1,11 @@
 import className from 'classnames/bind'
 import styles from './ContentWrapperRCA.module.scss'
-import React, { useEffect, useState, useRef } from 'react'
-import { renderToStaticMarkup } from 'react-dom/server'
-import Image from 'next/image'
+import React, { useEffect, useState, useRef, useMemo } from 'react'
 import Link from 'next/link'
-import { BACKEND_URL } from '@/constants/backendUrl'
 import { useQuery } from '@apollo/client'
 import { GetRCAPagination } from '@/queries/GetRCAPagination'
 import dynamic from 'next/dynamic'
+import { transformWpImages } from '@/utilities/transformWpImages'
 // Import Components
 const SingleRCASlider = dynamic(() =>
   import('@/components/SingleRCASlider/SingleRCASlider'),
@@ -43,7 +41,6 @@ export default function ContentWrapperRCA({
   rcaRef,
 }) {
   const batchSize = 100
-  const [transformedContent, setTransformedContent] = useState('')
   const [isSliderMounted, setIsSliderMounted] = useState(false) // Track slider mount status
   // const [activeIndex, setActiveIndex] = useState(0)
   const [hash, setHash] = useState('')
@@ -88,7 +85,7 @@ export default function ContentWrapperRCA({
   const { data, loading, error } = useQuery(GetRCAPagination, {
     variables: { first: batchSize, after: null, id: databaseId },
     fetchPolicy: 'cache-and-network',
-    nextFetchPolicy: "network-only",
+    nextFetchPolicy: 'network-only',
   })
 
   const ancestors = data?.readersChoiceAwardBy?.ancestors
@@ -155,38 +152,11 @@ export default function ContentWrapperRCA({
     }
   }, [sliderRCA?.current, isAutoplayRunning, nextUri, router, isSliderMounted])
 
-  useEffect(() => {
-    const extractImageData = () => {
-      const parser = new DOMParser()
-      const doc = parser.parseFromString(content, 'text/html')
-      const imageElements = doc.querySelectorAll(`img[src*="${BACKEND_URL}"]`)
-
-      imageElements.forEach((img) => {
-        const src = img.getAttribute('src')
-        const alt = img.getAttribute('alt')
-        const width = img.getAttribute('width')
-        const height = img.getAttribute('height')
-
-        const imageComponent = (
-          <Image
-            src={src}
-            alt={alt}
-            width={width ? width : '500'}
-            height={height ? height : '500'}
-            style={{ objectFit: 'contain' }}
-            priority
-          />
-        )
-
-        const imageHtmlString = renderToStaticMarkup(imageComponent)
-        img.outerHTML = imageHtmlString
-      })
-
-      setTransformedContent(doc.body.innerHTML)
-    }
-
-    extractImageData()
-  }, [content, isSliderMounted])
+  // Transform Wordpress Images
+  const transformedContent = useMemo(
+    () => transformWpImages(content),
+    [content, isSliderMounted],
+  )
 
   useEffect(() => {
     if (isSliderMounted) {

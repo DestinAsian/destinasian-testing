@@ -156,7 +156,7 @@ export default function HomepageSecondaryHeader({
   const { data: latestPartnerContent, loading: latestPartnerContentLoading } =
     useQuery(GetLatestPartnerContent, {
       variables: {
-        first: 5,
+        first: 10,
       },
       fetchPolicy: 'cache-and-network',
       nextFetchPolicy: 'network-only',

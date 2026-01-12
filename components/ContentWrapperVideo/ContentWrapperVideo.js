@@ -16,7 +16,7 @@ let cx = className.bind(styles)
 export default function ContentWrapperVideo() {
   const [isFetchingMore, setIsFetchingMore] = useState(false)
   const offsetPosts = 1
-  const videosPerPage = 6
+  const videosPerPage = 4
 
   const [isPlaying, setIsPlaying] = useState(false)
   const videoRef = useRef(null)
