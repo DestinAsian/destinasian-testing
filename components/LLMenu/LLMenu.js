@@ -1,4 +1,3 @@
-import { useQuery } from '@apollo/client'
 import classNames from 'classnames/bind'
 import styles from './LLMenu.module.scss'
 import React, { useState } from 'react'
@@ -6,43 +5,31 @@ import { GetLuxeListMenu } from '@/queries/GetLuxeListMenu'
 import Image from 'next/image'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
+import { useSWRGraphQL } from '@/lib/useSWRGraphQL'
 // Import Components
 const Button = dynamic(() => import('@/components/Button/Button'))
 
 let cx = classNames.bind(styles)
 
-export default function LLMenu({
-  databaseId,
-  isNavShown,
-  setIsNavShown,
-  customRef,
-  customClassName,
-}) {
+export default function LLMenu({ databaseId, customRef, customClassName }) {
   const postsPerPage = 100
 
   // Get Pages
-  const { data, error, loading } = useQuery(GetLuxeListMenu, {
-    variables: {
-      first: postsPerPage,
-      after: null,
-      id: databaseId,
-    },
-    fetchPolicy: 'cache-and-network',
-    nextFetchPolicy: 'network-only',
+  const { data, isLoading } = useSWRGraphQL('ll-menu', GetLuxeListMenu, {
+    first: postsPerPage,
+    after: null,
+    id: databaseId,
   })
 
-  if (error) {
-    return <pre>{JSON.stringify(error)}</pre>
-  }
-
-  if (loading) {
+  // Loading state
+  if (isLoading) {
     return (
       <>
-        <div className="mx-auto my-0 flex max-w-[100vw] justify-center md:max-w-[700px]	">
+        <div className="mx-auto my-0 flex max-w-[100vw] justify-center md:max-w-[700px]">
           <div role="status">
             <svg
               aria-hidden="true"
-              className="mr-2 h-[80vh] w-8 animate-spin fill-black text-gray-200 dark:text-gray-600"
+              className="text-black-200 dark:text-black-600 mr-2 h-[80vh] w-8 animate-spin fill-black"
               viewBox="0 0 100 101"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"

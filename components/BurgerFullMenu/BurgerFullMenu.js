@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
 import { GetLatestStoriesBurgerMenu } from '@/queries/GetLatestStoriesBurgerMenu'
-import { useQuery } from '@apollo/client'
+import { useSWRGraphQL } from '@/lib/useSWRGraphQL'
 // Import Components
 const NavigationMenu = dynamic(() =>
   import('@/components/NavigationMenu/NavigationMenu'),
@@ -36,20 +36,16 @@ export default function BurgerFullMenu({
   const twitterUri = 'https://x.com/DestinAsian_Mag'
 
   // Get latest travel stories
-  const { data, loading } = useQuery(GetLatestStoriesBurgerMenu, {
-    variables: {
-      first: 10,
-    },
-    fetchPolicy: 'cache-and-network',
-    nextFetchPolicy: 'network-only',
-  })
+  const { data, isLoading, error } = useSWRGraphQL(
+    'burger-latest-stories',
+    GetLatestStoriesBurgerMenu,
+    { first: 10 },
+  )
 
-  const editorials = data?.editorials ?? []
-
-  const mainEditorialPosts =
-    editorials?.edges
-      ?.filter((post) => !post.node?.passwordProtected?.onOff)
-      .map((post) => post.node) ?? []
+  const editorials =
+    data?.editorials?.edges
+      ?.filter((edge) => !edge.node?.passwordProtected?.onOff)
+      ?.map((edge) => edge.node) ?? []
 
   // sort posts by date
   const sortPostsByDate = (a, b) => {
@@ -59,10 +55,10 @@ export default function BurgerFullMenu({
   }
 
   // sortByDate mainCat & childCat Posts
-  const latestStories = mainEditorialPosts.sort(sortPostsByDate)
+  const latestStories = editorials.sort(sortPostsByDate)
 
   // Loading Menu
-  if (menusLoading || loading || latestPartnerContentLoading) {
+  if (menusLoading || isLoading || latestPartnerContentLoading) {
     return (
       <>
         <div className="mx-auto my-0 flex max-w-[100vw] justify-center md:max-w-[700px]	">

@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client'
 
 export const GetAdvertorialStories = gql`
-  query GetAdvertorialStories($search: String) {
+  query GetAdvertorialStories($first: Int, $search: String) {
     tags(first: 100, where: { search: $search, hideEmpty: true }) {
       pageInfo {
         hasNextPage
@@ -10,6 +10,7 @@ export const GetAdvertorialStories = gql`
       edges {
         node {
           contentNodes(
+            first: $first
             where: {
               contentTypes: ADVERTORIAL
               status: PUBLISH

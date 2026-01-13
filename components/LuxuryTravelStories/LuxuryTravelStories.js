@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react'
 import classNames from 'classnames/bind'
 import styles from './LuxuryTravelStories.module.scss'
-import { useQuery } from '@apollo/client'
 import { GetSpecificBannerAds } from '@/queries/GetSpecificBannerAds'
 import LiteYouTubeEmbed from 'react-lite-youtube-embed'
 import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css'
+import { useSWRGraphQL } from '@/lib/useSWRGraphQL'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
 // Import Components
@@ -81,53 +81,13 @@ export default function LuxuryTravelStories(luxuryTravelId) {
     search: name,
   }
 
-  // // Focus Banner
-  // if (parent === 'Focus') {
-  //   // Modify the variables based on the condition
-  //   bannerVariable = {
-  //     search: name,
-  //   }
-  // }
-
-  // // Sub Category
-  // if (children?.edges?.length !== 0 && parent !== (null || undefined)) {
-  //   // Modify the variables based on the condition
-  //   bannerVariable = {
-  //     search: name,
-  //   }
-  //   queryVariables = {
-  //     search: name,
-  //   }
-  // }
-
-  // // Child of Sub Category
-  // if (children?.edges?.length === 0 && parent !== (null || undefined)) {
-  //   // Modify the variables based on the condition
-  //   bannerVariable = {
-  //     search: parent,
-  //   }
-  //   queryVariables = {
-  //     search: parent,
-  //   }
-  // }
-
-  // // Specific Category with no sub category
-  // if (name === ('Trade Talk' || 'Airline News' || 'Travel News')) {
-  //   // Modify the variables based on the condition
-  //   bannerVariable = {
-  //     search: name,
-  //   }
-  // }
-
   // Get Specific Banner
-  const { data: bannerSpecificData, error: bannerSpecificError } = useQuery(
-    GetSpecificBannerAds,
-    {
-      variables: bannerVariable,
-      fetchPolicy: 'cache-and-network',
-      nextFetchPolicy: "network-only",
-    },
-  )
+  const { data: bannerSpecificData, error: bannerSpecificError } =
+    useSWRGraphQL(
+      name ? ['specific-banner-ads', name] : null,
+      GetSpecificBannerAds,
+      bannerVariable,
+    )
 
   if (bannerSpecificError) {
     return <pre>{JSON.stringify(error)}</pre>

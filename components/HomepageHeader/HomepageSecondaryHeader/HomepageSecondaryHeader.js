@@ -1,6 +1,5 @@
 import classNames from 'classnames/bind'
 import styles from './HomepageSecondaryHeader.module.scss'
-import { useQuery } from '@apollo/client'
 import { useRef, useMemo, useState, useEffect } from 'react'
 import { useClickOutside } from '@/constants/useClickOutside'
 import { CUSTOM_DATABASE_ID } from '@/constants/customDatabaseId'
@@ -8,6 +7,7 @@ import { GetSearchResults } from '@/queries/GetSearchResults'
 import { GetLatestPartnerContent } from '@/queries/GetLatestPartnerContent'
 import { FaSearch } from 'react-icons/fa'
 import dynamic from 'next/dynamic'
+import { useSWRGraphQL } from '@/lib/useSWRGraphQL'
 // Import Components
 const SearchInput = dynamic(() =>
   import('@/components/SearchInput/SearchInput'),
@@ -59,8 +59,10 @@ export default function HomepageSecondaryHeader({
   const postsPerPage = 200
 
   // Search Results Query
-  const [isFetchingMore, setIsFetchingMore] = useState(false)
+  const MIN_YEAR = 2023
   const [year, setYear] = useState(2024)
+  const [yearsLoaded, setYearsLoaded] = useState([2024])
+  const [isFetchingMore, setIsFetchingMore] = useState(false)
 
   // Clear search input
   const clearSearch = () => {
@@ -84,29 +86,22 @@ export default function HomepageSecondaryHeader({
   useClickOutside(burgerRef, () => setIsBurgerNavShown(false), [menuRef])
 
   // Add search query function
+  const swrKey = searchQuery ? ['search-results', searchQuery, year] : null
+
   const {
     data: searchResultsData,
-    loading,
+    isLoading,
     error,
-    fetchMore,
-  } = useQuery(GetSearchResults, {
-    variables: {
-      first: postsPerPage,
-
-      search: searchQuery,
-      year,
-    },
-    skip: !searchQuery,
-    fetchPolicy: 'cache-and-network',
-    nextFetchPolicy: 'network-only',
+  } = useSWRGraphQL(swrKey, GetSearchResults, {
+    first: postsPerPage,
+    search: searchQuery,
+    year,
   })
 
   // Check if the search query is empty and no search results are loading, then hide the SearchResults component
   const isSearchResultsVisible = !!searchQuery
 
-  const MIN_YEAR = 2023
-
-  const fetchMorePosts = async () => {
+  const fetchMorePosts = () => {
     if (isFetchingMore) return
 
     const nextYear = year - 1
@@ -114,13 +109,9 @@ export default function HomepageSecondaryHeader({
 
     setIsFetchingMore(true)
 
-    await fetchMore({
-      variables: {
-        year: nextYear,
-      },
-    })
-
+    setYearsLoaded((prev) => [...prev, nextYear])
     setYear(nextYear)
+
     setIsFetchingMore(false)
   }
 
@@ -150,16 +141,13 @@ export default function HomepageSecondaryHeader({
     if (!searchQuery) return
 
     setYear(2024)
+    setYearsLoaded([2024])
   }, [searchQuery])
 
   // Get latest travel stories
-  const { data: latestPartnerContent, loading: latestPartnerContentLoading } =
-    useQuery(GetLatestPartnerContent, {
-      variables: {
-        first: 10,
-      },
-      fetchPolicy: 'cache-and-network',
-      nextFetchPolicy: 'network-only',
+  const { data: latestPartnerContent, isLoading: latestPartnerContentLoading } =
+    useSWRGraphQL('latest-partner-content', GetLatestPartnerContent, {
+      first: 10,
     })
 
   const advertorials = latestPartnerContent?.advertorials ?? []
@@ -337,7 +325,7 @@ export default function HomepageSecondaryHeader({
             {isSearchResultsVisible && (
               <SearchResults
                 searchResults={contentNodesPosts}
-                isLoading={loading}
+                isLoading={isLoading}
                 isFetchingMore={isFetchingMore}
                 onLoadMore={fetchMorePosts}
                 hasMore={year > 2023}

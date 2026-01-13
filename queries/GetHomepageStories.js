@@ -21,7 +21,6 @@ export const GetHomepageStories = gql`
           uri
           ... on Editorial {
             title
-            contentTypeName
             date
             excerpt
             passwordProtected {

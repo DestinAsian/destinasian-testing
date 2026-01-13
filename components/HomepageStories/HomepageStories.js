@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import classNames from 'classnames/bind'
 import styles from './HomepageStories.module.scss'
-import { useQuery } from '@apollo/client'
 import { GetHomepageStories } from '@/queries/GetHomepageStories'
 import { GetHomepageBannerAds } from '@/queries/GetHomepageBannerAds'
 import { GetAdvertorialHomepageStories } from '@/queries/GetAdvertorialHomepageStories'
 import dynamic from 'next/dynamic'
+import { useSWRGraphQL } from '@/lib/useSWRGraphQL'
 // Import Components
 const Button = dynamic(() => import('@/components/Button/Button'))
 const PostTwoColumns = dynamic(() =>
@@ -19,232 +19,189 @@ const AdvertorialPostTwoColumns = dynamic(() =>
 let cx = classNames.bind(styles)
 
 function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
+  const arr = [...array]
+  for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1))
-    ;[array[i], array[j]] = [array[j], array[i]]
+    ;[arr[i], arr[j]] = [arr[j], arr[i]]
   }
-  return array
+  return arr
 }
 
 export default function HomepageStories(pinPosts) {
-  // Fetching Posts
-  const [isFetchingMore, setIsFetchingMore] = useState(false)
-  // Declare state for banner ads
-  const [bannerAdsArray, setBannerAdsArray] = useState([])
-  const [AdvertorialArray, setAdvertorialArray] = useState([])
-  // Post per fetching
   const postsPerPage = 4
   const bannerPerPage = 20
   const advertorialPerPage = 12
 
-  // Get Stories / Posts
-  const { data, error, loading, fetchMore } = useQuery(GetHomepageStories, {
-    variables: {
-      first: postsPerPage,
-      after: null,
-    },
-    fetchPolicy: 'cache-and-network',
-    nextFetchPolicy: 'network-only',
-  })
+  const [isFetchingMore, setIsFetchingMore] = useState(false)
 
-  // Get Banner
+  const [posts, setPosts] = useState([])
+  const [postsCursor, setPostsCursor] = useState(null)
+
+  const [advertorials, setAdvertorials] = useState([])
+  const [advertorialCursor, setAdvertorialCursor] = useState(null)
+
+  const [bannerAdsArray, setBannerAdsArray] = useState([])
+
+  const [hasMorePosts, setHasMorePosts] = useState(true)
+  const [hasMoreAdvertorials, setHasMoreAdvertorials] = useState(true)
+
+  /* ---------------- POSTS ---------------- */
+
   const {
-    data: bannerData,
-    error: bannerError,
-    loading: bannerLoading,
-  } = useQuery(GetHomepageBannerAds, {
-    variables: {
-      first: bannerPerPage,
-    },
-    fetchPolicy: 'cache-and-network',
-    nextFetchPolicy: 'network-only',
+    data: postsData,
+    isLoading: postsLoading,
+    error: postsError,
+  } = useSWRGraphQL(['homepage-posts', postsCursor], GetHomepageStories, {
+    first: postsPerPage,
+    after: postsCursor,
   })
 
-  // Get Advertorial Stories
-  const {
-    data: advertorialsData,
-    error: advertorialsError,
-    loading: advertorialsLoading,
-    fetchMore: fetchMoreAdvertorials,
-  } = useQuery(GetAdvertorialHomepageStories, {
-    variables: {
-      first: advertorialPerPage,
-      after: null,
-    },
-    fetchPolicy: 'cache-and-network',
-    nextFetchPolicy: 'network-only',
-  })
+  useEffect(() => {
+    if (!postsData?.contentNodes) return
 
-  // Update for stories / posts
-  const updateQuery = (prev, { fetchMoreResult }) => {
-    if (!fetchMoreResult) return prev
+    const { edges, pageInfo } = postsData.contentNodes
 
-    const prevEdges = data?.contentNodes?.edges || []
-    const newEdges = fetchMoreResult?.contentNodes?.edges || []
-
-    return {
-      ...data,
-      contentNodes: {
-        ...data?.contentNodes,
-        edges: [...prevEdges, ...newEdges],
-        pageInfo: fetchMoreResult?.contentNodes?.pageInfo,
-      },
-    }
-  }
-
-  // Update for Advertorial stories
-  const updateAdvertorialQuery = (prev, { fetchMoreResult }) => {
-    if (!fetchMoreResult) return prev
-
-    const merged = [
-      ...prev.contentNodes.edges,
-      ...fetchMoreResult.contentNodes.edges,
-    ]
-
-    const cleaned = merged
+    const newPosts = edges
       .map((e) => e.node)
-      .filter((node) => !node?.passwordProtected?.onOff)
+      .filter((n) => !n?.passwordProtected?.onOff)
 
-    // 🔥 MUST update state so UI receives new items
-    setAdvertorialArray((old) => [
-      ...old,
-      ...cleaned.filter((item) => !old.some((o) => o.id === item.id)),
-    ])
-
-    return {
-      ...prev,
-      contentNodes: {
-        ...prev.contentNodes,
-        edges: merged,
-        pageInfo: fetchMoreResult.contentNodes.pageInfo,
-      },
-    }
-  }
-
-  // Function to shuffle the banner ads and store them in state
-  useEffect(() => {
-    const shuffleBannerAds = () => {
-      const bannerAdsArrayObj = Object.values(
-        bannerData?.bannerAds?.edges || [],
-      )
-
-      // Separate shuffled banner ads with <img> tags from those without
-      const bannerAdsWithImg = bannerAdsArrayObj.filter(
-        (bannerAd) => !bannerAd?.node?.content.includes('<!--'),
-      )
-
-      // Shuffle only the otherBannerAds array
-      const shuffledBannerAds = shuffleArray(bannerAdsWithImg)
-
-      // Concatenate the arrays with pinned ads first and shuffled other banner ads
-      const shuffledBannerAdsArray = [...shuffledBannerAds]
-
-      setBannerAdsArray(shuffledBannerAdsArray)
-    }
-
-    // Shuffle the banner ads when the component mounts
-    shuffleBannerAds()
-
-    // Shuffle the banner ads every 10 seconds
-    const shuffleInterval = setInterval(() => {
-      shuffleBannerAds()
-    }, 60000) // 10000 milliseconds = 10 seconds
-
-    // Cleanup the interval when the component unmounts
-    return () => {
-      clearInterval(shuffleInterval)
-    }
-  }, [bannerData]) // Use bannerData as a dependency to trigger shuffling when new data arrives
-
-  useEffect(() => {
-    if (!advertorialsData) return
-
-    const unique = []
-    const seen = new Set()
-
-    advertorialsData.contentNodes.edges.forEach((edge) => {
-      const node = edge.node
-      if (node.passwordProtected?.onOff) return
-      if (seen.has(node.id)) return
-      seen.add(node.id)
-      unique.push(node)
+    setPosts((prev) => {
+      const seen = new Set(prev.map((p) => p.id))
+      return [...prev, ...newPosts.filter((p) => !seen.has(p.id))]
     })
 
-    // shuffle
-    setAdvertorialArray(shuffleArray(unique))
-  }, [advertorialsData])
+    setHasMorePosts(Boolean(pageInfo?.hasNextPage))
+  }, [postsData])
 
-  // Concatenate the arrays to place ads with <img> tags first
-  const sortedBannerAdsArray = [...bannerAdsArray].reduce((uniqueAds, ad) => {
-    if (!uniqueAds.some((uniqueAd) => uniqueAd?.node?.id === ad?.node?.id)) {
-      uniqueAds.push(ad)
+  /* ---------------- BANNERS ---------------- */
+
+  const {
+    data: bannerData,
+    isLoading: bannerLoading,
+    error: bannerError,
+  } = useSWRGraphQL('homepage-banners', GetHomepageBannerAds, {
+    first: bannerPerPage,
+  })
+
+  useEffect(() => {
+    if (!bannerData?.bannerAds?.edges) return
+
+    const shuffleBannerAds = () => {
+      const bannerAdsArrayObj = Object.values(bannerData.bannerAds.edges || [])
+
+      // Only banners WITHOUT HTML comments
+      const bannerAdsWithImg = bannerAdsArrayObj.filter(
+        (bannerAd) => !bannerAd?.node?.content?.includes('<!--'),
+      )
+
+      const shuffledBannerAds = shuffleArray([...bannerAdsWithImg])
+
+      setBannerAdsArray(shuffledBannerAds)
     }
-    return uniqueAds
-  }, [])
 
-  const fetchMoreAll = () => {
+    // Initial shuffle
+    shuffleBannerAds()
+
+    // Re-shuffle every 60 seconds
+    const shuffleInterval = setInterval(() => {
+      shuffleBannerAds()
+    }, 60000)
+
+    return () => clearInterval(shuffleInterval)
+  }, [bannerData])
+
+  /* ---------------- ADVERTORIALS ---------------- */
+
+  const {
+    data: advertorialData,
+    isLoading: advertorialLoading,
+    error: advertorialError,
+  } = useSWRGraphQL(
+    ['homepage-advertorials', advertorialCursor],
+    GetAdvertorialHomepageStories,
+    {
+      first: advertorialPerPage,
+      after: advertorialCursor,
+    },
+  )
+
+  useEffect(() => {
+    if (!advertorialData?.contentNodes) return
+
+    const { edges, pageInfo } = advertorialData.contentNodes
+
+    const incoming = edges
+      .map((e) => e.node)
+      .filter((n) => !n?.passwordProtected?.onOff)
+
+    setAdvertorials((prev) => {
+      const seen = new Set(prev.map((p) => p.id))
+      return [...prev, ...incoming.filter((p) => !seen.has(p.id))]
+    })
+
+    setHasMoreAdvertorials(Boolean(pageInfo?.hasNextPage))
+  }, [advertorialData])
+
+  /* ---------------- LOAD MORE ---------------- */
+
+  useEffect(() => {
+    if (!isFetchingMore) return
+
+    // Wait until BOTH queries are done loading
+    if (!postsLoading && !advertorialLoading) {
+      setIsFetchingMore(false)
+    }
+  }, [isFetchingMore, postsLoading, advertorialLoading])
+
+  const fetchMoreAll = useCallback(() => {
     if (isFetchingMore) return
-
-    const hasMorePosts = data?.contentNodes?.pageInfo?.hasNextPage
-    const hasMoreAdvertorials =
-      advertorialsData?.contentNodes?.pageInfo?.hasNextPage
-
     if (!hasMorePosts && !hasMoreAdvertorials) return
 
     setIsFetchingMore(true)
 
-    const promises = []
-
-    if (hasMorePosts) {
-      promises.push(
-        fetchMore({
-          variables: {
-            after: data?.contentNodes?.pageInfo?.endCursor,
-          },
-          updateQuery,
-        }),
-      )
+    if (hasMorePosts && postsData?.contentNodes?.pageInfo?.endCursor) {
+      setPostsCursor(postsData.contentNodes.pageInfo.endCursor)
     }
 
-    if (hasMoreAdvertorials) {
-      promises.push(
-        fetchMoreAdvertorials({
-          variables: {
-            after: advertorialsData?.contentNodes?.pageInfo?.endCursor,
-          },
-          updateAdvertorialQuery,
-        }),
-      )
+    if (
+      hasMoreAdvertorials &&
+      advertorialData?.contentNodes?.pageInfo?.endCursor
+    ) {
+      setAdvertorialCursor(advertorialData.contentNodes.pageInfo.endCursor)
     }
+  }, [
+    isFetchingMore,
+    hasMorePosts,
+    hasMoreAdvertorials,
+    postsData,
+    advertorialData,
+  ])
 
-    Promise.all(promises).finally(() => setIsFetchingMore(false))
-  }
+  /* ---------------- SCROLL ---------------- */
 
-  // Scroll event listener to detect when user scrolls to the bottom
   useEffect(() => {
-    const handleScroll = () => {
-      const scrolledToBottom =
-        window.scrollY + window.innerHeight >=
-        document.documentElement.scrollHeight
-
-      if (scrolledToBottom) {
-        // Call the function to fetch more when scrolled to the bottom
+    const onScroll = () => {
+      if (
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 200
+      ) {
         fetchMoreAll()
       }
     }
 
-    window.addEventListener('scroll', handleScroll)
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
+    window.addEventListener('scroll', onScroll)
+    return () => window.removeEventListener('scroll', onScroll)
   }, [fetchMoreAll])
 
-  if (error || bannerError || advertorialsError) {
+  /* ---------------- STATES ---------------- */
+
+  if (postsError || bannerError || advertorialError) {
     return <pre>{JSON.stringify(error)}</pre>
   }
 
-  if (loading || bannerLoading || advertorialsLoading) {
+  const isInitialLoading = postsLoading && posts.length === 0
+
+  if (isInitialLoading) {
     return (
       <>
         <div className="mx-auto my-0 flex max-w-[100vw] justify-center md:max-w-[700px]	">
@@ -254,10 +211,8 @@ export default function HomepageStories(pinPosts) {
     )
   }
 
-  // Declare all posts (exclude password protected)
-  const allPosts = (data?.contentNodes?.edges || [])
-    .map((post) => post.node)
-    .filter((node) => !node?.passwordProtected?.onOff)
+  // Declare all posts
+  const allPosts = posts
 
   // Declare all pin posts
   const allPinPosts = [
@@ -278,113 +233,33 @@ export default function HomepageStories(pinPosts) {
   )
 
   //   // Declare 2 Advertorial Post
-  // const getAdvertorialPost = advertorialsData?.contentNodes?.edges
+  // const getAdvertorialPost = advertorialData?.contentNodes?.edges
   //   ?.map((edge) => edge.node)
   //   ?.filter((node) => !node?.passwordProtected?.onOff) || []
 
   //   const numberOfAdvertorial = AdvertorialArray.length
 
-  const numberOfBannerAds = sortedBannerAdsArray.length
+  const numberOfBannerAds = bannerAdsArray.length
 
   return (
     <div className={cx('component')}>
       {mergedPosts.length !== 0 &&
         mergedPosts.map((post, index) => (
           <React.Fragment key={post?.id}>
-            {/* Post / Guides Stories */}
-            {post?.contentTypeName === 'post' && (
-              <div className={cx('post-wrapper')}>
-                <PostTwoColumns
-                  title={post?.title}
-                  excerpt={post?.excerpt}
-                  uri={post?.uri}
-                  parentCategory={
-                    post?.categories?.edges[0]?.node?.parent?.node?.name
-                  }
-                  category={post?.categories?.edges[0]?.node?.name}
-                  categoryUri={post?.categories?.edges[0]?.node?.uri}
-                  featuredImage={post?.featuredImage?.node}
-                  chooseYourCategory={post?.acfCategoryIcon?.chooseYourCategory}
-                  chooseIcon={post?.acfCategoryIcon?.chooseIcon?.mediaItemUrl}
-                  categoryLabel={post?.acfCategoryIcon?.categoryLabel}
-                  locationValidation={post?.acfLocationIcon?.fieldGroupName}
-                  locationLabel={post?.acfLocationIcon?.locationLabel}
-                  locationUrl={post?.acfLocationIcon?.locationUrl}
-                />
-              </div>
-            )}
             {/* Editorials Stories */}
-            {post?.contentTypeName === 'editorial' && (
-              <div className={cx('post-wrapper')}>
-                <PostTwoColumns
-                  title={post?.title}
-                  excerpt={post?.excerpt}
-                  uri={post?.uri}
-                  parentCategory={
-                    post?.categories?.edges[0]?.node?.parent?.node?.name
-                  }
-                  category={post?.categories?.edges[0]?.node?.name}
-                  categoryUri={post?.categories?.edges[0]?.node?.uri}
-                  featuredImage={post?.featuredImage?.node}
-                />
-              </div>
-            )}
-            {/* Updates Stories */}
-            {post?.contentTypeName === 'update' && (
-              <div className={cx('post-wrapper')}>
-                <PostTwoColumns
-                  title={post?.title}
-                  excerpt={post?.excerpt}
-                  uri={post?.uri}
-                  parentCategory={
-                    post?.categories?.edges[0]?.node?.parent?.node?.name
-                  }
-                  category={post?.categories?.edges[0]?.node?.name}
-                  categoryUri={post?.categories?.edges[0]?.node?.uri}
-                  featuredImage={post?.featuredImage?.node}
-                />
-              </div>
-            )}
-            {/* Honors Circle Stories */}
-            {post?.contentTypeName === 'honors-circle' && (
-              <div className={cx('hc-wrapper')}>
-                <PostTwoColumns
-                  title={post?.title}
-                  excerpt={post?.excerpt}
-                  uri={post?.uri}
-                  category={'Honors Circle'}
-                  categoryUri={post?.uri}
-                  featuredImage={post?.featuredImage?.node}
-                />
-              </div>
-            )}
-            {/* Luxury Travel Stories */}
-            {post?.contentTypeName === 'luxury-travel' && (
-              <div className={cx('post-wrapper')}>
-                <PostTwoColumns
-                  title={post?.title}
-                  excerpt={post?.excerpt}
-                  uri={post?.uri}
-                  category={'Luxury Travel'}
-                  categoryUri={post?.uri}
-                  featuredImage={post?.featuredImage?.node}
-                />
-              </div>
-            )}
-            {/* Partner Content Stories */}
-            {post?.contentTypeName === 'advertorial' && (
-              <div className={cx('advertorial-wrapper')}>
-                <PostTwoColumns
-                  title={post?.title}
-                  excerpt={post?.excerpt}
-                  uri={post?.uri}
-                  category={'Partner Content'}
-                  categoryUri={post?.uri}
-                  featuredImage={post?.featuredImage?.node}
-                  customClassName={'advertorial'}
-                />
-              </div>
-            )}
+            <div className={cx('post-wrapper')}>
+              <PostTwoColumns
+                title={post?.title}
+                excerpt={post?.excerpt}
+                uri={post?.uri}
+                parentCategory={
+                  post?.categories?.edges[0]?.node?.parent?.node?.name
+                }
+                category={post?.categories?.edges[0]?.node?.name}
+                categoryUri={post?.categories?.edges[0]?.node?.uri}
+                featuredImage={post?.featuredImage?.node}
+              />
+            </div>
             {(() => {
               const pos = (index - 1) % 8 // cycle through 8 slots
 
@@ -394,7 +269,7 @@ export default function HomepageStories(pinPosts) {
                   <div className={cx('banner-ad-wrapper')}>
                     <ModuleAd
                       bannerAd={
-                        sortedBannerAdsArray[
+                        bannerAdsArray[
                           Math.floor((index - 1) / 8) % numberOfBannerAds
                         ]?.node?.content
                       }
@@ -407,7 +282,7 @@ export default function HomepageStories(pinPosts) {
               if (pos === 6) {
                 const cycle = Math.floor((index - 1) / 8) // which 8-post block
                 const start = cycle * 2 // index in advertorial array
-                const advertorialPost = AdvertorialArray.slice(start, start + 2)
+                const advertorialPost = advertorials.slice(start, start + 2)
 
                 return (
                   <>
@@ -432,8 +307,7 @@ export default function HomepageStories(pinPosts) {
         ))}
       {mergedPosts.length > 0 && (
         <div className="mx-auto my-0 flex w-[100vw] justify-center">
-          {(data?.contentNodes?.pageInfo?.hasNextPage ||
-            advertorialsData?.contentNodes?.pageInfo?.hasNextPage) && (
+          {(hasMorePosts || hasMoreAdvertorials) && (
             <Button
               onClick={() => {
                 if (!isFetchingMore) {
