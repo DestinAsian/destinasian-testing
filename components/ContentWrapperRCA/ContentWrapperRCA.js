@@ -1,11 +1,18 @@
 import className from 'classnames/bind'
 import styles from './ContentWrapperRCA.module.scss'
-import React, { useEffect, useState, useRef, useMemo } from 'react'
+import React, {
+  useEffect,
+  useState,
+  useRef,
+  useMemo,
+  useLayoutEffect,
+} from 'react'
 import Link from 'next/link'
 import { useQuery } from '@apollo/client'
 import { GetRCAPagination } from '@/queries/GetRCAPagination'
 import dynamic from 'next/dynamic'
 import { transformWpImages } from '@/utilities/transformWpImages'
+import { useMediaQuery } from 'react-responsive'
 // Import Components
 const SingleRCASlider = dynamic(() =>
   import('@/components/SingleRCASlider/SingleRCASlider'),
@@ -20,7 +27,6 @@ const RCAFullMenu = dynamic(() =>
 let cx = className.bind(styles)
 
 export default function ContentWrapperRCA({
-  router,
   title,
   parentTitle,
   images,
@@ -32,44 +38,40 @@ export default function ContentWrapperRCA({
   sliderLoading,
   isRCANavShown,
   setIsRCANavShown,
-  isAutoplayRunning,
-  setIsAutoplayRunning,
   sliderRCA,
-  toggleAutoplay,
   activeIndex,
   setActiveIndex,
   rcaRef,
 }) {
   const batchSize = 100
   const [isSliderMounted, setIsSliderMounted] = useState(false) // Track slider mount status
-  // const [activeIndex, setActiveIndex] = useState(0)
-  const [hash, setHash] = useState('')
-  const hasRunOnce = useRef(false)
-  const urlPath = router?.asPath
+  const [sliderHeight, setSliderHeight] = useState(0)
+  const [sliderWidth, setSliderWidth] = useState(0)
+  const sliderRef = useRef(null)
 
-  // useEffect(() => {
-  //   // Update activeIndex based on the hash in the URL
-  //   const hashFromURL = window.location.hash.substring(1)
-  //   setHash(hashFromURL)
+  const [isSharing, setIsSharing] = useState(false)
 
-  //   if (hashFromURL) {
-  //     const index = rcaIndexData.findIndex(
-  //       (rcaIndex) =>
-  //         rcaIndex.name.toLowerCase().replace(/\s+/g, '-') === hashFromURL,
-  //     )
-  //     setActiveIndex(index)
-  //   }
-  // }, [rcaIndexData])
+  const handleShare = async () => {
+    if (isSharing) return // prevent double-clicks
 
-  // useEffect(() => {
-  //   // Scroll to the element with the matching ID when hash changes
-  //   const element = document.getElementById(hash)
-  //   if (element) {
-  //     element.scrollIntoView({
-  //       behavior: 'smooth',
-  //     })
-  //   }
-  // }, [hash])
+    setIsSharing(true)
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          title: document.title,
+          url: window.location.href,
+        })
+      } else {
+        await navigator.clipboard.writeText(window.location.href)
+        alert('Link copied to clipboard!')
+      }
+    } catch (err) {
+      alert('Sharing was canceled.')
+    } finally {
+      // allow another share after it completes (even if canceled)
+      setIsSharing(false)
+    }
+  }
 
   const slideTo = (index) => {
     if (sliderRCA?.current?.swiper) {
@@ -81,6 +83,8 @@ export default function ContentWrapperRCA({
   const handleSlideChange = (index) => {
     setActiveIndex(index)
   }
+
+  const isMobile = useMediaQuery({ maxWidth: 1023 })
 
   const { data, loading, error } = useQuery(GetRCAPagination, {
     variables: { first: batchSize, after: null, id: databaseId },
@@ -125,81 +129,58 @@ export default function ContentWrapperRCA({
   const nextUri =
     nextIndex < numberOfRCA ? rcaAll[nextIndex]?.uri : rcaAll[0]?.uri // Loop back to the first URI
 
-  useEffect(() => {
-    if (isAutoplayRunning && isSliderMounted && sliderRCA?.current) {
-      const swiperInstance = sliderRCA?.current.swiper
-
-      const handleSlideChange = () => {
-        const isLastSlide =
-          swiperInstance.realIndex === swiperInstance.slides.length - 1
-
-        if (isLastSlide) {
-          const timer = setTimeout(() => {
-            if (nextUri) {
-              router.replace(nextUri)
-            }
-          }, 3000)
-
-          return () => clearTimeout(timer) // Clear the timeout on cleanup
-        }
-      }
-
-      swiperInstance.on('slideChange', handleSlideChange)
-
-      return () => {
-        swiperInstance.off('slideChange', handleSlideChange)
-      }
-    }
-  }, [sliderRCA?.current, isAutoplayRunning, nextUri, router, isSliderMounted])
-
   // Transform Wordpress Images
   const transformedContent = useMemo(
     () => transformWpImages(content),
     [content, isSliderMounted],
   )
 
-  useEffect(() => {
-    if (isSliderMounted) {
-      const swiperInstance = sliderRCA?.current?.swiper
+  const useIsomorphicLayoutEffect =
+    typeof window !== 'undefined' ? useLayoutEffect : useEffect
 
-      const updateIndex = () => {
-        setActiveIndex(swiperInstance.realIndex)
+  // Measure slider width & height reliably and watch for changes
+  useIsomorphicLayoutEffect(() => {
+    if (typeof window === 'undefined') return
+
+    const getDimensions = () => {
+      let h = 0
+      let w = 0
+
+      if (sliderRef.current) {
+        const rect = sliderRef.current.getBoundingClientRect()
+        h = rect.height || 0
+        w = rect.width || 0
       }
 
-      const initialAutoplayState = swiperInstance.autoplay?.running || false
-      setIsAutoplayRunning(initialAutoplayState)
-
-      swiperInstance.on('slideChange', () => {
-        const currentAutoplayState = swiperInstance.autoplay?.running || false
-        setIsAutoplayRunning(currentAutoplayState)
-        updateIndex
-      })
-
-      return () => {
-        swiperInstance.off('slideChange', updateIndex)
-      }
-    }
-  }, [isAutoplayRunning, isSliderMounted])
-
-  // Pause Autoplay when there's #pause in URL
-  useEffect(() => {
-    if (!hasRunOnce.current && isSliderMounted) {
-      const swiperInstance = sliderRCA?.current?.swiper
-
-      if (urlPath.includes('#pause') && swiperInstance?.autoplay) {
-        swiperInstance.autoplay.stop() // 🔒 Force stop autoplay
-        setIsAutoplayRunning(false) // 🧠 Update your own state
+      if ((!h || !w) && sliderRCA?.current?.swiper?.el) {
+        const el = sliderRCA.current.swiper.el
+        const rect = el.getBoundingClientRect()
+        h = rect.height || 0
+        w = rect.width || 0
       }
 
-      hasRunOnce.current = true
+      setSliderHeight(Math.round(h))
+      setSliderWidth(Math.round(w))
     }
-  }, [isSliderMounted, urlPath])
 
-  useEffect(() => {
-    if (isAutoplayRunning && isRCANavShown) {
-      return toggleAutoplay() // Calls the toggleAutoplay function
+    getDimensions()
+
+    let ro
+    const target = sliderRef.current ?? sliderRCA?.current?.swiper?.el ?? null
+
+    if (target && typeof window.ResizeObserver !== 'undefined') {
+      ro = new ResizeObserver(getDimensions)
+      ro.observe(target)
+    } else {
+      const handleResize = () => getDimensions()
+      window.addEventListener('resize', handleResize)
+      return () => window.removeEventListener('resize', handleResize)
     }
-  })
+
+    return () => {
+      if (ro) ro.disconnect()
+    }
+  }, [isSliderMounted, images && images.length])
 
   if (error) {
     return <pre>{JSON.stringify(error)}</pre>
@@ -234,35 +215,6 @@ export default function ContentWrapperRCA({
 
   return (
     <>
-      {images[0] != null && (
-        <div className={cx('slider-wrapper')}>
-          <SingleRCASlider
-            images={rcaIndexData.map((item) => item.imageUrl)}
-            handleSlideChange={handleSlideChange}
-            nextUri={nextUri}
-            sliderRCA={sliderRCA}
-            isSliderMounted={isSliderMounted}
-            setIsSliderMounted={setIsSliderMounted}
-          />
-        </div>
-      )}
-      {images[0] == null && <div className={cx('slider-wrapper')}></div>}
-      {/* Under the Slider */}
-      {parentTitle && (
-        <SingleRCAEntryHeader
-          parentTitle={parentTitle}
-          className={'parentClass'}
-          // category={category}
-        />
-      )}
-      {/* Before Content Wrapper */}
-      {title && (
-        <SingleRCAEntryHeader
-          title={title}
-          className={parentTitle ? 'bothClass' : 'defaultClass'}
-          // category={category}
-        />
-      )}
       <article
         className={cx(
           'component',
@@ -270,60 +222,117 @@ export default function ContentWrapperRCA({
         )}
       >
         <div className={cx('with-slider-wrapper')}>
+          {images[0] != null && (
+            <div ref={sliderRef} className={cx('slider-wrapper')}>
+              <SingleRCASlider
+                images={rcaIndexData.map((item) => item.imageUrl)}
+                handleSlideChange={handleSlideChange}
+                nextUri={nextUri}
+                sliderRCA={sliderRCA}
+                isSliderMounted={isSliderMounted}
+                setIsSliderMounted={setIsSliderMounted}
+              />
+            </div>
+          )}
+          {images[0] == null && <div className={cx('slider-wrapper')}></div>}
+          {/* Under the Slider */}
+          {parentTitle && (
+            <SingleRCAEntryHeader
+              parentTitle={parentTitle}
+              className={'parentClass'}
+              sliderWidth={sliderWidth}
+              sliderHeight={sliderHeight}
+              isMobile={isMobile}
+              // category={category}
+            />
+          )}
+          {/* Before Content Wrapper */}
+          {title && (
+            <div
+              style={{
+                marginLeft: !isMobile ? `${sliderWidth}px` : '',
+              }}
+            >
+              <SingleRCAEntryHeader
+                title={title}
+                className={parentTitle ? 'bothClass' : 'defaultClass'}
+              />
+            </div>
+          )}
           {rcaIndexData[0]?.name !== null && (
-            <div className={cx('content-list-wrapper')}>
-              {rcaIndexData?.map((rcaIndex, index) => (
-                <>
-                  <div
-                    className={cx([
-                      'button-pagination',
-                      activeIndex == index ? 'active' : undefined,
-                    ])}
-                    id={rcaIndex?.name ? rcaIndex.name : null}
-                    key={index}
-                  >
-                    <button
-                      className={cx('content-list')}
-                      onClick={() => {
-                        slideTo(index)
-                        handleSlideChange(index)
-                      }}
-                    >
-                      {rcaIndex?.name && (
-                        <>
-                          <div className={cx('content-index')}>{index + 1}</div>
-                          <div className={cx('content-property-name')}>
-                            {rcaIndex?.name}
-                          </div>
-                        </>
-                      )}
-                    </button>
+            <div
+              style={{
+                marginLeft: !isMobile ? `${sliderWidth}px` : '',
+              }}
+            >
+              <div className={cx('content-list-wrapper')}>
+                {rcaIndexData?.map((rcaIndex, index) => (
+                  <>
                     <div
                       className={cx([
-                        'content-url',
-                        activeIndex == index ? 'show' : undefined,
+                        'button-pagination',
+                        activeIndex == index ? 'active' : undefined,
                       ])}
+                      id={rcaIndex?.name ? rcaIndex.name : null}
+                      key={index}
                     >
-                      {rcaIndex?.url && (
-                        <div className={cx('content-property-url')}>
-                          <Link href={rcaIndex?.url} target="_blank">
-                            {'Visit Site'}
-                          </Link>
-                        </div>
-                      )}
+                      <button
+                        className={cx('content-list')}
+                        onClick={() => {
+                          slideTo(index)
+                          handleSlideChange(index)
+                        }}
+                      >
+                        {rcaIndex?.name && (
+                          <>
+                            <div className={cx('content-index')}>
+                              {index + 1}
+                            </div>
+                            <div className={cx('content-property-name')}>
+                              {rcaIndex?.name}
+                            </div>
+                          </>
+                        )}
+                      </button>
+                      <div
+                        className={cx([
+                          'content-url',
+                          activeIndex == index ? 'show' : undefined,
+                        ])}
+                      >
+                        {rcaIndex?.url && (
+                          <div className={cx('content-property-url')}>
+                            <Link href={rcaIndex?.url} target="_blank">
+                              {'Visit Site'}
+                            </Link>
+                          </div>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                </>
-              ))}
+                  </>
+                ))}
+              </div>
             </div>
           )}
           {transformedContent !== 'null' && (
             <div
-              className={cx('content-wrapper')}
-              dangerouslySetInnerHTML={{ __html: transformedContent ?? '' }}
-            />
+              style={{
+                marginLeft: !isMobile ? `${sliderWidth}px` : '',
+              }}
+            >
+              <div
+                className={cx('content-wrapper')}
+                dangerouslySetInnerHTML={{ __html: transformedContent ?? '' }}
+              />
+            </div>
           )}
-          <div className={cx('navigation-wrapper')}>
+          <div
+            style={{
+              marginLeft: !isMobile ? `${sliderWidth}px` : '',
+              width: !isMobile ? `calc(-${sliderWidth}px + 100vw)` : '',
+            }}
+            className={cx('navigation-wrapper')}
+          >
             <div className={cx('navigation-button')}>
               {prevUri && (
                 <Link href={prevUri} className={cx('prev-button')}>
@@ -343,69 +352,43 @@ export default function ContentWrapperRCA({
                 </Link>
               )}
             </div>
+            <div className={cx('share-button-wrapper')}>
+              <div className={cx('image-wrapper')}>
+                <div className={cx('menu-button')}>
+                  <button
+                    type="button"
+                    className={cx('share-icon')}
+                    onClick={handleShare}
+                    disabled={isSharing}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      className="size-6"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M15.75 4.5a3 3 0 1 1 .825 2.066l-8.421 4.679a3.002 3.002 0 0 1 0 1.51l8.421 4.679a3 3 0 1 1-.729 1.31l-8.421-4.678a3 3 0 1 1 0-4.132l8.421-4.679a3 3 0 0 1-.096-.755Z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
             <div className={cx('menu-wrapper')}>
               <button
                 type="button"
                 className={cx('menu-button')}
                 onClick={() => {
                   setIsRCANavShown(!isRCANavShown)
-                  if (isAutoplayRunning) {
-                    return toggleAutoplay() // Calls the toggleAutoplay function
-                  }
                 }}
                 aria-controls={cx('rca-menu-wrapper')}
                 aria-expanded={!isRCANavShown}
               >
                 <div className={cx('menu-title')}>{'Awards Menu'}</div>
               </button>
-            </div>
-            <div className={cx('autoplay-button-wrapper')}>
-              <div className={cx('image-wrapper')}>
-                <div className={cx('menu-button')}>
-                  <button
-                    type="button"
-                    className={cx('autoplay-icon')}
-                    onClick={() => {
-                      toggleAutoplay() // Calls the toggleAutoplay function
-                      if (isRCANavShown) {
-                        return setIsRCANavShown(!isRCANavShown) // Calls the toggleAutoplay function
-                      }
-                    }}
-                    // // aria-controls={cx('full-menu-wrapper')}
-                    // aria-expanded={toggleAutoplay}
-                  >
-                    {isAutoplayRunning ? (
-                      <svg
-                        width="34"
-                        height="44"
-                        viewBox="0 0 34 44"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        {/* Pause Button */}
-                        <path
-                          d="M2.11088 0.486993H8.29661C8.61163 0.486993 8.88369 0.601543 9.11279 0.830643C9.34189 1.05974 9.45644 1.3318 9.45644 1.64682V42.2407C9.45644 42.5557 9.34189 42.8278 9.11279 43.0569C8.88369 43.286 8.61163 43.4005 8.29661 43.4005H2.11088C1.79587 43.4005 1.52381 43.286 1.29471 43.0569C1.06561 42.8278 0.951057 42.5557 0.951057 42.2407V1.64682C0.951057 1.3318 1.06561 1.05974 1.29471 0.830643C1.52381 0.601543 1.79587 0.486993 2.11088 0.486993ZM25.7202 0.486993H31.9059C32.2209 0.486993 32.493 0.601543 32.7221 0.830643C32.9512 1.05974 33.0657 1.3318 33.0657 1.64682V42.2407C33.0657 42.5557 32.9512 42.8278 32.7221 43.0569C32.493 43.286 32.2209 43.4005 31.9059 43.4005H25.7202C25.4051 43.4005 25.1331 43.286 24.904 43.0569C24.6749 42.8278 24.5603 42.5557 24.5603 42.2407V1.64682C24.5603 1.3318 24.6749 1.05974 24.904 0.830643C25.1331 0.601543 25.4051 0.486993 25.7202 0.486993Z"
-                          fill="white"
-                        />
-                      </svg>
-                    ) : (
-                      <svg
-                        width="50"
-                        height="69"
-                        viewBox="0 0 50 69"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        {/* Play Button */}
-                        <path
-                          d="M50 34.5L0.499997 68.708L0.5 0.291994L50 34.5Z"
-                          fill="#ffffff"
-                        />
-                      </svg>
-                    )}
-                  </button>
-                </div>
-              </div>
             </div>
             <div className={cx('navigation-button')}>
               {nextUri && (

@@ -7,39 +7,98 @@
   position: relative;
   /* top: 25rem; */
   height: auto;
-  padding: 21rem 0 0;
+  padding: 0;
 
-  @media (min-width: $breakpoint-extra-small) {
-    margin: 0 auto;
-    background-color: var(--wpe--color--deep--black);
+  // @media (min-width: $breakpoint-extra-small) {
+  //   margin: 0 auto;
+  //   background-color: var(--wpe--color--deep--black);
+  //   width: 100%;
+  //   position: relative;
+  //   max-width: 700px;
+  //   top: 10.5rem;
+  //   // height: calc(-15.5rem + 100vh);
+  //   padding: 0;
+  // }
+
+  @media (min-width: $breakpoint-medium) {
+    margin: 0;
+    // background-color: var(--wpe--color--deep--black);
     width: 100%;
     position: relative;
-    max-width: 700px;
-    top: 10.5rem;
-    // height: calc(-15.5rem + 100vh);
+  }
+
+  .with-slider-wrapper {
+    top: 4.75rem;
+    padding: 0 0 3.5rem;
+    position: relative; /* Ensure positioning context for children */
+
+    @media (min-width: $breakpoint-extra-small) {
+      top: 3rem;
+      // padding: 0 0 12rem;
+    }
+
+    @media (min-width: $breakpoint-medium) {
+      top: 1.5rem;
+      padding: 0 0 5.25rem;
+    }
+  }
+
+  .slider-wrapper {
+    position: fixed;
+    top: 4.65rem;
+    left: 0;
+    width: 100vw;
     padding: 0;
+    // height: 20rem;
+    aspect-ratio: 1 / 1;
+    z-index: 47;
+    // box-shadow: 0 0.5rem 0.5rem var(--wpe--color--deep--black);
+    background-color: var(--wpe--color--deep--black);
+
+    @media (min-width: $breakpoint-extra-small) {
+      aspect-ratio: 1 / 1;
+      position: fixed;
+      top: 6.5rem;
+      width: auto;
+      padding: 0;
+      height: calc(-8.5rem + 100vh);
+      border-left: 2rem solid transparent;
+      border-bottom: 2rem solid transparent;
+      box-shadow: none;
+    }
+
+    * {
+      padding: 0;
+    }
   }
 
   .content-wrapper {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.25rem;
+    padding: 0 1rem 5rem;
+    text-transform: none;
+    margin: 0 0 0 0;
+    overflow-x: hidden;
+    position: relative;
+    top: 0.5rem;
     max-width: 700px;
-    padding: 0 1rem 0;
-    margin: 0 auto;
 
     @media (min-width: $breakpoint-extra-small) {
-      padding: 1.5rem 1rem 2rem 3.5rem;
+      padding: 0 2rem;
+      margin: 0 0 5.25rem 0;
+      border-left: none;
+      top: 1.5rem;
     }
 
     * {
       padding: 0 0 1rem;
     }
-  }
 
-  .with-slider-wrapper {
-    padding: 0 0 7rem;
-    position: relative;
-
-    @media (min-width: $breakpoint-extra-small) {
-      padding: 0 0 5rem;
+    p {
+      font-size: 1rem;
+      letter-spacing: 1px;
+      line-height: 1.5;
     }
   }
 
@@ -167,8 +226,8 @@
     @media (min-width: $breakpoint-extra-small) {
       // height: 5.25rem;
       min-height: 4.25rem;
-      left: 60vw;
-      width: 40vw;
+      // left: 60vw;
+      // width: 40vw;
       z-index: 48;
       // padding: 1rem 2rem;
     }
@@ -258,19 +317,6 @@
     }
   }
 
-  .autoplay-button-wrapper {
-    display: flex;
-    position: relative;
-    height: auto;
-    width: 30%;
-    padding: 0;
-    justify-content: center;
-
-    @media (min-width: $breakpoint-small) {
-      width: 25%;
-    }
-  }
-
   .menu-wrapper {
     text-align: center;
     column-gap: 0.25rem;
@@ -311,28 +357,6 @@
           height: 1.5rem;
         }
       }
-    }
-  }
-
-  .autoplay-icon {
-    display: flex;
-    margin-top: 0;
-    margin-bottom: 0;
-    background-color: transparent;
-    font-size: 1.875rem;
-    line-height: 2.25rem;
-    align-items: center;
-    cursor: pointer;
-    user-select: none;
-    width: 1.3rem;
-
-    @media (min-width: $breakpoint-extra-small) {
-      width: 1.6rem;
-      height: 3.5rem;
-    }
-
-    @media (min-width: $breakpoint-medium) {
-      width: 1.8rem;
     }
   }
 
@@ -564,33 +588,6 @@
         padding: 1rem 0;
       }
     }
-  }
-}
-
-.slider-wrapper {
-  position: fixed;
-  top: 4.65rem;
-  left: 0;
-  width: 100vw;
-  padding: 0;
-  height: 20rem;
-  z-index: 47;
-  box-shadow: 0 0.5rem 0.5rem var(--wpe--color--deep--black);
-  background-color: var(--wpe--color--deep--black);
-
-  @media (min-width: $breakpoint-extra-small) {
-    position: fixed;
-    top: 6.5rem;
-    right: 40vw;
-    width: 60vw;
-    padding: 0;
-    height: calc(-10.5rem + 100vh);
-    border-left: 2rem solid var(--wpe--color--deep--black);
-    box-shadow: none;
-  }
-
-  * {
-    padding: 0;
   }
 }
 

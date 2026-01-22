@@ -10,13 +10,23 @@ export default function SingleRCAEntryHeader({
   parentTitle,
   title,
   className,
+  sliderWidth,
+  sliderHeight,
+  isMobile,
 }) {
   return (
     <>
       {parentTitle && (
-        <div className={cx('component', className)}>
+        <div
+          style={{
+            marginTop: isMobile
+              ? `${sliderHeight}px`
+              : `calc(${sliderHeight}px + 4.5rem)`,
+            width: !isMobile ? `${sliderWidth}px` : '',
+          }}
+          className={cx('component', className)}
+        >
           <div className={cx('header-wrapper')}>
-            {/* {category && <Heading className={cx('category')}>{category}</Heading>} */}
             <Heading className={cx('title')}>{parentTitle}</Heading>
           </div>
         </div>
@@ -24,7 +34,6 @@ export default function SingleRCAEntryHeader({
       {title && (
         <div className={cx('component', className)}>
           <div className={cx('header-wrapper')}>
-            {/* {category && <Heading className={cx('category')}>{category}</Heading>} */}
             <Heading className={cx('title')}>{title}</Heading>
           </div>
         </div>

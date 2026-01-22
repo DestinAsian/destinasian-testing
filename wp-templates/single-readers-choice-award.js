@@ -59,22 +59,7 @@ export default function Component(props) {
   // Slider Autoplay state
   const sliderRCA = useRef(null)
   const [activeIndex, setActiveIndex] = useState(0)
-  const [isAutoplayRunning, setIsAutoplayRunning] = useState(true)
 
-  const toggleAutoplay = () => {
-    const swiperInstance = sliderRCA?.current?.swiper
-    if (swiperInstance) {
-      if (isAutoplayRunning) {
-        swiperInstance.autoplay?.stop()
-      } else {
-        swiperInstance.autoplay?.start()
-        // ➕ Advance to next slide immediately
-        swiperInstance.slideNext(300) // optional speed in ms
-        setActiveIndex(swiperInstance.realIndex)
-      }
-      setIsAutoplayRunning(!isAutoplayRunning)
-    }
-  }
   // Scrolled Function
   const [isScrolled, setIsScrolled] = useState(false)
 
@@ -419,8 +404,6 @@ export default function Component(props) {
         setIsGuidesNavShown={setIsGuidesNavShown}
         isBurgerNavShown={isBurgerNavShown}
         setIsBurgerNavShown={setIsBurgerNavShown}
-        isAutoplayRunning={isAutoplayRunning}
-        toggleAutoplay={toggleAutoplay}
         isScrolled={isScrolled}
         menuRef={menuRef}
         customClassName={'rca-color'}
@@ -429,12 +412,13 @@ export default function Component(props) {
         <>
           {/* {'hotel'} */}
           <SingleRCAContainer parent={parent}>
-            <div className="sm:fixed sm:left-[60vw] sm:flex sm:w-[40vw] sm:flex-col">
-              <div className="sm:relative sm:h-[100vh] sm:flex-row sm:flex-wrap sm:overflow-y-auto">
+            {/* <div className="sm:fixed sm:left-[60vw] sm:flex sm:w-[40vw] sm:flex-col">
+              <div className="sm:relative sm:h-[100vh] sm:flex-row sm:flex-wrap sm:overflow-y-auto"> */}
+            <div className="lg:fixed lg:flex lg:w-[100vw] lg:flex-col">
+              <div className="w-full lg:relative lg:flex lg:h-[100vh] lg:flex-row-reverse lg:flex-nowrap lg:overflow-y-auto">
                 {/* First wrapper */}
-                <div className="sm:relative sm:mx-auto">
+                <div className="w-full lg:relative lg:pt-20">
                   <ContentWrapperRCA
-                    router={props?.router}
                     title={
                       parent?.node?.title !== ancestors?.edges[0]?.node?.title
                         ? title
@@ -465,10 +449,7 @@ export default function Component(props) {
                     sliderLoading={sliderLoading}
                     isRCANavShown={isRCANavShown}
                     setIsRCANavShown={setIsRCANavShown}
-                    isAutoplayRunning={isAutoplayRunning}
-                    setIsAutoplayRunning={setIsAutoplayRunning}
                     sliderRCA={sliderRCA}
-                    toggleAutoplay={toggleAutoplay}
                     activeIndex={activeIndex}
                     setActiveIndex={setActiveIndex}
                     rcaRef={rcaRef}

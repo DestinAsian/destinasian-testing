@@ -53,8 +53,6 @@ export default function DarkColorSecondaryHeader({
   setIsHCNavShown,
   isBurgerNavShown,
   setIsBurgerNavShown,
-  // isAutoplayRunning,
-  // toggleAutoplay,
   customClassName,
 }) {
   // Posts for Search Function

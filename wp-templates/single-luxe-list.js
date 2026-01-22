@@ -360,7 +360,7 @@ export default function Component(props) {
         <>
           {/* {'hotel'} */}
           <SingleLLContainer>
-            <div className="lg:fixed lg:flex lg:w-[100w] lg:flex-col">
+            <div className="lg:fixed lg:flex lg:w-[100vw] lg:flex-col">
               <div className="w-full lg:relative lg:flex lg:h-[100vh] lg:flex-row-reverse lg:flex-nowrap lg:overflow-y-auto">
                 {/* First wrapper */}
                 <SingleLLFeaturedImage
