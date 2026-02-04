@@ -61,14 +61,22 @@ export default function HomepageStories(pinPosts) {
 
     const { edges, pageInfo } = postsData.contentNodes
 
-    const newPosts = edges
-      .map((e) => e.node)
-      .filter((n) => !n?.passwordProtected?.onOff)
+    const incoming = edges
+      .filter(({ node }) => !node?.passwordProtected?.onOff)
+      .map(({ node }) => node)
 
-    setPosts((prev) => {
-      const seen = new Set(prev.map((p) => p.id))
-      return [...prev, ...newPosts.filter((p) => !seen.has(p.id))]
-    })
+    if (incoming.length > 0) {
+      setPosts((prev) => {
+        const seen = new Set(prev.map((p) => p.id))
+        const uniqueIncoming = incoming.filter((p) => !seen.has(p.id))
+        return uniqueIncoming.length ? [...prev, ...uniqueIncoming] : prev
+      })
+    }
+
+    // ⛳️ Skip empty (all-password-protected) pages
+    if (incoming.length === 0 && pageInfo?.hasNextPage) {
+      fetchMoreAll()
+    }
 
     setHasMorePosts(Boolean(pageInfo?.hasNextPage))
   }, [postsData])

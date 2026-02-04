@@ -83,21 +83,50 @@ export default function CategoryStories(categoryUri) {
     after: postsCursor,
   })
 
-  useEffect(() => {
-    if (!postsData?.category?.contentNodes) return
+  // useEffect(() => {
+  //   if (!postsData?.category?.contentNodes) return
 
-    const { edges, pageInfo } = postsData.category.contentNodes
+  //   const { edges, pageInfo } = postsData.category.contentNodes
+
+  //   const incoming = edges
+  //     .map((e) => e.node)
+  //     .filter((n) => !n?.passwordProtected?.onOff)
+
+  //   console.log('incoming posts:', incoming)
+
+  //   setPosts((prev) => {
+  //     const seen = new Set(prev.map((p) => p.id))
+  //     const uniqueIncoming = incoming.filter((p) => !seen.has(p.id))
+  //     return uniqueIncoming.length ? [...prev, ...uniqueIncoming] : prev
+  //   })
+
+  //   setHasMorePosts(Boolean(pageInfo?.hasNextPage))
+  //   setIsFetchingMore(false)
+  // }, [postsData])
+
+  useEffect(() => {
+    const contentNodes = postsData?.category?.contentNodes
+    if (!contentNodes) return
+
+    const { edges, pageInfo } = contentNodes
 
     const incoming = edges
-      .map((e) => e.node)
-      .filter((n) => !n?.passwordProtected?.onOff)
+      .filter(({ node }) => !node?.passwordProtected?.onOff)
+      .map(({ node }) => node)
 
-    setPosts((prev) => {
-      const seen = new Set(prev.map((p) => p.id))
-      const uniqueIncoming = incoming.filter((p) => !seen.has(p.id))
-      return uniqueIncoming.length ? [...prev, ...uniqueIncoming] : prev
-    })
+    if (incoming.length > 0) {
+      setPosts((prev) => {
+        const seen = new Set(prev.map((p) => p.id))
+        const uniqueIncoming = incoming.filter((p) => !seen.has(p.id))
+        return uniqueIncoming.length ? [...prev, ...uniqueIncoming] : prev
+      })
+    }
 
+    if (incoming.length === 0 && pageInfo?.hasNextPage) {
+      fetchMorePosts() // whatever your pagination function is
+    }
+
+    // 🔑 These MUST run even if incoming is empty
     setHasMorePosts(Boolean(pageInfo?.hasNextPage))
     setIsFetchingMore(false)
   }, [postsData])

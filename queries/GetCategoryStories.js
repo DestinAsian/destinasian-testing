@@ -36,6 +36,9 @@ export const GetCategoryStories = gql`
               uri
               excerpt
               contentTypeName
+              passwordProtected {
+                onOff
+              }
               featuredImage {
                 node {
                   id
@@ -80,6 +83,9 @@ export const GetCategoryStories = gql`
               uri
               excerpt
               contentTypeName
+              passwordProtected {
+                onOff
+              }
               featuredImage {
                 node {
                   id
@@ -112,6 +118,9 @@ export const GetCategoryStories = gql`
               uri
               excerpt
               contentTypeName
+              passwordProtected {
+                onOff
+              }
               featuredImage {
                 node {
                   id
