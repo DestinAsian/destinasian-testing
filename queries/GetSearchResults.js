@@ -9,11 +9,7 @@ export const GetSearchResults = gql`
             first: $first
             where: {
               status: PUBLISH
-              contentTypes: [
-                POST
-                EDITORIAL
-                ADVERTORIAL
-              ]
+              contentTypes: [POST, EDITORIAL, UPDATE, ADVERTORIAL]
               dateQuery: { after: { month: 12, year: $year } }
             }
           ) {
@@ -49,6 +45,20 @@ export const GetSearchResults = gql`
                   }
                 }
                 ... on Editorial {
+                  title
+                  passwordProtected {
+                    onOff
+                  }
+                  categories {
+                    edges {
+                      node {
+                        name
+                        uri
+                      }
+                    }
+                  }
+                }
+                ... on Update {
                   title
                   passwordProtected {
                     onOff

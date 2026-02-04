@@ -28,6 +28,10 @@ const CONTENT_META = {
     label: node.categories?.edges?.[0]?.node?.name,
     url: node.categories?.edges?.[0]?.node?.uri,
   }),
+  Updates: (node) => ({
+    label: node.categories?.edges?.[0]?.node?.name,
+    url: node.categories?.edges?.[0]?.node?.uri,
+  }),
   Advertorials: () => ({ label: 'Partner Content' }),
 }
 
