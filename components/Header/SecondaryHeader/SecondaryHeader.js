@@ -62,6 +62,7 @@ export default function SecondaryHeader({
   // Search Results Query
   const MIN_YEAR = 2023
   const [year, setYear] = useState(2024)
+  const [yearsLoaded, setYearsLoaded] = useState([2024])
   const [isFetchingMore, setIsFetchingMore] = useState(false)
 
   // Clear search input
