@@ -21,7 +21,9 @@ export default function SingleAdvertorialEntryHeader({
       )}
     >
       <div className={cx('header-wrapper')}>
-        <Heading className={cx('sponsored')}>{label}</Heading>
+        <Heading level={'h3'} className={cx('sponsored')}>
+          {label}
+        </Heading>
         <Heading className={cx('title')}>{title}</Heading>
       </div>
     </div>

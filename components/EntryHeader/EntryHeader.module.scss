@@ -44,6 +44,7 @@
   color: var(--wpe--color--title);
   text-transform: uppercase;
   padding: 0 1rem;
+  text-wrap: balance;
 
   @media (min-width: $breakpoint-extra-small) {
     font-size: 1.75rem;

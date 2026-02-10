@@ -13,7 +13,9 @@ export default function SingleRCAEntryHeader({
   sliderWidth,
   sliderHeight,
   isMobile,
+  hasBoth,
 }) {
+
   return (
     <>
       {parentTitle && (
@@ -27,14 +29,18 @@ export default function SingleRCAEntryHeader({
           className={cx('component', className)}
         >
           <div className={cx('header-wrapper')}>
-            <Heading className={cx('title')}>{parentTitle}</Heading>
+            <Heading level={hasBoth ? 'h2' : 'h1'} className={cx('title')}>
+              {parentTitle}
+            </Heading>
           </div>
         </div>
       )}
       {title && (
         <div className={cx('component', className)}>
           <div className={cx('header-wrapper')}>
-            <Heading className={cx('title')}>{title}</Heading>
+            <Heading level={'h1'} className={cx('title')}>
+              {title}
+            </Heading>
           </div>
         </div>
       )}

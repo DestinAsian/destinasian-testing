@@ -10,7 +10,9 @@ export default function SingleLLEntryHeader({ title, category }) {
   return (
     <div className={cx('component', className)}>
       <div className={cx('header-wrapper')}>
-        <Heading className={cx('category')}>{category}</Heading>
+        <Heading level={'h3'} className={cx('category')}>
+          {category}
+        </Heading>
         <Heading className={cx('title')}>{title}</Heading>
       </div>
     </div>

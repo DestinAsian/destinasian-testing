@@ -53,6 +53,7 @@
   .title {
     font-family: var(--font--eb--garamond);
     font-weight: 700;
+    text-wrap: balance;
 
     @media (min-width: $breakpoint-small) {
       text-align: left;
@@ -99,6 +100,7 @@
   text-transform: none;
   color: var(--wpe--color--white);
   text-align: center;
+  text-wrap: balance;
 
   @media (min-width: $breakpoint-extra-small) {
     font-size: 2.25rem;

@@ -243,6 +243,7 @@ export default function ContentWrapperRCA({
               sliderWidth={sliderWidth}
               sliderHeight={sliderHeight}
               isMobile={isMobile}
+              hasBoth={parentTitle && title}
               // category={category}
             />
           )}
@@ -256,6 +257,7 @@ export default function ContentWrapperRCA({
               <SingleRCAEntryHeader
                 title={title}
                 className={parentTitle ? 'bothClass' : 'defaultClass'}
+                hasBoth={parentTitle && title}
               />
             </div>
           )}
