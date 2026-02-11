@@ -35,8 +35,7 @@
   border-top: 1px solid var(--wpe--color--white--smoke);
 
   @media (min-width: $breakpoint-extra-small) {
-    border-top: none;
-    padding: 1.5rem 5rem 0 2rem;
+    padding: 0.5rem 5rem 0 2rem;
   }
 }
 
@@ -46,12 +45,12 @@
   @media (min-width: $breakpoint-extra-small) {
     width: auto;
     max-width: 100%;
-    min-height: 4rem;
+    // min-height: 4rem;
     padding: 0.5rem 1rem 0.5rem 2rem;
     margin: 0 auto;
     top: 0;
     left: 0;
-    position: fixed;
+    position: relative;
     z-index: 47;
     // transform: translate(0, calc(100vh - 4rem));
   }

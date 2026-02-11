@@ -15,16 +15,14 @@ export default function SingleRCAEntryHeader({
   isMobile,
   hasBoth,
 }) {
-
   return (
     <>
       {parentTitle && (
         <div
           style={{
-            marginTop: isMobile
-              ? `${sliderHeight}px`
-              : `calc(${sliderHeight}px + 4.5rem)`,
-            width: !isMobile ? `${sliderWidth}px` : '',
+            marginTop: isMobile ? `${sliderHeight}px` : '',
+            // marginLeft: !isMobile ? `${sliderWidth}px` : '',
+            width: `${sliderWidth}px`,
           }}
           className={cx('component', className)}
         >

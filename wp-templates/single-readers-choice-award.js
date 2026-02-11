@@ -170,6 +170,7 @@ export default function Component(props) {
     databaseId,
     categories,
     passwordProtected,
+    bookNowButton,
   } = props?.data?.readersChoiceAward
 
   // Get menus
@@ -453,6 +454,7 @@ export default function Component(props) {
                     activeIndex={activeIndex}
                     setActiveIndex={setActiveIndex}
                     rcaRef={rcaRef}
+                    bookNowButton={bookNowButton}
                   />
                 </div>
               </div>
@@ -493,6 +495,12 @@ Component.query = gql`
             height
           }
         }
+      }
+      bookNowButton {
+        bookNowLabel
+        bookNowLink
+        bookNowBackgroundColor
+        bookNowTextColor
       }
       categories {
         edges {

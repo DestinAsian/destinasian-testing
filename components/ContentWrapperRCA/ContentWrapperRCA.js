@@ -42,6 +42,7 @@ export default function ContentWrapperRCA({
   activeIndex,
   setActiveIndex,
   rcaRef,
+  bookNowButton,
 }) {
   const batchSize = 100
   const [isSliderMounted, setIsSliderMounted] = useState(false) // Track slider mount status
@@ -237,15 +238,21 @@ export default function ContentWrapperRCA({
           {images[0] == null && <div className={cx('slider-wrapper')}></div>}
           {/* Under the Slider */}
           {parentTitle && (
-            <SingleRCAEntryHeader
-              parentTitle={parentTitle}
-              className={'parentClass'}
-              sliderWidth={sliderWidth}
-              sliderHeight={sliderHeight}
-              isMobile={isMobile}
-              hasBoth={parentTitle && title}
-              // category={category}
-            />
+            <div
+              style={{
+                marginLeft: !isMobile ? `${sliderWidth}px` : '',
+              }}
+            >
+              <SingleRCAEntryHeader
+                parentTitle={parentTitle}
+                className={'parentClass'}
+                sliderWidth={sliderWidth}
+                sliderHeight={sliderHeight}
+                isMobile={isMobile}
+                hasBoth={parentTitle && title}
+                // category={category}
+              />
+            </div>
           )}
           {/* Before Content Wrapper */}
           {title && (
@@ -330,86 +337,114 @@ export default function ContentWrapperRCA({
           )}
           <div
             style={{
-              marginLeft: !isMobile ? `${sliderWidth}px` : '',
-              width: !isMobile ? `calc(-${sliderWidth}px + 100vw)` : '',
+              // marginLeft: !isMobile ? `${sliderWidth}px` : '',
+              width: !isMobile ? '100vw' : '',
             }}
             className={cx('navigation-wrapper')}
           >
-            <div className={cx('navigation-button')}>
-              {prevUri && (
-                <Link href={prevUri} className={cx('prev-button')}>
-                  <svg
-                    width="60"
-                    height="90"
-                    viewBox="0 0 60 90"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M52 8L15 45L52 82"
-                      stroke="none"
-                      strokeWidth="20"
-                    />
-                  </svg>
-                </Link>
-              )}
-            </div>
-            <div className={cx('share-button-wrapper')}>
-              <div className={cx('image-wrapper')}>
-                <div className={cx('menu-button')}>
-                  <button
-                    type="button"
-                    className={cx('share-icon')}
-                    onClick={handleShare}
-                    disabled={isSharing}
-                  >
+            <div className={cx('navigation-inner-wrapper')}>
+              <div className={cx(['navigation-button', 'prev'])}>
+                {prevUri && (
+                  <Link href={prevUri} className={cx('prev-button')}>
                     <svg
+                      width="60"
+                      height="90"
+                      viewBox="0 0 60 90"
+                      fill="none"
                       xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      className="size-6"
                     >
                       <path
-                        fillRule="evenodd"
-                        d="M15.75 4.5a3 3 0 1 1 .825 2.066l-8.421 4.679a3.002 3.002 0 0 1 0 1.51l8.421 4.679a3 3 0 1 1-.729 1.31l-8.421-4.678a3 3 0 1 1 0-4.132l8.421-4.679a3 3 0 0 1-.096-.755Z"
-                        clipRule="evenodd"
+                        d="M52 8L15 45L52 82"
+                        stroke="none"
+                        strokeWidth="20"
                       />
                     </svg>
-                  </button>
+                  </Link>
+                )}
+              </div>
+              <div className={cx('share-button-wrapper')}>
+                <div className={cx('image-wrapper')}>
+                  <div className={cx('menu-button')}>
+                    <button
+                      type="button"
+                      className={cx('share-icon')}
+                      onClick={handleShare}
+                      disabled={isSharing}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        className="size-6"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M15.75 4.5a3 3 0 1 1 .825 2.066l-8.421 4.679a3.002 3.002 0 0 1 0 1.51l8.421 4.679a3 3 0 1 1-.729 1.31l-8.421-4.678a3 3 0 1 1 0-4.132l8.421-4.679a3 3 0 0 1-.096-.755Z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className={cx('menu-wrapper')}>
-              <button
-                type="button"
-                className={cx('menu-button')}
-                onClick={() => {
-                  setIsRCANavShown(!isRCANavShown)
-                }}
-                aria-controls={cx('rca-menu-wrapper')}
-                aria-expanded={!isRCANavShown}
-              >
-                <div className={cx('menu-title')}>{'Awards Menu'}</div>
-              </button>
-            </div>
-            <div className={cx('navigation-button')}>
-              {nextUri && (
-                <Link href={nextUri} className={cx('next-button')}>
-                  <svg
-                    width="60"
-                    height="90"
-                    viewBox="0 0 60 90"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
+              {bookNowButton?.bookNowLink && bookNowButton?.bookNowLabel && (
+                <div className={cx('book-now-wrapper')}>
+                  <div
+                    className={cx('book-now-button')}
+                    style={{
+                      ...(bookNowButton?.bookNowBackgroundColor && {
+                        backgroundColor: bookNowButton.bookNowBackgroundColor,
+                      }),
+                    }}
                   >
-                    <path
-                      d="M8 82L45 45L8.00001 8"
-                      stroke="none"
-                      strokeWidth="20"
-                    />
-                  </svg>
-                </Link>
+                    {/* {'Book Now Button'} */}
+                    <Link
+                      id={'RCA_Book_Now_ClickTracker'}
+                      target="_blank"
+                      href={bookNowButton.bookNowLink}
+                      style={{
+                        ...(bookNowButton?.bookNowTextColor && {
+                          color: bookNowButton.bookNowTextColor,
+                        }),
+                      }}
+                    >
+                      {bookNowButton.bookNowLabel}
+                    </Link>
+                  </div>
+                </div>
               )}
+              <div className={cx('menu-wrapper')}>
+                <button
+                  type="button"
+                  className={cx('menu-button')}
+                  onClick={() => {
+                    setIsRCANavShown(!isRCANavShown)
+                  }}
+                  aria-controls={cx('rca-menu-wrapper')}
+                  aria-expanded={!isRCANavShown}
+                >
+                  <div className={cx('menu-title')}>{'Awards Menu'}</div>
+                </button>
+              </div>
+              <div className={cx(['navigation-button', 'next'])}>
+                {nextUri && (
+                  <Link href={nextUri} className={cx('next-button')}>
+                    <svg
+                      width="60"
+                      height="90"
+                      viewBox="0 0 60 90"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M8 82L45 45L8.00001 8"
+                        stroke="none"
+                        strokeWidth="20"
+                      />
+                    </svg>
+                  </Link>
+                )}
+              </div>
             </div>
           </div>
         </div>
