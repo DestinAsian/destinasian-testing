@@ -13,6 +13,7 @@ import { GetRCAPagination } from '@/queries/GetRCAPagination'
 import dynamic from 'next/dynamic'
 import { transformWpImages } from '@/utilities/transformWpImages'
 import { useMediaQuery } from 'react-responsive'
+import { useClickOutside } from '@/constants/useClickOutside'
 // Import Components
 const SingleRCASlider = dynamic(() =>
   import('@/components/SingleRCASlider/SingleRCASlider'),
@@ -73,6 +74,9 @@ export default function ContentWrapperRCA({
       setIsSharing(false)
     }
   }
+
+  // Close handlers
+  useClickOutside(rcaRef, () => setIsRCANavShown(false))
 
   const slideTo = (index) => {
     if (sliderRCA?.current?.swiper) {
@@ -362,31 +366,6 @@ export default function ContentWrapperRCA({
                   </Link>
                 )}
               </div>
-              <div className={cx('share-button-wrapper')}>
-                <div className={cx('image-wrapper')}>
-                  <div className={cx('menu-button')}>
-                    <button
-                      type="button"
-                      className={cx('share-icon')}
-                      onClick={handleShare}
-                      disabled={isSharing}
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        className="size-6"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M15.75 4.5a3 3 0 1 1 .825 2.066l-8.421 4.679a3.002 3.002 0 0 1 0 1.51l8.421 4.679a3 3 0 1 1-.729 1.31l-8.421-4.678a3 3 0 1 1 0-4.132l8.421-4.679a3 3 0 0 1-.096-.755Z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-              </div>
               {bookNowButton?.bookNowLink && bookNowButton?.bookNowLabel && (
                 <div className={cx('book-now-wrapper')}>
                   <div
@@ -413,18 +392,61 @@ export default function ContentWrapperRCA({
                   </div>
                 </div>
               )}
+              <div className={cx('share-button-wrapper')}>
+                <div className={cx('image-wrapper')}>
+                  <div className={cx('menu-button')}>
+                    <button
+                      type="button"
+                      className={cx('share-icon')}
+                      onClick={handleShare}
+                      disabled={isSharing}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        className="size-6"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M15.75 4.5a3 3 0 1 1 .825 2.066l-8.421 4.679a3.002 3.002 0 0 1 0 1.51l8.421 4.679a3 3 0 1 1-.729 1.31l-8.421-4.678a3 3 0 1 1 0-4.132l8.421-4.679a3 3 0 0 1-.096-.755Z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
               <div className={cx('menu-wrapper')}>
-                <button
-                  type="button"
-                  className={cx('menu-button')}
-                  onClick={() => {
-                    setIsRCANavShown(!isRCANavShown)
-                  }}
-                  aria-controls={cx('rca-menu-wrapper')}
-                  aria-expanded={!isRCANavShown}
-                >
-                  <div className={cx('menu-title')}>{'Awards Menu'}</div>
-                </button>
+                {!isRCANavShown ? (
+                  <div className={cx('open-button-wrapper')}>
+                    <button
+                      type="button"
+                      className={cx('menu-button')}
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        setIsRCANavShown(!isRCANavShown)
+                      }}
+                      aria-controls={cx('rca-menu-wrapper')}
+                      aria-expanded={isRCANavShown}
+                    >
+                      <div className={cx('menu-title')}>{'Awards Menu'}</div>
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    type="button"
+                    className={cx('menu-button')}
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      setIsRCANavShown(!isRCANavShown)
+                    }}
+                    aria-controls={cx('rca-menu-wrapper')}
+                    aria-expanded={isRCANavShown}
+                  >
+                    <div className={cx('menu-title')}>{'Awards Menu'}</div>
+                  </button>
+                )}
               </div>
               <div className={cx(['navigation-button', 'next'])}>
                 {nextUri && (
