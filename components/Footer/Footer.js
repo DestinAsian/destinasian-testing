@@ -7,14 +7,16 @@ import daiLogo from '@/public/logo/DAI_logo.png'
 import damanLogo from '@/public/logo/DAMAN_logo.png'
 import prsLogo from '@/public/logo/Prestige_logo.png'
 import scop3Logo from '@/public/logo/Scop3_logo.png'
+import NewsletterForm from '../../components/NewsletterMailerLite/NewsletterForm'
+
 import dynamic from 'next/dynamic'
 // Import Components
 const NavigationMenu = dynamic(() =>
   import('@/components/NavigationMenu/NavigationMenu'),
 )
-const NewsletterEmbedFooter = dynamic(() =>
-  import('@/components/NewsletterEmbedFooter/NewsletterEmbedFooter'),
-)
+// const NewsletterEmbedFooter = dynamic(() =>
+//   import('@/components/NewsletterEmbedFooter/NewsletterEmbedFooter'),
+// )
 
 let cx = classNames.bind(styles)
 
@@ -42,7 +44,8 @@ export default function Footer(footerMenu) {
         <div className={cx('first-wrapper')}>
           {/* newsletter */}
           <div className={`${styles.newsletterWrapper} mb-12`}>
-            <NewsletterEmbedFooter />
+          <NewsletterForm />
+            {/* <NewsletterEmbedFooter /> */}
           </div>
           {/* Footer Menu {DestinAsian Guides Menu} */}
           <NavigationMenu
