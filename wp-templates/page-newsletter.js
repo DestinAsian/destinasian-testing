@@ -10,7 +10,7 @@ import { GetLatestStories } from '@/queries/GetLatestStories'
 import { eb_garamond, poppins, rubik } from '@/styles/fonts/fonts'
 import Cookies from 'js-cookie'
 import { GetLatestRCA } from '@/queries/GetLatestRCA'
-import NewsletterForm from '@/components/NewsletterMailerLite/NewsletterForm'
+import NewsletterFormPages from '@/components/NewsletterMailerLite/NewsletterFormPages'
 import dynamic from 'next/dynamic'
 // Import Components
 const Header = dynamic(() => import('@/components/Header/Header'))
@@ -349,7 +349,7 @@ export default function Component(props) {
             <ContentWrapper content={content} className={'newsletter'} />
             <div className={cx('container-wrapper')}>
               <div className={`${styles.newsletterWrapper} mb-12`}>
-                <NewsletterForm />
+                <NewsletterFormPages />
                 {/* <NewsletterEmbed /> */}
               </div>
             </div>
