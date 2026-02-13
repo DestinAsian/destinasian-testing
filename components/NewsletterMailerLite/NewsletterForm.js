@@ -131,7 +131,7 @@ export default function NewsletterForm() {
             <span>*</span>
           </div>
 
-          <button type="submit">SUBSCRIBE</button>
+          <button type="submit">Subscribe</button>
         </div>
       </form>
     </div>
