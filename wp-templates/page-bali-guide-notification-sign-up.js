@@ -11,6 +11,7 @@ import { eb_garamond, poppins, rubik } from '@/styles/fonts/fonts'
 import Cookies from 'js-cookie'
 import { GetLatestRCA } from '@/queries/GetLatestRCA'
 import dynamic from 'next/dynamic'
+import NewsletterForm from '@/components/NewsletterMailerLite/NewsletterForm'
 // Import Components
 const Header = dynamic(() => import('@/components/Header/Header'))
 const SecondaryHeader = dynamic(() =>
@@ -24,9 +25,9 @@ const Footer = dynamic(() => import('@/components/Footer/Footer'))
 const ContentWrapper = dynamic(() =>
   import('@/components/ContentWrapper/ContentWrapper'),
 )
-const NewsletterEmbed = dynamic(() =>
-  import('@/components/NewsletterEmbed/NewsletterEmbed'),
-)
+// const NewsletterEmbed = dynamic(() =>
+//   import('@/components/NewsletterEmbed/NewsletterEmbed'),
+// )
 const PageRelatedStories = dynamic(() =>
   import('@/components/PageRelatedStories/PageRelatedStories'),
 )
@@ -346,7 +347,8 @@ export default function Component(props) {
             <ContentWrapper content={content} className={'newsletter'} />
             <div className={cx('container-wrapper')}>
               <div className={`${styles.newsletterWrapper} mb-12`}>
-                <NewsletterEmbed />
+                {/* <NewsletterEmbed /> */}
+                <NewsletterForm />
               </div>
             </div>
             <PageRelatedStories databaseId={databaseId} />
