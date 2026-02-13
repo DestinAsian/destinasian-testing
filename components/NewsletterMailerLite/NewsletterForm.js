@@ -5,9 +5,9 @@ import styles from './NewsletterForm.module.scss'
 export default function NewsletterForm() {
   const [countries, setCountries] = useState([])
   const [segments, setSegments] = useState([])
-  const [selectedSegments, setSelectedSegments] = useState([])
 
   const [name, setName] = useState('')
+  const [position, setPosition] = useState('') // <-- position field
   const [country, setCountry] = useState('')
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState('')
@@ -31,22 +31,8 @@ export default function NewsletterForm() {
       .then((data) => setSegments(data || []))
   }, [])
 
-  const toggleSegment = (id) => {
-    setSelectedSegments((prev) =>
-      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id],
-    )
-  }
-
   const handleSubmit = async (e) => {
     e.preventDefault()
-
-    if (!selectedSegments.length) {
-      return setStatus({
-        type: 'error',
-        message: 'Please select at least one segment to subscribe.',
-      })
-    }
-
     setStatus({ type: 'loading', message: 'Processing your subscription...' })
 
     try {
@@ -56,8 +42,8 @@ export default function NewsletterForm() {
         body: JSON.stringify({
           email,
           name,
-          country,
-          segments: selectedSegments,
+          country: country || null,
+          position: position || null,
         }),
       })
       const data = await res.json()
@@ -70,7 +56,7 @@ export default function NewsletterForm() {
         setEmail('')
         setName('')
         setCountry('')
-        setSelectedSegments([])
+        setPosition('')
       } else {
         setStatus({
           type: 'error',
@@ -96,42 +82,36 @@ export default function NewsletterForm() {
           </div>
         )}
 
-        {/* SEGMENTS */}
-        <div className={styles.segments}>
-          {segments.map((seg) => {
-            const active = selectedSegments.includes(seg.id)
-            // Hapus "Level - " dari label
-            const cleanLabel = seg.name.replace(/^Level -\s*/, '')
-
-            return (
-              <div
-                key={seg.id}
-                className={`${styles.segmentItem} ${
-                  active ? styles.active : ''
-                }`}
-                onClick={() => toggleSegment(seg.id)}
-              >
-                <span className={styles.dot}></span>
-                <span className={styles.label}>{cleanLabel}</span>
-              </div>
-            )
-          })}
+        <div className={styles.inputRequired}>
+          <input
+            type="text"
+            placeholder="Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+          <span>*</span>
         </div>
 
+        {/* POSITION (segment) */}
         <input
-          type="text"
-          placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
+          list="position-list"
+          placeholder="Position"
+          value={position}
+          onChange={(e) => setPosition(e.target.value)}
         />
+        <datalist id="position-list">
+          {segments.map((seg) => {
+            const cleanLabel = seg.name.replace(/^Level -\s*/, '')
+            return <option key={seg.id} value={cleanLabel} />
+          })}
+        </datalist>
 
         <input
           list="country-list"
           placeholder="Country"
           value={country}
           onChange={(e) => setCountry(e.target.value)}
-          required
         />
         <datalist id="country-list">
           {countries.map((c) => (
@@ -139,15 +119,18 @@ export default function NewsletterForm() {
           ))}
         </datalist>
 
-        {/* EMAIL + BUTTON SEJARAH */}
         <div className={styles.emailButtonWrapper}>
-          <input
-            type="email"
-            placeholder="Email Address"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+          <div className={styles.inputRequired}>
+            <input
+              type="email"
+              placeholder="Email Address"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <span>*</span>
+          </div>
+
           <button type="submit">SUBSCRIBE</button>
         </div>
       </form>
