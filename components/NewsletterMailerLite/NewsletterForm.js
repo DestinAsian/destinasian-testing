@@ -4,35 +4,34 @@ import { useState, useEffect } from 'react'
 import styles from './NewsletterForm.module.scss'
 
 export default function NewsletterForm() {
-  // DATA LISTS
   const [countries, setCountries] = useState([])
   const [segments, setSegments] = useState([])
 
-  // FORM FIELDS
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
-  const [position, setPosition] = useState('')
+  const [segmentation, setSegmentation] = useState('')  // ← ubah dari position
   const [country, setCountry] = useState('')
   const [company, setCompany] = useState('')
 
-  // STATUS
   const [status, setStatus] = useState(null)
+  const [segmentationError, setSegmentationError] = useState('')
+  const [countryError, setCountryError] = useState('')
 
-  /* ---------------- LOAD COUNTRIES ---------------- */
+  const validSegmentations = segments.map((seg) =>
+    seg.name.replace(/^Level -\s*/, '').trim()
+  )
+  const validCountries = countries
+
   useEffect(() => {
     fetch('https://restcountries.com/v3.1/all?fields=name')
       .then((res) => res.json())
       .then((data) => {
-        const list = data
-          .map((c) => c.name.common)
-          .sort((a, b) => a.localeCompare(b))
-
+        const list = data.map((c) => c.name.common).sort((a, b) => a.localeCompare(b))
         setCountries(list)
       })
       .catch(() => setCountries([]))
   }, [])
 
-  /* ---------------- LOAD SEGMENTS ---------------- */
   useEffect(() => {
     fetch('/api/segments')
       .then((res) => res.json())
@@ -40,25 +39,40 @@ export default function NewsletterForm() {
       .catch(() => setSegments([]))
   }, [])
 
-  /* ---------------- SUBMIT HANDLER ---------------- */
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    setStatus({
-      type: 'loading',
-      message: 'Processing your subscription...',
-    })
+    setSegmentationError('')
+    setCountryError('')
+
+    let hasError = false
+
+    const trimmedSegmentation = segmentation.trim()
+    if (trimmedSegmentation !== '' && !validSegmentations.includes(trimmedSegmentation)) {
+      setSegmentationError('Invalid selection. Please choose from the dropdown or clear the field.')
+      hasError = true
+    }
+
+    const trimmedCountry = country.trim()
+    if (trimmedCountry !== '' && !validCountries.includes(trimmedCountry)) {
+      setCountryError('Invalid country. Please select from the dropdown or clear the field.')
+      hasError = true
+    }
+
+    if (hasError) return
+
+    setStatus({ type: 'loading', message: 'Processing your subscription...' })
 
     try {
       const res = await fetch('/api/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          name,
-          email,
-          company,
-          country: country || null,
-          position: position || null,
+          name: name.trim(),
+          email: email.trim(),
+          company: company.trim() || null,
+          country: trimmedCountry || null,
+          segmentation: trimmedSegmentation || null,   // ← kirim sebagai 'segmentation'
         }),
       })
 
@@ -69,17 +83,17 @@ export default function NewsletterForm() {
           type: 'success',
           message: 'Thank you for subscribing to DestinAsian!',
         })
-
-        // RESET FORM
         setName('')
         setEmail('')
-        setPosition('')
+        setSegmentation('')
         setCountry('')
         setCompany('')
+        setSegmentationError('')
+        setCountryError('')
       } else {
         setStatus({
           type: 'error',
-          message: `Subscription failed: ${data.message}`,
+          message: data.message || 'Subscription failed. Please try again.',
         })
       }
     } catch {
@@ -95,52 +109,41 @@ export default function NewsletterForm() {
       <h1>Stay inspired with our DestinAsian newsletters</h1>
 
       <form onSubmit={handleSubmit} className={styles.newsletterForm}>
-        {/* STATUS MESSAGE */}
         {status && (
           <div className={`${styles.alert} ${styles[status.type]}`}>
             {status.message}
           </div>
         )}
 
-        {/* NAME (REQUIRED) */}
         <div className={styles.inputRequired}>
-          <input
-            type="text"
-            placeholder="Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
+          <input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} required />
           <span>*</span>
         </div>
 
-        {/* EMAIL (REQUIRED) */}
         <div className={styles.inputRequired}>
-          <input
-            type="email"
-            placeholder="Email Address"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+          <input type="email" placeholder="Email Address" value={email} onChange={(e) => setEmail(e.target.value)} required />
           <span>*</span>
         </div>
 
-        {/* POSITION */}
-        <input
-          list="position-list"
-          placeholder="Position"
-          value={position}
-          onChange={(e) => setPosition(e.target.value)}
-        />
+        <div className={styles.fieldWrapper}>
+          <input
+            list="segmentation-list"
+            placeholder="Position"
+            value={segmentation}
+            onChange={(e) => {
+              setSegmentation(e.target.value)
+              setSegmentationError('')
+            }}
+          />
+          <datalist id="segmentation-list">
+            {segments.map((seg) => {
+              const label = seg.name.replace(/^Level -\s*/, '').trim()
+              return <option key={seg.id} value={label} />
+            })}
+          </datalist>
+          {segmentationError && <div className={styles.fieldError}>{segmentationError}</div>}
+        </div>
 
-        <datalist id="position-list">
-          {segments.map((seg) => {
-            const cleanLabel = seg.name.replace(/^Level -\s*/, '')
-            return <option key={seg.id} value={cleanLabel} />
-          })}
-        </datalist>
-        {/* COMPANY (OPTIONAL) */}
         <input
           type="text"
           placeholder="Company"
@@ -148,24 +151,23 @@ export default function NewsletterForm() {
           onChange={(e) => setCompany(e.target.value)}
         />
 
-        {/* COUNTRY */}
-        <input
-          list="country-list"
-          placeholder="Country"
-          value={country}
-          onChange={(e) => setCountry(e.target.value)}
-        />
+        <div className={styles.fieldWrapper}>
+          <input
+            list="country-list"
+            placeholder="Country"
+            value={country}
+            onChange={(e) => {
+              setCountry(e.target.value)
+              setCountryError('')
+            }}
+          />
+          <datalist id="country-list">
+            {countries.map((c) => <option key={c} value={c} />)}
+          </datalist>
+          {countryError && <div className={styles.fieldError}>{countryError}</div>}
+        </div>
 
-        <datalist id="country-list">
-          {countries.map((c) => (
-            <option key={c} value={c} />
-          ))}
-        </datalist>
-
-        {/* SUBMIT */}
-        <button type="submit" className={styles.submitButton}>
-          Subscribe
-        </button>
+        <button type="submit" className={styles.submitButton}>Subscribe</button>
       </form>
     </div>
   )

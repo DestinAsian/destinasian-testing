@@ -10,7 +10,7 @@ export default async function handler(req, res) {
     name = '',
     company = '',
     country = '',
-    position = null,
+    segmentation = null,
   } = req.body
 
   if (!email) {
@@ -61,7 +61,7 @@ export default async function handler(req, res) {
           name,
           fields: {
             ...location,
-            position: position || '',
+            segmentation: segmentation || '',
             company: company || '',
           },
         }),
