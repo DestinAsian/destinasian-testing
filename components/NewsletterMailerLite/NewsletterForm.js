@@ -140,6 +140,13 @@ export default function NewsletterForm() {
             return <option key={seg.id} value={cleanLabel} />
           })}
         </datalist>
+        {/* COMPANY (OPTIONAL) */}
+        <input
+          type="text"
+          placeholder="Company"
+          value={company}
+          onChange={(e) => setCompany(e.target.value)}
+        />
 
         {/* COUNTRY */}
         <input
@@ -154,14 +161,6 @@ export default function NewsletterForm() {
             <option key={c} value={c} />
           ))}
         </datalist>
-
-        {/* COMPANY (OPTIONAL) */}
-        <input
-          type="text"
-          placeholder="Company"
-          value={company}
-          onChange={(e) => setCompany(e.target.value)}
-        />
 
         {/* SUBMIT */}
         <button type="submit" className={styles.submitButton}>

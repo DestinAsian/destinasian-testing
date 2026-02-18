@@ -1,4 +1,3 @@
-
 'use client'
 
 import { useState, useEffect } from 'react'
@@ -93,7 +92,6 @@ export default function NewsletterFormPages() {
 
   return (
     <div className={styles.newsletterWrapper}>
-
       <form onSubmit={handleSubmit} className={styles.newsletterForm}>
         {/* STATUS MESSAGE */}
         {status && (
@@ -141,6 +139,13 @@ export default function NewsletterFormPages() {
           })}
         </datalist>
 
+        {/* COMPANY (OPTIONAL) */}
+        <input
+          type="text"
+          placeholder="Company"
+          value={company}
+          onChange={(e) => setCompany(e.target.value)}
+        />
         {/* COUNTRY */}
         <input
           list="country-list"
@@ -154,14 +159,6 @@ export default function NewsletterFormPages() {
             <option key={c} value={c} />
           ))}
         </datalist>
-
-        {/* COMPANY (OPTIONAL) */}
-        <input
-          type="text"
-          placeholder="Company"
-          value={company}
-          onChange={(e) => setCompany(e.target.value)}
-        />
 
         {/* SUBMIT */}
         <button type="submit" className={styles.submitButton}>
