@@ -1,18 +1,25 @@
+
 'use client'
+
 import { useState, useEffect } from 'react'
 import styles from './NewsletterForm.module.scss'
 
 export default function NewsletterFormPages() {
+  // DATA LISTS
   const [countries, setCountries] = useState([])
   const [segments, setSegments] = useState([])
 
+  // FORM FIELDS
   const [name, setName] = useState('')
-  const [position, setPosition] = useState('') // <-- position field
-  const [country, setCountry] = useState('')
   const [email, setEmail] = useState('')
-  const [status, setStatus] = useState('')
+  const [position, setPosition] = useState('')
+  const [country, setCountry] = useState('')
+  const [company, setCompany] = useState('')
 
-  // LOAD COUNTRIES
+  // STATUS
+  const [status, setStatus] = useState(null)
+
+  /* ---------------- LOAD COUNTRIES ---------------- */
   useEffect(() => {
     fetch('https://restcountries.com/v3.1/all?fields=name')
       .then((res) => res.json())
@@ -20,32 +27,42 @@ export default function NewsletterFormPages() {
         const list = data
           .map((c) => c.name.common)
           .sort((a, b) => a.localeCompare(b))
+
         setCountries(list)
       })
+      .catch(() => setCountries([]))
   }, [])
 
-  // LOAD SEGMENTS
+  /* ---------------- LOAD SEGMENTS ---------------- */
   useEffect(() => {
     fetch('/api/segments')
       .then((res) => res.json())
       .then((data) => setSegments(data || []))
+      .catch(() => setSegments([]))
   }, [])
 
+  /* ---------------- SUBMIT HANDLER ---------------- */
   const handleSubmit = async (e) => {
     e.preventDefault()
-    setStatus({ type: 'loading', message: 'Processing your subscription...' })
+
+    setStatus({
+      type: 'loading',
+      message: 'Processing your subscription...',
+    })
 
     try {
       const res = await fetch('/api/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          email,
           name,
+          email,
+          company,
           country: country || null,
           position: position || null,
         }),
       })
+
       const data = await res.json()
 
       if (res.ok) {
@@ -53,10 +70,13 @@ export default function NewsletterFormPages() {
           type: 'success',
           message: 'Thank you for subscribing to DestinAsian!',
         })
-        setEmail('')
+
+        // RESET FORM
         setName('')
-        setCountry('')
+        setEmail('')
         setPosition('')
+        setCountry('')
+        setCompany('')
       } else {
         setStatus({
           type: 'error',
@@ -73,15 +93,16 @@ export default function NewsletterFormPages() {
 
   return (
     <div className={styles.newsletterWrapper}>
-      {/* <h1>Stay inspired with our DestinAsian newsletters</h1> */}
 
       <form onSubmit={handleSubmit} className={styles.newsletterForm}>
+        {/* STATUS MESSAGE */}
         {status && (
           <div className={`${styles.alert} ${styles[status.type]}`}>
             {status.message}
           </div>
         )}
 
+        {/* NAME (REQUIRED) */}
         <div className={styles.inputRequired}>
           <input
             type="text"
@@ -93,13 +114,26 @@ export default function NewsletterFormPages() {
           <span>*</span>
         </div>
 
-        {/* POSITION (segment) */}
+        {/* EMAIL (REQUIRED) */}
+        <div className={styles.inputRequired}>
+          <input
+            type="email"
+            placeholder="Email Address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <span>*</span>
+        </div>
+
+        {/* POSITION */}
         <input
           list="position-list"
           placeholder="Position"
           value={position}
           onChange={(e) => setPosition(e.target.value)}
         />
+
         <datalist id="position-list">
           {segments.map((seg) => {
             const cleanLabel = seg.name.replace(/^Level -\s*/, '')
@@ -107,32 +141,32 @@ export default function NewsletterFormPages() {
           })}
         </datalist>
 
+        {/* COUNTRY */}
         <input
           list="country-list"
           placeholder="Country"
           value={country}
           onChange={(e) => setCountry(e.target.value)}
         />
+
         <datalist id="country-list">
           {countries.map((c) => (
             <option key={c} value={c} />
           ))}
         </datalist>
 
-        <div className={styles.emailButtonWrapper}>
-          <div className={styles.inputRequired}>
-            <input
-              type="email"
-              placeholder="Email Address"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-            <span>*</span>
-          </div>
+        {/* COMPANY (OPTIONAL) */}
+        <input
+          type="text"
+          placeholder="Company"
+          value={company}
+          onChange={(e) => setCompany(e.target.value)}
+        />
 
-          <button type="submit">Subscribe</button>
-        </div>
+        {/* SUBMIT */}
+        <button type="submit" className={styles.submitButton}>
+          Subscribe
+        </button>
       </form>
     </div>
   )

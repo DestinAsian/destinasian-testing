@@ -1,15 +1,21 @@
 @import 'styles/breakpoints';
 @import 'styles/fonts/typography';
 
+/* ================= VARIABLES ================= */
+
+$form-width: 550px;
+
+/* ================= WRAPPER ================= */
+
 .newsletterWrapper {
   text-align: center;
   padding: 0 1rem;
 
   h1 {
+    font-family: 'Unit Slab Pro Black';
     font-size: 1.8rem;
     font-weight: 600;
     margin-bottom: 1rem;
-    font-family: 'Unit Slab Pro Black';
     color: #000;
 
     @media (max-width: $breakpoint-extra-small) {
@@ -18,16 +24,52 @@
   }
 }
 
+/* ================= FORM ================= */
+
 .newsletterForm {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
-  background: transparent;
   margin-top: 1rem;
 
+  /* ---------- INPUT ---------- */
+
+  input {
+    width: $form-width;
+    padding: 0.6rem 0.75rem;
+    border: 1px solid #000;
+    border-radius: 4px;
+    font-size: 1rem;
+    background: #fff;
+    color: #000;
+    font-weight: 300;
+
+    &::placeholder {
+      color: #666;
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 1px #000;
+    }
+  }
+
+  input[list] {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ---------- REQUIRED FIELD ---------- */
+
+  > .inputRequired {
+    width: $form-width;
+  }
+
+  /* ---------- ALERT ---------- */
+
   .alert {
-    width: 550px;
+    width: $form-width;
     padding: 0.75rem 1rem;
     border-radius: 4px;
     font-size: 0.9rem;
@@ -54,94 +96,45 @@
     }
   }
 
-  input {
-    width: 550px;
-    padding: 0.6rem 0.75rem;
-    border: 1px solid #000;
+  /* ---------- SUBMIT BUTTON ---------- */
+
+  .submitButton {
+    width: $form-width;
+    margin-top: 6px;
+    padding: 0.65rem 1.5rem;
+    background: #000;
+    color: #fff;
+    border: none;
     border-radius: 4px;
-    font-size: 1rem;
-    background: #fff;
-    color: #000;
+    font-size: 0.9rem;
     font-weight: 300;
+    cursor: pointer;
+    transition: 0.2s ease;
 
-    &::placeholder {
-      color: #666;
-      font-weight: 300;
-    }
-
+    &:hover,
     &:focus {
-      outline: none;
-      border-color: #000;
-      box-shadow: 0 0 0 1px #000;
+      background: #fff;
+      color: #000;
+      outline: 1px solid #000;
+    }
+
+    &:active {
+      transform: scale(0.97);
     }
   }
 
-  input[list] {
-    position: relative;
-    z-index: 2;
-  }
+  /* ---------- MOBILE ---------- */
 
-  /* NAME REQUIRED */
-  > .inputRequired {
-    width: 550px;
-
-    @media (max-width: $breakpoint-extra-small) {
-      width: 100%;
-    }
-  }
-
-  .emailButtonWrapper {
-    display: flex;
-    width: 550px;
-    gap: 8px;
-
-    .inputRequired {
-      flex: 1;
-    }
-
-    button {
-      background: #000;
-      color: #fff;
-      border: none;
-      padding: 0.6rem 1.5rem;
-      border-radius: 4px;
-      font-size: 0.9rem;
-      font-weight: 300;
-      // text-transform: uppercase;
-      cursor: pointer;
-      transition: 0.2s ease;
-
-      &:hover,
-      &:focus {
-        background: #fff;
-        color: #000;
-        outline: 1px solid #000;
-      }
-
-      &:active {
-        transform: scale(0.97);
-      }
-    }
-  }
-
-  /* MOBILE */
   @media (max-width: $breakpoint-extra-small) {
     width: 100%;
     padding: 0 1rem;
 
     input,
-    .emailButtonWrapper,
     .alert,
-    .segments {
-      max-width: 100%;
-    }
-
-    .emailButtonWrapper {
-      flex-direction: column;
-
-      button {
-        width: 100%;
-      }
+    .submitButton,
+    .segments,
+    .inputRequired {
+      width: 100%;
     }
 
     input {
@@ -150,6 +143,8 @@
     }
   }
 }
+
+/* ================= REQUIRED STAR ================= */
 
 .inputRequired {
   position: relative;
@@ -170,10 +165,10 @@
   }
 }
 
-/* SEGMENTS */
+/* ================= SEGMENTS ================= */
 
 .segments {
-  width: 550px;
+  width: $form-width;
   display: flex;
   flex-wrap: wrap;
   gap: 14px 18px;
@@ -201,11 +196,11 @@
   background: #fff;
 }
 
+.active .dot {
+  background: #000;
+}
+
 .label {
   font-family: 'Open Sans', sans-serif;
   letter-spacing: 1px;
-}
-
-.active .dot {
-  background: #000;
 }
