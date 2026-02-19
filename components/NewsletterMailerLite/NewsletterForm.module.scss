@@ -33,7 +33,9 @@ $form-width: 550px;
   gap: 0.5rem;
   margin-top: 1rem;
 
-  fieldWrapper {
+  /* ---------- FIELD WRAPPER ---------- */
+
+  .fieldWrapper {
     width: $form-width;
     position: relative;
     margin-bottom: 0.25rem;
@@ -49,7 +51,6 @@ $form-width: 550px;
     font-family: 'Open Sans', sans-serif;
   }
 
-  // Optional: style input saat error
   .fieldWrapper:has(.fieldError) input {
     border-color: #dc3545;
     background-color: #fff5f5;
@@ -59,7 +60,6 @@ $form-width: 550px;
     }
   }
 
-  // Mobile
   @media (max-width: $breakpoint-extra-small) {
     .fieldWrapper,
     .fieldError {
@@ -67,37 +67,6 @@ $form-width: 550px;
     }
   }
 
-  select {
-    width: $form-width;
-    padding: 0.6rem 0.75rem;
-    border: 1px solid #000;
-    border-radius: 4px;
-    font-size: 1rem;
-    background: #fff;
-    color: #000;
-    font-weight: 300;
-    appearance: none; // hilangkan arrow default
-    background-image: url('data:image/svg+xml,...'); // bisa tambah custom arrow
-    background-position: right 0.75rem center;
-    background-repeat: no-repeat;
-    background-size: 12px;
-
-    &:focus {
-      outline: none;
-      box-shadow: 0 0 0 1px #000;
-    }
-
-    option:disabled {
-      color: #999;
-    }
-  }
-
-  // Mobile
-  @media (max-width: $breakpoint-extra-small) {
-    select {
-      width: 100%;
-    }
-  }
   /* ---------- INPUT ---------- */
 
   input {
@@ -124,8 +93,6 @@ $form-width: 550px;
     position: relative;
     z-index: 2;
   }
-
-  /* ---------- REQUIRED FIELD ---------- */
 
   > .inputRequired {
     width: $form-width;
@@ -197,7 +164,6 @@ $form-width: 550px;
     input,
     .alert,
     .submitButton,
-    .segments,
     .inputRequired {
       width: 100%;
     }
@@ -228,44 +194,4 @@ $form-width: 550px;
     font-weight: 700;
     pointer-events: none;
   }
-}
-
-/* ================= SEGMENTS ================= */
-
-.segments {
-  width: $form-width;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px 18px;
-  margin-bottom: 10px;
-
-  @media (max-width: $breakpoint-extra-small) {
-    width: 100%;
-  }
-}
-
-.segmentItem {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-  user-select: none;
-  font-size: 14px;
-}
-
-.dot {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  border: 1px solid #000;
-  background: #fff;
-}
-
-.active .dot {
-  background: #000;
-}
-
-.label {
-  font-family: 'Open Sans', sans-serif;
-  letter-spacing: 1px;
 }
