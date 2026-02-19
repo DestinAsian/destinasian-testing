@@ -477,7 +477,7 @@ export default function ContentWrapperRCA({
       >
         <RCAFullMenu
           rcaDatabaseId={rcaDatabaseId}
-          uri={uri}
+          uri={rcaAll[0]?.uri}
           isRCANavShown={isRCANavShown}
           setIsRCANavShown={setIsRCANavShown}
           rcaRef={rcaRef}
