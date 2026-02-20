@@ -3,7 +3,7 @@
 
 .component {
   display: block;
-  background-color: var(--wpe--color--deep--black);
+  background-color: var(--wpe--color--light--cream);
   color: var(--wpe--color--black);
   position: relative;
   overflow: hidden;
@@ -50,7 +50,7 @@
         top: -4px;
         left: 0;
         width: 20%;
-        border-top: 8px solid var(--wpe--color--white--smoke);
+        border-top: 8px solid var(--wpe--color--deep--black);
       }
     }
 
@@ -68,7 +68,7 @@
         top: -4px;
         left: 0;
         width: 20%;
-        border-top: 8px solid var(--wpe--color--white--smoke);
+        border-top: 8px solid var(--wpe--color--deep--black);
 
         @media (min-width: $breakpoint-extra-small) {
           position: relative;
@@ -87,7 +87,7 @@
     width: auto;
     max-width: 100%;
     // min-height: 4rem;
-    padding: 0.5rem 1rem 0.5rem 2rem;
+    padding: 0 1rem 0.5rem 2rem;
     // margin: 0 auto;
     top: 0;
     left: 0;
@@ -116,7 +116,7 @@
 
 .category {
   color: var(--wpe--color--black);
-  background-color: var(--wpe--color--white--smoke);
+  background-color: var(--wpe--color--black);
   font-size: 0.5rem;
   // line-height: 1.2;
   // text-transform: uppercase;
@@ -136,11 +136,31 @@
   font-size: 2rem;
   // line-height: 1.2;
   // text-transform: uppercase;
-  color: var(--wpe--color--white--smoke);
+  color: var(--wpe--color--black);
   text-align: left;
   text-align-last: left;
   letter-spacing: normal;
   font-family: 'Ringside Regular A', 'Ringside Regular B';
   font-weight: 700;
   text-wrap: balance;
+}
+
+.rca-title {
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 500;
+  font-size: 0.65rem;
+  line-height: 15.2px;
+
+  @media (min-width: $breakpoint-extra-small) {
+    font-size: 0.875rem;
+    line-height: 20.8px;
+  }
+
+  @media (min-width: $breakpoint-large) {
+    font-size: 1.25rem;
+    line-height: 29.6px;
+  }
 }

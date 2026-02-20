@@ -54,6 +54,16 @@ export const GetRCASlider = gql`
         propertyUrl8
         propertyUrl9
         propertyUrl10
+        propertyUrlText1
+        propertyUrlText2
+        propertyUrlText3
+        propertyUrlText4
+        propertyUrlText5
+        propertyUrlText6
+        propertyUrlText7
+        propertyUrlText8
+        propertyUrlText9
+        propertyUrlText10
         propertyId1
         propertyId2
         propertyId3

@@ -9,13 +9,9 @@ import { eb_garamond, poppins, rubik } from '@/styles/fonts/fonts'
 import Cookies from 'js-cookie'
 import dynamic from 'next/dynamic'
 // Import Components
-const DarkColorHeader = dynamic(() =>
-  import('@/components/DarkColorHeader/DarkColorHeader'),
-)
-const DarkColorSecondaryHeader = dynamic(() =>
-  import(
-    '@/components/DarkColorHeader/DarkColorSecondaryHeader/DarkColorSecondaryHeader'
-  ),
+const Header = dynamic(() => import('@/components/Header/Header'))
+const SecondaryHeader = dynamic(() =>
+  import('@/components/Header/SecondaryHeader/SecondaryHeader'),
 )
 const SingleRCAContainer = dynamic(() =>
   import('@/components/SingleRCAContainer/SingleRCAContainer'),
@@ -320,6 +316,19 @@ export default function Component(props) {
     rcaSliderItem?.propertyUrl10 != null ? rcaSliderItem?.propertyUrl10 : null,
   ]
 
+  const rcaTextUrls = [
+    rcaSliderItem?.propertyUrlText1 != null ? rcaSliderItem?.propertyUrlText1 : null,
+    rcaSliderItem?.propertyUrlText2 != null ? rcaSliderItem?.propertyUrlText2 : null,
+    rcaSliderItem?.propertyUrlText3 != null ? rcaSliderItem?.propertyUrlText3 : null,
+    rcaSliderItem?.propertyUrlText4 != null ? rcaSliderItem?.propertyUrlText4 : null,
+    rcaSliderItem?.propertyUrlText5 != null ? rcaSliderItem?.propertyUrlText5 : null,
+    rcaSliderItem?.propertyUrlText6 != null ? rcaSliderItem?.propertyUrlText6 : null,
+    rcaSliderItem?.propertyUrlText7 != null ? rcaSliderItem?.propertyUrlText7 : null,
+    rcaSliderItem?.propertyUrlText8 != null ? rcaSliderItem?.propertyUrlText8 : null,
+    rcaSliderItem?.propertyUrlText9 != null ? rcaSliderItem?.propertyUrlText9 : null,
+    rcaSliderItem?.propertyUrlText10 != null ? rcaSliderItem?.propertyUrlText10 : null,
+  ]
+
   const rcaIds = [
     rcaSliderItem?.propertyId1 != null ? rcaSliderItem?.propertyId1 : null,
     rcaSliderItem?.propertyId2 != null ? rcaSliderItem?.propertyId2 : null,
@@ -338,6 +347,7 @@ export default function Component(props) {
     imageUrl: url,
     name: rcaNames[index],
     url: rcaUrls[index],
+    textUrl: rcaTextUrls[index],
     id: rcaIds[index],
   }))
 
@@ -374,12 +384,13 @@ export default function Component(props) {
 
   return (
     <main className={`${eb_garamond.variable} ${poppins.variable}`}>
-      <DarkColorHeader
+      <Header
         isNavShown={isNavShown}
         setIsNavShown={setIsNavShown}
         isScrolled={isScrolled}
+        customClassName={'travel-guide'}
       />
-      <DarkColorSecondaryHeader
+      <SecondaryHeader
         primaryMenuItems={primaryMenu}
         secondaryMenuItems={secondaryMenu}
         thirdMenuItems={thirdMenu}
@@ -407,7 +418,7 @@ export default function Component(props) {
         setIsBurgerNavShown={setIsBurgerNavShown}
         isScrolled={isScrolled}
         menuRef={menuRef}
-        customClassName={'rca-color'}
+        customClassName={'travel-guide'}
       />
       <Main>
         <>

@@ -14,9 +14,19 @@ export default function SingleRCAEntryHeader({
   sliderHeight,
   isMobile,
   hasBoth,
+  rcaTitle,
 }) {
   return (
     <>
+      {rcaTitle && (
+        <div className={cx('component', className)}>
+          <div className={cx('header-wrapper')}>
+            <Heading level={'h3'} className={cx('rca-title')}>
+              {`DESTINASIAN  ${rcaTitle}`}
+            </Heading>
+          </div>
+        </div>
+      )}
       {parentTitle && (
         <div
           style={{

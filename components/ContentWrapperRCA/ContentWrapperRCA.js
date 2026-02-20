@@ -244,7 +244,7 @@ export default function ContentWrapperRCA({
           {parentTitle && (
             <div
               style={{
-                marginLeft: !isMobile ? `${sliderWidth}px` : '',
+                marginLeft: !isMobile ? `calc(${sliderWidth}px - 2rem)` : '',
               }}
             >
               <SingleRCAEntryHeader
@@ -254,6 +254,7 @@ export default function ContentWrapperRCA({
                 sliderHeight={sliderHeight}
                 isMobile={isMobile}
                 hasBoth={parentTitle && title}
+                rcaTitle={rcaAll[0]?.title}
                 // category={category}
               />
             </div>
@@ -262,20 +263,23 @@ export default function ContentWrapperRCA({
           {title && (
             <div
               style={{
-                marginLeft: !isMobile ? `${sliderWidth}px` : '',
+                marginLeft: !isMobile ? `calc(${sliderWidth}px - 2rem)` : '',
               }}
             >
               <SingleRCAEntryHeader
                 title={title}
                 className={parentTitle ? 'bothClass' : 'defaultClass'}
                 hasBoth={parentTitle && title}
+                rcaTitle={rcaAll[0]?.title}
               />
             </div>
           )}
           {rcaIndexData[0]?.name !== null && (
             <div
               style={{
-                marginLeft: !isMobile ? `${sliderWidth}px` : '',
+                marginLeft: !isMobile ? `calc(${sliderWidth}px - 2rem)` : '',
+                zIndex: 47,
+                position: 'relative',
               }}
             >
               <div className={cx('content-list-wrapper')}>
@@ -316,7 +320,7 @@ export default function ContentWrapperRCA({
                         {rcaIndex?.url && (
                           <div className={cx('content-property-url')}>
                             <Link href={rcaIndex?.url} target="_blank">
-                              {'Visit Site'}
+                              {rcaIndex?.textUrl}
                             </Link>
                           </div>
                         )}
@@ -330,7 +334,7 @@ export default function ContentWrapperRCA({
           {transformedContent !== 'null' && (
             <div
               style={{
-                marginLeft: !isMobile ? `${sliderWidth}px` : '',
+                marginLeft: !isMobile ? `calc(${sliderWidth}px - 2rem)` : '',
               }}
             >
               <div
