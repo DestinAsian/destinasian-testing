@@ -10,7 +10,7 @@
   max-width: 100vw;
   font-weight: 400;
   letter-spacing: 0.08rem;
-  padding: 1rem 0 0;
+  padding: 0.5rem 0 0;
   top: 0;
   height: fit-content;
 
@@ -143,6 +143,20 @@
   font-family: 'Ringside Regular A', 'Ringside Regular B';
   font-weight: 700;
   text-wrap: balance;
+}
+
+.rca-title-wrapper {
+  display: flex;
+  margin: 0 auto;
+  padding: 0 1rem 0;
+  flex-direction: row;
+  row-gap: 0.5rem;
+  align-items: center;
+  justify-content: space-between;
+
+  @media (min-width: $breakpoint-extra-small) {
+    padding: 0;
+  }
 }
 
 .rca-title {

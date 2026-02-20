@@ -270,7 +270,7 @@ export default function ContentWrapperRCA({
                 title={title}
                 className={parentTitle ? 'bothClass' : 'defaultClass'}
                 hasBoth={parentTitle && title}
-                rcaTitle={rcaAll[0]?.title}
+                // rcaTitle={rcaAll[0]?.title}
               />
             </div>
           )}
