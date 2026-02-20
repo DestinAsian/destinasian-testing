@@ -1,0 +1,125 @@
+.wrapper {
+  min-height: 100vh;
+  background: #f2f2f2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+}
+
+.card {
+  width: 100%;
+  max-width: 1100px;
+  background: #ffffff;
+  padding: 60px;
+  border-radius: 24px;
+  border: 1px solid #e5e5e5;
+}
+
+.title {
+  font-size: 42px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.subtitle {
+  font-size: 18px;
+  color: #6b6b6b;
+  margin-bottom: 40px;
+}
+
+/* ================= RATING ================= */
+
+.rating {
+  display: flex;
+  gap: 14px;
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.star {
+  cursor: pointer;
+  color: #cfcfcf; // default abu abu
+  transition: 0.2s ease;
+}
+
+.active {
+  color: #c6a75e; // gold
+}
+
+.selectedText {
+  font-size: 18px;
+  color: #6b6b6b;
+  margin-bottom: 30px;
+}
+
+/* ================= FORM ================= */
+
+.formRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.textareaWrapper {
+  flex: 1;
+  position: relative;
+}
+
+.textarea {
+  width: 100%;
+  min-height: 140px;
+  border-radius: 20px;
+  border: 1px solid #d9d9d9;
+  padding: 20px;
+  font-size: 16px;
+  resize: none;
+  outline: none;
+}
+
+.textarea:focus {
+  border-color: #000;
+}
+
+.counter {
+  margin-top: 10px;
+  font-size: 16px;
+  color: #6b6b6b;
+}
+
+/* ================= BUTTON ================= */
+
+.button {
+  height: 60px;
+  padding: 0 40px;
+  border-radius: 20px;
+  background: #000;
+  color: #fff;
+  border: none;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.button:hover {
+  opacity: 0.9;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ================= ERROR / SUCCESS ================= */
+
+.error {
+  margin-bottom: 20px;
+  color: #b00020;
+  font-size: 16px;
+}
+
+.success {
+  margin-bottom: 20px;
+  color: #000;
+  font-size: 16px;
+}
