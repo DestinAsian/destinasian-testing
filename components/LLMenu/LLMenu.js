@@ -51,7 +51,7 @@ export default function LLMenu({ databaseId, customRef, customClassName }) {
 
   // Luxe List main page
   const luxeList = data?.luxeList
-  const menuTitleImage = luxeList.luxeListLogo?.secondaryLogo
+  const menuTitleImage = luxeList?.luxeListLogo?.secondaryLogo
 
   // Declare all posts
   const allPosts = luxeList.children?.edges.map((post) => post.node) || []
