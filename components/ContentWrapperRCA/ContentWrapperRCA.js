@@ -278,7 +278,7 @@ export default function ContentWrapperRCA({
             <div
               style={{
                 marginLeft: !isMobile ? `calc(${sliderWidth}px - 2rem)` : '',
-                zIndex: 47,
+                zIndex: !isMobile ? '47' : '46',
                 position: 'relative',
               }}
             >
