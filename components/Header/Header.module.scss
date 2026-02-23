@@ -16,6 +16,13 @@
   }
 }
 
+.luxury-travel-spotlight {
+  .navbar {
+    color: var(--wpe--header--color);
+    background-color: var(--wpe--color--white--smoke);
+  }
+}
+
 .travel-guide,
 .sticky.travel-guide {
   position: fixed;

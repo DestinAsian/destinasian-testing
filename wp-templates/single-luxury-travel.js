@@ -371,7 +371,14 @@ export default function Component(props) {
     <main
       className={`${eb_garamond.variable} ${poppins.variable} ${rubik.variable} bg-[--wpe--color--teal]`}
     >
-      <Header isScrolled={isScrolled} customClassName={'luxury-travel'} />
+      <Header
+        isScrolled={isScrolled}
+        customClassName={
+          parent?.node?.title?.toLowerCase().includes('spotlight')
+            ? 'luxury-travel-spotlight'
+            : 'luxury-travel'
+        }
+      />
       <SecondaryHeader
         primaryMenuItems={primaryMenu}
         secondaryMenuItems={secondaryMenu}
@@ -399,14 +406,30 @@ export default function Component(props) {
         isBurgerNavShown={isBurgerNavShown}
         setIsBurgerNavShown={setIsBurgerNavShown}
         isScrolled={isScrolled}
-        customClassName={'luxury-travel'}
+        customClassName={
+          parent?.node?.title?.toLowerCase().includes('spotlight')
+            ? 'luxury-travel-spotlight'
+            : 'luxury-travel'
+        }
       />
       <Main className="mt-[-0.75rem] sm:mt-[-1rem]">
         <>
           <SingleLTContainer>
-            <div className=" bg-[#dbf2f1] sm:top-[4.5rem]">
+            <div
+              className={
+                parent?.node?.title?.toLowerCase().includes('spotlight')
+                  ? ' bg-[#f5f5f5] sm:top-[4.5rem]'
+                  : ' bg-[#dbf2f1] sm:top-[4.5rem]'
+              }
+            >
               <section className="relative" data-id="section1">
-                <div className=" bg-[#dbf2f1]">
+                <div
+                  className={
+                    parent?.node?.title?.toLowerCase().includes('spotlight')
+                      ? ' bg-[#f5f5f5]'
+                      : ' bg-[#dbf2f1]'
+                  }
+                >
                   <SingleAdvertorialSlider
                     images={images?.map((image) => image[0])}
                   />
@@ -435,7 +458,13 @@ export default function Component(props) {
               )}
               {(tabsEditor?.tabTitle1 && tabsEditor?.tab1) !== null && (
                 <section className="relative pt-4 sm:pt-6" data-id="section3">
-                  <div className=" bg-[#dbf2f1] pt-[3.5rem] sm:pt-0">
+                  <div
+                    className={
+                      parent?.node?.title?.toLowerCase().includes('spotlight')
+                        ? ' bg-[#f5f5f5] pt-[3.5rem] sm:pt-0'
+                        : ' bg-[#dbf2f1] pt-[3.5rem] sm:pt-0'
+                    }
+                  >
                     <div className="sm:h-fit">
                       <TabsEditor
                         tabsEditor={tabsEditor}
@@ -448,7 +477,13 @@ export default function Component(props) {
               {(luxuryTravelPinPosts?.pinPosts?.length &&
                 luxuryTravelPinPosts?.moreStories?.length) !== 0 && (
                 <section className="relative pt-4 sm:pt-6" data-id="section4">
-                  <div className=" bg-[#dbf2f1]">
+                  <div
+                    className={
+                      parent?.node?.title?.toLowerCase().includes('spotlight')
+                        ? ' bg-[#f5f5f5]'
+                        : ' bg-[#dbf2f1]'
+                    }
+                  >
                     <LuxuryTravelStories
                       luxuryTravelId={databaseId}
                       name={title}
@@ -461,7 +496,13 @@ export default function Component(props) {
               )}
               {luxuryTravelDirectory?.directory && (
                 <section className="relative pt-4 sm:pt-6" data-id="section5">
-                  <div className=" bg-[#dbf2f1]">
+                  <div
+                    className={
+                      parent?.node?.title?.toLowerCase().includes('spotlight')
+                        ? ' bg-[#f5f5f5]'
+                        : ' bg-[#dbf2f1]'
+                    }
+                  >
                     <LuxuryTravelDirectory
                       content={luxuryTravelDirectory?.directory}
                       parent={parent?.node?.title}
