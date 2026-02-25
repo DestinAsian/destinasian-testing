@@ -10,8 +10,8 @@ import { GetLatestStories } from '@/queries/GetLatestStories'
 import { eb_garamond, poppins, rubik } from '@/styles/fonts/fonts'
 import Cookies from 'js-cookie'
 import { GetLatestRCA } from '@/queries/GetLatestRCA'
-import dynamic from 'next/dynamic'
 import NewsletterFormPages from '@/components/NewsletterMailerLite/NewsletterFormPages'
+import dynamic from 'next/dynamic'
 // Import Components
 const Header = dynamic(() => import('@/components/Header/Header'))
 const SecondaryHeader = dynamic(() =>

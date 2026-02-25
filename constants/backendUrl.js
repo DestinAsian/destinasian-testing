@@ -1,1 +1,1 @@
-export const BACKEND_URL = 'testing.destinasian.com';
+export const BACKEND_URL = 'staging.destinasian.com';

@@ -17,12 +17,25 @@ const LocationIcon = dynamic(() =>
 let cx = classNames.bind(styles)
 
 // Randomized Function
-function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1))
-    ;[array[i], array[j]] = [array[j], array[i]]
+function seededRandom(seed) {
+  // mulberry32 PRNG
+  let t = seed >>> 0
+  return function () {
+    t += 0x6d2b79f5
+    let r = Math.imul(t ^ (t >>> 15), 1 | t)
+    r = (r + Math.imul(r ^ (r >>> 7), 61 | r)) ^ r
+    return ((r ^ (r >>> 14)) >>> 0) / 4294967296
   }
-  return array
+}
+
+function seededShuffle(array, seed) {
+  const arr = [...array]
+  const rand = seededRandom(seed)
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(rand() * (i + 1))
+    ;[arr[i], arr[j]] = [arr[j], arr[i]]
+  }
+  return arr
 }
 
 export default function MoreReviews({ databaseId }) {
@@ -41,20 +54,19 @@ export default function MoreReviews({ databaseId }) {
 
   const moreReviews = data?.post?.categories?.edges[0]?.node?.posts?.edges ?? []
 
-  // Use an effect to shuffle more reviews when data changes
-  useEffect(() => {
-    if (moreReviews && moreReviews.length > 0) {
-      // Clone the moreReviews array to avoid modifying the original data
-      const clonedMoreReviews = [...moreReviews]
-      // Shuffle the cloned array
-      const shuffledArray = shuffleArray(clonedMoreReviews)
-      // Set the shuffled array in state
-      setShuffledMoreReviews(shuffledArray)
-    }
-  }, [moreReviews]) // Trigger shuffling when moreReviews changes
+  // Deterministic shuffle based on `databaseId` so SSR and client match
+  const seed = typeof databaseId === 'number' ? databaseId : (typeof databaseId === 'string' ? databaseId.split('').reduce((s,c)=>s+ c.charCodeAt(0),0) : 1)
+  const deterministicShuffled = React.useMemo(() => {
+    if (!moreReviews || moreReviews.length === 0) return []
+    return seededShuffle(moreReviews, Number(seed))
+  }, [moreReviews, seed])
 
-  if (error) {
-    return <pre>{JSON.stringify(error)}</pre>
+  useEffect(() => {
+    setShuffledMoreReviews(deterministicShuffled)
+  }, [deterministicShuffled])
+
+  if (typeof error !== 'undefined' && error) {
+    return <pre>{error && error.message ? error.message : JSON.stringify(error)}</pre>
   }
 
   if (loading) {

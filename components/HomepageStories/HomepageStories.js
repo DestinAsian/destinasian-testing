@@ -204,7 +204,7 @@ export default function HomepageStories(pinPosts) {
   /* ---------------- STATES ---------------- */
 
   if (postsError || bannerError || advertorialError) {
-    return <pre>{JSON.stringify(error)}</pre>
+    return <pre>{typeof error !== 'undefined' && error ? (error.message ? error.message : JSON.stringify(error)) : 'Unknown error'}</pre>
   }
 
   const isInitialLoading = postsLoading && posts.length === 0

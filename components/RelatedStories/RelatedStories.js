@@ -2,6 +2,7 @@ import classNames from 'classnames/bind'
 import styles from './RelatedStories.module.scss'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
+import Image from 'next/image'
 // Import Components
 const FeaturedImage = dynamic(() =>
   import('@/components/FeaturedImage/FeaturedImage'),
@@ -32,10 +33,13 @@ export default function RelatedStories({
         {featuredImage && (
           <div className={cx('content-wrapper-image')}>
             {uri && (
-              <Link href={uri}>
-                <FeaturedImage
-                  image={featuredImage}
-                  className={styles.featuredImage}
+              <Link href={uri} className={cx('image')}>
+                <Image
+                  src={featuredImage?.sourceUrl}
+                  alt={featuredImage?.altText || 'Featured Image'}
+                  fill
+                  sizes="100%"
+                  priority
                 />
               </Link>
             )}

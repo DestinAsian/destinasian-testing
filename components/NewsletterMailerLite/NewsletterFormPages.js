@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import styles from './NewsletterForm.module.scss'
 
-export default function NewsletterForm() {
+export default function NewsletterFormPages() {
   const [countries, setCountries] = useState([])
 
   const [name, setName] = useState('')

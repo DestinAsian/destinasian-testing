@@ -178,10 +178,14 @@ export default function Component(props) {
     }
   }, [isBurgerNavShown])
 
-  const { data: rcaData } = useQuery(GetLatestRCA, {
+  const { data: rcaData, error: rcaError } = useQuery(GetLatestRCA, {
     fetchPolicy: 'cache-and-network',
     nextFetchPolicy: 'network-only',
   })
+
+  if (rcaError) {
+    console.error('[Editorial RCA Error]', rcaError)
+  }
 
   const [latestRCA, setLatestRCA] = useState(null)
 
@@ -202,7 +206,7 @@ export default function Component(props) {
   } = latestRCA ?? []
 
   // Get menus
-  const { data: menusData, loading: menusLoading } = useQuery(GetMenus, {
+  const { data: menusData, loading: menusLoading, error: menusError } = useQuery(GetMenus, {
     variables: {
       first: 30,
       headerLocation: MENUS.PRIMARY_LOCATION,
@@ -216,6 +220,10 @@ export default function Component(props) {
     nextFetchPolicy: 'network-only',
   })
 
+  if (menusError) {
+    console.error('[Editorial Menus Error]', menusError)
+  }
+
   // Header Menu
   const primaryMenu = menusData?.headerMenuItems?.nodes ?? []
   const secondaryMenu = menusData?.secondHeaderMenuItems?.nodes ?? []
@@ -225,7 +233,7 @@ export default function Component(props) {
   const featureMenu = menusData?.featureHeaderMenuItems?.nodes ?? []
 
   // Get Footer menus
-  const { data: footerMenusData, loading: footerMenusLoading } = useQuery(
+  const { data: footerMenusData, loading: footerMenusLoading, error: footerError } = useQuery(
     GetFooterMenus,
     {
       variables: {
@@ -237,11 +245,15 @@ export default function Component(props) {
     },
   )
 
+  if (footerError) {
+    console.error('[Editorial Footer Error]', footerError)
+  }
+
   // Footer Menu
   const footerMenu = footerMenusData?.footerHeaderMenuItems?.nodes ?? []
 
   // Get latest travel stories
-  const { data: latestStories, loading: latestLoading } = useQuery(
+  const { data: latestStories, loading: latestLoading, error: latestStoriesError } = useQuery(
     GetLatestStories,
     {
       variables: {
@@ -251,6 +263,10 @@ export default function Component(props) {
       nextFetchPolicy: 'network-only',
     },
   )
+
+  if (latestStoriesError) {
+    console.error('[Editorial Latest Stories Error]', latestStoriesError)
+  }
 
   const posts = latestStories?.posts ?? []
   const editorials = latestStories?.editorials ?? []
@@ -404,16 +420,16 @@ export default function Component(props) {
           <EntryRelatedStories />
           {shuffledRelatedStories.map((post) => (
             <>
-              {post.node.title !== title && (
+              {post?.node?.title !== title && (
                 // Render the merged posts here
                 <RelatedStories
-                  key={post.node.id}
-                  title={post.node.title}
-                  excerpt={post.node.excerpt}
-                  uri={post.node.uri}
-                  category={post.node.categories.edges[0]?.node?.name}
-                  categoryUri={post.node.categories.edges[0]?.node?.uri}
-                  featuredImage={post.node.featuredImage?.node}
+                  key={post?.node?.id}
+                  title={post?.node?.title}
+                  excerpt={post?.node?.excerpt}
+                  uri={post?.node?.uri}
+                  category={post?.node?.categories.edges[0]?.node?.name}
+                  categoryUri={post?.node?.categories.edges[0]?.node?.uri}
+                  featuredImage={post?.node?.featuredImage?.node}
                 />
               )}
             </>
@@ -510,13 +526,7 @@ Component.query = gql`
                   uri
                   featuredImage {
                     node {
-                      id
                       sourceUrl
-                      altText
-                      mediaDetails {
-                        width
-                        height
-                      }
                     }
                   }
                   categories {
@@ -530,17 +540,6 @@ Component.query = gql`
                 }
               }
             }
-          }
-        }
-      }
-      featuredImage {
-        node {
-          id
-          sourceUrl
-          altText
-          mediaDetails {
-            width
-            height
           }
         }
       }

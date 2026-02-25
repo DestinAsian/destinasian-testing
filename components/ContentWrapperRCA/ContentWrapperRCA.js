@@ -93,8 +93,8 @@ export default function ContentWrapperRCA({
 
   const { data, loading, error } = useQuery(GetRCAPagination, {
     variables: { first: batchSize, after: null, id: databaseId },
-    fetchPolicy: 'cache-and-network',
-    nextFetchPolicy: 'network-only',
+    fetchPolicy: 'cache-first',
+    nextFetchPolicy: 'cache-first',
   })
 
   const ancestors = data?.readersChoiceAwardBy?.ancestors
@@ -188,7 +188,15 @@ export default function ContentWrapperRCA({
   }, [isSliderMounted, images && images.length])
 
   if (error) {
-    return <pre>{JSON.stringify(error)}</pre>
+    return (
+      <pre>
+        {typeof error !== 'undefined' && error
+          ? error.message
+            ? error.message
+            : JSON.stringify(error)
+          : 'Unknown error'}
+      </pre>
+    )
   }
 
   if (loading || sliderLoading) {

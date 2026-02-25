@@ -4,6 +4,7 @@ import pageBaliGuideNotification from './page-bali-guide-notification-sign-up'
 import pageContests from './page-contests'
 import pageHonorsCircle from './page-honors-circle'
 import pageNewsletter from './page-newsletter'
+// import pageNewsletterFeedback from './page-newsletter-feedback'
 import pageTravelGuides from './page-travel-guides'
 import pageVideos from './page-videos'
 import page from './page'
@@ -20,7 +21,6 @@ import singleUpdate from './single-update'
 import single from './single'
 import tag from './tag'
 
-import pageNewsletterFeedback from './page-newsletter-feedback'
 export default {
   category,
   'front-page': frontPage,
@@ -28,7 +28,7 @@ export default {
   'page-contests': pageContests,
   'page-honors-circle': pageHonorsCircle,
   'page-newsletter': pageNewsletter,
-  'page-newsletter-feedback': pageNewsletterFeedback,
+  // 'page-newsletter-feedback': pageNewsletterFeedback,
   'page-travel-guides': pageTravelGuides,
   'page-videos': pageVideos,
   page,

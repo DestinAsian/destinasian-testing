@@ -170,7 +170,7 @@ export default function Component(props) {
   } = props?.data?.readersChoiceAward
 
   // Get menus
-  const { data: menusData, loading: menusLoading } = useQuery(GetMenus, {
+  const { data: menusData, loading: menusLoading, error: menusError } = useQuery(GetMenus, {
     variables: {
       first: 30,
       headerLocation: MENUS.PRIMARY_LOCATION,
@@ -180,9 +180,14 @@ export default function Component(props) {
       fifthHeaderLocation: MENUS.FIFTH_LOCATION,
       featureHeaderLocation: MENUS.FEATURE_LOCATION,
     },
-    fetchPolicy: 'cache-and-network',
-    nextFetchPolicy: 'network-only',
+    fetchPolicy: 'cache-first',
+    nextFetchPolicy: 'cache-first',
   })
+
+  // Early error check for menus
+  if (menusError) {
+    console.error('[RCA Menus Error]', menusError)
+  }
 
   const primaryMenu = menusData?.headerMenuItems?.nodes ?? []
   const secondaryMenu = menusData?.secondHeaderMenuItems?.nodes ?? []
@@ -192,16 +197,21 @@ export default function Component(props) {
   const featureMenu = menusData?.featureHeaderMenuItems?.nodes ?? []
 
   // Get latest travel stories
-  const { data: latestStories, loading: latestLoading } = useQuery(
+  const { data: latestStories, loading: latestLoading, error: latestStoriesError } = useQuery(
     GetLatestStories,
     {
       variables: {
         first: 5,
       },
-      fetchPolicy: 'cache-and-network',
-      nextFetchPolicy: 'network-only',
+      fetchPolicy: 'cache-first',
+      nextFetchPolicy: 'cache-first',
     },
   )
+
+  // Early error check for stories
+  if (latestStoriesError) {
+    console.error('[RCA Latest Stories Error]', latestStoriesError)
+  }
 
   // Latest Travel Stories
   const latestPosts = latestStories?.posts ?? []
@@ -244,14 +254,19 @@ export default function Component(props) {
   // sortByDate latestCat & childCat Posts
   const latestAllPosts = latestMainCatPosts.sort(sortPostsByDate)
 
-  // Get menus
-  const { data: sliderData, loading: sliderLoading } = useQuery(GetRCASlider, {
+  // Get RCA slider data
+  const { data: sliderData, loading: sliderLoading, error: sliderError } = useQuery(GetRCASlider, {
     variables: {
       id: databaseId,
     },
-    fetchPolicy: 'cache-and-network',
-    nextFetchPolicy: 'network-only',
+    fetchPolicy: 'cache-first',
+    nextFetchPolicy: 'cache-first',
   })
+
+  // Early error check for slider
+  if (sliderError) {
+    console.error('[RCA Slider Error]', sliderError)
+  }
 
   const rcaSliderItem = sliderData?.readersChoiceAward?.rcaSlider ?? []
 
@@ -535,7 +550,6 @@ Component.query = gql`
         where: {
           status: PUBLISH
           contentTypes: READERS_CHOICE_AWARD
-          search: "Readers"
         }
       ) {
         edges {

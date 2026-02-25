@@ -1,11 +1,8 @@
 @import 'styles/breakpoints';
 @import 'styles/fonts/typography';
 
-/* ================= VARIABLES ================= */
 
 $form-width: 550px;
-
-/* ================= WRAPPER ================= */
 
 .newsletterWrapper {
   text-align: center;
@@ -24,7 +21,6 @@ $form-width: 550px;
   }
 }
 
-/* ================= FORM ================= */
 
 .newsletterForm {
   display: flex;
@@ -33,7 +29,6 @@ $form-width: 550px;
   gap: 0.5rem;
   margin-top: 1rem;
 
-  /* ---------- FIELD WRAPPER ---------- */
 
   .fieldWrapper {
     width: $form-width;
@@ -67,8 +62,6 @@ $form-width: 550px;
     }
   }
 
-  /* ---------- INPUT ---------- */
-
   input {
     width: $form-width;
     padding: 0.6rem 0.75rem;
@@ -98,8 +91,6 @@ $form-width: 550px;
     width: $form-width;
   }
 
-  /* ---------- ALERT ---------- */
-
   .alert {
     width: $form-width;
     padding: 0.75rem 1rem;
@@ -128,8 +119,6 @@ $form-width: 550px;
     }
   }
 
-  /* ---------- SUBMIT BUTTON ---------- */
-
   .submitButton {
     width: $form-width;
     margin-top: 6px;
@@ -155,8 +144,6 @@ $form-width: 550px;
     }
   }
 
-  /* ---------- MOBILE ---------- */
-
   @media (max-width: $breakpoint-extra-small) {
     width: 100%;
     padding: 0 1rem;
@@ -174,8 +161,6 @@ $form-width: 550px;
     }
   }
 }
-
-/* ================= REQUIRED STAR ================= */
 
 .inputRequired {
   position: relative;
@@ -195,3 +180,5 @@ $form-width: 550px;
     pointer-events: none;
   }
 }
+
+

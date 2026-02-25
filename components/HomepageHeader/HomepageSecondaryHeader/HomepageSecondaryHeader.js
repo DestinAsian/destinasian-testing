@@ -115,15 +115,22 @@ export default function HomepageSecondaryHeader({
     setIsFetchingMore(false)
   }
 
-  // Search Results - tags content nodes, remove duplicates, and sort by date
+  // Search Results - combine content types, remove duplicates, and sort by date
   const contentNodesPosts = useMemo(() => {
-    if (!searchResultsData?.tags?.edges) return []
+    if (!searchResultsData) return []
+
+    const edgesGroups = [
+      searchResultsData.posts?.edges,
+      searchResultsData.editorials?.edges,
+      searchResultsData.updates?.edges,
+      searchResultsData.advertorials?.edges,
+    ]
 
     const seen = new Set()
     const results = []
 
-    for (const { node } of searchResultsData.tags.edges) {
-      for (const { node: post } of node.contentNodes.edges) {
+    for (const edges of edgesGroups) {
+      for (const { node: post } of edges ?? []) {
         if (!post?.databaseId) continue
         if (post?.passwordProtected?.onOff) continue
         if (seen.has(post.databaseId)) continue
@@ -135,7 +142,7 @@ export default function HomepageSecondaryHeader({
 
     results.sort((a, b) => Date.parse(b.date) - Date.parse(a.date))
     return results
-  }, [searchResultsData?.tags?.edges])
+  }, [searchResultsData])
 
   useEffect(() => {
     if (!searchQuery) return
@@ -328,7 +335,7 @@ export default function HomepageSecondaryHeader({
                 isLoading={isLoading}
                 isFetchingMore={isFetchingMore}
                 onLoadMore={fetchMorePosts}
-                hasMore={year > 2023}
+                hasMore={year > MIN_YEAR}
               />
             )}
           </div>

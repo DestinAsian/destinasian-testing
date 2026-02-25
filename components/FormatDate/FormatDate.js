@@ -1,16 +1,26 @@
+import React, { useEffect, useState } from 'react'
+
 export default function FormatDate({ date }) {
-  let formattedDate = new Date(date);
+  const [formatted, setFormatted] = useState(null)
 
-  if (isNaN(formattedDate.valueOf())) {
-    return null;
-  }
+  useEffect(() => {
+    const d = new Date(date)
+    if (isNaN(d.valueOf())) {
+      setFormatted(null)
+      return
+    }
 
-  const timeformat = {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour12: false
-  };
+    const timeformat = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour12: false,
+    }
 
-  return <>{formattedDate.toLocaleDateString('en-US', timeformat)}</>;
+    setFormatted(d.toLocaleDateString('en-US', timeformat))
+  }, [date])
+
+  if (formatted === null) return null
+
+  return <>{formatted}</>
 }

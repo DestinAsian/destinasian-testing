@@ -17,6 +17,9 @@ const AdvertorialPostTwoColumns = dynamic(() =>
   import('@/components/AdvertorialPostTwoColumns/AdvertorialPostTwoColumns'),
 )
 const ModuleAd = dynamic(() => import('@/components/ModuleAd/ModuleAd'))
+const ErrorFallback = dynamic(() =>
+  import('@/components/ErrorFallback/ErrorFallback'),
+)
 
 let cx = classNames.bind(styles)
 
@@ -34,6 +37,7 @@ export default function CategoryStories(categoryUri) {
   const advertorialPerPage = 12
 
   const [isFetchingMore, setIsFetchingMore] = useState(false)
+  const [retryCount, setRetryCount] = useState(0)
 
   const [posts, setPosts] = useState([])
   const [postsCursor, setPostsCursor] = useState(null)
@@ -118,7 +122,13 @@ export default function CategoryStories(categoryUri) {
   )
 
   if (bannerROSError) {
-    return <pre>{JSON.stringify(error)}</pre>
+    return (
+      <ErrorFallback
+        error={bannerROSError}
+        onRetry={() => setRetryCount((c) => c + 1)}
+        title="Failed to Load Banner Ads"
+      />
+    )
   }
 
   let bannerVariable = {
@@ -182,7 +192,13 @@ export default function CategoryStories(categoryUri) {
     )
 
   if (bannerSpecificError) {
-    return <pre>{JSON.stringify(error)}</pre>
+    return (
+      <ErrorFallback
+        error={bannerSpecificError}
+        onRetry={() => setRetryCount((c) => c + 1)}
+        title="Failed to Load Specific Banner Ads"
+      />
+    )
   }
 
   // Get Advertorial Stories
@@ -285,7 +301,13 @@ export default function CategoryStories(categoryUri) {
   }, [isFetchingMore, hasMorePosts, postsData])
 
   if (postsError || advertorialsError) {
-    return <pre>{JSON.stringify(error)}</pre>
+    return (
+      <ErrorFallback
+        error={postsError || advertorialsError}
+        onRetry={() => setRetryCount((c) => c + 1)}
+        title="Failed to Load Stories"
+      />
+    )
   }
 
   const isInitialLoading = postsLoading && posts.length === 0

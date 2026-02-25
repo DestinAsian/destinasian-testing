@@ -20,11 +20,11 @@ let cx = className.bind(styles)
 export default function GallerySlider({ gallerySlider, className }) {
   const [images, setImages] = useState([])
   const [activeIndex, setActiveIndex] = useState(0)
-  // Generate CSS-safe unique ID
-  const uniqueId = React.useMemo(
-    () => `gallery-slider-${Math.random().toString(36).substring(2, 9)}`,
-    [],
-  )
+  // Generate CSS-safe unique ID only on client to avoid SSR mismatch
+  const [uniqueId, setUniqueId] = useState(null)
+  React.useEffect(() => {
+    setUniqueId(`gallery-slider-${Math.random().toString(36).substring(2, 9)}`)
+  }, [])
   useEffect(() => {
     if (!gallerySlider) return
 
@@ -72,11 +72,15 @@ export default function GallerySlider({ gallerySlider, className }) {
           effect={'fade'}
           autoplay={{ delay: 5000, disableOnInteraction: true }}
           loop={true}
-          pagination={{
-            el: `.${uniqueId}-pagination`,
-            clickable: true,
-            type: 'bullets',
-          }}
+          pagination={
+            uniqueId
+              ? {
+                  el: `.${uniqueId}-pagination`,
+                  clickable: true,
+                  type: 'bullets',
+                }
+              : undefined
+          }
           modules={[EffectFade, Autoplay, Pagination, Navigation]}
           className="post-swiper"
           onSlideChange={(swiper) => {
@@ -113,7 +117,7 @@ export default function GallerySlider({ gallerySlider, className }) {
           ))}
         </Swiper>
         <div
-          className={`swiper-post-custom-pagination ${uniqueId}-pagination`}
+          className={`swiper-post-custom-pagination ${uniqueId ? `${uniqueId}-pagination` : ''}`}
         ></div>
         {/* Caption absolutely positioned relative to Swiper */}
         {images[activeIndex]?.caption && (

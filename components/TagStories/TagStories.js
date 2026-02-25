@@ -93,7 +93,7 @@ export default function TagStories(tagUri) {
   )
 
   if (bannerROSError) {
-    return <pre>{JSON.stringify(error)}</pre>
+    return <pre>{typeof error !== 'undefined' && error ? (error.message ? error.message : JSON.stringify(error)) : 'Unknown error'}</pre>
   }
 
   let bannerVariable = {
@@ -112,7 +112,7 @@ export default function TagStories(tagUri) {
   )
 
   if (bannerSpecificError) {
-    return <pre>{JSON.stringify(error)}</pre>
+    return <pre>{typeof error !== 'undefined' && error ? (error.message ? error.message : JSON.stringify(error)) : 'Unknown error'}</pre>
   }
 
   // Advertorial Var
@@ -132,7 +132,7 @@ export default function TagStories(tagUri) {
   )
 
   if (advertorialsError) {
-    return <pre>{JSON.stringify(error)}</pre>
+    return <pre>{typeof error !== 'undefined' && error ? (error.message ? error.message : JSON.stringify(error)) : 'Unknown error'}</pre>
   }
 
   // Function to shuffle the banner ads and store them in state
@@ -283,7 +283,7 @@ export default function TagStories(tagUri) {
   }, [fetchMorePosts])
 
   if (error) {
-    return <pre>{JSON.stringify(error)}</pre>
+    return <pre>{typeof error !== 'undefined' && error ? (error.message ? error.message : JSON.stringify(error)) : 'Unknown error'}</pre>
   }
 
   if (loading) {

@@ -146,10 +146,14 @@ export default function Component(props) {
     }
   }, [isBurgerNavShown])
 
-  const { data: rcaData } = useQuery(GetLatestRCA, {
+  const { data: rcaData, error: rcaError } = useQuery(GetLatestRCA, {
     fetchPolicy: 'cache-and-network',
     nextFetchPolicy: 'network-only',
   })
+
+  if (rcaError) {
+    console.error('[Category RCA Error]', rcaError)
+  }
 
   const [latestRCA, setLatestRCA] = useState(null)
 
@@ -175,11 +179,15 @@ export default function Component(props) {
   }
 
   // Get Category
-  const { data, loading } = useQuery(GetSecondaryHeader, {
+  const { data, loading, error: categoryError } = useQuery(GetSecondaryHeader, {
     variables: catVariable,
     fetchPolicy: 'cache-and-network',
     nextFetchPolicy: 'network-only',
   })
+
+  if (categoryError) {
+    console.error('[Category Header Error]', categoryError)
+  }
 
   // Logic for Guides Category
   const isGuidesCategory =
@@ -192,7 +200,7 @@ export default function Component(props) {
       data?.category?.parent != undefined)
 
   // Get menus
-  const { data: menusData, loading: menusLoading } = useQuery(GetMenus, {
+  const { data: menusData, loading: menusLoading, error: menusError } = useQuery(GetMenus, {
     variables: {
       first: 30,
       headerLocation: MENUS.PRIMARY_LOCATION,
@@ -206,6 +214,10 @@ export default function Component(props) {
     nextFetchPolicy: 'network-only',
   })
 
+  if (menusError) {
+    console.error('[Category Menus Error]', menusError)
+  }
+
   // Header Menu
   const primaryMenu = menusData?.headerMenuItems?.nodes ?? []
   const secondaryMenu = menusData?.secondHeaderMenuItems?.nodes ?? []
@@ -215,7 +227,7 @@ export default function Component(props) {
   const featureMenu = menusData?.featureHeaderMenuItems?.nodes ?? []
 
   // Get pin posts stories
-  const { data: pinPostsStories } = useQuery(GetCategoryPinPosts, {
+  const { data: pinPostsStories, error: pinPostsError } = useQuery(GetCategoryPinPosts, {
     variables: {
       id: databaseId,
     },
@@ -223,11 +235,15 @@ export default function Component(props) {
     nextFetchPolicy: 'network-only',
   })
 
+  if (pinPostsError) {
+    console.error('[Category Pin Posts Error]', pinPostsError)
+  }
+
   // State variable of Category pin posts
   const pinPosts = pinPostsStories?.category?.pinPosts ?? []
 
   // Get Footer menus
-  const { data: footerMenusData, loading: footerMenusLoading } = useQuery(
+  const { data: footerMenusData, loading: footerMenusLoading, error: footerError } = useQuery(
     GetFooterMenus,
     {
       variables: {
@@ -239,11 +255,15 @@ export default function Component(props) {
     },
   )
 
+  if (footerError) {
+    console.error('[Category Footer Error]', footerError)
+  }
+
   // Footer Menu
   const footerMenu = footerMenusData?.footerHeaderMenuItems?.nodes ?? []
 
   // Get latest travel stories
-  const { data: latestStories, loading: latestLoading } = useQuery(
+  const { data: latestStories, loading: latestLoading, error: latestStoriesError } = useQuery(
     GetLatestStories,
     {
       variables: {
@@ -253,6 +273,10 @@ export default function Component(props) {
       nextFetchPolicy: 'network-only',
     },
   )
+
+  if (latestStoriesError) {
+    console.error('[Category Latest Stories Error]', latestStoriesError)
+  }
 
   // Latest Travel Stories
   const latestPosts = latestStories?.posts ?? []

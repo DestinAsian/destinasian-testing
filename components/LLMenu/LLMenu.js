@@ -54,7 +54,7 @@ export default function LLMenu({ databaseId, customRef, customClassName }) {
   const menuTitleImage = luxeList?.luxeListLogo?.secondaryLogo
 
   // Declare all posts
-  const allPosts = luxeList.children?.edges.map((post) => post.node) || []
+  const allPosts = luxeList?.children?.edges.map((post) => post.node) || []
 
   // Function to filter out duplicate categories
   const uniqueCategories = allPosts

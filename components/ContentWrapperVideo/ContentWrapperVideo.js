@@ -108,7 +108,7 @@ export default function ContentWrapperVideo() {
   }
 
   if (error) {
-    return <pre>{JSON.stringify(error)}</pre>
+    return <pre>{typeof error !== 'undefined' && error ? (error.message ? error.message : JSON.stringify(error)) : 'Unknown error'}</pre>
   }
 
   if (loading) {

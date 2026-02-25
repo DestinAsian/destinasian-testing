@@ -43,7 +43,7 @@ export default async function handler(req, res) {
         zip: geoData.postal || '',
       }
     } catch {
-      // silent geo fail
+
     }
 
     /* ================= CREATE SUBSCRIBER ================= */

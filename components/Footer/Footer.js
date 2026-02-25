@@ -14,9 +14,9 @@ import dynamic from 'next/dynamic'
 const NavigationMenu = dynamic(() =>
   import('@/components/NavigationMenu/NavigationMenu'),
 )
-// const NewsletterEmbedFooter = dynamic(() =>
-//   import('@/components/NewsletterEmbedFooter/NewsletterEmbedFooter'),
-// )
+const NewsletterEmbedFooter = dynamic(() =>
+  import('@/components/NewsletterEmbedFooter/NewsletterEmbedFooter'),
+)
 
 let cx = classNames.bind(styles)
 
@@ -44,7 +44,8 @@ export default function Footer(footerMenu) {
         <div className={cx('first-wrapper')}>
           {/* newsletter */}
           <div className={`${styles.newsletterWrapper} mb-12`}>
-          <NewsletterForm />
+            <NewsletterForm />
+
             {/* <NewsletterEmbedFooter /> */}
           </div>
           {/* Footer Menu {DestinAsian Guides Menu} */}

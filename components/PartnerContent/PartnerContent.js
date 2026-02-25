@@ -69,7 +69,7 @@ export default function PartnerContent({ parentName }) {
   )
 
   if (advertorialsError) {
-    return <pre>{JSON.stringify(error)}</pre>
+    return <pre>{typeof error !== 'undefined' && error ? (error.message ? error.message : JSON.stringify(error)) : 'Unknown error'}</pre>
   }
 
   // Get HC Stories
@@ -83,7 +83,7 @@ export default function PartnerContent({ parentName }) {
   )
 
   if (honorsCirclesError) {
-    return <pre>{JSON.stringify(error)}</pre>
+    return <pre>{typeof error !== 'undefined' && error ? (error.message ? error.message : JSON.stringify(error)) : 'Unknown error'}</pre>
   }
 
   // Advertorial Stories
