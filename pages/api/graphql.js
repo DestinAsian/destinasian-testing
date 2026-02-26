@@ -26,8 +26,13 @@ export default async function handler(req, res) {
   try {
     const targetUrl = getTargetUrl(req);
     const headers = {
+      accept: req.headers.accept || 'application/json',
       'content-type': req.headers['content-type'] || 'application/json',
     };
+
+    if (req.headers.authorization) {
+      headers.authorization = req.headers.authorization;
+    }
 
     const wpResponse = await fetch(targetUrl, {
       method: req.method,
@@ -37,7 +42,10 @@ export default async function handler(req, res) {
 
     const responseText = await wpResponse.text();
     res.status(wpResponse.status);
-    res.setHeader('content-type', wpResponse.headers.get('content-type') || 'application/json');
+    res.setHeader(
+      'content-type',
+      wpResponse.headers.get('content-type') || 'application/json',
+    );
     res.send(responseText);
   } catch (error) {
     res.status(502).json({

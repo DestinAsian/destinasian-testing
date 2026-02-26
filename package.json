@@ -6,7 +6,10 @@
     "dev": "faust dev --port 3001",
     "build": "faust build",
     "generate": "faust generatePossibleTypes",
-    "start": "faust start --port 3001"
+    "start": "faust start --port 3001",
+    "syntax:check": "git ls-files '*.js' '*.mjs' '*.cjs' | xargs -n 1 node --check",
+    "format:check": "prettier --check .",
+    "health": "npm run syntax:check"
   },
   "dependencies": {
     "@apollo/client": "^3.8.7",
@@ -39,6 +42,8 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.14",
+    "eslint": "^9.39.3",
+    "eslint-config-next": "^16.1.6",
     "postcss": "^8.4.21",
     "prettier": "^2.8.7",
     "prettier-plugin-tailwindcss": "^0.2.7",
