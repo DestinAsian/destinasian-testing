@@ -320,7 +320,6 @@ export default function Component(props) {
           </div>
         </>
       </Main>
-      {/* <Footer /> */}
     </main>
   )
 }

@@ -170,7 +170,11 @@ export default function Component(props) {
   } = props?.data?.readersChoiceAward
 
   // Get menus
-  const { data: menusData, loading: menusLoading, error: menusError } = useQuery(GetMenus, {
+  const {
+    data: menusData,
+    loading: menusLoading,
+    error: menusError,
+  } = useQuery(GetMenus, {
     variables: {
       first: 30,
       headerLocation: MENUS.PRIMARY_LOCATION,
@@ -197,16 +201,17 @@ export default function Component(props) {
   const featureMenu = menusData?.featureHeaderMenuItems?.nodes ?? []
 
   // Get latest travel stories
-  const { data: latestStories, loading: latestLoading, error: latestStoriesError } = useQuery(
-    GetLatestStories,
-    {
-      variables: {
-        first: 5,
-      },
-      fetchPolicy: 'cache-first',
-      nextFetchPolicy: 'cache-first',
+  const {
+    data: latestStories,
+    loading: latestLoading,
+    error: latestStoriesError,
+  } = useQuery(GetLatestStories, {
+    variables: {
+      first: 5,
     },
-  )
+    fetchPolicy: 'cache-first',
+    nextFetchPolicy: 'cache-first',
+  })
 
   // Early error check for stories
   if (latestStoriesError) {
@@ -255,7 +260,11 @@ export default function Component(props) {
   const latestAllPosts = latestMainCatPosts.sort(sortPostsByDate)
 
   // Get RCA slider data
-  const { data: sliderData, loading: sliderLoading, error: sliderError } = useQuery(GetRCASlider, {
+  const {
+    data: sliderData,
+    loading: sliderLoading,
+    error: sliderError,
+  } = useQuery(GetRCASlider, {
     variables: {
       id: databaseId,
     },
@@ -332,16 +341,36 @@ export default function Component(props) {
   ]
 
   const rcaTextUrls = [
-    rcaSliderItem?.propertyUrlText1 != null ? rcaSliderItem?.propertyUrlText1 : null,
-    rcaSliderItem?.propertyUrlText2 != null ? rcaSliderItem?.propertyUrlText2 : null,
-    rcaSliderItem?.propertyUrlText3 != null ? rcaSliderItem?.propertyUrlText3 : null,
-    rcaSliderItem?.propertyUrlText4 != null ? rcaSliderItem?.propertyUrlText4 : null,
-    rcaSliderItem?.propertyUrlText5 != null ? rcaSliderItem?.propertyUrlText5 : null,
-    rcaSliderItem?.propertyUrlText6 != null ? rcaSliderItem?.propertyUrlText6 : null,
-    rcaSliderItem?.propertyUrlText7 != null ? rcaSliderItem?.propertyUrlText7 : null,
-    rcaSliderItem?.propertyUrlText8 != null ? rcaSliderItem?.propertyUrlText8 : null,
-    rcaSliderItem?.propertyUrlText9 != null ? rcaSliderItem?.propertyUrlText9 : null,
-    rcaSliderItem?.propertyUrlText10 != null ? rcaSliderItem?.propertyUrlText10 : null,
+    rcaSliderItem?.propertyUrlText1 != null
+      ? rcaSliderItem?.propertyUrlText1
+      : null,
+    rcaSliderItem?.propertyUrlText2 != null
+      ? rcaSliderItem?.propertyUrlText2
+      : null,
+    rcaSliderItem?.propertyUrlText3 != null
+      ? rcaSliderItem?.propertyUrlText3
+      : null,
+    rcaSliderItem?.propertyUrlText4 != null
+      ? rcaSliderItem?.propertyUrlText4
+      : null,
+    rcaSliderItem?.propertyUrlText5 != null
+      ? rcaSliderItem?.propertyUrlText5
+      : null,
+    rcaSliderItem?.propertyUrlText6 != null
+      ? rcaSliderItem?.propertyUrlText6
+      : null,
+    rcaSliderItem?.propertyUrlText7 != null
+      ? rcaSliderItem?.propertyUrlText7
+      : null,
+    rcaSliderItem?.propertyUrlText8 != null
+      ? rcaSliderItem?.propertyUrlText8
+      : null,
+    rcaSliderItem?.propertyUrlText9 != null
+      ? rcaSliderItem?.propertyUrlText9
+      : null,
+    rcaSliderItem?.propertyUrlText10 != null
+      ? rcaSliderItem?.propertyUrlText10
+      : null,
   ]
 
   const rcaIds = [
@@ -550,6 +579,7 @@ Component.query = gql`
         where: {
           status: PUBLISH
           contentTypes: READERS_CHOICE_AWARD
+          search: "Readers"
         }
       ) {
         edges {

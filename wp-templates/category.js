@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '@/constants/menus'
 import { GetMenus } from '@/queries/GetMenus'
-import { GetFooterMenus } from '@/queries/GetFooterMenus'
 import { GetLatestStories } from '@/queries/GetLatestStories'
 import { eb_garamond, poppins } from '@/styles/fonts/fonts'
 import { GetLatestRCA } from '@/queries/GetLatestRCA'
@@ -242,26 +241,6 @@ export default function Component(props) {
   // State variable of Category pin posts
   const pinPosts = pinPostsStories?.category?.pinPosts ?? []
 
-  // Get Footer menus
-  const { data: footerMenusData, loading: footerMenusLoading, error: footerError } = useQuery(
-    GetFooterMenus,
-    {
-      variables: {
-        first: 100,
-        footerHeaderLocation: MENUS.FOOTER_LOCATION,
-      },
-      fetchPolicy: 'cache-and-network',
-      nextFetchPolicy: 'network-only',
-    },
-  )
-
-  if (footerError) {
-    console.error('[Category Footer Error]', footerError)
-  }
-
-  // Footer Menu
-  const footerMenu = footerMenusData?.footerHeaderMenuItems?.nodes ?? []
-
   // Get latest travel stories
   const { data: latestStories, loading: latestLoading, error: latestStoriesError } = useQuery(
     GetLatestStories,
@@ -470,7 +449,7 @@ export default function Component(props) {
           />
         </>
       </Main>
-      <Footer footerMenu={footerMenu} />
+      <Footer  />
     </main>
   )
 }

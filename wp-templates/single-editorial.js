@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '@/constants/menus'
 import { GetMenus } from '@/queries/GetMenus'
-import { GetFooterMenus } from '@/queries/GetFooterMenus'
 import { GetLatestStories } from '@/queries/GetLatestStories'
 import { eb_garamond, poppins, rubik } from '@/styles/fonts/fonts'
 import Cookies from 'js-cookie'
@@ -232,26 +231,6 @@ export default function Component(props) {
   const fifthMenu = menusData?.fifthHeaderMenuItems?.nodes ?? []
   const featureMenu = menusData?.featureHeaderMenuItems?.nodes ?? []
 
-  // Get Footer menus
-  const { data: footerMenusData, loading: footerMenusLoading, error: footerError } = useQuery(
-    GetFooterMenus,
-    {
-      variables: {
-        first: 100,
-        footerHeaderLocation: MENUS.FOOTER_LOCATION,
-      },
-      fetchPolicy: 'cache-and-network',
-      nextFetchPolicy: 'network-only',
-    },
-  )
-
-  if (footerError) {
-    console.error('[Editorial Footer Error]', footerError)
-  }
-
-  // Footer Menu
-  const footerMenu = footerMenusData?.footerHeaderMenuItems?.nodes ?? []
-
   // Get latest travel stories
   const { data: latestStories, loading: latestLoading, error: latestStoriesError } = useQuery(
     GetLatestStories,
@@ -436,7 +415,7 @@ export default function Component(props) {
           ))}
         </>
       </Main>
-      <Footer footerMenu={footerMenu} />
+      <Footer />
     </main>
   )
 }

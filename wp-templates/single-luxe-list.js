@@ -409,7 +409,6 @@ export default function Component(props) {
           </SingleLLContainer>
         </>
       </Main>
-      {/* <Footer /> */}
     </main>
   )
 }

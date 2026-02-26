@@ -374,7 +374,6 @@ export default function Component(props) {
           </>
         </Main>
       )}
-      {/* <Footer /> */}
     </main>
   )
 }

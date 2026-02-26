@@ -432,7 +432,6 @@ export default function Component(props) {
           </SingleTGContainer>
         </>
       </Main>
-      {/* <Footer /> */}
     </main>
   )
 }
