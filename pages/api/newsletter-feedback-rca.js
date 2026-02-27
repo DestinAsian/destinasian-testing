@@ -72,7 +72,7 @@ export default async function handler(req, res) {
 
     await sheets.spreadsheets.values.append({
       spreadsheetId: process.env.GOOGLE_SHEET_ID,
-      range: 'DA-Newsletter-Feedback!A:C',
+      range: 'DA-Newsletter-Feedback-RCA!A:C',
       valueInputOption: 'RAW',
       requestBody: {
         values: [[String(ratingNumber), sanitizeForSheets(message), new Date().toISOString()]],

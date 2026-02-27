@@ -4,7 +4,8 @@ import pageBaliGuideNotification from './page-bali-guide-notification-sign-up'
 import pageContests from './page-contests'
 import pageHonorsCircle from './page-honors-circle'
 import pageNewsletter from './page-newsletter'
-// import pageNewsletterFeedback from './page-newsletter-feedback'
+import pageFeedback from './page-feedback'
+import pageFeedbackRCA from './page-feedback-rca'
 import pageTravelGuides from './page-travel-guides'
 import pageVideos from './page-videos'
 import page from './page'
@@ -28,7 +29,8 @@ export default {
   'page-contests': pageContests,
   'page-honors-circle': pageHonorsCircle,
   'page-newsletter': pageNewsletter,
-  // 'page-newsletter-feedback': pageNewsletterFeedback,
+  'page-feedback': pageFeedback,
+  'page-feedback-rca': pageFeedbackRCA,
   'page-travel-guides': pageTravelGuides,
   'page-videos': pageVideos,
   page,
