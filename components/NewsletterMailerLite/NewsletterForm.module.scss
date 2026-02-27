@@ -182,3 +182,282 @@ $form-width: 550px;
 }
 
 
+
+
+
+
+
+
+
+
+// @import 'styles/breakpoints';
+// @import 'styles/fonts/typography';
+
+// /* ================= VARIABLES ================= */
+
+// $form-width: 550px;
+
+// /* ================= WRAPPER ================= */
+
+// .newsletterWrapper {
+//   text-align: center;
+//   padding: 0 1rem;
+
+//   h1 {
+//     font-family: 'Unit Slab Pro Black';
+//     font-size: 1.8rem;
+//     font-weight: 600;
+//     margin-bottom: 1rem;
+//     color: #000;
+
+//     @media (max-width: $breakpoint-extra-small) {
+//       font-size: 1rem;
+//     }
+//   }
+// }
+
+// /* ================= FORM ================= */
+
+// .newsletterForm {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   gap: 0.5rem;
+//   margin-top: 1rem;
+
+//   fieldWrapper {
+//     width: $form-width;
+//     position: relative;
+//     margin-bottom: 0.25rem;
+//   }
+
+//   .fieldError {
+//     color: #721c24;
+//     font-size: 0.85rem;
+//     margin-top: 0.35rem;
+//     padding-left: 0.5rem;
+//     text-align: left;
+//     width: 100%;
+//     font-family: 'Open Sans', sans-serif;
+//   }
+
+//   // Optional: style input saat error
+//   .fieldWrapper:has(.fieldError) input {
+//     border-color: #dc3545;
+//     background-color: #fff5f5;
+
+//     &:focus {
+//       box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.25);
+//     }
+//   }
+
+//   // Mobile
+//   @media (max-width: $breakpoint-extra-small) {
+//     .fieldWrapper,
+//     .fieldError {
+//       width: 100%;
+//     }
+//   }
+
+//   select {
+//     width: $form-width;
+//     padding: 0.6rem 0.75rem;
+//     border: 1px solid #000;
+//     border-radius: 4px;
+//     font-size: 1rem;
+//     background: #fff;
+//     color: #000;
+//     font-weight: 300;
+//     appearance: none; // hilangkan arrow default
+//     background-image: url('data:image/svg+xml,...'); // bisa tambah custom arrow
+//     background-position: right 0.75rem center;
+//     background-repeat: no-repeat;
+//     background-size: 12px;
+
+//     &:focus {
+//       outline: none;
+//       box-shadow: 0 0 0 1px #000;
+//     }
+
+//     option:disabled {
+//       color: #999;
+//     }
+//   }
+
+//   // Mobile
+//   @media (max-width: $breakpoint-extra-small) {
+//     select {
+//       width: 100%;
+//     }
+//   }
+//   /* ---------- INPUT ---------- */
+
+//   input {
+//     width: $form-width;
+//     padding: 0.6rem 0.75rem;
+//     border: 1px solid #000;
+//     border-radius: 4px;
+//     font-size: 1rem;
+//     background: #fff;
+//     color: #000;
+//     font-weight: 300;
+
+//     &::placeholder {
+//       color: #666;
+//     }
+
+//     &:focus {
+//       outline: none;
+//       box-shadow: 0 0 0 1px #000;
+//     }
+//   }
+
+//   input[list] {
+//     position: relative;
+//     z-index: 2;
+//   }
+
+//   /* ---------- REQUIRED FIELD ---------- */
+
+//   > .inputRequired {
+//     width: $form-width;
+//   }
+
+//   /* ---------- ALERT ---------- */
+
+//   .alert {
+//     width: $form-width;
+//     padding: 0.75rem 1rem;
+//     border-radius: 4px;
+//     font-size: 0.9rem;
+//     font-family: 'Open Sans', sans-serif;
+//     letter-spacing: 0.5px;
+//     margin-bottom: 0.75rem;
+
+//     &.error {
+//       background: #f8d7da;
+//       color: #721c24;
+//       border: 1px solid #f5c6cb;
+//     }
+
+//     &.success {
+//       background: #d4edda;
+//       color: #155724;
+//       border: 1px solid #c3e6cb;
+//     }
+
+//     &.loading {
+//       background: #fff3cd;
+//       color: #856404;
+//       border: 1px solid #ffeeba;
+//     }
+//   }
+
+//   /* ---------- SUBMIT BUTTON ---------- */
+
+//   .submitButton {
+//     width: $form-width;
+//     margin-top: 6px;
+//     padding: 0.65rem 1.5rem;
+//     background: #000;
+//     color: #fff;
+//     border: none;
+//     border-radius: 4px;
+//     font-size: 0.9rem;
+//     font-weight: 300;
+//     cursor: pointer;
+//     transition: 0.2s ease;
+
+//     &:hover,
+//     &:focus {
+//       background: #fff;
+//       color: #000;
+//       outline: 1px solid #000;
+//     }
+
+//     &:active {
+//       transform: scale(0.97);
+//     }
+//   }
+
+//   /* ---------- MOBILE ---------- */
+
+//   @media (max-width: $breakpoint-extra-small) {
+//     width: 100%;
+//     padding: 0 1rem;
+
+//     input,
+//     .alert,
+//     .submitButton,
+//     .segments,
+//     .inputRequired {
+//       width: 100%;
+//     }
+
+//     input {
+//       font-size: 0.9rem;
+//       padding: 0.5rem 0.6rem;
+//     }
+//   }
+// }
+
+// /* ================= REQUIRED STAR ================= */
+
+// .inputRequired {
+//   position: relative;
+
+//   input {
+//     width: 100%;
+//   }
+
+//   span {
+//     position: absolute;
+//     left: -14px;
+//     top: 50%;
+//     transform: translateY(-50%);
+//     color: #c00000;
+//     font-size: 18px;
+//     font-weight: 700;
+//     pointer-events: none;
+//   }
+// }
+
+// /* ================= SEGMENTS ================= */
+
+// .segments {
+//   width: $form-width;
+//   display: flex;
+//   flex-wrap: wrap;
+//   gap: 14px 18px;
+//   margin-bottom: 10px;
+
+//   @media (max-width: $breakpoint-extra-small) {
+//     width: 100%;
+//   }
+// }
+
+// .segmentItem {
+//   display: flex;
+//   align-items: center;
+//   gap: 10px;
+//   cursor: pointer;
+//   user-select: none;
+//   font-size: 14px;
+// }
+
+// .dot {
+//   width: 14px;
+//   height: 14px;
+//   border-radius: 50%;
+//   border: 1px solid #000;
+//   background: #fff;
+// }
+
+// .active .dot {
+//   background: #000;
+// }
+
+// .label {
+//   font-family: 'Open Sans', sans-serif;
+//   letter-spacing: 1px;
+// }
