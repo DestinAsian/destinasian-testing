@@ -256,7 +256,7 @@ export default function ContentWrapperRCA({
               }}
             >
               <SingleRCAEntryHeader
-                parentTitle={parentTitle}
+                // parentTitle={parentTitle}
                 className={'parentClass'}
                 sliderWidth={sliderWidth}
                 sliderHeight={sliderHeight}

@@ -29,12 +29,12 @@ export default function SingleRCAEntryHeader({
         >
           <div className={cx('rca-title-wrapper')}>
             <Heading level={'h3'} className={cx('rca-title')}>
-              {`DESTINASIAN  ${rcaTitle}`}
+              {`DESTINASIAN Readers’ Choice Awards`}
             </Heading>
           </div>
         </div>
       )}
-      {parentTitle && (
+      {/* {parentTitle && (
         <div className={cx('component', className)}>
           <div className={cx('header-wrapper')}>
             <Heading level={hasBoth ? 'h2' : 'h1'} className={cx('title')}>
@@ -42,7 +42,7 @@ export default function SingleRCAEntryHeader({
             </Heading>
           </div>
         </div>
-      )}
+      )} */}
       {title && (
         <div className={cx('component', className)}>
           <div className={cx('header-wrapper')}>

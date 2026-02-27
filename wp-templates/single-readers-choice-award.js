@@ -475,13 +475,7 @@ export default function Component(props) {
                 {/* First wrapper */}
                 <div className="w-full lg:relative lg:pt-20">
                   <ContentWrapperRCA
-                    title={
-                      parent?.node?.title !== ancestors?.edges[0]?.node?.title
-                        ? title
-                        : rcaPageAttributes?.parentCustomLabel !== null
-                        ? title
-                        : null
-                    }
+                    title={title}
                     parentTitle={
                       parent?.node?.title !== ancestors?.edges[0]?.node?.title
                         ? parent?.node?.title
