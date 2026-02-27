@@ -1,5 +1,13 @@
 const { withFaust, getWpHostname } = require('@faustwp/core')
 
+const IMAGE_HOSTNAMES = [
+  getWpHostname(),
+  'staging.destinasian.com',
+  'testing.destinasian.com',
+  'destinasian.com',
+  'www.destinasian.com',
+]
+
 /**
  * @type {import('next').NextConfig}
  **/
@@ -9,14 +17,12 @@ module.exports = withFaust({
     includePaths: ['node_modules'],
   },
   images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: getWpHostname(),
-        port: '',
-        pathname: '/**',
-      },
-    ],
+    remotePatterns: IMAGE_HOSTNAMES.map((hostname) => ({
+      protocol: 'https',
+      hostname,
+      port: '',
+      pathname: '/**',
+    })),
   },
   i18n: {
     locales: ['en'],

@@ -1,8 +1,7 @@
 import className from 'classnames/bind'
+import { sanitizeHtml } from '@/lib/sanitizeHtml'
 import styles from './ContentWrapperHCFrontPage.module.scss'
 import { useEffect, useState } from 'react'
-import { renderToStaticMarkup } from 'react-dom/server'
-import Image from 'next/image'
 import { BACKEND_URL } from '@/constants/backendUrl'
 
 let cx = className.bind(styles)
@@ -28,24 +27,18 @@ export default function ContentWrapperHCFrontPage({ content }) {
         const alt = img.getAttribute('alt')
         const width = img.getAttribute('width')
         const height = img.getAttribute('height')
+        const normalizedWidth = width ? String(width) : '500'
+        const normalizedHeight = height ? String(height) : '500'
 
-        // Create Image component
-        const imageComponent = (
-          <Image
-            src={src}
-            alt={alt}
-            width={width ? width : '500'}
-            height={height ? height : '500'}
-            style={{ objectFit: 'contain' }}
-            priority
-          />
-        )
+        if (!src) return
 
-        // Render the Image component to HTML string
-        const imageHtmlString = renderToStaticMarkup(imageComponent)
-
-        // Replace the <img> element with the Image HTML string in the HTML content
-        img.outerHTML = imageHtmlString
+        img.setAttribute('src', src)
+        img.setAttribute('alt', alt || 'Image')
+        img.setAttribute('width', normalizedWidth)
+        img.setAttribute('height', normalizedHeight)
+        img.setAttribute('loading', 'lazy')
+        img.setAttribute('decoding', 'async')
+        img.setAttribute('style', 'object-fit:contain;max-width:100%;height:auto;')
       })
 
       // Set the transformed HTML content
@@ -60,7 +53,7 @@ export default function ContentWrapperHCFrontPage({ content }) {
     <article className={cx('component')}>
       <div
         className={cx('content-wrapper')}
-        dangerouslySetInnerHTML={{ __html: transformedContent ?? '' }}
+        dangerouslySetInnerHTML={{ __html: sanitizeHtml(transformedContent ?? '') }}
       />
     </article>
   )

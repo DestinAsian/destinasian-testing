@@ -1,4 +1,5 @@
 import className from 'classnames/bind'
+import { sanitizeHtml } from '@/lib/sanitizeHtml'
 import styles from './ContentWrapperRCA.module.scss'
 import React, {
   useEffect,
@@ -327,7 +328,7 @@ export default function ContentWrapperRCA({
                       >
                         {rcaIndex?.url && (
                           <div className={cx('content-property-url')}>
-                            <Link href={rcaIndex?.url} target="_blank">
+                            <Link href={rcaIndex?.url} target="_blank" rel="noopener noreferrer">
                               {rcaIndex?.textUrl}
                             </Link>
                           </div>
@@ -347,7 +348,7 @@ export default function ContentWrapperRCA({
             >
               <div
                 className={cx('content-wrapper')}
-                dangerouslySetInnerHTML={{ __html: transformedContent ?? '' }}
+                dangerouslySetInnerHTML={{ __html: sanitizeHtml(transformedContent ?? '') }}
               />
             </div>
           )}
@@ -391,7 +392,7 @@ export default function ContentWrapperRCA({
                     {/* {'Book Now Button'} */}
                     <Link
                       id={'RCA_Book_Now_ClickTracker'}
-                      target="_blank"
+                      target="_blank" rel="noopener noreferrer"
                       href={bookNowButton.bookNowLink}
                       style={{
                         ...(bookNowButton?.bookNowTextColor && {

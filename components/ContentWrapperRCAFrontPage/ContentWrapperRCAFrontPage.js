@@ -1,4 +1,5 @@
 import className from 'classnames/bind'
+import { sanitizeHtml } from '@/lib/sanitizeHtml'
 import styles from './ContentWrapperRCAFrontPage.module.scss'
 import React from 'react'
 import Link from 'next/link'
@@ -10,7 +11,7 @@ export default function ContentWrapperRCAFrontPage({ content, firstIndex }) {
     <article className={cx('component')}>
       <div
         className={cx('content-wrapper')}
-        dangerouslySetInnerHTML={{ __html: content ?? '' }}
+        dangerouslySetInnerHTML={{ __html: sanitizeHtml(content ?? '') }}
       />
       <div className={cx('chevron-wrapper')}>
         {firstIndex && (

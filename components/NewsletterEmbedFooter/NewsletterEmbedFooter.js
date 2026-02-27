@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react'
 
-export default function NewsletterEmbed() {
+export default function NewsletterEmbedFooter() {
   useEffect(() => {
-    const select = document.querySelector('div#mc_embed_signup div.mc-field-group select')
+    const select = document.querySelector(
+      'div#mc_embed_signup div.mc-field-group select.footer-form',
+    )
     if (!select) return
 
     // helper to update color class
@@ -31,11 +33,12 @@ export default function NewsletterEmbed() {
             <form action="https://destinasian.us5.list-manage.com/subscribe/post?u=ee44e7f13f448e90776db3877&amp;id=d4a22bd002&amp;f_id=00d7c2e1f0" 
               method="post" target="_blank" rel="noopener noreferrer" class="validate">
               <div id="mc_embed_signup_scroll">
+                <h2>Stay inspired with our DestinAsian newsletters</h2>
                 <div class="divider"></div>
                 <div class="content-wrapper">
-                  <div class="mc-field-wrapper mc-field-group input-group">
+                  <div class="mc-field-wrapper-footer mc-field-group input-group">
                     <ul>
-                      <li style="width: 100%;">
+                      <li>
                         <div class="container-check">
                           <input
                             type="checkbox"
@@ -47,9 +50,33 @@ export default function NewsletterEmbed() {
                           <label for="mce-group[7601]-7601-2">Travel News</label>
                         </div>
                       </li>
+                      <li>
+                        <div class="container-check">
+                          <input
+                            type="checkbox"
+                            name="group[7601][1]"
+                            id="mce-group[7601]-7601-0"
+                            class="checkbox-button"
+                          />
+                          <label for="mce-group[7601]-7601-0">Airline News</label>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="container-check">
+                          <input
+                            type="checkbox"
+                            name="group[7601][2]"
+                            id="mce-group[7601]-7601-1"
+                            class="checkbox-button"
+                          />
+                          <label for="mce-group[7601]-7601-1"
+                            >Contests/Partner Offers</label
+                          >
+                        </div>
+                      </li>
                     </ul>
                   </div>
-                  <div class="mc-field-wrapper-column mc-field-group-two-column">
+                  <div class="mc-field-wrapper-footer-column mc-field-group-two-column">
                     <div class="mc-field-group mc-field-name">
                       <input
                         type="text"
@@ -60,7 +87,7 @@ export default function NewsletterEmbed() {
                         value=""
                       />
                     </div>
-                    <div class="mc-field-group mc-field-country"><select name="MMERGE6" class="text select-form" id="mce-MMERGE6">
+                    <div class="mc-field-group mc-field-country"><select name="MMERGE6" class="text select-form footer-form" id="mce-MMERGE6">
                         <option value="" disabled selected>Country</option>
                         <option value="United States of America">United States of America</option>
                         <option value="Aaland Islands">Aaland Islands</option>
@@ -312,7 +339,7 @@ export default function NewsletterEmbed() {
                         <option value="Zimbabwe">Zimbabwe</option>
                     </select></div>
                   </div>
-                  <div class="mc-field-wrapper mc-field-group-two-column">
+                  <div class="mc-field-wrapper-footer mc-field-group-two-column">
                     <div class="mc-field-group mc-field-email">
                       <span class="asterisk">*</span>
                       <input

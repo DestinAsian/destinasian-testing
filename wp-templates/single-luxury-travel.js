@@ -49,16 +49,16 @@ export default function Component(props) {
   const [enteredPassword, setEnteredPassword] = useState('')
   const [isAuthenticated, setIsAuthenticated] = useState(false)
 
-  // Check for stored password in cookies on mount
+  // Check for stored auth flag in cookies on mount
   useEffect(() => {
-    const storedPassword = Cookies.get('luxuryTravelPassword')
-    if (
-      storedPassword &&
-      storedPassword === props?.data?.luxuryTravel?.passwordProtected?.password
-    ) {
+    const contentDatabaseId = props?.data?.luxuryTravel?.databaseId
+    if (!contentDatabaseId) return
+
+    const storedAuth = Cookies.get(`pp-${contentDatabaseId}`)
+    if (storedAuth === '1') {
       setIsAuthenticated(true)
     }
-  }, [props?.data?.luxuryTravel?.passwordProtected?.password])
+  }, [props?.data?.luxuryTravel?.databaseId])
 
   const {
     title,
@@ -320,14 +320,49 @@ export default function Component(props) {
   ]
 
   // Handle password submission
-  const handlePasswordSubmit = (e) => {
+  const handlePasswordSubmit = async (e) => {
     e.preventDefault()
-    if (enteredPassword === passwordProtected?.password) {
-      setIsAuthenticated(true)
-      Cookies.set('luxuryTravelPassword', enteredPassword, { expires: 1 }) // Set cookie to expire in 1 day
-    } else {
+
+    const contentType = Object.keys(props?.data || {}).find(
+      (key) => props?.data?.[key]?.passwordProtected,
+    )
+    const contentDatabaseId = contentType
+      ? props?.data?.[contentType]?.databaseId
+      : null
+
+    if (!contentType || !contentDatabaseId || !enteredPassword) {
       alert('Incorrect password. Please try again.')
+      return
     }
+
+    try {
+      const response = await fetch('/api/verify-content-password', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          contentType,
+          databaseId: contentDatabaseId,
+          password: enteredPassword,
+        }),
+      })
+
+      const payload = await response.json()
+
+      if (response.ok && payload?.valid) {
+        setIsAuthenticated(true)
+        Cookies.set(`pp-${contentDatabaseId}`, '1', {
+          expires: 1,
+          sameSite: 'Lax',
+        })
+        return
+      }
+    } catch (error) {
+      console.error('Password verification failed:', error)
+    }
+
+    alert('Incorrect password. Please try again.')
   }
 
   if (passwordProtected?.onOff && !isAuthenticated) {
@@ -523,7 +558,6 @@ Component.query = gql`
       date
       passwordProtected {
         onOff
-        password
       }
       tabsEditor {
         tab1

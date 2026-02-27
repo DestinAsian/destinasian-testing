@@ -1,4 +1,5 @@
 import className from 'classnames/bind'
+import { sanitizeHtml } from '@/lib/sanitizeHtml'
 import styles from './FeatureWell.module.scss'
 import React, { useRef, useEffect, useState } from 'react'
 import { useMediaQuery } from 'react-responsive'
@@ -35,7 +36,7 @@ export default function FeatureWell({ featureWells, content }) {
         return (
           <div
             key={index}
-            dangerouslySetInnerHTML={{ __html: node.outerHTML }}
+            dangerouslySetInnerHTML={{ __html: sanitizeHtml(node.outerHTML) }}
           />
         )
       })
