@@ -22,6 +22,7 @@ export const GetRCAPagination = gql`
               id
               title
               uri
+              dateGmt
               children(
                 first: $first
                 after: $after
