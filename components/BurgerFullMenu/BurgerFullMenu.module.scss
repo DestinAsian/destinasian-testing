@@ -87,6 +87,7 @@
     transition: top 0.4s ease-in-out;
     flex-direction: column;
     background-color: var(--wpe--main--background-color);
+    text-wrap: balance;
 
     @media (min-width: $breakpoint-extra-small) {
       padding: 0 0 2rem;

@@ -37,6 +37,7 @@
   transition: transform 0.1s ease-out;
   transition: top 0.4s ease-in-out;
   flex-direction: column;
+  text-wrap: balance;
 
   @media (min-width: $breakpoint-extra-small) {
     max-height: calc(15rem + 100vh);
