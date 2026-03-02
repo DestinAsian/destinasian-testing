@@ -1,5 +1,4 @@
 import className from 'classnames/bind'
-import { sanitizeHtml } from '@/lib/sanitizeHtml'
 import styles from './ContentWrapperRCA.module.scss'
 import React, {
   useEffect,
@@ -124,6 +123,9 @@ export default function ContentWrapperRCA({
           data?.readersChoiceAwardBy?.children?.edges.map((post) => post) || [],
         ),
       ]
+
+  const rcaPublishedDate = rcaAll[0]?.dateGmt ?? 0
+  const yearOfRCA = rcaPublishedDate ? new Date(rcaPublishedDate).getFullYear() : null
 
   const indexOfRCA = data?.readersChoiceAwardBy?.menuOrder ?? 0
   const numberOfRCA = rcaAll?.length
@@ -328,7 +330,7 @@ export default function ContentWrapperRCA({
                       >
                         {rcaIndex?.url && (
                           <div className={cx('content-property-url')}>
-                            <Link href={rcaIndex?.url} target="_blank" rel="noopener noreferrer">
+                            <Link href={rcaIndex?.url} target="_blank">
                               {rcaIndex?.textUrl}
                             </Link>
                           </div>
@@ -348,7 +350,7 @@ export default function ContentWrapperRCA({
             >
               <div
                 className={cx('content-wrapper')}
-                dangerouslySetInnerHTML={{ __html: sanitizeHtml(transformedContent ?? '') }}
+                dangerouslySetInnerHTML={{ __html: transformedContent ?? '' }}
               />
             </div>
           )}
@@ -392,7 +394,7 @@ export default function ContentWrapperRCA({
                     {/* {'Book Now Button'} */}
                     <Link
                       id={'RCA_Book_Now_ClickTracker'}
-                      target="_blank" rel="noopener noreferrer"
+                      target="_blank"
                       href={bookNowButton.bookNowLink}
                       style={{
                         ...(bookNowButton?.bookNowTextColor && {
@@ -494,6 +496,7 @@ export default function ContentWrapperRCA({
           isRCANavShown={isRCANavShown}
           setIsRCANavShown={setIsRCANavShown}
           rcaRef={rcaRef}
+          yearOfRCA={yearOfRCA}
         />
       </div>
     </>

@@ -6,6 +6,7 @@ export const GetRCAPagination = gql`
       id
       title
       uri
+      dateGmt
       menuOrder
       ancestors(
         first: 1

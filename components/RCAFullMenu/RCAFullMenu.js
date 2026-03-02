@@ -18,6 +18,7 @@ export default function RCAFullMenu({
   setIsRCANavShown,
   customClassName,
   rcaRef,
+  yearOfRCA,
 }) {
   const postsPerPage = 100
   const firstYearOfRCA = 2007
@@ -47,12 +48,6 @@ export default function RCAFullMenu({
     return unique
   }, [])
 
-  const extractYearFromURI = (uri) => {
-    if (!uri) return null // Handle case where uri is undefined/null
-    const match = uri.match(/\b(19|20)\d{2}\b/) // Find a 4-digit year (from 1900-2099)
-    return match ? parseInt(match[0], 10) : null // Convert to integer and return
-  }
-
   const getOrdinalSuffix = (number) => {
     if (!number) return '' // Handle null cases
     if (number % 100 >= 11 && number % 100 <= 13) return number + 'th' // Special case for 11-13
@@ -68,7 +63,6 @@ export default function RCAFullMenu({
     }
   }
 
-  const yearOfRCA = extractYearFromURI(uri)
   const anniversary = yearOfRCA ? yearOfRCA - firstYearOfRCA : null
   const formattedAnniversary = anniversary
     ? getOrdinalSuffix(anniversary)
