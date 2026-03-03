@@ -213,3 +213,94 @@
 .full-menu-content-light {
   background-color: var(--wpe--main--background-color);
 }
+
+.light-color {
+  margin: 0 auto;
+
+  max-width: 700px;
+  background-color: var(--wpe--color--white--smoke);
+
+  * {
+    color: var(--wpe--color--black);
+  }
+
+  > div {
+    padding: 1rem 1rem;
+    width: 100%;
+
+    @media (min-width: $breakpoint-extra-small) {
+      padding: 1rem 2rem;
+    }
+
+    .title-header-wrapper {
+      padding: 0;
+    }
+
+    .menu-wrapper {
+      padding: 2rem 0 7rem;
+
+      @media (min-width: $breakpoint-extra-small) {
+        padding: 1rem 0 2.5rem 0;
+      }
+
+      .menu-list-wrapper {
+        .category-wrapper {
+          h2.category {
+            background-color: var(--wpe--color--black);
+            color: var(--wpe--color--white--smoke);
+          }
+        }
+      }
+    }
+  }
+}
+
+.ll-color,
+.rca-color {
+  margin: 0 auto;
+
+  max-width: 700px;
+  background-color: var(--wpe--color--black);
+
+  * {
+    color: var(--wpe--color--white);
+  }
+
+  > div {
+    padding: 1rem 1rem;
+    width: 100%;
+
+    @media (min-width: $breakpoint-extra-small) {
+      padding: 1rem 2rem;
+    }
+
+    .title-header-wrapper {
+      padding: 0;
+    }
+
+    .menu-wrapper {
+      padding: 2rem 0 7rem;
+
+      @media (min-width: $breakpoint-extra-small) {
+        padding: 1rem 0 2.5rem 0;
+      }
+
+      .menu-list-wrapper {
+        .category-wrapper {
+          h2.category {
+            background-color: var(--wpe--color--white);
+            color: var(--wpe--color--black);
+          }
+        }
+      }
+    }
+  }
+}
+
+.travel-guide {
+  background-color: var(--wpe--color--black);
+
+  * {
+    color: var(--wpe--color--white);
+  }
+}

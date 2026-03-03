@@ -15,6 +15,7 @@ export default function SingleRCAEntryHeader({
   isMobile,
   hasBoth,
   rcaTitle,
+  yearOfRCA,
 }) {
   return (
     <>
@@ -29,7 +30,7 @@ export default function SingleRCAEntryHeader({
         >
           <div className={cx('rca-title-wrapper')}>
             <Heading level={'h3'} className={cx('rca-title')}>
-              {`DESTINASIAN Readers’ Choice Awards 2026`}
+              {`DESTINASIAN Readers’ Choice Awards ${yearOfRCA}`}
             </Heading>
           </div>
         </div>

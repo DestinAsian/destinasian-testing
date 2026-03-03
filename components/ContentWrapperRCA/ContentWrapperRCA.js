@@ -266,6 +266,7 @@ export default function ContentWrapperRCA({
                 isMobile={isMobile}
                 hasBoth={parentTitle && title}
                 rcaTitle={rcaAll[0]?.title}
+                yearOfRCA={yearOfRCA}
                 // category={category}
               />
             </div>
@@ -281,6 +282,7 @@ export default function ContentWrapperRCA({
                 title={title}
                 className={parentTitle ? 'bothClass' : 'defaultClass'}
                 hasBoth={parentTitle && title}
+                yearOfRCA={yearOfRCA}
                 // rcaTitle={rcaAll[0]?.title}
               />
             </div>

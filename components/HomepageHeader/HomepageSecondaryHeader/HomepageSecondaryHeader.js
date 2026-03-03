@@ -18,7 +18,9 @@ const SearchResults = dynamic(() =>
 const NavigationMenu = dynamic(() =>
   import('@/components/NavigationMenu/NavigationMenu'),
 )
-const LLMenu = dynamic(() => import('@/components/LLMenu/LLMenu'))
+const RCAFullMenu = dynamic(() =>
+  import('@/components/RCAFullMenu/RCAFullMenu'),
+)
 const TravelGuidesMenu = dynamic(() =>
   import('@/components/TravelGuidesMenu/TravelGuidesMenu'),
 )
@@ -210,7 +212,9 @@ export default function HomepageSecondaryHeader({
             aria-controls={cx('rca-menu-wrapper')}
             aria-expanded={!isCustomNavShown}
           >
-            <div className={cx('menu-title')}>{`The Luxe List 2025`}</div>
+            <div
+              className={cx('menu-title')}
+            >{`Readers’ Choice Awards 2026`}</div>
           </button>
           {/* Guides Button */}
           <button
@@ -348,11 +352,13 @@ export default function HomepageSecondaryHeader({
           isCustomNavShown ? 'show' : undefined,
         )}
       >
-        <LLMenu
-          databaseId={CUSTOM_DATABASE_ID}
+        <RCAFullMenu
+          rcaDatabaseId={CUSTOM_DATABASE_ID}
+          uri={'/readers-choice-awards/winners'}
+          yearOfRCA={'2026'}
           isNavShown={isCustomNavShown}
           setIsNavShown={setIsCustomNavShown}
-          customRef={customRef}
+          rcaRef={customRef}
           customClassName={'light-color'}
         />
       </div>
