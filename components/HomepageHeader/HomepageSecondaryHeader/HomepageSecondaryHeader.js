@@ -212,9 +212,7 @@ export default function HomepageSecondaryHeader({
             aria-controls={cx('rca-menu-wrapper')}
             aria-expanded={!isCustomNavShown}
           >
-            <div
-              className={cx('menu-title')}
-            >{`Readers’ Choice Awards 2026`}</div>
+            <div className={cx('menu-title')}>{`Readers’ Choice Awards`}</div>
           </button>
           {/* Guides Button */}
           <button
