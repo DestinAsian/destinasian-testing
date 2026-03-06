@@ -22,7 +22,7 @@ export default function SingleRCAEntryHeader({
       {rcaTitle && (
         <div
           style={{
-            marginTop: isMobile ? `${sliderHeight}px` : '',
+            // marginTop: isMobile ? `${sliderHeight}px` : '',
             // marginLeft: !isMobile ? `${sliderWidth}px` : '',
             width: `${sliderWidth}px`,
           }}

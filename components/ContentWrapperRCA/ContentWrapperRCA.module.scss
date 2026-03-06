@@ -30,14 +30,17 @@
   }
 
   .slider-wrapper {
-    position: fixed;
-    top: 4.65rem;
+    position: relative;
     left: 0;
     width: 100vw;
     padding: 0;
     aspect-ratio: 1 / 1;
     z-index: 47;
     background-color: var(--wpe--color--light--cream);
+
+    @media (min-width: $breakpoint-extra-small) {
+      padding: 0;
+    }
 
     @media (min-width: $breakpoint-extra-small) {
       aspect-ratio: 1 / 1;

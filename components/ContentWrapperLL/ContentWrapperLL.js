@@ -1,5 +1,4 @@
 import className from 'classnames/bind'
-import { sanitizeHtml } from '@/lib/sanitizeHtml'
 import styles from './ContentWrapperLL.module.scss'
 import { GetLuxeListPagination } from '@/queries/GetLuxeListPagination'
 import { useQuery } from '@apollo/client'
@@ -190,7 +189,7 @@ export default function ContentWrapperLL({
         {/* Wrap header so style actually affects the DOM */}
         <div
           style={{
-            marginTop: isMobile ? `${sliderHeight}px` : '',
+            // marginTop: isMobile ? `${sliderHeight}px` : '',
             marginLeft: !isMobile ? `${sliderWidth}px` : '',
           }}
         >
@@ -205,7 +204,7 @@ export default function ContentWrapperLL({
             marginLeft: !isMobile ? `${sliderWidth}px` : '',
           }}
           className={cx('content-wrapper')}
-          dangerouslySetInnerHTML={{ __html: sanitizeHtml(transformedContent ?? '') }}
+          dangerouslySetInnerHTML={{ __html: transformedContent ?? '' }}
         />
         <div
           style={{
