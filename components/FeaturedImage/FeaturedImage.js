@@ -24,6 +24,7 @@ export default function FeaturedImage({
         width={width}
         height={height}
         priority={priority}
+        quality={100}
         {...props}
         // style={{
         //   maxWidth: "100%",

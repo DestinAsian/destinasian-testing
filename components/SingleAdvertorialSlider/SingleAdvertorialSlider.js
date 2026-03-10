@@ -46,6 +46,7 @@ export default function SingleAdvertorialSlider({ images }) {
                   fill
                   sizes="100%"
                   priority
+                  quality={100}
                 />
               </SwiperSlide>
             )}

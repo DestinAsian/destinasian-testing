@@ -18,6 +18,7 @@ export default function DarkColorHeader({ isScrolled }) {
               fill
               sizes="100%"
               priority
+              quality={100}
             />
           </div>
         </Link>

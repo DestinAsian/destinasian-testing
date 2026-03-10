@@ -32,6 +32,7 @@ export default function PasswordProtected(enteredPassword, ...props) {
                   fill
                   sizes="100%"
                   priority
+                  quality={100}
                 />
               </div>
             </Link>

@@ -19,6 +19,7 @@ export default function SingleHeader({ isScrolled }) {
               fill
               sizes="100%"
               priority
+              quality={100}
             />
           </div>
         </Link>

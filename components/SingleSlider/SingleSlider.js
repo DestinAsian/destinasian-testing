@@ -53,6 +53,7 @@ export default function SingleSlider({ images }) {
                   fill
                   sizes="100%"
                   priority
+                  quality={100}
                 />
                 {image[1] && (
                   <figcaption className={'slide-caption'}>

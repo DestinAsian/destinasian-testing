@@ -360,6 +360,7 @@ export default function CategorySecondaryHeader({
                   fill
                   sizes="100%"
                   priority
+                  quality={100}
                 />
               ) : (
                 <Image
@@ -368,6 +369,7 @@ export default function CategorySecondaryHeader({
                   fill
                   sizes="100%"
                   priority
+                  quality={100}
                 />
               )}
             </div> */}

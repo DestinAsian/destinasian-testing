@@ -49,7 +49,7 @@ export default function BookNowButton({ bookNowButton, className, id }) {
             {/* {'Book Now Button'} */}
             <Link
               id={id}
-              target="_blank" rel="noopener noreferrer"
+              target="_blank"
               href={bookNowButton.bookNowLink}
               style={{
                 ...(bookNowButton?.bookNowTextColor && {

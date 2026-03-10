@@ -1,5 +1,4 @@
 import className from 'classnames/bind'
-import { sanitizeHtml } from '@/lib/sanitizeHtml'
 import styles from './ContentWrapperTravelGuides.module.scss'
 import dynamic from 'next/dynamic'
 // Import Components
@@ -14,7 +13,7 @@ export default function ContentWrapperTravelGuides({ content }) {
     <article className={cx('component')}>
       <div
         className={cx('content-wrapper')}
-        dangerouslySetInnerHTML={{ __html: sanitizeHtml(content ?? '') }}
+        dangerouslySetInnerHTML={{ __html: content ?? '' }}
       />
       <div className={cx('guides-list-wrapper')}>
         {/* {renderMenu(hierarchicalMenuItems)} */}

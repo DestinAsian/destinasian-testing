@@ -22,6 +22,7 @@ export default function CategoryHeader({ isScrolled }) {
               fill
               sizes="100%"
               priority
+              quality={100}
             />
           </Link>
         </div>

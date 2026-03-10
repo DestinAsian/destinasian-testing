@@ -44,6 +44,7 @@ export default function SingleEditorialSlider({ images }) {
                   fill
                   sizes="100%"
                   priority
+                  quality={100}
                 />
               </SwiperSlide>
             )}

@@ -58,6 +58,7 @@ export default function TabsEditor({ tabsEditor, luxuryTravelClass }) {
             // height={height}
             style={{ objectFit: 'contain' }}
             priority
+            quality={100}
           />
         )
 

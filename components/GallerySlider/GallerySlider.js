@@ -110,6 +110,7 @@ export default function GallerySlider({ gallerySlider, className }) {
                     fill
                     sizes="100%"
                     priority
+                    quality={100}
                   />
                 </div>
               </div>

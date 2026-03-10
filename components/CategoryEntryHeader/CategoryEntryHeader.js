@@ -87,6 +87,7 @@ export default function CategoryEntryHeader({
                   fill
                   sizes="100%"
                   priority
+                  quality={100}
                 />
                 {image[1] && (
                   <figcaption className={'slide-caption'}>
@@ -172,6 +173,7 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
                           fill
                           sizes="100%"
                           priority
+                          quality={100}
                         />
                       )}
                       {imageCaption && (
@@ -216,6 +218,7 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
                         fill
                         sizes="100%"
                         priority
+                        quality={100}
                       />
                       {imageCaption && (
                         <div className={cx('image-caption')}>
@@ -275,6 +278,7 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
                           fill
                           sizes="100%"
                           priority
+                          quality={100}
                         />
                       )}
                       {imageCaption && (
@@ -325,6 +329,7 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
                         fill
                         sizes="100%"
                         priority
+                        quality={100}
                       />
                       {imageCaption && (
                         <div className={cx('image-caption')}>

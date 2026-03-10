@@ -134,6 +134,20 @@ export const GetHomepagePinPosts = gql`
               }
             }
           }
+          ... on ReadersChoiceAward {
+            id
+            title
+            excerpt
+            contentTypeName
+            uri
+            featuredImage {
+              node {
+                id
+                sourceUrl
+                altText
+              }
+            }
+          }
         }
         pinPost2 {
           ... on Post {
@@ -265,6 +279,20 @@ export const GetHomepagePinPosts = gql`
               }
             }
           }
+          ... on ReadersChoiceAward {
+            id
+            title
+            excerpt
+            contentTypeName
+            uri
+            featuredImage {
+              node {
+                id
+                sourceUrl
+                altText
+              }
+            }
+          }
         }
         pinPost3 {
           ... on Post {
@@ -391,6 +419,20 @@ export const GetHomepagePinPosts = gql`
             contentTypeName
             featuredImage {
               node {
+                sourceUrl
+                altText
+              }
+            }
+          }
+          ... on ReadersChoiceAward {
+            id
+            title
+            excerpt
+            contentTypeName
+            uri
+            featuredImage {
+              node {
+                id
                 sourceUrl
                 altText
               }

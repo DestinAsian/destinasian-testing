@@ -45,6 +45,7 @@ export default function SingleHCEntryHeader({ title, locationLabel, caption }) {
               fill
               sizes="100%"
               priority
+              quality={100}
             />
           </div>
           {/* Location label */}

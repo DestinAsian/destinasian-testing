@@ -1,5 +1,4 @@
 import className from 'classnames/bind'
-import { sanitizeHtml } from '@/lib/sanitizeHtml'
 import styles from './FeatureWell.module.scss'
 import React, { useRef, useEffect, useState } from 'react'
 import { useMediaQuery } from 'react-responsive'
@@ -36,7 +35,7 @@ export default function FeatureWell({ featureWells, content }) {
         return (
           <div
             key={index}
-            dangerouslySetInnerHTML={{ __html: sanitizeHtml(node.outerHTML) }}
+            dangerouslySetInnerHTML={{ __html: node.outerHTML }}
           />
         )
       })
@@ -126,6 +125,7 @@ export default function FeatureWell({ featureWells, content }) {
                             fill
                             sizes="100%"
                             priority
+                            quality={100}
                           />
                         </div>
                       </Link>
@@ -186,6 +186,7 @@ export default function FeatureWell({ featureWells, content }) {
                             fill
                             sizes="100%"
                             priority
+                            quality={100}
                           />
                         </div>
                       </Link>

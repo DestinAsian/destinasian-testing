@@ -83,6 +83,7 @@ export default function LLMenu({ databaseId, customRef, customClassName }) {
                       fill
                       sizes="100%"
                       priority
+                      quality={100}
                     />
                   </div>
                 ) : (

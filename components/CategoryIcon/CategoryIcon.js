@@ -28,6 +28,7 @@ export default function CategoryIcon({
                 fill
                 sizes="100%"
                 priority
+                quality={100}
               />
             </figure>
           )}
@@ -39,6 +40,7 @@ export default function CategoryIcon({
                 fill
                 sizes="100%"
                 priority
+                quality={100}
               />
             </figure>
           )}
@@ -50,6 +52,7 @@ export default function CategoryIcon({
                 fill
                 sizes="100%"
                 priority
+                quality={100}
               />
             </figure>
           )}
@@ -61,6 +64,7 @@ export default function CategoryIcon({
                 fill
                 sizes="100%"
                 priority
+                quality={100}
               />
             </figure>
           )}
@@ -79,6 +83,7 @@ export default function CategoryIcon({
                 fill
                 sizes="100%"
                 priority
+                quality={100}
               />
             </figure>
           )}
@@ -90,6 +95,7 @@ export default function CategoryIcon({
                 fill
                 sizes="100%"
                 priority
+                quality={100}
               />
             </figure>
           )}
@@ -101,6 +107,7 @@ export default function CategoryIcon({
                 fill
                 sizes="100%"
                 priority
+                quality={100}
               />
             </figure>
           )}
@@ -112,6 +119,7 @@ export default function CategoryIcon({
                 fill
                 sizes="100%"
                 priority
+                quality={100}
               />
             </figure>
           )}

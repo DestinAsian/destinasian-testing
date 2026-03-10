@@ -21,6 +21,7 @@ export default function HomepageHeader({ isScrolled }) {
                 fill
                 sizes="100%"
                 priority
+                quality={100}
               />
             ) : (
               <Image
@@ -29,6 +30,7 @@ export default function HomepageHeader({ isScrolled }) {
                 fill
                 sizes="100%"
                 priority
+                quality={100}
               />
             )}
           </div>

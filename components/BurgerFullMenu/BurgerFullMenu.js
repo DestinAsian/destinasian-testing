@@ -181,7 +181,7 @@ export default function BurgerFullMenu({
           <div className={cx('sixth-wrapper')}>
             <div className={cx('socmed-wrapper')}>
               {linkedInUri && (
-                <Link href={linkedInUri} target="_blank" rel="noopener noreferrer">
+                <Link href={linkedInUri} target="_blank">
                   <div className={cx('socmed-icon')}>
                     {/* Linkedin Icon */}
                     <svg
@@ -202,7 +202,7 @@ export default function BurgerFullMenu({
                 </Link>
               )}
               {facebookUri && (
-                <Link href={facebookUri} target="_blank" rel="noopener noreferrer">
+                <Link href={facebookUri} target="_blank">
                   <div className={cx('socmed-icon')}>
                     {/* FB Icon */}
                     <svg
@@ -223,7 +223,7 @@ export default function BurgerFullMenu({
                 </Link>
               )}
               {instagramUri && (
-                <Link href={instagramUri} target="_blank" rel="noopener noreferrer">
+                <Link href={instagramUri} target="_blank">
                   <div className={cx('socmed-icon')}>
                     {/* IG Icon */}
                     <svg
@@ -254,7 +254,7 @@ export default function BurgerFullMenu({
                 </Link>
               )}
               {twitterUri && (
-                <Link href={twitterUri} target="_blank" rel="noopener noreferrer">
+                <Link href={twitterUri} target="_blank">
                   <div className={cx('socmed-icon')}>
                     {/* X Icon with Transparent Cutout */}
                     <svg

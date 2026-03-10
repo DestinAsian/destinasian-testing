@@ -74,6 +74,7 @@ export default function SingleRCASlider({
                   fill
                   sizes="100%"
                   priority
+                  quality={100}
                 />
               </SwiperSlide>
             )}

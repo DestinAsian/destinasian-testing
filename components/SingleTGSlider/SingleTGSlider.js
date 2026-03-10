@@ -74,6 +74,7 @@ export default function SingleTGSlider({
                   fill
                   sizes="100%"
                   priority
+                  quality={100}
                 />
               </SwiperSlide>
             )}

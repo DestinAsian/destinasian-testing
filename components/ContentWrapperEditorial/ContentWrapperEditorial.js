@@ -1,7 +1,8 @@
 import className from 'classnames/bind'
-import { sanitizeHtml } from '@/lib/sanitizeHtml'
 import styles from './ContentWrapperEditorial.module.scss'
 import { useEffect, useState } from 'react'
+import { renderToStaticMarkup } from 'react-dom/server'
+import Image from 'next/image'
 import { BACKEND_URL } from '@/constants/backendUrl'
 import dynamic from 'next/dynamic'
 // Import Components
@@ -46,20 +47,26 @@ export default function ContentWrapperEditorial({
           // Skip if img has inline styles
           const hasInlineStyle = node.hasAttribute('style')
           if (hasInlineStyle) return
+
           const src = node.getAttribute('src')
           const alt = node.getAttribute('alt') || 'Image'
-          const width = node.getAttribute('width') || '800'
-          const height = node.getAttribute('height') || '600'
+          const width = node.getAttribute('width') || 800
+          const height = node.getAttribute('height') || 600
 
-          if (!src) return
+          const imageComponent = (
+            <Image
+              src={src}
+              alt={alt}
+              width={width}
+              height={height}
+              style={{ objectFit: 'contain' }}
+              priority
+              quality={100}
+            />
+          )
 
-          node.setAttribute('src', src)
-          node.setAttribute('alt', alt)
-          node.setAttribute('width', String(width))
-          node.setAttribute('height', String(height))
-          node.setAttribute('loading', 'lazy')
-          node.setAttribute('decoding', 'async')
-          node.setAttribute('style', 'object-fit:contain;max-width:100%;height:auto;')
+          const imageHtmlString = renderToStaticMarkup(imageComponent)
+          node.outerHTML = imageHtmlString
         } else {
           // Traverse child nodes
           node.childNodes?.forEach(extractImagesRecursively)
@@ -104,7 +111,7 @@ export default function ContentWrapperEditorial({
         return (
           <div
             key={index}
-            dangerouslySetInnerHTML={{ __html: sanitizeHtml(node.outerHTML) }}
+            dangerouslySetInnerHTML={{ __html: node.outerHTML }}
           />
         )
       })

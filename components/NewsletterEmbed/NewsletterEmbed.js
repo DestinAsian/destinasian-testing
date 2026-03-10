@@ -29,7 +29,7 @@ export default function NewsletterEmbed() {
         <div id="mc_embed_shell">
           <div id="mc_embed_signup">
             <form action="https://destinasian.us5.list-manage.com/subscribe/post?u=ee44e7f13f448e90776db3877&amp;id=d4a22bd002&amp;f_id=00d7c2e1f0" 
-              method="post" target="_blank" rel="noopener noreferrer" class="validate">
+              method="post" target="_blank" class="validate">
               <div id="mc_embed_signup_scroll">
                 <div class="divider"></div>
                 <div class="content-wrapper">

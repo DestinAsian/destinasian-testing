@@ -51,6 +51,7 @@ export default function PostTwoColumns({
                   fill
                   sizes="100%"
                   priority
+                  quality={100}
                 />
               </Link>
             )}

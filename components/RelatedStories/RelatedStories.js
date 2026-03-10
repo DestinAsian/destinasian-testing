@@ -40,6 +40,7 @@ export default function RelatedStories({
                   fill
                   sizes="100%"
                   priority
+                  quality={100}
                 />
               </Link>
             )}

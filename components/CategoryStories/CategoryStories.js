@@ -82,7 +82,7 @@ export default function CategoryStories(categoryUri) {
     data: postsData,
     isLoading: postsLoading,
     error: postsError,
-  } = useSWRGraphQL(['category-posts', uri, postsCursor, retryCount], GetCategoryStories, {
+  } = useSWRGraphQL(['category-posts', uri, postsCursor], GetCategoryStories, {
     ...storiesVariable,
     after: postsCursor,
   })
@@ -116,11 +116,20 @@ export default function CategoryStories(categoryUri) {
 
   // Get ROS Banner
   const { data: bannerROSData, error: bannerROSError } = useSWRGraphQL(
-    ['ros-banners', retryCount],
+    'ros-banners',
     GetROSBannerAds,
     { first: bannerPerPage },
   )
 
+  if (bannerROSError) {
+    return (
+      <ErrorFallback
+        error={bannerROSError}
+        onRetry={() => setRetryCount((c) => c + 1)}
+        title="Failed to Load Banner Ads"
+      />
+    )
+  }
 
   let bannerVariable = {
     first: bannerPerPage,
@@ -145,7 +154,7 @@ export default function CategoryStories(categoryUri) {
   }
 
   // Sub Category
-  if (children?.edges?.length !== 0 && parent != null) {
+  if (children?.edges?.length !== 0 && parent !== (null || undefined)) {
     // Modify the variables based on the condition
     bannerVariable = {
       search: name,
@@ -156,7 +165,7 @@ export default function CategoryStories(categoryUri) {
   }
 
   // Child of Sub Category
-  if (children?.edges?.length === 0 && parent != null) {
+  if (children?.edges?.length === 0 && parent !== (null || undefined)) {
     // Modify the variables based on the condition
     bannerVariable = {
       search: parent,
@@ -167,7 +176,7 @@ export default function CategoryStories(categoryUri) {
   }
 
   // Specific Category with no sub category
-  if (['Trade Talk', 'Airline News', 'Travel News'].includes(name)) {
+  if (name === ('Trade Talk' || 'Airline News' || 'Travel News')) {
     // Modify the variables based on the condition
     bannerVariable = {
       search: name,
@@ -177,11 +186,20 @@ export default function CategoryStories(categoryUri) {
   // Get Specific Banner
   const { data: bannerSpecificData, error: bannerSpecificError } =
     useSWRGraphQL(
-      ['specific-banners', bannerVariable.search, retryCount],
+      ['specific-banners', bannerVariable.search],
       GetSpecificBannerAds,
       bannerVariable,
     )
 
+  if (bannerSpecificError) {
+    return (
+      <ErrorFallback
+        error={bannerSpecificError}
+        onRetry={() => setRetryCount((c) => c + 1)}
+        title="Failed to Load Specific Banner Ads"
+      />
+    )
+  }
 
   // Get Advertorial Stories
   const {
@@ -189,7 +207,7 @@ export default function CategoryStories(categoryUri) {
     isLoading: advertorialsLoading,
     error: advertorialsError,
   } = useSWRGraphQL(
-    ['category-advertorials', queryVariables.search, retryCount],
+    ['category-advertorials', queryVariables.search],
     GetAdvertorialStories,
     queryVariables,
   )
