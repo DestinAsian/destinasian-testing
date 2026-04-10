@@ -62,7 +62,18 @@ export default function Page(props) {
 }
 
 export function getStaticProps(ctx) {
-  return getWordPressProps({ ctx, revalidate: 300 })
+  return getWordPressProps({ ctx, revalidate: 300 }).then((wordpressProps) => {
+    if (wordpressProps?.notFound) {
+      return {
+        redirect: {
+          destination: process.env.FRONTEND_URL || '/',
+          permanent: false,
+        },
+      }
+    }
+
+    return wordpressProps
+  })
 }
 
 export async function getStaticPaths() {

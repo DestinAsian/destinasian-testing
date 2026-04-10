@@ -1,29 +1,13 @@
-import { getWordPressProps, WordPressTemplate } from '@faustwp/core'
-import dynamic from 'next/dynamic'
-// Import Components
-const SEO = dynamic(() => import('@/components/SEO/SEO'))
+import Head from 'next/head'
 
-export default function Page(props) {
-  const page = props?.__TEMPLATE_QUERY_DATA__?.page
-
-  const source = page || {} // fallback to empty object to prevent errors
-
-  const { featuredImage, seo, uri } = source ?? []
+export default function Custom404() {
+  const destination = process.env.FRONTEND_URL || '/'
 
   return (
-    <>
-      <SEO
-        title={seo?.title}
-        description={seo?.metaDesc}
-        imageUrl={featuredImage?.node?.sourceUrl}
-        url={uri}
-        focuskw={seo?.focuskw}
-      />
-      <WordPressTemplate {...props} />
-    </>
+    <Head>
+      <title>Redirecting...</title>
+      <meta name="robots" content="noindex, nofollow" />
+      <meta httpEquiv="refresh" content={`0;url=${destination}`} />
+    </Head>
   )
-}
-
-export function getStaticProps(ctx) {
-  return getWordPressProps({ ctx, revalidate: 300 })
 }
