@@ -361,7 +361,7 @@ export default function Component(props) {
                     }
                     width={500}
                     height={500}
-                    className="h-auto w-full border object-cover"
+                    className="aspect-square h-auto w-full rounded-full border object-cover"
                     priority
                   />
                 </div>
