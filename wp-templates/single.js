@@ -50,16 +50,16 @@ export default function Component(props) {
   const [enteredPassword, setEnteredPassword] = useState('')
   const [isAuthenticated, setIsAuthenticated] = useState(false)
 
-  // Check for stored auth flag in cookies on mount
+  // Check for stored password in cookies on mount
   useEffect(() => {
-    const contentDatabaseId = props?.data?.post?.databaseId
-    if (!contentDatabaseId) return
-
-    const storedAuth = Cookies.get(`pp-${contentDatabaseId}`)
-    if (storedAuth === '1') {
+    const storedPassword = Cookies.get('postPassword')
+    if (
+      storedPassword &&
+      storedPassword === props?.data?.post?.passwordProtected?.password
+    ) {
       setIsAuthenticated(true)
     }
-  }, [props?.data?.post?.databaseId])
+  }, [props?.data?.post?.passwordProtected?.password])
 
   const {
     title,
@@ -74,6 +74,8 @@ export default function Component(props) {
     passwordProtected,
   } = props?.data?.post
   const categories = props?.data?.post.categories?.edges ?? []
+
+  {console.log(props)}
 
   // Search function content
   const [searchQuery, setSearchQuery] = useState('')
@@ -323,49 +325,14 @@ export default function Component(props) {
   ]
 
   // Handle password submission
-  const handlePasswordSubmit = async (e) => {
+  const handlePasswordSubmit = (e) => {
     e.preventDefault()
-
-    const contentType = Object.keys(props?.data || {}).find(
-      (key) => props?.data?.[key]?.passwordProtected,
-    )
-    const contentDatabaseId = contentType
-      ? props?.data?.[contentType]?.databaseId
-      : null
-
-    if (!contentType || !contentDatabaseId || !enteredPassword) {
+    if (enteredPassword === passwordProtected?.password) {
+      setIsAuthenticated(true)
+      Cookies.set('postPassword', enteredPassword, { expires: 1 }) // Set cookie to expire in 1 day
+    } else {
       alert('Incorrect password. Please try again.')
-      return
     }
-
-    try {
-      const response = await fetch('/api/verify-content-password', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          contentType,
-          databaseId: contentDatabaseId,
-          password: enteredPassword,
-        }),
-      })
-
-      const payload = await response.json()
-
-      if (response.ok && payload?.valid) {
-        setIsAuthenticated(true)
-        Cookies.set(`pp-${contentDatabaseId}`, '1', {
-          expires: 1,
-          sameSite: 'Lax',
-        })
-        return
-      }
-    } catch (error) {
-      console.error('Password verification failed:', error)
-    }
-
-    alert('Incorrect password. Please try again.')
   }
 
   if (passwordProtected?.onOff && !isAuthenticated) {
@@ -471,6 +438,7 @@ Component.query = gql`
       date
       passwordProtected {
         onOff
+        password
       }
       author {
         node {
@@ -492,6 +460,7 @@ Component.query = gql`
               node {
                 name
                 uri
+                slug
                 countryCode {
                   countryCode
                 }

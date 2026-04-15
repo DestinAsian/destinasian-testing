@@ -52,6 +52,8 @@ export default function Component(props) {
     }
   }, [props?.data?.readersChoiceAward?.passwordProtected?.password])
 
+  console.log(props)
+
   // Slider Autoplay state
   const sliderRCA = useRef(null)
   const [activeIndex, setActiveIndex] = useState(0)
@@ -525,6 +527,7 @@ Component.query = gql`
       id
       title
       databaseId
+      slug
       content
       uri
       rcaPageAttributes {
@@ -582,6 +585,7 @@ Component.query = gql`
               title
               uri
               databaseId
+              slug
             }
           }
         }
@@ -592,6 +596,7 @@ Component.query = gql`
             title
             uri
             databaseId
+            slug
           }
         }
       }

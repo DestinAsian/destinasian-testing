@@ -374,6 +374,7 @@ Component.query = gql`
       id
       title
       databaseId
+      slug
       content
       date
       passwordProtected {
@@ -400,6 +401,29 @@ Component.query = gql`
         title
         metaDesc
         focuskw
+      }
+      categories {
+        edges {
+          node {
+            name
+            uri
+            slug
+            parent {
+              node {
+                name
+                uri
+                children {
+                  edges {
+                    node {
+                      name
+                      uri
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
       uri
       acfAdvertorialLabel {
