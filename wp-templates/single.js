@@ -75,8 +75,6 @@ export default function Component(props) {
   } = props?.data?.post
   const categories = props?.data?.post.categories?.edges ?? []
 
-  {console.log(props)}
-
   // Search function content
   const [searchQuery, setSearchQuery] = useState('')
   // Scrolled Function

@@ -481,6 +481,7 @@ Component.query = gql`
               node {
                 name
                 uri
+                slug
                 children {
                   edges {
                     node {
