@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useId, useMemo } from 'react'
 import className from 'classnames/bind'
 import styles from './GallerySlider.module.scss'
 
@@ -20,11 +20,15 @@ let cx = className.bind(styles)
 export default function GallerySlider({ gallerySlider, className }) {
   const [images, setImages] = useState([])
   const [activeIndex, setActiveIndex] = useState(0)
-  // Generate CSS-safe unique ID only on client to avoid SSR mismatch
-  const [uniqueId, setUniqueId] = useState(null)
-  React.useEffect(() => {
-    setUniqueId(`gallery-slider-${Math.random().toString(36).substring(2, 9)}`)
-  }, [])
+  const reactId = useId()
+
+  // useId() bisa menghasilkan karakter seperti ":" yang tidak aman
+  // untuk dipakai langsung di CSS selector class
+  const paginationClass = useMemo(() => {
+    const safeId = reactId.replace(/[^a-zA-Z0-9_-]/g, '')
+    return `gallery-slider-pagination-${safeId}`
+  }, [reactId])
+
   useEffect(() => {
     if (!gallerySlider) return
 
@@ -72,15 +76,11 @@ export default function GallerySlider({ gallerySlider, className }) {
           effect={'fade'}
           autoplay={{ delay: 5000, disableOnInteraction: true }}
           loop={true}
-          pagination={
-            uniqueId
-              ? {
-                  el: `.${uniqueId}-pagination`,
-                  clickable: true,
-                  type: 'bullets',
-                }
-              : undefined
-          }
+          pagination={{
+            el: `.${paginationClass}`,
+            clickable: true,
+            type: 'bullets',
+          }}
           modules={[EffectFade, Autoplay, Pagination, Navigation]}
           className="post-swiper"
           onSlideChange={(swiper) => {
@@ -117,9 +117,8 @@ export default function GallerySlider({ gallerySlider, className }) {
             </SwiperSlide>
           ))}
         </Swiper>
-        <div
-          className={`swiper-post-custom-pagination ${uniqueId ? `${uniqueId}-pagination` : ''}`}
-        ></div>
+        <div className={`swiper-post-custom-pagination ${paginationClass}`} />
+
         {/* Caption absolutely positioned relative to Swiper */}
         {images[activeIndex]?.caption && (
           <div className={cx('caption-wrapper', className)}>
