@@ -28,8 +28,6 @@ export default function ContentWrapperEditorial({
 }) {
   const [transformedContent, setTransformedContent] = useState('')
 
-  console.log(bookNowButton)
-
   useEffect(() => {
     const extractHTMLData = () => {
       const parser = new DOMParser()
