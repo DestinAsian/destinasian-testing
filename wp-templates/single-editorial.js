@@ -71,6 +71,7 @@ export default function Component(props) {
     author,
     date,
     textToSpeech,
+    bookNowButton,
     acfSingleEditorialSlider,
     seo,
     uri,
@@ -205,7 +206,11 @@ export default function Component(props) {
   } = latestRCA ?? []
 
   // Get menus
-  const { data: menusData, loading: menusLoading, error: menusError } = useQuery(GetMenus, {
+  const {
+    data: menusData,
+    loading: menusLoading,
+    error: menusError,
+  } = useQuery(GetMenus, {
     variables: {
       first: 30,
       headerLocation: MENUS.PRIMARY_LOCATION,
@@ -232,16 +237,17 @@ export default function Component(props) {
   const featureMenu = menusData?.featureHeaderMenuItems?.nodes ?? []
 
   // Get latest travel stories
-  const { data: latestStories, loading: latestLoading, error: latestStoriesError } = useQuery(
-    GetLatestStories,
-    {
-      variables: {
-        first: 5,
-      },
-      fetchPolicy: 'cache-and-network',
-      nextFetchPolicy: 'network-only',
+  const {
+    data: latestStories,
+    loading: latestLoading,
+    error: latestStoriesError,
+  } = useQuery(GetLatestStories, {
+    variables: {
+      first: 5,
     },
-  )
+    fetchPolicy: 'cache-and-network',
+    nextFetchPolicy: 'network-only',
+  })
 
   if (latestStoriesError) {
     console.error('[Editorial Latest Stories Error]', latestStoriesError)
@@ -395,6 +401,8 @@ export default function Component(props) {
             content={content}
             images={images}
             textToSpeech={textToSpeech}
+            bookNowButton={bookNowButton}
+            id={'Editorial_Book_Now_ClickTracker'}
           />
           <EntryRelatedStories />
           {shuffledRelatedStories.map((post) => (
@@ -459,6 +467,12 @@ Component.query = gql`
           id
           mediaItemUrl
         }
+      }
+      bookNowButton {
+        bookNowLabel
+        bookNowLink
+        bookNowBackgroundColor
+        bookNowTextColor
       }
       acfSingleEditorialSlider {
         slide1 {

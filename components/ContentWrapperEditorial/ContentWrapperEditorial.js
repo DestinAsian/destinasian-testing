@@ -23,8 +23,12 @@ export default function ContentWrapperEditorial({
   children,
   images,
   textToSpeech,
+  bookNowButton,
+  id,
 }) {
   const [transformedContent, setTransformedContent] = useState('')
+
+  console.log(bookNowButton)
 
   useEffect(() => {
     const extractHTMLData = () => {
@@ -133,7 +137,11 @@ export default function ContentWrapperEditorial({
       </article>
       {textToSpeech?.audioFile && (
         <div className={cx('tts-button-wrapper')}>
-          <TextToSpeech textToSpeech={textToSpeech} />
+          <TextToSpeech
+            textToSpeech={textToSpeech}
+            bookNowButton={bookNowButton}
+            id={id}
+          />
         </div>
       )}
     </>

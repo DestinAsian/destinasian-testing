@@ -42,29 +42,107 @@
   font-weight: 500;
   color: var(--wpe--color--white);
   text-decoration: none;
-  display: flex;
-  align-items: baseline;
-  justify-content: flex-start;
-  gap: 0.5rem;
+
+  display: inline-grid;
+  grid-template-columns: 1rem auto;
+  align-items: center;
+  column-gap: 0.5rem;
+
+  border: 0;
+  background: transparent;
+  cursor: pointer;
 
   @media (min-width: $breakpoint-extra-small) {
     width: auto;
     padding: 0.5rem 2rem;
+    grid-template-columns: 1.1rem auto;
   }
 
   &:hover {
     color: var(--wpe--color--white);
     text-decoration: underline;
   }
+}
+
+.tts-button-icon {
+  grid-column: 1;
+  grid-row: 1;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+
+  // @media (min-width: $breakpoint-extra-small) {
+  //   width: 1.1rem;
+  //   height: 1.1rem;
+  // }
 
   svg {
+    display: block;
+    width: auto;
+    height: 0.75rem;
     padding: 0;
     margin: 0;
-    height: 0.75rem;
-    width: fit-content;
 
     @media (min-width: $breakpoint-extra-small) {
       height: 0.8rem;
+    }
+  }
+}
+
+.tts-button-text {
+  grid-column: 2;
+  grid-row: 1;
+
+  display: grid;
+  justify-items: start;
+}
+
+.tts-button-text-sizer,
+.tts-button-text-label {
+  @media (min-width: $breakpoint-extra-small) {
+    grid-column: 1;
+    grid-row: 1;
+    white-space: nowrap;
+  }
+}
+
+.tts-button-text-sizer {
+  display: none;
+}
+
+.tts-button-text-sizer {
+  visibility: hidden;
+}
+
+.book-now-button {
+  position: relative;
+  width: fit-content;
+  padding: 0.5rem 1rem;
+  background-color: var(--wpe--color--black);
+  border-radius: 5rem;
+  text-align: center;
+
+  @media (min-width: $breakpoint-small) {
+    padding: 0.5rem 2rem;
+  }
+
+  * {
+    font-family: 'Ringside Regular A', 'Ringside Regular B';
+    font-weight: 500;
+    margin: 0 auto;
+    padding: 0;
+    color: var(--wpe--color--white);
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+      color: var(--wpe--color--white);
+      text-decoration: underline;
     }
   }
 }
