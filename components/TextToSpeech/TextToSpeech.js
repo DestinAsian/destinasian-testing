@@ -73,7 +73,7 @@ export default function TextToSpeech({
                     fill="#ffffff"
                   />
                 </svg>
-                {'Listen to this story'}
+                {'Listen'}
               </button>
             ) : (
               <button className={cx('tts-button')} onClick={handlePause}>
@@ -91,7 +91,7 @@ export default function TextToSpeech({
                     fill="#ffffff"
                   />
                 </svg>
-                {'Pause Reading'}
+                {'Pause'}
               </button>
             )}
           </>
