@@ -22,6 +22,13 @@ let cx = className.bind(styles)
 export default function FeatureWell({ featureWells, content }) {
   const isDesktop = useMediaQuery({ minWidth: 640 })
   const isMobile = useMediaQuery({ maxWidth: 639 })
+  const validFeatureWells =
+    featureWells?.filter(
+      (featureWell) =>
+        featureWell?.url &&
+        (featureWell?.type === 'image' || featureWell?.type === 'video'),
+    ) ?? []
+  const hasMultipleSlides = validFeatureWells.length >= 2
 
   const [transformedContent, setTransformedContent] = useState('')
 
@@ -71,240 +78,250 @@ export default function FeatureWell({ featureWells, content }) {
         {content !== null && (
           <div className={cx('content-wrapper')}>{transformedContent}</div>
         )}
-        <Swiper
-          onSlideChange={(swiper) => {
-            // Get the current slide index from Swiper
-            const currentSlideIndex = swiper.activeIndex
-            const currentSlide = featureWells[currentSlideIndex]
+        {validFeatureWells.length > 0 && (
+          <Swiper
+            onSlideChange={(swiper) => {
+              // Get the current slide index from Swiper
+              const currentSlideIndex = swiper.activeIndex
+              const currentSlide = validFeatureWells[currentSlideIndex]
 
-            if (currentSlide.type === 'video') {
-              const videoElement = document.getElementById(
-                `video-${currentSlideIndex}`,
-              )
+              if (currentSlide?.type === 'video') {
+                const videoElement = document.getElementById(
+                  `video-${currentSlideIndex}`,
+                )
 
-              if (videoElement) {
-                videoElement.currentTime = 0 // Start the video from the beginning
-                videoElement.play() // Play the video
+                if (videoElement) {
+                  videoElement.currentTime = 0 // Start the video from the beginning
+                  videoElement.play() // Play the video
+                }
               }
+            }}
+            effect={'fade'}
+            autoplay={
+              hasMultipleSlides
+                ? {
+                    delay: 15000,
+                    disableOnInteraction: false,
+                  }
+                : false
             }
-          }}
-          effect={'fade'}
-          autoplay={{
-            delay: 15000,
-            disableOnInteraction: false,
-          }}
-          pagination={{
-            el: '.swiper-custom-pagination',
-            clickable: 'true',
-            type: 'bullets',
-            renderBullet: function (i, className) {
-              return `
-            <button class="${className}">
-            <svg class= "progress">
-            <circle class="circle-origin" cx="16" cy="16" r="10.5"></circle>
-            </svg>
-            <span></span>
-            </button>
-            `
-            },
-          }}
-          modules={[EffectFade, Autoplay, Pagination]}
-          className="fw-swiper-wrapper"
-        >
-          {featureWells?.map((featureWell, index) => (
-            <SwiperSlide key={index}>
-              {featureWell.type === 'image' && featureWell.url && (
-                <>
-                  {isDesktop && (
-                    <div className={cx('image-wrapper')}>
-                      <Link href={featureWell.url}>
-                        <div className={cx('image')}>
-                          <Image
-                            src={featureWell.desktopSrc}
-                            alt="Feature Well Image"
-                            fill
-                            sizes="100%"
-                            priority
-                            quality={100}
-                          />
-                        </div>
-                      </Link>
-                      <div className={cx('caption-wrapper')}>
-                        {featureWell.category && featureWell.categoryLink && (
-                          <div
-                            style={{
-                              '--caption-width': captionWidths[index]
-                                ? `${captionWidths[index]}px`
-                                : '100%',
-                            }}
-                            className={cx('category-wrapper')}
-                          >
-                            <Link href={featureWell.categoryLink}>
-                              <h1 className={cx('category')}>
-                                {featureWell.category}
-                              </h1>
-                            </Link>
+            pagination={
+              hasMultipleSlides
+                ? {
+                    el: '.swiper-custom-pagination',
+                    clickable: true,
+                    type: 'bullets',
+                    renderBullet: function (i, className) {
+                      return `
+                    <button class="${className}">
+                    <svg class="progress">
+                    <circle class="circle-origin" cx="16" cy="16" r="10.5"></circle>
+                    </svg>
+                    <span></span>
+                    </button>
+                    `
+                    },
+                  }
+                : false
+            }
+            modules={[EffectFade, Autoplay, Pagination]}
+            className="fw-swiper-wrapper"
+          >
+            {validFeatureWells.map((featureWell, index) => (
+              <SwiperSlide key={index}>
+                {featureWell.type === 'image' && featureWell.url && (
+                  <>
+                    {isDesktop && (
+                      <div className={cx('image-wrapper')}>
+                        <Link href={featureWell.url}>
+                          <div className={cx('image')}>
+                            <Image
+                              src={featureWell.desktopSrc}
+                              alt="Feature Well Image"
+                              fill
+                              sizes="100%"
+                              priority
+                              quality={100}
+                            />
                           </div>
-                        )}
-                        {featureWell.caption && (
-                          <h1
-                            ref={(el) => (captionRefs.current[index] = el)}
-                            className={cx('caption')}
-                          >
-                            <Link href={featureWell.url}>
-                              {featureWell.caption}
-                            </Link>
-                          </h1>
-                        )}
-                        {featureWell.standFirst && (
-                          <div
-                            style={{
-                              '--caption-width': captionWidths[index]
-                                ? `${captionWidths[index]}px`
-                                : '100%',
-                            }}
-                            className={cx('stand-first-wrapper')}
-                          >
-                            <Link href={featureWell.url}>
-                              <h2 className={cx('stand-first')}>
-                                {featureWell.standFirst}
-                              </h2>
-                            </Link>
-                          </div>
-                        )}
-                      </div>
-                      <div className={cx('bottom-gradient')}></div>
-                    </div>
-                  )}
-                  {isMobile && (
-                    <div className={cx('image-wrapper')}>
-                      <Link href={featureWell.url}>
-                        <div className={cx('image')}>
-                          <Image
-                            src={featureWell.mobileSrc}
-                            alt="Feature Well Image"
-                            fill
-                            sizes="100%"
-                            priority
-                            quality={100}
-                          />
-                        </div>
-                      </Link>
-                      <div className={cx('caption-wrapper')}>
-                        {featureWell.category && featureWell.categoryLink && (
-                          <div
-                            style={{
-                              '--caption-width': captionWidths[index]
-                                ? `${captionWidths[index]}px`
-                                : '100%',
-                            }}
-                            className={cx('category-wrapper')}
-                          >
-                            <Link href={featureWell.categoryLink}>
-                              <h1 className={cx('category')}>
-                                {featureWell.category}
-                              </h1>
-                            </Link>
-                          </div>
-                        )}
-                        {featureWell.caption && (
-                          <h1
-                            ref={(el) => (captionRefs.current[index] = el)}
-                            className={cx('caption')}
-                          >
-                            <Link href={featureWell.url}>
-                              {featureWell.caption}
-                            </Link>
-                          </h1>
-                        )}
-                        {featureWell.standFirst && (
-                          <div
-                            style={{
-                              '--caption-width': captionWidths[index]
-                                ? `${captionWidths[index]}px`
-                                : '100%',
-                            }}
-                            className={cx('stand-first-wrapper')}
-                          >
-                            <Link href={featureWell.url}>
-                              <h2 className={cx('stand-first')}>
-                                {featureWell.standFirst}
-                              </h2>
-                            </Link>
-                          </div>
-                        )}
-                      </div>
-                      <div className={cx('bottom-gradient')}></div>
-                    </div>
-                  )}
-                </>
-              )}
-              {featureWell.type === 'video' && featureWell.url && (
-                <>
-                  <div className={cx('video-wrapper')}>
-                    <Link href={featureWell.url}>
-                      <video
-                        id={`video-${index}`}
-                        src={featureWell.videoSrc}
-                        className="video-content"
-                        loop
-                        autoPlay
-                        playsInline
-                        muted
-                      />
-                    </Link>
-                    <div className={cx('caption-wrapper')}>
-                      {featureWell.category && featureWell.categoryLink && (
-                        <div
-                          style={{
-                            '--caption-width': captionWidths[index]
-                              ? `${captionWidths[index]}px`
-                              : '100%',
-                          }}
-                          className={cx('category-wrapper')}
-                        >
-                          <Link href={featureWell.categoryLink}>
-                            <h1 className={cx('category')}>
-                              {featureWell.category}
+                        </Link>
+                        <div className={cx('caption-wrapper')}>
+                          {featureWell.category && featureWell.categoryLink && (
+                            <div
+                              style={{
+                                '--caption-width': captionWidths[index]
+                                  ? `${captionWidths[index]}px`
+                                  : '100%',
+                              }}
+                              className={cx('category-wrapper')}
+                            >
+                              <Link href={featureWell.categoryLink}>
+                                <h1 className={cx('category')}>
+                                  {featureWell.category}
+                                </h1>
+                              </Link>
+                            </div>
+                          )}
+                          {featureWell.caption && (
+                            <h1
+                              ref={(el) => (captionRefs.current[index] = el)}
+                              className={cx('caption')}
+                            >
+                              <Link href={featureWell.url}>
+                                {featureWell.caption}
+                              </Link>
                             </h1>
-                          </Link>
+                          )}
+                          {featureWell.standFirst && (
+                            <div
+                              style={{
+                                '--caption-width': captionWidths[index]
+                                  ? `${captionWidths[index]}px`
+                                  : '100%',
+                              }}
+                              className={cx('stand-first-wrapper')}
+                            >
+                              <Link href={featureWell.url}>
+                                <h2 className={cx('stand-first')}>
+                                  {featureWell.standFirst}
+                                </h2>
+                              </Link>
+                            </div>
+                          )}
                         </div>
-                      )}
-                      {featureWell.caption && (
-                        <h1
-                          ref={(el) => (captionRefs.current[index] = el)}
-                          className={cx('caption')}
-                        >
-                          <Link href={featureWell.url}>
-                            {featureWell.caption}
-                          </Link>
-                        </h1>
-                      )}
-                      {featureWell.standFirst && (
-                        <div
-                          style={{
-                            '--caption-width': captionWidths[index]
-                              ? `${captionWidths[index]}px`
-                              : '100%',
-                          }}
-                          className={cx('stand-first-wrapper')}
-                        >
-                          <Link href={featureWell.url}>
-                            <h2 className={cx('stand-first')}>
-                              {featureWell.standFirst}
-                            </h2>
-                          </Link>
+                        <div className={cx('bottom-gradient')}></div>
+                      </div>
+                    )}
+                    {isMobile && (
+                      <div className={cx('image-wrapper')}>
+                        <Link href={featureWell.url}>
+                          <div className={cx('image')}>
+                            <Image
+                              src={featureWell.mobileSrc}
+                              alt="Feature Well Image"
+                              fill
+                              sizes="100%"
+                              priority
+                              quality={100}
+                            />
+                          </div>
+                        </Link>
+                        <div className={cx('caption-wrapper')}>
+                          {featureWell.category && featureWell.categoryLink && (
+                            <div
+                              style={{
+                                '--caption-width': captionWidths[index]
+                                  ? `${captionWidths[index]}px`
+                                  : '100%',
+                              }}
+                              className={cx('category-wrapper')}
+                            >
+                              <Link href={featureWell.categoryLink}>
+                                <h1 className={cx('category')}>
+                                  {featureWell.category}
+                                </h1>
+                              </Link>
+                            </div>
+                          )}
+                          {featureWell.caption && (
+                            <h1
+                              ref={(el) => (captionRefs.current[index] = el)}
+                              className={cx('caption')}
+                            >
+                              <Link href={featureWell.url}>
+                                {featureWell.caption}
+                              </Link>
+                            </h1>
+                          )}
+                          {featureWell.standFirst && (
+                            <div
+                              style={{
+                                '--caption-width': captionWidths[index]
+                                  ? `${captionWidths[index]}px`
+                                  : '100%',
+                              }}
+                              className={cx('stand-first-wrapper')}
+                            >
+                              <Link href={featureWell.url}>
+                                <h2 className={cx('stand-first')}>
+                                  {featureWell.standFirst}
+                                </h2>
+                              </Link>
+                            </div>
+                          )}
                         </div>
-                      )}
+                        <div className={cx('bottom-gradient')}></div>
+                      </div>
+                    )}
+                  </>
+                )}
+                {featureWell.type === 'video' && featureWell.url && (
+                  <>
+                    <div className={cx('video-wrapper')}>
+                      <Link href={featureWell.url}>
+                        <video
+                          id={`video-${index}`}
+                          src={featureWell.videoSrc}
+                          className="video-content"
+                          loop
+                          autoPlay
+                          playsInline
+                          muted
+                        />
+                      </Link>
+                      <div className={cx('caption-wrapper')}>
+                        {featureWell.category && featureWell.categoryLink && (
+                          <div
+                            style={{
+                              '--caption-width': captionWidths[index]
+                                ? `${captionWidths[index]}px`
+                                : '100%',
+                            }}
+                            className={cx('category-wrapper')}
+                          >
+                            <Link href={featureWell.categoryLink}>
+                              <h1 className={cx('category')}>
+                                {featureWell.category}
+                              </h1>
+                            </Link>
+                          </div>
+                        )}
+                        {featureWell.caption && (
+                          <h1
+                            ref={(el) => (captionRefs.current[index] = el)}
+                            className={cx('caption')}
+                          >
+                            <Link href={featureWell.url}>
+                              {featureWell.caption}
+                            </Link>
+                          </h1>
+                        )}
+                        {featureWell.standFirst && (
+                          <div
+                            style={{
+                              '--caption-width': captionWidths[index]
+                                ? `${captionWidths[index]}px`
+                                : '100%',
+                            }}
+                            className={cx('stand-first-wrapper')}
+                          >
+                            <Link href={featureWell.url}>
+                              <h2 className={cx('stand-first')}>
+                                {featureWell.standFirst}
+                              </h2>
+                            </Link>
+                          </div>
+                        )}
+                      </div>
+                      <div className={cx('bottom-gradient')}></div>
                     </div>
-                    <div className={cx('bottom-gradient')}></div>
-                  </div>
-                </>
-              )}
-            </SwiperSlide>
-          ))}
-        </Swiper>
-        <div className="swiper-custom-pagination"></div>
+                  </>
+                )}
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        )}
+        {hasMultipleSlides && <div className="swiper-custom-pagination"></div>}
       </Div100vh>
     </>
   )
