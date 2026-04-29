@@ -38,6 +38,10 @@
     padding: 0;
   }
 
+  .caption-wrapper {
+    height: auto;
+  }
+
   :global {
     .swiper-post-custom-pagination.swiper-pagination-bullets.swiper-pagination-horizontal {
       width: 100%;
