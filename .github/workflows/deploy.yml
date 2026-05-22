@@ -48,4 +48,4 @@ jobs:
           ssh-add pm2_key
 
           # Restart PM2 process on the server
-          ssh -o StrictHostKeyChecking=no -i pm2_key ${{ secrets.USERNAME }}@${{ secrets.HOST }} "cd ${{ secrets.TARGET_DIRECTORY }} && (pm2 delete destinasian-testing || true) && pm2 start 'npx serve .next -l 3001' --name destinasian-testing && pm2 save"
+          ssh -o StrictHostKeyChecking=no -i pm2_key ${{ secrets.USERNAME }}@${{ secrets.HOST }} "cd ${{ secrets.TARGET_DIRECTORY }} && (pm2 delete destinasian-testing || true) && pm2 start 'npx serve out -l 3001' --name destinasian-testing && pm2 save"

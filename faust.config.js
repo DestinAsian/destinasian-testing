@@ -6,8 +6,11 @@ hooks.addFilter(
   'graphqlEndpoint',
   'destinasian/graphql-endpoint',
   (graphqlEndpoint) => {
-    // Avoid CORS on client-side Apollo requests by routing through same-origin API route.
-    if (typeof window !== 'undefined') {
+    // Optional local/server proxy mode (non-static runtime).
+    if (
+      typeof window !== 'undefined' &&
+      process.env.NEXT_PUBLIC_USE_WORDPRESS_PROXY === 'true'
+    ) {
       return '/api/graphql';
     }
 

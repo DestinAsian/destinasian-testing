@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "faust dev --port 3001",
     "build": "faust build",
-    "serve:local": "npm run build && npx serve .next -l 3001",
+    "serve:local": "npm run build && npx serve out -l 3001",
     "generate": "faust generatePossibleTypes",
     "start": "faust start --port 3001",
     "syntax:check": "git ls-files '*.js' '*.mjs' '*.cjs' | xargs -n 1 node --check",
