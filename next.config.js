@@ -12,19 +12,34 @@ const IMAGE_HOSTNAMES = [
  * @type {import('next').NextConfig}
  **/
 module.exports = withFaust({
-  output: 'export',
-  trailingSlash: true,
   reactStrictMode: true,
   sassOptions: {
     includePaths: ['node_modules'],
   },
   images: {
-    unoptimized: true,
     remotePatterns: IMAGE_HOSTNAMES.map((hostname) => ({
       protocol: 'https',
       hostname,
       port: '',
       pathname: '/**',
     })),
+  },
+  i18n: {
+    locales: ['en'],
+    defaultLocale: 'en',
+  },
+  async redirects() {
+    return [
+      {
+        source: '/advertorial/:slug*', // All advertorial slug redirect to partner-content
+        destination: '/partner-content/:slug*',
+        permanent: true, // This indicates a 301 permanent redirect
+      },
+      {
+        source: '/category/:slug*', // All category slug redirect
+        destination: '/travel-guide/:slug*',
+        permanent: true, // This indicates a 301 permanent redirect
+      },
+    ]
   },
 })

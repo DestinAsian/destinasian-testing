@@ -1,22 +1,18 @@
-import { hooks, setConfig } from '@faustwp/core';
-import templates from './wp-templates';
-import possibleTypes from './possibleTypes.json';
+import { hooks, setConfig } from '@faustwp/core'
+import templates from './wp-templates'
+import possibleTypes from './possibleTypes.json'
 
 hooks.addFilter(
   'graphqlEndpoint',
-  'destinasian/graphql-endpoint',
+  'destinasian/local-graphql-proxy',
   (graphqlEndpoint) => {
-    // Optional local/server proxy mode (non-static runtime).
-    if (
-      typeof window !== 'undefined' &&
-      process.env.NEXT_PUBLIC_USE_WORDPRESS_PROXY === 'true'
-    ) {
-      return '/api/graphql';
+    if (typeof window !== 'undefined') {
+      return '/api/graphql'
     }
 
-    return graphqlEndpoint;
+    return graphqlEndpoint
   },
-);
+)
 
 /**
  * @type {import('@faustwp/core').FaustConfig}
@@ -28,4 +24,4 @@ export default setConfig({
   possibleTypes,
   useGETForQueries: false,
   usePersistedQueries: false,
-});
+})

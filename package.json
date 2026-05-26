@@ -5,12 +5,8 @@
   "scripts": {
     "dev": "faust dev --port 3001",
     "build": "faust build",
-    "serve:local": "npm run build && npx serve out -l 3001",
     "generate": "faust generatePossibleTypes",
-    "start": "faust start --port 3001",
-    "syntax:check": "git ls-files '*.js' '*.mjs' '*.cjs' | xargs -n 1 node --check",
-    "format:check": "prettier --check .",
-    "health": "npm run syntax:check"
+    "start": "faust start --port 3001"
   },
   "dependencies": {
     "@apollo/client": "^3.8.7",
@@ -37,7 +33,6 @@
     "react-responsive": "^9.0.2",
     "react-text-to-speech": "^0.19.5",
     "sass": "^1.54.9",
-    "serve": "^14.2.6",
     "sharp": "^0.34.2",
     "swiper": "^9.2.4",
     "swr": "^2.4.0"
