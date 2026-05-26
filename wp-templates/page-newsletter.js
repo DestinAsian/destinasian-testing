@@ -9,7 +9,6 @@ import { GetLatestStories } from '@/queries/GetLatestStories'
 import { eb_garamond, poppins, rubik } from '@/styles/fonts/fonts'
 import Cookies from 'js-cookie'
 import { GetLatestRCA } from '@/queries/GetLatestRCA'
-import NewsletterFormPages from '@/components/NewsletterMailerLite/NewsletterFormPages'
 
 import dynamic from 'next/dynamic'
 // Import Components
@@ -25,9 +24,6 @@ const Footer = dynamic(() => import('@/components/Footer/Footer'))
 const ContentWrapper = dynamic(() =>
   import('@/components/ContentWrapper/ContentWrapper'),
 )
-// const NewsletterEmbed = dynamic(() =>
-//   import('@/components/NewsletterEmbed/NewsletterEmbed'),
-// )
 const PageRelatedStories = dynamic(() =>
   import('@/components/PageRelatedStories/PageRelatedStories'),
 )
@@ -364,12 +360,6 @@ export default function Component(props) {
           )}
           <>
             <ContentWrapper content={content} className={'newsletter'} />
-            <div className={cx('container-wrapper')}>
-              <div className={`${styles.newsletterWrapper} mb-12`}>
-                {/* <NewsletterEmbed /> */}
-                <NewsletterFormPages />
-              </div>
-            </div>
             <PageRelatedStories databaseId={databaseId} />
           </>
         </>
