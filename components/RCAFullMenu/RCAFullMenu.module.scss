@@ -13,7 +13,7 @@
 
   @media (min-width: $breakpoint-extra-small) {
     margin: 0 auto;
-    max-width: 700px;
+    max-width: 1000px;
   }
 }
 
@@ -217,7 +217,7 @@
 .light-color {
   margin: 0 auto;
 
-  max-width: 700px;
+  max-width: 1000px;
   background-color: var(--wpe--color--white--smoke);
 
   * {
@@ -259,7 +259,7 @@
 .rca-color {
   margin: 0 auto;
 
-  max-width: 700px;
+  max-width: 1000px;
   background-color: var(--wpe--color--black);
 
   * {

@@ -99,17 +99,10 @@ export default function BurgerFullMenu({
       >
         <div ref={burgerRef} className={cx('menu-wrapper')}>
           <div className={cx('first-wrapper')}>
-            {/* Feature Menu */}
-            <NavigationMenu
-              className={cx('feature-navigation')}
-              menuItems={featureMenuItems}
-            />
-          </div>
-          <div className={cx('second-wrapper')}>
             {/* Latest Travel Stories */}
             {latestStories?.length !== 0 && (
               <nav className={cx('latest-stories')}>
-                <ul className="menu-name">{'Travel Stories'}</ul>
+                <ul className="menu-name">{'New Stories'}</ul>
                 <ul className={cx('menu-content')}>
                   {latestStories.slice(0, visiblePosts).map((post) => (
                     <li key={post?.id}>
@@ -124,61 +117,12 @@ export default function BurgerFullMenu({
               </nav>
             )}
           </div>
-          <div className={cx('third-wrapper')}>
-            <span className={cx('menu-name')}>{'Partner Content Stories'}</span>
-            <div className={cx('column-wrapper')}>
-              <div className={cx('left-column')}>
-                {/* Latest Partner Content */}
-                {latestPartnerContent?.length !== 0 && (
-                  <nav className={cx('latest-stories')}>
-                    <ul className={cx('menu-content')}>
-                      {latestPartnerContent
-                        .slice(0, visiblePosts)
-                        .map((post) => (
-                          <li key={post?.id}>
-                            {post?.uri && (
-                              <Link
-                                href={post?.uri}
-                                className={cx('menu-item')}
-                              >
-                                {post?.title}
-                              </Link>
-                            )}
-                          </li>
-                        ))}
-                    </ul>
-                  </nav>
-                )}
-              </div>
-              <div className={cx('right-column')}>
-                {/* Secondary Menu {Special Sections Menu} */}
-                <NavigationMenu
-                  className={cx('secondary-navigation')}
-                  menuItems={secondaryMenuItems}
-                />
-              </div>
-            </div>
-          </div>
-          <div className={cx('fourth-wrapper')}>
-            {/* Destinations Menu */}
+          <div className={cx('second-wrapper')}>
+            {/* Feature Menu */}
             <NavigationMenu
-              className={cx('primary-navigation')}
-              menuItems={primaryMenuItems}
+              className={cx('feature-navigation')}
+              menuItems={featureMenuItems}
             />
-          </div>
-          <div className={cx('fifth-wrapper')}>
-            {/* Third Menu {Luxe List Menu} */}
-            <NavigationMenu
-              className={cx(['third-navigation'])}
-              menuItems={thirdMenuItems}
-            />
-            {/* Readers' Choice Awards Menu */}
-            <NavigationMenu
-              className={cx('fourth-navigation')}
-              menuItems={fourthMenuItems}
-            />
-          </div>
-          <div className={cx('sixth-wrapper')}>
             <div className={cx('socmed-wrapper')}>
               {linkedInUri && (
                 <Link href={linkedInUri} target="_blank">
@@ -283,6 +227,14 @@ export default function BurgerFullMenu({
               )}
             </div>
           </div>
+          <div className={cx('fourth-wrapper')}>
+            {/* Secondary Menu {Special Sections Menu} */}
+            <NavigationMenu
+              className={cx('feature-navigation')}
+              menuItems={secondaryMenuItems}
+            />
+          </div>
+          <div className={cx('sixth-wrapper')}></div>
           <div className={cx('seventh-wrapper')}>
             {/* Fifth Menu {Others Menu} */}
             <NavigationMenu
