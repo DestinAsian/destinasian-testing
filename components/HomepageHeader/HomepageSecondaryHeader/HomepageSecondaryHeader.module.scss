@@ -440,13 +440,13 @@
         }
 
         a {
-          font-size: 1rem;
+          font-size: 0.8rem;
           font-weight: 500;
           padding: 0 0.25rem 0.25rem 0;
           width: max-content;
 
           @media (min-width: $breakpoint-extra-small) {
-            font-size: 1.2rem;
+            font-size: 1rem;
           }
         }
 
@@ -477,14 +477,26 @@
               padding: 0;
             }
 
+            // &::before {
+            //   content: '';
+            //   position: absolute;
+            //   top: 5%; // adjust to position vertically
+            //   bottom: 20%; // leaves some space above and below
+            //   left: 0;
+            //   width: 1px;
+            //   border-left: 1px solid var(--wpe--color--black);
+            // }
+
             &::before {
-              content: '';
+              content: '|';
+              font-weight: 400;
               position: absolute;
-              top: 5%; // adjust to position vertically
-              bottom: 20%; // leaves some space above and below
-              left: 0;
-              width: 1px;
-              border-left: 1px solid var(--wpe--color--black);
+              top: -15%;
+              left: -4.5%;
+
+              @media (min-width: $breakpoint-extra-small) {
+                top: -10%;
+              }
             }
 
             .menu-item {

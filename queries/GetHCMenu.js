@@ -12,12 +12,7 @@ export const GetHCMenu = gql`
         label
         parentId
         cssClasses
-        menu {
-          node {
-            name
-            slug
-          }
-        }
+        __typename
       }
     }
   }

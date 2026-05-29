@@ -8,12 +8,15 @@ import Link from 'next/link'
 let cx = classNames.bind(styles)
 let cxFromWp = classNames.bind(stylesFromWP)
 
-export default function NavigationMenu({ menuItems, className }) {
+export default function NavigationMenu({
+  menuItems,
+  className,
+  renderCustomItem,
+}) {
   if (!menuItems) {
     return null
   }
 
-  // Based on https://www.wpgraphql.com/docs/menus/#hierarchical-data
   const hierarchicalMenuItems = flatListToHierarchical(menuItems)
   const menuName = menuItems[0]?.menu?.node?.name
 
@@ -23,18 +26,35 @@ export default function NavigationMenu({ menuItems, className }) {
         {items.map((item) => {
           const { id, path, label, children, cssClasses } = item
 
-          // @TODO - Remove guard clause after ghost menu items are no longer appended to array.
           if (!item.hasOwnProperty('__typename')) {
             return null
           }
 
+          const wpClasses = Array.isArray(cssClasses)
+            ? cssClasses
+            : cssClasses
+              ? [cssClasses]
+              : []
+
+          const customContent = renderCustomItem?.({
+            item,
+            wpClasses,
+          })
+
           return (
             <li key={id} className={cxFromWp(cssClasses)}>
-              {path && (
-                <Link href={path} className={cx('menu-item')}>
-                  {label ?? ''}
-                </Link>
+              {customContent ? (
+                customContent
+              ) : (
+                <>
+                  {path && (
+                    <Link href={path} className={cx('menu-item')}>
+                      {label ?? ''}
+                    </Link>
+                  )}
+                </>
               )}
+
               {children.length ? renderMenu(children) : null}
             </li>
           )
@@ -44,10 +64,7 @@ export default function NavigationMenu({ menuItems, className }) {
   }
 
   return (
-    <nav
-      className={cx(['component', className])}
-      role="navigation"
-    >
+    <nav className={cx(['component', className])} role="navigation">
       <ul className={cx('menu-name')}>{menuName}</ul>
       {renderMenu(hierarchicalMenuItems)}
     </nav>

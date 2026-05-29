@@ -30,8 +30,6 @@ export default function HCMenu(customClassName) {
 
   // Based on https://www.wpgraphql.com/docs/menus/#hierarchical-data
   const hierarchicalMenuItems = flatListToHierarchical(mainMenu)
-  const menuName = mainMenu[0]?.menu?.node?.name
-  const menuSlug = mainMenu[0]?.menu?.node?.slug
 
   // Loading state
   if (isLoading) {
@@ -106,13 +104,6 @@ export default function HCMenu(customClassName) {
     <div className={cx('component', customClassName?.customClassName)}>
       {/* Full menu */}
       <div className={cx('full-menu-content')}>
-        <div className={cx('hc-menu-header')}>
-          {menuName && menuSlug && (
-            <span className={cx('title-header-wrapper')}>
-              <Link href={menuSlug}>{menuName}</Link>
-            </span>
-          )}
-        </div>
         {renderMenu(hierarchicalMenuItems)}
       </div>
     </div>
