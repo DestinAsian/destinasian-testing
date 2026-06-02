@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '@/constants/menus'
+import { HEADER_NAV_INITIAL_STATE } from '@/constants/headerConfig'
 import { GetMenus } from '@/queries/GetMenus'
 import { GetLatestStories } from '@/queries/GetLatestStories'
 import { eb_garamond, poppins } from '@/styles/fonts/fonts'
@@ -10,9 +11,7 @@ import { GetCategoryPinPosts } from '@/queries/GetCategoryPinPosts'
 import dynamic from 'next/dynamic'
 
 // Import Components
-const CategoryHeader = dynamic(() =>
-  import('@/components/CategoryHeader/CategoryHeader'),
-)
+const Header = dynamic(() => import('@/components/Header/Header'))
 const CategorySecondaryHeader = dynamic(() =>
   import(
     '@/components/CategoryHeader/CategorySecondaryHeader/CategorySecondaryHeader'
@@ -52,13 +51,26 @@ export default function Component(props) {
   // Scrolled Function
   const [isScrolled, setIsScrolled] = useState(false)
   // NavShown Function
-  const [isSearchBarShown, setIsSearchBarShown] = useState(false)
-  const [isNavShown, setIsNavShown] = useState(false)
-  const [isGuidesNavShown, setIsGuidesNavShown] = useState(false)
-  const [isHCNavShown, setIsHCNavShown] = useState(false)
-  const [isCustomNavShown, setIsCustomNavShown] = useState(false)
-  const [isMagNavShown, setIsMagNavShown] = useState(false)
-  const [isBurgerNavShown, setIsBurgerNavShown] = useState(false)
+  const [isSearchBarShown, setIsSearchBarShown] = useState(
+    HEADER_NAV_INITIAL_STATE.isSearchBarShown,
+  )
+  const [isMagNavShown, setIsMagNavShown] = useState(
+    HEADER_NAV_INITIAL_STATE.isMagNavShown,
+  )
+  const [isGuidesNavShown, setIsGuidesNavShown] = useState(
+    HEADER_NAV_INITIAL_STATE.isGuidesNavShown,
+  )
+  const [isHCNavShown, setIsHCNavShown] = useState(
+    HEADER_NAV_INITIAL_STATE.isHCNavShown,
+  )
+  const [isCustomNavShown, setIsCustomNavShown] = useState(
+    HEADER_NAV_INITIAL_STATE.isCustomNavShown,
+  )
+  const [isBurgerNavShown, setIsBurgerNavShown] = useState(
+    HEADER_NAV_INITIAL_STATE.isBurgerNavShown,
+  )
+
+  const burgerButtonRef = useRef(null)
 
   // Stop scrolling pages when searchQuery
   useEffect(() => {
@@ -81,15 +93,6 @@ export default function Component(props) {
       window.removeEventListener('scroll', handleScroll)
     }
   }, [])
-
-  // Stop scrolling pages when isNavShown
-  useEffect(() => {
-    if (isNavShown) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'visible'
-    }
-  }, [isNavShown])
 
   // Stop scrolling pages when isSearchBarShown
   useEffect(() => {
@@ -178,7 +181,11 @@ export default function Component(props) {
   }
 
   // Get Category
-  const { data, loading, error: categoryError } = useQuery(GetSecondaryHeader, {
+  const {
+    data,
+    loading,
+    error: categoryError,
+  } = useQuery(GetSecondaryHeader, {
     variables: catVariable,
     fetchPolicy: 'cache-and-network',
     nextFetchPolicy: 'network-only',
@@ -199,7 +206,11 @@ export default function Component(props) {
       data?.category?.parent != undefined)
 
   // Get menus
-  const { data: menusData, loading: menusLoading, error: menusError } = useQuery(GetMenus, {
+  const {
+    data: menusData,
+    loading: menusLoading,
+    error: menusError,
+  } = useQuery(GetMenus, {
     variables: {
       first: 30,
       headerLocation: MENUS.PRIMARY_LOCATION,
@@ -226,13 +237,16 @@ export default function Component(props) {
   const featureMenu = menusData?.featureHeaderMenuItems?.nodes ?? []
 
   // Get pin posts stories
-  const { data: pinPostsStories, error: pinPostsError } = useQuery(GetCategoryPinPosts, {
-    variables: {
-      id: databaseId,
+  const { data: pinPostsStories, error: pinPostsError } = useQuery(
+    GetCategoryPinPosts,
+    {
+      variables: {
+        id: databaseId,
+      },
+      fetchPolicy: 'cache-and-network',
+      nextFetchPolicy: 'network-only',
     },
-    fetchPolicy: 'cache-and-network',
-    nextFetchPolicy: 'network-only',
-  })
+  )
 
   if (pinPostsError) {
     console.error('[Category Pin Posts Error]', pinPostsError)
@@ -242,16 +256,17 @@ export default function Component(props) {
   const pinPosts = pinPostsStories?.category?.pinPosts ?? []
 
   // Get latest travel stories
-  const { data: latestStories, loading: latestLoading, error: latestStoriesError } = useQuery(
-    GetLatestStories,
-    {
-      variables: {
-        first: 5,
-      },
-      fetchPolicy: 'cache-and-network',
-      nextFetchPolicy: 'network-only',
+  const {
+    data: latestStories,
+    loading: latestLoading,
+    error: latestStoriesError,
+  } = useQuery(GetLatestStories, {
+    variables: {
+      first: 5,
     },
-  )
+    fetchPolicy: 'cache-and-network',
+    nextFetchPolicy: 'network-only',
+  })
 
   if (latestStoriesError) {
     console.error('[Category Latest Stories Error]', latestStoriesError)
@@ -354,77 +369,53 @@ export default function Component(props) {
 
   return (
     <main className={`${eb_garamond.variable} ${poppins.variable}`}>
-      <CategoryHeader isScrolled={isScrolled} />
-      {/* Guides category */}
-      {isGuidesCategory && (
-        <CategorySecondaryHeader
-          data={data}
-          databaseId={databaseId}
-          name={name}
-          parent={parent?.node?.name}
-          countryCode={countryCode?.countryCode}
-          parentCountryCode={parent?.node?.countryCode?.countryCode}
-          primaryMenuItems={primaryMenu}
-          secondaryMenuItems={secondaryMenu}
-          thirdMenuItems={thirdMenu}
-          fourthMenuItems={fourthMenu}
-          fifthMenuItems={fifthMenu}
-          featureMenuItems={featureMenu}
-          latestStories={latestAllPosts}
-          menusLoading={menusLoading}
-          latestLoading={latestLoading}
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-          rcaDatabaseId={rcaDatabaseId}
-          rcaUri={rcaUri}
-          isSearchBarShown={isSearchBarShown}
-          setIsSearchBarShown={setIsSearchBarShown}
-          isMagNavShown={isMagNavShown}
-          setIsMagNavShown={setIsMagNavShown}
-          isGuidesNavShown={isGuidesNavShown}
-          setIsGuidesNavShown={setIsGuidesNavShown}
-          isHCNavShown={isHCNavShown}
-          setIsHCNavShown={setIsHCNavShown}
-          isCustomNavShown={isCustomNavShown}
-          setIsCustomNavShown={setIsCustomNavShown}
-          isBurgerNavShown={isBurgerNavShown}
-          setIsBurgerNavShown={setIsBurgerNavShown}
-          isScrolled={isScrolled}
-          customClassName={'category'}
-        />
-      )}
-      {/* Another category */}
-      {!isGuidesCategory && (
-        <SecondaryHeader
-          primaryMenuItems={primaryMenu}
-          secondaryMenuItems={secondaryMenu}
-          thirdMenuItems={thirdMenu}
-          fourthMenuItems={fourthMenu}
-          fifthMenuItems={fifthMenu}
-          featureMenuItems={featureMenu}
-          latestStories={latestAllPosts}
-          menusLoading={menusLoading}
-          latestLoading={latestLoading}
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-          rcaDatabaseId={rcaDatabaseId}
-          rcaUri={rcaUri}
-          isSearchBarShown={isSearchBarShown}
-          setIsSearchBarShown={setIsSearchBarShown}
-          isMagNavShown={isMagNavShown}
-          setIsMagNavShown={setIsMagNavShown}
-          isGuidesNavShown={isGuidesNavShown}
-          setIsGuidesNavShown={setIsGuidesNavShown}
-          isHCNavShown={isHCNavShown}
-          setIsHCNavShown={setIsHCNavShown}
-          isCustomNavShown={isCustomNavShown}
-          setIsCustomNavShown={setIsCustomNavShown}
-          isBurgerNavShown={isBurgerNavShown}
-          setIsBurgerNavShown={setIsBurgerNavShown}
-          isScrolled={isScrolled}
-          customClassName={'category'}
-        />
-      )}
+      <Header
+        isScrolled={isScrolled}
+        isBurgerNavShown={isBurgerNavShown}
+        setIsBurgerNavShown={setIsBurgerNavShown}
+        isSearchBarShown={isSearchBarShown}
+        setIsSearchBarShown={setIsSearchBarShown}
+        isGuidesNavShown={isGuidesNavShown}
+        setIsGuidesNavShown={setIsGuidesNavShown}
+        isMagNavShown={isMagNavShown}
+        setIsMagNavShown={setIsMagNavShown}
+        isCustomNavShown={isCustomNavShown}
+        setIsCustomNavShown={setIsCustomNavShown}
+        isHCNavShown={isHCNavShown}
+        setIsHCNavShown={setIsHCNavShown}
+        setSearchQuery={setSearchQuery}
+        burgerButtonRef={burgerButtonRef}
+      />
+      <SecondaryHeader
+        primaryMenuItems={primaryMenu}
+        secondaryMenuItems={secondaryMenu}
+        thirdMenuItems={thirdMenu}
+        fourthMenuItems={fourthMenu}
+        fifthMenuItems={fifthMenu}
+        featureMenuItems={featureMenu}
+        latestStories={latestAllPosts}
+        menusLoading={menusLoading}
+        latestLoading={latestLoading}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        rcaDatabaseId={rcaDatabaseId}
+        rcaUri={rcaUri}
+        isSearchBarShown={isSearchBarShown}
+        setIsSearchBarShown={setIsSearchBarShown}
+        isMagNavShown={isMagNavShown}
+        setIsMagNavShown={setIsMagNavShown}
+        isGuidesNavShown={isGuidesNavShown}
+        setIsGuidesNavShown={setIsGuidesNavShown}
+        isHCNavShown={isHCNavShown}
+        setIsHCNavShown={setIsHCNavShown}
+        isCustomNavShown={isCustomNavShown}
+        setIsCustomNavShown={setIsCustomNavShown}
+        isBurgerNavShown={isBurgerNavShown}
+        setIsBurgerNavShown={setIsBurgerNavShown}
+        isScrolled={isScrolled}
+        customClassName={'category'}
+        burgerButtonRef={burgerButtonRef}
+      />
       {/* EntryHeader category name */}
       <CategoryEntryHeader
         parent={parent?.node?.name}
@@ -449,7 +440,7 @@ export default function Component(props) {
           />
         </>
       </Main>
-      <Footer  />
+      <Footer />
     </main>
   )
 }

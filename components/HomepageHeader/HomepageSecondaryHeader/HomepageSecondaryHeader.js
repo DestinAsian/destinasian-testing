@@ -4,12 +4,13 @@ import { useRef, useMemo, useState, useEffect } from 'react'
 import { useClickOutside } from '@/constants/useClickOutside'
 import { CUSTOM_DATABASE_ID } from '@/constants/customDatabaseId'
 import { HEADER_REF_KEYS } from '@/constants/headerConfig'
+import { WEDDING_SLUG } from '@/constants/weddingSlug'
 import { GetSearchResults } from '@/queries/GetSearchResults'
 import { GetLatestPartnerContent } from '@/queries/GetLatestPartnerContent'
 import { FaSearch } from 'react-icons/fa'
 import dynamic from 'next/dynamic'
-import { useSWRGraphQL } from '@/lib/useSWRGraphQL'
 import Link from 'next/link'
+import { useSWRGraphQL } from '@/lib/useSWRGraphQL'
 // Import Components
 const SearchInput = dynamic(() =>
   import('@/components/SearchInput/SearchInput'),
@@ -22,9 +23,6 @@ const NavigationMenu = dynamic(() =>
 )
 const RCAFullMenu = dynamic(() =>
   import('@/components/RCAFullMenu/RCAFullMenu'),
-)
-const TravelGuidesMenu = dynamic(() =>
-  import('@/components/TravelGuidesMenu/TravelGuidesMenu'),
 )
 const HCMenu = dynamic(() => import('@/components/HCMenu/HCMenu'))
 const BurgerFullMenu = dynamic(() =>
@@ -41,7 +39,6 @@ export default function HomepageSecondaryHeader({
   fifthMenuItems,
   featureMenuItems,
   latestStories,
-  menusLoading,
   latestLoading,
   searchQuery,
   setSearchQuery,
@@ -279,9 +276,7 @@ export default function HomepageSecondaryHeader({
           </button>
           {/* Weddings Button */}
           <Link
-            href={
-              '/luxury-travel/spotlight/the-best-places-in-asia-to-host-your-wedding'
-            }
+            href={WEDDING_SLUG}
             target="_blank"
             className={cx(
               'desktop-menu-button',
@@ -394,7 +389,6 @@ export default function HomepageSecondaryHeader({
           fifthMenuItems={fifthMenuItems}
           featureMenuItems={featureMenuItems}
           latestStories={latestStories}
-          // menusLoading={menusLoading}
           latestLoading={latestLoading}
           latestPartnerContent={allPartnerContents}
           latestPartnerContentLoading={latestPartnerContentLoading}

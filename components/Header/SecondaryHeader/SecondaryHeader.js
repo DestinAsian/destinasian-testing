@@ -3,10 +3,13 @@ import styles from './SecondaryHeader.module.scss'
 import { useRef, useMemo, useState, useEffect } from 'react'
 import { useClickOutside } from '@/constants/useClickOutside'
 import { CUSTOM_DATABASE_ID } from '@/constants/customDatabaseId'
+import { HEADER_REF_KEYS } from '@/constants/headerConfig'
+import { WEDDING_SLUG } from '@/constants/weddingSlug'
 import { GetSearchResults } from '@/queries/GetSearchResults'
 import { GetLatestPartnerContent } from '@/queries/GetLatestPartnerContent'
 import { FaSearch } from 'react-icons/fa'
 import dynamic from 'next/dynamic'
+import Link from 'next/link'
 import { useSWRGraphQL } from '@/lib/useSWRGraphQL'
 // Import Components
 const SearchInput = dynamic(() =>
@@ -20,9 +23,6 @@ const NavigationMenu = dynamic(() =>
 )
 const RCAFullMenu = dynamic(() =>
   import('@/components/RCAFullMenu/RCAFullMenu'),
-)
-const TravelGuidesMenu = dynamic(() =>
-  import('@/components/TravelGuidesMenu/TravelGuidesMenu'),
 )
 const HCMenu = dynamic(() => import('@/components/HCMenu/HCMenu'))
 const BurgerFullMenu = dynamic(() =>
@@ -39,7 +39,6 @@ export default function SecondaryHeader({
   fifthMenuItems,
   featureMenuItems,
   latestStories,
-  menusLoading,
   latestLoading,
   searchQuery,
   setSearchQuery,
@@ -57,6 +56,7 @@ export default function SecondaryHeader({
   setIsBurgerNavShown,
   isScrolled,
   customClassName,
+  burgerButtonRef,
 }) {
   // Posts for Search Function
   const postsPerPage = 200
@@ -72,13 +72,25 @@ export default function SecondaryHeader({
     setSearchQuery('') // Reset the search query
   }
 
-  const searchRef = useRef(null)
-  const guidesRef = useRef(null)
-  const magazineRef = useRef(null)
-  const customRef = useRef(null)
-  const hcRef = useRef(null)
-  const burgerRef = useRef(null)
-  const menuRef = useRef(null)
+  const refs = {
+    [HEADER_REF_KEYS.SEARCH]: useRef(null),
+    [HEADER_REF_KEYS.GUIDES]: useRef(null),
+    [HEADER_REF_KEYS.MAGAZINE]: useRef(null),
+    [HEADER_REF_KEYS.CUSTOM]: useRef(null),
+    [HEADER_REF_KEYS.HC]: useRef(null),
+    [HEADER_REF_KEYS.BURGER]: useRef(null),
+    [HEADER_REF_KEYS.MENU]: useRef(null),
+  }
+
+  const {
+    searchRef,
+    guidesRef,
+    magazineRef,
+    customRef,
+    hcRef,
+    burgerRef,
+    menuRef,
+  } = refs
 
   // Close handlers
   useClickOutside(searchRef, () => setIsSearchBarShown(false), [menuRef])
@@ -86,7 +98,10 @@ export default function SecondaryHeader({
   useClickOutside(magazineRef, () => setIsMagNavShown(false), [menuRef])
   useClickOutside(customRef, () => setIsCustomNavShown(false), [menuRef])
   useClickOutside(hcRef, () => setIsHCNavShown(false), [menuRef])
-  useClickOutside(burgerRef, () => setIsBurgerNavShown(false), [menuRef])
+  useClickOutside(burgerRef, () => setIsBurgerNavShown(false), [
+    menuRef,
+    burgerButtonRef,
+  ])
 
   // Add search query function
   const swrKey = searchQuery ? ['search-results', searchQuery, year] : null
@@ -220,20 +235,24 @@ export default function SecondaryHeader({
           {/* Guides Button */}
           <button
             type="button"
-            className={cx('menu-button', isGuidesNavShown ? 'active' : '')}
+            className={cx(
+              'menu-button',
+              isGuidesNavShown ? 'active' : '',
+              isGuidesNavShown && !isScrolled && 'active-not-scrolled',
+            )}
             onClick={() => {
               setIsGuidesNavShown(!isGuidesNavShown)
-              isMagNavShown ? setIsMagNavShown(!isMagNavShown) : null
-              isCustomNavShown ? setIsCustomNavShown(!isCustomNavShown) : null
               isSearchBarShown ? setIsSearchBarShown(!isSearchBarShown) : null
+              isMagNavShown ? setIsMagNavShown(!isMagNavShown) : null
               isHCNavShown ? setIsHCNavShown(!isHCNavShown) : null
+              isCustomNavShown ? setIsCustomNavShown(!isCustomNavShown) : null
               isBurgerNavShown ? setIsBurgerNavShown(!isBurgerNavShown) : null
               setSearchQuery('')
             }}
-            aria-controls={cx('full-menu-content')}
+            aria-controls={cx('rca-menu-wrapper')}
             aria-expanded={!isCustomNavShown}
           >
-            <div className={cx('menu-title')}>{`Guides`}</div>
+            <div className={cx('menu-title')}>{`Destinations`}</div>
           </button>
           {/* Honors Circle Button */}
           <button
@@ -257,40 +276,17 @@ export default function SecondaryHeader({
           >
             <div className={cx('menu-title')}>{'Honors Circle'}</div>
           </button>
-          {/* Burger Button */}
-          <button
-            type="button"
+          {/* Weddings Button */}
+          <Link
+            href={WEDDING_SLUG}
+            target="_blank"
             className={cx(
-              'burger-menu-button',
-              isBurgerNavShown ? 'active' : '',
-              isBurgerNavShown && !isScrolled && 'active-not-scrolled',
+              'desktop-menu-button',
+              !isScrolled && 'active-not-scrolled',
             )}
-            onClick={() => {
-              setIsBurgerNavShown(!isBurgerNavShown)
-              isSearchBarShown ? setIsSearchBarShown(!isSearchBarShown) : null
-              isGuidesNavShown ? setIsGuidesNavShown(!isGuidesNavShown) : null
-              isHCNavShown ? setIsHCNavShown(!isHCNavShown) : null
-              isCustomNavShown ? setIsCustomNavShown(!isCustomNavShown) : null
-              isMagNavShown ? setIsMagNavShown(!isMagNavShown) : null
-              setSearchQuery('')
-            }}
-            aria-controls={cx('burger-bar-wrapper')}
-            aria-expanded={!isCustomNavShown}
           >
-            <div className={cx('burger-icon')}>
-              <svg
-                width="28"
-                height="23"
-                viewBox="0 0 28 23"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect width="28" height="5" fill="#000000" />
-                <rect y="9" width="28" height="5" fill="#000000" />
-                <rect y="18" width="28" height="5" fill="#000000" />
-              </svg>
-            </div>
-          </button>
+            {'WEDDINGS'}
+          </Link>
         </div>
       </div>
 
@@ -351,7 +347,10 @@ export default function SecondaryHeader({
         )}
       >
         <div ref={guidesRef} className={cx('full-menu-wrapper')}>
-          <TravelGuidesMenu />
+          <NavigationMenu
+            className={cx('primary-navigation')}
+            menuItems={primaryMenuItems}
+          />
         </div>
       </div>
       {/* RCA Menu */}
@@ -399,7 +398,6 @@ export default function SecondaryHeader({
           fifthMenuItems={fifthMenuItems}
           featureMenuItems={featureMenuItems}
           latestStories={latestStories}
-          menusLoading={menusLoading}
           latestLoading={latestLoading}
           latestPartnerContent={allPartnerContents}
           latestPartnerContentLoading={latestPartnerContentLoading}

@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '@/constants/menus'
+import { HEADER_NAV_INITIAL_STATE } from '@/constants/headerConfig'
 import { GetMenus } from '@/queries/GetMenus'
 import { GetLatestStories } from '@/queries/GetLatestStories'
 import { eb_garamond, poppins, rubik } from '@/styles/fonts/fonts'
@@ -53,13 +54,26 @@ export default function Component(props) {
   // Scrolled Function
   const [isScrolled, setIsScrolled] = useState(false)
   // NavShown Function
-  const [isSearchBarShown, setIsSearchBarShown] = useState(false)
-  const [isNavShown, setIsNavShown] = useState(false)
-  const [isMagNavShown, setIsMagNavShown] = useState(false)
-  const [isGuidesNavShown, setIsGuidesNavShown] = useState(false)
-  const [isHCNavShown, setIsHCNavShown] = useState(false)
-  const [isCustomNavShown, setIsCustomNavShown] = useState(false)
-  const [isBurgerNavShown, setIsBurgerNavShown] = useState(false)
+  const [isSearchBarShown, setIsSearchBarShown] = useState(
+    HEADER_NAV_INITIAL_STATE.isSearchBarShown,
+  )
+  const [isMagNavShown, setIsMagNavShown] = useState(
+    HEADER_NAV_INITIAL_STATE.isMagNavShown,
+  )
+  const [isGuidesNavShown, setIsGuidesNavShown] = useState(
+    HEADER_NAV_INITIAL_STATE.isGuidesNavShown,
+  )
+  const [isHCNavShown, setIsHCNavShown] = useState(
+    HEADER_NAV_INITIAL_STATE.isHCNavShown,
+  )
+  const [isCustomNavShown, setIsCustomNavShown] = useState(
+    HEADER_NAV_INITIAL_STATE.isCustomNavShown,
+  )
+  const [isBurgerNavShown, setIsBurgerNavShown] = useState(
+    HEADER_NAV_INITIAL_STATE.isBurgerNavShown,
+  )
+
+  const burgerButtonRef = useRef(null)
 
   // Stop scrolling pages when searchQuery
   useEffect(() => {
@@ -100,15 +114,6 @@ export default function Component(props) {
       document.body.style.overflow = 'visible'
     }
   }, [isMagNavShown])
-
-  // Stop scrolling pages when isNavShown
-  useEffect(() => {
-    if (isNavShown) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'visible'
-    }
-  }, [isNavShown])
 
   // Stop scrolling pages when isHCNavShown
   useEffect(() => {
@@ -307,7 +312,23 @@ export default function Component(props) {
 
   return (
     <main className={`${eb_garamond.variable} ${poppins.variable}`}>
-      <Header isScrolled={isScrolled} />
+      <Header
+        isScrolled={isScrolled}
+        isBurgerNavShown={isBurgerNavShown}
+        setIsBurgerNavShown={setIsBurgerNavShown}
+        isSearchBarShown={isSearchBarShown}
+        setIsSearchBarShown={setIsSearchBarShown}
+        isGuidesNavShown={isGuidesNavShown}
+        setIsGuidesNavShown={setIsGuidesNavShown}
+        isMagNavShown={isMagNavShown}
+        setIsMagNavShown={setIsMagNavShown}
+        isCustomNavShown={isCustomNavShown}
+        setIsCustomNavShown={setIsCustomNavShown}
+        isHCNavShown={isHCNavShown}
+        setIsHCNavShown={setIsHCNavShown}
+        setSearchQuery={setSearchQuery}
+        burgerButtonRef={burgerButtonRef}
+      />
       <SecondaryHeader
         primaryMenuItems={primaryMenu}
         secondaryMenuItems={secondaryMenu}
@@ -335,6 +356,7 @@ export default function Component(props) {
         isBurgerNavShown={isBurgerNavShown}
         setIsBurgerNavShown={setIsBurgerNavShown}
         isScrolled={isScrolled}
+        burgerButtonRef={burgerButtonRef}
       />
       <Main>
         <>

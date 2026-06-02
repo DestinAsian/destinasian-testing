@@ -1,6 +1,7 @@
 import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '@/constants/menus'
-import React, { useEffect, useState } from 'react'
+import { HEADER_NAV_INITIAL_STATE } from '@/constants/headerConfig'
+import React, { useEffect, useState, useRef } from 'react'
 import { GetMenus } from '@/queries/GetMenus'
 import { GetLatestStories } from '@/queries/GetLatestStories'
 import { eb_garamond, poppins, rubik } from '@/styles/fonts/fonts'
@@ -9,13 +10,9 @@ import Cookies from 'js-cookie'
 import { GetSecondaryHeader } from '@/queries/GetSecondaryHeader'
 import dynamic from 'next/dynamic'
 // Import Components
-const SingleHeader = dynamic(() =>
-  import('@/components/SingleHeader/SingleHeader'),
-)
-const CategorySecondaryHeader = dynamic(() =>
-  import(
-    '@/components/CategoryHeader/CategorySecondaryHeader/CategorySecondaryHeader'
-  ),
+const Header = dynamic(() => import('@/components/Header/Header'))
+const SecondaryHeader = dynamic(() =>
+  import('@/components/Header/SecondaryHeader/SecondaryHeader'),
 )
 const SingleEntryHeader = dynamic(() =>
   import('@/components/SingleEntryHeader/SingleEntryHeader'),
@@ -80,13 +77,26 @@ export default function Component(props) {
   // Scrolled Function
   const [isScrolled, setIsScrolled] = useState(false)
   // NavShown Function
-  const [isSearchBarShown, setIsSearchBarShown] = useState(false)
-  const [isNavShown, setIsNavShown] = useState(false)
-  const [isGuidesNavShown, setIsGuidesNavShown] = useState(false)
-  const [isHCNavShown, setIsHCNavShown] = useState(false)
-  const [isCustomNavShown, setIsCustomNavShown] = useState(false)
-  const [isMagNavShown, setIsMagNavShown] = useState(false)
-  const [isBurgerNavShown, setIsBurgerNavShown] = useState(false)
+  const [isSearchBarShown, setIsSearchBarShown] = useState(
+    HEADER_NAV_INITIAL_STATE.isSearchBarShown,
+  )
+  const [isMagNavShown, setIsMagNavShown] = useState(
+    HEADER_NAV_INITIAL_STATE.isMagNavShown,
+  )
+  const [isGuidesNavShown, setIsGuidesNavShown] = useState(
+    HEADER_NAV_INITIAL_STATE.isGuidesNavShown,
+  )
+  const [isHCNavShown, setIsHCNavShown] = useState(
+    HEADER_NAV_INITIAL_STATE.isHCNavShown,
+  )
+  const [isCustomNavShown, setIsCustomNavShown] = useState(
+    HEADER_NAV_INITIAL_STATE.isCustomNavShown,
+  )
+  const [isBurgerNavShown, setIsBurgerNavShown] = useState(
+    HEADER_NAV_INITIAL_STATE.isBurgerNavShown,
+  )
+
+  const burgerButtonRef = useRef(null)
 
   // Stop scrolling pages when searchQuery
   useEffect(() => {
@@ -109,15 +119,6 @@ export default function Component(props) {
       window.removeEventListener('scroll', handleScroll)
     }
   }, [])
-
-  // Stop scrolling pages when isNavShown
-  useEffect(() => {
-    if (isNavShown) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'visible'
-    }
-  }, [isNavShown])
 
   // Stop scrolling pages when isSearchBarShown
   useEffect(() => {
@@ -355,15 +356,24 @@ export default function Component(props) {
 
   return (
     <main className={`${eb_garamond.variable} ${poppins.variable}`}>
-      <SingleHeader isScrolled={isScrolled} />
-      <CategorySecondaryHeader
-        data={data}
-        databaseId={databaseId}
-        categoryUri={categories[0]?.node?.uri}
-        parentCategory={categories[0]?.node?.parent?.node?.name}
-        categoryCountryCode={
-          categories[0]?.node?.parent?.node?.countryCode?.countryCode
-        }
+      <Header
+        isScrolled={isScrolled}
+        isBurgerNavShown={isBurgerNavShown}
+        setIsBurgerNavShown={setIsBurgerNavShown}
+        isSearchBarShown={isSearchBarShown}
+        setIsSearchBarShown={setIsSearchBarShown}
+        isGuidesNavShown={isGuidesNavShown}
+        setIsGuidesNavShown={setIsGuidesNavShown}
+        isMagNavShown={isMagNavShown}
+        setIsMagNavShown={setIsMagNavShown}
+        isCustomNavShown={isCustomNavShown}
+        setIsCustomNavShown={setIsCustomNavShown}
+        isHCNavShown={isHCNavShown}
+        setIsHCNavShown={setIsHCNavShown}
+        setSearchQuery={setSearchQuery}
+        burgerButtonRef={burgerButtonRef}
+      />
+      <SecondaryHeader
         primaryMenuItems={primaryMenu}
         secondaryMenuItems={secondaryMenu}
         thirdMenuItems={thirdMenu}
@@ -391,6 +401,7 @@ export default function Component(props) {
         setIsBurgerNavShown={setIsBurgerNavShown}
         isScrolled={isScrolled}
         customClassName={'category'}
+        burgerButtonRef={burgerButtonRef}
       />
       <Main>
         <>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import * as MENUS from '@/constants/menus'
+import { HEADER_NAV_INITIAL_STATE } from '@/constants/headerConfig'
 import { GetMenus } from '@/queries/GetMenus'
 import { GetLatestStories } from '@/queries/GetLatestStories'
 import { eb_garamond, poppins, rubik } from '@/styles/fonts/fonts'
@@ -66,14 +67,28 @@ export default function Component(props) {
   // Scrolled Function
   const [isScrolled, setIsScrolled] = useState(false)
   // NavShown Function
-  const [isSearchBarShown, setIsSearchBarShown] = useState(false)
   const [isNavShown, setIsNavShown] = useState(false)
   const [isTGNavShown, setIsTGNavShown] = useState(false)
-  const [isGuidesNavShown, setIsGuidesNavShown] = useState(false)
-  const [isHCNavShown, setIsHCNavShown] = useState(false)
-  const [isCustomNavShown, setIsCustomNavShown] = useState(false)
-  const [isMagNavShown, setIsMagNavShown] = useState(false)
-  const [isBurgerNavShown, setIsBurgerNavShown] = useState(false)
+  const [isSearchBarShown, setIsSearchBarShown] = useState(
+    HEADER_NAV_INITIAL_STATE.isSearchBarShown,
+  )
+  const [isMagNavShown, setIsMagNavShown] = useState(
+    HEADER_NAV_INITIAL_STATE.isMagNavShown,
+  )
+  const [isGuidesNavShown, setIsGuidesNavShown] = useState(
+    HEADER_NAV_INITIAL_STATE.isGuidesNavShown,
+  )
+  const [isHCNavShown, setIsHCNavShown] = useState(
+    HEADER_NAV_INITIAL_STATE.isHCNavShown,
+  )
+  const [isCustomNavShown, setIsCustomNavShown] = useState(
+    HEADER_NAV_INITIAL_STATE.isCustomNavShown,
+  )
+  const [isBurgerNavShown, setIsBurgerNavShown] = useState(
+    HEADER_NAV_INITIAL_STATE.isBurgerNavShown,
+  )
+
+  const burgerButtonRef = useRef(null)
 
   // Slider Autoplay state
   const sliderTG = useRef(null)
@@ -322,6 +337,20 @@ export default function Component(props) {
         setIsNavShown={setIsNavShown}
         isScrolled={isScrolled}
         customClassName={'travel-guide'}
+        isBurgerNavShown={isBurgerNavShown}
+        setIsBurgerNavShown={setIsBurgerNavShown}
+        isSearchBarShown={isSearchBarShown}
+        setIsSearchBarShown={setIsSearchBarShown}
+        isGuidesNavShown={isGuidesNavShown}
+        setIsGuidesNavShown={setIsGuidesNavShown}
+        isMagNavShown={isMagNavShown}
+        setIsMagNavShown={setIsMagNavShown}
+        isCustomNavShown={isCustomNavShown}
+        setIsCustomNavShown={setIsCustomNavShown}
+        isHCNavShown={isHCNavShown}
+        setIsHCNavShown={setIsHCNavShown}
+        setSearchQuery={setSearchQuery}
+        burgerButtonRef={burgerButtonRef}
       />
       <SecondaryHeader
         primaryMenuItems={primaryMenu}
@@ -351,6 +380,7 @@ export default function Component(props) {
         setIsBurgerNavShown={setIsBurgerNavShown}
         isScrolled={isScrolled}
         customClassName={'travel-guide'}
+        burgerButtonRef={burgerButtonRef}
       />
       <Main>
         <>
