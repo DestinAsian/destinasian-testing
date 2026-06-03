@@ -4,7 +4,7 @@ import * as MENUS from '@/constants/menus'
 import { HEADER_NAV_INITIAL_STATE } from '@/constants/headerConfig'
 import { GetMenus } from '@/queries/GetMenus'
 import { GetLatestStories } from '@/queries/GetLatestStories'
-import { eb_garamond, poppins } from '@/styles/fonts/fonts'
+import {  poppins } from '@/styles/fonts/fonts'
 import { GetLatestRCA } from '@/queries/GetLatestRCA'
 import { GetSecondaryHeader } from '@/queries/GetSecondaryHeader'
 import { GetCategoryPinPosts } from '@/queries/GetCategoryPinPosts'
@@ -368,7 +368,7 @@ export default function Component(props) {
   }
 
   return (
-    <main className={`${eb_garamond.variable} ${poppins.variable}`}>
+    <main className={`${poppins.variable}`}>
       <Header
         isScrolled={isScrolled}
         isBurgerNavShown={isBurgerNavShown}

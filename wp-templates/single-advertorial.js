@@ -4,7 +4,7 @@ import * as MENUS from '@/constants/menus'
 import { HEADER_NAV_INITIAL_STATE } from '@/constants/headerConfig'
 import { GetMenus } from '@/queries/GetMenus'
 import { GetLatestStories } from '@/queries/GetLatestStories'
-import { eb_garamond, poppins, rubik } from '@/styles/fonts/fonts'
+import { poppins, rubik } from '@/styles/fonts/fonts'
 import Cookies from 'js-cookie'
 import { GetLatestRCA } from '@/queries/GetLatestRCA'
 import dynamic from 'next/dynamic'
@@ -291,9 +291,7 @@ export default function Component(props) {
 
   if (passwordProtected?.onOff && !isAuthenticated) {
     return (
-      <main
-        className={`${eb_garamond.variable} ${poppins.variable} ${rubik.variable}`}
-      >
+      <main className={`${poppins.variable} ${rubik.variable}`}>
         <form onSubmit={handlePasswordSubmit}>
           <PasswordProtected
             enteredPassword={enteredPassword}
@@ -310,7 +308,7 @@ export default function Component(props) {
   }
 
   return (
-    <main className={`${eb_garamond.variable} ${poppins.variable}`}>
+    <main className={`${poppins.variable}`}>
       <Header
         isScrolled={isScrolled}
         isBurgerNavShown={isBurgerNavShown}
@@ -326,6 +324,7 @@ export default function Component(props) {
         isHCNavShown={isHCNavShown}
         setIsHCNavShown={setIsHCNavShown}
         setSearchQuery={setSearchQuery}
+        customClassName={'advertorial'}
         burgerButtonRef={burgerButtonRef}
       />
       <SecondaryHeader
@@ -355,6 +354,7 @@ export default function Component(props) {
         isBurgerNavShown={isBurgerNavShown}
         setIsBurgerNavShown={setIsBurgerNavShown}
         isScrolled={isScrolled}
+        customClassName={'advertorial'}
         burgerButtonRef={burgerButtonRef}
       />
       <Main className="mt-[-0.75rem] sm:mt-[-1rem]">

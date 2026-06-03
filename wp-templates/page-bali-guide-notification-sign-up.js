@@ -7,7 +7,7 @@ import { HEADER_NAV_INITIAL_STATE } from '@/constants/headerConfig'
 import { HeaderFooterVisibilityFragment } from '@/fragments/HeaderFooterVisibility'
 import { GetMenus } from '@/queries/GetMenus'
 import { GetLatestStories } from '@/queries/GetLatestStories'
-import { eb_garamond, poppins, rubik } from '@/styles/fonts/fonts'
+import { poppins, rubik } from '@/styles/fonts/fonts'
 import Cookies from 'js-cookie'
 import { GetLatestRCA } from '@/queries/GetLatestRCA'
 import NewsletterFormPages from '@/components/NewsletterMailerLite/NewsletterFormPages'
@@ -312,9 +312,7 @@ export default function Component(props) {
 
   if (passwordProtected?.onOff && !isAuthenticated) {
     return (
-      <main
-        className={`${eb_garamond.variable} ${poppins.variable} ${rubik.variable}`}
-      >
+      <main className={`${poppins.variable} ${rubik.variable}`}>
         <form onSubmit={handlePasswordSubmit}>
           <PasswordProtected
             enteredPassword={enteredPassword}
@@ -331,7 +329,7 @@ export default function Component(props) {
   }
 
   return (
-    <main className={`${eb_garamond.variable} ${poppins.variable}`}>
+    <main className={`${poppins.variable}`}>
       <Header
         isScrolled={isScrolled}
         isBurgerNavShown={isBurgerNavShown}

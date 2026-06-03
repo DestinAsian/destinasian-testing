@@ -4,7 +4,7 @@ import * as MENUS from '@/constants/menus'
 import { HEADER_NAV_INITIAL_STATE } from '@/constants/headerConfig'
 import { GetMenus } from '@/queries/GetMenus'
 import { GetLatestStories } from '@/queries/GetLatestStories'
-import { eb_garamond, poppins } from '@/styles/fonts/fonts'
+import { poppins } from '@/styles/fonts/fonts'
 import { GetHomepagePinPosts } from '@/queries/GetHomepagePinPosts'
 import { GetLatestRCA } from '@/queries/GetLatestRCA'
 import dynamic from 'next/dynamic'
@@ -289,7 +289,7 @@ export default function Component(props) {
   const allPosts = mainCatPosts.sort(sortPostsByDate)
 
   return (
-    <main className={`${eb_garamond.variable} ${poppins.variable}`}>
+    <main className={`${poppins.variable}`}>
       <HomepageHeader
         isScrolled={isScrolled}
         isBurgerNavShown={isBurgerNavShown}

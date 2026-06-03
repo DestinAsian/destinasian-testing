@@ -526,6 +526,12 @@
   background-color: var(--wpe--color--deep--black);
 }
 
+.full-menu-content.travel-guide,
+.full-menu-content.advertorial,
+.full-menu-content.honors-circle {
+  background-color: var(--wpe--color--light--yellow);
+}
+
 .dark-color {
   .menu-wrapper {
     background-color: var(--wpe--color--deep--black);

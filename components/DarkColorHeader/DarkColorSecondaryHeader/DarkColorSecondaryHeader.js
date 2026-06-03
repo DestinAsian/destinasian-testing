@@ -389,17 +389,11 @@ export default function DarkColorSecondaryHeader({
         ])}
       >
         <BurgerFullMenu
-          primaryMenuItems={primaryMenuItems}
           secondaryMenuItems={secondaryMenuItems}
-          thirdMenuItems={thirdMenuItems}
-          fourthMenuItems={fourthMenuItems}
           fifthMenuItems={fifthMenuItems}
           featureMenuItems={featureMenuItems}
           latestStories={latestStories}
           menusLoading={menusLoading}
-          latestLoading={latestLoading}
-          latestPartnerContent={allPartnerContents}
-          latestPartnerContentLoading={latestPartnerContentLoading}
           customClassName={'dark-color'}
           burgerRef={burgerRef}
         />

@@ -13,15 +13,10 @@ const NavigationMenu = dynamic(() =>
 let cx = classNames.bind(styles)
 
 export default function BurgerFullMenu({
-  primaryMenuItems,
   secondaryMenuItems,
-  thirdMenuItems,
-  fourthMenuItems,
   fifthMenuItems,
   featureMenuItems,
   menusLoading,
-  latestPartnerContent,
-  latestPartnerContentLoading,
   isSearchResultsVisible,
   customClassName,
   burgerRef,
@@ -58,7 +53,7 @@ export default function BurgerFullMenu({
   const latestStories = editorials.sort(sortPostsByDate)
 
   // Loading Menu
-  if (menusLoading || isLoading || latestPartnerContentLoading) {
+  if (menusLoading || isLoading ) {
     return (
       <>
         <div className="mx-auto my-0 flex max-w-[100vw] justify-center md:max-w-[700px]	">

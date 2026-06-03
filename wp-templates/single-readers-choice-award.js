@@ -6,7 +6,7 @@ import { GetLatestStories } from '@/queries/GetLatestStories'
 import { GetRCASlider } from '@/queries/GetRCASlider'
 import React, { useEffect, useState, useRef } from 'react'
 import { useClickOutside } from '@/constants/useClickOutside'
-import { eb_garamond, poppins, rubik } from '@/styles/fonts/fonts'
+import { poppins, rubik } from '@/styles/fonts/fonts'
 import Cookies from 'js-cookie'
 import dynamic from 'next/dynamic'
 // Import Components
@@ -424,9 +424,7 @@ export default function Component(props) {
 
   if (passwordProtected?.onOff && !isAuthenticated) {
     return (
-      <main
-        className={`${eb_garamond.variable} ${poppins.variable} ${rubik.variable}`}
-      >
+      <main className={`${poppins.variable} ${rubik.variable}`}>
         <form onSubmit={handlePasswordSubmit}>
           <PasswordProtected
             enteredPassword={enteredPassword}
@@ -443,7 +441,7 @@ export default function Component(props) {
   }
 
   return (
-    <main className={`${eb_garamond.variable} ${poppins.variable}`}>
+    <main className={`${poppins.variable}`}>
       <Header
         isNavShown={isNavShown}
         setIsNavShown={setIsNavShown}
