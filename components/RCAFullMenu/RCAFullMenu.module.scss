@@ -220,10 +220,6 @@
       }
     }
 
-    > li:last-child {
-      padding: 0 0 10rem;
-    }
-
     > li {
       padding: 0 0 1rem;
       display: flex;
@@ -244,6 +240,10 @@
 
       @media (min-width: $breakpoint-medium) {
         font-size: 1.2rem;
+      }
+
+      &:last-child {
+        padding: 0 0 10rem;
       }
 
       a {

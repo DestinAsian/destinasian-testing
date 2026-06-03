@@ -471,11 +471,11 @@
     .seventh-wrapper {
       position: absolute;
       bottom: 0;
-      padding: 1rem 0 1rem;
+      padding: 1rem 0 5rem;
       width: auto;
 
       @media (min-width: $breakpoint-extra-small) {
-        padding: 2rem 0 2rem;
+        padding: 2rem 0 5rem;
       }
 
       .fifth-navigation {
@@ -537,19 +537,16 @@
     background-color: var(--wpe--color--deep--black);
 
     ul li {
-      &::after {
-        border-right: 1px solid var(--wpe--color--white--smoke) !important;
-      }
       a {
         color: var(--wpe--color--white--smoke);
       }
     }
 
-    ul li ul li {
-      &::before {
-        border-left: 1px solid var(--wpe--color--white--smoke) !important;
-      }
-    }
+    // ul li ul li {
+    //   &::before {
+    //     border-left: 1px solid var(--wpe--color--white--smoke) !important;
+    //   }
+    // }
 
     :global {
       * {
