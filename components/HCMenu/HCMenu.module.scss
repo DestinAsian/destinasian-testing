@@ -75,15 +75,15 @@
 
   > ul.menu {
     * {
-      font-size: 0.8rem;
+      font-size: 1rem;
 
-      @media (min-width: $breakpoint-extra-small) {
-        font-size: 1rem;
+      @media (min-width: $breakpoint-medium) {
+        font-size: 1.2rem;
       }
     }
 
     > li {
-      padding: 0 0 0.5rem;
+      padding: 0 0 1rem;
 
       > a {
         display: block;
@@ -101,6 +101,12 @@
             text-transform: none;
             padding: 0 0 0.5rem;
             font-weight: 500;
+            font-size: 0.8rem;
+            line-height: 1.2;
+
+            @media (min-width: $breakpoint-medium) {
+              font-size: 1rem;
+            }
           }
         }
       }

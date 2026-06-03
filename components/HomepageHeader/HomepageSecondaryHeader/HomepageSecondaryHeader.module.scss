@@ -1,6 +1,7 @@
 @import 'styles/breakpoints';
 
 .navigation-wrapper {
+  background-color: var(--wpe--main--background-color);
   display: flex;
   align-items: center;
   position: fixed;
@@ -54,7 +55,7 @@
     min-width: 4rem;
     width: fit-content;
     height: 100%;
-    color: var(--wpe--color--white--smoke);
+    color: var(--wpe--color--black);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -113,14 +114,24 @@
       padding: 0;
       margin: 0;
       height: 2rem;
+
     }
   }
 
   .desktop-menu-button {
     display: none;
+    font-size: 0.6rem;
+    line-height: 15.2px;
 
     @media (min-width: $breakpoint-extra-small) {
       display: flex;
+      font-size: 0.875rem;
+      line-height: 20.8px;
+    }
+
+    @media (min-width: $breakpoint-large) {
+      font-size: 1.2rem;
+      line-height: 29.6px;
     }
   }
 
@@ -132,7 +143,7 @@
     }
 
     .search-icon {
-      fill: var(--wpe--color--white--smoke);
+      fill: var(--wpe--color--black);
       height: 0.95rem;
 
       @media (min-width: $breakpoint-extra-small) {
@@ -396,7 +407,7 @@
   display: flex;
   flex-direction: column;
   // padding-bottom: 2rem;
-  width: calc(100% - 2rem);
+  width: 100%;
   max-width: calc(1000px - 2rem);
   row-gap: 2rem;
   height: 100%;
@@ -413,6 +424,7 @@
 
   .primary-navigation {
     width: 100%;
+    padding: 0.5rem 0 1rem;
 
     // Menu Title
     ul:first-child {
@@ -444,6 +456,7 @@
           font-weight: 500;
           padding: 0 0.25rem 0.25rem 0;
           width: max-content;
+          line-height: 1.2;
 
           @media (min-width: $breakpoint-extra-small) {
             font-size: 1rem;
@@ -476,16 +489,6 @@
             > a {
               padding: 0;
             }
-
-            // &::before {
-            //   content: '';
-            //   position: absolute;
-            //   top: 5%; // adjust to position vertically
-            //   bottom: 20%; // leaves some space above and below
-            //   left: 0;
-            //   width: 1px;
-            //   border-left: 1px solid var(--wpe--color--black);
-            // }
 
             &::before {
               content: '|';

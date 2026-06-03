@@ -30,6 +30,7 @@
       text-align: left;
       font-weight: 700;
       font-size: 1rem;
+      line-height: 1.2;
 
       @media (min-width: $breakpoint-medium) {
         font-size: 1.2rem;
@@ -105,14 +106,18 @@
     .menu-wrapper {
       width: 100%;
       height: auto;
-      padding: 1rem 1rem 5rem;
+      padding: 0.8rem 1rem 5rem;
       background-color: var(--wpe--main--background-color);
 
       @media (min-width: $breakpoint-extra-small) {
         max-width: 1000px;
         height: 100%;
         margin: 0 auto;
-        padding: 2rem 2rem 5rem;
+        padding: 1.8rem 2rem 5rem;
+      }
+
+      @media (min-width: $breakpoint-large) {
+        padding: 1.75rem 2rem 5rem;
       }
 
       a {

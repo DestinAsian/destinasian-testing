@@ -23,7 +23,7 @@ export default function HomepageHeader({
   setSearchQuery,
   burgerButtonRef,
 }) {
-  const logo = isScrolled ? HEADER_LOGOS.sticky : HEADER_LOGOS.default
+  const logo = HEADER_LOGOS.sticky
 
   return (
     <header className={cx('component')}>

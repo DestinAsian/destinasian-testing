@@ -31,6 +31,10 @@
     font-size: 1rem;
     // text-transform: uppercase;
     color: var(--wpe--color--white--smoke);
+
+    @media (min-width: $breakpoint-medium) {
+      font-size: 1.2rem;
+    }
   }
 
   @media (min-width: $breakpoint-small) {
@@ -104,7 +108,7 @@
   }
 
   .category {
-    padding: 0.5rem 0;
+    padding: 0 0 0.5rem;
   }
 
   .content-wrapper {
@@ -123,7 +127,7 @@
     }
 
     .content {
-      font-weight: 400;
+      font-weight: 500;
     }
   }
 

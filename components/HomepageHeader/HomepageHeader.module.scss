@@ -2,7 +2,7 @@
 
 .component {
   color: var(--wpe--header--color);
-  background-color: transparent;
+  background-color: var(--wpe--main--background-color);
   position: fixed;
   width: 100%;
   z-index: 50;
@@ -13,7 +13,7 @@
     min-width: 4rem;
     width: fit-content;
     height: 100%;
-    color: var(--wpe--color--white--smoke);
+    color: var(--wpe--color--black);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -42,7 +42,7 @@
       }
 
       * {
-        fill: var(--wpe--color--white--smoke);
+        fill: var(--wpe--color--black);
       }
     }
 
