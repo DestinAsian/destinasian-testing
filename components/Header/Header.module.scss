@@ -12,7 +12,7 @@
 .contest {
   .navbar {
     color: var(--wpe--header--color);
-    background-color: var(--wpe--color--teal);
+    background-color: var(--wpe--color--light--yellow);
   }
 }
 
@@ -31,7 +31,7 @@
   .navbar {
     justify-content: space-between;
     color: var(--wpe--color--black);
-    background-color: var(--wpe--color--light--cream);
+    background-color: var(--wpe--color--light--yellow);
 
     @media (min-width: $breakpoint-extra-small) {
       padding: 0.5rem 2rem;

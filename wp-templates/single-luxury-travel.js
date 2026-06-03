@@ -392,7 +392,7 @@ export default function Component(props) {
 
   return (
     <main
-      className={`${eb_garamond.variable} ${poppins.variable} ${rubik.variable} bg-[--wpe--color--teal]`}
+      className={`${eb_garamond.variable} ${poppins.variable} ${rubik.variable} bg-[--wpe--color--light--yellow]`}
     >
       <Header
         isScrolled={isScrolled}
@@ -457,7 +457,7 @@ export default function Component(props) {
               className={
                 parent?.node?.title?.toLowerCase().includes('spotlight')
                   ? ' bg-[#f5f5f5] sm:top-[4.5rem]'
-                  : ' bg-[#dbf2f1] sm:top-[4.5rem]'
+                  : ' bg-[#fdf5e0] sm:top-[4.5rem]'
               }
             >
               <section className="relative" data-id="section1">
@@ -465,7 +465,7 @@ export default function Component(props) {
                   className={
                     parent?.node?.title?.toLowerCase().includes('spotlight')
                       ? ' bg-[#f5f5f5]'
-                      : ' bg-[#dbf2f1]'
+                      : ' bg-[#fdf5e0]'
                   }
                 >
                   <SingleAdvertorialSlider
@@ -500,7 +500,7 @@ export default function Component(props) {
                     className={
                       parent?.node?.title?.toLowerCase().includes('spotlight')
                         ? ' bg-[#f5f5f5] pt-[3.5rem] sm:pt-0'
-                        : ' bg-[#dbf2f1] pt-[3.5rem] sm:pt-0'
+                        : ' bg-[#fdf5e0] pt-[3.5rem] sm:pt-0'
                     }
                   >
                     <div className="sm:h-fit">
@@ -519,7 +519,7 @@ export default function Component(props) {
                     className={
                       parent?.node?.title?.toLowerCase().includes('spotlight')
                         ? ' bg-[#f5f5f5]'
-                        : ' bg-[#dbf2f1]'
+                        : ' bg-[#fdf5e0]'
                     }
                   >
                     <LuxuryTravelStories
@@ -538,7 +538,7 @@ export default function Component(props) {
                     className={
                       parent?.node?.title?.toLowerCase().includes('spotlight')
                         ? ' bg-[#f5f5f5]'
-                        : ' bg-[#dbf2f1]'
+                        : ' bg-[#fdf5e0]'
                     }
                   >
                     <LuxuryTravelDirectory

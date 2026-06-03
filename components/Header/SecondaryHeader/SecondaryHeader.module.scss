@@ -190,7 +190,7 @@
 
 .navigation-wrapper.luxury-travel,
 .sticky.luxury-travel {
-  background-color: var(--wpe--color--teal);
+  background-color: var(--wpe--color--light--yellow);
 }
 
 .navigation-wrapper.luxury-travel-spotlight,
@@ -204,7 +204,7 @@
   top: 2.75rem;
   padding: 0;
   z-index: 51;
-  background-color: var(--wpe--color--light--cream);
+  background-color: var(--wpe--color--light--yellow);
   transform: translateY(0);
 
   @media (min-width: $breakpoint-extra-small) {
@@ -387,7 +387,7 @@
 }
 
 .luxury-travel.search-bar-wrapper div {
-  background-color: var(--wpe--color--teal);
+  background-color: var(--wpe--color--light--yellow);
 }
 
 .luxury-travel-spotlight.search-bar-wrapper div {
@@ -395,7 +395,7 @@
 }
 
 .travel-guide.search-bar-wrapper div {
-  background-color: var(--wpe--color--light--cream);
+  background-color: var(--wpe--color--light--yellow);
 }
 
 .full-menu-content {
@@ -433,7 +433,7 @@
 }
 
 .luxury-travel.full-menu-content > div > div {
-  background-color: var(--wpe--color--teal);
+  background-color: var(--wpe--color--light--yellow);
 }
 
 .luxury-travel-spotlight.full-menu-content > div > div {
@@ -441,7 +441,7 @@
 }
 
 .travel-guide.full-menu-content > div > div {
-  background-color: var(--wpe--color--light--cream);
+  background-color: var(--wpe--color--light--yellow);
 }
 
 .full-menu-wrapper {
@@ -669,7 +669,7 @@
 }
 
 .luxury-travel.magazine-menu-wrapper > div > div > div {
-  background-color: var(--wpe--color--teal);
+  background-color: var(--wpe--color--light--yellow);
 }
 
 .luxury-travel-spotlight.magazine-menu-wrapper > div > div > div {
@@ -677,7 +677,7 @@
 }
 
 .travel-guide.magazine-menu-wrapper > div > div > div {
-  background-color: var(--wpe--color--light--cream);
+  background-color: var(--wpe--color--light--yellow);
 }
 
 .rca-menu-wrapper {
@@ -746,7 +746,7 @@
 }
 
 .luxury-travel.rca-menu-wrapper > div > div {
-  background-color: var(--wpe--color--teal);
+  background-color: var(--wpe--color--light--yellow);
 }
 
 .luxury-travel-spotlight.rca-menu-wrapper > div > div {
@@ -754,5 +754,5 @@
 }
 
 .travel-guide.rca-menu-wrapper > div > div {
-  background-color: var(--wpe--color--light--cream);
+  background-color: var(--wpe--color--light--yellow);
 }

@@ -368,7 +368,7 @@ export default function Component(props) {
 
   return (
     <main
-      className={`${eb_garamond.variable} ${poppins.variable} bg-[--wpe--color--teal]`}
+      className={`${eb_garamond.variable} ${poppins.variable} bg-[--wpe--color--light--yellow]`}
     >
       <Header
         isScrolled={isScrolled}

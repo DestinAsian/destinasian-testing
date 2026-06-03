@@ -32,7 +32,7 @@
   transition: transform 0.1s ease-out;
   transition: top 0.4s ease-in-out;
   flex-direction: column;
-  background-color: var(--wpe--color--light--cream);
+  background-color: var(--wpe--color--light--yellow);
 
   @media (min-width: $breakpoint-extra-small) {
     padding: 2rem;
@@ -101,7 +101,7 @@
       }
 
       .category {
-        color: var(--wpe--color--light--cream);
+        color: var(--wpe--color--light--yellow);
         background-color: var(--wpe--color--black);
         font-size: 0.6rem;
         line-height: 1.2;
