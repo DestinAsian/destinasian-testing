@@ -745,14 +745,23 @@
   }
 }
 
-.luxury-travel.rca-menu-wrapper > div > div {
+.luxury-travel,
+.travel-guide {
+  background-color: var(--wpe--color--light--yellow);
+}
+
+.luxury-travel > div,
+.travel-guide > div,
+.luxury-travel > div > div,
+.travel-guide > div > div {
+  background-color: var(--wpe--color--light--yellow);
+}
+
+.luxury-travel.rca-menu-wrapper > div > div,
+.travel-guide.rca-menu-wrapper > div > div {
   background-color: var(--wpe--color--light--yellow);
 }
 
 .luxury-travel-spotlight.rca-menu-wrapper > div > div {
   background-color: var(--wpe--color--white--smoke);
-}
-
-.travel-guide.rca-menu-wrapper > div > div {
-  background-color: var(--wpe--color--light--yellow);
 }
