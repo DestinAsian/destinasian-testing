@@ -117,8 +117,6 @@ export default function GallerySlider({ gallerySlider, className }) {
             </SwiperSlide>
           ))}
         </Swiper>
-        <div className={`swiper-post-custom-pagination ${paginationClass}`} />
-
         {/* Caption absolutely positioned relative to Swiper */}
         {images[activeIndex]?.caption && (
           <div className={cx('caption-wrapper', className)}>
@@ -130,6 +128,7 @@ export default function GallerySlider({ gallerySlider, className }) {
             />
           </div>
         )}
+        <div className={`swiper-post-custom-pagination ${paginationClass}`} />
       </div>
     </div>
   )
