@@ -469,12 +469,13 @@
     }
 
     .seventh-wrapper {
-      position: absolute;
+      position: relative;
       bottom: 0;
       padding: 1rem 0 5rem;
       width: auto;
 
       @media (min-width: $breakpoint-extra-small) {
+        position: absolute;
         padding: 2rem 0 5rem;
       }
 
@@ -509,13 +510,10 @@
     }
   }
 
-  .luxury-travel {
-    .menu-wrapper {
-      background-color: var(--wpe--color--light--yellow);
-    }
-  }
-
-  .travel-guide {
+  .luxury-travel,
+  .travel-guide,
+  .advertorial,
+  .honors-circle {
     .menu-wrapper {
       background-color: var(--wpe--color--light--yellow);
     }
@@ -526,6 +524,7 @@
   background-color: var(--wpe--color--deep--black);
 }
 
+.full-menu-content.luxury-travel,
 .full-menu-content.travel-guide,
 .full-menu-content.advertorial,
 .full-menu-content.honors-circle {
