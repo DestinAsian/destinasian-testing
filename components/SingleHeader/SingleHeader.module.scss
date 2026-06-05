@@ -278,8 +278,6 @@
       padding: 0;
       left: 50%;
       transform: translate(-50%, 0);
-      background-color: rgba(0, 0, 0, 0.3); /* Slightly transparent */
-      backdrop-filter: blur(10px); /* Apply blur */
       max-height: calc(-5.8rem + 100vh);
     }
 

@@ -324,8 +324,7 @@
   position: fixed;
   z-index: 48;
   top: -150vh;
-  background-color: rgba(0, 0, 0, 0.3); /* Slightly transparent */
-  backdrop-filter: blur(10px); /* Apply blur */
+  background-color: var(--wpe--main--background-color);
 
   &.show {
     padding: 0;
@@ -479,8 +478,7 @@
   position: fixed;
   z-index: 48;
   top: -150vh;
-  background-color: rgba(0, 0, 0, 0.3); /* Slightly transparent */
-  backdrop-filter: blur(10px); /* Apply blur */
+  background-color: var(--wpe--main--background-color);
 
   &.show {
     padding: 0;
@@ -533,8 +531,7 @@
   position: fixed;
   z-index: 48;
   top: -150vh;
-  background-color: rgba(0, 0, 0, 0.3); /* Slightly transparent */
-  backdrop-filter: blur(10px); /* Apply blur */
+  background-color: var(--wpe--main--background-color);
 
   &.show {
     padding: 0;
@@ -568,8 +565,7 @@
   position: fixed;
   z-index: 48;
   top: -150vh;
-  background-color: rgba(0, 0, 0, 0.3); /* Slightly transparent */
-  backdrop-filter: blur(10px); /* Apply blur */
+  background-color: var(--wpe--main--background-color);
   color: var(--wpe--color--black);
 
   &.show {
@@ -604,8 +600,7 @@
   position: fixed;
   z-index: 48;
   top: -150vh;
-  background-color: rgba(0, 0, 0, 0.3); /* Slightly transparent */
-  backdrop-filter: blur(10px); /* Apply blur */
+  background-color: var(--wpe--main--background-color);
 
   &.show {
     padding: 0;

@@ -130,6 +130,7 @@ export default function GallerySlider({ gallerySlider, className }) {
         )}
         <div className={`swiper-post-custom-pagination ${paginationClass}`} />
       </div>
+      <div className={cx('border-bottom')} />
     </div>
   )
 }
