@@ -221,7 +221,7 @@ export default function ContentWrapperLL({
                   height="90"
                   viewBox="0 0 60 90"
                   fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns="https://www.w3.org/2000/svg"
                 >
                   <path d="M52 8L15 45L52 82" stroke="none" strokeWidth="20" />
                 </svg>
@@ -238,7 +238,7 @@ export default function ContentWrapperLL({
                   disabled={isSharing}
                 >
                   <svg
-                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns="https://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
                     fill="currentColor"
                     className="size-6"
@@ -295,7 +295,7 @@ export default function ContentWrapperLL({
                     >
                       <svg
                         version="1.0"
-                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns="https://www.w3.org/2000/svg"
                         width="512.000000pt"
                         height="512.000000pt"
                         viewBox="0 0 512.000000 512.000000"
@@ -338,7 +338,7 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
                   >
                     <svg
                       version="1.0"
-                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns="https://www.w3.org/2000/svg"
                       width="512.000000pt"
                       height="512.000000pt"
                       viewBox="0 0 512.000000 512.000000"
@@ -375,7 +375,7 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
                   height="90"
                   viewBox="0 0 60 90"
                   fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns="https://www.w3.org/2000/svg"
                 >
                   <path
                     d="M8 82L45 45L8.00001 8"

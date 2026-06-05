@@ -67,7 +67,7 @@ export default function DarkColorHeader({
               height="23"
               viewBox="0 0 28 23"
               fill="none"
-              xmlns="http://www.w3.org/2000/svg"
+              xmlns="https://www.w3.org/2000/svg"
             >
               <rect width="28" height="5" fill="#000000" />
               <rect y="9" width="28" height="5" fill="#000000" />

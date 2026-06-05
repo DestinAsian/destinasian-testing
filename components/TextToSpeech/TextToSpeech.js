@@ -65,7 +65,7 @@ export default function TextToSpeech({
                   height="69"
                   viewBox="0 0 50 69"
                   fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns="https://www.w3.org/2000/svg"
                 >
                   {/* Play Button */}
                   <path
@@ -83,7 +83,7 @@ export default function TextToSpeech({
                   height="44"
                   viewBox="0 0 34 44"
                   fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns="https://www.w3.org/2000/svg"
                 >
                   {/* Pause Button */}
                   <path
@@ -126,7 +126,7 @@ export default function TextToSpeech({
           disabled={isSharing}
         >
           <svg
-            xmlns="http://www.w3.org/2000/svg"
+            xmlns="https://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             fill="#ffffff"
             className="size-6"

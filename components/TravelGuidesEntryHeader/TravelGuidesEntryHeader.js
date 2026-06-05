@@ -96,7 +96,7 @@ export default function TravelGuidesEntryHeader({ title }) {
                     >
                       <svg
                         version="1.0"
-                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns="https://www.w3.org/2000/svg"
                         width="512.000000pt"
                         height="512.000000pt"
                         viewBox="0 0 512.000000 512.000000"
@@ -157,7 +157,7 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
                     >
                       <svg
                         version="1.0"
-                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns="https://www.w3.org/2000/svg"
                         width="512.000000pt"
                         height="512.000000pt"
                         viewBox="0 0 512.000000 512.000000"
@@ -202,7 +202,7 @@ m-193 -1701 l423 -423 425 425 425 425 212 -213 213 -212 -425 -425 -425 -425
               >
                 <svg
                   version="1.0"
-                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns="https://www.w3.org/2000/svg"
                   width="512.000000pt"
                   height="512.000000pt"
                   viewBox="0 0 512.000000 512.000000"

@@ -40,7 +40,7 @@ export default function DaGuideMenu({ parent, title, categories, className }) {
                     aria-controls={cx('full-menu-wrapper')}
                     aria-expanded={!isNavShown}
                   >
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+                    <svg xmlns="https://www.w3.org/2000/svg" viewBox="0 0 40 40">
                       <path
                         d="M5 10h30v3H5zM5 18.5h30v3H5zM5 27h30v3H5z"
                         fill="#fff"

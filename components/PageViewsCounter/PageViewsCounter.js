@@ -29,7 +29,7 @@ export default function PageViewsCounter() {
             <div className="statcounter">
               <a
                 title="Web Analytics"
-                href="http://statcounter.com/"
+                href="https://statcounter.com/"
                 target="_blank"
                 rel="noopener noreferrer"
               >

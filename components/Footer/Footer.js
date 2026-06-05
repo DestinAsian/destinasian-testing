@@ -63,7 +63,7 @@ export default function Footer() {
                     <svg
                       id="Layer_1"
                       data-name="Layer 1"
-                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns="https://www.w3.org/2000/svg"
                       viewBox="0 0 25 25"
                     >
                       <title>Video Play</title>
@@ -86,7 +86,7 @@ export default function Footer() {
                       height="48"
                       viewBox="0 0 48 48"
                       fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns="https://www.w3.org/2000/svg"
                     >
                       <path
                         fillRule="evenodd"
@@ -107,7 +107,7 @@ export default function Footer() {
                       height="48"
                       viewBox="0 0 48 48"
                       fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns="https://www.w3.org/2000/svg"
                     >
                       <path
                         fillRule="evenodd"
@@ -128,7 +128,7 @@ export default function Footer() {
                       height="48"
                       viewBox="0 0 48 48"
                       fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns="https://www.w3.org/2000/svg"
                     >
                       <path
                         fillRule="evenodd"

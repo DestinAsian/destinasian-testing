@@ -80,7 +80,7 @@ export default function BookNowButton({ bookNowButton, className, id }) {
             disabled={isSharing}
           >
             <svg
-              xmlns="http://www.w3.org/2000/svg"
+              xmlns="https://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="#ffffff"
               className="size-6"

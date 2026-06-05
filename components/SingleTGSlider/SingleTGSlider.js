@@ -83,7 +83,7 @@ export default function SingleTGSlider({
         {/* <div className="swiper-custom-button-prev">
           <svg
             version="1.0"
-            xmlns="http://www.w3.org/2000/svg"
+            xmlns="https://www.w3.org/2000/svg"
             width="512.000000pt"
             height="512.000000pt"
             viewBox="0 0 512.000000 512.000000"
@@ -107,7 +107,7 @@ l961 -963 -961 -963 c-912 -913 -962 -965 -989 -1027 -40 -91 -46 -200 -15
         <div className="swiper-custom-button-next">
           <svg
             version="1.0"
-            xmlns="http://www.w3.org/2000/svg"
+            xmlns="https://www.w3.org/2000/svg"
             width="512.000000pt"
             height="512.000000pt"
             viewBox="0 0 512.000000 512.000000"
