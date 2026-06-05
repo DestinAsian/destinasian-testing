@@ -286,7 +286,6 @@ export default function DarkColorSecondaryHeader({
           {/* Weddings Button */}
           <Link
             href={WEDDING_SLUG}
-            target="_blank"
             className={cx(
               'desktop-menu-button',
               !isScrolled && 'active-not-scrolled',

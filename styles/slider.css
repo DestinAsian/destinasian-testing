@@ -171,7 +171,7 @@
   align-items: center;
   justify-content: flex-end;
   color: #929292;
-  font-size: 0.6rem;
+  font-size: 0.8rem;
   text-transform: uppercase;
   line-height: 1.2;
 }
@@ -471,7 +471,7 @@
   }
 
   .post-advertorial-swiper {
-    height: calc(100vh + -17.5rem);
+    height: calc(100vh + -18.5rem);
   }
 
   .swiper-advertorial-custom-pagination.swiper-pagination-bullets.swiper-pagination-horizontal {
@@ -531,7 +531,7 @@
 
   .swiper-slide .slide-caption {
     padding: 0;
-    font-size: 0.8rem;
+    font-size: 1rem;
   }
 
   .post-category-swiper > .swiper-wrapper > .swiper-slide > .slide-caption {

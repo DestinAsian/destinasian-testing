@@ -62,11 +62,7 @@
 
     &:hover,
     &:focus {
-      color: var(--wpe--color--orange);
-
-      // @media (min-width: $breakpoint-small) {
-      //   color: var(--wpe--color--orange);
-      // }
+      color: var(--wpe--link--color);
     }
 
     // Remove link underline when component is inside header.

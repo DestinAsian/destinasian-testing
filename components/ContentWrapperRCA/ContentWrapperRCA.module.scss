@@ -723,8 +723,7 @@
   position: fixed;
   z-index: 48;
   top: -150vh;
-  background-color: rgba(0, 0, 0, 0.3); /* Slightly transparent */
-  backdrop-filter: blur(10px); /* Apply blur */
+  background-color: var(--wpe--color--light--yellow);
   color: var(--wpe--color--black);
 
   &.show {
@@ -737,13 +736,23 @@
     @media (min-width: $breakpoint-extra-small) {
       top: 5.75rem;
       left: 0;
-      height: calc(-5.75rem + 100vh);
       width: 100vw;
     }
 
     @media (min-width: $breakpoint-large) {
       top: 6.25rem;
-      height: calc(-6.25rem + 100vh);
+    }
+
+    @media (min-height: $breakpoint-extra-small) {
+      height: calc(-10rem + 100vh);
+    }
+
+    // @media (min-height: $breakpoint-small) {
+    //   height: calc(10rem + 100vh);
+    // }
+
+    @media (min-height: $breakpoint-medium) {
+      height: calc(-10rem + 100vh);
     }
 
     * {

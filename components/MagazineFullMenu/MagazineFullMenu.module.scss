@@ -126,11 +126,7 @@
 
             &:hover,
             &:focus {
-              color: var(--wpe--color--orange);
-
-              // @media (min-width: $breakpoint-small) {
-              //   color: var(--wpe--color--orange);
-              // }
+              color: var(--wpe--link--color);
             }
           }
         }
@@ -160,11 +156,7 @@
 
           &:hover,
           &:focus {
-            color: var(--wpe--color--orange);
-
-            // @media (min-width: $breakpoint-small) {
-            //   color: var(--wpe--color--orange);
-            // }
+            color: var(--wpe--link--color);
           }
         }
 
@@ -212,11 +204,7 @@
 
             &:hover,
             &:focus {
-              color: var(--wpe--color--orange);
-
-              // @media (min-width: $breakpoint-small) {
-              //   color: var(--wpe--color--orange);
-              // }
+              color: var(--wpe--link--color);
             }
           }
         }
@@ -245,11 +233,7 @@
 
           &:hover,
           &:focus {
-            color: var(--wpe--color--orange);
-
-            // @media (min-width: $breakpoint-small) {
-            //   color: var(--wpe--color--orange);
-            // }
+            color: var(--wpe--link--color);
           }
         }
 
@@ -303,11 +287,7 @@
 
           &:hover,
           &:focus {
-            color: var(--wpe--color--orange);
-
-            // @media (min-width: $breakpoint-small) {
-            //   color: var(--wpe--color--orange);
-            // }
+            color: var(--wpe--link--color);
           }
         }
 
@@ -342,11 +322,7 @@
 
         &:hover,
         &:focus {
-          color: var(--wpe--color--orange);
-
-          // @media (min-width: $breakpoint-small) {
-          //   color: var(--wpe--color--orange);
-          // }
+          color: var(--wpe--link--color);
         }
       }
     }

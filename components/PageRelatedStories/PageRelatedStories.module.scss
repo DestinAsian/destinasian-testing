@@ -102,12 +102,12 @@
 
         @media (min-width: $breakpoint-small) {
           margin: 0 auto 2rem;
-          border-bottom: 0.6rem solid var(--wpe--color--white--smoke);
+          border-bottom: 0.6rem solid transparent;
         }
 
         article {
           margin: 0;
-          background-color: var(--wpe--color--white--smoke);
+          background-color: transparent;
           height: auto;
 
           @media (min-width: $breakpoint-small) {
@@ -127,12 +127,12 @@
 
         @media (min-width: $breakpoint-small) {
           margin: 0 auto 2rem;
-          border-bottom: 0.6rem solid var(--wpe--hc--background-color);
+          border-bottom: 0.6rem solid transparent;
         }
 
         article {
           margin: 0;
-          background-color: var(--wpe--hc--background-color);
+          background-color: transparent;
           height: auto;
 
           @media (min-width: $breakpoint-small) {
@@ -141,6 +141,10 @@
 
           @media (min-width: $breakpoint-medium) {
             min-height: 50rem;
+          }
+
+          * {
+            font-family: 'Ringside Regular A', 'Ringside Regular B';
           }
         }
       }
@@ -315,7 +319,7 @@
 
   .other-guides-text-wrapper,
   .other-custom-text-wrapper {
-   font-family: 'Ringside Regular A', 'Ringside Regular B';
+    font-family: 'Ringside Regular A', 'Ringside Regular B';
     font-weight: 700;
     text-align: left;
     line-height: 1.6;
@@ -448,5 +452,5 @@
 
   .hide {
     display: none;
- }
+  }
 }

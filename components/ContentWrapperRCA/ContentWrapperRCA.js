@@ -21,8 +21,8 @@ const SingleRCASlider = dynamic(() =>
 const SingleRCAEntryHeader = dynamic(() =>
   import('@/components/SingleRCAEntryHeader/SingleRCAEntryHeader'),
 )
-const RCAFullMenu = dynamic(() =>
-  import('@/components/RCAFullMenu/RCAFullMenu'),
+const RCAMenu = dynamic(() =>
+  import('@/components/RCAMenu/RCAMenu'),
 )
 
 let cx = className.bind(styles)
@@ -492,7 +492,7 @@ export default function ContentWrapperRCA({
       <div
         className={cx(['rca-menu-wrapper', isRCANavShown ? 'show' : undefined])}
       >
-        <RCAFullMenu
+        <RCAMenu
           rcaDatabaseId={rcaDatabaseId}
           uri={rcaAll[0]?.uri}
           isRCANavShown={isRCANavShown}
