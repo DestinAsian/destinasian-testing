@@ -10,8 +10,8 @@ const GallerySlider = dynamic(() =>
   import('@/components/GallerySlider/GallerySlider'),
 )
 // Import Components
-const SingleHCSlider = dynamic(() =>
-  import('@/components/SingleHCSlider/SingleHCSlider'),
+const SingleSlider = dynamic(() =>
+  import('@/components/SingleSlider/SingleSlider'),
 )
 
 let cx = className.bind(styles)
@@ -112,14 +112,14 @@ export default function ContentWrapperHC({ content, children, images }) {
 
   return (
     <article className={cx('component')}>
-      {images[0] != null && (
+      {images?.[0] != null && (
         <div className={cx('with-slider-wrapper')}>
-          <SingleHCSlider images={images} />
+          <SingleSlider images={images} />
           <div className={cx('content-wrapper')}>{transformedContent}</div>
           {children}
         </div>
       )}
-      {images[0] == null && (
+      {images?.[0] == null && (
         <div className={cx('with-slider-wrapper')}>
           <div className={cx('content-wrapper')}>{transformedContent}</div>
           {children}

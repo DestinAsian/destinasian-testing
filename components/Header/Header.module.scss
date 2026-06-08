@@ -9,6 +9,16 @@
 }
 
 .advertorial,
+.luxury-travel, .luxury-travel-spotlight {
+  position: relative;
+  top: 0;
+
+  @media (min-width: $breakpoint-medium) {
+    position: fixed;
+  }
+}
+
+.advertorial,
 .contest,
 .honors-circle,
 .luxury-travel {

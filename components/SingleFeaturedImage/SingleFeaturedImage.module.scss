@@ -1,0 +1,67 @@
+@import 'styles/breakpoints';
+@import 'styles/fonts/typography';
+
+.component {
+  background-color: var(--wpe--main--background-color);
+  color: var(--wpe--color--black);
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  aspect-ratio: 3 / 2;
+
+  @media (min-width: $breakpoint-medium) {
+    width: 100vw;
+    height: calc(-6.35rem + 100vh);
+  }
+}
+
+.advertorial {
+  @media (min-width: $breakpoint-medium) {
+    // height: calc(1rem + 100vh);
+    position: relative;
+    top: 7.35rem;
+  }
+
+  .image-wrapper {
+    @media (min-width: $breakpoint-medium) {
+      position: fixed;
+      top: 6.35rem;
+    }
+  }
+}
+
+.luxury-travel,
+.luxury-travel-spotlight {
+  @media (min-width: $breakpoint-medium) {
+    position: relative;
+    top: 7.35rem;
+  }
+
+  .image-wrapper {
+    @media (min-width: $breakpoint-medium) {
+      position: relative;
+    }
+  }
+}
+
+.image-wrapper {
+  display: flex;
+  min-width: 100vw;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0;
+  flex-direction: column;
+  row-gap: 0.5rem;
+  position: relative;
+
+  figure {
+    position: relative;
+    height: 100%;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}

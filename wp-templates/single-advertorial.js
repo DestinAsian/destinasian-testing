@@ -28,8 +28,8 @@ const Main = dynamic(() => import('@/components/Main/Main'))
 const ContentWrapper = dynamic(() =>
   import('@/components/ContentWrapper/ContentWrapper'),
 )
-const SingleAdvertorialSlider = dynamic(() =>
-  import('@/components/SingleAdvertorialSlider/SingleAdvertorialSlider'),
+const SingleFeaturedImage = dynamic(() =>
+  import('@/components/SingleFeaturedImage/SingleFeaturedImage'),
 )
 const LuxuryTravelDirectory = dynamic(() =>
   import('@/components/LuxuryTravelDirectory/LuxuryTravelDirectory'),
@@ -73,6 +73,7 @@ export default function Component(props) {
     passwordProtected,
     bookNowButton,
   } = props?.data?.advertorial
+  const categories = props?.data?.advertorial?.categories ?? []
 
   // Search function content
   const [searchQuery, setSearchQuery] = useState('')
@@ -271,11 +272,46 @@ export default function Component(props) {
   const allPosts = mainCatPosts.sort(sortPostsByDate)
 
   const images = [
-    acfPostSlider.slide1 != null ? acfPostSlider.slide1.mediaItemUrl : null,
-    acfPostSlider.slide2 != null ? acfPostSlider.slide2.mediaItemUrl : null,
-    acfPostSlider.slide3 != null ? acfPostSlider.slide3.mediaItemUrl : null,
-    acfPostSlider.slide4 != null ? acfPostSlider.slide4.mediaItemUrl : null,
-    acfPostSlider.slide5 != null ? acfPostSlider.slide5.mediaItemUrl : null,
+    [
+      acfPostSlider?.slide1 != null
+        ? acfPostSlider?.slide1?.mediaItemUrl
+        : null,
+      acfPostSlider?.slideCaption1 != null
+        ? acfPostSlider?.slideCaption1
+        : null,
+    ],
+    [
+      acfPostSlider?.slide2 != null
+        ? acfPostSlider?.slide2?.mediaItemUrl
+        : null,
+      acfPostSlider?.slideCaption2 != null
+        ? acfPostSlider?.slideCaption2
+        : null,
+    ],
+    [
+      acfPostSlider?.slide3 != null
+        ? acfPostSlider?.slide3?.mediaItemUrl
+        : null,
+      acfPostSlider?.slideCaption3 != null
+        ? acfPostSlider?.slideCaption3
+        : null,
+    ],
+    [
+      acfPostSlider?.slide4 != null
+        ? acfPostSlider?.slide4?.mediaItemUrl
+        : null,
+      acfPostSlider?.slideCaption4 != null
+        ? acfPostSlider?.slideCaption4
+        : null,
+    ],
+    [
+      acfPostSlider?.slide5 != null
+        ? acfPostSlider?.slide5?.mediaItemUrl
+        : null,
+      acfPostSlider?.slideCaption5 != null
+        ? acfPostSlider?.slideCaption5
+        : null,
+    ],
   ]
 
   // Handle password submission
@@ -357,19 +393,28 @@ export default function Component(props) {
         customClassName={'advertorial'}
         burgerButtonRef={burgerButtonRef}
       />
-      <Main className="mt-[-0.75rem] sm:mt-[-1rem]">
+      <Main className="mt-[-0.75rem] lg:mt-[6.35rem]">
         <>
           <SingleAdvertorialContainer>
-            <SingleAdvertorialSlider images={images} />
+            <SingleFeaturedImage
+              image={featuredImage?.node}
+              customClassName={'advertorial'}
+            />
             <SingleAdvertorialEntryHeader
               title={title}
               label={acfAdvertorialLabel?.advertorialLabel}
+              categoryUri={categories?.edges?.[0]?.node?.uri}
+              categoryName={categories?.edges?.[0]?.node?.name}
             />
             <BookNowButton
               bookNowButton={bookNowButton}
               id={'PC_Book_Now_ClickTracker'}
             />
-            <ContentWrapper content={content} className={'advertorial'} />
+            <ContentWrapper
+              content={content}
+              className={'advertorial'}
+              images={images}
+            />
             {(tabsEditor?.tabTitle1 && tabsEditor?.tab1) !== null && (
               <TabsEditor
                 tabsEditor={tabsEditor}
@@ -385,7 +430,7 @@ export default function Component(props) {
           </SingleAdvertorialContainer>
         </>
       </Main>
-      <Footer />
+      <Footer customClassName={'advertorial'} />
     </main>
   )
 }
@@ -467,6 +512,11 @@ Component.query = gql`
         slide5 {
           mediaItemUrl
         }
+        slideCaption1
+        slideCaption3
+        slideCaption2
+        slideCaption4
+        slideCaption5
       }
       tabsEditor {
         tab1
@@ -476,6 +526,14 @@ Component.query = gql`
       }
       luxuryTravelDirectory {
         directory
+      }
+      categories {
+        edges {
+          node {
+            name
+            uri
+          }
+        }
       }
       featuredImage {
         node {

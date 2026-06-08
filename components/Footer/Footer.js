@@ -11,7 +11,7 @@ import NewsletterForm from '../../components/NewsletterMailerLite/NewsletterForm
 
 let cx = classNames.bind(styles)
 
-export default function Footer() {
+export default function Footer(customClassName) {
   // Static Pages Uri
   const aboutUri = '/about'
   const contactUri = '/contact'
@@ -26,8 +26,12 @@ export default function Footer() {
 
   const year = new Date().getFullYear()
 
+  const className = customClassName?.customClassName
+
+  console.log('Footer className:', className)
+
   return (
-    <footer className={cx('component')}>
+    <footer className={cx('component', className)}>
       <div className={cx('container-wrapper')}>
         <div className={cx('first-wrapper')}>
           {/* newsletter */}

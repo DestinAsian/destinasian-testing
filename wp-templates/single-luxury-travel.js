@@ -32,8 +32,11 @@ const LuxuryTravelDirectory = dynamic(() =>
   import('@/components/LuxuryTravelDirectory/LuxuryTravelDirectory'),
 )
 const TabsEditor = dynamic(() => import('@/components/TabsEditor/TabsEditor'))
-const SingleAdvertorialSlider = dynamic(() =>
-  import('@/components/SingleAdvertorialSlider/SingleAdvertorialSlider'),
+const SingleFeaturedImage = dynamic(() =>
+  import('@/components/SingleFeaturedImage/SingleFeaturedImage'),
+)
+const SingleSlider = dynamic(() =>
+  import('@/components/SingleSlider/SingleSlider'),
 )
 const BackToTop = dynamic(() => import('@/components/BackToTop/BackToTop'))
 const PasswordProtected = dynamic(() =>
@@ -394,11 +397,6 @@ export default function Component(props) {
     >
       <Header
         isScrolled={isScrolled}
-        customClassName={
-          parent?.node?.title?.toLowerCase().includes('spotlight')
-            ? 'luxury-travel-spotlight'
-            : 'luxury-travel'
-        }
         isBurgerNavShown={isBurgerNavShown}
         setIsBurgerNavShown={setIsBurgerNavShown}
         isSearchBarShown={isSearchBarShown}
@@ -412,6 +410,11 @@ export default function Component(props) {
         isHCNavShown={isHCNavShown}
         setIsHCNavShown={setIsHCNavShown}
         setSearchQuery={setSearchQuery}
+        customClassName={
+          parent?.node?.title?.toLowerCase().includes('spotlight')
+            ? 'luxury-travel-spotlight'
+            : 'luxury-travel'
+        }
         burgerButtonRef={burgerButtonRef}
       />
       <SecondaryHeader
@@ -466,24 +469,39 @@ export default function Component(props) {
                       : ' bg-[#fdf5e0]'
                   }
                 >
-                  <SingleAdvertorialSlider
-                    images={images?.map((image) => image[0])}
+                  <SingleFeaturedImage
+                    image={featuredImage?.node}
+                    customClassName={'luxury-travel'}
                   />
                   <SingleAdvertorialEntryHeader
                     title={title}
                     label={acfAdvertorialLabel?.advertorialLabel}
-                    // luxuryTravelClass={'luxuryTravelClass'}
+                    customClassName={
+                      parent?.node?.title?.toLowerCase().includes('spotlight')
+                        ? 'luxury-travel-spotlight'
+                        : 'luxury-travel'
+                    }
                   />
                 </div>
               </section>
               {content && (
                 <section
-                  className="relative pt-4 sm:pt-6"
+                  className="relative pt-4 lg:mx-auto lg:max-w-[800px] lg:pt-0"
                   data-id="section2"
                   id="section2"
                 >
-                  <div className="">
-                    <div className="sm:h-fit">
+                  <div
+                    className={
+                      parent?.node?.title?.toLowerCase().includes('spotlight')
+                        ? ' bg-[#f5f5f5]'
+                        : ' bg-[#fdf5e0]'
+                    }
+                  >
+                    <div className="w-full lg:h-fit lg:px-4">
+                      <SingleSlider
+                        images={images?.map((image) => image[0])}
+                        customClassName={'luxury-travel'}
+                      />
                       <ContentWrapperAdvertorial
                         content={content}
                         luxuryTravelClass={'luxuryTravelClass'}

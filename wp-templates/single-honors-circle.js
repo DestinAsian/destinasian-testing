@@ -16,8 +16,8 @@ const SecondaryHeader = dynamic(() =>
 const SingleHCContainer = dynamic(() =>
   import('@/components/SingleHCContainer/SingleHCContainer'),
 )
-const SingleHCFeaturedImage = dynamic(() =>
-  import('@/components/SingleHCFeaturedImage/SingleHCFeaturedImage'),
+const SingleFeaturedImage = dynamic(() =>
+  import('@/components/SingleFeaturedImage/SingleFeaturedImage'),
 )
 const SingleHCEntryHeader = dynamic(() =>
   import('@/components/SingleHCEntryHeader/SingleHCEntryHeader'),
@@ -380,12 +380,11 @@ export default function Component(props) {
           <>
             <SingleHCContainer>
               {/* {'hotel'} */}
-              <SingleHCFeaturedImage image={featuredImage?.node} />
+              <SingleFeaturedImage image={featuredImage?.node} />
               <SingleHCEntryHeader
                 title={title}
                 locationLabel={hcLocation?.hcLocation}
               />
-              {/* <SingleHCSlider images={images} /> */}
               <BookNowButton
                 bookNowButton={bookNowButton}
                 className={'honors-circle'}

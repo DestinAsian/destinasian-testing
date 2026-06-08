@@ -16,9 +16,9 @@ const SecondaryHeader = dynamic(() =>
 const SingleEditorialEntryHeader = dynamic(() =>
   import('@/components/SingleEditorialEntryHeader/SingleEditorialEntryHeader'),
 )
-const SingleEditorialFeaturedImage = dynamic(() =>
+const SingleFeaturedImage = dynamic(() =>
   import(
-    '@/components/SingleEditorialFeaturedImage/SingleEditorialFeaturedImage'
+    '@/components/SingleFeaturedImage/SingleFeaturedImage'
   ),
 )
 const Main = dynamic(() => import('@/components/Main/Main'))
@@ -407,7 +407,7 @@ export default function Component(props) {
       />
       <Main className={'relative top-[-0.75rem] sm:top-[-1rem]'}>
         <>
-          <SingleEditorialFeaturedImage image={featuredImage?.node} />
+          <SingleFeaturedImage image={featuredImage?.node} />
           <SingleEditorialEntryHeader
             image={featuredImage?.node}
             title={title}

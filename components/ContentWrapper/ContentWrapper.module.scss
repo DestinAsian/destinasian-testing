@@ -367,6 +367,23 @@
 }
 
 .advertorial {
+  width: 100vw;
+  margin: 0 auto;
+  line-height: 1.2;
+  padding: 0 1rem 5rem;
+
+  @media (min-width: $breakpoint-extra-small) {
+    background-color: var(--wpe--hc--background-color);
+    max-width: 800px;
+    padding: 0 2rem 5rem;
+    position: relative;
+  }
+
+  > div > div {
+    margin: 0;
+    max-width: 100%;
+  }
+
   :global {
     a {
       font-family: 'Ringside Regular A', 'Ringside Regular B';

@@ -9,6 +9,7 @@
 html {
   background-color: var(--wpe--main--background-color);
   scroll-behavior: smooth;
+  scrollbar-gutter: stable;
 }
 
 body {

@@ -1,5 +1,5 @@
 import className from 'classnames/bind'
-import styles from './SingleHCFeaturedImage.module.scss'
+import styles from './SingleFeaturedImage.module.scss'
 import dynamic from 'next/dynamic'
 // Import Components
 const FeaturedImage = dynamic(() =>
@@ -8,9 +8,9 @@ const FeaturedImage = dynamic(() =>
 
 let cx = className.bind(styles)
 
-export default function SingleHCFeaturedImage({ image }) {
+export default function SingleFeaturedImage({ image, customClassName }) {
   return (
-    <div className={cx(['component', className])}>
+    <div className={cx(['component', customClassName])}>
       <div className={cx('image-wrapper')}>
         {image && (
           <FeaturedImage image={image} className={cx('image')} priority />

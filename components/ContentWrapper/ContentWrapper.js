@@ -9,10 +9,18 @@ import dynamic from 'next/dynamic'
 const GallerySlider = dynamic(() =>
   import('@/components/GallerySlider/GallerySlider'),
 )
+const SingleSlider = dynamic(() =>
+  import('@/components/SingleSlider/SingleSlider'),
+)
 
 let cx = className.bind(styles)
 
-export default function ContentWrapper({ content, children, className }) {
+export default function ContentWrapper({
+  content,
+  children,
+  className,
+  images,
+}) {
   const [transformedContent, setTransformedContent] = useState('')
 
   useEffect(() => {
@@ -108,8 +116,19 @@ export default function ContentWrapper({ content, children, className }) {
 
   return (
     <article className={cx('component', className)}>
-      <div className={cx('content-wrapper')}>{transformedContent}</div>
-      {children}
+      {images?.[0] != null && (
+        <div className={cx('with-slider-wrapper')}>
+          <SingleSlider images={images} />
+          <div className={cx('content-wrapper')}>{transformedContent}</div>
+          {children}
+        </div>
+      )}
+      {images?.[0] == null && (
+        <div className={cx('with-slider-wrapper')}>
+          <div className={cx('content-wrapper')}>{transformedContent}</div>
+          {children}
+        </div>
+      )}
     </article>
   )
 }
