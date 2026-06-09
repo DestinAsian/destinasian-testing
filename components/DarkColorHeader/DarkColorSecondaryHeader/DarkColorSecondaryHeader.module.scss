@@ -413,10 +413,12 @@
     * {
       color: var(--wpe--color--white--smoke);
       fill: var(--wpe--color--white--smoke);
+      text-decoration: none;
 
       &:hover,
       &:focus {
         color: var(--wpe--link--color);
+        text-decoration: underline;
       }
     }
 

@@ -13,15 +13,21 @@
   max-width: 1000px;
 
   a {
+    text-decoration: none;
+
     &:hover,
     &:focus {
       color: var(--wpe--link--color);
+      text-decoration: underline;
     }
 
     * {
+      text-decoration: none;
+
       &:hover,
       &:focus {
         color: var(--wpe--link--color);
+        text-decoration: underline;
       }
     }
   }
@@ -248,9 +254,12 @@
       }
 
       a {
+        text-decoration: none;
+        
         &:hover,
         &:focus {
           color: var(--wpe--link--color);
+          text-decoration: underline;
         }
       }
 

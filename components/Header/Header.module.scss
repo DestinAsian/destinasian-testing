@@ -8,7 +8,11 @@
   z-index: 50;
 }
 
-.advertorial,
+.advertorial {
+  position: fixed;
+  top: 0;
+}
+
 .luxury-travel, .luxury-travel-spotlight {
   position: relative;
   top: 0;

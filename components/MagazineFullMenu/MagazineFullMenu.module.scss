@@ -123,10 +123,12 @@
             width: auto;
             text-align: left;
             padding: 0 0 0.25rem;
+            text-decoration: none;
 
             &:hover,
             &:focus {
               color: var(--wpe--link--color);
+              text-decoration: underline;
             }
           }
         }
@@ -153,10 +155,12 @@
           transition: all 0.2s ease-out;
           width: auto;
           text-align: left;
+          text-decoration: none;
 
           &:hover,
           &:focus {
             color: var(--wpe--link--color);
+            text-decoration: underline;
           }
         }
 
@@ -201,10 +205,12 @@
             width: auto;
             text-align: left;
             padding: 0 0 0.25rem;
+            text-decoration: none;
 
             &:hover,
             &:focus {
               color: var(--wpe--link--color);
+              text-decoration: underline;
             }
           }
         }
@@ -230,10 +236,12 @@
           width: auto;
           text-align: left;
           font-weight: 700;
+          text-decoration: none;
 
           &:hover,
           &:focus {
             color: var(--wpe--link--color);
+            text-decoration: underline;
           }
         }
 
@@ -284,10 +292,12 @@
           transition: all 0.2s ease-out;
           width: auto;
           text-align: left;
+          text-decoration: none;
 
           &:hover,
           &:focus {
             color: var(--wpe--link--color);
+            text-decoration: underline;
           }
         }
 
@@ -319,10 +329,12 @@
         width: auto;
         text-align: left;
         padding: 0 0 0.25rem;
+        text-decoration: none;
 
         &:hover,
         &:focus {
           color: var(--wpe--link--color);
+          text-decoration: underline;
         }
       }
     }

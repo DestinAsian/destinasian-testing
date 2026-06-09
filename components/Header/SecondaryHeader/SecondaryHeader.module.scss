@@ -189,7 +189,15 @@
   }
 }
 
-.advertorial,
+.advertorial{
+  position: fixed;
+  top: 2.75rem;
+
+  @media (min-width: $breakpoint-extra-small) {
+    top: 3.5rem;
+  }
+}
+
 .luxury-travel,
 .luxury-travel-spotlight {
   position: relative;

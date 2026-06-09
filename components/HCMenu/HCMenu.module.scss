@@ -10,15 +10,21 @@
   margin: 0 auto;
 
   a {
+    text-decoration: none;
+
     &:hover,
     &:focus {
       color: var(--wpe--link--color);
+      text-decoration: underline;
     }
 
     * {
+      text-decoration: none;
+
       &:hover,
       &:focus {
         color: var(--wpe--link--color);
+        text-decoration: underline;
       }
     }
   }

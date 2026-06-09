@@ -15,9 +15,12 @@
 
   a {
     * {
+      text-decoration: none;
+
       &:hover,
       &:focus {
         color: var(--wpe--link--color);
+        text-decoration: underline;
       }
     }
   }
@@ -169,10 +172,12 @@
   // DestinAsian Guides Menu List
   a {
     color: var(--wpe--color--white);
+    text-decoration: none;
 
     &:hover,
     &:focus {
       color: var(--wpe--link--color);
+      text-decoration: underline;
     }
   }
 

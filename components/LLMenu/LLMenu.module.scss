@@ -12,9 +12,12 @@
 
   a {
     * {
+      text-decoration: none;
+
       &:hover,
       &:focus {
         color: var(--wpe--link--color);
+        text-decoration: underline;
       }
     }
   }

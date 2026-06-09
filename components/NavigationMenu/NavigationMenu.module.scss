@@ -59,10 +59,12 @@
     white-space: break-spaces;
     word-break: normal;
     word-wrap: normal;
+    text-decoration: none;
 
     &:hover,
     &:focus {
       color: var(--wpe--link--color);
+      text-decoration: underline;
     }
 
     // Remove link underline when component is inside header.

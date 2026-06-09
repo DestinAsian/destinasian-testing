@@ -95,9 +95,12 @@
 
     a {
       span {
+        text-decoration: none;
+
         &:hover,
         &:focus {
           color: var(--wpe--link--color);
+          text-decoration: underline;
         }
       }
     }
@@ -180,10 +183,12 @@
       text-transform: capitalize;
       width: fit-content;
       padding: 0.1rem 0;
+      text-decoration: none;
 
       &:hover,
       &:focus {
         color: var(--wpe--link--color);
+        text-decoration: underline;
       }
 
       @media (min-width: $breakpoint-medium) {

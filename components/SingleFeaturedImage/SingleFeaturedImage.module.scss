@@ -16,6 +16,14 @@
 }
 
 .advertorial {
+  position: fixed;
+  top: 4.7rem;
+
+  @media (min-width: $breakpoint-extra-small) {
+    position: relative;
+    top: 5.8rem;
+  }
+
   @media (min-width: $breakpoint-medium) {
     // height: calc(1rem + 100vh);
     position: relative;
