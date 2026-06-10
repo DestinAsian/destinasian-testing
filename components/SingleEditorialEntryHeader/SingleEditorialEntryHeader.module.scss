@@ -46,10 +46,12 @@
   padding: 0;
   flex-direction: column;
   row-gap: 0.5rem;
+  padding: 2rem 0 0;
 
   @media (min-width: $breakpoint-large) {
     max-width: 50vw;
     font-size: 1.25rem;
+    padding: 3rem 0 0;
   }
 }
 
@@ -76,7 +78,6 @@
   font-weight: 500;
   color: var(--wpe--color--title);
   text-transform: none;
-  border-bottom: 1px solid var(--wpe--color--black);
   text-wrap: balance;
 
   @media (min-width: $breakpoint-extra-small) {

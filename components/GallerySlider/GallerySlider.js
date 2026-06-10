@@ -1,81 +1,140 @@
-import React, { useState, useEffect, useId, useMemo } from 'react'
+import React, { useId, useMemo, useState } from 'react'
 import className from 'classnames/bind'
 import styles from './GallerySlider.module.scss'
 
-// Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react'
 import Image from 'next/image'
 
-// Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/effect-fade'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
 
-// import required modules
 import { EffectFade, Autoplay, Pagination, Navigation } from 'swiper'
 
 let cx = className.bind(styles)
 
-export default function GallerySlider({ gallerySlider, className }) {
-  const [images, setImages] = useState([])
+export default function GallerySlider({
+  gallerySlider,
+  slides = [],
+  className,
+}) {
   const [activeIndex, setActiveIndex] = useState(0)
   const reactId = useId()
 
-  // useId() bisa menghasilkan karakter seperti ":" yang tidak aman
-  // untuk dipakai langsung di CSS selector class
   const paginationClass = useMemo(() => {
     const safeId = reactId.replace(/[^a-zA-Z0-9_-]/g, '')
     return `gallery-slider-pagination-${safeId}`
   }, [reactId])
 
-  useEffect(() => {
-    if (!gallerySlider) return
+  const normalizedSlides = useMemo(() => {
+    const normalizeArraySlides = (items) => {
+      if (!Array.isArray(items)) return []
 
-    const processGalleryImages = (galleryNode) => {
-      let imagesArray = []
+      return items
+        .map((item) => {
+          if (!item) return null
 
-      // Recursively extract all images and their captions
+          // string
+          if (typeof item === 'string') {
+            return {
+              src: item,
+              alt: 'Image',
+              width: 800,
+              height: 600,
+              caption: '',
+            }
+          }
+
+          // array: [src, caption]
+          if (Array.isArray(item)) {
+            return {
+              src: item[0] || '',
+              alt: 'Image',
+              width: 800,
+              height: 600,
+              caption: item[1] || '',
+            }
+          }
+
+          // object
+          if (typeof item === 'object') {
+            return {
+              src:
+                item.src ||
+                item.url ||
+                item.sourceUrl ||
+                item.mediaItemUrl ||
+                '',
+              alt: item.alt || item.altText || 'Image',
+              width: Number(item.width) || 800,
+              height: Number(item.height) || 600,
+              caption:
+                item.caption || item.figcaption || item.description || '',
+            }
+          }
+
+          return null
+        })
+        .filter((item) => item?.src)
+    }
+
+    const normalizeGalleryNode = (galleryNode) => {
+      if (!galleryNode) return []
+
+      const imagesArray = []
+
       const extractImagesRecursively = (node) => {
+        if (!node) return
+
         if (node.nodeType === 1 && node.tagName === 'IMG') {
-          // Find the closest figure.gallery-item parent
           const figureParent = node.closest('figure.gallery-item')
           let caption = ''
 
           if (figureParent) {
             const figcaption = figureParent.querySelector('figcaption')
-            caption = figcaption ? figcaption.innerText.trim() : ''
+            caption = figcaption ? figcaption.innerHTML.trim() : ''
           }
 
           imagesArray.push({
-            src: node.getAttribute('src'),
+            src: node.getAttribute('src') || '',
             alt: node.getAttribute('alt') || 'Image',
-            width: node.getAttribute('width') || 800,
-            height: node.getAttribute('height') || 600,
-            caption, // Store the figcaption text
+            width: Number(node.getAttribute('width')) || 800,
+            height: Number(node.getAttribute('height')) || 600,
+            caption,
           })
         } else {
-          // Traverse child nodes
-          Array.from(node.childNodes).forEach(extractImagesRecursively)
+          Array.from(node.childNodes || []).forEach(extractImagesRecursively)
         }
       }
 
       extractImagesRecursively(galleryNode)
-      return imagesArray
+      return imagesArray.filter((item) => item?.src)
     }
 
-    setImages(processGalleryImages(gallerySlider))
-  }, [gallerySlider])
+    // priority: slides prop first, fallback to parsed gallerySlider
+    if (slides?.length) {
+      return normalizeArraySlides(slides)
+    }
+
+    return normalizeGalleryNode(gallerySlider)
+  }, [gallerySlider, slides])
+
+  if (!normalizedSlides.length) return null
 
   return (
-    // <div className={cx('component')}>
     <div className={cx('component', 'gallery-slider-wrapper')}>
       <div className={cx('swiper-slider', 'swiper-wrapper')}>
         <Swiper
           spaceBetween={30}
-          effect={'fade'}
-          autoplay={{ delay: 5000, disableOnInteraction: true }}
-          loop={true}
+          effect="fade"
+          autoHeight={true}
+          autoplay={{
+            delay: 5000,
+            disableOnInteraction: true,
+          }}
+          autoplayDisableOnInteraction={true}
+          loop={normalizedSlides.length > 1}
           pagination={{
             el: `.${paginationClass}`,
             clickable: true,
@@ -85,51 +144,42 @@ export default function GallerySlider({ gallerySlider, className }) {
           className="post-swiper"
           onSlideChange={(swiper) => {
             setActiveIndex(swiper.realIndex)
-            const currentSlide = images[swiper.realIndex]
-
-            if (currentSlide) {
-              const imgElement = document.getElementById(
-                `image-${swiper.realIndex}`,
-              )
-              if (imgElement) {
-                imgElement.classList.add('fade-in')
-                setTimeout(() => {
-                  imgElement.classList.remove('fade-in')
-                }, 500) // match CSS animation
-              }
-            }
           }}
         >
-          {images.map((image, index) => (
-            <SwiperSlide key={index}>
-              <div className={cx('slide-wrapper', className)}>
+          {normalizedSlides.map((image, index) => (
+            <SwiperSlide key={`${image.src}-${index}`}>
+              <figure className={cx('slide-wrapper', className)}>
                 <div className={cx('image-wrapper')}>
                   <Image
                     src={image.src}
                     alt={image.alt}
-                    fill
-                    sizes="100%"
-                    priority
+                    width={image.width}
+                    height={image.height}
+                    sizes="(max-width: 800px) 100vw, 800px"
+                    priority={index === 0}
                     quality={100}
+                    className={cx('slide-image')}
                   />
                 </div>
-              </div>
+              </figure>
             </SwiperSlide>
           ))}
         </Swiper>
-        {/* Caption absolutely positioned relative to Swiper */}
-        {images[activeIndex]?.caption && (
+
+        {normalizedSlides[activeIndex]?.caption && (
           <div className={cx('caption-wrapper', className)}>
             <div
               className={cx('caption')}
               dangerouslySetInnerHTML={{
-                __html: images[activeIndex].caption,
+                __html: normalizedSlides[activeIndex].caption,
               }}
             />
           </div>
         )}
+
         <div className={`swiper-post-custom-pagination ${paginationClass}`} />
       </div>
+
       <div className={cx('border-bottom')} />
     </div>
   )
