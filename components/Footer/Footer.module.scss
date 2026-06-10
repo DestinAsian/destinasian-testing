@@ -1,15 +1,23 @@
 @import 'styles/breakpoints';
 
 .component {
-  background-color: #ffffff;
+  background-color: var(--wpe--color--white);
   padding: 0;
 }
 
 .advertorial {
-  background-color: var(--wpe--color--light--yellow);
+  background-color: var(--wpe--color--white);
   position: relative;
   max-width: 800px;
   margin: 0 auto;
+
+  .container-wrapper {
+    padding: 0;
+
+    @media (min-width: $breakpoint-extra-small) {
+      padding: 0 2rem;
+    }
+  }
 }
 
 .container-wrapper {
@@ -24,7 +32,7 @@
   justify-content: space-between;
 
   @media (min-width: $breakpoint-extra-small) {
-    max-width: 700px;
+    max-width: 800px;
   }
 
   .first-wrapper {

@@ -13,7 +13,7 @@ import Image from 'next/image'
 
 let cx = className.bind(styles)
 
-export default function SingleSlider({ images = [] }) {
+export default function SingleSlider({ images = [], customClassName }) {
   const reactId = useId()
 
   const paginationClass = useMemo(() => {
@@ -64,8 +64,10 @@ export default function SingleSlider({ images = [] }) {
 
   if (!slides.length) return null
 
+  console.log(customClassName)
+
   return (
-    <div className={cx('component', 'gallery-slider-wrapper')}>
+    <div className={cx('component', 'gallery-slider-wrapper', customClassName)}>
       <div className={cx('swiper-slider', 'swiper-wrapper')}>
         <Swiper
           spaceBetween={30}
@@ -85,7 +87,7 @@ export default function SingleSlider({ images = [] }) {
         >
           {slides.map((slide, index) => (
             <SwiperSlide key={index}>
-              <div className={cx('slide-wrapper', className)}>
+              <div className={cx('slide-wrapper', customClassName)}>
                 <div className={cx('image-wrapper')}>
                   <Image
                     src={slide.src}

@@ -118,7 +118,7 @@ export default function ContentWrapper({
     <article className={cx('component', className)}>
       {images?.[0] != null && (
         <div className={cx('with-slider-wrapper')}>
-          <SingleSlider images={images} />
+          <SingleSlider images={images} customClassName={className} />
           <div className={cx('content-wrapper')}>{transformedContent}</div>
           {children}
         </div>

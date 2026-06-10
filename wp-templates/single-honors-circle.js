@@ -390,7 +390,11 @@ export default function Component(props) {
                 className={'honors-circle'}
                 id={'HC_Book_Now_ClickTracker'}
               />
-              <ContentWrapperHC content={content} images={images} />
+              <ContentWrapperHC
+                content={content}
+                images={images}
+                customClassName={'honors-circle'}
+              />
             </SingleHCContainer>
           </>
         </Main>

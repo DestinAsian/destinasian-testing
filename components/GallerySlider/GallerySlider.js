@@ -133,7 +133,6 @@ export default function GallerySlider({
             delay: 5000,
             disableOnInteraction: true,
           }}
-          autoplayDisableOnInteraction={true}
           loop={normalizedSlides.length > 1}
           pagination={{
             el: `.${paginationClass}`,

@@ -16,7 +16,12 @@ const SingleSlider = dynamic(() =>
 
 let cx = className.bind(styles)
 
-export default function ContentWrapperHC({ content, children, images }) {
+export default function ContentWrapperHC({
+  content,
+  children,
+  images,
+  customClassName,
+}) {
   const [transformedContent, setTransformedContent] = useState('')
 
   useEffect(() => {
@@ -110,11 +115,13 @@ export default function ContentWrapperHC({ content, children, images }) {
     extractHTMLData()
   }, [content])
 
+  console.log(customClassName)
+
   return (
-    <article className={cx('component')}>
+    <article className={cx('component', customClassName)}>
       {images?.[0] != null && (
         <div className={cx('with-slider-wrapper')}>
-          <SingleSlider images={images} />
+          <SingleSlider images={images} customClassName={customClassName} />
           <div className={cx('content-wrapper')}>{transformedContent}</div>
           {children}
         </div>
