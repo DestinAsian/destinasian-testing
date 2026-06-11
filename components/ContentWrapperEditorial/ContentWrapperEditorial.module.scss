@@ -46,6 +46,7 @@
 
   :global {
     * {
+      font-family: 'Sentinel A', 'Sentinel B';
       max-width: 100%;
       padding: 0 1rem 1rem;
 
@@ -149,7 +150,7 @@
       font-weight: 700;
     }
 
-    a {      
+    a {
       color: var(--wpe--link--color);
       text-decoration: none;
 
