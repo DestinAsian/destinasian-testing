@@ -40,8 +40,7 @@ export const GetAdvertorialHomepageStories = gql`
             bookNowButton {
               bookNowLabel
               bookNowLink
-              bookNowBackgroundColor
-              bookNowTextColor
+              bookNowColor
             }
           }
         }

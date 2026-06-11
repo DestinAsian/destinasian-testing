@@ -387,7 +387,7 @@ export default function Component(props) {
               />
               <BookNowButton
                 bookNowButton={bookNowButton}
-                className={'honors-circle'}
+                customClassName={'honors-circle'}
                 id={'HC_Book_Now_ClickTracker'}
               />
               <ContentWrapperHC
@@ -507,8 +507,7 @@ Component.query = gql`
       bookNowButton {
         bookNowLabel
         bookNowLink
-        bookNowBackgroundColor
-        bookNowTextColor
+        bookNowColor
       }
     }
   }

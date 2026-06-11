@@ -39,8 +39,7 @@ export const GetAdvertorialStories = gql`
                   bookNowButton {
                     bookNowLabel
                     bookNowLink
-                    bookNowBackgroundColor
-                    bookNowTextColor
+                    bookNowColor
                   }
                 }
               }

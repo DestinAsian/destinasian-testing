@@ -21,9 +21,7 @@ const SingleRCASlider = dynamic(() =>
 const SingleRCAEntryHeader = dynamic(() =>
   import('@/components/SingleRCAEntryHeader/SingleRCAEntryHeader'),
 )
-const RCAMenu = dynamic(() =>
-  import('@/components/RCAMenu/RCAMenu'),
-)
+const RCAMenu = dynamic(() => import('@/components/RCAMenu/RCAMenu'))
 
 let cx = className.bind(styles)
 
@@ -125,7 +123,9 @@ export default function ContentWrapperRCA({
       ]
 
   const rcaPublishedDate = rcaAll[0]?.dateGmt ?? 0
-  const yearOfRCA = rcaPublishedDate ? new Date(rcaPublishedDate).getFullYear() : null
+  const yearOfRCA = rcaPublishedDate
+    ? new Date(rcaPublishedDate).getFullYear()
+    : null
 
   const indexOfRCA = data?.readersChoiceAwardBy?.menuOrder ?? 0
   const numberOfRCA = rcaAll?.length
@@ -384,25 +384,18 @@ export default function ContentWrapperRCA({
                 )}
               </div>
               {bookNowButton?.bookNowLink && bookNowButton?.bookNowLabel && (
-                <div className={cx('book-now-wrapper')}>
-                  <div
-                    className={cx('book-now-button')}
-                    style={{
-                      ...(bookNowButton?.bookNowBackgroundColor && {
-                        backgroundColor: bookNowButton.bookNowBackgroundColor,
-                      }),
-                    }}
-                  >
+                <div
+                  className={cx(
+                    'book-now-wrapper',
+                    bookNowButton?.bookNowColor && bookNowButton?.bookNowColor,
+                  )}
+                >
+                  <div className={cx('book-now-button')}>
                     {/* {'Book Now Button'} */}
                     <Link
                       id={'RCA_Book_Now_ClickTracker'}
                       target="_blank"
                       href={bookNowButton.bookNowLink}
-                      style={{
-                        ...(bookNowButton?.bookNowTextColor && {
-                          color: bookNowButton.bookNowTextColor,
-                        }),
-                      }}
                     >
                       {bookNowButton.bookNowLabel}
                     </Link>

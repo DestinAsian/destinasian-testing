@@ -52,7 +52,13 @@ export default function TextToSpeech({
   }
 
   return (
-    <div className={cx('component', customClassName)}>
+    <div
+      className={cx(
+        'component',
+        customClassName,
+        bookNowButton?.bookNowColor && bookNowButton?.bookNowColor,
+      )}
+    >
       <div className={cx('tts-button-wrapper')}>
         {textToRead && (
           <>
@@ -97,24 +103,8 @@ export default function TextToSpeech({
           </>
         )}
         {bookNowButton?.bookNowLink && bookNowButton?.bookNowLabel && (
-          <div
-            className={cx('book-now-button')}
-            style={{
-              ...(bookNowButton?.bookNowBackgroundColor && {
-                backgroundColor: bookNowButton.bookNowBackgroundColor,
-              }),
-            }}
-          >
-            <Link
-              id={id}
-              target="_blank"
-              href={bookNowButton.bookNowLink}
-              style={{
-                ...(bookNowButton?.bookNowTextColor && {
-                  color: bookNowButton.bookNowTextColor,
-                }),
-              }}
-            >
+          <div className={cx('book-now-button')}>
+            <Link id={id} target="_blank" href={bookNowButton.bookNowLink}>
               {bookNowButton.bookNowLabel}
             </Link>
           </div>

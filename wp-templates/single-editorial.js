@@ -491,8 +491,7 @@ Component.query = gql`
       bookNowButton {
         bookNowLabel
         bookNowLink
-        bookNowBackgroundColor
-        bookNowTextColor
+        bookNowColor
       }
       acfSingleEditorialSlider {
         slide1 {

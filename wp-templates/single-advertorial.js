@@ -409,6 +409,7 @@ export default function Component(props) {
             <BookNowButton
               bookNowButton={bookNowButton}
               id={'PC_Book_Now_ClickTracker'}
+              customClassName={'advertorial'}
             />
             <ContentWrapper
               content={content}
@@ -549,8 +550,7 @@ Component.query = gql`
       bookNowButton {
         bookNowLabel
         bookNowLink
-        bookNowBackgroundColor
-        bookNowTextColor
+        bookNowColor
       }
     }
   }

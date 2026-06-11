@@ -15,6 +15,55 @@
   }
 }
 
+.advertorial {
+  .book-now-wrapper {
+    @media (min-width: $breakpoint-extra-small) {
+      width: 100%;
+      max-width: 730px;
+    }
+  }
+}
+
+.black {
+  .book-now-wrapper {
+    background-color: var(--wpe--color--black);
+    color: var(--wpe--color--white);
+
+    * {
+      fill: var(--wpe--color--white);
+      color: var(--wpe--color--white);
+    }
+
+    a,
+    button {
+      &:hover,
+      &:focus {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.light_yellow {
+  .book-now-wrapper {
+    background-color: var(--wpe--color--light--yellow);
+    color: var(--wpe--color--black);
+
+    * {
+      fill: var(--wpe--color--black);
+      color: var(--wpe--color--black);
+    }
+
+    a,
+    button {
+      &:hover,
+      &:focus {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
 .book-now-wrapper {
   width: 90%;
   margin: 0 auto 0.5rem;
@@ -25,7 +74,7 @@
   padding: 0;
   z-index: 10;
   bottom: 0;
-  background-color: var(--wpe--color--black);
+  background-color: transparent;
   border-radius: 5rem;
   box-shadow: -0.1rem 0.25rem 0.5rem var(--wpe--color--deep--black);
 

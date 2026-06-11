@@ -5,10 +5,12 @@ import Link from 'next/link'
 
 let cx = className.bind(styles)
 
-export default function BookNowButton({ bookNowButton, className, id }) {
+export default function BookNowButton({ bookNowButton, customClassName, id }) {
   // State to manage the visibility of the "Book Now" button.
   const [showBookNow, setShowBookNow] = useState(true)
-   const [isSharing, setIsSharing] = useState(false)
+  const [isSharing, setIsSharing] = useState(false)
+
+  console.log(customClassName)
 
   const handleShare = async () => {
     if (isSharing) return // prevent double-clicks
@@ -33,47 +35,20 @@ export default function BookNowButton({ bookNowButton, className, id }) {
   }
 
   return (
-    <div className={cx('component', className)}>
+    <div
+      className={cx('component', customClassName, bookNowButton?.bookNowColor)}
+    >
       {bookNowButton?.bookNowLink && bookNowButton?.bookNowLabel && (
         <div
           className={cx('book-now-wrapper', showBookNow ? 'show' : 'hidden')}
         >
-          <div
-            className={cx('book-now-button')}
-            style={{
-              ...(bookNowButton?.bookNowBackgroundColor && {
-                backgroundColor: bookNowButton.bookNowBackgroundColor,
-              }),
-            }}
-          >
+          <div className={cx('book-now-button')}>
             {/* {'Book Now Button'} */}
-            <Link
-              id={id}
-              target="_blank"
-              href={bookNowButton.bookNowLink}
-              style={{
-                ...(bookNowButton?.bookNowTextColor && {
-                  color: bookNowButton.bookNowTextColor,
-                }),
-              }}
-            >
+            <Link id={id} target="_blank" href={bookNowButton.bookNowLink}>
               {bookNowButton.bookNowLabel}
             </Link>
-            {/* {'Close Button'} */}
-            {/* <button
-              className={cx('close-button')}
-              onClick={() => setShowBookNow(false)}
-              aria-label="Close"
-              style={{
-                ...(bookNowButton?.bookNowTextColor && {
-                  color: bookNowButton.bookNowTextColor,
-                }),
-              }}
-            >
-              &times;
-            </button> */}
           </div>
-           <button
+          <button
             type="button"
             className={cx('share-button')}
             onClick={handleShare}
