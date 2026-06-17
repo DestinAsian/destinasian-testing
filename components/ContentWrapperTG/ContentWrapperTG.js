@@ -216,7 +216,6 @@ export default function ContentWrapperTG({
         />
         <div
           style={{
-            // marginLeft: !isMobile ? `${sliderWidth}px` : '',
             width: !isMobile ? '100vw' : '',
           }}
           className={cx('navigation-wrapper')}

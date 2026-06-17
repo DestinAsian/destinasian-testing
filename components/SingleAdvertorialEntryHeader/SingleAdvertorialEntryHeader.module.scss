@@ -51,15 +51,15 @@
     padding: 2rem 0;
     max-width: 800px;
   }
+
+  .header-wrapper {
+    background-color: var(--wpe--color--white--smoke);
+  }
 }
 
 .luxury-travel-spotlight.maximized {
   @media (min-width: $breakpoint-medium) {
     margin: calc(-52.5vh + 7.35rem) auto 0;
-  }
-
-  .header-wrapper {
-    background-color: var(--wpe--color--white--smoke);
   }
 }
 
