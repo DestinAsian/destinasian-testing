@@ -30,8 +30,10 @@
     color: var(--wpe--color--white);
 
     * {
+      background-color: var(--wpe--color--black);
       fill: var(--wpe--color--white);
       color: var(--wpe--color--white);
+      border-radius: inherit;
     }
 
     a,
@@ -50,8 +52,10 @@
     color: var(--wpe--color--black);
 
     * {
+      background-color: var(--wpe--color--light--yellow);
       fill: var(--wpe--color--black);
       color: var(--wpe--color--black);
+      border-radius: inherit;
     }
 
     a,
