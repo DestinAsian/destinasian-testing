@@ -111,22 +111,43 @@
     background-color: var(--wpe--color--light--yellow);
     align-items: center;
     z-index: 45;
-    box-shadow: 0 -0.25rem 0.5rem var(--wpe--color--light--yellow);
 
     @media (min-width: $breakpoint-medium) {
       // background-color: transparent;
-      height: 5.25rem;
+      height: 4rem;
       // left: 50%;
       // width: 50vw;
       padding: 0 2rem 0.5rem;
+      justify-content: center;
     }
 
-    > div {
-      width: 25%;
+    // > div {
+    //   width: 25%;
 
-      .image-wrapper {
-        align-items: center;
-      }
+    //   .image-wrapper {
+    //     align-items: center;
+    //   }
+    // }
+  }
+
+  .navigation-inner-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: calc(100% - 2rem);
+    margin: 0 auto;
+    max-width: 700px;
+    padding: 0;
+    background-color: var(--wpe--color--light--yellow);
+    opacity: 1;
+    border: 1px solid var(--wpe--color--grey);
+    border-radius: 5rem;
+    box-shadow: -0.1rem 0.25rem 0.5rem var(--wpe--color--light--yellow);
+
+    @media (min-width: $breakpoint-small) {
+      width: 100%;
+      margin: 0;
     }
   }
 
@@ -136,9 +157,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: fit-content;
+    width: 20%;
     box-sizing: border-box;
-    min-width: 3.5rem;
+    // min-width: 3.5rem;
     min-height: 3rem;
     height: 100%;
 
@@ -171,15 +192,15 @@
 
     .prev-button {
       text-align: right;
-      padding: 0;
+      padding: 0 1rem;
 
       svg {
         width: 1rem;
-        height: 2rem;
+        height: 1rem;
 
-        @media (min-width: $breakpoint-medium) {
+        @media (min-width: $breakpoint-extra-small) {
           width: 1.5rem;
-          height: 2.5rem;
+          height: 1.5rem;
         }
 
         path {
@@ -188,7 +209,7 @@
         &:hover,
         &:focus {
           path {
-            stroke: var(--wpe--color--black);
+            stroke: var(--wpe--color--deep--black);
           }
         }
       }
@@ -196,15 +217,15 @@
 
     .next-button {
       text-align: left;
-      padding: 0;
+      padding: 0 1rem;
 
       svg {
         width: 1rem;
-        height: 2rem;
+        height: 1rem;
 
-        @media (min-width: $breakpoint-medium) {
+        @media (min-width: $breakpoint-extra-small) {
           width: 1.5rem;
-          height: 2.5rem;
+          height: 1.5rem;
         }
 
         path {
@@ -233,13 +254,15 @@
   .share-button-wrapper {
     display: block;
     position: relative;
-    height: auto;
-    width: fit-content;
+    height: 100%;
     padding: 0;
+    width: 20%;
+    min-height: 3rem;
+    height: 100%;
 
-    // @media (min-width: $breakpoint-medium) {
-    //   display: none;
-    // }
+    @media (min-width: $breakpoint-small) {
+      width: auto;
+    }
   }
 
   .image-wrapper {
