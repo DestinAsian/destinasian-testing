@@ -278,9 +278,6 @@ export default function ContentWrapperTG({
                         className={cx('menu-icon')}
                         onClick={() => {
                           setIsTGNavShown(!isTGNavShown) // Toggles navigation visibility
-                          // if (isAutoplayRunning) {
-                          //   return toggleAutoplay() // Calls the toggleAutoplay function
-                          // }
                         }}
                         aria-controls={cx('full-menu-wrapper')}
                         aria-expanded={!isTGNavShown}
