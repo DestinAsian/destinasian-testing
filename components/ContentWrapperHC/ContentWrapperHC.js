@@ -115,8 +115,6 @@ export default function ContentWrapperHC({
     extractHTMLData()
   }, [content])
 
-  console.log(customClassName)
-
   return (
     <article className={cx('component', customClassName)}>
       {images?.[0] != null && (

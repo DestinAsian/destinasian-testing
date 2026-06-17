@@ -64,8 +64,6 @@ export default function SingleSlider({ images = [], customClassName }) {
 
   if (!slides.length) return null
 
-  console.log(customClassName)
-
   return (
     <div className={cx('component', 'gallery-slider-wrapper', customClassName)}>
       <div className={cx('swiper-slider', 'swiper-wrapper')}>

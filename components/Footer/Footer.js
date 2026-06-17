@@ -28,8 +28,6 @@ export default function Footer(customClassName) {
 
   const className = customClassName?.customClassName
 
-  console.log('Footer className:', className)
-
   return (
     <footer className={cx('component', className)}>
       <div className={cx('container-wrapper')}>

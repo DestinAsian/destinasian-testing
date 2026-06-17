@@ -10,8 +10,6 @@ export default function BookNowButton({ bookNowButton, customClassName, id }) {
   const [showBookNow, setShowBookNow] = useState(true)
   const [isSharing, setIsSharing] = useState(false)
 
-  console.log(customClassName)
-
   const handleShare = async () => {
     if (isSharing) return // prevent double-clicks
 
