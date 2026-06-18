@@ -12,11 +12,6 @@ import dynamic from 'next/dynamic'
 
 // Import Components
 const Header = dynamic(() => import('@/components/Header/Header'))
-const CategorySecondaryHeader = dynamic(() =>
-  import(
-    '@/components/CategoryHeader/CategorySecondaryHeader/CategorySecondaryHeader'
-  ),
-)
 const Main = dynamic(() => import('@/components/Main/Main'))
 const CategoryEntryHeader = dynamic(() =>
   import('@/components/CategoryEntryHeader/CategoryEntryHeader'),

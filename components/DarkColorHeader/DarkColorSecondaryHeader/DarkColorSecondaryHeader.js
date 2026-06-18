@@ -62,9 +62,6 @@ export default function DarkColorSecondaryHeader({
   customClassName,
   burgerButtonRef,
 }) {
-  // Posts for Search Function
-  const postsPerPage = 200
-
   // Search Results Query
   const MIN_YEAR = 2023
   const [year, setYear] = useState(2024)
@@ -115,9 +112,7 @@ export default function DarkColorSecondaryHeader({
     isLoading,
     error,
   } = useSWRGraphQL(swrKey, GetSearchResults, {
-    first: postsPerPage,
     search: searchQuery,
-    year,
   })
 
   // Check if the search query is empty and no search results are loading, then hide the SearchResults component
@@ -139,20 +134,17 @@ export default function DarkColorSecondaryHeader({
 
   // Search Results - combine content types, remove duplicates, and sort by date
   const contentNodesPosts = useMemo(() => {
-    if (!searchResultsData) return []
-
-    const edgesGroups = [
-      searchResultsData.posts?.edges,
-      searchResultsData.editorials?.edges,
-      searchResultsData.updates?.edges,
-      searchResultsData.advertorials?.edges,
-    ]
+    const tagEdges = searchResultsData?.tags?.edges ?? []
+    if (!tagEdges.length) return []
 
     const seen = new Set()
     const results = []
 
-    for (const edges of edgesGroups) {
-      for (const { node: post } of edges ?? []) {
+    for (const tagEdge of tagEdges) {
+      const contentNodeEdges = tagEdge?.node?.contentNodes?.edges ?? []
+
+      for (const contentEdge of contentNodeEdges) {
+        const post = contentEdge?.node
         if (!post?.databaseId) continue
         if (post?.passwordProtected?.onOff) continue
         if (seen.has(post.databaseId)) continue
@@ -162,7 +154,7 @@ export default function DarkColorSecondaryHeader({
       }
     }
 
-    results.sort((a, b) => Date.parse(b.date) - Date.parse(a.date))
+    results.sort((a, b) => Date.parse(b?.date ?? 0) - Date.parse(a?.date ?? 0))
     return results
   }, [searchResultsData])
 

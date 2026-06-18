@@ -1,146 +1,135 @@
 import { gql } from '@apollo/client'
 
 export const GetSearchResults = gql`
-  query GetSearchResults($first: Int!, $search: String, $year: Int!) {
-    posts(
-      first: $first
-      where: {
-        status: PUBLISH
-        search: $search
-        orderby: { field: DATE, order: DESC }
-        dateQuery: { after: { month: 12, year: $year } }
-      }
-    ) {
+  query GetSearchResults($search: String) {
+    tags(first: 1000, where: { search: $search, hideEmpty: true }) {
       edges {
         node {
           id
           uri
-          date
-          databaseId
-          contentType {
-            node {
-              label
-              graphqlPluralName
+          contentNodes(
+            first: 1000
+            where: {
+              status: PUBLISH
+              contentTypes: [
+                ADVERTORIAL
+                EDITORIAL
+                UPDATE
+                POST
+                READERS_CHOICE_AWARD
+                LUXE_LIST
+                LUXURY_TRAVEL
+              ]
             }
-          }
-          title
-          passwordProtected {
-            onOff
-          }
-          categories(first: 1, where: { childless: true }) {
+          ) {
             edges {
               node {
-                name
+                id
                 uri
-                parent {
+                date
+                databaseId
+                contentType {
                   node {
-                    name
+                    label
+                    graphqlPluralName
+                  }
+                }
+                ... on Post {
+                  title
+                  passwordProtected {
+                    onOff
+                  }
+                  categories(first: 1, where: { childless: true }) {
+                    edges {
+                      node {
+                        name
+                        uri
+                        parent {
+                          node {
+                            name
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+                ... on Editorial {
+                  title
+                  passwordProtected {
+                    onOff
+                  }
+                  categories {
+                    edges {
+                      node {
+                        name
+                        uri
+                      }
+                    }
+                  }
+                }
+                ... on Update {
+                  title
+                  passwordProtected {
+                    onOff
+                  }
+                  categories {
+                    edges {
+                      node {
+                        name
+                        uri
+                      }
+                    }
+                  }
+                }
+                ... on Advertorial {
+                  title
+                  passwordProtected {
+                    onOff
+                  }
+                }
+                ... on ReadersChoiceAward {
+                  title
+                  passwordProtected {
+                    onOff
+                  }
+                }
+                ... on LuxeList {
+                  title
+                  passwordProtected {
+                    onOff
+                  }
+                }
+                ... on LuxuryTravel {
+                  title
+                  passwordProtected {
+                    onOff
+                  }
+                  parent {
+                    node {
+                      ... on LuxuryTravel {
+                        title
+                        uri
+                      }
+                    }
+                  }
+                }
+                ... on TravelGuide {
+                  title
+                  passwordProtected {
+                    onOff
+                  }
+                }
+                ... on HonorsCircle {
+                  title
+                  passwordProtected {
+                    onOff
                   }
                 }
               }
             }
           }
         }
-      }
-    }
-    editorials(
-      first: $first
-      where: {
-        status: PUBLISH
-        search: $search
-        orderby: { field: DATE, order: DESC }
-        dateQuery: { after: { month: 12, year: $year } }
-      }
-    ) {
-      edges {
-        node {
-          id
-          uri
-          date
-          databaseId
-          contentType {
-            node {
-              label
-              graphqlPluralName
-            }
-          }
-          title
-          passwordProtected {
-            onOff
-          }
-          categories {
-            edges {
-              node {
-                name
-                uri
-              }
-            }
-          }
-        }
-      }
-    }
-    updates(
-      first: $first
-      where: {
-        status: PUBLISH
-        search: $search
-        orderby: { field: DATE, order: DESC }
-        dateQuery: { after: { month: 12, year: $year } }
-      }
-    ) {
-      edges {
-        node {
-          id
-          uri
-          date
-          databaseId
-          contentType {
-            node {
-              label
-              graphqlPluralName
-            }
-          }
-          title
-          passwordProtected {
-            onOff
-          }
-          categories {
-            edges {
-              node {
-                name
-                uri
-              }
-            }
-          }
-        }
-      }
-    }
-    advertorials(
-      first: $first
-      where: {
-        status: PUBLISH
-        search: $search
-        orderby: { field: DATE, order: DESC }
-        dateQuery: { after: { month: 12, year: $year } }
-      }
-    ) {
-      edges {
-        node {
-          id
-          uri
-          date
-          databaseId
-          contentType {
-            node {
-              label
-              graphqlPluralName
-            }
-          }
-          title
-          passwordProtected {
-            onOff
-          }
-        }
+        cursor
       }
     }
   }
