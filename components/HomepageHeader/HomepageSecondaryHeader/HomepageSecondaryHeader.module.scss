@@ -8,13 +8,12 @@
   height: auto;
   width: 100vw;
   z-index: 51;
-  top: 2.75rem;
-  padding: 0;
-  // min-height: 2.5rem;
+  top: 2.5rem;
+  padding: 0.25rem 0 0;
 
   @media (min-width: $breakpoint-extra-small) {
-    top: 3.5rem;
-    // min-height: 3rem;
+    top: 3.75rem;
+    padding: 0;
   }
 
   .menu-wrapper {
@@ -186,11 +185,17 @@
 .sticky {
   background-color: var(--wpe--main--background-color);
   position: fixed;
-  top: -4.25rem;
+  top: -4.5rem;
   left: 0;
   width: 100%;
   // z-index: 1000;
   transform: translateY(7rem);
+  padding: 0.25rem 0 0;
+
+  @media (min-width: $breakpoint-extra-small) {
+    top: -3.25rem;
+    padding: 0;
+  }
 
   * {
     color: var(--wpe--color--black);
@@ -207,10 +212,6 @@
 
   .desktop-menu-button {
     color: var(--wpe--color--black);
-  }
-
-  @media (min-width: $breakpoint-extra-small) {
-    top: -3.5rem;
   }
 }
 

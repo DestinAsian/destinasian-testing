@@ -7,14 +7,13 @@
   height: auto;
   width: 100vw;
   top: 2.75rem;
-  padding: 0;
+  padding: 0.25rem 0 0;
   background-color: var(--wpe--color--deep--black);
   z-index: 51;
-  // min-height: 2.5rem;
 
   @media (min-width: $breakpoint-extra-small) {
-    top: 3.5rem;
-    // min-height: 3rem;
+    top: 3.75rem;
+    padding: 0;
   }
 
   .menu-wrapper {

@@ -9,12 +9,12 @@
   z-index: 1000;
   top: -0.75rem;
   padding: 0;
-  // min-height: 2.5rem;
   background-color: var(--wpe--main--background-color);
+  padding: 0.25rem 0 0;
 
   @media (min-width: $breakpoint-extra-small) {
-    top: -1rem;
-    // min-height: 3rem;
+    top: 3.5rem;
+    padding: 0;
   }
 
   * {
@@ -189,37 +189,58 @@
   }
 }
 
-.advertorial{
-  position: fixed;
-  top: 2.75rem;
-
-  @media (min-width: $breakpoint-extra-small) {
-    top: 3.5rem;
-  }
-}
-
 .luxury-travel,
 .luxury-travel-spotlight {
   position: relative;
 
   @media (min-width: $breakpoint-medium) {
     position: fixed;
-    top: 3.5rem;
+    top: 3.75rem;
   }
 }
 
-.navigation-wrapper.luxury-travel,
-.sticky.luxury-travel,
-.navigation-wrapper.advertorial,
-.sticky.advertorial,
-.navigation-wrapper.honors-circle,
-.sticky.honors-circle {
+.navigation-wrapper.advertorial {
+  position: fixed;
+  top: 2.5rem;
+  background-color: var(--wpe--color--light--yellow);
+
+  @media (min-width: $breakpoint-extra-small) {
+    top: 3.75rem;
+  }
+}
+
+.navigation-wrapper.honors-circle {
+  top: -0.5rem;
   background-color: var(--wpe--color--light--yellow);
 }
 
-.navigation-wrapper.luxury-travel-spotlight,
-.sticky.luxury-travel-spotlight {
+.navigation-wrapper.luxury-travel {
+  top: -0.5rem;
+  background-color: var(--wpe--color--light--yellow);
+
+  @media (min-width: $breakpoint-extra-small) {
+    top: 3.75rem;
+  }
+}
+
+.navigation-wrapper.luxury-travel-spotlight {
+  top: -0.5rem;
   background-color: var(--wpe--color--white--smoke);
+
+  @media (min-width: $breakpoint-extra-small) {
+    top: 3.75rem;
+  }
+}
+
+.sticky.luxury-travel,
+.sticky.luxury-travel-spotlight,
+.sticky.advertorial,
+.sticky.honors-circle {
+  top: -4.5rem;
+
+  @media (min-width: $breakpoint-extra-small) {
+    top: -3.25rem;
+  }
 }
 
 .navigation-wrapper.travel-guide,
@@ -232,18 +253,22 @@
   transform: translateY(0);
 
   @media (min-width: $breakpoint-extra-small) {
-    top: 3.5rem;
+    top: 3.75rem;
   }
 }
 
 .category {
-  top: 0;
+  top: -0.5rem;
+
+  @media (min-width: $breakpoint-extra-small) {
+    top: -0.75rem;
+  }
 }
 
 .sticky {
   background-color: var(--wpe--main--background-color);
   position: fixed;
-  top: -4.25rem;
+  top: -4.5rem;
   left: 0;
   width: 100%;
   // z-index: 1000;
@@ -255,7 +280,7 @@
   }
 
   @media (min-width: $breakpoint-extra-small) {
-    top: -3.5rem;
+    top: -3.25rem;
   }
 }
 
