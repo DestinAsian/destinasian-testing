@@ -80,7 +80,7 @@
   bottom: 0;
   background-color: transparent;
   border-radius: 5rem;
-  box-shadow: -0.1rem 0.25rem 0.5rem var(--wpe--color--deep--black);
+  border: 1px solid var(--wpe--color--grey);
 
   @media (min-width: $breakpoint-extra-small) {
     width: 100%;
@@ -105,12 +105,11 @@
     font-weight: 500;
     margin: 0 auto;
     padding: 0;
-    color: var(--wpe--color--white);
     text-decoration: none;
 
     &:hover,
     &:focus {
-      color: var(--wpe--color--white);
+      color: var(--wpe--link--color);
       text-decoration: underline;
     }
   }
