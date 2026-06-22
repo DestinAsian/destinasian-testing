@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client'
 
-export const GetPageRelatedStories = gql`
-  query GetPageRelatedStories($id: ID = "") {
-    page(id: $id, idType: DATABASE_ID) {
+export const GetAdvertorialRelatedStories = gql`
+  query GetAdvertorialRelatedStories($id: ID = "") {
+    advertorial(id: $id, idType: DATABASE_ID) {
       relatedStories {
         stories {
           ... on Post {
@@ -16,10 +16,6 @@ export const GetPageRelatedStories = gql`
                 id
                 sourceUrl
                 altText
-                mediaDetails {
-                  width
-                  height
-                }
               }
             }
             categories(where: { childless: true }) {
@@ -27,25 +23,8 @@ export const GetPageRelatedStories = gql`
                 node {
                   name
                   uri
-                  parent {
-                    node {
-                      name
-                    }
-                  }
                 }
               }
-            }
-            acfCategoryIcon {
-              categoryLabel
-              chooseYourCategory
-              chooseIcon {
-                mediaItemUrl
-              }
-            }
-            acfLocationIcon {
-              fieldGroupName
-              locationLabel
-              locationUrl
             }
           }
           ... on Editorial {
@@ -59,10 +38,6 @@ export const GetPageRelatedStories = gql`
                 id
                 sourceUrl
                 altText
-                mediaDetails {
-                  width
-                  height
-                }
               }
             }
             categories {
@@ -70,11 +45,6 @@ export const GetPageRelatedStories = gql`
                 node {
                   name
                   uri
-                  parent {
-                    node {
-                      name
-                    }
-                  }
                 }
               }
             }
@@ -90,10 +60,6 @@ export const GetPageRelatedStories = gql`
                 id
                 sourceUrl
                 altText
-                mediaDetails {
-                  width
-                  height
-                }
               }
             }
             categories {
@@ -101,11 +67,6 @@ export const GetPageRelatedStories = gql`
                 node {
                   name
                   uri
-                  parent {
-                    node {
-                      name
-                    }
-                  }
                 }
               }
             }
@@ -121,9 +82,13 @@ export const GetPageRelatedStories = gql`
                 id
                 sourceUrl
                 altText
-                mediaDetails {
-                  width
-                  height
+              }
+            }
+            categories {
+              edges {
+                node {
+                  name
+                  uri
                 }
               }
             }
@@ -134,20 +99,11 @@ export const GetPageRelatedStories = gql`
             contentTypeName
             title
             excerpt
-            contentType {
-              node {
-                label
-              }
-            }
             featuredImage {
               node {
                 id
                 sourceUrl
                 altText
-                mediaDetails {
-                  width
-                  height
-                }
               }
             }
           }
@@ -157,11 +113,6 @@ export const GetPageRelatedStories = gql`
             excerpt
             contentTypeName
             uri
-            contentType {
-              node {
-                label
-              }
-            }
             featuredImage {
               node {
                 id
@@ -176,11 +127,20 @@ export const GetPageRelatedStories = gql`
             excerpt
             contentTypeName
             uri
-            contentType {
+            featuredImage {
               node {
-                label
+                id
+                sourceUrl
+                altText
               }
             }
+          }
+          ... on LuxuryTravel {
+            id
+            uri
+            contentTypeName
+            title
+            excerpt
             featuredImage {
               node {
                 id
@@ -191,42 +151,24 @@ export const GetPageRelatedStories = gql`
           }
           ... on TravelGuide {
             id
-            title
             uri
-            travelGuidesThemes {
-              themesSelection
-            }
-            categories {
-              edges {
-                node {
-                  id
-                  name
-                }
-              }
-            }
-          }
-          ... on Video {
-            id
             contentTypeName
             title
-            content
+            excerpt
             featuredImage {
               node {
                 id
                 sourceUrl
                 altText
-                mediaDetails {
-                  width
-                  height
-                }
               }
             }
-            videosAcf {
-              videoLink
-              guidesCategoryLink
-              guidesCategoryText
-              customLink
-              customText
+            categories {
+              edges {
+                node {
+                  name
+                  uri
+                }
+              }
             }
           }
         }

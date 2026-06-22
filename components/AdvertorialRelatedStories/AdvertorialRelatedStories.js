@@ -1,18 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react'
 import classNames from 'classnames/bind'
-import styles from './PageRelatedStories.module.scss'
+import styles from './AdvertorialRelatedStories.module.scss'
 import { gql, useQuery } from '@apollo/client'
-import { GetPageRelatedStories } from '@/queries/GetPageRelatedStories'
-import LiteYouTubeEmbed from 'react-lite-youtube-embed'
+import { GetAdvertorialRelatedStories } from '@/queries/GetAdvertorialRelatedStories'
 import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
 // Import Components
-const PostTwoColumns = dynamic(() =>
-  import('@/components/PostTwoColumns/PostTwoColumns'),
-)
-const AdvertorialPostTwoColumns = dynamic(() =>
-  import('@/components/AdvertorialPostTwoColumns/AdvertorialPostTwoColumns'),
+const RelatedStories = dynamic(() =>
+  import('@/components/RelatedStories/RelatedStories'),
 )
 
 let cx = classNames.bind(styles)
@@ -26,20 +22,19 @@ function shuffleArray(array) {
 }
 
 export default function PageRelatedStories(databaseId) {
-
   const pageId = databaseId?.databaseId
 
   // Get Page Related Stories
-  const { data } = useQuery(GetPageRelatedStories, {
+  const { data } = useQuery(GetAdvertorialRelatedStories, {
     variables: {
       id: pageId,
     },
     fetchPolicy: 'cache-and-network',
-    nextFetchPolicy: "network-only",
+    nextFetchPolicy: 'network-only',
   })
 
   // Declare all posts
-  const allPosts = data?.page?.relatedStories?.stories
+  const allPosts = data?.advertorial?.relatedStories?.stories
 
   // All posts
   const mergedPosts = [allPosts].reduce((uniquePosts, post) => {
@@ -54,6 +49,10 @@ export default function PageRelatedStories(databaseId) {
       <>
         {mergedPosts[0]?.length !== 0 && (
           <>
+            <div className={cx('entry-wrapper')}>
+              <div className={cx('entry-title')}>{'Related Stories'}</div>
+              <div className={cx('entry-border')}></div>
+            </div>
             <div className={cx('pin-posts-wrapper')}>
               <div className={cx('pin-posts-content')}>
                 {mergedPosts[0]?.length !== 0 &&
@@ -62,7 +61,7 @@ export default function PageRelatedStories(databaseId) {
                       {post?.contentTypeName === 'post' && (
                         <div className={cx('post-wrapper')}>
                           {/* Post / Guides Stories */}
-                          <PostTwoColumns
+                          <RelatedStories
                             title={post?.title}
                             excerpt={post?.excerpt}
                             uri={post?.uri}
@@ -73,133 +72,91 @@ export default function PageRelatedStories(databaseId) {
                             category={post?.categories?.edges[0]?.node?.name}
                             categoryUri={post?.categories?.edges[0]?.node?.uri}
                             featuredImage={post?.featuredImage?.node}
-                            chooseYourCategory={
-                              post?.acfCategoryIcon?.chooseYourCategory
-                            }
-                            chooseIcon={
-                              post?.acfCategoryIcon?.chooseIcon?.mediaItemUrl
-                            }
-                            categoryLabel={post?.acfCategoryIcon?.categoryLabel}
-                            locationValidation={
-                              post?.acfLocationIcon?.fieldGroupName
-                            }
-                            locationLabel={post?.acfLocationIcon?.locationLabel}
-                            locationUrl={post?.acfLocationIcon?.locationUrl}
                           />
                         </div>
                       )}
                       {post?.contentTypeName === 'editorial' && (
                         <div className={cx('post-wrapper')}>
                           {/* Editorials Stories */}
-                          <PostTwoColumns
+                          <RelatedStories
                             title={post?.title}
                             excerpt={post?.excerpt}
                             uri={post?.uri}
-                            parentCategory={
-                              post?.categories?.edges[0]?.node?.parent?.node
-                                ?.name
-                            }
                             category={post?.categories?.edges[0]?.node?.name}
                             categoryUri={post?.categories?.edges[0]?.node?.uri}
                             featuredImage={post?.featuredImage?.node}
-                            chooseYourCategory={
-                              post?.acfCategoryIcon?.chooseYourCategory
-                            }
-                            chooseIcon={
-                              post?.acfCategoryIcon?.chooseIcon?.mediaItemUrl
-                            }
-                            categoryLabel={post?.acfCategoryIcon?.categoryLabel}
-                            locationValidation={
-                              post?.acfLocationIcon?.fieldGroupName
-                            }
-                            locationLabel={post?.acfLocationIcon?.locationLabel}
-                            locationUrl={post?.acfLocationIcon?.locationUrl}
                           />
                         </div>
                       )}
                       {post?.contentTypeName === 'update' && (
                         <div className={cx('post-wrapper')}>
                           {/* Updates Stories */}
-                          <PostTwoColumns
+                          <RelatedStories
                             title={post?.title}
                             excerpt={post?.excerpt}
                             uri={post?.uri}
-                            parentCategory={
-                              post?.categories?.edges[0]?.node?.parent?.node
-                                ?.name
-                            }
                             category={post?.categories?.edges[0]?.node?.name}
                             categoryUri={post?.categories?.edges[0]?.node?.uri}
                             featuredImage={post?.featuredImage?.node}
-                            chooseYourCategory={
-                              post?.acfCategoryIcon?.chooseYourCategory
-                            }
-                            chooseIcon={
-                              post?.acfCategoryIcon?.chooseIcon?.mediaItemUrl
-                            }
-                            categoryLabel={post?.acfCategoryIcon?.categoryLabel}
-                            locationValidation={
-                              post?.acfLocationIcon?.fieldGroupName
-                            }
-                            locationLabel={post?.acfLocationIcon?.locationLabel}
-                            locationUrl={post?.acfLocationIcon?.locationUrl}
                           />
                         </div>
                       )}
                       {post?.contentTypeName === 'advertorial' && (
-                        <div className={cx('advertorial-wrapper')}>
+                        <div className={cx('post-wrapper')}>
                           {/* Advertorial Stories */}
-                          <AdvertorialPostTwoColumns
+                          <RelatedStories
                             title={post?.title}
                             excerpt={post?.excerpt}
                             uri={post?.uri}
+                            category={post?.categories?.edges[0]?.node?.name}
+                            categoryUri={post?.categories?.edges[0]?.node?.uri}
                             featuredImage={post?.featuredImage?.node}
                           />
                         </div>
                       )}
                       {post?.contentTypeName === 'honors-circle' && (
-                        <div className={cx('hc-wrapper')}>
+                        <div className={cx('post-wrapper')}>
                           {/* Honors Circle Stories */}
-                          <PostTwoColumns
+                          <RelatedStories
                             title={post?.title}
                             excerpt={post?.excerpt}
                             uri={post?.uri}
-                            category={post?.contentType?.node?.label}
+                            category={"Honors Circle"}
                             categoryUri={post?.uri}
                             featuredImage={post?.featuredImage?.node}
                           />
                         </div>
                       )}
                       {post?.contentTypeName === 'luxe-list' && (
-                        <div className={cx('ll-wrapper')}>
+                        <div className={cx('post-wrapper')}>
                           {/* Luxe List Stories */}
-                          <PostTwoColumns
+                          <RelatedStories
                             title={post?.title}
                             excerpt={post?.excerpt}
                             uri={post?.uri}
-                            category={post?.contentType?.node?.label}
+                            category={"Luxe List"}
                             categoryUri={post?.uri}
                             featuredImage={post?.featuredImage?.node}
                           />
                         </div>
                       )}
                       {post?.contentTypeName === 'readers-choice-award' && (
-                        <div className={cx('rca-wrapper')}>
+                        <div className={cx('post-wrapper')}>
                           {/* RCA Stories */}
-                          <PostTwoColumns
+                          <RelatedStories
                             title={post?.title}
                             excerpt={post?.excerpt}
                             uri={post?.uri}
-                            category={post?.contentType?.node?.label}
+                            category={"Readers Choice Award"}
                             categoryUri={post?.uri}
                             featuredImage={post?.featuredImage?.node}
                           />
                         </div>
                       )}
                       {post?.contentTypeName === 'luxury-travel' && (
-                        <div className={cx('lt-wrapper')}>
+                        <div className={cx('post-wrapper')}>
                           {/* Luxury Travel Stories */}
-                          <PostTwoColumns
+                          <RelatedStories
                             title={post?.title}
                             excerpt={post?.excerpt}
                             uri={post?.uri}
@@ -210,14 +167,14 @@ export default function PageRelatedStories(databaseId) {
                         </div>
                       )}
                       {post?.contentTypeName === 'travel-guide' && (
-                        <div className={cx('tg-wrapper')}>
+                        <div className={cx('post-wrapper')}>
                           {/* Travel Guides Stories */}
-                          <PostTwoColumns
+                          <RelatedStories
                             title={post?.title}
                             excerpt={post?.excerpt}
                             uri={post?.uri}
-                            category={post?.contentType?.node?.label}
-                            categoryUri={post?.uri}
+                            category={post?.categories?.edges[0]?.node?.name}
+                            categoryUri={post?.categories?.edges[0]?.node?.uri}
                             featuredImage={post?.featuredImage?.node}
                           />
                         </div>

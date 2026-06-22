@@ -35,6 +35,9 @@ const LuxuryTravelDirectory = dynamic(() =>
   import('@/components/LuxuryTravelDirectory/LuxuryTravelDirectory'),
 )
 const TabsEditor = dynamic(() => import('@/components/TabsEditor/TabsEditor'))
+const AdvertorialRelatedStories = dynamic(() =>
+  import('@/components/AdvertorialRelatedStories/AdvertorialRelatedStories'),
+)
 const PasswordProtected = dynamic(() =>
   import('@/components/PasswordProtected/PasswordProtected'),
 )
@@ -62,6 +65,7 @@ export default function Component(props) {
 
   const {
     title,
+    databaseId,
     content,
     featuredImage,
     acfPostSlider,
@@ -428,6 +432,7 @@ export default function Component(props) {
                 isAdvertorial
               />
             )}
+            <AdvertorialRelatedStories databaseId={databaseId} />
           </SingleAdvertorialContainer>
         </>
       </Main>
