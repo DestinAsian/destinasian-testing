@@ -47,7 +47,7 @@ export default function PageRelatedStories(databaseId) {
   return (
     <div className={cx('component')}>
       <>
-        {mergedPosts[0]?.length !== 0 && (
+        {mergedPosts[0] !== null && (
           <>
             <div className={cx('entry-wrapper')}>
               <div className={cx('entry-title')}>{'Related Stories'}</div>
@@ -55,7 +55,7 @@ export default function PageRelatedStories(databaseId) {
             </div>
             <div className={cx('pin-posts-wrapper')}>
               <div className={cx('pin-posts-content')}>
-                {mergedPosts[0]?.length !== 0 &&
+                {mergedPosts[0] !== null &&
                   mergedPosts[0]?.map((post, index) => (
                     <React.Fragment key={post?.id}>
                       {post?.contentTypeName === 'post' && (
@@ -63,7 +63,6 @@ export default function PageRelatedStories(databaseId) {
                           {/* Post / Guides Stories */}
                           <RelatedStories
                             title={post?.title}
-                            excerpt={post?.excerpt}
                             uri={post?.uri}
                             parentCategory={
                               post?.categories?.edges[0]?.node?.parent?.node
@@ -80,7 +79,6 @@ export default function PageRelatedStories(databaseId) {
                           {/* Editorials Stories */}
                           <RelatedStories
                             title={post?.title}
-                            excerpt={post?.excerpt}
                             uri={post?.uri}
                             category={post?.categories?.edges[0]?.node?.name}
                             categoryUri={post?.categories?.edges[0]?.node?.uri}
@@ -93,7 +91,6 @@ export default function PageRelatedStories(databaseId) {
                           {/* Updates Stories */}
                           <RelatedStories
                             title={post?.title}
-                            excerpt={post?.excerpt}
                             uri={post?.uri}
                             category={post?.categories?.edges[0]?.node?.name}
                             categoryUri={post?.categories?.edges[0]?.node?.uri}
@@ -106,11 +103,11 @@ export default function PageRelatedStories(databaseId) {
                           {/* Advertorial Stories */}
                           <RelatedStories
                             title={post?.title}
-                            excerpt={post?.excerpt}
                             uri={post?.uri}
                             category={post?.categories?.edges[0]?.node?.name}
                             categoryUri={post?.categories?.edges[0]?.node?.uri}
                             featuredImage={post?.featuredImage?.node}
+                            customClassName={'advertorial'}
                           />
                         </div>
                       )}
@@ -119,11 +116,11 @@ export default function PageRelatedStories(databaseId) {
                           {/* Honors Circle Stories */}
                           <RelatedStories
                             title={post?.title}
-                            excerpt={post?.excerpt}
                             uri={post?.uri}
-                            category={"Honors Circle"}
+                            category={'Honors Circle'}
                             categoryUri={post?.uri}
                             featuredImage={post?.featuredImage?.node}
+                            customClassName={'honors-circle'}
                           />
                         </div>
                       )}
@@ -132,11 +129,11 @@ export default function PageRelatedStories(databaseId) {
                           {/* Luxe List Stories */}
                           <RelatedStories
                             title={post?.title}
-                            excerpt={post?.excerpt}
                             uri={post?.uri}
-                            category={"Luxe List"}
+                            category={'Luxe List'}
                             categoryUri={post?.uri}
                             featuredImage={post?.featuredImage?.node}
+                            customClassName={'luxe-list'}
                           />
                         </div>
                       )}
@@ -145,11 +142,11 @@ export default function PageRelatedStories(databaseId) {
                           {/* RCA Stories */}
                           <RelatedStories
                             title={post?.title}
-                            excerpt={post?.excerpt}
                             uri={post?.uri}
-                            category={"Readers Choice Award"}
+                            category={'Readers Choice Award'}
                             categoryUri={post?.uri}
                             featuredImage={post?.featuredImage?.node}
+                            customClassName={'rca'}
                           />
                         </div>
                       )}
@@ -158,11 +155,11 @@ export default function PageRelatedStories(databaseId) {
                           {/* Luxury Travel Stories */}
                           <RelatedStories
                             title={post?.title}
-                            excerpt={post?.excerpt}
                             uri={post?.uri}
                             category={post?.contentType?.node?.label}
                             categoryUri={post?.uri}
                             featuredImage={post?.featuredImage?.node}
+                            customClassName={'luxury-travel'}
                           />
                         </div>
                       )}
@@ -171,11 +168,11 @@ export default function PageRelatedStories(databaseId) {
                           {/* Travel Guides Stories */}
                           <RelatedStories
                             title={post?.title}
-                            excerpt={post?.excerpt}
                             uri={post?.uri}
                             category={post?.categories?.edges[0]?.node?.name}
                             categoryUri={post?.categories?.edges[0]?.node?.uri}
                             featuredImage={post?.featuredImage?.node}
+                            customClassName={'travel-guide'}
                           />
                         </div>
                       )}

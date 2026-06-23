@@ -17,9 +17,7 @@ const SingleEditorialEntryHeader = dynamic(() =>
   import('@/components/SingleEditorialEntryHeader/SingleEditorialEntryHeader'),
 )
 const SingleFeaturedImage = dynamic(() =>
-  import(
-    '@/components/SingleFeaturedImage/SingleFeaturedImage'
-  ),
+  import('@/components/SingleFeaturedImage/SingleFeaturedImage'),
 )
 const Main = dynamic(() => import('@/components/Main/Main'))
 const ContentWrapperEditorial = dynamic(() =>
@@ -424,7 +422,9 @@ export default function Component(props) {
             bookNowButton={bookNowButton}
             id={'Editorial_Book_Now_ClickTracker'}
           />
-          <EntryRelatedStories />
+          {shuffledRelatedStories[0]?.node?.title !== title && (
+            <EntryRelatedStories />
+          )}
           {shuffledRelatedStories.map((post) => (
             <>
               {post?.node?.title !== title && (
@@ -432,7 +432,6 @@ export default function Component(props) {
                 <RelatedStories
                   key={post?.node?.id}
                   title={post?.node?.title}
-                  excerpt={post?.node?.excerpt}
                   uri={post?.node?.uri}
                   category={post?.node?.categories.edges[0]?.node?.name}
                   categoryUri={post?.node?.categories.edges[0]?.node?.uri}

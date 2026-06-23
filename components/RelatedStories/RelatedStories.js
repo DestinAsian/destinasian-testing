@@ -1,34 +1,20 @@
 import classNames from 'classnames/bind'
 import styles from './RelatedStories.module.scss'
 import Link from 'next/link'
-import dynamic from 'next/dynamic'
 import Image from 'next/image'
-// Import Components
-const FeaturedImage = dynamic(() =>
-  import('@/components/FeaturedImage/FeaturedImage'),
-)
 
 let cx = classNames.bind(styles)
 
-const MAX_EXCERPT_LENGTH = 100 // Adjust the maximum length as needed
-
 export default function RelatedStories({
   title,
-  excerpt,
   uri,
   category,
   categoryUri,
   featuredImage,
+  customClassName,
 }) {
-  let trimmedExcerpt = excerpt?.substring(0, MAX_EXCERPT_LENGTH)
-  const lastSpaceIndex = trimmedExcerpt?.lastIndexOf(' ')
-
-  if (lastSpaceIndex !== -1) {
-    trimmedExcerpt = trimmedExcerpt?.substring(0, lastSpaceIndex) + '...'
-  }
-
   return (
-    <article className={cx('component')}>
+    <article className={cx('component', customClassName)}>
       <div className={cx('left-wrapper')}>
         {featuredImage && (
           <div className={cx('content-wrapper-image')}>
@@ -64,18 +50,6 @@ export default function RelatedStories({
             </Link>
           )}
         </div>
-        {excerpt !== undefined && excerpt !== null && (
-          <div className={cx('content-wrapper')}>
-            {uri && (
-              <Link href={uri}>
-                <div
-                  className={cx('excerpt')}
-                  dangerouslySetInnerHTML={{ __html: trimmedExcerpt }}
-                />
-              </Link>
-            )}
-          </div>
-        )}
       </div>
     </article>
   )
