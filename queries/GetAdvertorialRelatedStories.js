@@ -23,6 +23,11 @@ export const GetAdvertorialRelatedStories = gql`
                 node {
                   name
                   uri
+                  parent {
+                    node {
+                      name
+                    }
+                  }
                 }
               }
             }

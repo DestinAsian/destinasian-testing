@@ -8,6 +8,7 @@ let cx = classNames.bind(styles)
 export default function RelatedStories({
   title,
   uri,
+  parentCategory,
   category,
   categoryUri,
   featuredImage,
@@ -38,7 +39,9 @@ export default function RelatedStories({
           <div className={cx('content-wrapper')}>
             {categoryUri && (
               <Link href={categoryUri}>
-                <h5 className={cx('category')}>{category}</h5>
+                <h5 className={cx('category')}>
+                  {parentCategory ? `${parentCategory} ${category}` : category}
+                </h5>
               </Link>
             )}
           </div>
