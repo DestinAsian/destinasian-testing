@@ -16,6 +16,7 @@ const SocialMediaMenuIcons = dynamic(() =>
 let cx = classNames.bind(styles)
 
 export default function BurgerFullMenu({
+  primaryMenuItems,
   secondaryMenuItems,
   fifthMenuItems,
   featureMenuItems,
@@ -96,42 +97,55 @@ export default function BurgerFullMenu({
         )}
       >
         <div ref={burgerRef} className={cx('menu-wrapper')}>
-          <div className={cx('first-wrapper')}>
-            {/* Latest Travel Stories */}
-            {latestStories?.length !== 0 && (
-              <nav className={cx('latest-stories')}>
-                <ul className="menu-name">{'New Stories'}</ul>
-                <ul className={cx('menu-content')}>
-                  {latestStories.slice(0, visiblePosts).map((post) => (
-                    <li key={post?.id}>
-                      {post?.uri && (
-                        <Link href={post?.uri} className={cx('menu-item')}>
-                          {post?.title}
-                        </Link>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-            )}
+          <div className={cx('two-columns-wrapper')}>
+            <div className={cx('left-wrapper')}>
+              <div className={cx('first-wrapper')}>
+                {/* Latest Travel Stories */}
+                {latestStories?.length !== 0 && (
+                  <nav className={cx('latest-stories')}>
+                    <ul className="menu-name">{'New Stories'}</ul>
+                    <ul className={cx('menu-content')}>
+                      {latestStories.slice(0, visiblePosts).map((post) => (
+                        <li key={post?.id}>
+                          {post?.uri && (
+                            <Link href={post?.uri} className={cx('menu-item')}>
+                              {post?.title}
+                            </Link>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  </nav>
+                )}
+              </div>
+              <div className={cx('second-wrapper')}>
+                {/* Feature Menu */}
+                <NavigationMenu
+                  className={cx('feature-navigation')}
+                  menuItems={featureMenuItems}
+                  renderCustomItem={renderNavigationCustomItem}
+                />
+              </div>
+              <div className={cx('fourth-wrapper')}>
+                {/* Secondary Menu {Special Sections Menu} */}
+                <NavigationMenu
+                  className={cx('feature-navigation')}
+                  menuItems={secondaryMenuItems}
+                  renderCustomItem={renderNavigationCustomItem}
+                />
+              </div>
+            </div>
+            <div className={cx('right-wrapper')}>
+              <div className={cx('sixth-wrapper')}>
+                {/* Secondary Menu {Special Sections Menu} */}
+                <NavigationMenu
+                  className={cx('feature-navigation')}
+                  menuItems={primaryMenuItems}
+                  renderCustomItem={renderNavigationCustomItem}
+                />
+              </div>
+            </div>
           </div>
-          <div className={cx('second-wrapper')}>
-            {/* Feature Menu */}
-            <NavigationMenu
-              className={cx('feature-navigation')}
-              menuItems={featureMenuItems}
-              renderCustomItem={renderNavigationCustomItem}
-            />
-          </div>
-          <div className={cx('fourth-wrapper')}>
-            {/* Secondary Menu {Special Sections Menu} */}
-            <NavigationMenu
-              className={cx('feature-navigation')}
-              menuItems={secondaryMenuItems}
-              renderCustomItem={renderNavigationCustomItem}
-            />
-          </div>
-          <div className={cx('sixth-wrapper')}></div>
           <div className={cx('seventh-wrapper')}>
             {/* Fifth Menu {Others Menu} */}
             <NavigationMenu

@@ -380,6 +380,7 @@ export default function DarkColorSecondaryHeader({
         ])}
       >
         <BurgerFullMenu
+          primaryMenuItems={primaryMenuItems}
           secondaryMenuItems={secondaryMenuItems}
           fifthMenuItems={fifthMenuItems}
           featureMenuItems={featureMenuItems}
