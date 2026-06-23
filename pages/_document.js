@@ -7,7 +7,7 @@ export default function Document() {
         <link
           rel="stylesheet"
           type="text/css"
-          href="https://cloud.typography.com/7429004/6400032/css/fonts.css"
+          href="https://cloud.typography.com/7429004/7980032/css/fonts.css"
         />
       </Head>
       <body>

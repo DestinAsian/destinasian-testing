@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React from 'react'
 import classNames from 'classnames/bind'
 import styles from './AdvertorialRelatedStories.module.scss'
-import { gql, useQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client'
 import { GetAdvertorialRelatedStories } from '@/queries/GetAdvertorialRelatedStories'
 import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css'
-import Link from 'next/link'
 import dynamic from 'next/dynamic'
 // Import Components
 const RelatedStories = dynamic(() =>
@@ -156,7 +155,9 @@ export default function PageRelatedStories(databaseId) {
                           <RelatedStories
                             title={post?.title}
                             uri={post?.uri}
-                            category={post?.contentType?.node?.label}
+                            category={
+                              post?.acfAdvertorialLabel?.advertorialLabel
+                            }
                             categoryUri={post?.uri}
                             featuredImage={post?.featuredImage?.node}
                             customClassName={'luxury-travel'}

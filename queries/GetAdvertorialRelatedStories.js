@@ -148,6 +148,9 @@ export const GetAdvertorialRelatedStories = gql`
                 altText
               }
             }
+            acfAdvertorialLabel {
+              advertorialLabel
+            }
           }
           ... on TravelGuide {
             id
