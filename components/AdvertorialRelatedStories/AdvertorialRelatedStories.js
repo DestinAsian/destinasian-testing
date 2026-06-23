@@ -164,7 +164,7 @@ export default function PageRelatedStories(databaseId) {
                           />
                         </div>
                       )}
-                      {post?.contentTypeName === 'travel-guide' && (
+                      {post?.contentTypeName === 'travel-guides' && (
                         <div className={cx('post-wrapper')}>
                           {/* Travel Guides Stories */}
                           <RelatedStories
