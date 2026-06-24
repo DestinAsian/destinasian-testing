@@ -217,12 +217,12 @@
       font-family: 'Chronicle Display A', 'Chronicle Display B';
       // font-weight: 600;
       color: var(--wpe--link--color);
-      text-decoration: underline;
+      text-decoration: none;
 
       &:hover,
       &:focus {
         color: var(--wpe--link--color);
-        text-decoration: none;
+        text-decoration: underline;
       }
     }
 
@@ -392,12 +392,12 @@
       font-family: 'Ringside Regular A', 'Ringside Regular B';
       // font-weight: 600;
       color: var(--wpe--link--color);
-      text-decoration: underline;
+      text-decoration: none;
 
       &:hover,
       &:focus {
         color: var(--wpe--link--color);
-        text-decoration: none;
+        text-decoration: underline;
       }
     }
   }

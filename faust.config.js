@@ -19,6 +19,7 @@ hooks.addFilter(
  **/
 export default setConfig({
   templates,
+  experimentalToolbar: true,
   experimentalPlugins: [],
   possibleTypes,
   useGETForQueries: false,
