@@ -44,6 +44,7 @@ export function transformWpImages(html) {
         loading="lazy"
         decoding="async"
         style={{ objectFit: 'contain' }}
+        quality={100}
       />
     )
 
