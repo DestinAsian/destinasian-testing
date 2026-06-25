@@ -137,8 +137,15 @@
     }
 
     div:has(p),
+    div:has(iframe),
+    p:has(iframe),
+    iframe,
     div:has(figure) {
-      padding: 0;
+      padding: 0.5rem 0 0.5rem;
+
+      @media (min-width: $breakpoint-extra-small) {
+        padding: 0.75rem 0 0.75rem;
+      }
     }
 
     strong {
